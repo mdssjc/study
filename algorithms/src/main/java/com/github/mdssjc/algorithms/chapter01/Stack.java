@@ -1,38 +1,39 @@
 package com.github.mdssjc.algorithms.chapter01;
 
 /**
- * Stack of <T> data type
+ * Interface
+ * Stack : Pilha
  *
  * @author Marcelo dos Santos
- * @param <T> Data type
+ * @param <T> Tipo de Dado
  */
 public interface Stack<T> {
 
     /**
-     * Insert a new string onto stack
+     * Insere um novo item na pilha
      *
      * @param item
      */
     void push(T item);
 
     /**
-     * Remove and return the string most recently added
+     * Remove e retorna o item mais recente
      *
-     * @return
+     * @return <T> Último item adicionado
      */
     T pop();
 
     /**
-     * Is the stack empty?
+     * Verifica se a pilha está vazia
      *
-     * @return boolean
+     * @return boolean Vazia ou não
      */
     boolean isEmpty();
 
     /**
-     * Number of strings on the stack
+     * Número de itens na pilha
      *
-     * @return int
+     * @return int Quantidade de itens
      */
     int size();
 }

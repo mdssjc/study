@@ -1,22 +1,27 @@
 package com.github.mdssjc.algorithms.chapter01;
 
 /**
- * Linked Stack Of Strings
+ * Stack: Pilha implementada por ligação de nós
  *
  * @author Marcelo dos Santos
+ * @param <T> Tipo de dado
  */
-public class LinkedStackOfStrings implements Stack<String> {
+public class LinkedStack<T> implements Stack<T> {
 
-    private Node first = null;
+    private Node first;
+
+    public LinkedStack() {
+        this.first = null;
+    }
 
     private class Node {
 
-        String item;
+        T item;
         Node next;
     }
 
     @Override
-    public void push(String item) {
+    public void push(T item) {
         Node oldfirst = first;
         first = new Node();
         first.item = item;
@@ -24,8 +29,8 @@ public class LinkedStackOfStrings implements Stack<String> {
     }
 
     @Override
-    public String pop() {
-        String item = first.item;
+    public T pop() {
+        T item = first.item;
         first = first.next;
         return item;
     }
