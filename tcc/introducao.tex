@@ -1,0 +1,89 @@
+% ---
+% INTRODUÇÃO
+%
+% ---
+
+\chapter{Introdução}
+
+A \textit{Internet} das Coisas tem como objetivo prove a conexão de rede aos objetos e tornando-os inteligentes, em um sistema composto de um conjunto de três pilares, chamado de \textit{Three Is}: Instrumentação, Interconexão e Inteligência \cite{mqttibm2012}.
+
+A Instrumentação captura as informações através de sensores, enquanto a 
+Interconexão provê o meio para a transferência da informação do ponto de coleta para o ponto de consumo, finalmente a Inteligência com a responsabilidade sobre o processamento e análise da informação para derivar o máximo de valor e conhecimento \cite{mqttibm2012}.
+
+Os anos demonstram o crescimento do número de equipamentos conectados à 
+\textit{Internet}, em 2000 a quantidade de humanos na Terra foi de 6 bilhões para 500 milhões de equipamentos, enquanto em 2011 com 7 bilhões de humanos para 13 bilhões de equipamentos, para 2015 está previsto um número três vezes maior de equipamentos do que humanos na Terra \cite{mirkopresser2012}.
+
+Os objetos passam a sentir o contexto do ambiente e a comunicar com os humanos, tornando ferramentas poderosas para a obtenção de conhecimento. 
+
+Os exemplos de aplicações são inúmeros, tais como:
+
+\begin{itemize}
+    
+	\item Medição do consumo de energia e água, analisando os resultados em tempo real, assim avaliando os custos (gastos, créditos e demanda), a consciência do desperdício pelo comportamento do consumo, a eficiência das instalações (quando realizar melhorias e reparos) e a comparação estatística com outras fontes pela mídia social \cite{mirkopresser2012}.
+	
+    \item Cuidado contínuo dos pacientes idosos e com doenças crônicas, 
+    permitindo o repouso em casa ao invés de esperarem em filas e quartos de hospitais e clínicas, em que os médicos monitoraram remotamente o estado de saúde dos pacientes por equipamentos nas roupas ou distribuídos pela casa e/ou ruas \cite{mirkopresser2012}.
+	
+    \item Iluminação Urbana por regular o controle de luz com a presença de carros e pedestres, como também destacar situações adversas como vazamento de óleo, acidentes de trânsito e trabalhadores de rua \cite{mirkopresser2012}.
+    
+\end{itemize}
+
+As partes de interconexão e instrumentação são disponibilizadas em uma 
+variedade de tecnologias como padrão de mercado, diferente da inteligência na qual requisita o desenvolvimento completo do \textit{software}, desde a fase de requisitos, análise, desenvolvimento e testes. Dentre as plataformas disponíveis para o desenvolvimento estão o \textit{Java} e o \textit{C/C++}, juntamente com suas linguagens de \textit{front-end} como o \textit{Python}. 
+Dos sistemas operacionais estão as distribuições \textit{Linux} como 
+\textit{Debian} e o \textit{Ångström}, sendo o último especializado para dispositivos embarcados.
+
+A plataforma selecionada para o estudo é o \textit{Java Embedded}, em que apresenta compatibilidade com diversas arquiteturas de \textit{hardware} através de sua Máquina Virtual - \textit{Virtual Machine} (\textit{VM}) e disponibiliza uma variedade de Interface de Programação de Aplicação - \textit{Application Programming Interface} (\textit{API}) para periféricos de baixo nível, aplicação \textit{client/server} e processamento de eventos complexos.
+
+A metodologia de trabalho apresentará as tecnologias disponíveis na plataforma \textit{Java Embedded} e demonstrará exemplos de aplicações com a utilização da plataforma de prototipagem \textit{Raspberry PI B+}.
+
+\section{Justificativa}
+
+O conceito \textit{Internet} das Coisas é a próxima evolução da computação, principalmente pela preocupação com os recursos ambientais, médicos e planejamento urbano através do processo de monitoração, aquisição e controle dos dados. O mercado disponibiliza uma ampla variedade de \textit{hardware} para o sensoriamento e processamento, facilitando a atividade de construir um sistema computacional. O \textit{software} é o diferencial para a pesquisa e o desenvolvimento de novas tecnologias, conhecer a plataforma embarcada do \textit{Java} amplia essas qualidades e direciona para as futuras oportunidades na \textit{Internet} das Coisas.
+
+\section{Objetivos}
+
+\subsection{Geral}
+
+Elaborar um estudo sobre as características e aplicações da plataforma \textit{Java Embedded} para o domínio de \textit{software} embarcado, focado no conceito \textit{Internet} das Coisas.
+
+\newpage
+\subsection{Específicos}
+
+\begin{itemize}
+    
+	\item Especificar as características do conceito \textit{Internet} das Coisas.
+	
+    \item Especificar as tecnologias \textit{Java} disponíveis para o 
+    desenvolvimento no domínio de \textit{software} embarcado.
+	
+    \item Apresentar as interfaces para a comunicação de periféricos de baixo 
+    nível.
+	
+    \item Apresentar a aplicação da arquitetura \textit{client/server} em 
+    embarcados.
+	
+    \item Apresentar a aplicação de processamento de eventos complexos em 
+    embarcados.
+    
+\end{itemize}
+
+\section{Metodologia}
+
+Revisão bibliográfica: será feito uma pesquisa sobre o tema do projeto, 
+procurando informações sobre as tecnologias da plataforma \textit{Java 
+Embedded} e a conceitualização da computação ubíqua para o desenvolvimento de 
+aplicações para o conceito \textit{Internet} das Coisas.
+
+Caracterização da \textit{Internet} das Coisas: descrever as características  da computação ubíqua (combinação da computação móvel com a computação embarcada) presentes no conceito \textit{Internet} das Coisas.
+
+Caracterização do \textit{Java Embedded}: descrever as características, vantagens e desvantagens das tecnologias da plataforma \textit{Java Embedded} para o desenvolvimento no domínio de \textit{software} embarcado, utilizando a plataforma de prototipagem \textit{Raspberry PI B+}.
+
+Primeiro exemplo de aplicação: desenvolver um exemplo de aplicação \textit{Java ME} (Edição Micro - \textit{Micro Edition}) com a \textit{Device I/O API} (Entrada/Saída - \textit{Input/Output}), explanando o interfaceamento de periféricos de baixo nível presentes em sistemas embarcados.
+
+Segundo exemplo de aplicação: desenvolver um exemplo de aplicação \textit{Java Embedded Suite}, explanando o uso da arquitetura \textit{client/server} em sistemas embarcados.
+
+Terceiro exemplo de aplicação: desenvolver um exemplo de aplicação \textit{Java Oracle Event Processing}, explanando a utilização de processamento de eventos complexos em sistemas embarcados.
+
+Discussão dos resultados: apresentar os resultados obtidos pelos exemplos 
+aplicados, evidenciando as principais vantagens e desvantagem observadas.

@@ -1,0 +1,79 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.5 }
+
+\bibitem[Araujo]{reginaborgesdearaujo}
+\abntrefinfo{Araujo}{ARAUJO}{}
+{ARAUJO, R.~B. de. {C}omputação {U}bíqua: {P}rincípios, {T}ecnologias e
+  {D}esafios.
+Departamento de Computação – Universidade Federal de S. Carlos (UFSCar).}
+
+\bibitem[Ashton 2009]{kevinashton2009}
+\abntrefinfo{Ashton}{ASHTON}{2009}
+{ASHTON, K. \emph{That 'Internet of Things' Thing}. 2009.
+Dispon{\'\i}vel em: \url{http://www.rfidjournal.com/articles/view?4986}.}
+
+\bibitem[Bahga 2014]{bahgamadisetti2014}
+\abntrefinfo{Bahga}{BAHGA}{2014}
+{BAHGA, V.~M. A. \emph{Internet of Things: A Hands-On Approach}. [S.l.]: Vpt,
+  2014.
+ISBN 9780996025515.}
+
+\bibitem[daCosta 2013]{francisdacosta2013}
+\abntrefinfo{daCosta}{DACOSTA}{2013}
+{DACOSTA, F. \emph{Rethinking the Internet of Things: A Scalable Approach to
+  Connecting Everything}. Santa Clara, California: Apress, 2013.
+  (SpringerLink: Bücher).
+ISBN 9781430257400.}
+
+\bibitem[Lampkin Weng Tat~Leong 2012]{mqttibm2012}
+\abntrefinfo{Lampkin Weng Tat~Leong}{LAMPKIN WENG TAT~LEONG}{2012}
+{LAMPKIN WENG TAT~LEONG, L. O. S. R. N. S. R.~X. V. \emph{Building Smarter
+  Planet Solutions with MQTT and IBM WebSphere MQ Telemetry}. North Castle
+  Drive, Armonk, NY: IBM Redbooks, 2012.
+ISBN 9780738437088.}
+
+\bibitem[Mateus 2004]{mateusloureiro2004}
+\abntrefinfo{Mateus}{MATEUS}{2004}
+{MATEUS, A. A. F.~L. G.~R. \emph{Introdução à Computação Móvel}. second.
+  [S.l.]: Departamento de Ciência da Computação da UFMG, 2004.}
+
+\bibitem[McEwen 2013]{mcewencassimally2013}
+\abntrefinfo{McEwen}{MCEWEN}{2013}
+{MCEWEN, H.~C. A. \emph{Designing the Internet of Things}. United Kingdom, UK:
+  Wiley, 2013.
+ISBN 9781118430651.}
+
+\bibitem[Patterson 2013]{patterson2013computer}
+\abntrefinfo{Patterson}{PATTERSON}{2013}
+{PATTERSON, J. L.~H. D.~A. \emph{Computer Organization and Design: The
+  Hardware/Software Interface}. fifth. Waltham, MA: Elsevier Science, 2013.
+  (The Morgan Kaufmann Series in Computer Architecture and Design).
+ISBN 9780124078864.}
+
+\bibitem[Presser 2012]{mirkopresser2012}
+\abntrefinfo{Presser}{PRESSER}{2012}
+{PRESSER, M. \emph{Inspiring the Internet of Things - Special Edition}. IT City
+  of Katrinebjerg, Aarhus: The Alexandra Institute, 2012.}
+
+\bibitem[Smith 2012]{iangsmith2012}
+\abntrefinfo{Smith}{SMITH}{2012}
+{SMITH, I.~G. \emph{The Internet of Things 2012 New Horizons}. Halifax, UK:
+  IERC - Internet of Things European Research Cluster, 2012.
+ISBN 9780955370793.}
+
+\bibitem[Tanenbaum 2013]{tanenbaum2013structured}
+\abntrefinfo{Tanenbaum}{TANENBAUM}{2013}
+{TANENBAUM, T.~A. A.~S. \emph{Structured Computer Organization}. sixth. Upper
+  Saddle River, NJ: Prentice Hall, 2013.
+ISBN 9780132916523.}
+
+\bibitem[Weiser 1991]{markweiser1991}
+\abntrefinfo{Weiser}{WEISER}{1991}
+{WEISER, M. {T}he {C}omputer for the {T}wenty-{F}irst {C}entury.
+\emph{Scientific American}, p. 94--104, sep 1991.}
+
+\end{thebibliography}
