@@ -1,57 +1,57 @@
 % ---
 % autor     : Marcelo dos Santos <santos.marcelo@ufabc.edu.br>
-% disciplina: TCC
+% disciplina: Trabalho de Conclusão de Curso (TCC)
 % título    : Aplicações da Tecnologia Java para a Internet das Coisas
 % curso     : Curso de Especialização em Tecnologias e Sistemas de Informação
 %
 % ---
 
 \documentclass[
-	% -- opções da classe memoir --
-	12pt,				% tamanho da fonte
-	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
-	oneside,			% para impressão em verso e anverso. Oposto a oneside
-	a4paper,			% tamanho do papel. 
-	% -- opções da classe abntex2 --
-	chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
-	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
-	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
-	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
-	sumario=tradicional,
-	%sumario=abnt-6027-2012,
-	% -- opções do pacote babel --
-	english,			% idioma adicional para hifenização
-	french,				% idioma adicional para hifenização
-	spanish,			% idioma adicional para hifenização
-	brazil  			% o último idioma é o principal do documento
+    % -- opções da classe memoir --
+    12pt,               % tamanho da fonte
+    openright,          % capítulos começam em página ímpar (insere página vazia caso preciso)
+    oneside,            % impressão em verso e anverso. Oposto a oneside
+    a4paper,            % tamanho do papel
+    % -- opções da classe abntex2 --
+    chapter=TITLE,      % títulos de capítulos convertidos em letras maiúsculas
+    %section=TITLE,     % títulos de seções convertidos em letras maiúsculas
+    %subsection=TITLE,  % títulos de subseções convertidos em letras maiúsculas
+    %subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+    sumario=tradicional,
+    %sumario=abnt-6027-2012,
+    % -- opções do pacote babel --
+    english,            % idioma adicional para hifenização
+    french,             % idioma adicional para hifenização
+    spanish,            % idioma adicional para hifenização
+    brazil              % o último idioma é o principal do documento
 ]{abntex2}
 
 % ---
-% PACOTES BÁSICOS 
+% PACOTES BÁSICOS
 % ---
-\usepackage{times}		    	% Usa a fonte Times New Roman
-\usepackage[T1]{fontenc}		% Selecao de códigos de fonte
-\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
-\usepackage{lastpage}			% Usado pela Ficha catalográfica
-\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção
-\usepackage{color}				% Controle das cores
-\usepackage{graphicx}			% Inclusão de gráficos
-\usepackage{microtype} 			% para melhorias de justificação
-\usepackage{float}              % posicionamento de figuras
+\usepackage{times}          % Usa a fonte Times New Roman
+\usepackage[T1]{fontenc}    % Seleção de códigos de fonte
+\usepackage[utf8]{inputenc} % Codificação do documento (conversão automática dos acentos)
+\usepackage{lastpage}       % Usado pela ficha catalográfica
+\usepackage{indentfirst}    % Indenta o primeiro parágrafo de cada seção
+\usepackage{color}          % Controle das cores
+\usepackage{graphicx}       % Inclusão de gráficos
+\usepackage{microtype}      % Melhorias de justificação
+\usepackage{float}          % Posicionamento de figuras
 % ---
 
 % ---
 % PACOTES ADICIONAIS
 % ---
-\usepackage{lipsum}				% para geração de dummy text
-%\usepackage{showframe}         % Habilita a visualização das margens
+\usepackage{lipsum}     % Geração de 'dummy text'
+%\usepackage{showframe} % Habilita a visualização das margens
 % ---
 
 % ---
 % PACOTES DE CITAÇÕES
 % ---
-%\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
-\usepackage[alf,bibjustif]{abntex2cite}			 % Citações padrão ABNT
+%\usepackage[brazilian,hyperpageref]{backref}    % Páginas com as citações na bibliográfia
+\usepackage[alf,bibjustif]{abntex2cite}          % Citações padrão ABNT
 % ---
 
 % ---
@@ -71,9 +71,8 @@
 \newcommand{\pCurso}{Curso de Especialização em Tecnologias e Sistemas de Informação}
 \newcommand{\pAreaConcentracao}{Computação em Todo Lugar}
 \newcommand{\pTitulacao}{Especialista em Tecnologias e Sistemas de Informação \xspace}
-\newcommand{\palavraschave}{\textit{Internet} das Coisas; \textit{Java}; \textit{Software} Embarcado.} 
-\newcommand{\keywords}{Internet of Things; Java; Embedded Software.} 
-
+\newcommand{\palavraschave}{\textit{Internet} das Coisas; \textit{Java}; \textit{Software} Embarcado.}
+\newcommand{\keywords}{Internet of Things; Java; Embedded Software.}
 % ---
 
 % ---
@@ -84,13 +83,12 @@
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
-
 % ---
 
 % ---
 % SUMÁRIO
 % ---
-% ajusta o sumário conforme as regras da ABNT NBR 6027:2012
+% Ajusta o sumário conforme as regras da ABNT NBR 6027:2012
 \setlength{\cftparagraphnumwidth}{1.5cm}
 \setlength\cftpartnumwidth{\cftparagraphnumwidth}
 \setlength\cftchapternumwidth{\cftparagraphnumwidth}
@@ -101,8 +99,9 @@
 \setlength\cftsubsectionindent{0pt}
 \setlength\cftsubsubsectionindent{0pt}
 \renewcommand*{\cftsectionfont}{\bfseries}
+
 % Modifica o espaçamento no sumário
-% Nao ha espacos, exceto para as entradas de capitulos
+% Não há espacos, exceto para as entradas de capítulos
 \setlength{\cftbeforeparagraphskip}{0pt}
 \setlength{\cftbeforesubsectionskip}{0pt}
 \setlength{\cftbeforesectionskip}{0pt}
@@ -111,12 +110,12 @@
 % Formata o rótulo da bibliográfia para maiúscula.
 \addto\captionsbrazil{\renewcommand{\bibname}{\uppercase{Referências}}}
 
-% Secao Primaria (Chapter): Caixa alta, Negrito, tamanho 12 
+% Seção Primária (Chapter): Caixa alta, Negrito, tamanho 12
 \makeatletter
 \settocpreprocessor{chapter}{%
-	\let\tempf@rtoc\f@rtoc%
-	\def\f@rtoc{%
-		\texorpdfstring{\bfseries\MakeTextUppercase{\tempf@rtoc}}{\tempf@rtoc}}%
+    \let\tempf@rtoc\f@rtoc%
+    \def\f@rtoc{%
+        \texorpdfstring{\bfseries\MakeTextUppercase{\tempf@rtoc}}{\tempf@rtoc}}%
 }
 \makeatother
 % Secao secundaria (Section) Caixa baixa, Negrito, tamanho 12
@@ -127,7 +126,6 @@
 \renewcommand*{\cftsubsubsectionfont}{\bfseries}
 % Seção quinaria (subsubsubsection) Caixa baixa, sem negrito, tamanho 12
 \renewcommand*{\cftparagraphfont}{\normalfont}
-
 % ---
 
 % ---
@@ -169,7 +167,6 @@
 \setbeforeparaskip{\onelineskip}
 \setafterparaskip{\onelineskip}
 \setparaheadstyle{\normalfont\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize}
-
 % ---
 
 % ---
@@ -177,8 +174,8 @@
 % ---
 % Lista de Itens
 \setlist[itemize]{
-	topsep=0pt,	itemsep=0pt,
-	leftmargin=\parindent+\labelwidth-\labelsep-5pt
+    topsep=0pt, itemsep=0pt,
+    leftmargin=\parindent+\labelwidth-\labelsep-5pt
 }
 
 % ---
@@ -189,13 +186,13 @@
 %\renewcommand{\backref}{}
 % Define os textos da citação
 %\renewcommand*{\backrefalt}[4]{
-%	\ifcase #1 %
-%	Nenhuma citação no texto.%
-%	\or
-%	Citado na página #2.%
-%	\else
-%	Citado #1 vezes nas páginas #2.%
-%	\fi}%
+%   \ifcase #1 %
+%   Nenhuma citação no texto.%
+%   \or
+%   Citado na página #2.%
+%   \else
+%   Citado #1 vezes nas páginas #2.%
+%   \fi}%
 % ---
 
 % ---
@@ -203,23 +200,23 @@
 % informações do PDF
 \makeatletter
 \hypersetup{
-	%pagebackref=true,
-	pdftitle={\@title}, 
-	pdfauthor={\@author},
-	pdfsubject={\imprimirpreambulo},
-	pdfcreator={LaTeX with abnTeX2},
-	pdfkeywords=, 
-	colorlinks=true,       		% false: boxed links; true: colored links
-	linkcolor=black,          	% color of internal links
-	citecolor=black,       		% color of links to bibliography
-	filecolor=magenta,      	% color of file links
-	urlcolor=black,
-	bookmarksdepth=4
+    %pagebackref=true,
+    pdftitle={\@title},
+    pdfauthor={\@author},
+    pdfsubject={\imprimirpreambulo},
+    pdfcreator={LaTeX with abnTeX2},
+    pdfkeywords=,
+    colorlinks=true,            % false: boxed links; true: colored links
+    linkcolor=black,            % color of internal links
+    citecolor=black,            % color of links to bibliography
+    filecolor=magenta,          % color of file links
+    urlcolor=black,
+    bookmarksdepth=4
 }
 \makeatother
-% --- 
+% ---
 
-% compila o indice
+% Compila o índice
 \makeindex
 
 % ---
@@ -227,18 +224,17 @@
 % ---
 % Capa
 \renewcommand{\imprimircapa}{
-	\begin{capa}
-		\input{capa}
-	\end{capa}
+    \begin{capa}
+        \input{capa}
+    \end{capa}
 }
 
 % Folha de Rosto
 \renewcommand{\folhaderostocontent}{
-	\begin{center}
-		\input{folha-de-rosto}
-	\end{center}	
+    \begin{center}
+        \input{folha-de-rosto}
+    \end{center}
 }
-
 % ---
 
 \newcommand{\quotes}[1]{\lq\lq#1\rq\rq}
@@ -248,7 +244,7 @@
 % ---
 \begin{document}
 \selectlanguage{brazil}
-\frenchspacing % Retira espaço extra obsoleto entre as frases.
+\frenchspacing % Retira espaço extra obsoleto entre as frases
 
 % ----------------------------------------------------------
 % ELEMENTOS PRÉ-TEXTUAIS
@@ -260,20 +256,34 @@
 \input{folha-de-aprovacao}
 
 \begin{dedicatoria}
-	\vspace*{\fill}
-	Este trabalho é dedicado aos que acreditam...
-	\vspace*{\fill}
+    \vspace*{\fill}
+
+    Este trabalho é dedicado a todos que acreditam em meu potencial e
+    ajudaram de alguma forma ou outra a tornar este caminho mais fácil de ser
+    percorrido.
+
+    \vspace*{\fill}
 \end{dedicatoria}
 
 \begin{agradecimentos}
-	Agradeço ao Prof. Dr. Jorge Tomioka
+    Agradeço aos meus pais
+
+    Agradeço ao Prof. Dr. Jorge Tomioka
+
+    Agradeço a UFABC e a UAB pela oportunidade de participar desse processo de
+    crescimento pessoal e profissional. Obrigado a todos do corpo docente e
+    discente.
 \end{agradecimentos}
 
 \begin{epigrafe}
-	\vspace*{\fill}
-	\begin{flushright}
-		\textit{}
-	\end{flushright}
+    \vspace*{\fill}
+    \begin{flushright}
+        \textit{
+          Quem de boa vontade carrega o difícil
+          Supera também o menos difícil
+          (Poema 26 - Lao-Tsé)
+        }
+    \end{flushright}
 \end{epigrafe}
 
 \input{resumo}
@@ -296,7 +306,7 @@
 % ----------------------------------------------------------
 \textual
 \pagestyle{simple}
-%\pagenumbering{arabic} % inicia a contagem das páginas
+%\pagenumbering{arabic} % Inicia a contagem das páginas
 
 \input{introducao}
 \input{desenvolvimento}
