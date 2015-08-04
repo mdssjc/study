@@ -7,6 +7,11 @@ package com.github.testing;
  */
 public class Main {
 
+    /**
+     * Função de entrada do programa.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
     }
