@@ -5,27 +5,30 @@
 
 \chapter{Caracterização do Java Embedded}
 
-A plataforma \textit{Java Embedded} oferece aos desenvolvedores bibliotecas e 
-ferramentas para o melhor aproveitamento dos Sistema-em-um-chip - 
-\textit{System-on-a-chip} (\textit{SoC}) através de um conjunto de plataformas, 
+O \textit{Java Embedded} oferece aos desenvolvedores o estado da arte de uma
+plataforma otimizada para um espectro de dispositivos embarcados, envolvendo
+bibliotecas e ferramentas para o melhor aproveitamento dos Sistema-em-um-chip -
+\textit{System-on-a-chip} (\textit{SoC}) através de um conjunto de plataformas,
 conforme o \textit{footprint} da aplicação a ser desenvolvida.
 
 \section{Plataforma Java Embedded}
 
-As plataformas abordadas no respectivo trabalho serão: \textit{Java ME 
-Embedded}, \textit{Java Embedded Suite} e \textit{Java Oracle Event Processing}.
+As plataformas abordadas no respectivo trabalho serão: \textit{Java ME
+  Embedded}, \textit{Java Embedded Suite} e \textit{Java Oracle Event
+  Processing}.
 
 \subsection{Java ME Embedded}
 
-O \textit{Java ME Embedded} é uma versão reestruturada da plataforma 
-\textit{Java ME} com a inclusão da \textit{Device I/O API}, destinadas aos 
-periféricos de baixo nível encontrados nos dispositivos, como Entrada/Saída de 
-Propósito Geral - \textit{General Purpose Input/Output} (\textit{GPIO}), 
-Conversor Analógico para Digital - \textit{Analog to Digital Converter} 
-(\textit{ADC}), Circuito Inter-Integrado - \textit{Inter-Integrated Circuit} 
-(\textit{I2C}), Interface Periférica Serial - \textit{Serial Peripheral 
-Interface} (\textit{SPI}), Transmissor/Receptor Assíncrono Universal - 
-\textit{Universal Asynchronous Receiver/Transmitter} (\textit{UART}) e etc.
+O \textit{Java ME Embedded} é uma versão reestruturada da plataforma
+\textit{Java ME} com a inclusão da \textit{Device I/O API}, destinadas aos
+periféricos de baixo nível encontrados nos dispositivos embarcados, tais como
+Entrada/Saída de Propósito Geral - \textit{General Purpose Input/Output}
+(\textit{GPIO}), Conversor Analógico para Digital - \textit{Analog to Digital
+  Converter} (\textit{ADC}), Circuito Inter-Integrado -
+\textit{Inter-Integrated Circuit} (\textit{I2C}), Interface Periférica Serial -
+\textit{Serial Peripheral Interface} (\textit{SPI}), Transmissor/Receptor
+Assíncrono Universal - \textit{Universal Asynchronous Receiver/Transmitter}
+(\textit{UART}) e etc.
 
 A plataforma \textit{Java ME Embedded} consiste de duas versões:
 
@@ -55,21 +58,23 @@ Exemplos de aplicações:
 
 \subsection{Java Embedded Suite}
 
-O \textit{Java Embedded Suite} é uma versão da plataforma \textit{Java EE} 
-(Edição Empresarial - \textit{Enterprise Edition}) para os sistemas embarcados, 
-trazendo a capacidade da arquitetura cliente/servidor aos dispositivos.
+O \textit{Java Embedded Suite} é uma versão da plataforma \textit{Java EE}
+(Edição Empresarial - \textit{Enterprise Edition}) para os sistemas embarcados,
+trazendo a capacidade da arquitetura cliente/servidor através de banco de
+dados, \textit{web services} e aplicações \textit{servlet}.
 
 Os componentes disponíveis para a plataforma são:
 
 \begin{itemize}
     
-    \item \textit{GlassFish}: versão reduzida do servidor de aplicações 
-    \textit{GlassFish}, com suporte apenas para os componentes \textit{Servlet 3.0} e \textit{Bean Validation 1.0};
+    \item \textit{GlassFish}: versão reduzida do servidor de aplicações
+    \textit{GlassFish}, com suporte apenas para os componentes \textit{Servlet
+    3.0} e \textit{Bean Validation 1.0};
     
-    \item \textit{Java DB}: versão do banco de dados \textit{Derby}, acessado 
-    via Linguagem de Consulta Estruturada - \textit{Structured Query Language} 
-    (\textit{SQL}) sobre o Conectividade de Banco de Dados \textit{Java} 
-    \textit{Java Database Connectivity} (\textit{JDBC});
+    \item \textit{Java DB}: versão otimizada do banco de dados \textit{Derby},
+    acessado via Linguagem de Consulta Estruturada - \textit{Structured Query
+    Language} (\textit{SQL}) sobre o Conectividade de Banco de Dados
+    \textit{Java} \textit{Java Database Connectivity} (\textit{JDBC});
     
     \item \textit{Jersey}: \textit{framework} para serviços \textit{RESTful Web 
     Services}, conforme a especificação \textit{JAX-RS} (\textit{JSR 311}).
