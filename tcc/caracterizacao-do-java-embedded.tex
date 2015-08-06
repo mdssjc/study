@@ -11,6 +11,14 @@ bibliotecas e ferramentas para o melhor aproveitamento dos Sistema-em-um-chip -
 \textit{System-on-a-chip} (\textit{SoC}) através de um conjunto de plataformas,
 conforme o \textit{footprint} da aplicação a ser desenvolvida.
 
+A plataforma possui componentes 100\% em código \textit{Java}, desenvolvendo
+aplicações embarcadas mais simples do que em plataforma \textit{C}, integrando
+ferramentas de desenvolvimento, tais como \textit{NetBeans} e
+\textit{Eclipse}. Os \textit{bytecodes} compilados para \textit{desktop} são
+identicos aos executados no embarcado, com exceção da velocidade de execução,
+permitindo as etapas de desevolvimento como codificação, execução,
+\textit{debug} e \textit{profile} sem a necessidade do dispositivo embarcado.
+
 \section{Plataforma Java Embedded}
 
 As plataformas abordadas no respectivo trabalho serão: \textit{Java ME
@@ -83,12 +91,11 @@ Os componentes disponíveis para a plataforma são:
 
 \subsection{Java Oracle Event Processing}
 
-O \textit{Java Oracle Event Processing} é uma versão do sistema de 
-Processamento de Eventos Complexos - \textit{Complex Event Processing} 
-(\textit{CEP}) para os sistemas embarcados, trazendo a capacidade de 
+O \textit{Java Oracle Event Processing} é uma versão do sistema de
+Processamento de Eventos Complexos - \textit{Complex Event Processing}
+(\textit{CEP}) para os sistemas embarcados, trazendo a capacidade de
 transformar dados em informação para os dispositivos.
 
-\newpage
 \section{Vantagens e Desvantagens}
 
 A plataforma \textit{Java Embedded} possui vantagens e desvantagens em relação 
@@ -123,19 +130,19 @@ a plataforma nativa (\textit{C}).
 
 \subsection{Desvantagens}
 
-A principal desvantagem em relação a plataforma nativa está no desempenho, pois 
-a máquina virtual utiliza de recursos como memória e processamento, além dos 
+A principal desvantagem em relação a plataforma nativa está no desempenho, pois
+a máquina virtual utiliza de recursos como memória e processamento, além dos
 requeridos para a aplicação.
 
-Uma abordagem para minimizar os problemas está em definir \textit{profiles} 
+Uma abordagem para minimizar os problemas está em definir \textit{profiles}
 para o tipo de aplicação, assim reduzindo a carga da máquina virtual.
 
 \section{Otimização da JVM}
 
-A Máquina Virtual Java - \textit{Java Virtual Machine} (\textit{JVM}) é 
-otimizada para as Unidades Central de Processamento - \textit{Central 
-Processing Units} (\textit{CPU}) da arquitetura (\textit{ARM}), com suporte a 
-\textit{hard-float} no \textit{Kit} de Desenvolvimento \textit{Java} - 
-\textit{Java Development Kit} (\textit{JDK}) 1.8. Várias plataformas de 
-\textit{hardware} são compatíveis como: \textit{ARM}, \textit{Intel}, 
+A Máquina Virtual Java - \textit{Java Virtual Machine} (\textit{JVM}) é
+otimizada para as Unidades Central de Processamento - \textit{Central
+  Processing Units} (\textit{CPU}) da arquitetura (\textit{ARM}), com suporte a
+\textit{hard-float} no \textit{Kit} de Desenvolvimento \textit{Java} -
+\textit{Java Development Kit} (\textit{JDK}) 1.8. Várias plataformas de
+\textit{hardware} são compatíveis como: \textit{ARM}, \textit{Intel},
 \textit{Atmel}, dentro outros.
