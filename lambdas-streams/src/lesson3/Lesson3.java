@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /**
  * @author Simon Ritter (@speakjava)
@@ -73,8 +72,15 @@ public class Lesson3 {
         final int LIST_SIZE = wordList.size();
         int[][] distances = new int[LIST_SIZE][LIST_SIZE];
 
-        // TODO
-        //Stream.of(wordList.stream().mapToDouble(s -> measure(s, )));
+        IntStream stream = IntStream.range(0, LIST_SIZE);
+
+        if (parallel) {
+            stream = stream.parallel();
+        }
+
+        stream.mapToObj(i -> IntStream.range(0, LIST_SIZE)
+                .map(j -> Levenshtein.lev(wordList.get(i), wordList.get(j)))
+                .toArray()).collect(Collectors.toList()).toArray(distances);
 
         return distances;
     }
@@ -87,9 +93,9 @@ public class Lesson3 {
      * @return The list processed in whatever way you want
      */
     static List<String> processWords(List<String> wordList, boolean parallel) {
-        // YOUR CODE HERE
-
-        return null;
+        return ((parallel) ? wordList.parallelStream() : wordList.stream())
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -105,7 +111,7 @@ public class Lesson3 {
         measure("Sequential", () -> computeLevenshtein(wordList, false));
         measure("Parallel", () -> computeLevenshtein(wordList, true));
 
-//    measure("Sequential", () -> processWords(wordList, false));
-//    measure("Parallel", () -> processWords(wordList, true));
+        measure("Sequential", () -> processWords(wordList, false));
+        measure("Parallel", () -> processWords(wordList, true));
     }
 }
