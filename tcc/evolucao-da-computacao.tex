@@ -4,132 +4,133 @@
 % ---
 
 % TODO
-% - refatorar os <tab> por <spaces> e wrap do texto, utilizando emacs
 % - revisão do texto em .pdf
 
 \chapter{Evolução da Computação}
 
-A computação passou por diversas evoluções no último século, devido as 
-pesquisas e desenvolvimento em diferentes áreas de estudo, seus resultados veem 
-através de novas tecnologias e aplicações, como o objeto de estudo: a aplicação 
-\textit{Internet} das Coisas - \textit{Internet of Things} (\textit{IoT}) e a tecnologia \textit{Java Embedded}.
+A computação passou por diversas evoluções no último século, devido as
+pesquisas e desenvolvimento em diferentes áreas de estudo, seus resultados veem
+através de novas tecnologias e aplicações, como o objeto de estudo: a aplicação
+\textit{Internet} das Coisas - \textit{Internet of Things} (\textit{IoT}) e a
+tecnologia \textit{Java Embedded}.
 
 \section{Paradigmas Computacionais}
 
-Os paradigmas computacionais delimitam as principais evoluções da computação, 
+Os paradigmas computacionais delimitam as principais evoluções da computação,
 sendo os principais marcos:
 
 \begin{itemize}
 
-	\item sistemas \textit{mainframe}: na década de 60, consistindo de grandes 
-	computadores do tamanho de salas inteiras em departamentos de processamento 
-	de dados. Suas principais características estão: a grande capacidade de 
-	Entrada/Saída - \textit{Input/Output} (\textit{I/O}), o relacionamento de 
-	uma máquina para um usuário e o processamento em lote (\textit{batch});
+    \item sistemas \textit{mainframe}: na década de 60, consistindo de grandes
+    computadores do tamanho de salas inteiras em departamentos de processamento
+    de dados. Suas principais características estão: a grande capacidade de
+    Entrada/Saída - \textit{Input/Output} (\textit{I/O}), o relacionamento de
+    uma máquina para um usuário e o processamento em lote (\textit{batch});
 
-	\item sistemas por terminais (\textit{terminals}): na década de 70, 
-	consistindo de dispositivos remotos conectados ao computador central 
-	(\textit{mainframe}) via rede telefônica para a entrada e saída de dados 
-	aos usuários. Suas principais características estão: o processamento 
-	interativo e multitarefa, o relacionamento de uma máquina para muitos 
-	usuários e o compartilhamento de tempo de processamento (\textit{time 
-	sharing});
+    \item sistemas por terminais (\textit{terminals}): na década de 70,
+    consistindo de dispositivos remotos conectados ao computador central
+    (\textit{mainframe}) via rede telefônica para a entrada e saída de dados
+    aos usuários. Suas principais características estão: o processamento
+    interativo e multitarefa, o relacionamento de uma máquina para muitos
+    usuários e o compartilhamento de tempo de processamento (\textit{time
+    sharing});
 
-    \item computadores pessoais (\textit{desktop}): na década de 80, 
-    consistindo de pequenos computadores com preço acessível para uso em 
-    pequenas aplicações como escritório até grandes aplicações como jogos, 
-    sendo estendido para aplicações em ambientes de sistemas embarcados. Suas 
-    principais características estão: processamento local e interativo e o 
+    \item computadores pessoais (\textit{desktop}): na década de 80,
+    consistindo de pequenos computadores com preço acessível para uso em
+    pequenas aplicações como escritório até grandes aplicações como jogos,
+    sendo estendido para aplicações em ambientes de sistemas embarcados. Suas
+    principais características estão: processamento local e interativo e o
     relacionamento de uma máquina para um usuário;
 
-    \item redes de computadores (\textit{network}): na década de 90, 
-    consistindo de interconexão de computadores com as vantagens de 
-    comunicação, compartilhamento de recursos e acesso não local. Sua 
-    principais características estão: a implementação do modelo de arquitetura 
+    \item redes de computadores (\textit{network}): na década de 90,
+    consistindo de interconexão de computadores com as vantagens de
+    comunicação, compartilhamento de recursos e acesso não local. Sua
+    principais características estão: a implementação do modelo de arquitetura
     Cliente/Servidor - \textit{Client/Server} e a comunicação centralizada; e
 
-    \item sistemas distribuídos (\textit{distributed systems}): a partir da 
-    década de 90, consistindo de um conjunto de computadores compartilhando o 
-    processamento para a aplicação, aparentando com um único computador ao 
-    usuário. Suas principais características estão: a implementação do modelo 
-    de arquitetura Distribuído, a comunicação descentralizada e as aplicações 
+    \item sistemas distribuídos (\textit{distributed systems}): a partir da
+    década de 90, consistindo de um conjunto de computadores compartilhando o
+    processamento para a aplicação, aparentando com um único computador ao
+    usuário. Suas principais características estão: a implementação do modelo
+    de arquitetura Distribuído, a comunicação descentralizada e as aplicações
     por \textit{Grid} e \textit{Cloud}.
 
 \end{itemize}
 
-O próximo candidato de paradigma computacional é a computação ubíqua, uma união 
+O próximo candidato de paradigma computacional é a computação ubíqua, uma união
 das pesquisas e desenvolvimento entre computação móvel e computação pervasiva.
 
-A computação móvel traz aos usuários a informação contínua, independente de sua 
-localização física, enquanto a computação pervasiva traz o processamento 
-autônomo para o usuário em diversos dispositivos, adicionando inteligência ao 
+A computação móvel traz aos usuários a informação contínua, independente de sua
+localização física, enquanto a computação pervasiva traz o processamento
+autônomo para o usuário em diversos dispositivos, adicionando inteligência ao
 mesmo.
 
 \section{Computação Ubíqua}
 
-A computação ubíqua tem origem nos trabalhos de \textit{Mark Weiser} da 
-\textit{Xerox Palo Alto Research Center} (\textit{PARC}) durante o início da 
-década de 90, com a visão da criação de ambientes inteligentes através de 
-sistemas embarcados (computação pervasiva) aplicados aos objetos do dia a dia, 
-trocando informações entre si e pela rede de computadores. Segundo 
-\textit{Weiser} \cite[p. ~94]{markweiser1991}: \quotes{Especializados elementos 
-de \textit{hardware} e \textit{software}, conectados por fios, ondas de rádio e 
-infravermelho, serão tão ubíquos que ninguém irá notar sua presença.}
+A computação ubíqua tem origem nos trabalhos de \textit{Mark Weiser} da
+\textit{Xerox Palo Alto Research Center} (\textit{PARC}) durante o início da
+década de 90, com a visão da criação de ambientes inteligentes através de
+sistemas embarcados (computação pervasiva) aplicados aos objetos do dia a dia,
+trocando informações entre si e pela rede de computadores. Segundo
+\textit{Weiser} \cite[p. ~94]{markweiser1991}: \quotes{Especializados elementos
+  de \textit{hardware} e \textit{software}, conectados por fios, ondas de rádio
+  e infravermelho, serão tão ubíquos que ninguém irá notar sua presença.}
 
-Nesse ambiente o usuário estaria cercado por diversos dispositivos realizando 
-computação imperceptivelmente, sem uma interface de usuário como em 
-computadores pessoais (menos intrusão). Esses computadores operam autonomamente 
-e realizam tomadas de decisões e interações inteligentes, conforme o contexto 
+Nesse ambiente o usuário estaria cercado por diversos dispositivos realizando
+computação imperceptivelmente, sem uma interface de usuário como em
+computadores pessoais (menos intrusão). Esses computadores operam autonomamente
+e realizam tomadas de decisões e interações inteligentes, conforme o contexto
 do ambiente.
 
-A computação ubíqua traz aos desenvolvedores um alto grau de mobilidade e 
-imersão computacional. O grau de mobilidade refere-se a capacidade de locomoção 
-física dos serviços computacionais, enquanto o grau de imersão computacional 
-refere-se a capacidade de inteligencia do dispositivo em detectar, explorar e 
+A computação ubíqua traz aos desenvolvedores um alto grau de mobilidade e
+imersão computacional. O grau de mobilidade refere-se a capacidade de locomoção
+física dos serviços computacionais, enquanto o grau de imersão computacional
+refere-se a capacidade de inteligencia do dispositivo em detectar, explorar e
 construir de maneira dinâmica o contexto do ambiente.
 
 \section{Internet das Coisas}
 
-O termo \textit{Internet} das Coisas ou \textit{Internet of Things} 
-(\textit{IoT}) surgiu em 1999 pelo pesquisador britânico \textit{Kevin Ashton} 
-do Instituto de Tecnologia de \textit{Massachusetts} - \textit{Massachusetts 
-Institute of Technology} (\textit{MIT}) durante uma apresentação executiva.
+O termo \textit{Internet} das Coisas ou \textit{Internet of Things}
+(\textit{IoT}) surgiu em 1999 pelo pesquisador britânico \textit{Kevin Ashton}
+do Instituto de Tecnologia de \textit{Massachusetts} - \textit{Massachusetts
+  Institute of Technology} (\textit{MIT}) durante uma apresentação executiva.
 
 A ideia era utilizar as tecnologias de Identificação por Rádio Frequência -
-\textit{Radio-Frequency IDentification} (\textit{RFID}) e sensores para habilitarem 
-os computadores para observar, identificar e compreender o mundo, sem a 
-limitação dos dados inseridos por usuários \cite{kevinashton2009}.
+\textit{Radio-Frequency IDentification} (\textit{RFID}) e sensores para
+habilitarem os computadores para observar, identificar e compreender o mundo,
+sem a limitação dos dados inseridos por usuários \cite{kevinashton2009}.
 
 \newpage
-A definição do \textit{Cluster} Europeu de Pesquisa da \textit{Internet} das 
-Coisas - \textit{European Research Cluster on the Internet of Things} - 
+A definição do \textit{Cluster} Europeu de Pesquisa da \textit{Internet} das
+Coisas - \textit{European Research Cluster on the Internet of Things} -
 (\textit{IERC}) \cite[p. ~26]{iangsmith2012} para \textit{IoT} é:
 
 \begin{citacao}
-    Infraestrutura de rede dinâmica global com capacidades de autoconfiguração 
-    com base em protocolos de comunicação padronizados e interoperáveis onde as 
-    coisas físicas e virtuais têm identidades, atributos físicos, 
-    personalidades virtuais, utilizam interfaces inteligentes e estão 
+    Infraestrutura de rede dinâmica global com capacidades de autoconfiguração
+    com base em protocolos de comunicação padronizados e interoperáveis onde as
+    coisas físicas e virtuais têm identidades, atributos físicos,
+    personalidades virtuais, utilizam interfaces inteligentes e estão
     perfeitamente integrados na rede de informação.
 \end{citacao}
 
-Hoje o termo \textit{IoT} é utilizado para relacionar comercialmente a Computação Ubíqua.
+Hoje o termo \textit{IoT} é utilizado para relacionar comercialmente a
+Computação Ubíqua.
 
 \section{A Tecnologia Java}
 
-A tecnologia \textit{Java} foi desenvolvida por um grupo de engenheiros da 
-\textit{Sun} (hoje adquerida pela \textit{Oracle}) conhecidos por 
-\quotes{\textit{Green Team}} em 1991, com o propósito de contribuir para os 
-dispositivos digitais para serem inteligentes, funcional e de um meio mais 
+A tecnologia \textit{Java} foi desenvolvida por um grupo de engenheiros da
+\textit{Sun} (hoje adquerida pela \textit{Oracle}) conhecidos por
+\quotes{\textit{Green Team}} em 1991, com o propósito de contribuir para os
+dispositivos digitais para serem inteligentes, funcional e de um meio mais
 divertido.
 
-Liderado por \textit{James Gosling}, o time desenvolveu a linguagem de 
-programação \textit{Java} e demonstrou através de um dispositivo portátil para 
-a indústria de televisão a cabo, como também incorporou ao navegador de 
+Liderado por \textit{James Gosling}, o time desenvolveu a linguagem de
+programação \textit{Java} e demonstrou através de um dispositivo portátil para
+a indústria de televisão a cabo, como também incorporou ao navegador de
 \textit{Internet Netscape Navigator} em 1995, após a explosão da \textit{WEB}.
 
-Hoje a tecnologia \textit{Java} possui um amplo de escopo de aplicações, sendo 
-de \textit{chips} Sistema Global para Comunicações Móveis - \textit{Global 
-System for Mobile Communications} (\textit{GSM}) até grandes servidores 
-empresariais; e com interesses na \textit{IoT}, a 
-\textit{Oracle} lançou a plataforma \textit{Java Embedded}.
+Hoje a tecnologia \textit{Java} possui um amplo de escopo de aplicações, sendo
+de \textit{chips} Sistema Global para Comunicações Móveis - \textit{Global
+  System for Mobile Communications} (\textit{GSM}) até grandes servidores
+empresariais; e com interesses na \textit{IoT}, a \textit{Oracle} lançou a
+plataforma \textit{Java Embedded}.

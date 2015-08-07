@@ -4,7 +4,6 @@
 % ---
 
 % TODO
-% - refatorar os <tab> por <spaces> e wrap do texto, utilizando emacs
 % - revisão do texto em .pdf
 
 \chapter{Caracterização do Java Embedded}
@@ -26,21 +25,22 @@ permitindo as etapas de desevolvimento como codificação, execução,
 \section{Plataforma Java Embedded}
 
 As plataformas abordadas no respectivo trabalho serão: \textit{Java ME
-  Embedded}, \textit{Java Embedded Suite} (\textit{JES}) e \textit{Java Oracle Event
-  Processing} (\textit{OEP}).
+  Embedded}, \textit{Java Embedded Suite} (\textit{JES}) e \textit{Java Oracle
+  Event Processing} (\textit{OEP}).
 
 \subsection{Java ME Embedded}
 
 O \textit{Java ME Embedded} é uma versão reestruturada da plataforma
-\textit{Java ME} com a inclusão da \textit{Device I/O API} (Entrada/Saída - \textit{Input/Output}) (Interface de Programação de Aplicação - \textit{Application Programming Interface}), destinadas aos
-periféricos de baixo nível encontrados nos dispositivos embarcados, tais como
-Entrada/Saída de Propósito Geral - \textit{General Purpose Input/Output}
-(\textit{GPIO}), Conversor Analógico para Digital - \textit{Analog to Digital
-  Converter} (\textit{ADC}), Circuito Inter-Integrado -
-\textit{Inter-Integrated Circuit} (\textit{I2C}), Interface Periférica Serial -
-\textit{Serial Peripheral Interface} (\textit{SPI}), Transmissor/Receptor
-Assíncrono Universal - \textit{Universal Asynchronous Receiver/Transmitter}
-(\textit{UART}) e etc.
+\textit{Java ME} com a inclusão da \textit{Device I/O API} (Entrada/Saída -
+\textit{Input/Output}) (Interface de Programação de Aplicação -
+\textit{Application Programming Interface}), destinadas aos periféricos de
+baixo nível encontrados nos dispositivos embarcados, tais como Entrada/Saída de
+Propósito Geral - \textit{General Purpose Input/Output} (\textit{GPIO}),
+Conversor Analógico para Digital - \textit{Analog to Digital Converter}
+(\textit{ADC}), Circuito Inter-Integrado - \textit{Inter-Integrated Circuit}
+(\textit{I2C}), Interface Periférica Serial - \textit{Serial Peripheral
+  Interface} (\textit{SPI}), Transmissor/Receptor Assíncrono Universal -
+\textit{Universal Asynchronous Receiver/Transmitter} (\textit{UART}) e etc.
 
 A plataforma \textit{Java ME Embedded} consiste de duas versões:
 
@@ -64,16 +64,18 @@ Exemplos de aplicações:
     \item prototipagem para aplicações de computação embarcada;
 
     \item possibilidades para utilização de sensores como fonte de dados em
-    aplicações para o conceito \textit{Internet} das Coisas - \textit{Internet of Things} (\textit{IoT}).
+    aplicações para o conceito \textit{Internet} das Coisas -
+    \textit{Internet of Things} (\textit{IoT}).
 
 \end{itemize}
 
 \subsection{Java Embedded Suite}
 
-O \textit{JES} é uma versão da plataforma \textit{Java EE}
-(Edição Empresarial - \textit{Enterprise Edition}) para os sistemas embarcados,
-trazendo a capacidade da arquitetura Cliente/Servidor - \textit{Client/Server} através de banco de
-dados - \textit{databases}, serviços \textit{Web} - \textit{Web services} e aplicações \textit{Servlet}.
+O \textit{JES} é uma versão da plataforma \textit{Java EE} (Edição Empresarial
+- \textit{Enterprise Edition}) para os sistemas embarcados, trazendo a
+capacidade da arquitetura Cliente/Servidor - \textit{Client/Server} através de
+banco de dados - \textit{databases}, serviços \textit{Web} - \textit{Web
+  services} e aplicações \textit{Servlet}.
 
 Os componentes disponíveis para a plataforma são:
 
@@ -84,7 +86,8 @@ Os componentes disponíveis para a plataforma são:
     3.0} e \textit{Bean Validation 1.0};
 
     \item \textit{Java DB}: versão otimizada do banco de dados \textit{Derby}
-    para uso embarcado (não possui características para arquitetura Cliente/Servidor), acessado via Linguagem de Consulta Estruturada -
+    para uso embarcado (não possui características para arquitetura
+    Cliente/Servidor), acessado via Linguagem de Consulta Estruturada -
     \textit{Structured Query Language} (\textit{SQL}) sobre o Conectividade de
     Banco de Dados \textit{Java} \textit{Java Database Connectivity}
     (\textit{JDBC});
@@ -96,10 +99,9 @@ Os componentes disponíveis para a plataforma são:
 
 \subsection{Java Oracle Event Processing}
 
-O \textit{OEP} é uma versão do sistema de
-Processamento de Eventos Complexos - \textit{Complex Event Processing}
-(\textit{CEP}) para os sistemas embarcados, trazendo a capacidade de
-transformar dados em informação para os dispositivos.
+O \textit{OEP} é uma versão do sistema de Processamento de Eventos Complexos -
+\textit{Complex Event Processing} (\textit{CEP}) para os sistemas embarcados,
+trazendo a capacidade de transformar dados em informação para os dispositivos.
 
 \section{Vantagens e Desvantagens}
 
@@ -110,26 +112,26 @@ a plataforma nativa (\textit{C}).
 
 \begin{itemize}
 
-	\item Suporte a aplicações \textit{headless}: serviços executados em
-	segundo plano;
+    \item Suporte a aplicações \textit{headless}: serviços executados em
+    segundo plano;
 
-	\item Segurança \textit{sandbox}: a máquina virtual constrói um ambiente de
-	execução para a aplicação, diferentemente da plataforma nativa em que não
-	possui a característica;
+    \item Segurança \textit{sandbox}: a máquina virtual constrói um ambiente de
+    execução para a aplicação, diferentemente da plataforma nativa em que não
+    possui a característica;
 
-	\item Múltiplos processos: capacidade para execução multitarefa de
-	aplicações;
+    \item Múltiplos processos: capacidade para execução multitarefa de
+    aplicações;
 
-	\item Comunidade: a tecnologia \textit{Java} possui uma grande comunidade
-	de desenvolvedores em todo mundo, ideal para o aprendizado e suporte, na
-	plataforma nativa a comunidade é fragmentada;
+    \item Comunidade: a tecnologia \textit{Java} possui uma grande comunidade
+    de desenvolvedores em todo mundo, ideal para o aprendizado e suporte, na
+    plataforma nativa a comunidade é fragmentada;
 
-	\item Escalabilidade: excelente capacidade de gerenciamento de recursos e
-	adição de novas funcionalidades a aplicação;
+    \item Escalabilidade: excelente capacidade de gerenciamento de recursos e
+    adição de novas funcionalidades a aplicação;
 
-	\item Capacidade de atualização: a execução em máquina virtal traz para o
-	sistema possui um excelente mecanismo para atualização da aplicação, na
-	plataforma nativa o sistema é inferior em dificuldade.
+    \item Capacidade de atualização: a execução em máquina virtal traz para o
+    sistema possui um excelente mecanismo para atualização da aplicação, na
+    plataforma nativa o sistema é inferior em dificuldade.
 
 \end{itemize}
 
