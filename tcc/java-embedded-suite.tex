@@ -3,6 +3,10 @@
 %
 % ---
 
+% TODO
+% - refatorar os <tab> por <spaces> e wrap do texto, utilizando emacs
+% - revisão do texto em .pdf
+
 \chapter{Java Embedded Suite}
 
 Este capítulo tem como objetivo demonstrar a plataforma \textit{Java Embedded}
@@ -40,7 +44,7 @@ Descompacte os arquivos, basta utilizar o comando \textit{UNZIP}:
 \verb|unzip <file>|
 
 O caminho para o \textit{JES} define a variável ambiente
-\verb|$JES_HOME| no sistema. Os \textit{scripts} já definem as váriaveis de
+\verb|$JES_HOME| no sistema. Os \textit{scripts} já definem as variáveis de
 ambiente necessárias para o sistema executar cada tipo de aplicação do pacote
 \textit{JES}.
 
@@ -78,7 +82,7 @@ O processo de desenvolvimento não difere da forma utilizada em servidores
 tradicionais através de aplicações \textit{Web application}, em codificar e
 realizar a implantação da aplicação.
 
-O exemplo implementa uma aplicação \textit{WEB} para a monitoração de
+O exemplo implementa uma aplicação \textit{Web} para a monitoração de
 temperatura da Unidade de Processamento Gráfico - \textit{Graphics Processing
   Unit} (\textit{GPU}) do \textit{Raspberry PI} através do comando
 \verb|/opt/vc/bin/vcgencmd measure_temp| do sistema operacional.
@@ -126,16 +130,16 @@ e executar via o \textit{script} para o tipo de aplicação:
 
 \begin{itemize}
 
-    \item \verb|gfhost.sh|: utilizado para implantar a aplicação \textit{WEB}
+    \item \verb|gfhost.sh|: utilizado para implantar a aplicação \textit{Web}
     no \textit{JES}, permite múltiplas aplicações ao mesmo tempo;
 
-    \item \verb|hclient.sh|: utilizado para acessar serviços \textit{WEB} -
-    \textit{WEB services};
+    \item \verb|hclient.sh|: utilizado para acessar serviços \textit{Web} -
+    \textit{Web services};
 
     \item \verb|hstorage.sh|: utilizado para aplicação com o \textit{Java DB};
 
     \item \verb|lwhost.sh|: utilizado para implantar a aplicação de serviço
-      \textit{WEB} \textit{WEB service} no \textit{JES}.
+      \textit{Web} \textit{Web service} no \textit{JES}.
 
 \end{itemize}
 
@@ -170,7 +174,7 @@ No navegador basta acessar o endereço do \textit{Raspberry PI} pela porta
 
 \section{Aplicações para a Internet das Coisas}
 
-Um servidor de aplicações traz a \textit{Internet} das Coisas uma interface
+Um servidor de aplicações traz a \textit{Internet} das Coisas - \textit{Internet of Things} (\textit{IoT}) uma interface
 para a disponibilização de serviços, seja para a comunicação com usuários
 quanto outros dispositivos embarcados. O \textit{JES} permite a
 interoperabilidade com aplicações \textit{Java ME Embedded}, trazendo o poder
@@ -180,14 +184,14 @@ possibilidades de obtenção, armazenamento e processamento de dados.
 \section{Resultados}
 
 Os resultados demonstram a visão na qual a plataforma \textit{JES} contribui
-para o desenvolvimento de aplicações destinadas a \textit{Internet} das Coisas.
+para o desenvolvimento de aplicações destinadas a \textit{IoT}.
 
 \subsection{Positivos}
 
 \begin{itemize}
 
-    \item A possibilidade de implantar um servidor de aplicações \textit{WEB},
-    banco de dados e \textit{WEB services} em um sistema embarcado;
+    \item A possibilidade de implantar um servidor de aplicações \textit{Web},
+    banco de dados e \textit{Web services} em um sistema embarcado;
 
     \item Interfaceamento com as classes de aplicações \textit{Java ME
     Embedded}.
