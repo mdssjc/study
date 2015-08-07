@@ -41,27 +41,27 @@ Assíncrono Universal - \textit{Universal Asynchronous Receiver/Transmitter}
 A plataforma \textit{Java ME Embedded} consiste de duas versões:
 
 \begin{itemize}
-    
-    \item \textit{Java ME Embedded}: dedicado para as aplicações sempre ativa 
-    (\textit{always-on}), sem interface gráfica com o usuário 
-    (\textit{headless}) e com conexões a dispositivos. Possui 
+
+    \item \textit{Java ME Embedded}: dedicado para as aplicações sempre ativa
+    (\textit{always-on}), sem interface gráfica com o usuário
+    (\textit{headless}) e com conexões a dispositivos. Possui
     \textit{footprint} menor que 1 \textit{megabyte} de memória;
-    
-    \item \textit{Java ME Embedded Client}: dedicado para as aplicações com 
-    maior necessidade de características da plataforma \textit{Java}. Possui 
+
+    \item \textit{Java ME Embedded Client}: dedicado para as aplicações com
+    maior necessidade de características da plataforma \textit{Java}. Possui
     \textit{footprint} menor que 10 \textit{megabytes} de memória.
-    
+
 \end{itemize}
 
 Exemplos de aplicações:
 
 \begin{itemize}
-    
+
     \item prototipagem para aplicações de computação embarcada;
-    
-    \item possibilidades para utilização de sensores como fonte de dados para 
+
+    \item possibilidades para utilização de sensores como fonte de dados para
     aplicações \textit{IoT}.
-    
+
 \end{itemize}
 
 \subsection{Java Embedded Suite}
@@ -74,17 +74,19 @@ dados, \textit{web services} e aplicações \textit{servlet}.
 Os componentes disponíveis para a plataforma são:
 
 \begin{itemize}
-    
+
     \item \textit{GlassFish}: versão reduzida do servidor de aplicações
     \textit{GlassFish}, com suporte apenas para os componentes \textit{Servlet
     3.0} e \textit{Bean Validation 1.0};
-    
-    \item \textit{Java DB}: versão otimizada do banco de dados \textit{Derby},
-    acessado via Linguagem de Consulta Estruturada - \textit{Structured Query
-    Language} (\textit{SQL}) sobre o Conectividade de Banco de Dados
-    \textit{Java} \textit{Java Database Connectivity} (\textit{JDBC});
-    
-    \item \textit{Jersey}: \textit{framework} para serviços \textit{RESTful Web 
+
+    \item \textit{Java DB}: versão otimizada do banco de dados \textit{Derby}
+    para uso embarcado (não possui características para arquitetura
+    cliente/servidor), acessado via Linguagem de Consulta Estruturada -
+    \textit{Structured Query Language} (\textit{SQL}) sobre o Conectividade de
+    Banco de Dados \textit{Java} \textit{Java Database Connectivity}
+    (\textit{JDBC});
+
+    \item \textit{Jersey}: \textit{framework} para serviços \textit{RESTful Web
     Services}, conforme a especificação \textit{JAX-RS} (\textit{JSR 311}).
 
 \end{itemize}
@@ -98,34 +100,34 @@ transformar dados em informação para os dispositivos.
 
 \section{Vantagens e Desvantagens}
 
-A plataforma \textit{Java Embedded} possui vantagens e desvantagens em relação 
+A plataforma \textit{Java Embedded} possui vantagens e desvantagens em relação
 a plataforma nativa (\textit{C}).
 
 \subsection{Vantagens}
 
 \begin{itemize}
-    
-	\item Suporte a aplicações \textit{headless}: serviços executados em 
+
+	\item Suporte a aplicações \textit{headless}: serviços executados em
 	segundo plano;
-    
-	\item Segurança \textit{sandbox}: a máquina virtual constrói um ambiente de 
-	execução para a aplicação, diferentemente da plataforma nativa em que não 
+
+	\item Segurança \textit{sandbox}: a máquina virtual constrói um ambiente de
+	execução para a aplicação, diferentemente da plataforma nativa em que não
 	possui a característica;
-    
-	\item Múltiplos processos: capacidade para execução multitarefa de 
+
+	\item Múltiplos processos: capacidade para execução multitarefa de
 	aplicações;
-    
-	\item Comunidade: a tecnologia \textit{Java} possui uma grande comunidade 
-	de desenvolvedores em todo mundo, ideal para o aprendizado e suporte, na 
+
+	\item Comunidade: a tecnologia \textit{Java} possui uma grande comunidade
+	de desenvolvedores em todo mundo, ideal para o aprendizado e suporte, na
 	plataforma nativa a comunidade é fragmentada;
-    
-	\item Escalabilidade: excelente capacidade de gerenciamento de recursos e 
+
+	\item Escalabilidade: excelente capacidade de gerenciamento de recursos e
 	adição de novas funcionalidades a aplicação;
-    
-	\item Capacidade de atualização: a execução em máquina virtal traz para o 
-	sistema possui um excelente mecanismo para atualização da aplicação, na 
+
+	\item Capacidade de atualização: a execução em máquina virtal traz para o
+	sistema possui um excelente mecanismo para atualização da aplicação, na
 	plataforma nativa o sistema é inferior em dificuldade.
-    
+
 \end{itemize}
 
 \subsection{Desvantagens}

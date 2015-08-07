@@ -31,8 +31,7 @@ Transfira os arquivos \newline
  e \newline
 \verb|jes-7.0-ga-b11-linux-samples-15_nov_2012.zip|
  do sistema operacional principal para o dispositivo remoto, basta
-utilizar o comando
-\textit{SCP}:
+utilizar o comando \textit{SCP}:
 
 \verb|scp </path/from/file> <user>@<address>:/path/to/destination|
 
@@ -40,7 +39,10 @@ Descompacte os arquivos, basta utilizar o comando \textit{UNZIP}:
 
 \verb|unzip <file>|
 
-O caminho para o \textit{JES} define a variável ambiente \verb|$JES_HOME|.
+O caminho para o \textit{JES} define a variável ambiente
+\verb|$JES_HOME| no sistema. Os \textit{scripts} já definem as váriaveis de
+ambiente necessárias para o sistema executar cada tipo de aplicação do pacote
+\textit{JES}.
 
 \subsection{Pacote Oracle Java Embedded Suite ZIP}
 
@@ -49,10 +51,11 @@ O pacote \textit{Oracle Java Embedded Suite ZIP} consiste de cinco diretórios:
 \begin{itemize}
 
     \item \textit{glassfish}: este diretório contém servidor de aplicações
-    \textit{GlashFish};
+    \textit{GlashFish} através da biblioteca \verb|glassfish-jes.jar|;
 
     \item \textit{javadb}: este diretório contém o banco de dados
-    \textit{Derby};
+    \textit{Derby} através das bibliotecas \verb|derby.jar| e
+    \verb|derbytools.jar|;
 
     \item \textit{jersey}: este diretório contém o \textit{framework} de
     aplicações \textit{Jersey};
@@ -66,8 +69,8 @@ O pacote \textit{Oracle Java Embedded Suite ZIP} consiste de cinco diretórios:
 
 \end{itemize}
 
-O arquivo \verb|jes-verify.sh| realiza a verificação da instalação e execução
-do ambiente de execução.
+O arquivo \verb|jes-verify.sh| realiza o diagnóstico da instalação do ambiente
+de execução.
 
 \subsection{Desenvolvimento}
 
@@ -126,12 +129,13 @@ e executar via o \textit{script} para o tipo de aplicação:
     \item \verb|gfhost.sh|: utilizado para implantar a aplicação \textit{WEB}
     no \textit{JES}, permite múltiplas aplicações ao mesmo tempo;
 
-    \item \verb|hclient.sh|: utilizado para acessar \textit{WEB service};
+    \item \verb|hclient.sh|: utilizado para acessar serviços \textit{WEB} -
+    \textit{WEB services};
 
     \item \verb|hstorage.sh|: utilizado para aplicação com o \textit{Java DB};
 
-    \item \verb|lwhost.sh|: utilizado para implantar a aplicação \textit{WEB
-    service} no \textit{JES}.
+    \item \verb|lwhost.sh|: utilizado para implantar a aplicação de serviço
+      \textit{WEB} \textit{WEB service} no \textit{JES}.
 
 \end{itemize}
 
@@ -175,9 +179,8 @@ possibilidades de obtenção, armazenamento e processamento de dados.
 
 \section{Resultados}
 
-Os resultados demonstram a visão na qual a plataforma \textit{Java Embedded
-Suite} contribui para o desenvolvimento de aplicações destinadas a
-\textit{Internet} das Coisas.
+Os resultados demonstram a visão na qual a plataforma \textit{JES} contribui
+para o desenvolvimento de aplicações destinadas a \textit{Internet} das Coisas.
 
 \subsection{Positivos}
 
