@@ -1,4 +1,4 @@
-## Core latex/pdflatex auxiliary files:
+## latex/pdflatex:
 *.aux
 *.lof
 *.log
@@ -10,3 +10,4 @@
 *.blg
 *.idx
 *.brf
+*.gz
