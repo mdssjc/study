@@ -198,7 +198,6 @@ Informação\xspace}
 
 % ---
 % Configurações de aparência do PDF final
-% informações do PDF
 \makeatletter
 \hypersetup{
     %pagebackref=true,
@@ -206,7 +205,7 @@ Informação\xspace}
     pdfauthor={\@author},
     pdfsubject={\imprimirpreambulo},
     pdfcreator={LaTeX with abnTeX2},
-    pdfkeywords=,
+    pdfkeywords={\keywords},
     colorlinks=true,            % false: boxed links; true: colored links
     linkcolor=black,            % color of internal links
     citecolor=black,            % color of links to bibliography
@@ -231,14 +230,15 @@ Informação\xspace}
 }
 
 % Folha de Rosto
+\renewcommand{\folhaderostoname}{Folha de Rosto}
 \renewcommand{\folhaderostocontent}{
     \begin{center}
         \input{folha-de-rosto}
     \end{center}
 }
-% ---
 
 \newcommand{\quotes}[1]{\lq\lq#1\rq\rq}
+% ---
 
 % ---
 % INÍCIO DO DOCUMENTO
@@ -252,9 +252,11 @@ Informação\xspace}
 % ----------------------------------------------------------
 \pretextual
 \imprimircapa
+
 \imprimirfolhaderosto
 
-\input{folha-de-aprovacao}
+% Preencher após apresentação da monografia
+%\input{folha-de-aprovacao}
 
 \begin{dedicatoria}
     \vspace*{1 cm}
@@ -302,12 +304,17 @@ Informação\xspace}
     \end{flushright}
 \end{epigrafe}
 
+% Resumo
 \input{resumo}
 
 % Lista de Ilustrações
-%\pdfbookmark[0]{\listfigurename}{lof}
 \pdfbookmark[0]{Lista de Ilustrações}{lof}
 \listoffigures*
+\cleardoublepage
+
+% Lista de Abreviaturas e Siglas
+\renewcommand{\listadesiglasname}{Lista de Abreviaturas e Siglas}
+\input{lista-abreviaturas-siglas}
 \cleardoublepage
 
 % Sumário
