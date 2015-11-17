@@ -108,12 +108,13 @@ public class MonitorTemp extends HttpServlet {
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        response.getWriter().write("<b>Monitoração da GPU<b><br/>");
+        response.getWriter()
+            .write("<b>Monitoração da GPU<b><br/>");
         Runtime runtime = Runtime.getRuntime();
         BufferedReader br = new BufferedReader(
-                new InputStreamReader(
-                        runtime.exec("/opt/vc/bin/vcgencmd measure_temp")
-                        .getInputStream()));
+            new InputStreamReader(runtime
+            .exec("/opt/vc/bin/vcgencmd measure_temp")
+            .getInputStream()));
         response.getWriter().write(br.readLine());
     }
 }

@@ -9,8 +9,8 @@
 \documentclass[
     % -- opções da classe memoir --
     12pt,               % tamanho da fonte
-    openright,          % capítulos começam em página ímpar (insere página vazia caso preciso)
-    oneside,            % impressão em verso e anverso. Oposto a oneside
+    openright,          % capítulos começam em página ímpar
+    oneside,            % impressão em apenas um lado
     a4paper,            % tamanho do papel
     % -- opções da classe abntex2 --
     chapter=TITLE,      % títulos de capítulos convertidos em letras maiúsculas
@@ -43,7 +43,7 @@
 % ---
 % PACOTES ADICIONAIS
 % ---
-\usepackage{lipsum}     % Geração de 'dummy text'
+%\usepackage{lipsum}    % Geração de 'dummy text'
 %\usepackage{showframe} % Habilita a visualização das margens
 % ---
 
@@ -180,23 +180,6 @@ Informação\xspace}
 }
 
 % ---
-% Configurações do pacote backref
-% Usado sem a opção hyperpageref de backref
-%\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
-% Texto padrão antes do número das páginas
-%\renewcommand{\backref}{}
-% Define os textos da citação
-%\renewcommand*{\backrefalt}[4]{
-%   \ifcase #1 %
-%   Nenhuma citação no texto.%
-%   \or
-%   Citado na página #2.%
-%   \else
-%   Citado #1 vezes nas páginas #2.%
-%   \fi}%
-% ---
-
-% ---
 % Configurações de aparência do PDF final
 \makeatletter
 \hypersetup{
@@ -255,7 +238,6 @@ Informação\xspace}
 
 \imprimirfolhaderosto
 
-% Preencher após apresentação da monografia
 %\input{folha-de-aprovacao}
 
 \begin{dedicatoria}
