@@ -1,4 +1,4 @@
-package entity;
+package mds.java.entity;
 
 import java.util.Calendar;
 
