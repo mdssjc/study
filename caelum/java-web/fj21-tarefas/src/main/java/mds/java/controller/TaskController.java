@@ -2,6 +2,7 @@ package mds.java.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,13 @@ import mds.java.persistence.TaskDAO;
 
 @Controller
 public class TaskController {
+
+    private final TaskDAO dao;
+
+    @Autowired
+    public TaskController(TaskDAO dao) {
+	this.dao = dao;
+    }
 
     @RequestMapping("")
     public String index() {
@@ -30,7 +38,6 @@ public class TaskController {
 	    if (result.hasFieldErrors("descricao")) {
 		return "task/form";
 	    }
-	    TaskDAO dao = new TaskDAO();
 	    dao.save(task);
 	} catch (DAOException e) {
 	    e.printStackTrace();
@@ -41,7 +48,6 @@ public class TaskController {
     @RequestMapping("listAll")
     public String list(Model model) {
 	try {
-	    TaskDAO dao = new TaskDAO();
 	    model.addAttribute("tarefas", dao.findAll());
 	} catch (DAOException e) {
 	    e.printStackTrace();
@@ -52,7 +58,6 @@ public class TaskController {
     @RequestMapping("showTask")
     public String show(Long id, Model model) {
 	try {
-	    TaskDAO dao = new TaskDAO();
 	    model.addAttribute("tarefa", dao.findById(id));
 	} catch (DAOException e) {
 	    e.printStackTrace();
@@ -63,7 +68,6 @@ public class TaskController {
     @RequestMapping("updateTask")
     public String update(Task task) {
 	try {
-	    TaskDAO dao = new TaskDAO();
 	    dao.set(task);
 	} catch (DAOException e) {
 	    e.printStackTrace();
@@ -75,7 +79,6 @@ public class TaskController {
     @RequestMapping("removeTask")
     public String del(Task task) {
 	try {
-	    TaskDAO dao = new TaskDAO();
 	    dao.delete(task);
 	} catch (DAOException e) {
 	    e.printStackTrace();
@@ -86,7 +89,6 @@ public class TaskController {
     @RequestMapping("closeTask")
     public String close(Long id, Model model) {
 	try {
-	    TaskDAO dao = new TaskDAO();
 	    dao.closeTask(id);
 	    model.addAttribute("tarefa", dao.findById(id));
 	} catch (DAOException e) {

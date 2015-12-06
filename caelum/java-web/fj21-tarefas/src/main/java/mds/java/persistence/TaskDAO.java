@@ -10,9 +10,14 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
-import mds.java.entity.Task;
-import mds.java.persistence.connection.ConnectionMySQL;
+import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import mds.java.entity.Task;
+
+@Repository
 public class TaskDAO implements DAO<Task> {
     private static final String DELETE = "DELETE FROM tarefas WHERE id = ?";
     private static final String INSERT = "INSERT INTO tarefas(descricao, finalizado, dataFinalizacao) VALUES(?,?,?)";
@@ -20,14 +25,23 @@ public class TaskDAO implements DAO<Task> {
     private static final String GET = "SELECT * FROM tarefas WHERE id=?";
     private static final String UPDATE = "UPDATE tarefas SET descricao=?, finalizado=?, dataFinalizacao=? WHERE id=?";
     private static final String CLOSETASK = "UPDATE tarefas SET finalizado=?, dataFinalizacao=? WHERE id=?";
+    private Connection connection;
 
     public TaskDAO() {
     }
 
+    @Autowired
+    public TaskDAO(DataSource dataSource) throws DAOException {
+	try {
+	    this.connection = dataSource.getConnection();
+	} catch (SQLException e) {
+	    throw new DAOException(e);
+	}
+    }
+
     @Override
     public void save(Task task) throws DAOException {
-	Connection con = new ConnectionMySQL().getConnection();
-	try (PreparedStatement stmt = con.prepareStatement(INSERT)) {
+	try (PreparedStatement stmt = connection.prepareStatement(INSERT)) {
 	    Optional<Calendar> calendar = Optional.ofNullable(task.getDataFinalizacao());
 	    Calendar other = Calendar.getInstance();
 	    stmt.setString(1, task.getDescricao());
@@ -43,8 +57,7 @@ public class TaskDAO implements DAO<Task> {
     @Override
     public Task findById(long id) throws DAOException {
 	Task task = new Task();
-	Connection con = new ConnectionMySQL().getConnection();
-	try (PreparedStatement stmt = con.prepareStatement(GET)) {
+	try (PreparedStatement stmt = connection.prepareStatement(GET)) {
 	    stmt.setLong(1, id);
 	    ResultSet rs = stmt.executeQuery();
 	    if (rs.next()) {
@@ -68,8 +81,7 @@ public class TaskDAO implements DAO<Task> {
     public List<Task> findAll() throws DAOException {
 	List<Task> list = new ArrayList<Task>();
 	try {
-	    Connection con = new ConnectionMySQL().getConnection();
-	    ResultSet rs = con.prepareStatement(FINDALL).executeQuery();
+	    ResultSet rs = connection.prepareStatement(FINDALL).executeQuery();
 	    while (rs.next()) {
 		Task task = new Task();
 		task.setId(rs.getLong(1));
@@ -91,8 +103,7 @@ public class TaskDAO implements DAO<Task> {
 
     @Override
     public void set(Task type) throws DAOException {
-	Connection con = new ConnectionMySQL().getConnection();
-	try (PreparedStatement stmt = con.prepareStatement(UPDATE)) {
+	try (PreparedStatement stmt = connection.prepareStatement(UPDATE)) {
 	    stmt.setString(1, type.getDescricao());
 	    stmt.setBoolean(2, type.getFinalizado());
 	    stmt.setDate(3, new Date(type.getDataFinalizacao().getTimeInMillis()));
@@ -106,8 +117,7 @@ public class TaskDAO implements DAO<Task> {
     @Override
     public void delete(Task type) throws DAOException {
 	try {
-	    Connection con = new ConnectionMySQL().getConnection();
-	    PreparedStatement stmt = con.prepareStatement(DELETE);
+	    PreparedStatement stmt = connection.prepareStatement(DELETE);
 	    stmt.setLong(1, type.getId());
 	    stmt.execute();
 	} catch (SQLException e) {
@@ -116,8 +126,7 @@ public class TaskDAO implements DAO<Task> {
     }
 
     public void closeTask(Long id) throws DAOException {
-	Connection con = new ConnectionMySQL().getConnection();
-	try (PreparedStatement stmt = con.prepareStatement(CLOSETASK)) {
+	try (PreparedStatement stmt = connection.prepareStatement(CLOSETASK)) {
 	    stmt.setBoolean(1, true);
 	    stmt.setDate(2, new Date(Calendar.getInstance().getTimeInMillis()));
 	    stmt.setLong(3, id);
