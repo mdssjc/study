@@ -7,56 +7,131 @@ import types.Wood;
 
 public class FindGuitarTester {
 
-    public static void main(String[] args) {
-        // Set up Rick's guitar inventory
-        Inventory inventory = new Inventory();
-        initializeInventory(inventory);
+  public static void main(String[] args) {
+    // Set up Rick's guitar inventory
+    Inventory inventory = new Inventory();
+    initializeInventory(inventory);
 
-        Guitar whatErinLikes = new Guitar("", 0, Builder.FENDER, "Stratocastor",
-                Type.ELECTRIC, Wood.ALDER, Wood.ALDER);
-        List matchingGuitars = inventory.search(whatErinLikes);
-        if (!matchingGuitars.isEmpty()) {
-            System.out.println("Erin, you might like these guitars:");
-            for (Iterator i = matchingGuitars.iterator(); i.hasNext();) {
-                Guitar guitar = (Guitar) i.next();
-                System.out.println("  We have a " + guitar.getBuilder() + " "
-                        + guitar.getModel() + " " + guitar.getType()
-                        + " guitar:\n     " + guitar.getBackWood()
-                        + " back and sides,\n     " + guitar.getTopWood()
-                        + " top.\n  You can have it for only $"
-                        + guitar.getPrice() + "!\n  ----");
-            }
-        } else {
-            System.out.println("Sorry, Erin, we have nothing for you.");
-        }
+    GuitarSpec whatErinLikes = 
+      new GuitarSpec(Builder.FENDER, "Stratocastor", 
+                     Type.ELECTRIC, Wood.ALDER, Wood.ALDER);
+    List matchingGuitars = inventory.search(whatErinLikes);
+    if (!matchingGuitars.isEmpty()) {
+      System.out.println("Erin, you might like these guitars:");
+      for (Iterator i = matchingGuitars.iterator(); i.hasNext(); ) {
+        Guitar guitar = (Guitar)i.next();
+        GuitarSpec spec = guitar.getSpec();
+        System.out.println("  We have a " +
+          spec.getBuilder() + " " + spec.getModel() + " " +
+          spec.getType() + " guitar:\n     " +
+          spec.getBackWood() + " back and sides,\n     " +
+          spec.getTopWood() + " top.\n  You can have it for only $" +
+          guitar.getPrice() + "!\n  ----");
+      }
+    } else {
+      System.out.println("Sorry, Erin, we have nothing for you.");
     }
+  }
 
-    private static void initializeInventory(Inventory inventory) {
-        inventory.addGuitar(new Guitar("11277", 3999.95, Builder.COLLINGS, "CJ",
-                            Type.ACOUSTIC, Wood.INDIAN_ROSEWOOD, Wood.SITKA));
-        inventory.addGuitar(new Guitar("V95693", 1499.95, Builder.FENDER, "Stratocastor",
-                            Type.ELECTRIC, Wood.ALDER, Wood.ALDER));
-        inventory.addGuitar(new Guitar("V9512", 1549.95, Builder.FENDER, "Stratocastor",
-                            Type.ELECTRIC, Wood.ALDER, Wood.ALDER));
-        inventory.addGuitar(new Guitar("122784", 5495.95, Builder.MARTIN, "D-18",
-                            Type.ACOUSTIC, Wood.MAHOGANY, Wood.ADIRONDACK));
-        inventory.addGuitar(new Guitar("76531", 6295.95, Builder.MARTIN, "OM-28",
-                            Type.ACOUSTIC, Wood.BRAZILIAN_ROSEWOOD,
-                            Wood.ADIRONDACK));
-        inventory.addGuitar(new Guitar("70108276", 2295.95, Builder.GIBSON, "Les Paul",
-                            Type.ELECTRIC, Wood.MAHOGANY, Wood.MAHOGANY));
-        inventory.addGuitar(new Guitar("82765501", 1890.95, Builder.GIBSON,
-                            "SG '61 Reissue", Type.ELECTRIC, Wood.MAHOGANY,
-                            Wood.MAHOGANY));
-        inventory.addGuitar(new Guitar("77023", 6275.95, Builder.MARTIN, "D-28",
-                            Type.ACOUSTIC, Wood.BRAZILIAN_ROSEWOOD,
-                            Wood.ADIRONDACK));
-        inventory.addGuitar(new Guitar("1092", 12995.95, Builder.OLSON, "SJ",
-                            Type.ACOUSTIC, Wood.INDIAN_ROSEWOOD, Wood.CEDAR));
-        inventory.addGuitar(new Guitar("566-62", 8999.95, Builder.RYAN, "Cathedral",
-                            Type.ACOUSTIC, Wood.COCOBOLO, Wood.CEDAR));
-        inventory.addGuitar(new Guitar("6 29584", 2100.95, Builder.PRS,
-                            "Dave Navarro Signature", Type.ELECTRIC,
-                            Wood.MAHOGANY, Wood.MAPLE));
-    }
+  private static void initializeInventory(Inventory inventory) {
+    GuitarBuilder guitarBuilder = new GuitarBuilder();
+    guitarBuilder.setSerialNumber("11277")
+    		 .setPrice(3999.95)
+    		 .setBuilder(Builder.COLLINGS)
+    		 .setModel("CJ")
+    		 .setType(Type.ACOUSTIC)
+    		 .setBackWood(Wood.INDIAN_ROSEWOOD)
+    		 .setTopWood(Wood.SITKA);
+    inventory.addGuitar(guitarBuilder.makeGuitar());
+        
+    guitarBuilder.setSerialNumber("V95693")
+    		 .setPrice(1499.95)
+    		 .setBuilder(Builder.FENDER)
+    		 .setModel("Stratocastor")
+    		 .setType(Type.ELECTRIC)
+    		 .setBackWood(Wood.ALDER)
+    		 .setTopWood(Wood.ALDER);
+    inventory.addGuitar(guitarBuilder.makeGuitar());
+    
+    guitarBuilder.setSerialNumber("V9512")
+    		 .setPrice(1549.95)
+    		 .setBuilder(Builder.FENDER)
+    		 .setModel("Stratocastor")
+    		 .setType(Type.ELECTRIC)
+    		 .setBackWood(Wood.ALDER)
+    		 .setTopWood(Wood.ALDER);
+    inventory.addGuitar(guitarBuilder.makeGuitar());
+    
+    guitarBuilder.setSerialNumber("122784")
+    		 .setPrice(5495.95)
+    		 .setBuilder(Builder.MARTIN)
+    		 .setModel("D-18")
+    		 .setType(Type.ACOUSTIC)
+    		 .setBackWood(Wood.MAHOGANY)
+    		 .setTopWood(Wood.ADIRONDACK);
+    inventory.addGuitar(guitarBuilder.makeGuitar());
+    
+    guitarBuilder.setSerialNumber("76531")
+    		 .setPrice(6295.95)
+    		 .setBuilder(Builder.MARTIN)
+    		 .setModel("OM-28")
+    		 .setType(Type.ACOUSTIC)
+    		 .setBackWood(Wood.BRAZILIAN_ROSEWOOD)
+    		 .setTopWood(Wood.ADIRONDACK);
+    inventory.addGuitar(guitarBuilder.makeGuitar());
+    
+    guitarBuilder.setSerialNumber("70108276")
+    		 .setPrice(2295.95)
+    		 .setBuilder(Builder.GIBSON)
+    		 .setModel("Les Paul")
+    		 .setType(Type.ELECTRIC)
+    		 .setBackWood(Wood.MAHOGANY)
+    		 .setTopWood(Wood.MAHOGANY);
+    inventory.addGuitar(guitarBuilder.makeGuitar());
+
+    guitarBuilder.setSerialNumber("82765501")
+    		 .setPrice(1890.95)
+    		 .setBuilder(Builder.GIBSON)
+    		 .setModel("SG '61 Reissue")
+    		 .setType(Type.ELECTRIC)
+    		 .setBackWood(Wood.MAHOGANY)
+    		 .setTopWood(Wood.MAHOGANY);
+    inventory.addGuitar(guitarBuilder.makeGuitar());
+    
+    guitarBuilder.setSerialNumber("77023")
+    		 .setPrice(6275.95)
+    		 .setBuilder(Builder.MARTIN)
+    		 .setModel("D-28")
+    		 .setType(Type.ACOUSTIC)
+    		 .setBackWood(Wood.BRAZILIAN_ROSEWOOD)
+    		 .setTopWood(Wood.ADIRONDACK);
+    inventory.addGuitar(guitarBuilder.makeGuitar());
+    
+    guitarBuilder.setSerialNumber("1092")
+    		 .setPrice(12995.95)
+    		 .setBuilder(Builder.OLSON)
+    		 .setModel("SJ")
+    		 .setType(Type.ACOUSTIC)
+    		 .setBackWood(Wood.INDIAN_ROSEWOOD)
+    		 .setTopWood(Wood.CEDAR);
+    inventory.addGuitar(guitarBuilder.makeGuitar());
+    
+    guitarBuilder.setSerialNumber("566-62")
+    		 .setPrice(8999.95)
+    		 .setBuilder(Builder.RYAN)
+    		 .setModel("Cathedral")
+    		 .setType(Type.ACOUSTIC)
+    		 .setBackWood(Wood.COCOBOLO)
+    		 .setTopWood(Wood.CEDAR);
+    inventory.addGuitar(guitarBuilder.makeGuitar());
+    
+    guitarBuilder.setSerialNumber("6 29584")
+    		 .setPrice(2100.95)
+    		 .setBuilder(Builder.PRS)
+    		 .setModel("Dave Navarro Signature")
+    		 .setType(Type.ELECTRIC)
+    		 .setBackWood(Wood.MAHOGANY)
+    		 .setTopWood(Wood.MAPLE);
+    inventory.addGuitar(guitarBuilder.makeGuitar());
+  }
 }
