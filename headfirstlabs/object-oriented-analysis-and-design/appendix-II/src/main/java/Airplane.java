@@ -12,5 +12,4 @@ public class Airplane {
     public int getSpeed() {
         return speed;
     }
-
 }
