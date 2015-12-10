@@ -1,6 +1,6 @@
 /*
  * Design Pattern
- * Creational - Abstract Method
+ * Creational - Abstract Factory
  * 
  */
 
@@ -19,14 +19,14 @@ public class Main {
         AbstractFactory factory2 = new ConcreteFactory2();
 
         AbstractProductA a1 = factory1.createProductA();
-        AbstractProductA a2 = factory2.createProductA();
-
         AbstractProductB b1 = factory1.createProductB();
+
+        AbstractProductA a2 = factory2.createProductA();
         AbstractProductB b2 = factory2.createProductB();
 
         System.out.println(a1);
-        System.out.println(a2);
         System.out.println(b1);
+        System.out.println(a2);
         System.out.println(b2);
     }
 }
