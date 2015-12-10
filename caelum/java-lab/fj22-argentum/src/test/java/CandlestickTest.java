@@ -1,3 +1,5 @@
+import static org.junit.Assert.assertEquals;
+
 import java.util.Calendar;
 
 import org.junit.Test;
@@ -39,5 +41,12 @@ public class CandlestickTest {
     @Test(expected = IllegalArgumentException.class)
     public void volumeNaoPodeSerNegativo() {
         new Candlestick(10, 20, 10, 20, -10000, Calendar.getInstance());
+    }
+
+    @Test
+    public void quandoAberturaIgualFechamentoEhAlta() {
+        Candlestick candle = new Candlestick(10, 10, 10, 20, 10000, Calendar.getInstance());
+        assertEquals(true, candle.isAlta());
+        assertEquals(false, candle.isBaixa());
     }
 }
