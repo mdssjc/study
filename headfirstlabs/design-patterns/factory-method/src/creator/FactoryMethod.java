@@ -1,13 +1,9 @@
 package creator;
 
-import product.ClassGeneral;
+import product.Product;
 
 public abstract class FactoryMethod {
-    protected String name;
 
-    public abstract ClassGeneral makeClass();
+    public abstract Product factoryMethod();
 
-    public void onSetName(String name) {
-        this.name = name;
-    }
 }
