@@ -1,5 +1,6 @@
 package argentum.modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 final public class Negociacao {
@@ -37,5 +38,10 @@ final public class Negociacao {
         return this.data.get(Calendar.DAY_OF_MONTH) == outraData.get(Calendar.DAY_OF_MONTH)
                 && this.data.get(Calendar.MONTH) == outraData.get(Calendar.MONTH)
                 && this.data.get(Calendar.YEAR) == outraData.get(Calendar.YEAR);
+    }
+
+    public String toString() {
+        return String.format("Preço: %.2f / Quantidade: %d (%s)", getPreco(), getQuantidade(),
+                new SimpleDateFormat("dd/MM/yyyy").format(getData().getTime()));
     }
 }
