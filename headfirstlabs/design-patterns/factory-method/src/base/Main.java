@@ -1,6 +1,6 @@
 /*
  * Design Pattern
- * Creational - Factory Method
+ * Creational - Factory Method (Virtual Constructor)
  * 
  */
 
