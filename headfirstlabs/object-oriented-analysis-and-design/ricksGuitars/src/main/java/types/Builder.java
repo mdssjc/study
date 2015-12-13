@@ -1,14 +1,8 @@
 package types;
+
 public enum Builder {
 
-    FENDER,
-    MARTIN,
-    GIBSON,
-    COLLINGS,
-    OLSON,
-    RYAN,
-    PRS,
-    ANY;
+    FENDER, MARTIN, GIBSON, COLLINGS, OLSON, RYAN, PRS, ANY;
 
     public String toString() {
         switch (this) {

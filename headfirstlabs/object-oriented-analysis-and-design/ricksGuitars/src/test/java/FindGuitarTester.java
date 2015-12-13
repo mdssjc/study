@@ -36,7 +36,7 @@ public class FindGuitarTester {
     }
 
     private static void initializeInventory(Inventory<Guitar> inventory) {
-        inventory.addGuitar(new GuitarBuilder()
+        inventory.add(new GuitarBuilder()
                 .setSerialNumber("11277")
                 .setPrice(3999.95)
                 .setBuilder(Builder.COLLINGS)
@@ -47,7 +47,7 @@ public class FindGuitarTester {
                 .setTopWood(Wood.SITKA)
                 .makeGuitar());
 
-        inventory.addGuitar(new GuitarBuilder()
+        inventory.add(new GuitarBuilder()
                 .setSerialNumber("V95693")
                 .setPrice(1499.95)
                 .setBuilder(Builder.FENDER)
@@ -58,7 +58,7 @@ public class FindGuitarTester {
                 .setTopWood(Wood.ALDER)
                 .makeGuitar());
 
-        inventory.addGuitar(new GuitarBuilder()
+        inventory.add(new GuitarBuilder()
                 .setSerialNumber("V9512")
                 .setPrice(1549.95)
                 .setBuilder(Builder.FENDER)
@@ -69,7 +69,7 @@ public class FindGuitarTester {
                 .setTopWood(Wood.ALDER)
                 .makeGuitar());
 
-        inventory.addGuitar(new GuitarBuilder()
+        inventory.add(new GuitarBuilder()
                 .setSerialNumber("122784")
                 .setPrice(5495.95)
                 .setBuilder(Builder.MARTIN)
@@ -80,7 +80,7 @@ public class FindGuitarTester {
                 .setTopWood(Wood.ADIRONDACK)
                 .makeGuitar());
 
-        inventory.addGuitar(new GuitarBuilder()
+        inventory.add(new GuitarBuilder()
                 .setSerialNumber("76531")
                 .setPrice(6295.95)
                 .setBuilder(Builder.MARTIN)
@@ -91,7 +91,7 @@ public class FindGuitarTester {
                 .setTopWood(Wood.ADIRONDACK)
                 .makeGuitar());
 
-        inventory.addGuitar(new GuitarBuilder()
+        inventory.add(new GuitarBuilder()
                 .setSerialNumber("70108276")
                 .setPrice(2295.95)
                 .setBuilder(Builder.GIBSON)
@@ -102,7 +102,7 @@ public class FindGuitarTester {
                 .setTopWood(Wood.MAHOGANY)
                 .makeGuitar());
 
-        inventory.addGuitar(new GuitarBuilder()
+        inventory.add(new GuitarBuilder()
                 .setSerialNumber("82765501")
                 .setPrice(1890.95)
                 .setBuilder(Builder.GIBSON)
@@ -113,7 +113,7 @@ public class FindGuitarTester {
                 .setTopWood(Wood.MAHOGANY)
                 .makeGuitar());
 
-        inventory.addGuitar(new GuitarBuilder()
+        inventory.add(new GuitarBuilder()
                 .setSerialNumber("77023")
                 .setPrice(6275.95)
                 .setBuilder(Builder.MARTIN)
@@ -124,7 +124,7 @@ public class FindGuitarTester {
                 .setTopWood(Wood.ADIRONDACK)
                 .makeGuitar());
 
-        inventory.addGuitar(new GuitarBuilder()
+        inventory.add(new GuitarBuilder()
                 .setSerialNumber("1092")
                 .setPrice(12995.95)
                 .setBuilder(Builder.OLSON)
@@ -135,7 +135,7 @@ public class FindGuitarTester {
                 .setTopWood(Wood.CEDAR)
                 .makeGuitar());
 
-        inventory.addGuitar(new GuitarBuilder()
+        inventory.add(new GuitarBuilder()
                 .setSerialNumber("566-62")
                 .setPrice(8999.95)
                 .setBuilder(Builder.RYAN)
@@ -146,7 +146,7 @@ public class FindGuitarTester {
                 .setTopWood(Wood.CEDAR)
                 .makeGuitar());
 
-        inventory.addGuitar(new GuitarBuilder()
+        inventory.add(new GuitarBuilder()
                 .setSerialNumber("6 29584")
                 .setPrice(2100.95)
                 .setBuilder(Builder.PRS)

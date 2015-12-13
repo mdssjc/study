@@ -4,35 +4,33 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import base.builder.GuitarBuilder;
-
 public class Inventory<T> {
-    private List<Guitar> list;
+    private List<T> list;
 
     public Inventory() {
-        list = new LinkedList<Guitar>();
+        list = new LinkedList<T>();
     }
 
-    public void addGuitar(Guitar type) {
+    public void add(T type) {
         list.add(type);
     }
 
-    public Guitar getGuitar(String serialNumber) {
-        for (Guitar guitar : list) {
-            if (guitar.getSerialNumber().equals(serialNumber)) {
-                return guitar;
+    public T get(String id) {
+        for (T element : list) {
+            if (element.equals(id)) {
+                return element;
             }
         }
         return null;
     }
 
-    public List<Guitar> search(GuitarSpec searchGuitar) {
-        List<Guitar> matchingGuitars = new ArrayList<>();
-        for (Guitar guitar : list) {
-            if (guitar.getSpec().matches(searchGuitar)) {
-                matchingGuitars.add(guitar);
+    public List<T> search(Object search) {
+        List<T> matching = new ArrayList<>();
+        for (T element : list) {
+            if (element.equals(search)) {
+                matching.add(element);
             }
         }
-        return matchingGuitars;
+        return matching;
     }
 }

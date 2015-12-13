@@ -31,4 +31,16 @@ public class Guitar {
     public void setSpec(GuitarSpec spec) {
         this.spec = spec;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Guitar) {
+            return this.serialNumber.equals(((Guitar) other).getSerialNumber());
+        } else if (other instanceof GuitarSpec) {
+            return spec.matches((GuitarSpec) other);
+        } else if (other instanceof String) {
+            return this.serialNumber.equals((String) other);
+        }
+        return false;
+    }
 }

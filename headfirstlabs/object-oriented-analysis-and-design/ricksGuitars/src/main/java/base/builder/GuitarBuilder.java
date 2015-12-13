@@ -60,7 +60,6 @@ public class GuitarBuilder {
     }
 
     public Guitar makeGuitar() {
-        return new Guitar(serialNumber, price, new GuitarSpec(builder, model,
-                type, numStrings, backWood, topWood));
+        return new Guitar(serialNumber, price, new GuitarSpec(builder, model, type, numStrings, backWood, topWood));
     }
 }

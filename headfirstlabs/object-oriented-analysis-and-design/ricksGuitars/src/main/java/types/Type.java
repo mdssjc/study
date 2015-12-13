@@ -1,8 +1,8 @@
 package types;
+
 public enum Type {
 
-    ACOUSTIC,
-    ELECTRIC;
+    ACOUSTIC, ELECTRIC;
 
     public String toString() {
         switch (this) {
