@@ -1,6 +1,6 @@
 /*
  * Design Pattern
- * Creational - Abstract Factory
+ * Creational - Abstract Factory (Kit)
  * 
  */
 
