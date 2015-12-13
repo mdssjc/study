@@ -1,6 +1,6 @@
 /*
  * Design Pattern
- * Structural - Decorator
+ * Structural - Decorator (Wrapper)
  * 
  */
 
@@ -14,18 +14,18 @@ import decorator.Decorator2;
 public class Main {
 
     public static void main(String[] args) {
-	Component counter = new ConcreteComponent();
+        Component counter = new ConcreteComponent();
 
-	System.out.println(counter.text());
-	counter.inc();
-	counter.inc();
-	counter.inc();
-	System.out.println(counter.text());
+        System.out.println(counter.text());
+        counter.inc();
+        counter.inc();
+        counter.inc();
+        System.out.println(counter.text());
 
-	counter = new Decorator(counter);
-	counter.inc();
-	System.out.println(counter.text());
-	counter = new Decorator2(counter);
-	System.out.println(counter.text());
+        counter = new Decorator(counter);
+        counter.inc();
+        System.out.println(counter.text());
+        counter = new Decorator2(counter);
+        System.out.println(counter.text());
     }
 }
