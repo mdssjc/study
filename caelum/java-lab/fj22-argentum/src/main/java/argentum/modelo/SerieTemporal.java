@@ -5,15 +5,15 @@ import java.util.Optional;
 
 public class SerieTemporal {
 
-    private final List<Candlestick> candles;
+    private final List<Candle> candles;
 
-    public SerieTemporal(List<Candlestick> candles) {
+    public SerieTemporal(List<Candle> candles) {
         this.candles = Optional.ofNullable(candles)
                                .orElseThrow(() -> new IllegalArgumentException(
                                        "a lista de candles não pode ser nula."));
     }
 
-    public Candlestick getCandle(int i) {
+    public Candle getCandle(int i) {
         return this.candles.get(i);
     }
 

@@ -1,6 +1,6 @@
 package argentum.indicadores;
 
-import argentum.modelo.Candlestick;
+import argentum.modelo.Candle;
 import argentum.modelo.SerieTemporal;
 
 public class MediaMovelPonderada {
@@ -10,7 +10,7 @@ public class MediaMovelPonderada {
         int peso = 3;
 
         for (int i = posicao; i > posicao - 3; i--) {
-            Candlestick c = serie.getCandle(i);
+            Candle c = serie.getCandle(i);
             soma += c.getFechamento() * peso;
             peso--;
         }

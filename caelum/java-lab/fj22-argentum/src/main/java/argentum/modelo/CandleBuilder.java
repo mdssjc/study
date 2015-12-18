@@ -50,13 +50,13 @@ public class CandleBuilder {
         return this;
     }
 
-    public Candlestick geraCandle() {
+    public Candle geraCandle() {
         for (boolean flag : flags) {
             if (!flag) {
                 throw new IllegalStateException("Não está chamando a criacação de todos os valores.");
             }
         }
 
-        return new Candlestick(abertura, fechamento, minimo, maximo, volume, data);
+        return new Candle(abertura, fechamento, minimo, maximo, volume, data);
     }
 }

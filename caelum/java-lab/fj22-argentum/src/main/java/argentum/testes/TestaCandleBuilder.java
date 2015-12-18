@@ -3,11 +3,11 @@ package argentum.testes;
 import java.util.GregorianCalendar;
 
 import argentum.modelo.CandleBuilder;
-import argentum.modelo.Candlestick;
+import argentum.modelo.Candle;
 
 public class TestaCandleBuilder {
     public static void main(String[] args) {
-        Candlestick candle = new CandleBuilder()
+        Candle candle = new CandleBuilder()
                 .comAbertura(40.5)
                 .comFechamento(42.3)
                 .comMinimo(39.8)
