@@ -1,6 +1,6 @@
 /*
  * Design Pattern
- * Behavioral - Command
+ * Behavioral - Command (Action, Transaction)
  * 
  */
 package base;
