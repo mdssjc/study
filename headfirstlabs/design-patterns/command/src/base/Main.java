@@ -22,5 +22,6 @@ public class Main {
         invoker.setCommand(command);
 
         invoker.play();
+        invoker.reverse();
     }
 }

@@ -18,4 +18,8 @@ public class Invoker {
     public void play() {
         this.command.execute();
     }
+
+    public void reverse() {
+        this.command.undo();
+    }
 }

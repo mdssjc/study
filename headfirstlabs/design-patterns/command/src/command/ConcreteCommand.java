@@ -16,4 +16,11 @@ public class ConcreteCommand implements Command {
         receiver.messageTwo();
         receiver.messageThree();
     }
+
+    @Override
+    public void undo() {
+        receiver.messageThree();
+        receiver.messageTwo();
+        receiver.messageOne();
+    }
 }
