@@ -1,16 +1,16 @@
 package argentum.modelo;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SerieTemporal {
 
     private final List<Candlestick> candles;
 
     public SerieTemporal(List<Candlestick> candles) {
-        if (candles == null) {
-            throw new IllegalArgumentException("a lista de candles não pode ser nula.");
-        }
-        this.candles = candles;
+        this.candles = Optional.ofNullable(candles)
+                               .orElseThrow(() -> new IllegalArgumentException(
+                                       "a lista de candles não pode ser nula."));
     }
 
     public Candlestick getCandle(int i) {
