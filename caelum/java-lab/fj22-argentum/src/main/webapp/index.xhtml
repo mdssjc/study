@@ -8,6 +8,8 @@
     <title>Argentum Web</title>
 </h:head>
 <h:body>
+    <p:chart type="line" model="#{argentumBean.modeloGrafico}" />
+
     <h:form id="listaNegociacao">
         <p:dataTable var="negociacao"
             value="#{argentumBean.negociacoes}" paginator="true"
