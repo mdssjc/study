@@ -3,7 +3,7 @@ package argentum.indicadores;
 import argentum.modelo.Candle;
 import argentum.modelo.SerieTemporal;
 
-public class MediaMovelPonderada {
+public class MediaMovelPonderada implements Indicador {
 
     public double calcula(int posicao, SerieTemporal serie) {
         double soma = 0.0;
