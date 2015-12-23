@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.chart.ChartModel;
 
 import argentum.grafico.GeradorModeloGrafico;
+import argentum.indicadores.MediaMovelSimples;
 import argentum.modelo.Candle;
 import argentum.modelo.CandleFactory;
 import argentum.modelo.Negociacao;
@@ -30,7 +31,7 @@ public class ArgentumBean implements Serializable {
 
         GeradorModeloGrafico geradorGrafico = new GeradorModeloGrafico(serie, 2,
                 serie.getUltimaPosicao());
-        geradorGrafico.plotaMediaMovelSimples();
+        geradorGrafico.plotaIndicador(new MediaMovelSimples());
         this.modeloGrafico = geradorGrafico.getModeloGrafico();
     }
 

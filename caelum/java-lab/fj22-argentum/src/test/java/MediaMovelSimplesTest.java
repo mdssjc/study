@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import argentum.indicadores.Indicador;
 import argentum.indicadores.MediaMovelSimples;
 import argentum.modelo.SerieTemporal;
 import argentum.testes.GeradorDeSerie;
@@ -12,7 +13,7 @@ public class MediaMovelSimplesTest {
     public void sequenciaSimplesDeCandles() throws Exception {
         SerieTemporal serie = GeradorDeSerie.criaSerie(1, 2, 3, 4, 3, 4, 5, 4,
                 3);
-        MediaMovelSimples mms = new MediaMovelSimples();
+        Indicador mms = new MediaMovelSimples();
 
         assertEquals(2.0, mms.calcula(2, serie), 0.00001);
         assertEquals(3.0, mms.calcula(3, serie), 0.00001);
