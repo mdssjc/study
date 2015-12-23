@@ -13,4 +13,9 @@ public class MediaMovelSimples implements Indicador {
         }
         return soma / 3;
     }
+
+    @Override
+    public String toString() {
+        return "MMS de Fechamento";
+    }
 }

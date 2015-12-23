@@ -9,4 +9,9 @@ public class IndicadorFechamento implements Indicador {
         return serie.getCandle(posicao)
                     .getFechamento();
     }
+
+    @Override
+    public String toString() {
+        return "Fechamento";
+    }
 }
