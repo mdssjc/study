@@ -1,13 +1,14 @@
 package argentum.indicadores;
 
-import argentum.modelo.Candle;
 import argentum.modelo.SerieTemporal;
 
 public class MediaMovelPonderada implements Indicador {
 
-    private int intervalo;
+    private int       intervalo;
+    private Indicador outroIndicador;
 
-    public MediaMovelPonderada(int intervalo) {
+    public MediaMovelPonderada(Indicador outroIndicador, int intervalo) {
+        this.outroIndicador = outroIndicador;
         this.intervalo = intervalo;
     }
 
@@ -18,8 +19,7 @@ public class MediaMovelPonderada implements Indicador {
         int fatorial = 1;
 
         for (int i = posicao; i > posicao - intervalo; i--) {
-            Candle c = serie.getCandle(i);
-            soma += c.getFechamento() * peso;
+            soma += outroIndicador.calcula(i, serie) * peso;
             peso--;
         }
 

@@ -4,9 +4,11 @@ import argentum.modelo.SerieTemporal;
 
 public class MediaMovelSimples implements Indicador {
 
-    private int intervalo;
+    private int       intervalo;
+    private Indicador outroIndicador;
 
-    public MediaMovelSimples(int intervalo) {
+    public MediaMovelSimples(Indicador outroIndicador, int intervalo) {
+        this.outroIndicador = outroIndicador;
         this.intervalo = intervalo;
     }
 
@@ -14,8 +16,7 @@ public class MediaMovelSimples implements Indicador {
     public double calcula(int posicao, SerieTemporal serie) {
         double soma = 0.0;
         for (int i = posicao; i > posicao - intervalo; i--) {
-            soma += serie.getCandle(i)
-                         .getFechamento();
+            soma += outroIndicador.calcula(i, serie);
         }
         return soma / intervalo;
     }

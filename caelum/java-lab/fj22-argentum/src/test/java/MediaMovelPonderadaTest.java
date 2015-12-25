@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import argentum.indicadores.IndicadorFechamento;
 import argentum.indicadores.MediaMovelPonderada;
 import argentum.modelo.SerieTemporal;
 import argentum.testes.GeradorDeSerie;
@@ -11,7 +12,7 @@ public class MediaMovelPonderadaTest {
     @Test
     public void sequenciaSimplesDeCandles() {
         SerieTemporal serie = GeradorDeSerie.criaSerie(1, 2, 3, 4, 5, 6);
-        MediaMovelPonderada mmp = new MediaMovelPonderada(3);
+        MediaMovelPonderada mmp = new MediaMovelPonderada(new IndicadorFechamento(),3);
 
         // ex: calcula(2): 1*1 + 2*2 + 3*3 = 14.
         // Divide por 6, da 14/6.
@@ -20,7 +21,7 @@ public class MediaMovelPonderadaTest {
         assertEquals(26.0 / 6, mmp.calcula(4, serie), 0.00001);
         assertEquals(32.0 / 6, mmp.calcula(5, serie), 0.00001);
 
-        mmp = new MediaMovelPonderada(4);
+        mmp = new MediaMovelPonderada(new IndicadorFechamento(),4);
 
         // ex: calcula(2): 1*1 + 2*2 + 3*3 + 4*4 = 30.
         // Divide por 24, da 30/24.
