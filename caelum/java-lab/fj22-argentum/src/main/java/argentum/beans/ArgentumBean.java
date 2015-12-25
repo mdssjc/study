@@ -20,6 +20,7 @@ import argentum.ws.ClienteWebService;
 @ViewScoped
 public class ArgentumBean implements Serializable {
 
+    private static final int  INTERVALO        = 3;
     private static final long serialVersionUID = 1L;
     private List<Negociacao>  negociacoes;
     private ChartModel        modeloGrafico;
@@ -31,7 +32,7 @@ public class ArgentumBean implements Serializable {
 
         GeradorModeloGrafico geradorGrafico = new GeradorModeloGrafico(serie, 2,
                 serie.getUltimaPosicao());
-        geradorGrafico.plotaIndicador(new MediaMovelSimples());
+        geradorGrafico.plotaIndicador(new MediaMovelSimples(INTERVALO));
         this.modeloGrafico = geradorGrafico.getModeloGrafico();
     }
 
