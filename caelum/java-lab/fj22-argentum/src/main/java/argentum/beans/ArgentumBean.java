@@ -1,7 +1,6 @@
 package argentum.beans;
 
 import java.io.Serializable;
-import java.lang.reflect.Constructor;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -10,9 +9,7 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.chart.ChartModel;
 
 import argentum.grafico.GeradorModeloGrafico;
-import argentum.indicadores.Indicador;
-import argentum.indicadores.IndicadorFechamento;
-import argentum.indicadores.MediaMovelSimples;
+import argentum.indicadores.factory.IndicadorFactory;
 import argentum.modelo.Candle;
 import argentum.modelo.CandleFactory;
 import argentum.modelo.Negociacao;
@@ -23,7 +20,6 @@ import argentum.ws.ClienteWebService;
 @ViewScoped
 public class ArgentumBean implements Serializable {
 
-    private static final int  INTERVALO        = 3;
     private static final long serialVersionUID = 1L;
     private List<Negociacao>  negociacoes;
     private ChartModel        modeloGrafico;
@@ -67,31 +63,9 @@ public class ArgentumBean implements Serializable {
 
         GeradorModeloGrafico geradorGrafico = new GeradorModeloGrafico(serie, 2,
                 serie.getUltimaPosicao());
-        geradorGrafico.plotaIndicador(defineIndicador());
+        IndicadorFactory factory = new IndicadorFactory(nomeMedia,
+                nomeIndicadorBase);
+        geradorGrafico.plotaIndicador(factory.defineIndicador());
         this.modeloGrafico = geradorGrafico.getModeloGrafico();
-    }
-
-    public Indicador defineIndicador() {
-        if (nomeIndicadorBase == null || nomeMedia == null) {
-            return new MediaMovelSimples(new IndicadorFechamento(), INTERVALO);
-        }
-
-        try {
-            String pacote = "argentum.indicadores.";
-            Class<?> classeIndicadorBase = Class.forName(
-                    pacote + nomeIndicadorBase);
-            Indicador indicadorBase = (Indicador) classeIndicadorBase.newInstance();
-
-            Class<?> classeMedia = Class.forName(pacote + nomeMedia);
-            Constructor<?> construtorMedia = classeMedia.getConstructor(
-                    Indicador.class, int.class);
-
-            Indicador indicador = (Indicador) construtorMedia.newInstance(
-                    indicadorBase, INTERVALO);
-
-            return indicador;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }
