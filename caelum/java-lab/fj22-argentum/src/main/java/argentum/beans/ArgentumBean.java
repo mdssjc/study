@@ -25,17 +25,12 @@ public class ArgentumBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private List<Negociacao>  negociacoes;
     private ChartModel        modeloGrafico;
+    private String            nomeMedia;
+    private String            nomeIndicadorBase;
 
     public ArgentumBean() {
         this.negociacoes = new ClienteWebService().getNegociacoes();
-        List<Candle> candles = new CandleFactory().constroiCandles(negociacoes);
-        SerieTemporal serie = new SerieTemporal(candles);
-
-        GeradorModeloGrafico geradorGrafico = new GeradorModeloGrafico(serie, 2,
-                serie.getUltimaPosicao());
-        geradorGrafico.plotaIndicador(
-                new MediaMovelSimples(new IndicadorFechamento(), INTERVALO));
-        this.modeloGrafico = geradorGrafico.getModeloGrafico();
+        geraGrafico();
     }
 
     public List<Negociacao> getNegociacoes() {
@@ -44,5 +39,34 @@ public class ArgentumBean implements Serializable {
 
     public ChartModel getModeloGrafico() {
         return this.modeloGrafico;
+    }
+
+    public String getNomeMedia() {
+        return nomeMedia;
+    }
+
+    public void setNomeMedia(String nomeMedia) {
+        this.nomeMedia = nomeMedia;
+    }
+
+    public String getNomeIndicadorBase() {
+        return nomeIndicadorBase;
+    }
+
+    public void setNomeIndicadorBase(String nomeIndicadorBase) {
+        this.nomeIndicadorBase = nomeIndicadorBase;
+    }
+
+    public void geraGrafico() {
+        System.out.println(
+                "PLOTANDO: " + nomeMedia + " de " + nomeIndicadorBase);
+        List<Candle> candles = new CandleFactory().constroiCandles(negociacoes);
+        SerieTemporal serie = new SerieTemporal(candles);
+
+        GeradorModeloGrafico geradorGrafico = new GeradorModeloGrafico(serie, 2,
+                serie.getUltimaPosicao());
+        geradorGrafico.plotaIndicador(
+                new MediaMovelSimples(new IndicadorFechamento(), INTERVALO));
+        this.modeloGrafico = geradorGrafico.getModeloGrafico();
     }
 }
