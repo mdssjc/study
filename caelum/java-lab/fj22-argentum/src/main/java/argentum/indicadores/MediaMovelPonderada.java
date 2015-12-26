@@ -32,6 +32,6 @@ public class MediaMovelPonderada implements Indicador {
 
     @Override
     public String toString() {
-        return "MMP de Fechamento";
+        return "MMP de " + outroIndicador;
     }
 }
