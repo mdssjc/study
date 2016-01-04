@@ -5,9 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 
 @Singleton
+@Startup
 public class ChatBean {
 
     private Set<String> salas = new HashSet<>();
@@ -18,5 +22,15 @@ public class ChatBean {
 
     public List<String> listaSalas() {
         return new ArrayList<String>(salas);
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("Criando o ChatBean...");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("Destruindo o ChatBean...");
     }
 }
