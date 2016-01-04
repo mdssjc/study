@@ -6,7 +6,6 @@ import javax.ejb.Remote;
 import javax.ejb.Singleton;
 
 @Singleton
-@Lock(LockType.READ)
 @Remote(Contador.class)
 public class ContadorBean implements Contador {
 
@@ -18,6 +17,7 @@ public class ContadorBean implements Contador {
     }
 
     @Override
+    @Lock(LockType.READ)
     public int getValor() {
         return valor;
     }
