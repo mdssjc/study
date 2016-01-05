@@ -1,8 +1,7 @@
-
 /*
  * Design Pattern
  * Structural - Facade
- * 
+ *
  */
 package base;
 
