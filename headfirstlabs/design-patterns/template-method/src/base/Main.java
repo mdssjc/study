@@ -5,8 +5,8 @@
  */
 package base;
 
-import template.ApplicationClassA;
-import template.ApplicationClassB;
+import application.ApplicationClassA;
+import application.ApplicationClassB;
 
 public class Main {
 

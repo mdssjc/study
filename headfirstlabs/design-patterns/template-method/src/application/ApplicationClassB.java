@@ -1,4 +1,6 @@
-package template;
+package application;
+
+import framework.FrameworkClass;
 
 public class ApplicationClassB extends FrameworkClass {
 

@@ -1,4 +1,4 @@
-package template;
+package framework;
 
 public abstract class FrameworkClass {
 
