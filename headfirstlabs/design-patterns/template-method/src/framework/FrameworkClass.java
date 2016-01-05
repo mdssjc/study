@@ -6,13 +6,18 @@ public abstract class FrameworkClass {
         stepOne();
         stepTwo();
         stepThree();
+        hook();
     }
 
-    public abstract void stepThree();
+    public final void stepOne() {
+        System.out.println("STEP ONE - Framework");
+    }
 
     public abstract void stepTwo();
 
-    public void stepOne() {
-        System.out.println("STEP ONE - Framework");
+    public abstract void stepThree();
+
+    public void hook() {
+
     }
 }
