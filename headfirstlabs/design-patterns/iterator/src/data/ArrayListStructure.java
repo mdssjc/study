@@ -20,7 +20,7 @@ public class ArrayListStructure implements DataIterator {
 
     @Override
     public Iterator<Integer> createIterator() {
-        return new ArrayListIterator(getValues());
+        return new ArrayListIterator(values);
     }
 
     public List<Integer> getValues() {
