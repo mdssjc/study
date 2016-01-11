@@ -21,16 +21,16 @@ public class Main {
         Iterator<Integer> iteratorA = dataArray.createIterator();
         Iterator<Integer> iteratorB = dataArrayList.createIterator();
 
-        System.out.println("--1--");
+        System.out.println("-- 1 --");
         dataArray.internalIterator(print());
 
-        System.out.println("--2--");
+        System.out.println("-- 2 --");
         dataArrayList.internalIterator(print());
 
-        System.out.println("--3--");
+        System.out.println("-- 3 --");
         print(iteratorA);
 
-        System.out.println("--4--");
+        System.out.println("-- 4 --");
         print(iteratorB);
     }
 
@@ -40,7 +40,7 @@ public class Main {
      * @return consumer
      */
     public static Consumer<? super Integer> print() {
-        return x -> System.out.println(x);
+        return System.out::println;
     }
 
     /**
