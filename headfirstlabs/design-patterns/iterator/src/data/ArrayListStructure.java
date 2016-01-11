@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 
 import iterator.ArrayListIterator;
 
-public class ArrayListStructure {
+public class ArrayListStructure implements DataIterator {
 
     private List<Integer> values;
 
@@ -18,6 +18,7 @@ public class ArrayListStructure {
                            .collect(Collectors.toList()));
     }
 
+    @Override
     public Iterator<Integer> createIterator() {
         return new ArrayListIterator(getValues());
     }

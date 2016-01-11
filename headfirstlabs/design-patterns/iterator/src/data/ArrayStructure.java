@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 
 import iterator.ArrayIterator;
 
-public class ArrayStructure {
+public class ArrayStructure implements DataIterator {
 
     private int[] values;
 
@@ -15,6 +15,7 @@ public class ArrayStructure {
                            .toArray());
     }
 
+    @Override
     public Iterator<Integer> createIterator() {
         return new ArrayIterator(values);
     }

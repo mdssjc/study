@@ -9,15 +9,16 @@ import java.util.Iterator;
 
 import data.ArrayListStructure;
 import data.ArrayStructure;
+import data.DataIterator;
 
 public class Main {
 
     public static void main(String[] args) {
-        ArrayStructure array = new ArrayStructure();
-        ArrayListStructure list = new ArrayListStructure();
+        DataIterator dataArray = new ArrayStructure();
+        DataIterator dataArrayList = new ArrayListStructure();
 
-        Iterator<Integer> iteratorA = array.createIterator();
-        Iterator<Integer> iteratorB = list.createIterator();
+        Iterator<Integer> iteratorA = dataArray.createIterator();
+        Iterator<Integer> iteratorB = dataArrayList.createIterator();
 
         print(iteratorA);
         print(iteratorB);
