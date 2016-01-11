@@ -1,4 +1,4 @@
-package data;
+package aggregate;
 
 import java.util.Iterator;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 
 import iterator.ArrayListIterator;
 
-public class ArrayListStructure implements DataIterator {
+public class ArrayListStructure implements AggregateIterator {
 
     private List<Integer> values;
 

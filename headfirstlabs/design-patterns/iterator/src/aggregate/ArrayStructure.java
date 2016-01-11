@@ -1,11 +1,11 @@
-package data;
+package aggregate;
 
 import java.util.Iterator;
 import java.util.stream.IntStream;
 
 import iterator.ArrayIterator;
 
-public class ArrayStructure implements DataIterator {
+public class ArrayStructure implements AggregateIterator {
 
     private int[] values;
 

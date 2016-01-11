@@ -7,15 +7,15 @@ package base;
 
 import java.util.Iterator;
 
-import data.ArrayListStructure;
-import data.ArrayStructure;
-import data.DataIterator;
+import aggregate.ArrayListStructure;
+import aggregate.ArrayStructure;
+import aggregate.AggregateIterator;
 
 public class Main {
 
     public static void main(String[] args) {
-        DataIterator dataArray = new ArrayStructure();
-        DataIterator dataArrayList = new ArrayListStructure();
+        AggregateIterator dataArray = new ArrayStructure();
+        AggregateIterator dataArrayList = new ArrayListStructure();
 
         Iterator<Integer> iteratorA = dataArray.createIterator();
         Iterator<Integer> iteratorB = dataArrayList.createIterator();

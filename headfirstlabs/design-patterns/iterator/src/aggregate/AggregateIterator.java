@@ -1,8 +1,8 @@
-package data;
+package aggregate;
 
 import java.util.Iterator;
 
-public interface DataIterator {
+public interface AggregateIterator {
 
     Iterator<Integer> createIterator();
 }
