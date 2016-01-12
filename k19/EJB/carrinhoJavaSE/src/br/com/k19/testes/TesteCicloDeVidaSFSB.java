@@ -1,7 +1,7 @@
 package br.com.k19.testes;
 
 import br.com.k19.sessionbeans.Carrinho;
-import br.com.k19.utils.Recursos;
+import br.com.k19.utils.LookupFactory;
 
 public class TesteCicloDeVidaSFSB {
 
@@ -12,7 +12,7 @@ public class TesteCicloDeVidaSFSB {
         Carrinho[] carrinhos = new Carrinho[6];
 
         for (int i = 0; i < carrinhos.length; i++) {
-            carrinhos[i] = Recursos.getCarrinho();
+            carrinhos[i] = (Carrinho) LookupFactory.makeLookUp();
             carrinhos[i].adiciona("Chaveiro - K19");
             carrinhos[i].adiciona("Caneta - K19");
             Thread.sleep(ONE_SECOND);
