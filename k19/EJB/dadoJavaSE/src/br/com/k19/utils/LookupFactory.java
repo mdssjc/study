@@ -5,12 +5,14 @@ import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
-import br.com.k19.sessionbeans.LancadorDeDado;
+public class LookupFactory {
 
-public class Recursos {
+    private static final String APP       = "dadoWeb";
+    private static final String BEAN      = "LancadorDeDadoBean";
+    private static final String INTERFACE = "LancadorDeDado";
 
     @SuppressWarnings("unused")
-    public static LancadorDeDado getLancadorDeDado() throws Exception {
+    public static Object makeLookUp() throws Exception {
         Properties properties = new Properties();
         properties.put(Context.INITIAL_CONTEXT_FACTORY,
                 "org.jboss.naming.remote.client.InitialContextFactory");
@@ -19,9 +21,9 @@ public class Recursos {
 
         Context ctx = new InitialContext(properties);
 
-        LancadorDeDado lancadorDeDado = (LancadorDeDado) ctx.lookup(
-                "dadoWeb/LancadorDeDadoBean!br.com.k19.sessionbeans.LancadorDeDado");
+        Object lookup = ctx.lookup(
+                APP + "/" + BEAN + "!br.com.k19.sessionbeans." + INTERFACE);
 
-        return lancadorDeDado;
+        return lookup;
     }
 }

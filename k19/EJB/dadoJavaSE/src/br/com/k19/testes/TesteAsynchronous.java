@@ -4,14 +4,14 @@ import java.util.Map;
 import java.util.concurrent.Future;
 
 import br.com.k19.sessionbeans.LancadorDeDado;
-import br.com.k19.utils.Recursos;
+import br.com.k19.utils.LookupFactory;
 
 public class TesteAsynchronous {
 
     private static final int WAIT = 100;
 
     public static void main(String[] args) throws Exception {
-        LancadorDeDado lancadorDeDado = Recursos.getLancadorDeDado();
+        LancadorDeDado lancadorDeDado = (LancadorDeDado) LookupFactory.makeLookUp();
         Future<Map<Integer, Integer>> future = lancadorDeDado.calculaFrequencia();
 
         System.out.println("Aguardando...");
