@@ -22,6 +22,15 @@
 
     <hr />
 
+    <h1>Produto Destaque</h1>
+    <h:outputLabel value="Nome: " />
+    <h:outputText value="#{produtoMB.produtoDestaque.nome}" />
+     - 
+    <h:outputLabel value="Preço: " />
+    <h:outputText value="#{produtoMB.produtoDestaque.preco}" />
+
+    <hr />
+
     <h1>Lista de Produtos</h1>
     <h:dataTable value="#{produtoMB.produtos}" var="produto">
         <h:column>
