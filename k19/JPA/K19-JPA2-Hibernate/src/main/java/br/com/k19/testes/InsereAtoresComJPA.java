@@ -13,13 +13,11 @@ public class InsereAtoresComJPA {
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(
                 "K21_livraria_pu");
-
         EntityManager manager = factory.createEntityManager();
 
         Autor autor = new Autor();
 
         Scanner entrada = new Scanner(System.in);
-
         System.out.println("Digite o nome do autor: ");
         autor.setNome(entrada.nextLine());
 

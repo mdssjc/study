@@ -13,13 +13,11 @@ public class InsereEditoraComJPA {
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(
                 "K21_livraria_pu");
-
         EntityManager manager = factory.createEntityManager();
 
         Editora novaEditora = new Editora();
 
         Scanner entrada = new Scanner(System.in);
-
         System.out.println("Digite o nome da editora: ");
         novaEditora.setNome(entrada.nextLine());
 

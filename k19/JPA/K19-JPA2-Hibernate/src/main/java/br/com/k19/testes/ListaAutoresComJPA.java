@@ -17,9 +17,7 @@ public class ListaAutoresComJPA {
         EntityManager manager = factory.createEntityManager();
 
         Query query = manager.createQuery("SELECT e FROM Autor e");
-
         List<Autor> autores = query.getResultList();
-
         for (Autor a : autores) {
             System.out.println("AUTOR: " + a.getNome());
         }
