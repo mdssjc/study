@@ -33,6 +33,7 @@ public class InsereEditoraComJPA {
         manager.getTransaction()
                .commit();
 
+        manager.close();
         factory.close();
     }
 }

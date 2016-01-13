@@ -30,6 +30,7 @@ public class InsereAtoresComJPA {
         manager.getTransaction()
                .commit();
 
+        manager.close();
         factory.close();
     }
 }

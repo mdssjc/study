@@ -21,5 +21,8 @@ public class ListaAutoresComJPA {
         for (Autor a : autores) {
             System.out.println("AUTOR: " + a.getNome());
         }
+
+        manager.close();
+        factory.close();
     }
 }

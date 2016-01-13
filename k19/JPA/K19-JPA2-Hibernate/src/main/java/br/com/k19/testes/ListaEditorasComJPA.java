@@ -22,5 +22,8 @@ public class ListaEditorasComJPA {
             System.out.println(
                     "EDITORA: " + e.getNome() + " - " + e.getEmail());
         }
+
+        manager.close();
+        factory.close();
     }
 }
