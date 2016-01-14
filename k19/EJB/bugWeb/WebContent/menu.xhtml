@@ -9,11 +9,8 @@
         <h:panelGrid>
             <h:commandLink action="#{authenticatorMB.logout}"
                 value="logout" />
-            <h:commandLink
-                action="#{request.contextPath}/projects.xhtml"
-                value="Projects" />
-            <h:commandLink action="#{request.contextPath}/bugs.xhtml"
-                value="Bugs" />
+            <h:commandLink action="projects" value="Projects" />
+            <h:commandLink action="bugs" value="Bugs" />
         </h:panelGrid>
     </h:form>
 </ui:composition>

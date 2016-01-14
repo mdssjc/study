@@ -24,7 +24,7 @@ public class AuthenticatorFilter implements Filter {
                                                .endsWith(req.getContextPath()
                                                        + "/login.xhtml")) {
             HttpServletResponse res = (HttpServletResponse) response;
-            res.sendRedirect(req.getContextPath() + "login.xhtml");
+            res.sendRedirect(req.getContextPath() + "/login.xhtml");
         } else {
             chain.doFilter(request, response);
         }
