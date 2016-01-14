@@ -10,7 +10,7 @@
 
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>>K19-Realm-JDBC</realm-name>
+        <realm-name>K19-Realm-JDBC</realm-name>
         <form-login-config>
             <form-login-page>/login.xhtml</form-login-page>
             <form-error-page>/acesso-negado.xhtml</form-error-page>
