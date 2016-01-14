@@ -12,9 +12,9 @@ public class ArrayStructure implements AggregateIterator {
     private int[] values;
 
     public ArrayStructure() {
-        setValues(IntStream.range(0, 1000)
-                           .limit(10)
-                           .toArray());
+        values = IntStream.range(0, 1000)
+                          .limit(10)
+                          .toArray();
     }
 
     @Override
@@ -27,13 +27,5 @@ public class ArrayStructure implements AggregateIterator {
         Arrays.stream(values)
               .boxed()
               .forEach(consumer);
-    }
-
-    public int[] getValues() {
-        return values;
-    }
-
-    public void setValues(int[] values) {
-        this.values = values;
     }
 }
