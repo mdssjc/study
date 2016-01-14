@@ -21,7 +21,7 @@ public class Fatura {
     @GeneratedValue
     private Long                id;
 
-    @OneToMany
+    @OneToMany(mappedBy="fatura")
     private Collection<Ligacao> ligacoes = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)
