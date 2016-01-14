@@ -14,6 +14,8 @@ import aggregate.ArrayStructure;
 
 public class Main {
 
+    public static final Consumer<? super Integer> OPERATION = System.out::println;
+
     public static void main(String[] args) {
         AggregateIterator dataArray = new ArrayStructure();
         AggregateIterator dataArrayList = new ArrayListStructure();
@@ -22,25 +24,16 @@ public class Main {
         Iterator<Integer> iteratorB = dataArrayList.createIterator();
 
         System.out.println("-- 1 --");
-        dataArray.internalIterator(print());
+        dataArray.internalIterator(OPERATION);
 
         System.out.println("-- 2 --");
-        dataArrayList.internalIterator(print());
+        dataArrayList.internalIterator(OPERATION);
 
         System.out.println("-- 3 --");
         print(iteratorA);
 
         System.out.println("-- 4 --");
         print(iteratorB);
-    }
-
-    /**
-     * Consumer to Internal Iterator
-     *
-     * @return consumer
-     */
-    public static Consumer<? super Integer> print() {
-        return System.out::println;
     }
 
     /**
