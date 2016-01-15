@@ -14,5 +14,5 @@ public class Pessoa {
     @GeneratedValue
     private Long   id;
 
-    private String nome;;
+    private String nome;
 }
