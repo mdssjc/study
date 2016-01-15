@@ -1,4 +1,4 @@
-package br.com.k19;
+package br.com.k19.tests;
 
 import br.com.k19.creator.Creator;
 import br.com.k19.creator.concrete.EmissorCreator;
