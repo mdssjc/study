@@ -13,17 +13,19 @@ import br.com.k19.product.Receptor;
  */
 public class MastercardComunicadorFactory implements ComunicadorFactory {
 
-    private static final int OPERADORA       = Creator.MASTERCARD;
-    private EmissorCreator   emissorCreator  = new EmissorCreator();
-    private ReceptorCreator  receptorCreator = new ReceptorCreator();
+    private static final int      OPERADORA       = Creator.MASTERCARD;
+    private final EmissorCreator  emissorCreator  = new EmissorCreator();
+    private final ReceptorCreator receptorCreator = new ReceptorCreator();
 
     @Override
     public Emissor createEmissor() {
-        return emissorCreator.create(OPERADORA);
+        return this.emissorCreator.create(
+                MastercardComunicadorFactory.OPERADORA);
     }
 
     @Override
     public Receptor createReceptor() {
-        return receptorCreator.create(OPERADORA);
+        return this.receptorCreator.create(
+                MastercardComunicadorFactory.OPERADORA);
     }
 }

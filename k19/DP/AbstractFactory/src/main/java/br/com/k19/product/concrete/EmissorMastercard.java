@@ -11,7 +11,7 @@ import br.com.k19.product.Emissor;
 public class EmissorMastercard implements Emissor {
 
     @Override
-    public void envia(String mensagem) {
+    public void envia(final String mensagem) {
         System.out.println("Enviando a seguinte mensagem para a Mastercard:");
         System.out.println(mensagem);
     }

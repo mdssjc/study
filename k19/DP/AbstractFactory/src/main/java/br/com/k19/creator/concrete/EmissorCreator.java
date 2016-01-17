@@ -14,7 +14,7 @@ import br.com.k19.product.concrete.EmissorVisa;
 public class EmissorCreator implements Creator<Emissor> {
 
     @Override
-    public Emissor create(int tipoDoEmissor) {
+    public Emissor create(final int tipoDoEmissor) {
         switch (tipoDoEmissor) {
         case VISA:
             return new EmissorVisa();

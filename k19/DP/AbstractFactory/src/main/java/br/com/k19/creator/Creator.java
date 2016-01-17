@@ -5,8 +5,7 @@ package br.com.k19.creator;
  *
  * @author mdssjc
  *
- * @param <T>
- *            Emissor or Receptor
+ * @param <T> Emissor or Receptor
  */
 public interface Creator<T> {
 

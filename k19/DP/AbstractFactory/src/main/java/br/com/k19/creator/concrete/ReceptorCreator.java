@@ -13,7 +13,8 @@ import br.com.k19.product.concrete.ReceptorVisa;
  */
 public class ReceptorCreator implements Creator<Receptor> {
 
-    public Receptor create(int tipoDoReceptor) {
+    @Override
+    public Receptor create(final int tipoDoReceptor) {
         switch (tipoDoReceptor) {
         case VISA:
             return new ReceptorVisa();
