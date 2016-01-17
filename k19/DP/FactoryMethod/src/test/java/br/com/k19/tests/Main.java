@@ -16,15 +16,15 @@ public class Main {
     private static final String MENSAGEM = "K19 Treinamentos";
 
     public static void main(String[] args) {
-        Creator creator = new EmissorCreator();
+        final Creator creator = new EmissorCreator();
 
-        Emissor emissor1 = creator.create(EmissorCreator.SMS);
-        emissor1.envia(MENSAGEM);
+        final Emissor emissor1 = creator.create(EmissorCreator.SMS);
+        emissor1.envia(Main.MENSAGEM);
 
-        Emissor emissor2 = creator.create(EmissorCreator.EMAIL);
-        emissor2.envia(MENSAGEM);
+        final Emissor emissor2 = creator.create(EmissorCreator.EMAIL);
+        emissor2.envia(Main.MENSAGEM);
 
-        Emissor emissor3 = creator.create(EmissorCreator.JMS);
-        emissor3.envia(MENSAGEM);
+        final Emissor emissor3 = creator.create(EmissorCreator.JMS);
+        emissor3.envia(Main.MENSAGEM);
     }
 }

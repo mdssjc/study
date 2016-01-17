@@ -19,7 +19,7 @@ public class EmissorCreator implements Creator {
     public static final int JMS   = 2;
 
     @Override
-    public Emissor create(int tipoDeEmissor) {
+    public Emissor create(final int tipoDeEmissor) {
         switch (tipoDeEmissor) {
         case SMS:
             return new EmissorSMS();
