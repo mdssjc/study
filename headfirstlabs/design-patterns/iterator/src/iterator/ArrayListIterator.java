@@ -5,24 +5,24 @@ import java.util.List;
 
 public class ArrayListIterator implements Iterator<Integer> {
 
-    private Iterator<Integer> iterator;
+    private final Iterator<Integer> iterator;
 
-    public ArrayListIterator(List<Integer> values) {
+    public ArrayListIterator(final List<Integer> values) {
         this.iterator = values.iterator();
     }
 
     @Override
     public boolean hasNext() {
-        return iterator.hasNext();
+        return this.iterator.hasNext();
     }
 
     @Override
     public Integer next() {
-        return iterator.next();
+        return this.iterator.next();
     }
 
     @Override
     public void remove() {
-        iterator.remove();
+        this.iterator.remove();
     }
 }

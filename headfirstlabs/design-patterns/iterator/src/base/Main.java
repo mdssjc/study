@@ -18,31 +18,31 @@ public class Main {
     public static final Consumer<? super Integer> OPERATION = System.out::println;
 
     public static void main(String[] args) {
-        AggregateIterator dataArray = new ArrayStructure();
-        AggregateIterator dataArrayList = new ArrayListStructure();
-        AggregateIterator dataMap = new MapStructure();
+        final AggregateIterator dataArray = new ArrayStructure();
+        final AggregateIterator dataArrayList = new ArrayListStructure();
+        final AggregateIterator dataMap = new MapStructure();
 
-        Iterator<Integer> iteratorA = dataArray.createIterator();
-        Iterator<Integer> iteratorB = dataArrayList.createIterator();
-        Iterator<Integer> iteratorC = dataMap.createIterator();
+        final Iterator<Integer> iteratorA = dataArray.createIterator();
+        final Iterator<Integer> iteratorB = dataArrayList.createIterator();
+        final Iterator<Integer> iteratorC = dataMap.createIterator();
 
         System.out.println("-- 1 --");
-        dataArray.internalIterator(OPERATION);
+        dataArray.internalIterator(Main.OPERATION);
 
         System.out.println("-- 2 --");
-        dataArrayList.internalIterator(OPERATION);
+        dataArrayList.internalIterator(Main.OPERATION);
 
         System.out.println("-- 3 --");
-        dataMap.internalIterator(OPERATION);
+        dataMap.internalIterator(Main.OPERATION);
 
         System.out.println("-- 4 --");
-        print(iteratorA);
+        Main.print(iteratorA);
 
         System.out.println("-- 5 --");
-        print(iteratorB);
+        Main.print(iteratorB);
 
         System.out.println("-- 6 --");
-        print(iteratorC);
+        Main.print(iteratorC);
     }
 
     /**
@@ -50,7 +50,7 @@ public class Main {
      *
      * @param iterator
      */
-    private static void print(Iterator<Integer> iterator) {
+    private static void print(final Iterator<Integer> iterator) {
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }

@@ -5,10 +5,10 @@ import java.util.Iterator;
 
 public class ArrayIterator implements Iterator<Integer> {
 
-    private Integer[] values;
-    private int       index;
+    private final Integer[] values;
+    private int             index;
 
-    public ArrayIterator(int[] values) {
+    public ArrayIterator(final int[] values) {
         this.values = Arrays.stream(values)
                             .boxed()
                             .toArray(Integer[]::new);
@@ -16,25 +16,25 @@ public class ArrayIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return index < values.length;
+        return this.index < this.values.length;
     }
 
     @Override
     public Integer next() {
-        return values[index++];
+        return this.values[this.index++];
     }
 
     @Override
     public void remove() {
-        if (index <= 0) {
+        if (this.index <= 0) {
             throw new IllegalStateException();
         }
 
-        if (values[index - 1] != null) {
-            for (int i = index - 1; i < (values.length - 1); i++) {
-                values[i] = values[i + 1];
+        if (this.values[this.index - 1] != null) {
+            for (int i = this.index - 1; i < (this.values.length - 1); i++) {
+                this.values[i] = this.values[i + 1];
             }
-            values[values.length - 1] = null;
+            this.values[this.values.length - 1] = null;
         }
     }
 }

@@ -9,22 +9,22 @@ import iterator.ArrayIterator;
 
 public class ArrayStructure implements AggregateIterator {
 
-    private int[] values;
+    private final int[] values;
 
     public ArrayStructure() {
-        values = IntStream.range(0, 1000)
-                          .limit(10)
-                          .toArray();
+        this.values = IntStream.range(0, 1000)
+                               .limit(10)
+                               .toArray();
     }
 
     @Override
     public Iterator<Integer> createIterator() {
-        return new ArrayIterator(values);
+        return new ArrayIterator(this.values);
     }
 
     @Override
-    public void internalIterator(Consumer<? super Integer> consumer) {
-        Arrays.stream(values)
+    public void internalIterator(final Consumer<? super Integer> consumer) {
+        Arrays.stream(this.values)
               .boxed()
               .forEach(consumer);
     }

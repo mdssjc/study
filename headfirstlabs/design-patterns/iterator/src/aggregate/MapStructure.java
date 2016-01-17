@@ -14,22 +14,22 @@ public class MapStructure implements AggregateIterator {
 
     public MapStructure() {
 
-        values = IntStream.range(0, 1000)
-                          .limit(10)
-                          .boxed()
-                          .collect(Collectors.toMap(i -> i.toString(),
-                                  i -> (Integer) i));
+        this.values = IntStream.range(0, 1000)
+                               .limit(10)
+                               .boxed()
+                               .collect(Collectors.toMap(i -> i.toString(),
+                                       i -> i));
     }
 
     @Override
     public Iterator<Integer> createIterator() {
-        return new MapIterator(values);
+        return new MapIterator(this.values);
     }
 
     @Override
-    public void internalIterator(Consumer<? super Integer> consumer) {
-        values.values()
-              .stream()
-              .forEach(consumer);
+    public void internalIterator(final Consumer<? super Integer> consumer) {
+        this.values.values()
+                   .stream()
+                   .forEach(consumer);
     }
 }

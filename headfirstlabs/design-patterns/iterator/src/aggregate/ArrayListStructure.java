@@ -10,23 +10,23 @@ import iterator.ArrayListIterator;
 
 public class ArrayListStructure implements AggregateIterator {
 
-    private List<Integer> values;
+    private final List<Integer> values;
 
     public ArrayListStructure() {
-        values = IntStream.range(0, 1000)
-                          .limit(10)
-                          .boxed()
-                          .collect(Collectors.toList());
+        this.values = IntStream.range(0, 1000)
+                               .limit(10)
+                               .boxed()
+                               .collect(Collectors.toList());
     }
 
     @Override
     public Iterator<Integer> createIterator() {
-        return new ArrayListIterator(values);
+        return new ArrayListIterator(this.values);
     }
 
     @Override
-    public void internalIterator(Consumer<? super Integer> consumer) {
-        values.stream()
-              .forEach(consumer);
+    public void internalIterator(final Consumer<? super Integer> consumer) {
+        this.values.stream()
+                   .forEach(consumer);
     }
 }

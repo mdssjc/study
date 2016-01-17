@@ -5,25 +5,25 @@ import java.util.Map;
 
 public class MapIterator implements Iterator<Integer> {
 
-    private Iterator<Integer> iterator;
+    private final Iterator<Integer> iterator;
 
-    public MapIterator(Map<String, Integer> values) {
+    public MapIterator(final Map<String, Integer> values) {
         this.iterator = values.values()
                               .iterator();
     }
 
     @Override
     public boolean hasNext() {
-        return iterator.hasNext();
+        return this.iterator.hasNext();
     }
 
     @Override
     public Integer next() {
-        return iterator.next();
+        return this.iterator.next();
     }
 
     @Override
     public void remove() {
-        iterator.remove();
+        this.iterator.remove();
     }
 }
