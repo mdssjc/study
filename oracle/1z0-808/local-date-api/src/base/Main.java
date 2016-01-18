@@ -3,6 +3,8 @@ package base;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.Period;
 import java.util.Calendar;
@@ -44,5 +46,12 @@ public class Main {
     System.out.printf("%s months and %s days.\n", period.getMonths(),
         period.getDays());
     // Time
+    final LocalTime timeNow = LocalTime.now();
+    final LocalTime birthtime = LocalTime.of(11, 30);
+
+    System.out.println(timeNow);
+    // Date Time
+    final LocalDateTime mds = LocalDateTime.of(birthday, birthtime);
+    System.out.println(mds);
   }
 }
