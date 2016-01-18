@@ -9,28 +9,28 @@ import br.com.k19.modelo.Funcionario;
 
 public class AdicionaFuncionarioDepartamento {
 
-    public static void main(final String[] args) {
-        final EntityManagerFactory factory = Persistence.createEntityManagerFactory(
-                "K21_jpql_pu");
-        final EntityManager manager = factory.createEntityManager();
+  public static void main(final String[] args) {
+    final EntityManagerFactory factory = Persistence.createEntityManagerFactory(
+        "K21_jpql_pu");
+    final EntityManager manager = factory.createEntityManager();
 
-        manager.getTransaction()
-               .begin();
+    manager.getTransaction()
+           .begin();
 
-        final Departamento d = new Departamento();
-        d.setNome("Treinamentos");
+    final Departamento d = new Departamento();
+    d.setNome("Treinamentos");
 
-        final Funcionario f = new Funcionario();
-        f.setNome("Rafael Cosentino");
-        f.setDepartamento(d);
+    final Funcionario f = new Funcionario();
+    f.setNome("Rafael Cosentino");
+    f.setDepartamento(d);
 
-        manager.persist(f);
-        manager.persist(d);
+    manager.persist(f);
+    manager.persist(d);
 
-        manager.getTransaction()
-               .commit();
+    manager.getTransaction()
+           .commit();
 
-        manager.close();
-        factory.close();
-    }
+    manager.close();
+    factory.close();
+  }
 }

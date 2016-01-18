@@ -9,20 +9,20 @@ import javax.persistence.TypedQuery;
 
 public class TesteConsultaObjetosComuns {
 
-    public static void main(final String[] args) {
-        final EntityManagerFactory factory = Persistence.createEntityManagerFactory(
-                "K21_jpql_pu");
-        final EntityManager manager = factory.createEntityManager();
+  public static void main(final String[] args) {
+    final EntityManagerFactory factory = Persistence.createEntityManagerFactory(
+        "K21_jpql_pu");
+    final EntityManager manager = factory.createEntityManager();
 
-        final TypedQuery<String> query = manager.createQuery(
-                "SELECT l.nome FROM Livro l", String.class);
-        final List<String> nomes = query.getResultList();
+    final TypedQuery<String> query = manager.createQuery(
+        "SELECT l.nome FROM Livro l", String.class);
+    final List<String> nomes = query.getResultList();
 
-        for (final String nome : nomes) {
-            System.out.println(nome);
-        }
-
-        manager.close();
-        factory.close();
+    for (final String nome : nomes) {
+      System.out.println(nome);
     }
+
+    manager.close();
+    factory.close();
+  }
 }

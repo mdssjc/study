@@ -11,21 +11,21 @@ import br.com.k19.modelo.Livro;
 
 public class TesteParametros {
 
-    public static void main(final String[] args) {
-        final EntityManagerFactory factory = Persistence.createEntityManagerFactory(
-                "K21_jpql_pu");
-        final EntityManager manager = factory.createEntityManager();
+  public static void main(final String[] args) {
+    final EntityManagerFactory factory = Persistence.createEntityManagerFactory(
+        "K21_jpql_pu");
+    final EntityManager manager = factory.createEntityManager();
 
-        final Query query = manager.createNamedQuery("Livro.findByPrecoMinimo");
-        query.setParameter("preco", 20.0);
-        final List<Livro> livros = query.getResultList();
+    final Query query = manager.createNamedQuery("Livro.findByPrecoMinimo");
+    query.setParameter("preco", 20.0);
+    final List<Livro> livros = query.getResultList();
 
-        for (final Livro livro : livros) {
-            System.out.println("Nome: " + livro.getNome());
-            System.out.println("Preço: " + livro.getPreco());
-        }
-
-        manager.close();
-        factory.close();
+    for (final Livro livro : livros) {
+      System.out.println("Nome: " + livro.getNome());
+      System.out.println("Preço: " + livro.getPreco());
     }
+
+    manager.close();
+    factory.close();
+  }
 }
