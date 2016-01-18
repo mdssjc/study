@@ -12,11 +12,11 @@ import lombok.Data;
 @Data
 public class Livro {
 
-    @Id
-    @GeneratedValue
-    private Long   id;
+  @Id
+  @GeneratedValue
+  private Long   id;
 
-    private String nome;
+  private String nome;
 
-    private Double preco;
+  private Double preco;
 }

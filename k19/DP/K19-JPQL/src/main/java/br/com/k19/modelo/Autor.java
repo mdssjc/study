@@ -16,12 +16,12 @@ import lombok.Data;
 @Data
 public class Autor {
 
-    @Id
-    @GeneratedValue
-    private Long              id;
+  @Id
+  @GeneratedValue
+  private Long              id;
 
-    private String            nome;
+  private String            nome;
 
-    @ManyToMany
-    private Collection<Livro> livros = new ArrayList<>();
+  @ManyToMany
+  private Collection<Livro> livros = new ArrayList<>();
 }
