@@ -10,9 +10,9 @@ import lombok.Data;
 @Data
 public class Departamento {
 
-    @Id
-    @GeneratedValue
-    private Long   id;
+  @Id
+  @GeneratedValue
+  private Long   id;
 
-    private String nome;
+  private String nome;
 }

@@ -11,12 +11,12 @@ import lombok.Data;
 @Data
 public class Funcionario {
 
-    @Id
-    @GeneratedValue
-    private Long         id;
+  @Id
+  @GeneratedValue
+  private Long         id;
 
-    private String       nome;
+  private String       nome;
 
-    @ManyToOne
-    private Departamento departamento;
+  @ManyToOne
+  private Departamento departamento;
 }
