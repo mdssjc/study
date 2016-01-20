@@ -4,7 +4,7 @@ import br.com.k19.multiton.Tema;
 
 /**
  * Design Pattern
- * Multiton (non GoF)
+ * Creational - Multiton (non GoF)
  *
  * @author mdssjc
  *
