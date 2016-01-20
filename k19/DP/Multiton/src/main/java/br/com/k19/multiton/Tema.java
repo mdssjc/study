@@ -7,6 +7,12 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Multiton Class
+ *
+ * @author mdssjc
+ *
+ */
 public class Tema {
 
   @Getter
