@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+
+    <entity class="br.com.k19.modelo.Usuario" access="FIELD">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="email">
+                <column unique="true" />
+            </basic>
+            <basic name="dataDeCadastro">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="foto">
+                <lob />
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="br.com.k19.modelo.Estado">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="nome" />
+            <one-to-one name="governador" />
+        </attributes>
+    </entity>
+    <entity class="br.com.k19.modelo.Governador">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="nome" />
+        </attributes>
+    </entity>
+    <entity class="br.com.k19.modelo.Funcionario">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="nome" />
+        </attributes>
+    </entity>
+    <entity class="br.com.k19.modelo.Departamento">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="nome" />
+            <one-to-many name="funcionarios" />
+        </attributes>
+    </entity>
+    <entity class="br.com.k19.modelo.Pedido">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="data">
+                <temporal>DATE</temporal>
+            </basic>
+            <many-to-one name="cliente" />
+        </attributes>
+    </entity>
+    <entity class="br.com.k19.modelo.Cliente">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="nome" />
+        </attributes>
+    </entity>
+    <entity class="br.com.k19.modelo.Livro">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="nome" />
+            <many-to-many name="autores" />
+        </attributes>
+    </entity>
+    <entity class="br.com.k19.modelo.Autor">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="nome" />
+        </attributes>
+    </entity>
+</entity-mappings>
