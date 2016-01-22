@@ -109,4 +109,17 @@
             <many-to-one name="fatura" />
         </attributes>
     </entity>
+    <entity class="br.com.k19.modelo.Candidato">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="nome" />
+            <basic name="nascimento">
+                <temporal>DATE</temporal>
+            </basic>
+            <embedded name="endereco" />
+        </attributes>
+    </entity>
+    <embeddable class="br.com.k19.modelo.Endereco" />
 </entity-mappings>
