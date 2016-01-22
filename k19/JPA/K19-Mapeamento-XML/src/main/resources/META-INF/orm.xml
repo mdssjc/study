@@ -89,4 +89,24 @@
             <basic name="nome" />
         </attributes>
     </entity>
+    <entity class="br.com.k19.modelo.Fatura">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="vencimento">
+                <temporal>DATE</temporal>
+            </basic>
+            <one-to-many name="ligacoes" mapped-by="fatura" />
+        </attributes>
+    </entity>
+    <entity class="br.com.k19.modelo.Ligacao">
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="duracao" />
+            <many-to-one name="fatura" />
+        </attributes>
+    </entity>
 </entity-mappings>
