@@ -121,5 +121,16 @@
             <embedded name="endereco" />
         </attributes>
     </entity>
+    <entity class="br.com.k19.modelo.Pessoa">
+        <inheritance strategy="SINGLE_TABLE" />
+        <attributes>
+            <id name="id">
+                <generated-value />
+            </id>
+            <basic name="nome" />
+        </attributes>
+    </entity>
+    <entity class="br.com.k19.modelo.PessoaJuridica" />
+    <entity class="br.com.k19.modelo.PessoaFisica" />
     <embeddable class="br.com.k19.modelo.Endereco" />
 </entity-mappings>
