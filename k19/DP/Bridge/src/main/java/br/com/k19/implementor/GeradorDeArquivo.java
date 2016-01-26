@@ -8,5 +8,5 @@ package br.com.k19.implementor;
  */
 public interface GeradorDeArquivo {
 
-	void gera(String conteudo);
+  void gera(String conteudo);
 }

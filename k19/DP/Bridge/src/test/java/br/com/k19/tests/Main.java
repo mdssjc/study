@@ -13,9 +13,9 @@ import br.com.k19.implementor.concrete.GeradorDeArquivoTXT;
  */
 public class Main {
 
-	public static void main(final String[] args) {
-		final GeradorDeArquivo geradorDeArquivoTXT = new GeradorDeArquivoTXT();
-		final Recibo recibo = new Recibo("K19 Treinamentos", "Marcelo Martins", 1000, geradorDeArquivoTXT);
-		recibo.geraArquivo();
-	}
+  public static void main(final String[] args) {
+    final GeradorDeArquivo geradorDeArquivoTXT = new GeradorDeArquivoTXT();
+    final Recibo recibo = new Recibo("K19 Treinamentos", "Marcelo Martins", 1000, geradorDeArquivoTXT);
+    recibo.geraArquivo();
+  }
 }

@@ -8,5 +8,5 @@ package br.com.k19.abstraction;
  */
 public interface Documento {
 
-	void geraArquivo();
+  void geraArquivo();
 }

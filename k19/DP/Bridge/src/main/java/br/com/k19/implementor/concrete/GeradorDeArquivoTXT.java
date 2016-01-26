@@ -13,14 +13,14 @@ import br.com.k19.implementor.GeradorDeArquivo;
  */
 public class GeradorDeArquivoTXT implements GeradorDeArquivo {
 
-	@Override
-	public void gera(final String conteudo) {
-		try {
-			final PrintStream saida = new PrintStream("arquivo.txt");
-			saida.println(conteudo);
-			saida.close();
-		} catch (final FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+  @Override
+  public void gera(final String conteudo) {
+    try {
+      final PrintStream saida = new PrintStream("arquivo.txt");
+      saida.println(conteudo);
+      saida.close();
+    } catch (final FileNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
 }
