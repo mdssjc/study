@@ -13,24 +13,24 @@ import br.com.k19.component.Trecho;
  */
 public class Caminho implements Trecho {
 
-	private final List<Trecho> trechos;
+  private final List<Trecho> trechos;
 
-	public Caminho() {
-		this.trechos = new ArrayList<>();
-	}
+  public Caminho() {
+    this.trechos = new ArrayList<>();
+  }
 
-	public void adiciona(final Trecho trecho) {
-		this.trechos.add(trecho);
-	}
+  public void adiciona(final Trecho trecho) {
+    this.trechos.add(trecho);
+  }
 
-	public void remove(final Trecho trecho) {
-		this.trechos.remove(trecho);
-	}
+  public void remove(final Trecho trecho) {
+    this.trechos.remove(trecho);
+  }
 
-	@Override
-	public void imprime() {
-		for (final Trecho trecho : this.trechos) {
-			trecho.imprime();
-		}
-	}
+  @Override
+  public void imprime() {
+    for (final Trecho trecho : this.trechos) {
+      trecho.imprime();
+    }
+  }
 }

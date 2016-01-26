@@ -8,5 +8,5 @@ package br.com.k19.component;
  */
 public interface Trecho {
 
-	void imprime();
+  void imprime();
 }
