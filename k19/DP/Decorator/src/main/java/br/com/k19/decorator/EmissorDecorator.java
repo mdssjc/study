@@ -1,6 +1,7 @@
 package br.com.k19.decorator;
 
 import br.com.k19.component.Emissor;
+import lombok.Getter;
 
 /**
  * Decorator Interface
@@ -10,6 +11,7 @@ import br.com.k19.component.Emissor;
  */
 public abstract class EmissorDecorator implements Emissor {
 
+  @Getter
   private final Emissor emissor;
 
   public EmissorDecorator(final Emissor emissor) {
@@ -18,8 +20,4 @@ public abstract class EmissorDecorator implements Emissor {
 
   @Override
   public abstract void envia(String mensagem);
-
-  public Emissor getEmissor() {
-    return this.emissor;
-  }
 }
