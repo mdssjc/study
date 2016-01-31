@@ -12,18 +12,18 @@ public class StateC implements State {
   }
 
   @Override
-  public void stateA() {
+  public void handleA() {
     System.out.println("Nops");
   }
 
   @Override
-  public void stateB() {
+  public void handleB() {
     System.out.println("Set state B");
     this.context.setState(this.context.getStateB());
   }
 
   @Override
-  public void stateC() {
+  public void handleC() {
     System.out.println("State C");
   }
 }

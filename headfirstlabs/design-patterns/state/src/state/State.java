@@ -2,9 +2,9 @@ package state;
 
 public interface State {
 
-  void stateA();
+  void handleA();
 
-  void stateB();
+  void handleB();
 
-  void stateC();
+  void handleC();
 }

@@ -20,16 +20,16 @@ public class Context {
     this.stateC = new StateC(this);
   }
 
-  public void stateA() {
-    this.state.stateA();
+  public void requestA() {
+    this.state.handleA();
   }
 
-  public void stateB() {
-    this.state.stateB();
+  public void requestB() {
+    this.state.handleB();
   }
 
-  public void stateC() {
-    this.state.stateC();
+  public void requestC() {
+    this.state.handleC();
   }
 
   public void setState(final State state) {

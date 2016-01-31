@@ -12,10 +12,10 @@ public class Main {
   public static void main(final String[] args) {
     final Context context = new Context();
 
-    context.stateA();
-    context.stateB();
-    context.stateA();
-    context.stateB();
-    context.stateC();
+    context.requestA();
+    context.requestB();
+    context.requestA();
+    context.requestB();
+    context.requestC();
   }
 }
