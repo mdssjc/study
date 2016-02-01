@@ -7,23 +7,19 @@
  */
 package base;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.RemoteException;
-
-import subject.real.Service;
-
 public class Main {
 
-  public static void main(final String[] args) {
+  public static void main(final String[] args) throws Exception {
+    System.setProperty("java.rmi.server.hostname", "localhost");
 
-    try {
-      final Service service = new Service();
-      Naming.rebind("proxy", service);
-    } catch (final RemoteException e) {
-      e.printStackTrace();
-    } catch (final MalformedURLException e) {
-      e.printStackTrace();
-    }
+    final Thread remote = new Thread(new Remote());
+    final Thread monitor = new Thread(new Monitor());
+
+    System.out.println("remote");
+    remote.start();
+    System.out.println("sleeping by 1s");
+    Thread.sleep(1000);
+    System.out.println("local");
+    monitor.start();
   }
 }
