@@ -2,6 +2,7 @@
  * Design Pattern
  * Structural - Proxy (Surrogate)
  *
+ * project/bin
  * rmic -classpath . subject.real.Service
  * rmiregistry
  */
