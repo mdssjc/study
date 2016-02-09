@@ -9,6 +9,7 @@
 package base;
 
 import proxy.Proxy;
+import subject.Subject;
 
 public class Main {
 
@@ -29,11 +30,14 @@ public class Main {
      */
 
     // Virtual Proxy
-    Proxy virtual = new Proxy();
+    Subject virtual = new Proxy();
     virtual.request();
     System.out.println("Waiting...");
     Thread.sleep(1000);
     System.out.println("Waiting...");
     Thread.sleep(1000);
+
+    // Protection Proxy
+
   }
 }
