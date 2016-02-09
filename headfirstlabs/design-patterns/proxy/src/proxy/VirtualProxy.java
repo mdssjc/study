@@ -3,7 +3,7 @@ package proxy;
 import subject.Subject;
 import subject.real.RealSubject;
 
-public class Proxy implements Subject {
+public class VirtualProxy implements Subject {
 
   private Subject subject = new RealSubject();
 
@@ -20,7 +20,7 @@ public class Proxy implements Subject {
         } catch (final InterruptedException e) {
           System.err.println(e.getMessage());
         }
-        Proxy.this.subject.request();
+        VirtualProxy.this.subject.request();
       }
     }).start();
   }

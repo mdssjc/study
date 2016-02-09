@@ -8,7 +8,7 @@
  */
 package base;
 
-import proxy.Proxy;
+import proxy.VirtualProxy;
 import subject.Subject;
 
 public class Main {
@@ -30,14 +30,14 @@ public class Main {
      */
 
     // Virtual Proxy
-    Subject virtual = new Proxy();
+    final Subject virtual = new VirtualProxy();
     virtual.request();
     System.out.println("Waiting...");
     Thread.sleep(1000);
     System.out.println("Waiting...");
     Thread.sleep(1000);
 
-    // Protection Proxy
+    // Protection Proxy (Java: Dynamic Proxy)
 
   }
 }
