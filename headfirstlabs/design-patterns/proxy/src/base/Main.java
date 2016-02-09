@@ -8,19 +8,32 @@
  */
 package base;
 
+import proxy.Proxy;
+
 public class Main {
 
   public static void main(final String[] args) throws Exception {
-    System.setProperty("java.rmi.server.hostname", "localhost");
+    // Remote Proxy
+    /*
+     * System.setProperty("java.rmi.server.hostname", "localhost");
+     *
+     * final Thread remote = new Thread(new Remote());
+     * final Thread monitor = new Thread(new Monitor());
+     *
+     * System.out.println("remote");
+     * remote.start();
+     * System.out.println("sleeping by 1s");
+     * Thread.sleep(1000);
+     * System.out.println("local");
+     * monitor.start();
+     */
 
-    final Thread remote = new Thread(new Remote());
-    final Thread monitor = new Thread(new Monitor());
-
-    System.out.println("remote");
-    remote.start();
-    System.out.println("sleeping by 1s");
+    // Virtual Proxy
+    Proxy virtual = new Proxy();
+    virtual.request();
+    System.out.println("Waiting...");
     Thread.sleep(1000);
-    System.out.println("local");
-    monitor.start();
+    System.out.println("Waiting...");
+    Thread.sleep(1000);
   }
 }
