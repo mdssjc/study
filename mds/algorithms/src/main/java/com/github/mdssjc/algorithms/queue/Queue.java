@@ -4,7 +4,7 @@ package com.github.mdssjc.algorithms.queue;
  * Interface da Estrutura de Dado Queue - Fila.
  *
  * @author Marcelo dos Santos
- * @param <T>
+ * @param <Item>
  *          Tipo de Dado
  */
 public interface Queue<Item> {
