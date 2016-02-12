@@ -4,10 +4,10 @@ package com.github.mdssjc.algorithms.stack;
  * Interface da Estrutura de Dado Stack - Pilha.
  *
  * @author Marcelo dos Santos
- * @param <T>
+ * @param <Item>
  *          Tipo de Dado
  */
-public interface Stack<T> {
+public interface Stack<Item> {
 
   /**
    * Empilha o item.
@@ -15,14 +15,14 @@ public interface Stack<T> {
    * @param item
    *          Item a ser inserido
    */
-  void push(T item);
+  void push(Item item);
 
   /**
    * Desempilha o item.
    *
    * @return T Último item
    */
-  T pop();
+  Item pop();
 
   /**
    * Verifica se a pilha está vazia.
