@@ -5,7 +5,7 @@ import subject.real.RealSubject;
 
 public class VirtualProxy implements Subject {
 
-  private Subject subject = new RealSubject();
+  private final Subject subject = new RealSubject();
 
   @Override
   public void request() {
@@ -23,5 +23,9 @@ public class VirtualProxy implements Subject {
         VirtualProxy.this.subject.request();
       }
     }).start();
+  }
+
+  @Override
+  public void secretMessage() {
   }
 }
