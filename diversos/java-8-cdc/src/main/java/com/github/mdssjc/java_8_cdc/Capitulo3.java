@@ -3,11 +3,8 @@ package com.github.mdssjc.java_8_cdc;
 public class Capitulo3 {
 
   public static void main(final String[] args) {
-    // new Thread(() -> {
-    // for (int i = 0; i < 1000; i++) {
-    // System.out.println(i);
-    // }
-    // }).start();
+    int numero = 5;
+    new Thread(() -> System.out.println(numero)).start();
 
     final Validador<String> validadorCEP = valor -> valor.matches(
         "[0-9]{5}-[0-9]{3}");
