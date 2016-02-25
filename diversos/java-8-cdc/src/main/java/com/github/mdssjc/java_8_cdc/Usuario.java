@@ -27,4 +27,9 @@ public class Usuario {
   public void tornaModerador() {
     this.moderador = true;
   }
+
+  @Override
+  public String toString() {
+    return "Usuário: " + this.nome;
+  }
 }
