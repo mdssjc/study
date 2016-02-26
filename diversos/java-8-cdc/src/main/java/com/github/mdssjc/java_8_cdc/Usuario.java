@@ -30,6 +30,8 @@ public class Usuario {
 
   @Override
   public String toString() {
-    return "Usuário: " + this.nome;
+    return String.format("Usuário: %s(%d) - moderador[%s]", this.nome,
+        this.pontos,
+        this.moderador);
   }
 }
