@@ -4,7 +4,12 @@ import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.github.mdssjc.java_8_cdc.capitulo11.Customer;
 import com.github.mdssjc.java_8_cdc.capitulo11.Payment;
@@ -47,7 +52,42 @@ public class Capitulo11 {
     final Payment payment5 = new Payment(Arrays.asList(beauty, amelie),
         yesterday, paulo);
 
-    List<Payment> payments = Arrays.asList(payment1, payment2, payment3,
+    final List<Payment> payments = Arrays.asList(payment1, payment2, payment3,
         payment4, payment5);
+
+    // Ordenando
+    payments.stream()
+            .sorted(Comparator.comparing(Payment::getDate))
+            .forEach(System.out::println);
+
+    // Redução
+    payment1.getProducts()
+            .stream()
+            .map(Product::getPrice)
+            .reduce(BigDecimal::add)
+            .ifPresent(System.out::println);
+
+    final Function<Payment, Stream<BigDecimal>> mapper = p -> p.getProducts()
+                                                               .stream()
+                                                               .map(
+                                                                   Product::getPrice);
+
+    final BigDecimal total = payments.stream()
+                                     .flatMap(mapper)
+                                     .reduce(BigDecimal.ZERO, BigDecimal::add);
+    System.out.println("Total: " + total);
+
+    // Contagem
+    final Stream<Product> products = payments.stream()
+                                             .flatMap(p -> p.getProducts()
+                                                            .stream());
+
+    final Map<Product, Long> topProducts = products.collect(
+        Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+    topProducts.entrySet()
+               .stream()
+               .max(Comparator.comparing(Map.Entry::getValue))
+               .ifPresent(System.out::println);
   }
 }
