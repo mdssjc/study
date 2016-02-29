@@ -3,10 +3,14 @@ package com.github.mdssjc.java_8_cdc;
 import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -78,16 +82,110 @@ public class Capitulo11 {
     System.out.println("Total: " + total);
 
     // Contagem
-    final Stream<Product> products = payments.stream()
-                                             .flatMap(p -> p.getProducts()
-                                                            .stream());
-
-    final Map<Product, Long> topProducts = products.collect(
-        Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    final Map<Product, Long> topProducts;
+    topProducts = payments.stream()
+                          .flatMap(p -> p.getProducts()
+                                         .stream())
+                          .collect(
+                              Collectors.groupingBy(
+                                  Function.identity(),
+                                  Collectors.counting()));
 
     topProducts.entrySet()
                .stream()
                .max(Comparator.comparing(Map.Entry::getValue))
                .ifPresent(System.out::println);
+
+    // Sumarização
+    final Map<Product, BigDecimal> totalValuePerProduct;
+    totalValuePerProduct = payments.stream()
+                                   .flatMap(
+                                       p -> p.getProducts()
+                                             .stream())
+                                   .collect(
+                                       Collectors.groupingBy(
+                                           Function.identity(),
+                                           Collectors.reducing(
+                                               BigDecimal.ZERO,
+                                               Product::getPrice,
+                                               BigDecimal::add)));
+
+    totalValuePerProduct.entrySet()
+                        .stream()
+                        .sorted(Comparator.comparing(Map.Entry::getValue))
+                        .forEach(System.out::println);
+
+    final BinaryOperator<List<Product>> binaryOperator = (l1, l2) -> {
+      final List<Product> list = new ArrayList<>();
+      list.addAll(l1);
+      list.addAll(l2);
+      return list;
+    };
+    Map<Customer, List<Product>> customerToProducts;
+
+    customerToProducts = payments.stream()
+                                 .collect(
+                                     Collectors.groupingBy(Payment::getCustomer,
+                                         Collectors.reducing(
+                                             Collections.emptyList(),
+                                             Payment::getProducts,
+                                             binaryOperator)));
+
+    customerToProducts.entrySet()
+                      .stream()
+                      .sorted(Comparator.comparing(e -> e.getKey()
+                                                         .getName()))
+                      .forEach(System.out::println);
+
+    final Function<Payment, BigDecimal> paymentToTotal = p -> p.getProducts()
+                                                               .stream()
+                                                               .map(
+                                                                   Product::getPrice)
+                                                               .reduce(
+                                                                   BigDecimal.ZERO,
+                                                                   BigDecimal::add);
+
+    Map<Customer, BigDecimal> totalValuePerCustomer;
+    totalValuePerCustomer = payments.stream()
+                                    .collect(
+                                        Collectors.groupingBy(
+                                            Payment::getCustomer,
+                                            Collectors.reducing(
+                                                BigDecimal.ZERO,
+                                                paymentToTotal,
+                                                BigDecimal::add)));
+
+    totalValuePerCustomer.entrySet()
+                         .stream()
+                         .sorted(Comparator.comparing(Map.Entry::getValue))
+                         .forEach(System.out::println);
+
+    // Datas
+    Map<YearMonth, List<Payment>> paymentsPerMonth;
+    paymentsPerMonth = payments.stream()
+                               .collect(Collectors.groupingBy(
+                                   p -> YearMonth.from(p.getDate())));
+
+    paymentsPerMonth.entrySet()
+                    .stream()
+                    .forEach(System.out::println);
+
+    Map<YearMonth, BigDecimal> paymentsValuePerMonth;
+    paymentsValuePerMonth = payments.stream()
+                                    .collect(Collectors.groupingBy(
+                                        p -> YearMonth.from(p.getDate()),
+                                        Collectors.reducing(BigDecimal.ZERO,
+                                            p -> p.getProducts()
+                                                  .stream()
+                                                  .map(
+                                                      Product::getPrice)
+                                                  .reduce(
+                                                      BigDecimal.ZERO,
+                                                      BigDecimal::add),
+                                            BigDecimal::add)));
+
+    paymentsValuePerMonth.entrySet()
+                         .stream()
+                         .forEach(System.out::println);
   }
 }
