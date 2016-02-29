@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 import com.github.mdssjc.java_8_cdc.capitulo11.Customer;
 import com.github.mdssjc.java_8_cdc.capitulo11.Payment;
 import com.github.mdssjc.java_8_cdc.capitulo11.Product;
+import com.github.mdssjc.java_8_cdc.capitulo11.Subscription;
 
 public class Capitulo11 {
 
@@ -187,5 +188,30 @@ public class Capitulo11 {
     paymentsValuePerMonth.entrySet()
                          .stream()
                          .forEach(System.out::println);
+
+    // Assinaturas
+    final BigDecimal monthlyFee = new BigDecimal("99.90");
+
+    final Subscription s1 = new Subscription(monthlyFee,
+        yesterday.minusMonths(5),
+        paulo);
+    final Subscription s2 = new Subscription(monthlyFee,
+        yesterday.minusMonths(8),
+        today.minusMonths(1),
+        rodrigo);
+    final Subscription s3 = new Subscription(monthlyFee,
+        yesterday.minusMonths(5),
+        today.minusMonths(2), rodrigo);
+
+    final List<Subscription> subscriptions = Arrays.asList(s1, s2, s3);
+
+    final BigDecimal totalS1 = s1.getTotalPaid();
+    System.out.println(totalS1);
+
+    final BigDecimal totalPaid = subscriptions.stream()
+                                              .map(Subscription::getTotalPaid)
+                                              .reduce(BigDecimal.ZERO,
+                                                  BigDecimal::add);
+    System.out.println(totalPaid);
   }
 }
