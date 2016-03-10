@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.queue;
+package com.github.mdssjc.algorithms.datastructure.queue;
 
 /**
  * Interface da Estrutura de Dado Queue - Fila.

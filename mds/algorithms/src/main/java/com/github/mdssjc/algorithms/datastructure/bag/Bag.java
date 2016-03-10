@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.bag;
+package com.github.mdssjc.algorithms.datastructure.bag;
 
 import java.util.Iterator;
 

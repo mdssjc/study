@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.stack.concrete.iterators;
+package com.github.mdssjc.algorithms.datastructure.stack.concrete.iterators;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

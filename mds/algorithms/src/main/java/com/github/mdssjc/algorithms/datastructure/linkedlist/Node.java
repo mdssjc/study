@@ -1,4 +1,6 @@
-package com.github.mdssjc.algorithms.linkedlist;
+package com.github.mdssjc.algorithms.datastructure.linkedlist;
+
+import lombok.Data;
 
 /**
  * Classe de composição da Linked List - Lista Linkada.
@@ -11,6 +13,7 @@ package com.github.mdssjc.algorithms.linkedlist;
  * @param <T>
  *          Tipo de Dado
  */
+@Data
 public class Node<T> {
 
   public T       item;

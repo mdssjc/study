@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.stack;
+package com.github.mdssjc.algorithms.datastructure.stack;
 
 /**
  * Interface da Estrutura de Dado Stack - Pilha.

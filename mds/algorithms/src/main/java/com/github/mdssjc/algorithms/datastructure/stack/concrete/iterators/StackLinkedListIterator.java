@@ -1,10 +1,10 @@
-package com.github.mdssjc.algorithms.stack.concrete.iterators;
+package com.github.mdssjc.algorithms.datastructure.stack.concrete.iterators;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import com.github.mdssjc.algorithms.linkedlist.Node;
-import com.github.mdssjc.algorithms.stack.concrete.StackLinkedList;
+import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
+import com.github.mdssjc.algorithms.datastructure.stack.concrete.StackLinkedList;
 
 /**
  * Iterador para Stack (Pilha) com Linked List (Lista Linkada).
