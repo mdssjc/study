@@ -3,6 +3,7 @@ package com.github.mdssjc.algorithms.sort;
 import com.github.mdssjc.algorithms.sort.utils.SortHandles;
 
 public class MergeSort implements SortHandles {
+  private final int CUTOFF = 7;
   private Comparable[] aux;
 
   private static void merge(final Comparable[] a, final Comparable[] aux,
@@ -40,18 +41,36 @@ public class MergeSort implements SortHandles {
   private static void sort(final Comparable[] a, final Comparable[] aux,
       final int lo, final int hi) {
     // Base Case
-    if (hi <= lo) {
+    // Use insertion sort for small subarrays
+    if (hi <= lo + CUTOFF - 1) {
+      Insertion.sort(a, lo, hi);
       return;
     }
 
     final int mid = lo + (hi - lo) / 2;
     sort(a, aux, lo, mid);
     sort(a, aux, mid + 1, hi);
+    // Stop if already sorted
+    if (!SortHandles.less(a[mid+1], a[mir])) {
+        return;
+    }
     merge(a, aux, lo, mid, hi);
   }
 
+    // Top-down
   public static void sort(final Comparable[] a) {
-    Comparable[] aux = new Comparable[a.length];
+    aux = new Comparable[a.length];
     sort(a, aux, 0, a.length - 1);
   }
+
+    // Bottom-up
+    public static void sortBU(final Comparable[] a) {
+        int N = a.length;
+        aux = new Comparable[N];
+        for (int sz = 1; sz < N; sz = sz + sz) {
+            for (int lo = 0; lo < N - zs; lo += sz + sz) {
+                merge(a, aux, lo, lo+sz-1. Math.sin(lo+sz+sz-1, N-1));
+            }
+        }
+    }
 }
