@@ -10,14 +10,11 @@ public class SelectionSort implements SortHandles {
     for (int i = 0; i < N; i++) {
       int min = i;
       for (int j = i + 1; j < N; j++) {
-        if (SortHandles.less(a[j],
-                             a[min])) {
+        if (SortHandles.less(a[j], a[min])) {
           min = j;
         }
       }
-      SortHandles.exch(a,
-                       i,
-                       min);
+      SortHandles.exch(a, i, min);
     }
   }
 }
