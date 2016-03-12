@@ -20,7 +20,7 @@ public interface SortHandles {
 
   public static boolean isSorted(final Comparable[] a) {
     for (int i = 1; i < a.length; i++) {
-      if (SortHandles.less(a[i], a[i - 1])) {
+      if (less(a[i], a[i - 1])) {
         return false;
       }
     }
