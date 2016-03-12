@@ -1,5 +1,11 @@
 package com.github.mdssjc.algorithms.sort.utils;
 
+/**
+ * SortHandles.
+ *
+ * @author Marcelo dos Santos
+ *
+ */
 public interface SortHandles {
 
   public static boolean less(final Comparable v, final Comparable w) {
@@ -23,7 +29,7 @@ public interface SortHandles {
 
   public static boolean isSorted(final Comparable[] a, final int lo,
       final int hi) {
-    for (int i = lo; i < hi; i++) {
+    for (int i = lo + 1; i <= hi; i++) {
       if (less(a[i], a[i - 1])) {
         return false;
       }

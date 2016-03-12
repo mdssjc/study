@@ -2,6 +2,12 @@ package com.github.mdssjc.algorithms.sort;
 
 import com.github.mdssjc.algorithms.sort.utils.SortHandles;
 
+/**
+ * InsertionSort (N² / Stable).
+ *
+ * @author Marcelo dos Santos
+ *
+ */
 public class InsertionSort implements SortHandles {
 
   public static void sort(final Comparable[] a) {

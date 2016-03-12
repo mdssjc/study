@@ -2,6 +2,12 @@ package com.github.mdssjc.algorithms.sort;
 
 import com.github.mdssjc.algorithms.sort.utils.SortHandles;
 
+/**
+ * SelectionSort.
+ *
+ * @author Marcelo dos Santos
+ *
+ */
 public class SelectionSort implements SortHandles {
 
   public static void sort(final Comparable[] a) {
