@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 /**
  * Percolation Model.
  *
- * @author mdssjc
+ * @author Marcelo dos Santos
  *
  */
 public class Percolation {

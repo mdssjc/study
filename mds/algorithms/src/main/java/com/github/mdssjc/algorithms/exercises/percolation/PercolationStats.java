@@ -7,7 +7,7 @@ import edu.princeton.cs.algs4.StdStats;
 /**
  * PercolationStats Test Client.
  *
- * @author mdssjc
+ * @author Marcelo dos Santos
  *
  */
 public class PercolationStats {
