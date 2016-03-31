@@ -1,0 +1,14 @@
+# Teste de gravação de disco
+dd if=/dev/zero of=/dev/null bs=1048576
+
+# Correção do compartilhamento de diretórios (VirtualBox)
+sudo usermod -aG vboxsf $(whoami)
+
+# Código Dinâmico para o Word
+{ IF{ =MOD({ PAGE \* Arabic };2) }=0 "" "{ QUOTE 12 11 11 11 11 11 11 11 
+11 11 11 11 11 11 11 11 11 11 \* UPPER}PÁGINA INTENCIONALMENTE EM 
+BRANCO"}
+
+# Edição de PDF
+qpdf --show-encryption <file>.pdf 
+qpdf --decrypt <in>.pdf <out>.pdf

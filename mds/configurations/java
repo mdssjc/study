@@ -1,0 +1,26 @@
+############
+### JAVA ###
+############
+
+Objetivo:
+    Realizar a instalação do Java, utilizando o arquivo jdk-8u60-linux-x64.gz
+
+Faça o download do eclipse:
+    wget <url>jdk-8u60-linux-x64.gz
+
+Descompacte o arquivo para o local /opt:
+    sudo mkdir /opt/java
+    sudo tar -xzf jdk-8u60-linux-x64.gz -C /opt/java
+
+Instale o comando no sistema:
+    sudo update-alternatives --install /usr/bin/java java /opt/java/jdk1.8.0_60/bin/java 1
+    sudo update-alternatives --install /usr/bin/javac javac /opt/java/jdk1.8.0_60/bin/javac 1
+    sudo update-alternatives --install /usr/bin/javaws javaws /opt/java/jdk1.8.0_60/bin/javaws 1
+
+Selecione a versão do java, caso exista várias:
+    sudo update-alternatives --config java
+
+Configure a variável ambiente JAVA_HOME:
+    export JAVA_HOME="/opt/java/jdk1.8.0_60"
+    export PATH=$JAVA_HOME/bin:$PATH
+

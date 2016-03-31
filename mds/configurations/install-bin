@@ -1,0 +1,20 @@
+###########
+### ALL ###
+###########
+
+Objetivo:
+    Instalar qualquer arquivo binário através de um pacote .tar
+
+Faça o download do arquivo:
+    wget <url>/<file>.tar
+
+Descompacte o arquivo para o local /opt:
+    sudo mkdir /opt/<directory>
+    sudo tar -xzf <file>.tar -C /opt/<directory>
+
+Instale o comando no sistema:
+    sudo update-alternatives --install /usr/bin/<command> <label> /opt/<directory>/<command> <priority>
+
+Selecione a versão do comando, caso exista várias:
+    sudo update-alternatives --config <label>
+
