@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -53,13 +54,26 @@ public class Main extends Application {
     label.setFont(Font.font("Lucida Grande", FontPosture.REGULAR, 30));
     label.setPadding(new Insets(20, 0, 10, 10));
 
+    final Button button = new Button("Exportar CSV");
+    button.setLayoutX(575);
+    button.setLayoutY(25);
+    button.setOnAction(event -> exportaEmCSV(produtos));
+
     group.getChildren()
-         .addAll(label, vbox);
+         .addAll(label, vbox, button);
 
     primaryStage.setScene(scene);
     primaryStage.setTitle("Sistema de livraria com Java FX");
 
     primaryStage.show();
+  }
+
+  private void exportaEmCSV(final ObservableList<Produto> produtos) {
+    try {
+      new Exportador().paraCSV(produtos);
+    } catch (final Exception e) {
+      System.err.println("Erro ao exportar: " + e);
+    }
   }
 
   public static void main(final String[] args) {
