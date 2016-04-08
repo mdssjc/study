@@ -4,6 +4,7 @@ import br.com.casadocodigo.livraria.produtos.Produto;
 import dao.ProdutoDAO;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -54,17 +55,36 @@ public class Main extends Application {
     label.setFont(Font.font("Lucida Grande", FontPosture.REGULAR, 30));
     label.setPadding(new Insets(20, 0, 10, 10));
 
+    final Label progresso = new Label();
+    progresso.setLayoutX(485);
+    progresso.setLayoutY(30);
+
     final Button button = new Button("Exportar CSV");
     button.setLayoutX(575);
     button.setLayoutY(25);
-    button.setOnAction(event -> exportaEmCSV(produtos));
+    button.setOnAction(
+        event -> {
+          final Task<Void> task = new Task<Void>() {
+
+            @Override
+            protected Void call() throws Exception {
+              Thread.sleep(5000);
+              exportaEmCSV(produtos);
+              return null;
+            }
+          };
+
+          task.setOnRunning(e -> progresso.setText("Exportando..."));
+          task.setOnSucceeded(e -> progresso.setText("Concluído!"));
+
+          new Thread(task).start();
+        });
 
     group.getChildren()
-         .addAll(label, vbox, button);
+         .addAll(label, vbox, button, progresso);
 
     primaryStage.setScene(scene);
     primaryStage.setTitle("Sistema de livraria com Java FX");
-
     primaryStage.show();
   }
 
