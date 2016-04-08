@@ -1,6 +1,7 @@
 package application;
 
 import br.com.casadocodigo.livraria.produtos.Produto;
+import dao.ProdutoDAO;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -15,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
-import repositorio.RepositorioDeProdutos;
 
 public class Main extends Application {
 
@@ -25,7 +25,7 @@ public class Main extends Application {
     final Group group = new Group();
     final Scene scene = new Scene(group, 690, 510);
 
-    final ObservableList<Produto> produtos = new RepositorioDeProdutos().lista();
+    final ObservableList<Produto> produtos = new ProdutoDAO().lista();
     final TableView<Produto> tableView = new TableView<>(produtos);
 
     final TableColumn nomeColumn = new TableColumn("Nome");
