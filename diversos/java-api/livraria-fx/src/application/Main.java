@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @SuppressWarnings("unchecked")
   @Override
   public void start(final Stage primaryStage) {
     final Group group = new Group();
@@ -29,21 +29,14 @@ public class Main extends Application {
     final ObservableList<Produto> produtos = new ProdutoDAO().lista();
     final TableView<Produto> tableView = new TableView<>(produtos);
 
-    final TableColumn nomeColumn = new TableColumn("Nome");
-    nomeColumn.setMinWidth(180);
-    nomeColumn.setCellValueFactory(new PropertyValueFactory("nome"));
-
-    final TableColumn descColumn = new TableColumn("Descrição");
-    descColumn.setMinWidth(230);
-    descColumn.setCellValueFactory(new PropertyValueFactory("descricao"));
-
-    final TableColumn valorColumn = new TableColumn("Valor");
-    valorColumn.setMinWidth(60);
-    valorColumn.setCellValueFactory(new PropertyValueFactory("valor"));
-
-    final TableColumn isbnColumn = new TableColumn("ISBN");
-    isbnColumn.setMinWidth(180);
-    isbnColumn.setCellValueFactory(new PropertyValueFactory("isbn"));
+    final TableColumn<Produto, String> nomeColumn = criaColuna("Nome", 180,
+        "nome");
+    final TableColumn<Produto, String> descColumn = criaColuna("Descrição", 230,
+        "descricao");
+    final TableColumn<Produto, String> valorColumn = criaColuna("Valor", 60,
+        "valor");
+    final TableColumn<Produto, String> isbnColumn = criaColuna("ISBN", 180,
+        "isbn");
 
     tableView.getColumns()
              .addAll(nomeColumn, descColumn, valorColumn, isbnColumn);
@@ -76,7 +69,9 @@ public class Main extends Application {
           new Thread(task).start();
         });
 
-    double valorTotal = produtos.stream().mapToDouble(Produto::getValor).sum();
+    double valorTotal = produtos.stream()
+                                .mapToDouble(Produto::getValor)
+                                .sum();
     Label labelFooter = new Label(
         String.format("Você tem R$%.2f em estoque, " +
             "com um total de %d produtos.", valorTotal, produtos.size()));
@@ -88,6 +83,15 @@ public class Main extends Application {
     primaryStage.setScene(scene);
     primaryStage.setTitle("Sistema de livraria com Java FX");
     primaryStage.show();
+  }
+
+  private TableColumn<Produto, String> criaColuna(String titulo, int largura,
+      String atributo) {
+    final TableColumn<Produto, String> column = new TableColumn<>(titulo);
+    column.setMinWidth(largura);
+    column.setCellValueFactory(
+        new PropertyValueFactory<Produto, String>(atributo));
+    return column;
   }
 
   private void exportaEmCSV(final ObservableList<Produto> produtos) {
