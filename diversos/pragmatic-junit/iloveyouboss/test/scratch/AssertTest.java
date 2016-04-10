@@ -7,6 +7,10 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,48 +25,57 @@ public class AssertTest {
 
   @Before
   public void createAccount() {
-    account = new Account("an account name");
+    this.account = new Account("an account name");
   }
 
   @Test
   public void hasPositiveBalance() {
-    account.deposit(50);
+    this.account.deposit(50);
 
-    assertTrue(account.hasPositiveBalance());
-    assertThat(account.getBalance() > 0, is(true));
+    assertTrue(this.account.hasPositiveBalance());
+    assertThat(this.account.getBalance() > 0, is(true));
   }
 
   @Test
   public void depositIncreaseBalance() {
-    int initialBalance = account.getBalance();
-    account.deposit(100);
+    final int initialBalance = this.account.getBalance();
+    this.account.deposit(100);
 
-    assertTrue(account.getBalance() > initialBalance);
-    assertThat(account.getBalance(), equalTo(100));
+    assertTrue(this.account.getBalance() > initialBalance);
+    assertThat(this.account.getBalance(), equalTo(100));
   }
 
   @Test
   public void checkNotStartsWithXyz() {
-    assertThat(account.getName(), not(startsWith("xyz")));
+    assertThat(this.account.getName(), not(startsWith("xyz")));
   }
 
   @Test
   public void testWithWorthlessAssertionComment() {
-    account.deposit(50);
+    this.account.deposit(50);
     // Incorrect message
-    assertThat("account balance is 100", account.getBalance(), equalTo(50));
+    assertThat("account balance is 100", this.account.getBalance(),
+        equalTo(50));
   }
 
   @Test(expected = InsufficientFundsException.class)
   public void throwsWhenWithdrawingTooMuch() throws InsufficientFundsException {
-    account.withdraw(100);
+    this.account.withdraw(100);
   }
 
   @Test
   public void exceptionRule() throws InsufficientFundsException {
-    thrown.expect(InsufficientFundsException.class);
-    thrown.expectMessage("balance only 0");
+    this.thrown.expect(InsufficientFundsException.class);
+    this.thrown.expectMessage("balance only 0");
 
-    account.withdraw(100);
+    this.account.withdraw(100);
+  }
+
+  @Test
+  public void readsFromTestFile() throws IOException {
+    final String filename = "test.txt";
+    final BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+    writer.write("test data");
+    writer.close();
   }
 }
