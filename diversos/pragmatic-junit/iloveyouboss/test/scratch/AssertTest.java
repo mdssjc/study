@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -77,5 +78,11 @@ public class AssertTest {
     final BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
     writer.write("test data");
     writer.close();
+  }
+
+  @Test
+  @Ignore("don't forget me!")
+  public void somethingWeCannotHandleRightNow() {
+    // ...
   }
 }
