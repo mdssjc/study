@@ -11,29 +11,29 @@ public class StatCompiler {
 
   private final QuestionController controller = new QuestionController();
 
-  public Map<String, Map<Boolean, AtomicInteger>> responsesByQuestion(
-      final List<BooleanAnswer> answers, final Map<Integer, String> questions) {
-    final Map<String, Map<Boolean, AtomicInteger>> responses = new HashMap<>();
-    answers.stream()
-           .forEach(answer -> incrementHistogram(responses, answer));
-    return convertHistogramIdsToText(responses, questions);
-  }
-
   public Map<Integer, String> questionText(final List<BooleanAnswer> answers) {
     final Map<Integer, String> questions = new HashMap<>();
     answers.stream()
            .forEach(answer -> {
              if (!questions.containsKey(answer.getQuestionId())) {
                questions.put(answer.getQuestionId(),
-                   controller.find(answer.getQuestionId())
-                             .getText());
+                   this.controller.find(answer.getQuestionId())
+                                  .getText());
              }
            });
     return questions;
   }
 
+  public Map<String, Map<Boolean, AtomicInteger>> responsesByQuestion(
+      final List<BooleanAnswer> answers, final Map<Integer, String> questions) {
+    final Map<Integer, Map<Boolean, AtomicInteger>> responses = new HashMap<>();
+    answers.stream()
+           .forEach(answer -> incrementHistogram(responses, answer));
+    return convertHistogramIdsToText(responses, questions);
+  }
+
   private Map<String, Map<Boolean, AtomicInteger>> convertHistogramIdsToText(
-      final Map<String, Map<Boolean, AtomicInteger>> responses,
+      final Map<Integer, Map<Boolean, AtomicInteger>> responses,
       final Map<Integer, String> questions) {
     final Map<String, Map<Boolean, AtomicInteger>> textResponses = new HashMap<>();
     responses.keySet()

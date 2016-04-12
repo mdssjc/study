@@ -24,11 +24,11 @@ public class Profile {
     this.answers.put(answer.getQuestionText(), answer);
   }
 
-  public List<Answer> find(Predicate<Answer> pred) {
-    return answers.values()
-                  .stream()
-                  .filter(pred)
-                  .collect(Collectors.toList());
+  public List<Answer> find(final Predicate<Answer> pred) {
+    return this.answers.values()
+                       .stream()
+                       .filter(pred)
+                       .collect(Collectors.toList());
   }
 
   public boolean matches(final Criteria criteria) {

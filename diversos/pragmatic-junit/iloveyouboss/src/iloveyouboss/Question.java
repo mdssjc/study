@@ -1,10 +1,14 @@
 package iloveyouboss;
 
-public abstract class Question {
+import java.time.Instant;
+
+import iloveyouboss.domain.Persistable;
+
+public abstract class Question implements Persistable {
 
   private final String   text;
   private final String[] answerChoices;
-  private final int      id;
+  private int            id;
 
   public Question(final int id, final String text,
       final String[] answerChoices) {
@@ -13,8 +17,23 @@ public abstract class Question {
     this.answerChoices = answerChoices;
   }
 
-  public int getId() {
+  @Override
+  public Integer getId() {
     return this.id;
+  }
+
+  @Override
+  public void setId(final Integer id) {
+    this.id = id;
+  }
+
+  @Override
+  public Instant getCreateTimestamp() {
+    return null;
+  }
+
+  @Override
+  public void setCreateTimestamp(final Instant instant) {
   }
 
   public String getText() {

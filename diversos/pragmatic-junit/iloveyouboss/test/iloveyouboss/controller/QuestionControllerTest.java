@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import iloveyouboss.Question;
@@ -15,6 +16,11 @@ import iloveyouboss.Question;
 public class QuestionControllerTest {
 
   private QuestionController controller;
+
+  @Before
+  public void createController() {
+    this.controller = new QuestionController();
+  }
 
   @Test
   public void questionAnswersDateAdded() {

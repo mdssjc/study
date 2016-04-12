@@ -8,11 +8,11 @@ public enum Bool {
   public static final int TRUE  = 1;
   private int             value;
 
-  private Bool(int value) {
+  private Bool(final int value) {
     this.value = value;
   }
 
   public int getValue() {
-    return value;
+    return this.value;
   }
 }
