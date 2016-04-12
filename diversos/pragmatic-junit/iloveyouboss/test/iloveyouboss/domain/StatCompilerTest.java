@@ -15,19 +15,19 @@ public class StatCompilerTest {
 
   @Test
   public void responsesByQuestionAnswersCountsByQuestionText() {
-    StatCompiler stats = new StatCompiler();
-    List<BooleanAnswer> answers = new ArrayList<>();
+    final StatCompiler stats = new StatCompiler();
+    final List<BooleanAnswer> answers = new ArrayList<>();
     answers.add(new BooleanAnswer(1, true));
     answers.add(new BooleanAnswer(1, true));
     answers.add(new BooleanAnswer(1, true));
     answers.add(new BooleanAnswer(1, false));
     answers.add(new BooleanAnswer(2, true));
     answers.add(new BooleanAnswer(2, true));
-    Map<Integer, String> questions = new HashMap<>();
+    final Map<Integer, String> questions = new HashMap<>();
     questions.put(1, "Tuition reimbursement?");
     questions.put(2, "Relocation package?");
 
-    Map<String, Map<Boolean, AtomicInteger>> responses = stats.responsesByQuestion(
+    final Map<String, Map<Boolean, AtomicInteger>> responses = stats.responsesByQuestion(
         answers, questions);
 
     assertThat(responses.get("Tuition reimbursement?")

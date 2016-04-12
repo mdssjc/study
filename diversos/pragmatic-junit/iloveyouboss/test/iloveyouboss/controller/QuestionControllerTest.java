@@ -10,17 +10,19 @@ import java.util.Date;
 
 import org.junit.Test;
 
+import iloveyouboss.Question;
+
 public class QuestionControllerTest {
 
   private QuestionController controller;
 
   @Test
   public void questionAnswersDateAdded() {
-    Instant now = new Date().toInstant();
-    controller.setClock(Clock.fixed(now, ZoneId.of("America/Denver")));
-    int id = controller.addBooleanQuestion("text");
+    final Instant now = new Date().toInstant();
+    this.controller.setClock(Clock.fixed(now, ZoneId.of("America/Denver")));
+    final int id = this.controller.addBooleanQuestion("text");
 
-    Question question = controller.find(id);
+    final Question question = this.controller.find(id);
 
     assertThat(question.getCreateTimestamp(), equalTo(now));
   }

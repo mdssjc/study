@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import iloveyouboss.controller.QuestionController;
+
 public class StatCompiler {
 
   private final QuestionController controller = new QuestionController();

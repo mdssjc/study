@@ -2,6 +2,8 @@ package iloveyouboss.controller;
 
 import java.time.Clock;
 
+import iloveyouboss.BooleanQuestion;
+
 public class QuestionController {
 
   private Clock clock = Clock.systemUTC();

@@ -1,7 +1,10 @@
 package iloveyouboss;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Profile {
 
@@ -21,6 +24,13 @@ public class Profile {
     this.answers.put(answer.getQuestionText(), answer);
   }
 
+  public List<Answer> find(Predicate<Answer> pred) {
+    return answers.values()
+                  .stream()
+                  .filter(pred)
+                  .collect(Collectors.toList());
+  }
+
   public boolean matches(final Criteria criteria) {
     this.score = 0;
 
@@ -29,7 +39,7 @@ public class Profile {
     for (final Criterion criterion : criteria) {
       final Answer answer = this.answers.get(criterion.getAnswer()
                                                       .getQuestionText());
-      final boolean match = criterion.getWeight == Weight.DontCare
+      final boolean match = criterion.getWeight() == Weight.DontCare
           || answer.match(criterion.getAnswer());
 
       if (!match && criterion.getWeight() == Weight.MustMatch) {
