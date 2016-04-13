@@ -25,5 +25,7 @@ public class NewtonTest {
     final double result = Newton.squareRoot(250.0);
 
     assertThat(result * result, closeTo(250.0, Newton.TOLERANCE));
+    assertThat(Newton.squareRoot(1969.0),
+        closeTo(Math.sqrt(1969.0), Newton.TOLERANCE));
   }
 }
