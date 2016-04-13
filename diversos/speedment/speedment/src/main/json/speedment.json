@@ -1,0 +1,100 @@
+{
+  "config": {
+    "expanded": true,
+    "companyName": "company",
+    "name": "hellospeedment",
+    "packageLocation": "src/main/java/",
+    "dbmses": [
+      {
+        "expanded": true,
+        "port": 3306,
+        "schemas": [
+          {
+            "tables": [
+              {
+                "expanded": true,
+                "primaryKeyColumns": [
+                  {
+                    "expanded": true,
+                    "name": "id",
+                    "ordinalPosition": 1
+                  }
+                ],
+                "indexes": [
+                  {
+                    "expanded": false,
+                    "unique": true,
+                    "name": "name",
+                    "indexColumns": [
+                      {
+                        "orderType": "ASC",
+                        "expanded": true,
+                        "name": "name",
+                        "ordinalPosition": 1
+                      }
+                    ],
+                    "enabled": true
+                  },
+                  {
+                    "expanded": false,
+                    "unique": true,
+                    "name": "PRIMARY",
+                    "indexColumns": [
+                      {
+                        "orderType": "ASC",
+                        "expanded": true,
+                        "name": "id",
+                        "ordinalPosition": 1
+                      }
+                    ],
+                    "enabled": true
+                  }
+                ],
+                "columns": [
+                  {
+                    "databaseType": "java.lang.Long",
+                    "typeMapper": "com.speedment.config.db.mapper.identity.LongIdentityMapper",
+                    "expanded": true,
+                    "nullable": false,
+                    "name": "id",
+                    "ordinalPosition": 1,
+                    "enabled": true
+                  },
+                  {
+                    "databaseType": "java.lang.String",
+                    "typeMapper": "com.speedment.config.db.mapper.identity.StringIdentityMapper",
+                    "expanded": true,
+                    "nullable": false,
+                    "name": "name",
+                    "ordinalPosition": 2,
+                    "enabled": true
+                  },
+                  {
+                    "databaseType": "java.lang.Integer",
+                    "typeMapper": "com.speedment.config.db.mapper.identity.IntegerIdentityMapper",
+                    "expanded": true,
+                    "nullable": false,
+                    "name": "age",
+                    "ordinalPosition": 3,
+                    "enabled": true
+                  }
+                ],
+                "name": "user",
+                "enabled": true
+              }
+            ],
+            "expanded": true,
+            "name": "hellospeedment",
+            "enabled": true
+          }
+        ],
+        "typeName": "MySQL",
+        "ipAddress": "127.0.0.1",
+        "name": "db0",
+        "enabled": true,
+        "username": "root"
+      }
+    ],
+    "enabled": true
+  }
+}
