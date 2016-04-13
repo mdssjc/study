@@ -12,17 +12,17 @@ public class SparseArrayTest {
 
   @Before
   public void create() {
-    array = new SparseArray<>();
+    this.array = new SparseArray<>();
   }
 
   @Test
   public void handlesInsertionInDescendingOrder() {
-    array.put(7, "seven");
-    array.checkInvariants();
-    array.put(6, "six");
-    array.checkInvariants();
+    this.array.put(7, "seven");
+    this.array.checkInvariants();
+    this.array.put(6, "six");
+    this.array.checkInvariants();
 
-    assertThat(array.get(6), equalTo("six"));
-    assertThat(array.get(7), equalTo("seven"));
+    assertThat(this.array.get(6), equalTo("six"));
+    assertThat(this.array.get(7), equalTo("seven"));
   }
 }

@@ -17,27 +17,29 @@ public class ProfilePoolTest {
 
   @Before
   public void create() {
-    pool = new ProfilePool();
-    langrsoft = new Profile("Langrsoft");
-    smeltInc = new Profile("Smelt Inc.");
-    doTheyReimburseTuition = new BooleanQuestion(1, "Reimburses tuition?");
+    this.pool = new ProfilePool();
+    this.langrsoft = new Profile("Langrsoft");
+    this.smeltInc = new Profile("Smelt Inc.");
+    this.doTheyReimburseTuition = new BooleanQuestion(1, "Reimburses tuition?");
   }
 
   @Test
   public void answersResultsInScoredOrder() {
-    smeltInc.add(new Answer(doTheyReimburseTuition, Bool.FALSE));
-    pool.add(smeltInc);
-    langrsoft.add(new Answer(doTheyReimburseTuition, Bool.TRUE));
-    pool.add(langrsoft);
-    pool.score(soleNeed(doTheyReimburseTuition, Bool.TRUE, Weight.Important));
-    List<Profile> ranked = pool.ranked();
+    this.smeltInc.add(new Answer(this.doTheyReimburseTuition, Bool.FALSE));
+    this.pool.add(this.smeltInc);
+    this.langrsoft.add(new Answer(this.doTheyReimburseTuition, Bool.TRUE));
+    this.pool.add(this.langrsoft);
+    this.pool.score(
+        soleNeed(this.doTheyReimburseTuition, Bool.TRUE, Weight.Important));
+    final List<Profile> ranked = this.pool.ranked();
 
     assertThat(ranked.toArray(),
-        equalTo(new Profile[] { langrsoft, smeltInc }));
+        equalTo(new Profile[] { this.langrsoft, this.smeltInc }));
   }
 
-  private Criteria soleNeed(Question question, int value, Weight weight) {
-    Criteria criteria = new Criteria();
+  private Criteria soleNeed(final Question question, final int value,
+      final Weight weight) {
+    final Criteria criteria = new Criteria();
     criteria.add(new Criterion(new Answer(question, value), weight));
     return criteria;
   }

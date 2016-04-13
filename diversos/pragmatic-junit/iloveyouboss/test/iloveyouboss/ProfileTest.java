@@ -84,26 +84,27 @@ public class ProfileTest {
 
   @Test
   public void findAnswers() {
-    int dataSize = 5000;
+    final int dataSize = 5000;
     for (int i = 0; i < dataSize; i++) {
-      profile.add(
+      this.profile.add(
           new Answer(new BooleanQuestion(i, String.valueOf(i)), Bool.FALSE));
     }
-    profile.add(new Answer(new PercentileQuestion(dataSize,
+    this.profile.add(new Answer(new PercentileQuestion(dataSize,
         String.valueOf(dataSize), new String[] {}), 0));
-    int numberOfTimes = 1000;
-    long elapseMs = run(numberOfTimes, () -> profile.find(a -> a.getQuestion()
-                                                                .getClass() == PercentileQuestion.class));
+    final int numberOfTimes = 1000;
+    final long elapseMs = run(numberOfTimes,
+        () -> this.profile.find(a -> a.getQuestion()
+                                      .getClass() == PercentileQuestion.class));
 
     assertTrue(elapseMs < 1000);
   }
 
-  private long run(int times, Runnable func) {
-    long start = System.nanoTime();
+  private long run(final int times, final Runnable func) {
+    final long start = System.nanoTime();
     for (int i = 0; i < times; i++) {
       func.run();
     }
-    long stop = System.nanoTime();
+    final long stop = System.nanoTime();
     return (stop - start) / 1_000_000;
   }
 }
