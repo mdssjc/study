@@ -9,6 +9,11 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/mdssjc/Downloads/Java/java-hamcrest-2.0.0.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/home/mdssjc/Downloads/Java/httpcore-4.4.4.jar"/>
+	<classpathentry kind="lib" path="/home/mdssjc/Downloads/Java/httpclient-4.5.2.jar"/>
+	<classpathentry kind="lib" path="/home/mdssjc/Downloads/Java/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/home/mdssjc/Downloads/Java/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="/home/mdssjc/Downloads/Java/mockito-all-2.0.2-beta.jar"/>
+	<classpathentry kind="lib" path="/home/mdssjc/Downloads/Java/commons-logging-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

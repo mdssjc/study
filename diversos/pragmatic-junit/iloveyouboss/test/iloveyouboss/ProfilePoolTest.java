@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ProfilePoolTest {
@@ -24,6 +25,7 @@ public class ProfilePoolTest {
   }
 
   @Test
+  @Ignore("Useless class")
   public void answersResultsInScoredOrder() {
     this.smeltInc.add(new Answer(this.doTheyReimburseTuition, Bool.FALSE));
     this.pool.add(this.smeltInc);
