@@ -32,29 +32,44 @@ public class Profile {
   }
 
   public boolean matches(final Criteria criteria) {
+    calculateScore(criteria);
+    if (doesNotMeetAnyMustMatchCriterion(criteria)) {
+      return false;
+    }
+    return anyMatches(criteria);
+  }
+
+  private void calculateScore(final Criteria criteria) {
     this.score = 0;
-
-    boolean kill = false;
-    boolean anyMatches = false;
     for (final Criterion criterion : criteria) {
-      final Answer answer = this.answers.get(criterion.getAnswer()
-                                                      .getQuestionText());
-      final boolean match = criterion.getWeight() == Weight.DontCare
-          || answer.match(criterion.getAnswer());
-
-      if (!match && criterion.getWeight() == Weight.MustMatch) {
-        kill = true;
-      }
-      if (match) {
+      if (criterion.matches(answerMatching(criterion))) {
         this.score += criterion.getWeight()
                                .getValue();
       }
-      anyMatches |= match;
     }
-    if (kill) {
-      return false;
+  }
+
+  private boolean doesNotMeetAnyMustMatchCriterion(final Criteria criteria) {
+    for (final Criterion criterion : criteria) {
+      final boolean match = criterion.matches(answerMatching(criterion));
+      if (!match && criterion.getWeight() == Weight.MustMatch) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean anyMatches(final Criteria criteria) {
+    boolean anyMatches = false;
+    for (final Criterion criterion : criteria) {
+      anyMatches |= criterion.matches(answerMatching(criterion));
     }
     return anyMatches;
+  }
+
+  private Answer answerMatching(final Criterion criterion) {
+    return this.answers.get(criterion.getAnswer()
+                                     .getQuestionText());
   }
 
   public int score() {
