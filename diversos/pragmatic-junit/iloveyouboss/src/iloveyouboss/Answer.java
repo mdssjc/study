@@ -30,6 +30,9 @@ public class Answer {
   }
 
   public boolean match(final Answer otherAnswer) {
+    if (otherAnswer == null) {
+      return false;
+    }
     return this.question.match(this.i, otherAnswer.i);
   }
 
