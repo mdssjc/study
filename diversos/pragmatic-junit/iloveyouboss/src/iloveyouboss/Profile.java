@@ -6,6 +6,14 @@ import java.util.Map;
 public class Profile {
 
   private final Map<String, Answer> answers = new HashMap<>();
+  private String                    name;
+
+  public Profile() {
+  }
+
+  public Profile(String name) {
+    this.name = name;
+  }
 
   private Answer getMatchingProfileAnswer(final Criterion criterion) {
     return this.answers.get(criterion.getAnswer()
