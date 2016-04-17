@@ -7,3 +7,7 @@
 (+ 1 2) "Two forms on one line!"
 
 (println "Hello, world!")
+
+(doc +)
+(find-doc "lazy")
+(apropos 'doc)
