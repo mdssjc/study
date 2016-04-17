@@ -11,3 +11,18 @@
 (doc +)
 (find-doc "lazy")
 (apropos 'doc)
+
+(def x 1)
+(cond
+  (> x 0) "greater!"
+  (= x 0) "zero!"
+  (< x 0) "lesser!")
+
+(def array-map {:a 1, :b 2, :c 3})
+
+;; This function does addition
+(defn add [x y]
+  (+ x y))
+(comment
+  defn this-is-not-working [x y]
+  (+ x y))
