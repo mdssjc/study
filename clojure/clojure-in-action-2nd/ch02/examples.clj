@@ -56,10 +56,27 @@ arglebarg                               ; code
 (peek (list 1 2 3))
 (pop (list 1 2 3))
 (peek (list))
-(pop (list))
+(pop (list))                            ; wrong
 
 (count (list))
 (count (list 1 2 3 4))
 
 (def three-numbers (1 2 3))             ; wrong
 (def three-numbers '(1 2 3))
+
+(vector 10 20 30 40 50)
+[10 20 30 40 50]
+(def the-vector [10 20 30 40 50])
+(get the-vector 2)
+(nth the-vector 2)
+(get the-vector 10)
+(nth the-vector 10)                     ; wrong
+(assoc the-vector 2 25)
+(assoc the-vector 5 60)
+(assoc the-vector 6 70)                 ; wrong
+(conj [1 2 3 4 5] 6)
+(peek [1 2])
+(pop [1 2])
+(peek [])
+(pop [])                                ; wrong
+(the-vector 3)
