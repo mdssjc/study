@@ -1,48 +1,41 @@
 package iloveyouboss;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Profile {
 
   private final Map<String, Answer> answers = new HashMap<>();
-  private String                    name;
+  private final String              id;
 
-  public Profile() {
+  public Profile(final String id) {
+    this.id = id;
   }
 
-  public Profile(String name) {
-    this.name = name;
-  }
-
-  private Answer getMatchingProfileAnswer(final Criterion criterion) {
-    return this.answers.get(criterion.getAnswer()
-                                     .getQuestionText());
-  }
-
-  public boolean matches(final Criterion criteria) {
-    return criteria.getWeight() == Weight.DontCare ||
-        criteria.getAnswer()
-                .match(getMatchingProfileAnswer(criteria));
+  public String getId() {
+    return this.id;
   }
 
   public void add(final Answer answer) {
     this.answers.put(answer.getQuestionText(), answer);
   }
 
-  public boolean matches(Criteria criteria) {
-    boolean matches = false;
-    for (Criterion criterion : criteria) {
-      if (matches(criterion)) {
-        matches = true;
-      } else if (criterion.getWeight() == Weight.MustMatch) {
-        return false;
-      }
-    }
-    return matches;
+  public MatchSet getMatchSet(final Criteria criteria) {
+    return new MatchSet(this.id, this.answers, criteria);
   }
 
-  public ProfileMatch match(Criteria criteria) {
-    return new ProfileMatch();
+  @Override
+  public String toString() {
+    return this.id;
+  }
+
+  public List<Answer> find(final Predicate<Answer> pred) {
+    return this.answers.values()
+                       .stream()
+                       .filter(pred)
+                       .collect(Collectors.toList());
   }
 }
