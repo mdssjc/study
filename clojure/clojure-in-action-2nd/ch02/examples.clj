@@ -46,3 +46,9 @@ arglebarg                               ; code
 (name :foo/bar)
 (namespace :foo)
 (name "baz")
+
+(list 1 2 3 4 5)
+(list? *1)
+(conj (list 1 2 3 4 5) 6)
+(conj (list 1 2 3) 4 5 6)
+(conj (conj (conj (list 1 2 3) 4) 5) 6)
