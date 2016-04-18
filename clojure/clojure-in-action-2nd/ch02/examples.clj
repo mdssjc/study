@@ -60,3 +60,6 @@ arglebarg                               ; code
 
 (count (list))
 (count (list 1 2 3 4))
+
+(def three-numbers (1 2 3))             ; wrong
+(def three-numbers '(1 2 3))
