@@ -5,19 +5,19 @@ import java.util.List;
 
 public class Leilao {
 
-  private String      descricao;
-  private List<Lance> lances;
+  private final String      descricao;
+  private final List<Lance> lances;
 
-  public Leilao(String descricao) {
+  public Leilao(final String descricao) {
     this.descricao = descricao;
-    lances = new ArrayList<>();
+    this.lances = new ArrayList<>();
   }
 
-  public void propoe(Lance lance) {
-    lances.add(lance);
+  public void propoe(final Lance lance) {
+    this.lances.add(lance);
   }
 
   public List<Lance> getLances() {
-    return lances;
+    return this.lances;
   }
 }
