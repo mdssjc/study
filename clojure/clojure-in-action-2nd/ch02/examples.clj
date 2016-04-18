@@ -109,3 +109,32 @@ update-map
 (rest [])
 (cons 1 [2 3 4 5])
 (list? (cons 1 (list 2 3)))
+
+(defn addition-function [x y]
+  (+ x y))
+(def addition-function
+  (fn [x y]
+    (+ x y)))
+(defn average-pets []
+  (/ (apply + (map :number-pets (vals users))) (count users)))
+(defn average-pets []
+  (let [user-data (vals users)
+        pet-counts (map :number-pets user-data)
+        total (apply + pet-counts)]
+    (/ total (count users))))
+(let [x 1
+      y 2
+      z (+ x y)]
+  z)
+(defn average-pets []
+  (let [user-data (vals users)
+        pet-counts (map :number-pets user-data)
+        value-from-println (println "total pets:" pet-counts)
+        total (apply + pet-counts)]
+    (/ total (count users))))
+(defn average-pets []
+  (let [user-data (vals users)
+        pet-counts (map :number-pets user-data)
+        _ (println "total pets:" pet-counts)
+        total (apply + pet-counts)]
+    (/ total (count users))))
