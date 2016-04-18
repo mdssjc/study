@@ -8,6 +8,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import iloveyouboss.domain.BooleanQuestion;
+import iloveyouboss.domain.Question;
+
 public class MatchSetTest {
 
   private Criteria         criteria;

@@ -9,17 +9,17 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import iloveyouboss.BooleanQuestion;
-import iloveyouboss.PercentileQuestion;
-import iloveyouboss.Question;
+import iloveyouboss.domain.BooleanQuestion;
+import iloveyouboss.domain.PercentileQuestion;
 import iloveyouboss.domain.Persistable;
+import iloveyouboss.domain.Question;
 
 public class QuestionController {
 
   private Clock clock = Clock.systemUTC();
 
   private static EntityManagerFactory getEntityManagerFactory() {
-    return Persistence.createEntityManagerFactory("postgres-ds");
+    return Persistence.createEntityManagerFactory("mysql-ds");
   }
 
   public Question find(final Integer id) {
@@ -41,11 +41,11 @@ public class QuestionController {
 
   public int addPercentileQuestion(final String text,
       final String[] answerChoices) {
-    return persist(new PercentileQuestion(0, text, answerChoices));
+    return persist(new PercentileQuestion(text, answerChoices));
   }
 
   public int addBooleanQuestion(final String text) {
-    return persist(new BooleanQuestion(0, text));
+    return persist(new BooleanQuestion(text));
   }
 
   void setClock(final Clock clock) {

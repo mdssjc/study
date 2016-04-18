@@ -4,6 +4,8 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
+import iloveyouboss.domain.BooleanQuestion;
+
 public class AnswerTest {
 
   @Test

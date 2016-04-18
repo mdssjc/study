@@ -9,6 +9,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import iloveyouboss.domain.BooleanQuestion;
+import iloveyouboss.domain.PercentileQuestion;
+
 public class AnswerCollectionTest {
 
   private AnswerCollection answers;

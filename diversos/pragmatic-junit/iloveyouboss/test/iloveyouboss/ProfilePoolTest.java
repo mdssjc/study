@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import iloveyouboss.domain.BooleanQuestion;
+import iloveyouboss.domain.Question;
+
 public class ProfilePoolTest {
 
   private ProfilePool     pool;

@@ -1,5 +1,7 @@
 package iloveyouboss;
 
+import iloveyouboss.domain.Question;
+
 public class Answer {
 
   private final int      i;
