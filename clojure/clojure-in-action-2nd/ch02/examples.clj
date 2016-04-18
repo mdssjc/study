@@ -57,3 +57,6 @@ arglebarg                               ; code
 (pop (list 1 2 3))
 (peek (list))
 (pop (list))
+
+(count (list))
+(count (list 1 2 3 4))
