@@ -52,3 +52,8 @@ arglebarg                               ; code
 (conj (list 1 2 3 4 5) 6)
 (conj (list 1 2 3) 4 5 6)
 (conj (conj (conj (list 1 2 3) 4) 5) 6)
+
+(peek (list 1 2 3))
+(pop (list 1 2 3))
+(peek (list))
+(pop (list))
