@@ -24,7 +24,7 @@ public class ProfilePoolTest {
     this.pool = new ProfilePool();
     this.langrsoft = new Profile("Langrsoft");
     this.smeltInc = new Profile("Smelt Inc.");
-    this.doTheyReimburseTuition = new BooleanQuestion(1, "Reimburses tuition?");
+    this.doTheyReimburseTuition = new BooleanQuestion("Reimburses tuition?");
   }
 
   @Test

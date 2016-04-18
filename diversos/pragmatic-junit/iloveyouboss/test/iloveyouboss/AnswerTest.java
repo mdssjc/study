@@ -10,6 +10,6 @@ public class AnswerTest {
 
   @Test
   public void matchAgainstNullAnswerReturnsFalse() {
-    assertFalse(new Answer(new BooleanQuestion(0, ""), Bool.TRUE).match(null));
+    assertFalse(new Answer(new BooleanQuestion(""), Bool.TRUE).match(null));
   }
 }

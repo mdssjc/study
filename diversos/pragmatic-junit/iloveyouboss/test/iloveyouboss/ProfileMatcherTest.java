@@ -31,7 +31,7 @@ public class ProfileMatcherTest {
 
   @Before
   public void create() {
-    this.question = new BooleanQuestion(1, "");
+    this.question = new BooleanQuestion("");
     this.criteria = new Criteria();
     this.criteria.add(new Criterion(matchingAnswer(), Weight.MustMatch));
     this.matchingProfile = createMatchingProfile("matching");
