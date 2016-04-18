@@ -26,3 +26,14 @@
 (comment
   defn this-is-not-working [x y]
   (+ x y))
+
+(.contains "clojure-in-action" "-")
+(.endsWith "program.clj" ".clj")
+
+(+ 1 1N)
+(+ 1 1N 1/2)
+(+ 1 1N 1/2 0.5M)
+(+ 1 1N 1/2 0.5M 0.5)
+
+(inc 9223372036854775807)
+(inc' 9223372036854775807)
