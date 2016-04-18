@@ -1,3 +1,4 @@
+
 package iloveyouboss.controller;
 
 import java.time.Clock;
@@ -22,33 +23,33 @@ public class QuestionController {
     return Persistence.createEntityManagerFactory("mysql-ds");
   }
 
-  public Question find(final Integer id) {
+  public Question find(Integer id) {
     return em().find(Question.class, id);
   }
 
   public List<Question> getAll() {
+    return em().createQuery("select q from Question q", Question.class)
+               .getResultList();
+  }
+
+  public List<Question> findWithMatchingText(String text) {
     return em()
-               .createQuery("select q from Question q", Question.class)
+               .createQuery(
+                   "select q from Question q where q.text like '%" + text
+                       + "%'",
+                   Question.class)
                .getResultList();
   }
 
-  public List<Question> findWithMatchingText(final String text) {
-    final String query = "select q from Question q where q.text like '%" + text
-        + "%'";
-    return em().createQuery(query, Question.class)
-               .getResultList();
-  }
-
-  public int addPercentileQuestion(final String text,
-      final String[] answerChoices) {
+  public int addPercentileQuestion(String text, String[] answerChoices) {
     return persist(new PercentileQuestion(text, answerChoices));
   }
 
-  public int addBooleanQuestion(final String text) {
+  public int addBooleanQuestion(String text) {
     return persist(new BooleanQuestion(text));
   }
 
-  void setClock(final Clock clock) {
+  void setClock(Clock clock) {
     this.clock = clock;
   }
 
@@ -58,15 +59,15 @@ public class QuestionController {
                   .executeUpdate());
   }
 
-  private void executeInTransaction(final Consumer<EntityManager> func) {
-    final EntityManager em = em();
+  private void executeInTransaction(Consumer<EntityManager> func) {
+    EntityManager em = em();
 
-    final EntityTransaction transaction = em.getTransaction();
+    EntityTransaction transaction = em.getTransaction();
     try {
       transaction.begin();
       func.accept(em);
       transaction.commit();
-    } catch (final Throwable t) {
+    } catch (Throwable t) {
       t.printStackTrace();
       transaction.rollback();
     } finally {
@@ -74,8 +75,8 @@ public class QuestionController {
     }
   }
 
-  private int persist(final Persistable object) {
-    object.setCreateTimestamp(this.clock.instant());
+  private int persist(Persistable object) {
+    object.setCreateTimestamp(clock.instant());
     executeInTransaction((em) -> em.persist(object));
     return object.getId();
   }

@@ -1,3 +1,4 @@
+
 package iloveyouboss.domain;
 
 import java.time.Instant;

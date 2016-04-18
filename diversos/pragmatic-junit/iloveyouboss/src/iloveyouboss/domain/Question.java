@@ -17,68 +17,84 @@ import javax.persistence.Table;
 import iloveyouboss.Answer;
 
 @Entity
-@Table(name="question")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="type")
+@Table(name = "Question")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 public abstract class Question implements Serializable, Persistable {
-   private static final long serialVersionUID = 1L;
 
-   @Id
-   @GeneratedValue(strategy=GenerationType.AUTO)
-   @Column(updatable=false, nullable=false)
-   private Integer id;
+  private static final long serialVersionUID = 1L;
 
-   @Column
-   private String text;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(updatable = false, nullable = false)
+  private Integer           id;
 
-   @Column
-   private Instant instant;
+  @Column
+  private String            text;
 
-   public Question() {}
-   public Question(String text) {
-      this.text = text;
-   }
+  @Column
+  private Instant           instant;
 
-   abstract public List<String> getAnswerChoices();
-   abstract public boolean match(int expected, int actual);
+  public Question() {
+  }
 
-   @Override
-  public Integer getId() { return id; }
-   @Override
-  public void setId(Integer id) { this.id = id; }
+  public Question(String text) {
+    this.text = text;
+  }
 
-   public String getText() { return text; }
-   public void setText(String text) { this.text = text; }
+  abstract public List<String> getAnswerChoices();
 
-   @Override
-   public String toString() {
-      StringBuilder s = new StringBuilder("Question #" + getId() + ": " + getText());
-      getAnswerChoices().stream().forEach((choice) -> s.append("\t" + choice));
-      return s.toString();
-   }
+  abstract public boolean match(int expected, int actual);
 
-   public boolean match(Answer answer) {
-      return false;
-   }
+  @Override
+  public Integer getId() {
+    return id;
+  }
 
-   public String getAnswerChoice(int i) {
-      return getAnswerChoices().get(i);
-   }
+  @Override
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-   public int indexOf(String matchingAnswerChoice) {
-      for (int i = 0; i < getAnswerChoices().size(); i++)
-         if (getAnswerChoice(i).equals(matchingAnswerChoice))
-            return i;
-      return -1;
-   }
+  public String getText() {
+    return text;
+  }
 
-   @Override
-   public Instant getCreateTimestamp() {
-      return instant;
-   }
+  public void setText(String text) {
+    this.text = text;
+  }
 
-   @Override
-   public void setCreateTimestamp(Instant instant) {
-      this.instant = instant;
-   }
+  @Override
+  public String toString() {
+    StringBuilder s = new StringBuilder(
+        "Question #" + getId() + ": " + getText());
+    getAnswerChoices().stream()
+                      .forEach((choice) -> s.append("\t" + choice));
+    return s.toString();
+  }
+
+  public boolean match(Answer answer) {
+    return false;
+  }
+
+  public String getAnswerChoice(int i) {
+    return getAnswerChoices().get(i);
+  }
+
+  public int indexOf(String matchingAnswerChoice) {
+    for (int i = 0; i < getAnswerChoices().size(); i++)
+      if (getAnswerChoice(i).equals(matchingAnswerChoice))
+        return i;
+    return -1;
+  }
+
+  @Override
+  public Instant getCreateTimestamp() {
+    return instant;
+  }
+
+  @Override
+  public void setCreateTimestamp(Instant instant) {
+    this.instant = instant;
+  }
 }

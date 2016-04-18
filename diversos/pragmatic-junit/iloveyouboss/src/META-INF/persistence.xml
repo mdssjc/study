@@ -4,6 +4,8 @@
 	<persistence-unit name="mysql-ds" transaction-type="RESOURCE_LOCAL">
 		<description>mysql persistence unit</description>
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>iloveyouboss.domain.BooleanQuestion</class>
+		<class>iloveyouboss.domain.PercentileQuestion</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/iloveyouboss" />
@@ -11,11 +13,10 @@
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.transaction.flush_before_completion" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="drop-create" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="log4j.logging.level" value="ERROR" />
 			<property name="javax.persistence.jdbc.password" value="12345" />
-			<property name="javax.persistence.schema-generation.drop-source" value="script-then-metadata"/>
 		</properties>
 	</persistence-unit>
 </persistence>

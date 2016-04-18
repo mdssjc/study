@@ -16,6 +16,10 @@ public class MatchSet implements Comparable<MatchSet> {
     this.criteria = criteria;
   }
 
+  public MatchSet(AnswerCollection answers, Criteria criteria) {
+    this.criteria = criteria;
+  }
+
   public String getProfileId() {
     return profileId;
   }
