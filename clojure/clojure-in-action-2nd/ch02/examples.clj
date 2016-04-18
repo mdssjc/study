@@ -37,3 +37,12 @@
 
 (inc 9223372036854775807)
 (inc' 9223372036854775807)
+
+arglebarg                               ; code
+'arglebarg                              ; data
+
+(keyword "foo")
+(symbol "foo" "bar")
+(name :foo/bar)
+(namespace :foo)
+(name "baz")
