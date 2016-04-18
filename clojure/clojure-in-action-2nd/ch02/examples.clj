@@ -80,3 +80,21 @@ arglebarg                               ; code
 (peek [])
 (pop [])                                ; wrong
 (the-vector 3)
+
+(def the-map {:a 1 :b 2 :c 3})
+(hash-map :a 1 :b 2 :c 3)
+(the-map :b)
+(:b the-map)
+(:z the-map 26)
+(def update-map (assoc the-map :d 4))
+update-map
+(dissoc update-map :a)
+(def users {:kyle {
+                   :date-joined "2009-01-01"
+                   :summary {
+                             :average {
+                                       :monthly 1000
+                                       :yearly 12000}}}})
+(assoc-in users [:kyle :summary :average :monthly] 3000)
+(get-in users [:kyle :summary :average :monthly])
+(update-in users [:kyle :summary :average :monthly] + 500)
