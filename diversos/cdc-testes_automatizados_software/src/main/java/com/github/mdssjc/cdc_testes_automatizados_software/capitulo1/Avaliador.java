@@ -1,9 +1,14 @@
 package com.github.mdssjc.cdc_testes_automatizados_software.capitulo1;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Avaliador {
 
-  private double maiorDeTodos = Double.NEGATIVE_INFINITY;
-  private double menorDeTodos = Double.POSITIVE_INFINITY;
+  private double      maiorDeTodos = Double.NEGATIVE_INFINITY;
+  private double      menorDeTodos = Double.POSITIVE_INFINITY;
+  private List<Lance> maiores;
 
   public void avalia(final Leilao leilao) {
     for (final Lance lance : leilao.getLances()) {
@@ -14,6 +19,27 @@ public class Avaliador {
         this.menorDeTodos = lance.getValor();
       }
     }
+
+    pegaOsMaioresNo(leilao);
+  }
+
+  private void pegaOsMaioresNo(final Leilao leilao) {
+    this.maiores = new ArrayList<>(leilao.getLances());
+    Collections.sort(this.maiores, (o1, o2) -> {
+      if (o1.getValor() < o2.getValor()) {
+        return 1;
+      }
+      if (o1.getValor() > o2.getValor()) {
+        return -1;
+      }
+      return 0;
+    });
+    this.maiores = this.maiores.subList(0,
+        maiores.size() > 3 ? 3 : maiores.size());
+  }
+
+  public List<Lance> getTresMaiores() {
+    return this.maiores;
   }
 
   public double getMaiorLance() {
