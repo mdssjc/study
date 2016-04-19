@@ -23,7 +23,7 @@ public class QuestionController {
     return Persistence.createEntityManagerFactory("mysql-ds");
   }
 
-  public Question find(Integer id) {
+  public Question find(final Integer id) {
     return em().find(Question.class, id);
   }
 
@@ -32,7 +32,7 @@ public class QuestionController {
                .getResultList();
   }
 
-  public List<Question> findWithMatchingText(String text) {
+  public List<Question> findWithMatchingText(final String text) {
     return em()
                .createQuery(
                    "select q from Question q where q.text like '%" + text
@@ -41,15 +41,16 @@ public class QuestionController {
                .getResultList();
   }
 
-  public int addPercentileQuestion(String text, String[] answerChoices) {
+  public int addPercentileQuestion(final String text,
+      final String[] answerChoices) {
     return persist(new PercentileQuestion(text, answerChoices));
   }
 
-  public int addBooleanQuestion(String text) {
+  public int addBooleanQuestion(final String text) {
     return persist(new BooleanQuestion(text));
   }
 
-  void setClock(Clock clock) {
+  void setClock(final Clock clock) {
     this.clock = clock;
   }
 
@@ -59,15 +60,15 @@ public class QuestionController {
                   .executeUpdate());
   }
 
-  private void executeInTransaction(Consumer<EntityManager> func) {
-    EntityManager em = em();
+  private void executeInTransaction(final Consumer<EntityManager> func) {
+    final EntityManager em = em();
 
-    EntityTransaction transaction = em.getTransaction();
+    final EntityTransaction transaction = em.getTransaction();
     try {
       transaction.begin();
       func.accept(em);
       transaction.commit();
-    } catch (Throwable t) {
+    } catch (final Throwable t) {
       t.printStackTrace();
       transaction.rollback();
     } finally {
@@ -75,8 +76,8 @@ public class QuestionController {
     }
   }
 
-  private int persist(Persistable object) {
-    object.setCreateTimestamp(clock.instant());
+  private int persist(final Persistable object) {
+    object.setCreateTimestamp(this.clock.instant());
     executeInTransaction((em) -> em.persist(object));
     return object.getId();
   }

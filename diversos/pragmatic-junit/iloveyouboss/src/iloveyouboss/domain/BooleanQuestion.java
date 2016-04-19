@@ -15,7 +15,7 @@ public class BooleanQuestion extends Question {
   public BooleanQuestion() {
   }
 
-  public BooleanQuestion(String text) {
+  public BooleanQuestion(final String text) {
     super(text);
   }
 
@@ -25,7 +25,7 @@ public class BooleanQuestion extends Question {
   }
 
   @Override
-  public boolean match(int expected, int actual) {
+  public boolean match(final int expected, final int actual) {
     return expected == actual;
   }
 }

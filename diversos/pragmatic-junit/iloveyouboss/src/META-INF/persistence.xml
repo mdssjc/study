@@ -6,6 +6,7 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>iloveyouboss.domain.BooleanQuestion</class>
 		<class>iloveyouboss.domain.PercentileQuestion</class>
+		<class>iloveyouboss.domain.Question</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/iloveyouboss" />

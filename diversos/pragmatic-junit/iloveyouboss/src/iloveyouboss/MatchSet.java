@@ -5,71 +5,78 @@ import java.util.Map;
 public class MatchSet implements Comparable<MatchSet> {
 
   private Map<String, Answer> answers;
-  private Criteria            criteria;
+  private final Criteria      criteria;
   private int                 score = Integer.MIN_VALUE;
   private String              profileId;
 
-  public MatchSet(String profileId, Map<String, Answer> answers,
-      Criteria criteria) {
+  public MatchSet(final String profileId, final Map<String, Answer> answers,
+      final Criteria criteria) {
     this.profileId = profileId;
     this.answers = answers;
     this.criteria = criteria;
   }
 
-  public MatchSet(AnswerCollection answers, Criteria criteria) {
+  public MatchSet(final AnswerCollection answers, final Criteria criteria) {
     this.criteria = criteria;
   }
 
   public String getProfileId() {
-    return profileId;
+    return this.profileId;
   }
 
   public int getScore() {
-    if (score == Integer.MIN_VALUE) calculateScore();
-    return score;
+    if (this.score == Integer.MIN_VALUE) {
+      calculateScore();
+    }
+    return this.score;
   }
 
   private void calculateScore() {
-    score = 0;
-    for (Criterion criterion : criteria)
-      if (criterion.matches(answerMatching(criterion)))
-        score += criterion.getWeight()
-                          .getValue();
+    this.score = 0;
+    for (final Criterion criterion : this.criteria) {
+      if (criterion.matches(answerMatching(criterion))) {
+        this.score += criterion.getWeight()
+                               .getValue();
+      }
+    }
   }
 
-  private Answer answerMatching(Criterion criterion) {
-    return answers.get(criterion.getAnswer()
-                                .getQuestionText());
+  private Answer answerMatching(final Criterion criterion) {
+    return this.answers.get(criterion.getAnswer()
+                                     .getQuestionText());
   }
 
   public boolean matches() {
     try {
       Thread.sleep(1000);
-    } catch (InterruptedException e) {
+    } catch (final InterruptedException e) {
     }
-    if (doesNotMeetAnyMustMatchCriterion())
+    if (doesNotMeetAnyMustMatchCriterion()) {
       return false;
+    }
     return anyMatches();
   }
 
   private boolean doesNotMeetAnyMustMatchCriterion() {
-    for (Criterion criterion : criteria) {
-      boolean match = criterion.matches(answerMatching(criterion));
-      if (!match && criterion.getWeight() == Weight.MustMatch)
+    for (final Criterion criterion : this.criteria) {
+      final boolean match = criterion.matches(answerMatching(criterion));
+      if (!match && criterion.getWeight() == Weight.MustMatch) {
         return true;
+      }
     }
     return false;
   }
 
   private boolean anyMatches() {
     boolean anyMatches = false;
-    for (Criterion criterion : criteria)
+    for (final Criterion criterion : this.criteria) {
       anyMatches |= criterion.matches(answerMatching(criterion));
+    }
     return anyMatches;
   }
 
   @Override
-  public int compareTo(MatchSet that) {
+  public int compareTo(final MatchSet that) {
     return new Integer(getScore()).compareTo(new Integer(that.getScore()));
   }
 }

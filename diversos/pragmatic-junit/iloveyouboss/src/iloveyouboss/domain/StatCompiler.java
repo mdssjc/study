@@ -9,7 +9,7 @@ import iloveyouboss.controller.QuestionController;
 
 public class StatCompiler {
 
-  private final QuestionController controller = new QuestionController();
+  private QuestionController controller = new QuestionController();
 
   public Map<Integer, String> questionText(final List<BooleanAnswer> answers) {
     final Map<Integer, String> questions = new HashMap<>();
