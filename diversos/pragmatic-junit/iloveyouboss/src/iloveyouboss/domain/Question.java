@@ -1,3 +1,4 @@
+
 package iloveyouboss.domain;
 
 import java.io.Serializable;
@@ -38,7 +39,7 @@ public abstract class Question implements Serializable, Persistable {
   public Question() {
   }
 
-  public Question(final String text) {
+  public Question(String text) {
     this.text = text;
   }
 
@@ -48,55 +49,53 @@ public abstract class Question implements Serializable, Persistable {
 
   @Override
   public Integer getId() {
-    return this.id;
+    return id;
   }
 
   @Override
-  public void setId(final Integer id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
   public String getText() {
-    return this.text;
+    return text;
   }
 
-  public void setText(final String text) {
+  public void setText(String text) {
     this.text = text;
   }
 
   @Override
   public String toString() {
-    final StringBuilder s = new StringBuilder(
+    StringBuilder s = new StringBuilder(
         "Question #" + getId() + ": " + getText());
     getAnswerChoices().stream()
                       .forEach((choice) -> s.append("\t" + choice));
     return s.toString();
   }
 
-  public boolean match(final Answer answer) {
+  public boolean match(Answer answer) {
     return false;
   }
 
-  public String getAnswerChoice(final int i) {
+  public String getAnswerChoice(int i) {
     return getAnswerChoices().get(i);
   }
 
-  public int indexOf(final String matchingAnswerChoice) {
-    for (int i = 0; i < getAnswerChoices().size(); i++) {
-      if (getAnswerChoice(i).equals(matchingAnswerChoice)) {
+  public int indexOf(String matchingAnswerChoice) {
+    for (int i = 0; i < getAnswerChoices().size(); i++)
+      if (getAnswerChoice(i).equals(matchingAnswerChoice))
         return i;
-      }
-    }
     return -1;
   }
 
   @Override
   public Instant getCreateTimestamp() {
-    return this.instant;
+    return instant;
   }
 
   @Override
-  public void setCreateTimestamp(final Instant instant) {
+  public void setCreateTimestamp(Instant instant) {
     this.instant = instant;
   }
 }

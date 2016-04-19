@@ -1,15 +1,12 @@
 package iloveyouboss;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class Profile {
 
-  private final Map<String, Answer> answers = new HashMap<>();
-  private final String              id;
+  private final AnswerCollection answers = new AnswerCollection();
+  private final String           id;
 
   public Profile(final String id) {
     this.id = id;
@@ -20,7 +17,7 @@ public class Profile {
   }
 
   public void add(final Answer answer) {
-    this.answers.put(answer.getQuestionText(), answer);
+    answers.add(answer);
   }
 
   public MatchSet getMatchSet(final Criteria criteria) {
@@ -33,9 +30,6 @@ public class Profile {
   }
 
   public List<Answer> find(final Predicate<Answer> pred) {
-    return this.answers.values()
-                       .stream()
-                       .filter(pred)
-                       .collect(Collectors.toList());
+    return this.answers.find(pred);
   }
 }

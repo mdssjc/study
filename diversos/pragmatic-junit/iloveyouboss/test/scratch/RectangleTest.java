@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 import static scratch.ConstrainsSidesTo.constrainsSidesTo;
 
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class RectangleTest {
@@ -24,6 +25,7 @@ public class RectangleTest {
   }
 
   @Test
+  @Ignore("example of error")
   public void allowsDynamicallyChangingSize() {
     this.rectangle = new Rectangle(new Point(5, 5));
     this.rectangle.setOppositeCorner(new Point(130, 130));

@@ -19,6 +19,11 @@ public class BooleanQuestion extends Question {
     super(text);
   }
 
+  public BooleanQuestion(final int id, final String text) {
+    this(text);
+    setId(id);
+  }
+
   @Override
   public List<String> getAnswerChoices() {
     return Arrays.asList(new String[] { "No", "Yes" });

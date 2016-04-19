@@ -41,20 +41,20 @@ public class MatchSetTest {
 
   @Before
   public void createQuestionsAndAnswers() {
-    this.questionIsThereRelocation = new BooleanQuestion("Relocation package?");
+    this.questionIsThereRelocation = new BooleanQuestion(1, "Relocation package?");
     this.answerThereIsRelocation = new Answer(this.questionIsThereRelocation,
         Bool.TRUE);
     this.answerThereIsNoRelocation = new Answer(this.questionIsThereRelocation,
         Bool.FALSE);
 
-    this.questionReimbursesTuition = new BooleanQuestion("Reimburses tuition?");
+    this.questionReimbursesTuition = new BooleanQuestion(2, "Reimburses tuition?");
     this.answerReimbursesTuition = new Answer(this.questionReimbursesTuition,
         Bool.TRUE);
     this.answerDoesNotReimburseTuition = new Answer(
         this.questionReimbursesTuition,
         Bool.FALSE);
 
-    this.questionOnsiteDaycare = new BooleanQuestion("Onsite daycare?");
+    this.questionOnsiteDaycare = new BooleanQuestion(3, "Onsite daycare?");
     this.answerHasOnsiteDaycare = new Answer(this.questionOnsiteDaycare,
         Bool.TRUE);
     this.answerNoOnsiteDaycare = new Answer(this.questionOnsiteDaycare,

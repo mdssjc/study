@@ -32,9 +32,9 @@ public class ProfileTest {
   public void findsAnswersBasedOnPredicate() {
     this.profile.add(new Answer(new BooleanQuestion("1"), Bool.FALSE));
     this.profile.add(
-        new Answer(new PercentileQuestion("2", new String[] {}), 0));
+        new Answer(new PercentileQuestion(2, "2", new String[] {}), 0));
     this.profile.add(
-        new Answer(new PercentileQuestion("3", new String[] {}), 0));
+        new Answer(new PercentileQuestion(3, "3", new String[] {}), 0));
 
     final List<Answer> answers = this.profile.find(a -> a.getQuestion()
                                                          .getClass() == PercentileQuestion.class);

@@ -27,6 +27,12 @@ public class PercentileQuestion extends Question {
     this.answerChoices = Arrays.asList(answerChoices);
   }
 
+  public PercentileQuestion(final int id, final String text,
+      final String[] answerChoices) {
+    this(text, answerChoices);
+    setId(id);
+  }
+
   @Override
   public List<String> getAnswerChoices() {
     return this.answerChoices;
