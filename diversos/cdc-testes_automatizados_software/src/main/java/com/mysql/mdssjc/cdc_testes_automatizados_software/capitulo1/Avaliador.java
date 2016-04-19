@@ -9,7 +9,8 @@ public class Avaliador {
     for (final Lance lance : leilao.getLances()) {
       if (lance.getValor() > this.maiorDeTodos) {
         this.maiorDeTodos = lance.getValor();
-      } else if (lance.getValor() < this.menorDeTodos) {
+      }
+      if (lance.getValor() < this.menorDeTodos) {
         this.menorDeTodos = lance.getValor();
       }
     }
