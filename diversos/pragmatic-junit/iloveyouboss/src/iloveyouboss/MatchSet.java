@@ -2,12 +2,12 @@ package iloveyouboss;
 
 public class MatchSet implements Comparable<MatchSet> {
 
-  private AnswerCollection answers;
-  private final Criteria   criteria;
-  private int              score = Integer.MIN_VALUE;
-  private String           profileId;
+  private final AnswerCollection answers;
+  private final Criteria         criteria;
+  private int                    score = Integer.MIN_VALUE;
+  private String                 profileId;
 
-  public MatchSet(final String profileId, AnswerCollection answers,
+  public MatchSet(final String profileId, final AnswerCollection answers,
       final Criteria criteria) {
     this.profileId = profileId;
     this.answers = answers;
@@ -33,7 +33,7 @@ public class MatchSet implements Comparable<MatchSet> {
   private void calculateScore() {
     this.score = 0;
     for (final Criterion criterion : this.criteria) {
-      if (criterion.matches(answers.answerMatching(criterion))) {
+      if (criterion.matches(this.answers.answerMatching(criterion))) {
         this.score += criterion.getWeight()
                                .getValue();
       }
@@ -54,7 +54,7 @@ public class MatchSet implements Comparable<MatchSet> {
   private boolean doesNotMeetAnyMustMatchCriterion() {
     for (final Criterion criterion : this.criteria) {
       final boolean match = criterion.matches(
-          answers.answerMatching(criterion));
+          this.answers.answerMatching(criterion));
       if (!match && criterion.getWeight() == Weight.MustMatch) {
         return true;
       }
@@ -65,7 +65,7 @@ public class MatchSet implements Comparable<MatchSet> {
   private boolean anyMatches() {
     boolean anyMatches = false;
     for (final Criterion criterion : this.criteria) {
-      anyMatches |= criterion.matches(answers.answerMatching(criterion));
+      anyMatches |= criterion.matches(this.answers.answerMatching(criterion));
     }
     return anyMatches;
   }

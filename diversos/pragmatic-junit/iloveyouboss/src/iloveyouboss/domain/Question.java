@@ -39,7 +39,7 @@ public abstract class Question implements Serializable, Persistable {
   public Question() {
   }
 
-  public Question(String text) {
+  public Question(final String text) {
     this.text = text;
   }
 
@@ -49,53 +49,55 @@ public abstract class Question implements Serializable, Persistable {
 
   @Override
   public Integer getId() {
-    return id;
+    return this.id;
   }
 
   @Override
-  public void setId(Integer id) {
+  public void setId(final Integer id) {
     this.id = id;
   }
 
   public String getText() {
-    return text;
+    return this.text;
   }
 
-  public void setText(String text) {
+  public void setText(final String text) {
     this.text = text;
   }
 
   @Override
   public String toString() {
-    StringBuilder s = new StringBuilder(
+    final StringBuilder s = new StringBuilder(
         "Question #" + getId() + ": " + getText());
     getAnswerChoices().stream()
                       .forEach((choice) -> s.append("\t" + choice));
     return s.toString();
   }
 
-  public boolean match(Answer answer) {
+  public boolean match(final Answer answer) {
     return false;
   }
 
-  public String getAnswerChoice(int i) {
+  public String getAnswerChoice(final int i) {
     return getAnswerChoices().get(i);
   }
 
-  public int indexOf(String matchingAnswerChoice) {
-    for (int i = 0; i < getAnswerChoices().size(); i++)
-      if (getAnswerChoice(i).equals(matchingAnswerChoice))
+  public int indexOf(final String matchingAnswerChoice) {
+    for (int i = 0; i < getAnswerChoices().size(); i++) {
+      if (getAnswerChoice(i).equals(matchingAnswerChoice)) {
         return i;
+      }
+    }
     return -1;
   }
 
   @Override
   public Instant getCreateTimestamp() {
-    return instant;
+    return this.instant;
   }
 
   @Override
-  public void setCreateTimestamp(Instant instant) {
+  public void setCreateTimestamp(final Instant instant) {
     this.instant = instant;
   }
 }

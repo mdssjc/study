@@ -17,7 +17,7 @@ public class Profile {
   }
 
   public void add(final Answer answer) {
-    answers.add(answer);
+    this.answers.add(answer);
   }
 
   public MatchSet getMatchSet(final Criteria criteria) {
