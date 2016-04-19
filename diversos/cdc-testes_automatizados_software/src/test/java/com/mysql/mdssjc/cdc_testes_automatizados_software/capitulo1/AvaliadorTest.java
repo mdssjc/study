@@ -1,8 +1,13 @@
 package com.mysql.mdssjc.cdc_testes_automatizados_software.capitulo1;
 
-public class TesteDoAvaliador {
+import static org.junit.Assert.assertEquals;
 
-  public static void main(final String[] args) {
+import org.junit.Test;
+
+public class AvaliadorTest {
+
+  @Test
+  public void deveEntenderLancesEmOrdemCrescente() {
     // cenário: 3 lances em ordem crescente
     final Usuario joao = new Usuario("Joao");
     final Usuario jose = new Usuario("José");
@@ -22,7 +27,7 @@ public class TesteDoAvaliador {
     final double maiorEsperado = 400;
     final double menorEsperado = 250;
 
-    System.out.println(maiorEsperado == leiloeiro.getMaiorLance());
-    System.out.println(menorEsperado == leiloeiro.getMenorDeTodos());
+    assertEquals(maiorEsperado, leiloeiro.getMaiorLance(), 0.0001);
+    assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.0001);
   }
 }

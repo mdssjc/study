@@ -19,7 +19,7 @@ public class Avaliador {
     return this.maiorDeTodos;
   }
 
-  public double getMenorDeTodos() {
+  public double getMenorLance() {
     return this.menorDeTodos;
   }
 }
