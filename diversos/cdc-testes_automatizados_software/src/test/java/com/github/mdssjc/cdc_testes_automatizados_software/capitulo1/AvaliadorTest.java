@@ -1,4 +1,4 @@
-package com.mysql.mdssjc.cdc_testes_automatizados_software.capitulo1;
+package com.github.mdssjc.cdc_testes_automatizados_software.capitulo1;
 
 import static org.junit.Assert.assertEquals;
 

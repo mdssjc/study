@@ -1,4 +1,4 @@
-package com.mysql.mdssjc.cdc_testes_automatizados_software.capitulo1;
+package com.github.mdssjc.cdc_testes_automatizados_software.capitulo1;
 
 import java.util.ArrayList;
 import java.util.List;
