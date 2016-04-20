@@ -1,6 +1,8 @@
 package com.github.mdssjc.cdc.tas.capitulo1;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
@@ -32,8 +34,10 @@ public class AvaliadorTest {
 
     this.leiloeiro.avalia(leilao);
 
-    assertEquals(400, this.leiloeiro.getMaiorLance(), 0.0001);
-    assertEquals(250, this.leiloeiro.getMenorLance(), 0.0001);
+    assertThat(leiloeiro.getMaiorLance(), equalTo(400.0));
+    // assertEquals(400, this.leiloeiro.getMaiorLance(), 0.0001);
+    assertThat(leiloeiro.getMenorLance(), equalTo(250.0));
+    // assertEquals(250, this.leiloeiro.getMenorLance(), 0.0001);
   }
 
   @Test
@@ -72,5 +76,13 @@ public class AvaliadorTest {
     assertEquals(200, maiores.get(2)
                              .getValor(),
         0.00001);
+  }
+
+  @Test(expected = RuntimeException.class)
+  public void naoDeveAvaliarLeiloesSemNenhumLanceDado() {
+    Leilao leilao = new CriadorDeLeilao().para("Playstation 3 Novo")
+                                         .constroi();
+
+    leiloeiro.avalia(leilao);
   }
 }
