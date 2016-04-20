@@ -1,6 +1,7 @@
 package com.github.mdssjc.cdc.tas.capitulo1;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
@@ -63,16 +64,10 @@ public class AvaliadorTest {
 
     final List<Lance> maiores = this.leiloeiro.getTresMaiores();
 
-    assertThat(maiores.size(), equalTo(3));
-    assertThat(maiores.get(0)
-                      .getValor(),
-        equalTo(400.0));
-    assertThat(maiores.get(1)
-                      .getValor(),
-        equalTo(300.0));
-    assertThat(maiores.get(2)
-                      .getValor(),
-        equalTo(200.0));
+    assertThat(maiores, hasItems(
+        new Lance(this.maria, 400.0),
+        new Lance(this.joao, 300.0),
+        new Lance(this.maria, 200.0)));
   }
 
   @Test(expected = RuntimeException.class)
