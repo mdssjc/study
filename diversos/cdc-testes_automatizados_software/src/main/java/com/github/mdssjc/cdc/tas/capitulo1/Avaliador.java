@@ -1,4 +1,4 @@
-package com.github.mdssjc.cdc_testes_automatizados_software.capitulo1;
+package com.github.mdssjc.cdc.tas.capitulo1;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +35,7 @@ public class Avaliador {
       return 0;
     });
     this.maiores = this.maiores.subList(0,
-        maiores.size() > 3 ? 3 : maiores.size());
+        this.maiores.size() > 3 ? 3 : this.maiores.size());
   }
 
   public List<Lance> getTresMaiores() {

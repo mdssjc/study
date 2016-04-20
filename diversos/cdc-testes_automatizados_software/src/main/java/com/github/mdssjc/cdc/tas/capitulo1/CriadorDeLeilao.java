@@ -1,5 +1,9 @@
-package com.github.mdssjc.cdc_testes_automatizados_software.capitulo1;
+package com.github.mdssjc.cdc.tas.capitulo1;
 
+/**
+ * Test Data Builders
+ *
+ */
 public class CriadorDeLeilao {
 
   private Leilao leilao;

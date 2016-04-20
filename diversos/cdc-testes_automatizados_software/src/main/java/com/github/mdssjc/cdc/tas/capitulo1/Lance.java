@@ -1,4 +1,4 @@
-package com.github.mdssjc.cdc_testes_automatizados_software.capitulo1;
+package com.github.mdssjc.cdc.tas.capitulo1;
 
 public class Lance {
 

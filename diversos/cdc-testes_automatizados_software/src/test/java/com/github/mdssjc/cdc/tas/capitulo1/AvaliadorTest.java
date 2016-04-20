@@ -1,4 +1,4 @@
-package com.github.mdssjc.cdc_testes_automatizados_software.capitulo1;
+package com.github.mdssjc.cdc.tas.capitulo1;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,51 +16,51 @@ public class AvaliadorTest {
 
   @Before
   public void criaAvaliador() {
-    leiloeiro = new Avaliador();
-    joao = new Usuario("Joao");
-    jose = new Usuario("José");
-    maria = new Usuario("Maria");
+    this.leiloeiro = new Avaliador();
+    this.joao = new Usuario("Joao");
+    this.jose = new Usuario("José");
+    this.maria = new Usuario("Maria");
   }
 
   @Test
   public void deveEntenderLancesEmOrdemCrescente() {
     final Leilao leilao = new CriadorDeLeilao().para("Playstation 3 Novo")
-                                               .lance(maria, 250.0)
-                                               .lance(joao, 300.0)
-                                               .lance(jose, 400.0)
+                                               .lance(this.maria, 250.0)
+                                               .lance(this.joao, 300.0)
+                                               .lance(this.jose, 400.0)
                                                .constroi();
 
-    leiloeiro.avalia(leilao);
+    this.leiloeiro.avalia(leilao);
 
-    assertEquals(400, leiloeiro.getMaiorLance(), 0.0001);
-    assertEquals(250, leiloeiro.getMenorLance(), 0.0001);
+    assertEquals(400, this.leiloeiro.getMaiorLance(), 0.0001);
+    assertEquals(250, this.leiloeiro.getMenorLance(), 0.0001);
   }
 
   @Test
   public void deveEntenderLeilaoComApenasUmLance() {
     final Leilao leilao = new CriadorDeLeilao().para("Playstation 3 Novo")
-                                               .lance(joao, 1000.0)
+                                               .lance(this.joao, 1000.0)
                                                .constroi();
 
-    leiloeiro.avalia(leilao);
+    this.leiloeiro.avalia(leilao);
 
-    assertEquals(1000, leiloeiro.getMaiorLance(), 0.0001);
-    assertEquals(1000, leiloeiro.getMenorLance(), 0.0001);
+    assertEquals(1000, this.leiloeiro.getMaiorLance(), 0.0001);
+    assertEquals(1000, this.leiloeiro.getMenorLance(), 0.0001);
   }
 
   @Test
   public void deveEncontrarOsTresMaioresLances() {
     final Leilao leilao = new CriadorDeLeilao()
                                                .para("Playstation 3 Novo")
-                                               .lance(joao, 100.0)
-                                               .lance(maria, 200.0)
-                                               .lance(joao, 300.0)
-                                               .lance(maria, 400.0)
+                                               .lance(this.joao, 100.0)
+                                               .lance(this.maria, 200.0)
+                                               .lance(this.joao, 300.0)
+                                               .lance(this.maria, 400.0)
                                                .constroi();
 
-    leiloeiro.avalia(leilao);
+    this.leiloeiro.avalia(leilao);
 
-    final List<Lance> maiores = leiloeiro.getTresMaiores();
+    final List<Lance> maiores = this.leiloeiro.getTresMaiores();
 
     assertEquals(3, maiores.size());
     assertEquals(400, maiores.get(0)
