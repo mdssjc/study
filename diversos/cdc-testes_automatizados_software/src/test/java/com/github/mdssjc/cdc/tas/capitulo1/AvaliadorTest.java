@@ -1,7 +1,6 @@
 package com.github.mdssjc.cdc.tas.capitulo1;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
@@ -35,9 +34,7 @@ public class AvaliadorTest {
     this.leiloeiro.avalia(leilao);
 
     assertThat(this.leiloeiro.getMaiorLance(), equalTo(400.0));
-    // assertEquals(400, this.leiloeiro.getMaiorLance(), 0.0001);
     assertThat(this.leiloeiro.getMenorLance(), equalTo(250.0));
-    // assertEquals(250, this.leiloeiro.getMenorLance(), 0.0001);
   }
 
   @Test
@@ -48,8 +45,8 @@ public class AvaliadorTest {
 
     this.leiloeiro.avalia(leilao);
 
-    assertEquals(1000, this.leiloeiro.getMaiorLance(), 0.0001);
-    assertEquals(1000, this.leiloeiro.getMenorLance(), 0.0001);
+    assertThat(this.leiloeiro.getMaiorLance(), equalTo(1000.0));
+    assertThat(this.leiloeiro.getMenorLance(), equalTo(1000.0));
   }
 
   @Test
@@ -66,16 +63,16 @@ public class AvaliadorTest {
 
     final List<Lance> maiores = this.leiloeiro.getTresMaiores();
 
-    assertEquals(3, maiores.size());
-    assertEquals(400, maiores.get(0)
-                             .getValor(),
-        0.00001);
-    assertEquals(300, maiores.get(1)
-                             .getValor(),
-        0.00001);
-    assertEquals(200, maiores.get(2)
-                             .getValor(),
-        0.00001);
+    assertThat(maiores.size(), equalTo(3));
+    assertThat(maiores.get(0)
+                      .getValor(),
+        equalTo(400.0));
+    assertThat(maiores.get(1)
+                      .getValor(),
+        equalTo(300.0));
+    assertThat(maiores.get(2)
+                      .getValor(),
+        equalTo(200.0));
   }
 
   @Test(expected = RuntimeException.class)
