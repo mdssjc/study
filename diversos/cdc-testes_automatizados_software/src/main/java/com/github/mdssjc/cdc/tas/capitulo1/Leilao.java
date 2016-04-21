@@ -1,6 +1,7 @@
 package com.github.mdssjc.cdc.tas.capitulo1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Leilao {
@@ -17,7 +18,11 @@ public class Leilao {
     this.lances.add(lance);
   }
 
+  public String getDescricao() {
+    return this.descricao;
+  }
+
   public List<Lance> getLances() {
-    return this.lances;
+    return Collections.unmodifiableList(this.lances);
   }
 }
