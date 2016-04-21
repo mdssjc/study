@@ -17,7 +17,8 @@ public class Leilao {
   public void propoe(final Lance lance) {
     if (this.lances.isEmpty() || !ultimoLanceDado().getUsuario()
                                                    .equals(
-                                                       lance.getUsuario())) {
+                                                       lance.getUsuario())
+        && qtdDeLancesDo(lance.getUsuario()) < 5) {
       this.lances.add(lance);
     }
   }
@@ -32,5 +33,11 @@ public class Leilao {
 
   private Lance ultimoLanceDado() {
     return lances.get(this.lances.size() - 1);
+  }
+
+  private int qtdDeLancesDo(Usuario usuario) {
+    return (int) lances.stream()
+                       .filter(l -> l.getUsuario() == usuario)
+                       .count();
   }
 }
