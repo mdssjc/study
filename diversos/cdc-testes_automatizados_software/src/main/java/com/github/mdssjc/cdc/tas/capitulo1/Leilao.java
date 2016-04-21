@@ -15,7 +15,11 @@ public class Leilao {
   }
 
   public void propoe(final Lance lance) {
-    this.lances.add(lance);
+    if (this.lances.isEmpty() || !ultimoLanceDado().getUsuario()
+                                                   .equals(
+                                                       lance.getUsuario())) {
+      this.lances.add(lance);
+    }
   }
 
   public String getDescricao() {
@@ -24,5 +28,9 @@ public class Leilao {
 
   public List<Lance> getLances() {
     return Collections.unmodifiableList(this.lances);
+  }
+
+  private Lance ultimoLanceDado() {
+    return lances.get(this.lances.size() - 1);
   }
 }
