@@ -10,26 +10,49 @@ public class Lance {
     this.valor = valor;
   }
 
-  public double getValor() {
-    return this.valor;
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result
+        + ((this.usuario == null) ? 0 : this.usuario.hashCode());
+    long temp;
+    temp = Double.doubleToLongBits(this.valor);
+    result = prime * result + (int) (temp ^ (temp >>> 32));
+    return result;
   }
 
   @Override
-  public boolean equals(final Object objeto) {
-    if (this == objeto) {
+  public boolean equals(final Object obj) {
+    if (this == obj) {
       return true;
     }
-    if (objeto == null) {
+    if (obj == null) {
       return false;
     }
-    if (getClass() != objeto.getClass()) {
+    if (getClass() != obj.getClass()) {
       return false;
     }
-    final Lance other = (Lance) objeto;
+    final Lance other = (Lance) obj;
+    if (this.usuario == null) {
+      if (other.usuario != null) {
+        return false;
+      }
+    } else if (!this.usuario.equals(other.usuario)) {
+      return false;
+    }
     if (Double.doubleToLongBits(this.valor) != Double.doubleToLongBits(
         other.valor)) {
       return false;
     }
     return true;
+  }
+
+  public Usuario getUsuario() {
+    return this.usuario;
+  }
+
+  public double getValor() {
+    return this.valor;
   }
 }
