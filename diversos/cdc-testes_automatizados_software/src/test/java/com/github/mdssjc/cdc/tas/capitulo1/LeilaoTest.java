@@ -43,8 +43,8 @@ public class LeilaoTest {
 
   @Test
   public void naoDeveAceitarDoisLancesSeguidosDoMesmoUsuario() {
-    Leilao leilao = new Leilao("MacBook Pro 15");
-    Usuario steveJobs = new Usuario("Steve Jobs");
+    final Leilao leilao = new Leilao("MacBook Pro 15");
+    final Usuario steveJobs = new Usuario("Steve Jobs");
 
     leilao.propoe(new Lance(steveJobs, 2000));
     leilao.propoe(new Lance(steveJobs, 3000));
@@ -59,9 +59,9 @@ public class LeilaoTest {
 
   @Test
   public void naoDeveAceitarMaisDoQue5LancesDeUmMesmoUsuario() {
-    Leilao leilao = new Leilao("Macbook Pro 15");
-    Usuario steveJobs = new Usuario("Steve Jobs");
-    Usuario billGates = new Usuario("Bill Gates");
+    final Leilao leilao = new Leilao("Macbook Pro 15");
+    final Usuario steveJobs = new Usuario("Steve Jobs");
+    final Usuario billGates = new Usuario("Bill Gates");
 
     leilao.propoe(new Lance(steveJobs, 2000));
     leilao.propoe(new Lance(billGates, 3000));
@@ -78,11 +78,11 @@ public class LeilaoTest {
 
     assertEquals(10, leilao.getLances()
                            .size());
-    int ultimo = leilao.getLances()
-                       .size()
+    final int ultimo = leilao.getLances()
+                             .size()
         - 1;
-    Lance ultimoLance = leilao.getLances()
-                              .get(ultimo);
+    final Lance ultimoLance = leilao.getLances()
+                                    .get(ultimo);
     assertEquals(11000.0,
         ultimoLance.getValor(), 0.00001);
   }

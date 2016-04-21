@@ -32,12 +32,12 @@ public class Leilao {
   }
 
   private Lance ultimoLanceDado() {
-    return lances.get(this.lances.size() - 1);
+    return this.lances.get(this.lances.size() - 1);
   }
 
-  private int qtdDeLancesDo(Usuario usuario) {
-    return (int) lances.stream()
-                       .filter(l -> l.getUsuario() == usuario)
-                       .count();
+  private int qtdDeLancesDo(final Usuario usuario) {
+    return (int) this.lances.stream()
+                            .filter(l -> l.getUsuario() == usuario)
+                            .count();
   }
 }
