@@ -5,21 +5,28 @@ import java.util.List;
 
 public class EncerradorDeLeilao {
 
-  private final LeilaoDao dao;
   private int             total;
+  private final LeilaoDao dao;
+  private final Carteiro  carteiro;
 
-  public EncerradorDeLeilao(final LeilaoDao dao) {
+  public EncerradorDeLeilao(final LeilaoDao dao, final Carteiro carteiro) {
     this.dao = dao;
+    this.carteiro = carteiro;
   }
 
   public void encerra() {
     final List<Leilao> todosLeiloesCorrentes = this.dao.correntes();
 
     for (final Leilao leilao : todosLeiloesCorrentes) {
-      if (comecouSemanaPassada(leilao)) {
-        leilao.encerra();
-        this.total++;
-        this.dao.atualiza(leilao);
+      try {
+        if (comecouSemanaPassada(leilao)) {
+          leilao.encerra();
+          this.total++;
+          this.dao.atualiza(leilao);
+          this.carteiro.envia(leilao);
+        }
+      } catch (Exception e) {
+        System.err.println(e);
       }
     }
   }
