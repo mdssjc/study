@@ -5,11 +5,12 @@ import java.util.List;
 
 public class EncerradorDeLeilao {
 
-  private int             total;
-  private final LeilaoDao dao;
-  private final Carteiro  carteiro;
+  private int                        total;
+  private final RepositorioDeLeiloes dao;
+  private final Carteiro             carteiro;
 
-  public EncerradorDeLeilao(final LeilaoDao dao, final Carteiro carteiro) {
+  public EncerradorDeLeilao(final RepositorioDeLeiloes dao,
+      final Carteiro carteiro) {
     this.dao = dao;
     this.carteiro = carteiro;
   }

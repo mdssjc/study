@@ -16,11 +16,11 @@ import org.junit.Test;
 
 public class EncerradorDeLeilaoTest {
 
-  private Leilao             leilao1;
-  private Leilao             leilao2;
-  private EncerradorDeLeilao encerrador;
-  private LeilaoDao          daoFalso;
-  private Carteiro           carteiroFalso;
+  private Leilao               leilao1;
+  private Leilao               leilao2;
+  private EncerradorDeLeilao   encerrador;
+  private RepositorioDeLeiloes daoFalso;
+  private Carteiro             carteiroFalso;
 
   @Before
   public void inicializacao() {
