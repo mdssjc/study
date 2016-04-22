@@ -3,6 +3,7 @@ package com.github.mdssjc.cdc.tas.capitulo1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -53,6 +54,6 @@ public class EncerradorDeLeilaoTest {
     final EncerradorDeLeilao encerrador = new EncerradorDeLeilao(daoFalso);
     encerrador.encerra();
 
-    verify(daoFalso).atualiza(leilao1);
+    verify(daoFalso, times(1)).atualiza(leilao1);
   }
 }
