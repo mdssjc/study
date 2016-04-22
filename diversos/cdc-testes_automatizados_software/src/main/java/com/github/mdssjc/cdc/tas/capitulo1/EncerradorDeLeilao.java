@@ -19,7 +19,7 @@ public class EncerradorDeLeilao {
       if (comecouSemanaPassada(leilao)) {
         leilao.encerra();
         this.total++;
-        this.dao.atualiza(leilao);
+        this.dao.salva(leilao);
       }
     }
   }

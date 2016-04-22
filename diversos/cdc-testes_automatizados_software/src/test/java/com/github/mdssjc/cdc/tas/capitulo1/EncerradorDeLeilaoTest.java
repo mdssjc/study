@@ -2,7 +2,10 @@ package com.github.mdssjc.cdc.tas.capitulo1;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -21,20 +24,16 @@ public class EncerradorDeLeilaoTest {
     final Leilao leilao2 = new CriadorDeLeilao().para("Geladeira")
                                                 .naData(antiga)
                                                 .constroi();
+    List<Leilao> leiloesAntigos = Arrays.asList(leilao1, leilao2);
 
-    final LeilaoDao dao = new LeilaoDao();
-    dao.salva(leilao1);
-    dao.salva(leilao2);
+    final LeilaoDao daoFalso = mock(LeilaoDao.class);
+    when(daoFalso.correntes()).thenReturn(leiloesAntigos);
 
-    final EncerradorDeLeilao encerrador = new EncerradorDeLeilao(dao);
+    final EncerradorDeLeilao encerrador = new EncerradorDeLeilao(daoFalso);
     encerrador.encerra();
 
-    final List<Leilao> encerrados = dao.encerrados();
-
-    assertEquals(2, encerrados.size());
-    assertTrue(encerrados.get(0)
-                         .isEncerrado());
-    assertTrue(encerrados.get(1)
-                         .isEncerrado());
+    assertTrue(leilao1.isEncerrado());
+    assertTrue(leilao2.isEncerrado());
+    assertEquals(2, encerrador.getTotalEncerrados());
   }
 }
