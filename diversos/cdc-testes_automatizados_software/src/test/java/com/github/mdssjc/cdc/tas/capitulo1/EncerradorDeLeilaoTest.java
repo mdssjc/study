@@ -24,7 +24,7 @@ public class EncerradorDeLeilaoTest {
     final Leilao leilao2 = new CriadorDeLeilao().para("Geladeira")
                                                 .naData(antiga)
                                                 .constroi();
-    List<Leilao> leiloesAntigos = Arrays.asList(leilao1, leilao2);
+    final List<Leilao> leiloesAntigos = Arrays.asList(leilao1, leilao2);
 
     final LeilaoDao daoFalso = mock(LeilaoDao.class);
     when(daoFalso.correntes()).thenReturn(leiloesAntigos);
