@@ -25,7 +25,7 @@ public class EncerradorDeLeilao {
           this.dao.atualiza(leilao);
           this.carteiro.envia(leilao);
         }
-      } catch (Exception e) {
+      } catch (final Exception e) {
         System.err.println(e);
       }
     }
