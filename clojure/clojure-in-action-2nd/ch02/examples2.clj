@@ -50,3 +50,28 @@
 (== 2.0M 1.9999999999999999)
 (== :a 1)                               ; wrong
 (== nil 1)                              ; wrong
+
+;; Functional Iteration
+(defn fact-loop [n]
+  (loop [current n fact 1]
+    (if (= current 1)
+      fact
+      (recur (dec current ) (* fact current)))))
+(fact-loop 5)
+(defn sum-loop [n]
+  (loop [current n sum 0]
+    (if (= current 0)
+      sum
+      (recur (dec current) (+ sum current)))))
+(sum-loop 5)
+
+(def user (list "A" "B" "C" "D"))
+(defn run-report [user]
+  (println "Running report for " user))
+(defn dispatch-reporting-jobs [all-users]
+  (doseq [user all-users]
+    (run-report user)))
+(dispatch-reporting-jobs user)
+
+(dotimes [x 5]
+  (println "X is" x))
