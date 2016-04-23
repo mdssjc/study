@@ -12,10 +12,16 @@ public class UsuarioDaoTest {
     final Session session = new CriadorDeSessao().getSession();
     final UsuarioDao usuarioDao = new UsuarioDao(session);
 
+    final Usuario novoUsuario = new Usuario("João da Silva",
+        "joao@dasilva.com.br");
+    usuarioDao.salvar(novoUsuario);
+
     final Usuario usuario = usuarioDao.porNomeEEmail("João da Silva",
         "joao@dasilva.com.br");
 
     assertEquals("João da Silva", usuario.getNome());
     assertEquals("joao@dasilva.com.br", usuario.getEmail());
+
+    session.close();
   }
 }
