@@ -2,60 +2,38 @@ package com.github.mdssjc.cdc.tas.capitulo1;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
 public class LeilaoDao implements RepositorioDeLeiloes {
 
-  // private static List<Leilao> db = new ArrayList<>();
+  private final Session session;
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * com.github.mdssjc.cdc.tas.capitulo1.RepositorioDeLeiloes#salva(com.github.
-   * mdssjc.cdc.tas.capitulo1.Leilao)
-   */
-  @Override
-  public void salva(final Leilao leilao) {
-    // LeilaoDao.db.add(leilao);
+  public LeilaoDao(final Session session) {
+    this.session = session;
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see com.github.mdssjc.cdc.tas.capitulo1.RepositorioDeLeiloes#encerrados()
-   */
+  @Override
+  public void salvar(final Leilao leilao) {
+    this.session.save(leilao);
+  }
+
   @Override
   public List<Leilao> encerrados() {
     return null;
-    // return LeilaoDao.db.stream()
-    // .filter(l -> l.isEncerrado())
-    // .collect(Collectors.toList());
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see com.github.mdssjc.cdc.tas.capitulo1.RepositorioDeLeiloes#correntes()
-   */
   @Override
   public List<Leilao> correntes() {
     return null;
-    // return LeilaoDao.db.stream()
-    // .filter(l -> !l.isEncerrado())
-    // .collect(Collectors.toList());
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see com.github.mdssjc.cdc.tas.capitulo1.RepositorioDeLeiloes#atualiza(com.
-   * github.mdssjc.cdc.tas.capitulo1.Leilao)
-   */
   @Override
   public void atualiza(final Leilao leilao) {
-    // if (LeilaoDao.db.contains(leilao)) {
-    // LeilaoDao.db.set(LeilaoDao.db.indexOf(leilao), leilao);
-    // } else {
-    // salva(leilao);
-    // }
+  }
+
+  public Long total() {
+    return (Long) this.session.createQuery(
+        "select count(1) from Leilao l where l.encerrado = false")
+                              .uniqueResult();
   }
 }

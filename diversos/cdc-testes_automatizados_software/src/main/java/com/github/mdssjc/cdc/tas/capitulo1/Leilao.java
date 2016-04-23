@@ -1,20 +1,44 @@
 package com.github.mdssjc.cdc.tas.capitulo1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-public class Leilao {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-  private final String      descricao;
-  private final List<Lance> lances;
+@Entity
+public class Leilao implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long              id;
+  private String            descricao;
+  @OneToMany
+  private List<Lance>       lances;
   private Calendar          data;
   private boolean           encerrado;
+
+  public Leilao() {
+  }
 
   public Leilao(final String descricao) {
     this.descricao = descricao;
     this.lances = new ArrayList<>();
+  }
+
+  public Leilao(final String descricao, final double valor,
+      final Usuario usuario,
+      final boolean encerrado) {
+    this(descricao);
+    this.encerrado = encerrado;
+    this.lances.add(new Lance(usuario, valor));
   }
 
   public void propoe(final Lance lance) {

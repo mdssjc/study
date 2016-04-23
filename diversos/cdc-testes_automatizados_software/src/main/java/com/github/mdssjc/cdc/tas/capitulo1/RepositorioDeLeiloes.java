@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface RepositorioDeLeiloes {
 
-  void salva(Leilao leilao);
+  void salvar(Leilao leilao);
 
   List<Leilao> encerrados();
 

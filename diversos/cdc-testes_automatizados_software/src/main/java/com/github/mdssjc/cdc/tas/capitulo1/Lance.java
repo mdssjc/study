@@ -1,9 +1,23 @@
 package com.github.mdssjc.cdc.tas.capitulo1;
 
-public class Lance {
+import java.io.Serializable;
 
-  private final Usuario usuario;
-  private final double  valor;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Lance implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Usuario           usuario;
+  private double            valor;
+
+  public Lance() {
+  }
 
   public Lance(final Usuario usuario, final double valor) {
     this.usuario = usuario;
