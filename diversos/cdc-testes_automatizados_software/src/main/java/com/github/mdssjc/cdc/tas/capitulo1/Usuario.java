@@ -1,9 +1,24 @@
 package com.github.mdssjc.cdc.tas.capitulo1;
 
-public class Usuario {
+import java.io.Serializable;
 
-  private final String nome;
-  private String       email;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Usuario implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long              id;
+  private String            nome;
+  private String            email;
+
+  public Usuario() {
+  }
 
   public Usuario(final String nome) {
     this.nome = nome;
@@ -51,6 +66,10 @@ public class Usuario {
       return false;
     }
     return true;
+  }
+
+  public Long getId() {
+    return this.id;
   }
 
   public String getNome() {

@@ -1,6 +1,7 @@
 package com.github.mdssjc.cdc.tas.capitulo1;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class UsuarioDao {
 
@@ -23,6 +24,8 @@ public class UsuarioDao {
   }
 
   public void salvar(final Usuario usuario) {
+    final Transaction tx = this.session.beginTransaction();
     this.session.save(usuario);
+    tx.commit();
   }
 }
