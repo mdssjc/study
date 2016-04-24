@@ -4,9 +4,9 @@
 
 (def x 1)
 (cond
- (> x 0) "greater!"
- (= x 0) "zero!"
- :default "lesser!")
+  (> x 0) "greater!"
+  (= x 0) "zero!"
+  :default "lesser!")
 
 (when (> 5 2)
   (println "five")
@@ -118,3 +118,42 @@ chessboard-labels
     (for [x z y z :when (prime? (+ x y))]
       (list x y))))
 (pairs-for-primes 5)
+
+;; Threading Macros
+(defn final-amount [principle rate time-periods]
+  (* (Math/pow (+ 1 (/ rate 100)) time-periods) principle))
+(final-amount 100 20 1)
+(final-amount 100 20 2)
+(defn final-amount-> [principle rate time-periods]
+  (-> rate
+      (/ 100)
+      (+ 1)
+      (Math/pow time-periods)
+      (* principle)))
+(final-amount 100 20 1)
+(final-amount 100 20 2)
+
+(defn factorial [n]
+  (reduce * (range 1 (+ 1 n))))
+(defn factorial->> [n]
+  (->> n
+       (+ 1)
+       (range 1)
+       (reduce *)))
+(factorial->> 5)
+
+(as-> {"a" [1 2 3 4]} <>
+  (<> "a")
+  (conj <> 10)
+  (map inc <>))
+
+(let [x 1 y 2]
+  (cond-> []
+    (odd? x) (conj "x is odd")
+    (zero? (rem y 3)) (conj "y is divisible by 3")
+    (even? y) (conj "y is even")))
+(let [x 1 y 2]
+  (as-> [] <>
+    (if (odd? x) (conj <> "x is odd") <>)
+    (if (zero? (rem y 3)) (conj <> "y is divisible by 3") <>)
+    (if (even? y) (conj <> "y is even") <>)))
