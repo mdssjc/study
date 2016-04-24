@@ -75,3 +75,46 @@
 
 (dotimes [x 5]
   (println "X is" x))
+
+(map inc [0 1 2 3])
+(map + [0 1 2 3] [0 1 2 3])
+(map + [0 1 2 3] [0 1 2])
+
+(defn non-zero-expenses [expenses]
+  (let [non-zero? (fn [e] (not (zero? e)))]
+    (filter non-zero? expenses)))
+(non-zero-expenses [-2 -1 0 1 2 3])
+(defn non-zero-expenses [expenses]
+  (remove zero? expenses))
+(non-zero-expenses [-2 -1 0 1 2 3])
+
+(defn factorial [n]
+  (let [numbers (range 1 (+ n 1))]
+    (reduce * numbers)))
+(factorial 5)
+(defn factorial-steps [n]
+  (let [numbers (range 1 (+ n 1))]
+    (reductions * numbers)))
+(factorial-steps 5)
+(map factorial (range 1 6))
+
+(def chessboard-labels
+  (for [alpha "abcdefgh"
+        num (range 19)]
+    (str alpha num)))
+chessboard-labels
+
+(defn prime? [x]
+  (let [divisors (range 2 (inc (int (Math/sqrt x))))
+        remainders (map (fn [d] (rem x d)) divisors)]
+    (not (some zero? remainders))))
+(prime? 3)
+(defn primes-less-than [n]
+  (for [x (range 2 (inc n)) :when (prime? x)]
+    x))
+(primes-less-than 50)
+(defn pairs-for-primes [n]
+  (let [z (range 2 (inc n))]
+    (for [x z y z :when (prime? (+ x y))]
+      (list x y))))
+(pairs-for-primes 5)
