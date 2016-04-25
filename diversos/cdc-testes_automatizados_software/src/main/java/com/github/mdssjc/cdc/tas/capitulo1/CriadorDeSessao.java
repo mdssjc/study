@@ -5,7 +5,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class CriadorDeSessao {
 
@@ -14,15 +13,5 @@ public class CriadorDeSessao {
         "tas_pu");
     final EntityManager manager = factory.createEntityManager();
     return (Session) manager.getDelegate();
-  }
-
-  public static void main(final String[] args) {
-    final Session session = new CriadorDeSessao().getSession();
-
-    final Transaction tx = session.beginTransaction();
-    session.save(new Usuario("Teste"));
-    tx.rollback();
-
-    session.close();
   }
 }

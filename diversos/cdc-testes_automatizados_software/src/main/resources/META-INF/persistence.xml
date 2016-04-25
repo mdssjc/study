@@ -5,9 +5,12 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd ">
 
 	<persistence-unit name="tas_pu" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>com.github.mdssjc.cdc.tas.capitulo1.Usuario</class>
+		<class>com.github.mdssjc.cdc.tas.capitulo1.Lance</class>
+		<class>com.github.mdssjc.cdc.tas.capitulo1.Leilao</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.user" value="root" />

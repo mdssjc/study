@@ -1,27 +1,53 @@
 package com.github.mdssjc.cdc.tas.capitulo1;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.hibernate.Session;
+import org.junit.Before;
 import org.junit.Test;
 
 public class UsuarioDaoTest {
 
+  private Session    session;
+  private UsuarioDao usuarioDao;
+
+  @Before
+  public void inicializacao() {
+    this.session = new CriadorDeSessao().getSession();
+    this.usuarioDao = new UsuarioDao(this.session);
+  }
+
+  public void finalizacao() {
+    this.session.close();
+  }
+
   @Test
   public void deveEncontrarPeloNomeEEmailMockado() {
-    final Session session = new CriadorDeSessao().getSession();
-    final UsuarioDao usuarioDao = new UsuarioDao(session);
-
     final Usuario novoUsuario = new Usuario("João da Silva",
         "joao@dasilva.com.br");
-    usuarioDao.salvar(novoUsuario);
 
-    final Usuario usuario = usuarioDao.porNomeEEmail("João da Silva",
+    this.usuarioDao.salvar(novoUsuario);
+
+    final Usuario usuario = this.usuarioDao.porNomeEEmail("João da Silva",
         "joao@dasilva.com.br");
 
     assertEquals("João da Silva", usuario.getNome());
     assertEquals("joao@dasilva.com.br", usuario.getEmail());
+  }
 
-    session.close();
+  @Test
+  public void deveDeletarUmUsuario() {
+    final Usuario usuario = new Usuario("Mauricio Aniche",
+        "mauricio@aniche.com.br");
+
+    this.usuarioDao.salvar(usuario);
+    this.usuarioDao.deletar(usuario);
+    this.session.flush();
+
+    final Usuario usuarioNoBanco = this.usuarioDao.porNomeEEmail(
+        "Mauricio Aniche", "mauricio@aniche.com.br");
+
+    assertNull(usuarioNoBanco);
   }
 }

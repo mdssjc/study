@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.assertThat;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Before;
@@ -19,9 +20,9 @@ public class AvaliadorTest {
   @Before
   public void criaAvaliador() {
     this.leiloeiro = new Avaliador();
-    this.joao = new Usuario("Joao");
-    this.jose = new Usuario("José");
-    this.maria = new Usuario("Maria");
+    this.joao = new Usuario("Joao", "joao@email.com");
+    this.jose = new Usuario("José", "jose@email.com");
+    this.maria = new Usuario("Maria", "maria@email.com");
   }
 
   @Test
@@ -64,10 +65,11 @@ public class AvaliadorTest {
 
     final List<Lance> maiores = this.leiloeiro.getTresMaiores();
 
+    final Calendar data = Calendar.getInstance();
     assertThat(maiores, hasItems(
-        new Lance(this.maria, 400.0),
-        new Lance(this.joao, 300.0),
-        new Lance(this.maria, 200.0)));
+        new Lance(data, this.maria, 400.0, leilao),
+        new Lance(data, this.joao, 300.0, leilao),
+        new Lance(data, this.maria, 200.0, leilao)));
   }
 
   @Test(expected = RuntimeException.class)

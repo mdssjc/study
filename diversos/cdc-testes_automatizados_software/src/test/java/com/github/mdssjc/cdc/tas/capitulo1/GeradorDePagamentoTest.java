@@ -22,10 +22,12 @@ public class GeradorDePagamentoTest {
 
     final Leilao leilao = new CriadorDeLeilao().para("Playstation")
                                                .lance(
-                                                   new Usuario("José da Silva"),
+                                                   new Usuario("José da Silva",
+                                                       "jose@email.com"),
                                                    2000.0)
                                                .lance(
-                                                   new Usuario("Maria Pereira"),
+                                                   new Usuario("Maria Pereira",
+                                                       "maria@email.com"),
                                                    2500.0)
                                                .constroi();
 
@@ -54,10 +56,12 @@ public class GeradorDePagamentoTest {
     final Leilao leilao = new CriadorDeLeilao()
                                                .para("Playstation")
                                                .lance(
-                                                   new Usuario("José da Silva"),
+                                                   new Usuario("José da Silva",
+                                                       "jose@email.com"),
                                                    2000.0)
                                                .lance(
-                                                   new Usuario("Maria Pereira"),
+                                                   new Usuario("Maria Pereira",
+                                                       "maria@email.com"),
                                                    2500.0)
                                                .constroi();
 

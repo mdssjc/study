@@ -25,4 +25,8 @@ public class UsuarioDao {
   public void salvar(final Usuario usuario) {
     this.session.save(usuario);
   }
+
+  public void deletar(final Usuario usuario) {
+    this.session.delete(usuario);
+  }
 }

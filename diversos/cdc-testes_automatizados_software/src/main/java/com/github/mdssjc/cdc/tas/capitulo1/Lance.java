@@ -1,27 +1,75 @@
 package com.github.mdssjc.cdc.tas.capitulo1;
 
-import java.io.Serializable;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Lance implements Serializable {
+public class Lance {
 
-  private static final long serialVersionUID = 1L;
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Usuario           usuario;
-  private double            valor;
+  @GeneratedValue
+  private int      id;
+  private double   valor;
+  private Calendar data;
+  @ManyToOne
+  private Usuario  usuario;
+  @ManyToOne
+  private Leilao   leilao;
 
-  public Lance() {
+  protected Lance() {
+  }
+
+  public Lance(final Calendar data, final Usuario usuario, final double valor,
+      final Leilao leilao) {
+    this.usuario = usuario;
+    this.data = data;
+    this.valor = valor;
+    this.leilao = leilao;
   }
 
   public Lance(final Usuario usuario, final double valor) {
     this.usuario = usuario;
     this.valor = valor;
+  }
+
+  public double getValor() {
+    return this.valor;
+  }
+
+  public void setValor(final double valor) {
+    this.valor = valor;
+  }
+
+  public Leilao getLeilao() {
+    return this.leilao;
+  }
+
+  public void setLeilao(final Leilao leilao) {
+    this.leilao = leilao;
+  }
+
+  public Calendar getData() {
+    return this.data;
+  }
+
+  public void setData(final Calendar data) {
+    this.data = data;
+  }
+
+  public Usuario getUsuario() {
+    return this.usuario;
+  }
+
+  public void setUsuario(final Usuario usuario) {
+    this.usuario = usuario;
+  }
+
+  public int getId() {
+    return this.id;
   }
 
   @Override
@@ -60,13 +108,5 @@ public class Lance implements Serializable {
       return false;
     }
     return true;
-  }
-
-  public Usuario getUsuario() {
-    return this.usuario;
-  }
-
-  public double getValor() {
-    return this.valor;
   }
 }
