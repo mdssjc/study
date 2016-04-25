@@ -29,3 +29,26 @@ still-untrusted
 (time (reduce + (map fast-string-length (repeat 10000 "12345"))))
 (meta #'fast-string-length)
 (meta (first (first (:arglists (meta #'fast-string-length)))))
+
+(defn array-type [klass]
+  (.getName (class (make-array klass 0))))
+(array-type BigDecimal)
+(def bigdec-arr
+  ^"[Ljava.math.BigDecimal;"
+  (into-array BigDecimal [1.0M]))
+
+(defn average [numbers]
+  (let [total (apply + numbers)]
+    (/ total (count numbers))))
+(average [])                            ; wrong
+(defn safe-average [numbers]
+  (let [total (apply + numbers)]
+    (try
+      (/ total (count numbers))
+      (catch ArithmeticException e
+        (println "Divided by zero!")
+        0)
+      (finally
+        (println "done.")))))
+(safe-average [])
+(throw (Exception. "this is an error!"))
