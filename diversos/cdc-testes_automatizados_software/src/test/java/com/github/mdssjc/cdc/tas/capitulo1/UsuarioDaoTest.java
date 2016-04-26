@@ -23,7 +23,7 @@ public class UsuarioDaoTest {
   }
 
   @Test
-  public void deveEncontrarPeloNomeEEmailMockado() {
+  public void deveEncontrarPeloNomeEEmail() {
     final Usuario novoUsuario = new Usuario("João da Silva",
         "joao@dasilva.com.br");
 
@@ -49,5 +49,13 @@ public class UsuarioDaoTest {
         "Mauricio Aniche", "mauricio@aniche.com.br");
 
     assertNull(usuarioNoBanco);
+  }
+
+  @Test
+  public void deveRetornarNuloSeNaoEncontrarUsuario() {
+    final Usuario usuarioDoBanco = this.usuarioDao.porNomeEEmail("João Joaquim",
+        "joao@joaquim.com.br");
+
+    assertNull(usuarioDoBanco);
   }
 }
