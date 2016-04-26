@@ -1,4 +1,4 @@
-package com.github.mdssjc.cdc.tas.capitulo1;
+package com.github.mdssjc.cdc.tas;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
