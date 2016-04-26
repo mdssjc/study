@@ -28,8 +28,8 @@ public class LeiloesPage {
                       .contains(produto)
         && this.driver.getPageSource()
                       .contains(String.valueOf(valor))
-        && driver.getPageSource()
-                 .contains(usuario)
+        && this.driver.getPageSource()
+                      .contains(usuario)
         && this.driver.getPageSource()
                       .contains(usado ? "Sim" : "Não");
   }

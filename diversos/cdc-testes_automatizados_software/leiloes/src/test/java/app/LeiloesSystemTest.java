@@ -18,7 +18,7 @@ public class LeiloesSystemTest {
     this.driver = new FirefoxDriver();
     this.leiloes = new LeiloesPage(this.driver);
 
-    UsuariosPage usuarios = new UsuariosPage(driver);
+    final UsuariosPage usuarios = new UsuariosPage(this.driver);
     usuarios.visita();
     usuarios.novo()
             .cadastra("Paulo Henrique", "paulo@henrique.com");
