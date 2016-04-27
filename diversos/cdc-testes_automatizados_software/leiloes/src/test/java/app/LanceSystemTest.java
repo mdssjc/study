@@ -26,8 +26,7 @@ public class LanceSystemTest {
                                       .umUsuario("José Alberto",
                                           "jose@alberto.com")
                                       .umLeilao("Paulo Henrique", "Geladeira",
-                                          100,
-                                          false);
+                                          100, false);
   }
 
   @After
