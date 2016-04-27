@@ -33,10 +33,17 @@ public class UsuarioController {
     return repository.findAll();
   }
 
-  @Get("/usuarios/xml")
-  public void indexXML() {
-    result.use(Results.xml())
+  @Get("/usuarios/ws")
+  public void indexWS() {
+    result.use(Results.representation())
           .from(repository.findAll())
+          .serialize();
+  }
+
+  @Get("/usuarios/show/{usuario.id}/json")
+  public void indexJSON(Usuario usuario) {
+    result.use(Results.json())
+          .from(repository.find(usuario.getId()))
           .serialize();
   }
 
