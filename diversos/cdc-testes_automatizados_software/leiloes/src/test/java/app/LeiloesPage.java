@@ -1,7 +1,10 @@
 package app;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class LeiloesPage {
 
@@ -32,5 +35,14 @@ public class LeiloesPage {
                       .contains(usuario)
         && this.driver.getPageSource()
                       .contains(usado ? "Sim" : "Não");
+  }
+
+  public DetalhesDoLeilaoPage detalhes(final int posicao) {
+    final List<WebElement> elementos = this.driver.findElements(
+        By.linkText("exibir"));
+    elementos.get(posicao - 1)
+             .click();
+
+    return new DetalhesDoLeilaoPage(this.driver);
   }
 }
