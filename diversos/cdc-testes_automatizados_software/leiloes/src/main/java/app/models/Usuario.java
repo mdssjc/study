@@ -1,6 +1,9 @@
 package app.models;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 @javax.persistence.Entity
+@XmlRootElement
 public class Usuario extends Entity {
 
   private String nome;

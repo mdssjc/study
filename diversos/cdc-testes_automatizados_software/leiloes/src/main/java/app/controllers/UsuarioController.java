@@ -4,6 +4,7 @@ import java.util.List;
 
 import app.models.Usuario;
 import app.repositories.UsuarioRepository;
+import br.com.caelum.vraptor.Consumes;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -40,10 +41,19 @@ public class UsuarioController {
           .serialize();
   }
 
-  @Get("/usuarios/show/{usuario.id}/json")
+  @Get("/usuarios/{usuario.id}/show")
   public void indexJSON(Usuario usuario) {
     result.use(Results.json())
           .from(repository.find(usuario.getId()))
+          .serialize();
+  }
+
+  @Consumes("application/xml")
+  @Post("/usuarios/ws")
+  public void createXML(final Usuario usuario) {
+    repository.create(usuario);
+    result.use(Results.xml())
+          .from(usuario)
           .serialize();
   }
 
