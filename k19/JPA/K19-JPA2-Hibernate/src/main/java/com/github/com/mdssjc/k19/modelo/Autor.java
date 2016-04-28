@@ -1,4 +1,4 @@
-package br.com.k19.modelo;
+package com.github.com.mdssjc.k19.modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,13 +6,12 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
-@Entity
 @Data
+@Entity
 public class Autor {
 
-    @Id
-    @GeneratedValue
-    private Long   id;
-
-    private String nome;
+  @Id
+  @GeneratedValue
+  private Long   id;
+  private String nome;
 }
