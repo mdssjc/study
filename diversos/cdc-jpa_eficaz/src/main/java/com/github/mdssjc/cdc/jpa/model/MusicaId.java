@@ -5,23 +5,23 @@ import java.io.Serializable;
 public class MusicaId implements Serializable {
 
   private static final long serialVersionUID = 1L;
-  private int               duracaoSegundos;
-  private String            nome;
+  private int               codigoUnico;
+  private int               autor;
 
   public MusicaId() {
   }
 
-  public MusicaId(final int duracaoSegundos, final String nome) {
-    this.duracaoSegundos = duracaoSegundos;
-    this.nome = nome;
+  public MusicaId(final int codigoUnico, final int autor) {
+    this.codigoUnico = codigoUnico;
+    this.autor = autor;
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + this.duracaoSegundos;
-    result = prime * result + ((this.nome == null) ? 0 : this.nome.hashCode());
+    result = prime * result + this.autor;
+    result = prime * result + this.codigoUnico;
     return result;
   }
 
@@ -37,14 +37,10 @@ public class MusicaId implements Serializable {
       return false;
     }
     final MusicaId other = (MusicaId) obj;
-    if (this.duracaoSegundos != other.duracaoSegundos) {
+    if (this.autor != other.autor) {
       return false;
     }
-    if (this.nome == null) {
-      if (other.nome != null) {
-        return false;
-      }
-    } else if (!this.nome.equals(other.nome)) {
+    if (this.codigoUnico != other.codigoUnico) {
       return false;
     }
     return true;
