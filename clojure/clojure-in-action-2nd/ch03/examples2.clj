@@ -74,3 +74,21 @@
       (println "hat:" n))
     (fn [] (cat (dec n)))))
 (trampoline cat 10000)
+
+(def bools [true true true false false])
+(every? true? bools)
+
+(some (fn [p] (= "rob" p)) ["kyle" "siva" "rob" "celeste"])
+
+(def two (constantly 2))
+(two 1)
+(two :a :b :c)
+
+(defn greater? [x y]
+  (> x y))
+(greater? 10 5)
+(greater? 10 20)
+(def smaller? (complement greater?))
+(smaller? 10 5)
+(smaller? 10 20)
+(smaller? 10 10)                        ; Bad definition
