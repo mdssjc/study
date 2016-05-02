@@ -32,3 +32,11 @@
 (map lastname-firstname users)
 (sort *1)
 (last-then-firstname users)
+
+(map (fn [user] (user :member-since)) users)
+(map #(% :member-since) users)
+
+(#(vector %&) 1 2 3 4 5)
+(#(vector % %&) 1 2 3 4 5)
+(#(vector %1 %2 %&) 1 2 3 4 5)
+(#(vector %1 %2 %&) 1 2)
