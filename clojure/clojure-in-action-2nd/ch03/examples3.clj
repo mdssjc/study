@@ -40,3 +40,24 @@
 (#(vector % %&) 1 2 3 4 5)
 (#(vector %1 %2 %&) 1 2 3 4 5)
 (#(vector %1 %2 %&) 1 2)
+
+(def person {:username "zak"
+             :balance 12.95
+             :member-since "2009-02-01"})
+(person :username)
+(:username person)
+
+(map #(% :member-since) users)
+(map :member-since users)
+
+(:login person)
+(:login person :not-found)
+
+(def expense {'name "Snow Leopard" 'cost 19.95M})
+(expense 'name)
+('name expense)
+('vendor expense)
+('vendor expense :absent)
+
+(def names ["kyle" "zak" "rob"])
+(names 1)
