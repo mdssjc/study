@@ -92,3 +92,19 @@
 (smaller? 10 5)
 (smaller? 10 20)
 (smaller? 10 10)                        ; Bad definition
+
+(def opp-zero-str (comp str not zero?))
+(opp-zero-str 0)
+(opp-zero-str 1)
+
+(defn above-threshold? [threshold number]
+  (> number threshold))
+(filter (fn [x] (above-threshold? 5 x)) [1 2 3 4 5 6 7 8 9])
+(filter (partial above-threshold? 5) [1 2 3 4 5 6 7 8 9])
+
+(defn slow-calc [n m]
+  (Thread/sleep 1000)
+  (* n m))
+(time (slow-calc 5 7))
+(def fast-calc (memoize slow-calc))
+(time (fast-calc 5 7))
