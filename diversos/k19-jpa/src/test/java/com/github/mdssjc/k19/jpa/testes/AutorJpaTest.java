@@ -7,43 +7,14 @@ import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.mdssjc.k19.jpa.modelo.Autor;
-import com.github.mdssjc.k19.jpa.testes.util.JpaUtil;
+import com.github.mdssjc.k19.jpa.testes.util.JpaEntityManager;
 
-public class AutorJpaTest {
-
-  private static EntityManager manager;
-
-  @BeforeClass
-  public static void liga() {
-    AutorJpaTest.manager = JpaUtil.getEntityManager();
-  }
-
-  @Before
-  public void inicializa() {
-    AutorJpaTest.manager.getTransaction()
-                        .begin();
-  }
-
-  @After
-  public void encerra() {
-    AutorJpaTest.manager.getTransaction()
-                        .rollback();
-  }
-
-  @AfterClass
-  public static void desliga() {
-    JpaUtil.closeEntityManagerFactory();
-  }
+public class AutorJpaTest extends JpaEntityManager {
 
   @Test
   public void insereAutorComJpa() {

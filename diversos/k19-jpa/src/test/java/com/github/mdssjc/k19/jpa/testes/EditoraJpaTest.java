@@ -7,43 +7,14 @@ import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.mdssjc.k19.jpa.modelo.Editora;
-import com.github.mdssjc.k19.jpa.testes.util.JpaUtil;
+import com.github.mdssjc.k19.jpa.testes.util.JpaEntityManager;
 
-public class EditoraJpaTest {
-
-  private static EntityManager manager;
-
-  @BeforeClass
-  public static void liga() {
-    EditoraJpaTest.manager = JpaUtil.getEntityManager();
-  }
-
-  @Before
-  public void inicializa() {
-    EditoraJpaTest.manager.getTransaction()
-                          .begin();
-  }
-
-  @After
-  public void encerra() {
-    EditoraJpaTest.manager.getTransaction()
-                          .rollback();
-  }
-
-  @AfterClass
-  public static void desliga() {
-    JpaUtil.closeEntityManagerFactory();
-  }
+public class EditoraJpaTest extends JpaEntityManager {
 
   @Test
   public void insereEditoraComJpa() {
