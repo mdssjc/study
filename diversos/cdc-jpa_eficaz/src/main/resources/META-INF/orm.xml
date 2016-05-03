@@ -11,6 +11,7 @@
 	<!-- </entity> -->
 
 	<entity class="com.github.mdssjc.cdc.jpa.model.CodigoUnico"></entity>
+	<entity class="com.github.mdssjc.cdc.jpa.model.Endereco"></entity>
 	<entity class="com.github.mdssjc.cdc.jpa.model.Pessoa"></entity>
 	<entity class="com.github.mdssjc.cdc.jpa.model.Musica"></entity>
 

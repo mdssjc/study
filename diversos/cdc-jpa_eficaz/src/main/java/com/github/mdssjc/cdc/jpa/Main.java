@@ -5,6 +5,7 @@ import java.util.Calendar;
 import javax.persistence.EntityManager;
 
 import com.github.mdssjc.cdc.jpa.model.CodigoUnico;
+import com.github.mdssjc.cdc.jpa.model.Endereco;
 import com.github.mdssjc.cdc.jpa.model.Musica;
 import com.github.mdssjc.cdc.jpa.model.MusicaId;
 import com.github.mdssjc.cdc.jpa.model.Pessoa;
@@ -18,6 +19,7 @@ public class Main {
     try {
       chaveComposta(entityManager);
     } catch (final Exception e) {
+      System.err.println(e);
       if (entityManager.isOpen()) {
         entityManager.getTransaction()
                      .rollback();
@@ -30,12 +32,13 @@ public class Main {
   }
 
   private static void chaveComposta(final EntityManager em) {
-    em.getTransaction()
-      .begin();
+    final Endereco endereco = new Endereco();
+    endereco.setNomeRua("Rua 2");
 
     final Pessoa autor = new Pessoa();
     autor.setNome("José");
     autor.setNomeArtistico("Ouro Negro");
+    autor.setEndereco(endereco);
 
     final CodigoUnico codigo = new CodigoUnico();
     codigo.setCodigoUnicoHash("12AA12");
@@ -46,6 +49,10 @@ public class Main {
     musica.setDuracaoSegundos(196);
     musica.setNome("Breathe Into Me");
 
+    em.getTransaction()
+      .begin();
+
+    em.persist(endereco);
     em.persist(musica);
 
     em.getTransaction()
