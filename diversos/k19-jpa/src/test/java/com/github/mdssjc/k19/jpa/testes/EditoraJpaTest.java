@@ -17,7 +17,7 @@ import com.github.mdssjc.k19.jpa.testes.util.JpaEntityManager;
 public class EditoraJpaTest extends JpaEntityManager {
 
   @Test
-  public void insereEditoraComJpa() {
+  public void adicionaEditora() {
     final Editora novaEditora = new Editora();
     novaEditora.setNome("Pearson");
     novaEditora.setEmail("contact@pearson.com");
@@ -30,7 +30,7 @@ public class EditoraJpaTest extends JpaEntityManager {
   }
 
   @Test
-  public void listaEditorasComJpa() {
+  public void listaEditoras() {
     final Editora novaEditora1 = new Editora();
     novaEditora1.setNome("Pearson");
     novaEditora1.setEmail("contact@pearson.com");

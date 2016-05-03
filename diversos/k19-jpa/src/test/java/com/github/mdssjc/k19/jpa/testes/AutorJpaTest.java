@@ -17,7 +17,7 @@ import com.github.mdssjc.k19.jpa.testes.util.JpaEntityManager;
 public class AutorJpaTest extends JpaEntityManager {
 
   @Test
-  public void insereAutorComJpa() {
+  public void adicionaAutor() {
     final Autor autor = new Autor();
     autor.setNome("Marcelo");
 
@@ -29,7 +29,7 @@ public class AutorJpaTest extends JpaEntityManager {
   }
 
   @Test
-  public void listaAutoresComJpa() {
+  public void listaAutores() {
     final Autor autor1 = new Autor();
     autor1.setNome("Marcelo");
     final Autor autor2 = new Autor();
