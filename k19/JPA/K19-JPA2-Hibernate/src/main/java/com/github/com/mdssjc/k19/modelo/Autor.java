@@ -12,6 +12,6 @@ public class Autor {
 
   @Id
   @GeneratedValue
-  private Long   id;
-  private String nome;
+  private final Long id = 0L;
+  private String     nome;
 }

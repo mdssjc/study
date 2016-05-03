@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>K19-JPA2-Hibernate</name>
+	<name>k19-jpa2_hibernate</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -26,6 +26,16 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+			<name>org.sonarlint.eclipse.core.sonarlintBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.spartan.refactoring.BuilderID</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
@@ -37,5 +47,6 @@
 		<nature>org.hibernate.eclipse.console.hibernateNature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.apache.ivyde.eclipse.ivynature</nature>
+		<nature>org.spartan.refactoring.NatureID</nature>
 	</natures>
 </projectDescription>

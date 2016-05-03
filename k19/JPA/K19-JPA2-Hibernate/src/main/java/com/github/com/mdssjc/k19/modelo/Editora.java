@@ -12,7 +12,7 @@ public class Editora {
 
   @Id
   @GeneratedValue
-  private Long   id;
-  private String nome;
-  private String email;
+  private final Long id = 0L;
+  private String     nome;
+  private String     email;
 }
