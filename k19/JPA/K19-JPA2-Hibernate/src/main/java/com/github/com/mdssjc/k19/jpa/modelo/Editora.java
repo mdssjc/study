@@ -1,4 +1,4 @@
-package com.github.com.mdssjc.k19.modelo;
+package com.github.com.mdssjc.k19.jpa.modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
