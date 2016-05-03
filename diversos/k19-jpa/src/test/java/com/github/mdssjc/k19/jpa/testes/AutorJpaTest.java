@@ -21,9 +21,9 @@ public class AutorJpaTest extends JpaEntityManager {
     final Autor autor = new Autor();
     autor.setNome("Marcelo");
 
-    AutorJpaTest.manager.persist(autor);
+    JpaEntityManager.manager.persist(autor);
 
-    final Autor resultado = AutorJpaTest.manager.find(Autor.class,
+    final Autor resultado = JpaEntityManager.manager.find(Autor.class,
         autor.getId());
     assertEquals(autor, resultado);
   }
@@ -35,9 +35,9 @@ public class AutorJpaTest extends JpaEntityManager {
     final Autor autor2 = new Autor();
     autor2.setNome("Pedro");
 
-    AutorJpaTest.manager.persist(autor1);
-    AutorJpaTest.manager.persist(autor2);
-    final Query query = AutorJpaTest.manager.createQuery(
+    JpaEntityManager.manager.persist(autor1);
+    JpaEntityManager.manager.persist(autor2);
+    final Query query = JpaEntityManager.manager.createQuery(
         "SELECT a FROM Autor a");
 
     final List<Autor> autores = Arrays.asList(autor1, autor2);

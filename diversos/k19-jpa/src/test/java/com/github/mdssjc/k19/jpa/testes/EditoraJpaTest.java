@@ -22,9 +22,9 @@ public class EditoraJpaTest extends JpaEntityManager {
     novaEditora.setNome("Pearson");
     novaEditora.setEmail("contact@pearson.com");
 
-    EditoraJpaTest.manager.persist(novaEditora);
+    JpaEntityManager.manager.persist(novaEditora);
 
-    final Editora resultado = EditoraJpaTest.manager.find(Editora.class,
+    final Editora resultado = JpaEntityManager.manager.find(Editora.class,
         novaEditora.getId());
     assertEquals(novaEditora, resultado);
   }
@@ -39,9 +39,9 @@ public class EditoraJpaTest extends JpaEntityManager {
     novaEditora2.setNome("Novatec");
     novaEditora2.setEmail("contato@novatec.com.br");
 
-    EditoraJpaTest.manager.persist(novaEditora1);
-    EditoraJpaTest.manager.persist(novaEditora2);
-    final Query query = EditoraJpaTest.manager.createQuery(
+    JpaEntityManager.manager.persist(novaEditora1);
+    JpaEntityManager.manager.persist(novaEditora2);
+    final Query query = JpaEntityManager.manager.createQuery(
         "SELECT e FROM Editora e");
 
     final List<Editora> editoras = Arrays.asList(novaEditora1, novaEditora2);
