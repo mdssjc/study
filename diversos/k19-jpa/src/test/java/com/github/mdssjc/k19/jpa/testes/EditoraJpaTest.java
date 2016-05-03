@@ -26,7 +26,7 @@ public class EditoraJpaTest extends JpaEntityManager {
 
     final Editora resultado = JpaEntityManager.manager.find(Editora.class,
         novaEditora.getId());
-    assertEquals(novaEditora, resultado);
+    assertEquals(resultado, novaEditora);
   }
 
   @Test

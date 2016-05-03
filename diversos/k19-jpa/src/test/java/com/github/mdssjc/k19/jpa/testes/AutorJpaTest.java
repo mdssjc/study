@@ -25,7 +25,7 @@ public class AutorJpaTest extends JpaEntityManager {
 
     final Autor resultado = JpaEntityManager.manager.find(Autor.class,
         autor.getId());
-    assertEquals(autor, resultado);
+    assertEquals(resultado, autor);
   }
 
   @Test
