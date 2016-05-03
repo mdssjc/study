@@ -52,7 +52,6 @@ public class Main {
     em.getTransaction()
       .begin();
 
-    em.persist(endereco);
     em.persist(musica);
 
     em.getTransaction()

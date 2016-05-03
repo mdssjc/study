@@ -1,5 +1,6 @@
 package com.github.mdssjc.cdc.jpa.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +14,7 @@ public class Pessoa {
   private int      id;
   private String   nome;
   private String   nomeArtistico;
-  @OneToOne
+  @OneToOne(cascade = CascadeType.PERSIST)
   private Endereco endereco;
 
   public Pessoa() {
