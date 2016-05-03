@@ -1,4 +1,4 @@
-package com.github.com.mdssjc.k19.jpa.testes.util;
+package com.github.mdssjc.k19.jpa.testes.util;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

@@ -1,4 +1,4 @@
-package com.github.com.mdssjc.k19.jpa.testes;
+package com.github.mdssjc.k19.jpa.testes;
 
 import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.assertEquals;
@@ -16,8 +16,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.github.com.mdssjc.k19.jpa.modelo.Editora;
-import com.github.com.mdssjc.k19.jpa.testes.util.JpaUtil;
+import com.github.mdssjc.k19.jpa.modelo.Editora;
+import com.github.mdssjc.k19.jpa.testes.util.JpaUtil;
 
 public class EditoraJpaTest {
 

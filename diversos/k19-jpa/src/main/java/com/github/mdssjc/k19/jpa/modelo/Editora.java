@@ -1,4 +1,4 @@
-package com.github.com.mdssjc.k19.jpa.modelo;
+package com.github.mdssjc.k19.jpa.modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,10 +8,11 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Autor {
+public class Editora {
 
   @Id
   @GeneratedValue
   private final Long id = 0L;
   private String     nome;
+  private String     email;
 }
