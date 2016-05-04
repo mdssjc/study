@@ -5,6 +5,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd ">
 
 	<persistence-unit name="PU_K19_JPA" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
@@ -13,6 +14,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd ">
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/k19-jpa" />
 			<property name="javax.persistence.jdbc.user" value="k19" />
 			<property name="javax.persistence.jdbc.password" value="k19" />
+			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory" />
 		</properties>
 	</persistence-unit>
 
