@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.github.mdssjc.k19.jpa.modelo.Reserva;
 import com.github.mdssjc.k19.jpa.testes.util.JpaEntityManager;
 
-public class AdicionaReserva extends JpaEntityManager {
+public class ReservaJpaTest extends JpaEntityManager {
 
   @Test
   public void adicionaReserva() {
@@ -22,6 +22,7 @@ public class AdicionaReserva extends JpaEntityManager {
 
     final Reserva resultado = JpaEntityManager.manager.find(Reserva.class,
         reserva.getId());
+
     assertEquals(resultado, reserva);
   }
 }

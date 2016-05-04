@@ -1,13 +1,18 @@
 package com.github.mdssjc.k19.jpa.testes;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import com.github.mdssjc.k19.jpa.modelo.Pessoa;
 import com.github.mdssjc.k19.jpa.modelo.PessoaFisica;
 import com.github.mdssjc.k19.jpa.modelo.PessoaJuridica;
 import com.github.mdssjc.k19.jpa.testes.util.JpaEntityManager;
 
-public class AdicionaPessoa extends JpaEntityManager {
+public class PessoaJpaTest extends JpaEntityManager {
 
-  public static void main(final String[] args) {
+  @Test
+  public void adicionaPessoa() {
     final Pessoa p1 = new Pessoa();
     p1.setNome("Marcelo");
 
@@ -22,5 +27,16 @@ public class AdicionaPessoa extends JpaEntityManager {
     JpaEntityManager.manager.persist(p1);
     JpaEntityManager.manager.persist(p2);
     JpaEntityManager.manager.persist(p3);
+
+    final Pessoa resultado1 = JpaEntityManager.manager.find(Pessoa.class,
+        p1.getId());
+    final Pessoa resultado2 = JpaEntityManager.manager.find(Pessoa.class,
+        p2.getId());
+    final Pessoa resultado3 = JpaEntityManager.manager.find(Pessoa.class,
+        p3.getId());
+
+    assertEquals(p1, resultado1);
+    assertEquals(p2, resultado2);
+    assertEquals(p3, resultado3);
   }
 }
