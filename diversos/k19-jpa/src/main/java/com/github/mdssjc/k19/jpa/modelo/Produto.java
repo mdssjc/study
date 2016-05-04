@@ -3,6 +3,7 @@ package com.github.mdssjc.k19.jpa.modelo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Produto {
         "Persistindo um novo objeto com persist() ou merge()...");
   }
 
+  @PostPersist
   public void postPersist() {
     System.out.println(
         "O comando insert foi executado no banco de dados...");
