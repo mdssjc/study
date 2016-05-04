@@ -1,6 +1,8 @@
 package com.github.mdssjc.k19.jpa.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -15,6 +17,6 @@ public class Estado {
   @GeneratedValue
   private final Long id = 0L;
   private String     nome;
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   private Governador governador;
 }
