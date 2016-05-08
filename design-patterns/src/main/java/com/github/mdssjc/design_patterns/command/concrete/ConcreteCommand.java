@@ -1,6 +1,6 @@
-package com.github.mdssjc.design_patterns.command.command.concrete;
+package com.github.mdssjc.design_patterns.command.concrete;
 
-import com.github.mdssjc.design_patterns.command.command.Command;
+import com.github.mdssjc.design_patterns.command.Command;
 import com.github.mdssjc.design_patterns.command.receiver.Receiver;
 
 import lombok.AllArgsConstructor;

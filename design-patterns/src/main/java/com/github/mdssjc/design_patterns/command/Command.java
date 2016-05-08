@@ -1,14 +1,14 @@
-package com.github.mdssjc.design_patterns.command.command;
+package com.github.mdssjc.design_patterns.command;
 
 /**
  * Interface Command.
- * </p>
+ * 
  * - execute:
  * - undo:
  * - store:
  * - load:
  *
- * @author mdssjc &lt;Marcelo dos Santos&gt;
+ * @author mdssjc <Marcelo dos Santos>
  *
  */
 public interface Command {
