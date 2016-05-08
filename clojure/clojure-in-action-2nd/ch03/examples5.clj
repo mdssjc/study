@@ -1,8 +1,10 @@
-(ns org.currylogic.damages.http.expenses)
-(require '(clojure.data [json :as json-lib]))
-(require '(clojure [xml :as xml-core]))
-;;(use 'clojure.data.json)
-;;(use 'clojure.xml)
+(ns org.currylogic.damages.http.expenses
+  (:require [clojure.data.json :as json-lib]
+            [clojure.xml :as xml-core]))
+;; (require '(clojure.data [json :as json-lib]))
+;; (require '(clojure [xml :as xml-core]))
+;; (use 'clojure.data.json)
+;; (use 'clojure.xml)
 
 (declare load-totals)
 
