@@ -33,3 +33,16 @@
 
 (describe-salary mds)
 (describe-salary2 mds)
+
+(defn print-amounts [[amount-1 amount-2]]
+  (println "Amounts are:" amount-1 "and" amount-2))
+(print-amounts [10.95 31.45])
+
+(defn print-amounts-multiple [[amount-1 amount-2 & remaining]]
+  (println "Amounts are:" amount-1 "," amount-2 "and" remaining))
+(print-amounts-multiple [10.95 31.45 22.36 2.95])
+
+(defn print-all-multiple [[amount-1 amount-2 & remaining :as all]]
+  (println "Amounts are:" amount-1 "," amount-2 "and" remaining)
+  (println "Also, all the amounts are:" all))
+(print-all-multiple [10.95 31.45 22.36 2.95])
