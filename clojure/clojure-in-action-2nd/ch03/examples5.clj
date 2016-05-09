@@ -26,13 +26,13 @@
         annual (:salary person)]
     (println first last "earns" annual)))
 
-(defn describe-salary2 [{first :first-name
-                         last :last-name
-                         annual :salary}]
+(defn describe-salary-2 [{first :first-name
+                          last :last-name
+                          annual :salary}]
   (println first last "earns" annual))
 
 (describe-salary mds)
-(describe-salary2 mds)
+(describe-salary-2 mds)
 
 (defn print-amounts [[amount-1 amount-2]]
   (println "Amounts are:" amount-1 "and" amount-2))
@@ -52,3 +52,33 @@
   (println "First amount was:" amount))
 (def expenses [[:books 49.95] [:coffee 4.95] [:caltrain 2.25]])
 (print-first-category expenses)
+
+(defn describe-salary-3 [{first :first-name
+                          last :last-name
+                          annual :salary
+                          bonus :bonus-percentage
+                          :or {bonus 5}}]
+  (println first last "earns" annual "with a" bonus "percent bonus"))
+(def a-user {:first-name "pascal"
+             :last-name "dylan"
+             :salary 85000
+             :bonus-percentage 20})
+(describe-salary-3 a-user)
+(def another-user {:first-name "basic"
+                   :last-name "groovy"
+                   :salary 70000})
+(describe-salary-3 another-user)
+(describe-salary-3 mds)
+
+(defn describe-person [{first :first-name
+                        last :last-name
+                        bonus :bonus-percentage
+                        :or {bonus 5}
+                        :as p}]
+  (println "Info about" first last "is:" p)
+  (println "Bonus is:" bonus "percent"))
+(describe-person mds)
+
+(defn greet-user [{:keys [first-name last-name]}]
+  (println "Welcome," first-name last-name))
+(greet-user mds)
