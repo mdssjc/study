@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.junit.Test;
 
@@ -40,8 +40,8 @@ public class AutorJpaTest extends JpaEntityManager {
 
     JpaEntityManager.manager.persist(autor1);
     JpaEntityManager.manager.persist(autor2);
-    final Query query = JpaEntityManager.manager.createQuery(
-        "SELECT a FROM Autor a");
+    final TypedQuery<Autor> query = JpaEntityManager.manager.createQuery(
+        "SELECT a FROM Autor a", Autor.class);
 
     final List<Autor> autores = Arrays.asList(autor1, autor2);
     final List<Autor> resultado = query.getResultList();
