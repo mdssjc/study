@@ -25,6 +25,7 @@ public class DepartamentoJpaTest extends JpaEntityManager {
     final Departamento resultado = JpaEntityManager.manager.find(
         Departamento.class,
         departamento.getId());
+
     assertEquals(resultado, departamento);
   }
 }

@@ -23,6 +23,7 @@ public class EstadoJpaTest extends JpaEntityManager {
 
     final Estado resultado = JpaEntityManager.manager.find(Estado.class,
         estado.getId());
+
     assertEquals(resultado, estado);
   }
 }

@@ -26,6 +26,7 @@ public class EditoraJpaTest extends JpaEntityManager {
 
     final Editora resultado = JpaEntityManager.manager.find(Editora.class,
         novaEditora.getId());
+
     assertEquals(resultado, novaEditora);
   }
 
@@ -41,11 +42,12 @@ public class EditoraJpaTest extends JpaEntityManager {
 
     JpaEntityManager.manager.persist(novaEditora1);
     JpaEntityManager.manager.persist(novaEditora2);
+
     final Query query = JpaEntityManager.manager.createQuery(
         "SELECT e FROM Editora e");
-
     final List<Editora> editoras = Arrays.asList(novaEditora1, novaEditora2);
     final List<Editora> resultado = query.getResultList();
+
     assertThat(editoras, hasItems(editoras.get(0), editoras.get(1)));
   }
 }

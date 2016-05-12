@@ -21,6 +21,7 @@ public class UsuarioJpaTest extends JpaEntityManager {
 
     final Usuario resultado = JpaEntityManager.manager.find(Usuario.class,
         usuario.getId());
+
     assertEquals(resultado, usuario);
   }
 }
