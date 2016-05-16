@@ -68,4 +68,34 @@ public class PessoaJpaTest extends JpaEntityManager {
     assertEquals("Jonas Hirata", p.getNome());
     assertEquals("Marcelo", pessoa.getNome());
   }
+
+  @Test
+  public void testeMerge() {
+    final Pessoa p = new Pessoa();
+    p.setNome("Marcelo");
+
+    JpaEntityManager.manager.persist(p);
+    JpaEntityManager.manager.getTransaction()
+                            .commit();
+
+    final Long id = p.getId();
+
+    JpaEntityManager.manager.getTransaction()
+                            .begin();
+
+    Pessoa pessoa = JpaEntityManager.manager.find(Pessoa.class, id);
+    JpaEntityManager.manager.detach(pessoa);
+    pessoa = JpaEntityManager.manager.merge(pessoa);
+    pessoa.setNome("Jonas Hirata");
+
+    JpaEntityManager.manager.getTransaction()
+                            .commit();
+
+    JpaEntityManager.manager.getTransaction()
+                            .begin();
+    pessoa = JpaEntityManager.manager.find(Pessoa.class, id);
+
+    assertEquals("Marcelo", p.getNome());
+    assertEquals("Jonas Hirata", pessoa.getNome());
+  }
 }
