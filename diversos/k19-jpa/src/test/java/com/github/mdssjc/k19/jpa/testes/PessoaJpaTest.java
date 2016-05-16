@@ -1,6 +1,7 @@
 package com.github.mdssjc.k19.jpa.testes;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -97,5 +98,32 @@ public class PessoaJpaTest extends JpaEntityManager {
 
     assertEquals("Marcelo", p.getNome());
     assertEquals("Jonas Hirata", pessoa.getNome());
+  }
+
+  @Test
+  public void testeRemove() {
+    final Pessoa p = new Pessoa();
+    p.setNome("Marcelo");
+
+    JpaEntityManager.manager.persist(p);
+    JpaEntityManager.manager.getTransaction()
+                            .commit();
+
+    final Long id = p.getId();
+
+    JpaEntityManager.manager.getTransaction()
+                            .begin();
+
+    Pessoa pessoa = JpaEntityManager.manager.find(Pessoa.class, id);
+    JpaEntityManager.manager.remove(pessoa);
+
+    JpaEntityManager.manager.getTransaction()
+                            .commit();
+
+    JpaEntityManager.manager.getTransaction()
+                            .begin();
+    pessoa = JpaEntityManager.manager.find(Pessoa.class, id);
+
+    assertNull(pessoa);
   }
 }
