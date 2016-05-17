@@ -126,4 +126,30 @@ public class PessoaJpaTest extends JpaEntityManager {
 
     assertNull(pessoa);
   }
+
+  @Test
+  public void testeFindEager() {
+    final Pessoa p = new Pessoa();
+    p.setNome("Marcelo");
+
+    JpaEntityManager.manager.persist(p);
+
+    final Pessoa pessoa = JpaEntityManager.manager.find(Pessoa.class,
+        p.getId());
+
+    assertEquals("Marcelo", pessoa.getNome());
+  }
+
+  @Test
+  public void testeGetReferenceLazy() {
+    final Pessoa p = new Pessoa();
+    p.setNome("Marcelo");
+
+    JpaEntityManager.manager.persist(p);
+
+    final Pessoa pessoa = JpaEntityManager.manager.getReference(Pessoa.class,
+        p.getId());
+
+    assertEquals("Marcelo", pessoa.getNome());
+  }
 }
