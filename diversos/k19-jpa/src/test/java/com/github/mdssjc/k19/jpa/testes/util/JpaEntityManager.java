@@ -32,4 +32,14 @@ public abstract class JpaEntityManager {
     JpaEntityManager.manager.getTransaction()
                             .rollback();
   }
+
+  public void begin() {
+    JpaEntityManager.manager.getTransaction()
+                            .begin();
+  }
+
+  public void commit() {
+    JpaEntityManager.manager.getTransaction()
+                            .commit();
+  }
 }
