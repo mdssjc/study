@@ -25,3 +25,21 @@
   (assoc type-namer-implementations
          clojure.lang.PersistentArrayMap (fn [thing] "map")))
 (open-ad-hoc-type-namer {})
+
+;; Subtype polymorphism
+(defn map-type-namer [thing]
+  (condp = (type thing)
+    clojure.lang.PersistentArrayMap "map"
+    clojure.lang.PersistentHashMap "map"))
+(map-type-namer (hash-map))
+(map-type-namer (array-map))
+(map-type-namer (sorted-map))
+
+(defn subtyping-map-type-namer [thing]
+  (cond
+    (instance? clojure.lang.APersistentMap thing) "map"
+    :else (throw (IllegalArgumentException.
+                  (str "No implementation found for ") (type thing)))))
+(subtyping-map-type-namer (hash-map))
+(subtyping-map-type-namer (array-map))
+(subtyping-map-type-namer (sorted-map))
