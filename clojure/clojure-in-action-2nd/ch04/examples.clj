@@ -72,3 +72,19 @@
 (defmethod affiliate-fee "*" [user]
   (fee-amount 0.02M user))
 (affiliate-fee example-user)
+
+(defmethod my-multi :default [arg] "body")
+(defmethod my-many-arity-multi :default
+  ([] "no argument")
+  ([x] "one argument")
+  ([x & etc] "many arguments"))
+
+(defmethod affiliate-fee "mint.com" [user]
+  (fee-amount 0.03M user))
+(defmethod affiliate-fee "google.com" [user]
+  (fee-amount 0.01M user))
+(methods affiliate-fee)
+(get-method affiliate-fee "mint.com")
+(get (methods affiliate-fee) "example.org")
+(get-method affiliate-fee "example.org")
+((get-method affiliate-fee "mint.com") example-user)
