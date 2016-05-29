@@ -1,0 +1,5 @@
+#lang slideshow
+5
+"art gallery"
+(circle 10)
+(rectangle 10 20)
