@@ -166,3 +166,20 @@
                [:rating/platinum :rating/ANY])
 (size-up {:rating :rating/platinum} user-4)
 (prefers size-up)
+
+;; User-defined hierarchies
+(def myhier (make-hierarchy))
+myhier
+(derive myhier :a :letter)
+myhier
+(def myhier (-> myhier
+                (derive :a :letter)
+                (derive :b :letter)
+                (derive :c :letter)))
+(isa? myhier :a :letter)
+(parents myhier :a)
+(defmulti letter? identity :hierarchy #'myhier)
+(defmethod letter? :letter [_] true)
+(letter? :d)
+(def myhier (derive myhier :d :letter))
+(letter? :d)
