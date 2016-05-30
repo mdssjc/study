@@ -152,3 +152,17 @@
 (defmethod profit-based-affiliate-fee ["google.com" :rating/premier]
   [user] (fee-amount 0.03M user))
 (map profit-based-affiliate-fee [user-1 user-2 user-3 user-4])
+
+;; Resolving ambiguities
+(defmulti size-up (fn [observer observed]
+                    [(:rating observer) (:rating observed)]))
+(defmethod size-up [:rating/platinum :rating/ANY] [_ observed]
+  (str (:login observed) " seems scrawny."))
+(defmethod size-up [:rating/ANY :rating/platinum] [_ observed]
+  (str (:login observed) " shimmers with an unearthly light."))
+(size-up {:rating :rating/platinum} user-4)
+
+(prefer-method size-up [:rating/ANY :rating/platinum]
+               [:rating/platinum :rating/ANY])
+(size-up {:rating :rating/platinum} user-4)
+(prefers size-up)
