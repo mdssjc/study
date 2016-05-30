@@ -2,7 +2,7 @@ package com.github.mdssjc.ats.identifier;
 
 public class Identifier {
 
-  public boolean validateIdentifier(String s) {
+  public boolean validateIdentifier(final String s) {
     char achar;
     boolean valid_id = false;
     achar = s.charAt(0);
@@ -12,32 +12,36 @@ public class Identifier {
       int i = 1;
       while (i < s.length() - 1) {
         achar = s.charAt(i);
-        if (!valid_f(achar))
+        if (!valid_f(achar)) {
           valid_id = false;
+        }
         i++;
       }
     }
 
-    if (valid_id && (s.length() >= 1) && (s.length() < 6))
+    if (valid_id && (s.length() >= 1) && (s.length() < 6)) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
-  public boolean valid_s(char ch) {
+  public boolean valid_s(final char ch) {
     if (((ch >= 'A') && (ch <= 'Z'))
-        || ((ch >= 'a') && (ch <= 'z')))
+        || ((ch >= 'a') && (ch <= 'z'))) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
-  public boolean valid_f(char ch) {
+  public boolean valid_f(final char ch) {
     if (((ch >= 'A') && (ch <= 'Z'))
         || ((ch >= 'a') && (ch <= 'z'))
-        || ((ch >= '0') && (ch <= '9')))
+        || ((ch >= '0') && (ch <= '9'))) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 }
