@@ -12,40 +12,40 @@ public class IdentifierTestCase {
 
   @Before
   public void init() {
-    identifier = new Identifier();
+    this.identifier = new Identifier();
   }
 
   @Test
   public void validate01() {
-    boolean obtido = identifier.validateIdentifier("a1");
+    final boolean obtido = this.identifier.validateIdentifier("a1");
 
     assertTrue(obtido);
   }
 
   @Test
   public void validate02() {
-    boolean obtido = identifier.validateIdentifier("");
+    final boolean obtido = this.identifier.validateIdentifier("");
 
     assertFalse(obtido);
   }
 
   @Test
   public void validate03() {
-    boolean obtido = identifier.validateIdentifier("A1b2C3d");
+    final boolean obtido = this.identifier.validateIdentifier("A1b2C3d");
 
     assertFalse(obtido);
   }
 
   @Test
   public void validate04() {
-    boolean obtido = identifier.validateIdentifier("2B3");
+    final boolean obtido = this.identifier.validateIdentifier("2B3");
 
     assertFalse(obtido);
   }
 
   @Test
   public void validate05() {
-    boolean obtido = identifier.validateIdentifier("Z#12");
+    final boolean obtido = this.identifier.validateIdentifier("Z#12");
 
     assertFalse(obtido);
   }
