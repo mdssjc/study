@@ -23,28 +23,28 @@ public class IdentifierTestCase {
     assertTrue(obtido);
   }
 
-  @Test(timeout = 200)
+  @Test(timeout = LIMIT)
   public void validate02() {
     final boolean obtido = this.identifier.validateIdentifier("");
 
     assertFalse(obtido);
   }
 
-  @Test(timeout = 200)
+  @Test(timeout = LIMIT)
   public void validate03() {
     final boolean obtido = this.identifier.validateIdentifier("A1b2C3d");
 
     assertFalse(obtido);
   }
 
-  @Test(timeout = 200)
+  @Test(timeout = LIMIT)
   public void validate04() {
     final boolean obtido = this.identifier.validateIdentifier("2B3");
 
     assertFalse(obtido);
   }
 
-  @Test(timeout = 200)
+  @Test(timeout = LIMIT)
   public void validate05() {
     final boolean obtido = this.identifier.validateIdentifier("Z#12");
 
