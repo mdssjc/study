@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class IdentifierTestCase {
@@ -49,5 +50,19 @@ public class IdentifierTestCase {
     final boolean obtido = this.identifier.validateIdentifier("Z#12");
 
     assertFalse(obtido);
+  }
+
+  @Test(timeout = LIMIT)
+  public void validate06() {
+    final boolean obtido = identifier.validateIdentifier("Z");
+
+    assertTrue(obtido);
+  }
+
+  @Ignore
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void excecaoString() {
+    String str = new String("Exemplo JUnit");
+    str.substring(30);
   }
 }
