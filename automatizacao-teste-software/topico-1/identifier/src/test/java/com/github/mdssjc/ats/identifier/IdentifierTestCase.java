@@ -52,9 +52,9 @@ public class IdentifierTestCase {
     assertFalse(obtido);
   }
 
-  @Test(timeout = LIMIT)
+  @Test(timeout = IdentifierTestCase.LIMIT)
   public void validate06() {
-    final boolean obtido = identifier.validateIdentifier("Z");
+    final boolean obtido = this.identifier.validateIdentifier("Z");
 
     assertTrue(obtido);
   }
@@ -62,7 +62,7 @@ public class IdentifierTestCase {
   @Ignore
   @Test(expected = IndexOutOfBoundsException.class)
   public void excecaoString() {
-    String str = new String("Exemplo JUnit");
+    final String str = new String("Exemplo JUnit");
     str.substring(30);
   }
 }
