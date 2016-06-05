@@ -1,5 +1,5 @@
 (import 'java.text.SimpleDateFormat)
-(import '[java.util Date Calendar Random])
+(import '[java.util Date Calendar Random TimeZone])
 
 (def sdf (new SimpleDateFormat "yyyy-MM-dd"))
 (def sdf (SimpleDateFormat. "yyyy-MM-dd"))
@@ -22,3 +22,11 @@ Calendar/FEBRUARY
 (. rnd (nextInt 10))
 
 (. Calendar DECEMBER)
+
+(. (. (Calendar/getInstance) (getTimeZone)) (getDisplayName))
+(. (. (Calendar/getInstance) getTimeZone) getDisplayName)
+(.. (Calendar/getInstance) (getTimeZone) (getDisplayName))
+(.. (Calendar/getInstance) getTimeZone getDisplayName)
+(.. (Calendar/getInstance)
+    getTimeZone
+    (getDisplayName true TimeZone/SHORT))
