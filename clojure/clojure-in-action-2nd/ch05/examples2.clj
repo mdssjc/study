@@ -6,3 +6,5 @@
 
 (.subSequence "Clojure" 2 5)
 ((memfn ^String subSequence ^Long start ^Long end) "Clojure" 2 5)
+
+(bean (Calendar/getInstance))
