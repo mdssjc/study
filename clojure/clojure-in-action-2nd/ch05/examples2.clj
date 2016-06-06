@@ -8,3 +8,8 @@
 ((memfn ^String subSequence ^Long start ^Long end) "Clojure" 2 5)
 
 (bean (Calendar/getInstance))
+
+(def tokens (.split "clojure.in.action" "\\."))
+(alength tokens)
+(aget tokens 2)
+(aset tokens 2 "actionable")
