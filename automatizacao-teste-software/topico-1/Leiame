@@ -1,0 +1,33 @@
+Tópico 1
+
+Introdução
+Definições e Terminologia
+  Conceitos básicos
+    Engano, Defeito, Erro, Falha
+  Verificação, Validação e Teste
+    Atividades de Análise Estática e Dinâmica
+  Técnica, Critério, Requisito de Teste, Caso de Teste
+  Fases de Teste
+  Classificação de Defeitos
+  Documentação de Teste
+    JUnit
+  Exercícios em Sala
+  Hands-on
+    JUnit
+
+- Slides de Terminologia e Conceitos Básicos
+- Slides do JUnit 4.11
+
+Para Praticar
+- Primeiro Hands-on
+
+Para Ler
+- Nota didática de Introdução ao Teste de Software
+- Artigo do Chow (1978) Testing Software Design Modeled by Finite-State Machines
+- ISO/IEC/IEEE - 24765 - Glossário de Termos de Engenharia de Sistemas e Software
+
+Para Executar
+- Possível Implementação do CommentPrinter
+- Programa Identifier
+- Interface do Programa Identifier
+- Exemplo de Casos de Teste JUnit para o Identifier: classe IdentifierTestCase.java
