@@ -1,0 +1,23 @@
+Tópico 2
+
+Processo de Teste de Software
+  Introdução
+  Padrões e Normas relacionados com Teste de Software ISO/IEC 29119
+  Modelos de Maturidade de Processo de Teste de Software - TMMI
+  Rastreamento de Defeitos
+Técnica de Teste Caixa Preta
+  Introdução
+  Partição de Equivalência
+  Análise do Valor Limite
+  Tabela de Decisão
+  Ferramenta de Automação de Teste Unitário (Coverage, Rational - cobrindo a parte de automação de teste funcional)
+  Hands-on
+    Automatização do documentação de informações de teste e teste caixa preta
+      Mantis
+      TestLink e JUnit
+
+- Slides sobre Normas, Padrões e Modelos de Maturidade
+- Slides sobre Teste Caixa Preta
+- Slides sobre o Critério Particionamento de Equivalência
+- Slides sobre o Critério Análise do Valor Limite
+- Slides sobre o Critério Tabela de Decisão
