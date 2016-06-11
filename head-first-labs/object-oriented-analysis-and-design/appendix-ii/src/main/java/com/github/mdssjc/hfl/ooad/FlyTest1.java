@@ -1,6 +1,6 @@
 package com.github.mdssjc.hfl.ooad;
 
-public class FlyTest {
+public class FlyTest1 {
 
   public static void main(final String[] args) {
     final Airplane biplane = new Airplane();
