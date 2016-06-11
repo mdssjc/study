@@ -5,8 +5,8 @@ public class Jet extends Airplane {
   private static final int MULTIPLIER = 2;
 
   @Override
-  public void setSpeed(int speed) {
-    super.setSpeed(speed * MULTIPLIER);
+  public void setSpeed(final int speed) {
+    super.setSpeed(speed * Jet.MULTIPLIER);
   }
 
   public void accelerate() {
