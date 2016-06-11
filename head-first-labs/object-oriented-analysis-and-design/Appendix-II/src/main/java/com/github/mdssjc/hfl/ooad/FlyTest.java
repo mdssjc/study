@@ -1,14 +1,13 @@
 package com.github.mdssjc.hfl.ooad;
 
-// FlyTest class has Main
 public class FlyTest {
 
-  public static void main(String[] args) {
-    Airplane biplane = new Airplane();
+  public static void main(final String[] args) {
+    final Airplane biplane = new Airplane();
     biplane.setSpeed(212);
     System.out.println(biplane.getSpeed());
 
-    Jet boeing = new Jet();
+    final Jet boeing = new Jet();
     boeing.setSpeed(422);
     System.out.println(boeing.getSpeed());
 
