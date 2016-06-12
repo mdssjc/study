@@ -9,7 +9,7 @@ public class Inventory<T> {
   private final List<T> list;
 
   public Inventory() {
-    this.list = new LinkedList<T>();
+    this.list = new LinkedList<>();
   }
 
   public void add(final T type) {
