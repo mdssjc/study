@@ -2,9 +2,9 @@ package com.github.mdssjc.hfl.ooad.base;
 
 public class Guitar {
 
-  private final String serialNumber;
-  private double       price;
-  private GuitarSpec   spec;
+  private final String     serialNumber;
+  private double           price;
+  private final GuitarSpec spec;
 
   public Guitar(final String serialNumber, final double price,
       final GuitarSpec spec) {
@@ -27,10 +27,6 @@ public class Guitar {
 
   public GuitarSpec getSpec() {
     return this.spec;
-  }
-
-  public void setSpec(final GuitarSpec spec) {
-    this.spec = spec;
   }
 
   @Override
