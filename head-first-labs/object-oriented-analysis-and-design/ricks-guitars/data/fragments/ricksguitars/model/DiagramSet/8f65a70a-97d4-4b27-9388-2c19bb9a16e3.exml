@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ricksguitars" version="4">
+  <OBJECT>
+    <ID name="ricksguitars" mc="Standard.DiagramSet" uid="8f65a70a-97d4-4b27-9388-2c19bb9a16e3"/>
+    <PID name="ricksguitars" mc="Standard.Project" uid="632bbe80-e88d-48ad-a7d4-e5fa03959f30"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[ricksguitars]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

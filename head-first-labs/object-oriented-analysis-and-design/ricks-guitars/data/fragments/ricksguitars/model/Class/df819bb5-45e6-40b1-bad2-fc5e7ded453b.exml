@@ -1,0 +1,478 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="FindGuitarTester" version="4">
+  <OBJECT>
+    <ID name="FindGuitarTester" mc="Standard.Class" uid="df819bb5-45e6-40b1-bad2-fc5e7ded453b"/>
+    <PID name="ooad" mc="Standard.Package" uid="8c22b47f-9e0d-4b98-8455-0fa37ddef22f"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[FindGuitarTester]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedOperation">
+        <OBJECT>
+          <ID name="main" mc="Standard.Operation" uid="c7ad3206-638f-47bd-aa70-584f573d4092"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[main]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="IO">
+              <OBJECT>
+                <ID name="args" mc="Standard.Parameter" uid="3dfe01a7-8fff-41c9-abda-85c98ed42010"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[args]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Tag">
+                    <OBJECT>
+                      <ID name="" mc="Standard.TaggedValue" uid="1d158861-153d-433c-a7df-c56f80acfcde"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Definition">
+                          <FOREIGNID name="JavaFinal" mc="Standard.TagType" uid="eb8c1900-000a-b31d-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                    <OBJECT>
+                      <ID name="" mc="Standard.TaggedValue" uid="d44e6876-0385-46bd-b72c-be73e0a0c1a9"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <COMP relation="Actual">
+                          <OBJECT>
+                            <ID name="" mc="Standard.TagParameter" uid="bc9827b7-3778-4c53-a196-108e6496f432"/>
+                            <ATTRIBUTES>
+                              <ATT name="Value"><![CDATA[Array]]></ATT>
+                              <ATT name="status">1970354901745664</ATT>
+                            </ATTRIBUTES>
+                            <DEPENDENCIES></DEPENDENCIES>
+                          </OBJECT>
+                        </COMP>
+                        <LINK relation="Definition">
+                          <FOREIGNID name="type" mc="Standard.TagType" uid="00000000-0000-3767-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                    <OBJECT>
+                      <ID name="" mc="Standard.TaggedValue" uid="4e0b1470-2dc3-4f6b-bf08-d5f48ab63a61"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <COMP relation="Actual">
+                          <OBJECT>
+                            <ID name="" mc="Standard.TagParameter" uid="12650eae-8649-49ad-a1ae-53eafcc8a725"/>
+                            <ATTRIBUTES>
+                              <ATT name="Value"><![CDATA[String]]></ATT>
+                              <ATT name="status">1970354901745664</ATT>
+                            </ATTRIBUTES>
+                            <DEPENDENCIES></DEPENDENCIES>
+                          </OBJECT>
+                        </COMP>
+                        <LINK relation="Definition">
+                          <FOREIGNID name="JavaTypeExpr" mc="Standard.TagType" uid="00380080-0000-01a4-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Standard.Note" uid="ebf4ee59-8f0e-4d8d-ac2b-c590beed7745"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[// Set up Rick's guitar inventory
+final Inventory<Guitar> inventory = new Inventory<>();
+initializeInventory(inventory);
+
+final GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER,
+    "Stratocastor", Type.ELECTRIC, 6, Wood.ALDER, Wood.ALDER);
+final List<Guitar> matchingGuitars = inventory.search(whatErinLikes);
+
+if (!matchingGuitars.isEmpty()) {
+  System.out.println("Erin, you might like these guitars:");
+  for (final Guitar guitar : matchingGuitars) {
+    final GuitarSpec spec = guitar.getSpec();
+    System.out.println("  We have a " + spec.getBuilder() + " "
+        + spec.getModel() + " " + spec.getType()
+        + " guitar:\n     " + spec.getBackWood()
+        + " back and sides,\n     " + spec.getTopWood()
+        + " top.\n  You can have it for only $"
+        + guitar.getPrice() + "!\n  ----");
+  }
+} else {
+  System.out.println("Sorry, Erin, we have nothing for you.");
+}
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Standard.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="initializeInventory" mc="Standard.Operation" uid="2fa9a811-6bd9-48e9-a0dd-770463654e70"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="IsClass">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[initializeInventory]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="IO">
+              <OBJECT>
+                <ID name="inventory" mc="Standard.Parameter" uid="2fc82f61-96c2-4476-ad6d-1ec2e1ef1352"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[inventory]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <ID name="Inventory" mc="Standard.Class" uid="6b37ae3d-d19b-45d7-aa1f-8aa9606ef169"/>
+                  </LINK>
+                  <COMP relation="Tag">
+                    <OBJECT>
+                      <ID name="" mc="Standard.TaggedValue" uid="b5f3a3ba-e678-443f-9622-bef079b56eaf"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Definition">
+                          <FOREIGNID name="JavaFinal" mc="Standard.TagType" uid="eb8c1900-000a-b31d-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                    <OBJECT>
+                      <ID name="" mc="Standard.TaggedValue" uid="4a72459b-07b5-4521-941f-750aaf913a12"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <COMP relation="Actual">
+                          <OBJECT>
+                            <ID name="" mc="Standard.TagParameter" uid="6e3744b0-e074-4a74-ba50-918a82eea1d3"/>
+                            <ATTRIBUTES>
+                              <ATT name="Value"><![CDATA[Guitar]]></ATT>
+                              <ATT name="status">1970354901745664</ATT>
+                            </ATTRIBUTES>
+                            <DEPENDENCIES></DEPENDENCIES>
+                          </OBJECT>
+                        </COMP>
+                        <LINK relation="Definition">
+                          <FOREIGNID name="JavaBind" mc="Standard.TagType" uid="000c0b48-0000-3970-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Standard.Note" uid="a9c31475-c391-4bb8-af25-66a7a80da0d4"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[inventory.add(new GuitarBuilder()
+                                 .setSerialNumber("11277")
+                                 .setPrice(3999.95)
+                                 .setBuilder(Builder.COLLINGS)
+                                 .setModel("CJ")
+                                 .setType(Type.ACOUSTIC)
+                                 .setNumStrings(6)
+                                 .setBackWood(Wood.INDIAN_ROSEWOOD)
+                                 .setTopWood(Wood.SITKA)
+                                 .makeGuitar());
+
+inventory.add(new GuitarBuilder()
+                                 .setSerialNumber("V95693")
+                                 .setPrice(1499.95)
+                                 .setBuilder(Builder.FENDER)
+                                 .setModel("Stratocastor")
+                                 .setType(Type.ELECTRIC)
+                                 .setNumStrings(6)
+                                 .setBackWood(Wood.ALDER)
+                                 .setTopWood(Wood.ALDER)
+                                 .makeGuitar());
+
+inventory.add(new GuitarBuilder()
+                                 .setSerialNumber("V9512")
+                                 .setPrice(1549.95)
+                                 .setBuilder(Builder.FENDER)
+                                 .setModel("Stratocastor")
+                                 .setType(Type.ELECTRIC)
+                                 .setNumStrings(6)
+                                 .setBackWood(Wood.ALDER)
+                                 .setTopWood(Wood.ALDER)
+                                 .makeGuitar());
+
+inventory.add(new GuitarBuilder()
+                                 .setSerialNumber("122784")
+                                 .setPrice(5495.95)
+                                 .setBuilder(Builder.MARTIN)
+                                 .setModel("D-18")
+                                 .setType(Type.ACOUSTIC)
+                                 .setNumStrings(6)
+                                 .setBackWood(Wood.MAHOGANY)
+                                 .setTopWood(Wood.ADIRONDACK)
+                                 .makeGuitar());
+
+inventory.add(new GuitarBuilder()
+                                 .setSerialNumber("76531")
+                                 .setPrice(6295.95)
+                                 .setBuilder(Builder.MARTIN)
+                                 .setModel("OM-28")
+                                 .setType(Type.ACOUSTIC)
+                                 .setNumStrings(6)
+                                 .setBackWood(Wood.BRAZILIAN_ROSEWOOD)
+                                 .setTopWood(Wood.ADIRONDACK)
+                                 .makeGuitar());
+
+inventory.add(new GuitarBuilder()
+                                 .setSerialNumber("70108276")
+                                 .setPrice(2295.95)
+                                 .setBuilder(Builder.GIBSON)
+                                 .setModel("Les Paul")
+                                 .setType(Type.ELECTRIC)
+                                 .setNumStrings(6)
+                                 .setBackWood(Wood.MAHOGANY)
+                                 .setTopWood(Wood.MAHOGANY)
+                                 .makeGuitar());
+
+inventory.add(new GuitarBuilder()
+                                 .setSerialNumber("82765501")
+                                 .setPrice(1890.95)
+                                 .setBuilder(Builder.GIBSON)
+                                 .setModel("SG '61 Reissue")
+                                 .setType(Type.ELECTRIC)
+                                 .setNumStrings(6)
+                                 .setBackWood(Wood.MAHOGANY)
+                                 .setTopWood(Wood.MAHOGANY)
+                                 .makeGuitar());
+
+inventory.add(new GuitarBuilder()
+                                 .setSerialNumber("77023")
+                                 .setPrice(6275.95)
+                                 .setBuilder(Builder.MARTIN)
+                                 .setModel("D-28")
+                                 .setType(Type.ACOUSTIC)
+                                 .setNumStrings(6)
+                                 .setBackWood(Wood.BRAZILIAN_ROSEWOOD)
+                                 .setTopWood(Wood.ADIRONDACK)
+                                 .makeGuitar());
+
+inventory.add(new GuitarBuilder()
+                                 .setSerialNumber("1092")
+                                 .setPrice(12995.95)
+                                 .setBuilder(Builder.OLSON)
+                                 .setModel("SJ")
+                                 .setType(Type.ACOUSTIC)
+                                 .setNumStrings(12)
+                                 .setBackWood(Wood.INDIAN_ROSEWOOD)
+                                 .setTopWood(Wood.CEDAR)
+                                 .makeGuitar());
+
+inventory.add(new GuitarBuilder()
+                                 .setSerialNumber("566-62")
+                                 .setPrice(8999.95)
+                                 .setBuilder(Builder.RYAN)
+                                 .setModel("Cathedral")
+                                 .setType(Type.ACOUSTIC)
+                                 .setNumStrings(12)
+                                 .setBackWood(Wood.COCOBOLO)
+                                 .setTopWood(Wood.CEDAR)
+                                 .makeGuitar());
+
+inventory.add(new GuitarBuilder()
+                                 .setSerialNumber("6 29584")
+                                 .setPrice(2100.95)
+                                 .setBuilder(Builder.PRS)
+                                 .setModel("Dave Navarro Signature")
+                                 .setType(Type.ELECTRIC)
+                                 .setNumStrings(6)
+                                 .setBackWood(Wood.MAHOGANY)
+                                 .setTopWood(Wood.MAPLE)
+                                 .makeGuitar());
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Standard.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedImport">
+        <OBJECT>
+          <ID name="" mc="Standard.ElementImport" uid="fcbabf64-0a7f-46b4-91f3-246d94e34064"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="ImportedElement">
+              <ID name="Guitar" mc="Standard.Class" uid="3e19036a-0ac6-4d2a-93a7-58896ca353b3"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="Standard.ElementImport" uid="714eafc4-bbe3-483a-82d0-b2eaf4a2c28f"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="ImportedElement">
+              <ID name="GuitarSpec" mc="Standard.Class" uid="8e000a18-f054-45c3-85bb-502395c9d93e"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="Standard.ElementImport" uid="63b5f899-294a-4e9b-8289-04cbed1335e9"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="ImportedElement">
+              <ID name="GuitarBuilder" mc="Standard.Class" uid="a1253602-aaae-4b38-b412-201d19c23d89"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="Standard.ElementImport" uid="c874185d-eb3a-425b-8873-7bd0d4cabb6c"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="ImportedElement">
+              <REFOBJ>
+                <ID name="Builder" mc="Standard.Enumeration" uid="9af5c1d6-4d79-4e86-87fb-48c7c622b981"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="Standard.ElementImport" uid="d255c332-6d5c-4550-abf8-280ec81e885b"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="ImportedElement">
+              <REFOBJ>
+                <ID name="Type" mc="Standard.Enumeration" uid="143bee87-d1e8-4196-ae70-f28ae0839996"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="Standard.ElementImport" uid="001959d6-5fb0-49f8-804a-ed5b723d6ef6"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="ImportedElement">
+              <REFOBJ>
+                <ID name="Wood" mc="Standard.Enumeration" uid="6e022c24-3a3f-45c4-a7b3-2da2462dc9a4"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaClass" mc="Standard.Stereotype" uid="01ec23a8-0000-0258-0000-000000000000"/>
+      </LINK>
+      <COMP relation="Tag">
+        <OBJECT>
+          <ID name="" mc="Standard.TaggedValue" uid="3ee4783e-691f-40a2-94c0-9f8319b4f191"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Actual">
+              <OBJECT>
+                <ID name="" mc="Standard.TagParameter" uid="437246d2-6d93-4fc5-9b05-d4023a05c6c6"/>
+                <ATTRIBUTES>
+                  <ATT name="Value"><![CDATA[java.util.List]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Definition">
+              <FOREIGNID name="JavaImport" mc="Standard.TagType" uid="003800a8-0000-0155-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
