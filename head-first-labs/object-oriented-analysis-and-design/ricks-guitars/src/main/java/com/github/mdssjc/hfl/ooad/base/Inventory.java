@@ -22,8 +22,8 @@ public class Inventory<T, S> {
     this.list = new LinkedList<>();
   }
 
-  public void add(final T type) {
-    this.list.add(type);
+  public void add(final T item) {
+    this.list.add(item);
   }
 
   public T get(final String id) {
