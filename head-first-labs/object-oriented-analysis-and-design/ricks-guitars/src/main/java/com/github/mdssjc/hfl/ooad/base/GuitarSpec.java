@@ -4,74 +4,40 @@ import com.github.mdssjc.hfl.ooad.types.Builder;
 import com.github.mdssjc.hfl.ooad.types.Type;
 import com.github.mdssjc.hfl.ooad.types.Wood;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class GuitarSpec {
 
+  @Getter
+  @Setter
   private Builder builder;
+  @Getter
+  @Setter
   private String  model;
+  @Getter
+  @Setter
   private Type    type;
+  @Getter
+  @Setter
   private int     numStrings;
+  @Getter
+  @Setter
   private Wood    backWood;
+  @Getter
+  @Setter
   private Wood    topWood;
 
   public GuitarSpec() {
   }
 
   public GuitarSpec(final Builder builder, final String model, final Type type,
-      final int numStrings,
-      final Wood backWood, final Wood topWood) {
+      final int numStrings, final Wood backWood, final Wood topWood) {
     this.builder = builder;
     this.model = model;
     this.type = type;
     this.numStrings = numStrings;
     this.backWood = backWood;
-    this.topWood = topWood;
-  }
-
-  public Builder getBuilder() {
-    return this.builder;
-  }
-
-  public void setBuilder(final Builder builder) {
-    this.builder = builder;
-  }
-
-  public String getModel() {
-    return this.model;
-  }
-
-  public void setModel(final String model) {
-    this.model = model;
-  }
-
-  public Type getType() {
-    return this.type;
-  }
-
-  public void setType(final Type type) {
-    this.type = type;
-  }
-
-  public int getNumStrings() {
-    return this.numStrings;
-  }
-
-  public void setNumStrings(final int numStrings) {
-    this.numStrings = numStrings;
-  }
-
-  public Wood getBackWood() {
-    return this.backWood;
-  }
-
-  public void setBackWood(final Wood backWood) {
-    this.backWood = backWood;
-  }
-
-  public Wood getTopWood() {
-    return this.topWood;
-  }
-
-  public void setTopWood(final Wood topWood) {
     this.topWood = topWood;
   }
 
