@@ -1,9 +1,16 @@
 package com.github.mdssjc.hfl.ooad.base;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Guitar {
 
+  @Getter
   private final String     serialNumber;
+  @Getter
+  @Setter
   private double           price;
+  @Getter
   private final GuitarSpec spec;
 
   public Guitar(final String serialNumber, final double price,
@@ -11,22 +18,6 @@ public class Guitar {
     this.serialNumber = serialNumber;
     this.price = price;
     this.spec = spec;
-  }
-
-  public String getSerialNumber() {
-    return this.serialNumber;
-  }
-
-  public double getPrice() {
-    return this.price;
-  }
-
-  public void setPrice(final float newPrice) {
-    this.price = newPrice;
-  }
-
-  public GuitarSpec getSpec() {
-    return this.spec;
   }
 
   public boolean matches(final Object other) {
