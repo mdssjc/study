@@ -14,7 +14,7 @@ public class FindGuitarTester {
 
   public static void main(final String[] args) {
     // Set up Rick's guitar inventory
-    final Inventory<Guitar> inventory = new Inventory<>();
+    final Inventory<Guitar, GuitarSpec> inventory = new Inventory<>();
     initializeInventory(inventory);
 
     final GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER,
@@ -37,7 +37,8 @@ public class FindGuitarTester {
     }
   }
 
-  private static void initializeInventory(final Inventory<Guitar> inventory) {
+  private static void initializeInventory(
+      final Inventory<Guitar, GuitarSpec> inventory) {
     inventory.add(new GuitarBuilder()
                                      .setSerialNumber("11277")
                                      .setPrice(3999.95)
