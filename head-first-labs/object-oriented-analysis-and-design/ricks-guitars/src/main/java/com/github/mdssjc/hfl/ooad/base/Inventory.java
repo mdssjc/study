@@ -1,8 +1,8 @@
 package com.github.mdssjc.hfl.ooad.base;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Inventory Class
@@ -36,12 +36,8 @@ public class Inventory<T, S> {
   }
 
   public List<T> search(final S search) {
-    final List<T> matching = new ArrayList<>();
-    for (final T element : this.list) {
-      if (element.equals(search)) {
-        matching.add(element);
-      }
-    }
-    return matching;
+    return this.list.stream()
+                    .filter(item -> item.equals(search))
+                    .collect(Collectors.toList());
   }
 }
