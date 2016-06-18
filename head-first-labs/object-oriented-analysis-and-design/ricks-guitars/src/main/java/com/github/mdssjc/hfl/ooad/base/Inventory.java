@@ -27,12 +27,10 @@ public class Inventory<T, S> {
   }
 
   public T get(final String id) {
-    for (final T element : this.list) {
-      if (element.equals(id)) {
-        return element;
-      }
-    }
-    return null;
+    return this.list.stream()
+                    .filter(item -> item.equals(id))
+                    .findFirst()
+                    .orElse(null);
   }
 
   public List<T> search(final S search) {
