@@ -4,7 +4,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Inventory<T> {
+/**
+ * Inventory Class
+ *
+ * @author mdssjc
+ *
+ * @param <T>
+ *          Type
+ * @param <S>
+ *          Specification
+ */
+public class Inventory<T, S> {
 
   private final List<T> list;
 
@@ -25,7 +35,7 @@ public class Inventory<T> {
     return null;
   }
 
-  public List<T> search(final Object search) {
+  public List<T> search(final S search) {
     final List<T> matching = new ArrayList<>();
     for (final T element : this.list) {
       if (element.equals(search)) {
