@@ -1,6 +1,7 @@
 package com.github.mdssjc.hfooad;
 
-import java.util.List;
+import java.util.Iterator;
+import java.util.function.Consumer;
 
 import com.github.mdssjc.hfooad.base.Guitar;
 import com.github.mdssjc.hfooad.base.GuitarSpec;
@@ -13,28 +14,31 @@ import com.github.mdssjc.hfooad.types.Wood;
 public class FindGuitarTester {
 
   public static void main(final String[] args) {
-    // Set up Rick's guitar inventory
     final Inventory<Guitar, GuitarSpec> inventory = new Inventory<>();
     initializeInventory(inventory);
 
     final GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER,
         "Stratocastor", Type.ELECTRIC, 6, Wood.ALDER, Wood.ALDER);
-    final List<Guitar> matchingGuitars = inventory.search(whatErinLikes);
 
-    if (!matchingGuitars.isEmpty()) {
+    final Iterator<Guitar> matchingGuitars = inventory.search(whatErinLikes);
+    if (matchingGuitars.hasNext()) {
       System.out.println("Erin, you might like these guitars:");
-      for (final Guitar guitar : matchingGuitars) {
-        final GuitarSpec spec = guitar.getSpec();
-        System.out.println("  We have a " + spec.getBuilder() + " "
-            + spec.getModel() + " " + spec.getType()
-            + " guitar:\n     " + spec.getBackWood()
-            + " back and sides,\n     " + spec.getTopWood()
-            + " top.\n  You can have it for only $"
-            + guitar.getPrice() + "!\n  ----");
-      }
+      matchingGuitars.forEachRemaining(formatMessage());
     } else {
       System.out.println("Sorry, Erin, we have nothing for you.");
     }
+  }
+
+  private static Consumer<? super Guitar> formatMessage() {
+    return (guitar) -> {
+      final GuitarSpec spec = guitar.getSpec();
+      System.out.println("  We have a " + spec.getBuilder() + " "
+          + spec.getModel() + " " + spec.getType()
+          + " guitar:\n     " + spec.getBackWood()
+          + " back and sides,\n     " + spec.getTopWood()
+          + " top.\n  You can have it for only $"
+          + guitar.getPrice() + "!\n  ----");
+    };
   }
 
   private static void initializeInventory(
