@@ -1,8 +1,8 @@
 package com.github.mdssjc.hfooad.base;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Inventory Class
@@ -33,9 +33,9 @@ public class Inventory<T, S> {
                     .orElse(null);
   }
 
-  public List<T> search(final S search) {
+  public Iterator<T> search(final S search) {
     return this.list.stream()
                     .filter(item -> item.equals(search))
-                    .collect(Collectors.toList());
+                    .iterator();
   }
 }
