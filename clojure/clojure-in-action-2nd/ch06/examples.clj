@@ -1,3 +1,4 @@
+;; REF
 (def all-users (ref {}))
 
 (deref all-users)
@@ -22,3 +23,24 @@ all-users
 
 (add-new-user "amit" 1000000)
 (add-new-user "deepthi" 2000000)
+
+;; AGENTS
+(def total-cpu-time (agent 0))
+
+(deref total-cpu-time)
+@total-cpu-time
+
+(send total-cpu-time + 700)
+
+(def bad-agent (agent 10))
+(send bad-agent / 0)
+(deref bad-agent)
+(send bad-agent / 2)
+(agent-error bad-agent)
+
+(let [e (agent-error bad-agent)
+      st (.getStackTrace e)]
+  (println (.getMessage e))
+  (println (clojure.string/join "\n" st)))
+
+(clear-agent-errors bad-agent)
