@@ -54,3 +54,14 @@ all-users
 (reset! total-rows 0)
 (swap! total-rows + 100)
 (compare-and-set! total-rows 100 101)
+
+;; VARS
+(def hbase-master "localhost")
+(def ^:dynamic *hbase-master* "localhost")
+
+(def ^:dynamic *mysql-host*)
+(defn db-query [db]
+  (binding [*mysql-host* db]
+    (count *mysql-host*)))
+(def mysql-hosts ["test-mysql" "dev-mysql" "staging-mysql"])
+(pmap db-query mysql-hosts)
