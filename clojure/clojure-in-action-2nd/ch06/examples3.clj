@@ -16,3 +16,14 @@
         z (future (long-calculation 17 19))]
     (* @x @y @z)))
 (time (fast-run))
+
+;; PROMISES
+(def p (promise))
+(def value (deref p))
+@p
+(deliver promise value)
+
+(let [p (promise)]
+  (future (Thread/sleep 5000)
+          (deliver p :done))
+  @p)
