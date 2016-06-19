@@ -1,4 +1,4 @@
-package com.github.mdssjc.hfl.ooad.base;
+package com.github.mdssjc.hfooad.base;
 
 import java.util.LinkedList;
 import java.util.List;

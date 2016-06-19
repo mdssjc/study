@@ -1,14 +1,14 @@
-package com.github.mdssjc.hfl.ooad;
+package com.github.mdssjc.hfooad;
 
 import java.util.List;
 
-import com.github.mdssjc.hfl.ooad.base.Guitar;
-import com.github.mdssjc.hfl.ooad.base.GuitarSpec;
-import com.github.mdssjc.hfl.ooad.base.Inventory;
-import com.github.mdssjc.hfl.ooad.base.builder.GuitarBuilder;
-import com.github.mdssjc.hfl.ooad.types.Builder;
-import com.github.mdssjc.hfl.ooad.types.Type;
-import com.github.mdssjc.hfl.ooad.types.Wood;
+import com.github.mdssjc.hfooad.base.Guitar;
+import com.github.mdssjc.hfooad.base.GuitarSpec;
+import com.github.mdssjc.hfooad.base.Inventory;
+import com.github.mdssjc.hfooad.base.builder.GuitarBuilder;
+import com.github.mdssjc.hfooad.types.Builder;
+import com.github.mdssjc.hfooad.types.Type;
+import com.github.mdssjc.hfooad.types.Wood;
 
 public class FindGuitarTester {
 

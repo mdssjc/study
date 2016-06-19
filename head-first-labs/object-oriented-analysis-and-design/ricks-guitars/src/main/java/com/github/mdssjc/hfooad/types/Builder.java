@@ -1,4 +1,4 @@
-package com.github.mdssjc.hfl.ooad.types;
+package com.github.mdssjc.hfooad.types;
 
 public enum Builder {
 

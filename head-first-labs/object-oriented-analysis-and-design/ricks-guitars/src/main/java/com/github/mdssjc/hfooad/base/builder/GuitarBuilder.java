@@ -1,11 +1,12 @@
-package com.github.mdssjc.hfl.ooad.base.builder;
+package com.github.mdssjc.hfooad.base.builder;
 
-import com.github.mdssjc.hfl.ooad.base.Guitar;
-import com.github.mdssjc.hfl.ooad.base.GuitarSpec;
-import com.github.mdssjc.hfl.ooad.types.Builder;
-import com.github.mdssjc.hfl.ooad.types.Type;
-import com.github.mdssjc.hfl.ooad.types.Wood;
+import com.github.mdssjc.hfooad.base.Guitar;
+import com.github.mdssjc.hfooad.base.GuitarSpec;
+import com.github.mdssjc.hfooad.types.Builder;
+import com.github.mdssjc.hfooad.types.Type;
+import com.github.mdssjc.hfooad.types.Wood;
 
+// FIXME ver Lombok.
 public class GuitarBuilder {
 
   private String  serialNumber;
