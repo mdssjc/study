@@ -2,18 +2,18 @@ package com.github.mdssjc.hfooad.types;
 
 public enum Type {
 
-  ACOUSTIC,
-  ELECTRIC;
+  ACOUSTIC("Acoustic"),
+  ELECTRIC("Electric"),
+  ANY("Unspecified");
+
+  String value;
+
+  Type(final String value) {
+    this.value = value;
+  }
 
   @Override
   public String toString() {
-    switch (this) {
-      case ACOUSTIC:
-        return "acoustic";
-      case ELECTRIC:
-        return "electric";
-      default:
-        return "unspecified";
-    }
+    return this.value;
   }
 }
