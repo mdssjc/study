@@ -63,4 +63,58 @@ public class GuitarSpec {
     }
     return true;
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result
+        + ((this.backWood == null) ? 0 : this.backWood.hashCode());
+    result = prime * result
+        + ((this.builder == null) ? 0 : this.builder.hashCode());
+    result = prime * result
+        + ((this.model == null) ? 0 : this.model.hashCode());
+    result = prime * result + this.numStrings;
+    result = prime * result
+        + ((this.topWood == null) ? 0 : this.topWood.hashCode());
+    result = prime * result + ((this.type == null) ? 0 : this.type.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    final GuitarSpec other = (GuitarSpec) obj;
+    if (this.backWood != other.backWood) {
+      return false;
+    }
+    if (this.builder != other.builder) {
+      return false;
+    }
+    if (this.model == null) {
+      if (other.model != null) {
+        return false;
+      }
+    } else if (!this.model.equals(other.model)) {
+      return false;
+    }
+    if (this.numStrings != other.numStrings) {
+      return false;
+    }
+    if (this.topWood != other.topWood) {
+      return false;
+    }
+    if (this.type != other.type) {
+      return false;
+    }
+    return true;
+  }
 }
