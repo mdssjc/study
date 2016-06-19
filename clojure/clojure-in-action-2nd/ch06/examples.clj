@@ -1,4 +1,4 @@
-;; REF
+;; REFS
 (def all-users (ref {}))
 
 (deref all-users)
@@ -44,3 +44,13 @@ all-users
   (println (clojure.string/join "\n" st)))
 
 (clear-agent-errors bad-agent)
+
+;; ATOMS
+(def total-rows (atom 0))
+
+(deref total-rows)
+@total-rows
+
+(reset! total-rows 0)
+(swap! total-rows + 100)
+(compare-and-set! total-rows 100 101)
