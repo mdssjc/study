@@ -1,6 +1,5 @@
 /target/
 /.settings/
-/.pmd
-/.project
 /.classpath
 /.eclipse-pmd
+/.project
