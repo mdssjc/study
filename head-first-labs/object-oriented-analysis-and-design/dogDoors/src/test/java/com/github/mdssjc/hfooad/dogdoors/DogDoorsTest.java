@@ -1,7 +1,10 @@
-package com.github.mdssjc.hfooad.dogDoors;
+package com.github.mdssjc.hfooad.dogdoors;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.github.mdssjc.hfooad.dogdoors.DogDoor;
+import com.github.mdssjc.hfooad.dogdoors.Remote;
 
 public class DogDoorsTest {
 

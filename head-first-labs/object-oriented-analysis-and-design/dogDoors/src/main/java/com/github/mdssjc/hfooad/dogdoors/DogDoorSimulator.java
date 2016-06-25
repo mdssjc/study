@@ -1,4 +1,4 @@
-package com.github.mdssjc.hfooad.dogDoors;
+package com.github.mdssjc.hfooad.dogdoors;
 
 public class DogDoorSimulator {
 
