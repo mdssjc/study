@@ -1,10 +1,10 @@
-package mds.java.dogDoors;
+package com.github.mdssjc.hfooad.dogDoors;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import mds.java.dogDoors.base.DogDoor;
-import mds.java.dogDoors.base.Remote;
+import com.github.mdssjc.hfooad.dogDoors.DogDoor;
+import com.github.mdssjc.hfooad.dogDoors.Remote;
 
 /**
  * @author mdssjc

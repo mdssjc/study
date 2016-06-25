@@ -1,4 +1,4 @@
-package mds.java.dogDoors.base;
+package com.github.mdssjc.hfooad.dogDoors;
 
 public class DogDoorSimulator {
 

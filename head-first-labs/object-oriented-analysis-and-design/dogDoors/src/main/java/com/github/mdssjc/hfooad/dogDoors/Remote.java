@@ -1,4 +1,4 @@
-package mds.java.dogDoors.base;
+package com.github.mdssjc.hfooad.dogDoors;
 
 import java.util.Timer;
 import java.util.TimerTask;
