@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.github.mdssjc.hfooad.dogdoors.DogDoor;
 import com.github.mdssjc.hfooad.dogdoors.Remote;
 
-public class DogDoorsTest {
+public class DogDoorsSystemTest {
 
   private static final int SLEEP = 10000;
   private Remote           remote;
