@@ -99,3 +99,23 @@
     (price-with-tax state-tax price)))
 (def price-with-ca-tax (price-calculator-for-tax 9.25M))
 (def price-with-ny-tax (price-calculator-for-tax 8.0M))
+
+;;;
+(defn of-n-args [a b c d e]
+  (str a b c d e))
+(defn of-k-args [d e]
+  (of-n-args 1 2 3 d e))
+(of-k-args \a \b)
+
+(defn partially-applied [of-n-args & n-minus-k-args]
+  (fn [& k-args]
+    (apply of-n-args (concat n-minus-k-args k-args))))
+(def of-2-args (partially-applied of-n-args \a \b \c))
+(def of-3-args (partially-applied of-n-args \a \b))
+(of-2-args 4 5)
+(of-3-args 3 4 5)
+
+(def of-2-args (partial of-n-args \a \b \c))
+(def of-3-args (partial of-n-args \a \b))
+(of-2-args 4 5)
+(of-3-args 3 4 5)
