@@ -77,3 +77,25 @@
   (select-if #(< % threshold) numbers))
 
 (filter odd? [5 7 9 3 4 1 2 8])
+
+;;;
+(defn price-with-tax [tax-rate amount]
+  (->> (/ tax-rate 100)
+       (+ 1)
+       (* amount)))
+(price-with-tax 9.5M 100)
+
+(defn with-california-taxes [prices]
+  (map #(price-with-tax 9.25M %) prices))
+(def prices [100 200 300 400 500])
+(with-california-taxes prices)
+
+(defn price-with-ca-tax [price]
+  (price-with-tax 9.25M price))
+(defn price-with-ny-tax [price]
+  (price-with-tax 8.0M price))
+(defn price-calculator-for-tax [state-tax]
+  (fn [price]
+    (price-with-tax state-tax price)))
+(def price-with-ca-tax (price-calculator-for-tax 9.25M))
+(def price-with-ny-tax (price-calculator-for-tax 8.0M))
