@@ -5,6 +5,9 @@ public class Main {
   public static void main(String[] args) {
     NoConstructor noConstructorInstance = new NoConstructor();
     NoArgConstructor noArgConstructorInstance = new NoArgConstructor();
-    ConstructorWithArguments constructorWithArguments = new ConstructorWithArguments("arg1", "arg2");
+    ConstructorWithArguments constructorWithArguments = new ConstructorWithArguments(
+        "arg1", "arg2");
+
+    InitializationWithDefaults initializationWithDefaults = new InitializationWithDefaults();
   }
 }
