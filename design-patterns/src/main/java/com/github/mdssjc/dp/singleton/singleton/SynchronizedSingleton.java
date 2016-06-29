@@ -1,4 +1,4 @@
-package com.github.mdssjc.design_patterns.singleton.singleton;
+package com.github.mdssjc.dp.singleton.singleton;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class SynchronizedSingleton {
 
   private static SynchronizedSingleton uniqueInstance;
   @Getter
-  private int                         singletonData;
+  private int                          singletonData;
 
   /**
    * Obtém a instância do objeto.

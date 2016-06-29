@@ -1,4 +1,4 @@
-package com.github.mdssjc.design_patterns.command;
+package com.github.mdssjc.dp.command;
 
 /**
  * Interface Command.

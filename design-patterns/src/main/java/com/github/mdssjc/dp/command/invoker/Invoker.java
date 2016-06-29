@@ -1,6 +1,6 @@
-package com.github.mdssjc.design_patterns.command.invoker;
+package com.github.mdssjc.dp.command.invoker;
 
-import com.github.mdssjc.design_patterns.command.Command;
+import com.github.mdssjc.dp.command.Command;
 
 public class Invoker {
 
@@ -8,10 +8,10 @@ public class Invoker {
 
   public Invoker() {
     // TODO
-    //this.command = new NullObjectCommand();
+    // this.command = new NullObjectCommand();
   }
 
-  public void setCommand(Command command) {
+  public void setCommand(final Command command) {
     this.command = command;
   }
 

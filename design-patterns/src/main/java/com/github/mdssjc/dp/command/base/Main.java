@@ -1,9 +1,9 @@
-package com.github.mdssjc.design_patterns.command.base;
+package com.github.mdssjc.dp.command.base;
 
-import com.github.mdssjc.design_patterns.command.Command;
-import com.github.mdssjc.design_patterns.command.concrete.ConcreteCommand;
-import com.github.mdssjc.design_patterns.command.invoker.Invoker;
-import com.github.mdssjc.design_patterns.command.receiver.Receiver;
+import com.github.mdssjc.dp.command.Command;
+import com.github.mdssjc.dp.command.concrete.ConcreteCommand;
+import com.github.mdssjc.dp.command.invoker.Invoker;
+import com.github.mdssjc.dp.command.receiver.Receiver;
 
 /**
  * Test drive do padrão de projeto Command.

@@ -1,17 +1,19 @@
-package com.github.mdssjc.design_patterns.singleton.base;
+package com.github.mdssjc.dp.singleton.base;
 
-import com.github.mdssjc.design_patterns.singleton.singleton.DoubleCheckSingleton;
-import com.github.mdssjc.design_patterns.singleton.singleton.SimpleEagerSingleton;
-import com.github.mdssjc.design_patterns.singleton.singleton.SimpleLazySingleton;
-import com.github.mdssjc.design_patterns.singleton.singleton.SynchronizedSingleton;
+import com.github.mdssjc.dp.singleton.singleton.DoubleCheckSingleton;
+import com.github.mdssjc.dp.singleton.singleton.SimpleEagerSingleton;
+import com.github.mdssjc.dp.singleton.singleton.SimpleLazySingleton;
+import com.github.mdssjc.dp.singleton.singleton.SynchronizedSingleton;
 
 /**
  * Test drive do padrão de projeto Singleton.
  * </p>
  * Design Pattern
  * Creational - Singleton
+ * </p>
+ * Pode ser substituído pelo Dependency Injection.
  *
- * @author mdssjc <Marcelo dos Santos>
+ * @author mdssjc &lt;Marcelo dos Santos&gt;
  *
  */
 public class Main {

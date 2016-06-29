@@ -1,4 +1,4 @@
-package com.github.mdssjc.design_patterns.command.receiver;
+package com.github.mdssjc.dp.command.receiver;
 
 import java.util.Random;
 
