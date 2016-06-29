@@ -1,9 +1,4 @@
-package com.github.mdssjc.dp.singleton.base;
-
-import com.github.mdssjc.dp.singleton.singleton.DoubleCheckSingleton;
-import com.github.mdssjc.dp.singleton.singleton.SimpleEagerSingleton;
-import com.github.mdssjc.dp.singleton.singleton.SimpleLazySingleton;
-import com.github.mdssjc.dp.singleton.singleton.SynchronizedSingleton;
+package com.github.mdssjc.dp.singleton;
 
 /**
  * Test drive do padrão de projeto Singleton.

@@ -1,4 +1,4 @@
-package com.github.mdssjc.dp.singleton.singleton;
+package com.github.mdssjc.dp.singleton;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
  * Algoritmo: 'Synchronized'
  *
  * @author mdssjc &lt;Marcelo dos Santos&gt;
+ * 
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SynchronizedSingleton {

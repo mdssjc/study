@@ -1,4 +1,4 @@
-package com.github.mdssjc.dp.singleton.singleton;
+package com.github.mdssjc.dp.singleton;
 
 import lombok.AccessLevel;
 import lombok.Getter;
