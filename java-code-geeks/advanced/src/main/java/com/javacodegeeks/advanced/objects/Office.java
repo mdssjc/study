@@ -16,6 +16,13 @@ public class Office {
         getClass().getSimpleName(), Arrays.toString(persons));
   }
 
+  @Override
+  public Office clone() throws CloneNotSupportedException {
+    final Office clone = (Office) super.clone();
+    clone.persons = persons.clone();
+    return clone;
+  }
+
   public Person[] getPersons() {
     return persons;
   }
