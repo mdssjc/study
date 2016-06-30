@@ -8,5 +8,9 @@ public class Main {
 
     final Office office = new Office(person, person);
     System.out.println(office);
+
+    final String str1 = new String("bbb");
+    System.out.println("Using == operator: " + (str1 == "bbb"));
+    System.out.println("Using equals() method: " + str1.equals("bbb"));
   }
 }
