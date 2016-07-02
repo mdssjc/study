@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
@@ -14,8 +15,8 @@ import org.jbehave.core.annotations.When;
 public class FindChangesSteps {
 
   private ChangeMachine cm;
-  List<Integer>         change;
-  Exception             error;
+  private List<Integer> change;
+  private Exception     error;
 
   @Given("a change machine")
   public void createChangeMachine() {
@@ -37,14 +38,9 @@ public class FindChangesSteps {
   @Then("it returns the <coin> coins")
   @Alias("it returns the $coin coins")
   public void changesCoins(@Named("coin") String coins) {
-    String expected = "";
-    for (int i = 0; i < change.size(); i++) {
-      expected += change.get(i) + "c";
-      if (i != change.size() - 1) {
-        expected += ",";
-      }
-    }
-
+    String expected = change.stream()
+                            .map(v -> v + "c")
+                            .collect(Collectors.joining(","));
     assertEquals(coins, expected);
   }
 
