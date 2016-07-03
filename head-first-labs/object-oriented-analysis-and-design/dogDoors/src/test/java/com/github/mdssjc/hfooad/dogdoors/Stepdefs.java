@@ -1,5 +1,6 @@
 package com.github.mdssjc.hfooad.dogdoors;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import cucumber.api.java.en.Given;
@@ -8,13 +9,15 @@ import cucumber.api.java.en.When;
 
 public class Stepdefs {
 
-  private DogDoor door;
-  private Remote  remote;
+  private DogDoor        door;
+  private Remote         remote;
+  private BarkRecognizer recognizer;
 
   @Given("^Fido starts barking\\.\\.\\.$")
   public void fido_starts_barking() {
-    this.door = new DogDoor();
+    door = new DogDoor();
     remote = new Remote(door);
+    recognizer = new BarkRecognizer(door);
   }
 
   @When("^I press remote button$")
@@ -22,18 +25,24 @@ public class Stepdefs {
     remote.pressButton();
   }
 
-  @Then("^The dog door opens$")
-  public void the_dog_door_opens() {
-    assertTrue(door.isOpen());
+  @Then("^The dog door \"([^\"]*)\"$")
+  public void the_dog_door(String option) {
+    if (option.equals("opens")) {
+      assertTrue(door.isOpen());
+    } else {
+      assertFalse(door.isOpen());
+    }
   }
 
-  @Then("^Fido has gone outside\\.\\.\\.$")
-  public void fido_has_gone_outside() {
-    assertTrue(door.isOpen());
+  @When("^Wait a moment$")
+  public void wait_a_moment() throws InterruptedException {
+    while (door.isOpen()) {
+      Thread.sleep(100);
+    }
   }
 
-  @Then("^Fido's all done\\.\\.\\.$")
-  public void fido_s_all_done() {
-
+  @When("^Recognizer hearing a bark \"([^\"]*)\"$")
+  public void recognizer_hearing_a_bark(String bark) {
+    recognizer.recognize(bark);
   }
 }
