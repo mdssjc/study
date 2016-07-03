@@ -1,4 +1,4 @@
-Feature: Dog Doors Works 
+Feature: What the Door Does 
 
 Scenario: simple case 
   Given Fido starts barking... 
