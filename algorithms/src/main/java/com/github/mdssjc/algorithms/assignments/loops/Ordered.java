@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.assignments;
+package com.github.mdssjc.algorithms.assignments.loops;
 
 public class Ordered {
 
