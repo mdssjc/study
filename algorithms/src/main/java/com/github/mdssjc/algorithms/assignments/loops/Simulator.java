@@ -3,14 +3,13 @@ package com.github.mdssjc.algorithms.assignments.loops;
 /**
  * Simulator: Creative Programming Assignments
  * </p>
- * Assignment: Loops and Conditionals
+ * Assignment: Conditionals & Loops
  * Description: Binary logarithm, checkerboard pattern, random walk,
- * Gaussian distribution.
+ * Gaussian distribution
  * Concepts: loops and conditionals
  * Difficulty: 1
  * 
  * @author mdssjc (Marcelo dos Santos)
- *
  */
 public class Simulator {
 
