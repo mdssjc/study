@@ -25,5 +25,24 @@ public class Simulator {
     for (String[] input : inputs1) {
       HiFour.main(input);
     }
+
+    // Integers and Booleans
+    String[][] inputs2 = {
+        { "10", "17", "49" },
+        { "49", "17", "10" },
+        { "10", "49", "17" }
+    };
+    for (String[] input : inputs2) {
+      Ordered.main(input);
+    }
+
+    // Floating-point Numbers and the Math Library
+    String[][] inputs3 = {
+        { "40.35", "74.65", "48.87", "-2.33" },
+        { "48.87", "-2.33", "40.35", "74.65" }
+    };
+    for (String[] input : inputs3) {
+      GreatCircle.main(input);
+    }
   }
 }
