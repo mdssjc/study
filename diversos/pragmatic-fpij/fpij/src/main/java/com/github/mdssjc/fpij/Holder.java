@@ -20,6 +20,7 @@ public class Holder {
 
       private final Heavy heavyInstance = new Heavy();
 
+      @Override
       public Heavy get() {
         return heavyInstance;
       }
