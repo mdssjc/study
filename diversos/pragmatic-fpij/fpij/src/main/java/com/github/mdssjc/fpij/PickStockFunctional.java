@@ -14,6 +14,7 @@ public class PickStockFunctional {
   }
 
   public static void main(final String[] args) {
-    findHighPriced(Tickers.symbols.stream());
+    // findHighPriced(Tickers.symbols.stream());
+    findHighPriced(Tickers.symbols.parallelStream());
   }
 }
