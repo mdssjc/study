@@ -10,8 +10,8 @@ public class StoringADogBarkStepsdef {
 
   private DogDoor door;
 
-  @Given("^Need for storing the bark\\.$")
-  public void need_for_storing_the_bark() {
+  @Given("^In the first time\\.$")
+  public void in_the_first_time() {
     this.door = new DogDoor();
   }
 
