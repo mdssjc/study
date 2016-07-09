@@ -16,6 +16,7 @@ public class DogDoorsSystemTest {
   @Before
   public void init() {
     door = new DogDoor();
+    door.setAllowedBark(new Bark("Woof"));
     remote = new Remote(door);
   }
 
@@ -52,7 +53,7 @@ public class DogDoorsSystemTest {
     BarkRecognizer recognizer = new BarkRecognizer(door);
 
     System.out.println("\nFido starts barking.");
-    recognizer.recognize("Woof");
+    recognizer.recognize(new Bark("Woof"));
     assertTrue(door.isOpen());
     System.out.println("\nFido has gone outside...");
     System.out.println("\nFido's all done...");
@@ -62,7 +63,7 @@ public class DogDoorsSystemTest {
     assertFalse(door.isOpen());
     System.out.println("... but he's stuck outside!");
     System.out.println("\nFido starts barking...");
-    recognizer.recognize("Woof");
+    recognizer.recognize(new Bark("Woof"));
     assertTrue(door.isOpen());
     System.out.println("\nFido’s back inside...");
   }
