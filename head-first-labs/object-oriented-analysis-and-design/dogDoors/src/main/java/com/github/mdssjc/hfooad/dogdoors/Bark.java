@@ -10,7 +10,7 @@ public class Bark {
     this.sound = sound;
   }
 
-  public String getSource() {
+  public String getSound() {
     return this.sound;
   }
 
