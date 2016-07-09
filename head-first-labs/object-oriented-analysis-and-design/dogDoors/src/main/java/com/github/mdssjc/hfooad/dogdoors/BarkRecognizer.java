@@ -8,7 +8,7 @@ package com.github.mdssjc.hfooad.dogdoors;
  */
 public class BarkRecognizer {
 
-  private DogDoor door;
+  private final DogDoor door;
 
   /**
    * Constructor initializes this recognizer by storing the device it
@@ -17,7 +17,7 @@ public class BarkRecognizer {
    * @param door
    *          Door the recognizer controls
    */
-  public BarkRecognizer(DogDoor door) {
+  public BarkRecognizer(final DogDoor door) {
     this.door = door;
   }
 
@@ -27,11 +27,11 @@ public class BarkRecognizer {
    * @param bark
    *          A known bark
    */
-  public void recognize(Bark bark) {
+  public void recognize(final Bark bark) {
     System.out.println("BarkRecognizer: Heard a '" + bark.getSound() + "'");
-    if (door.getAllowedBark()
-            .equals(bark)) {
-      door.open();
+    if (this.door.getAllowedBark()
+                 .equals(bark)) {
+      this.door.open();
     } else {
       System.out.println("This dog is not allowed.");
     }

@@ -2,9 +2,9 @@ package com.github.mdssjc.hfooad.dogdoors;
 
 public class Remote {
 
-  private DogDoor door;
+  private final DogDoor door;
 
-  public Remote(DogDoor door) {
+  public Remote(final DogDoor door) {
     this.door = door;
   }
 

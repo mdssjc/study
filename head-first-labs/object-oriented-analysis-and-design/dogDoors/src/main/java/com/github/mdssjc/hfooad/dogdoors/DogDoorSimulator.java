@@ -4,9 +4,9 @@ public class DogDoorSimulator {
 
   private static final int SLEEP = 10000;
 
-  public static void main(String[] args) {
-    DogDoor door = new DogDoor();
-    BarkRecognizer recognizer = new BarkRecognizer(door);
+  public static void main(final String[] args) {
+    final DogDoor door = new DogDoor();
+    final BarkRecognizer recognizer = new BarkRecognizer(door);
 
     System.out.println("\nFido starts barking.");
     recognizer.recognize("Woof");
@@ -14,8 +14,8 @@ public class DogDoorSimulator {
     System.out.println("\nFido's all done...");
 
     try {
-      Thread.sleep(SLEEP);
-    } catch (InterruptedException e) {
+      Thread.sleep(DogDoorSimulator.SLEEP);
+    } catch (final InterruptedException e) {
       System.err.println(e.getMessage());
     }
 
