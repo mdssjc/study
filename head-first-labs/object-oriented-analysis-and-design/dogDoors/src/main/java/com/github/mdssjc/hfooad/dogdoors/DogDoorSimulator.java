@@ -6,10 +6,11 @@ public class DogDoorSimulator {
 
   public static void main(final String[] args) {
     final DogDoor door = new DogDoor();
+    door.setAllowedBark(new Bark("Woof"));
     final BarkRecognizer recognizer = new BarkRecognizer(door);
 
     System.out.println("\nFido starts barking.");
-    recognizer.recognize("Woof");
+    recognizer.recognize(new Bark("Woof"));
     System.out.println("\nFido has gone outside...");
     System.out.println("\nFido's all done...");
 
@@ -21,7 +22,7 @@ public class DogDoorSimulator {
 
     System.out.println("... but he's stuck outside!");
     System.out.println("\nFido starts barking...");
-    recognizer.recognize("Woof");
+    recognizer.recognize(new Bark("Woof"));
     System.out.println("\nFido’s back inside...");
   }
 }
