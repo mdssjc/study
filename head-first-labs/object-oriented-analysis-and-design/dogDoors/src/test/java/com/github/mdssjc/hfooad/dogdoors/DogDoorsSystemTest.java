@@ -15,16 +15,16 @@ public class DogDoorsSystemTest {
 
   @Before
   public void init() {
-    door = new DogDoor();
-    door.setAllowedBark(new Bark("Woof"));
-    remote = new Remote(door);
+    this.door = new DogDoor();
+    this.door.setAllowedBark(new Bark("Woof"));
+    this.remote = new Remote(this.door);
   }
 
   @Test
   public void simplePath() {
     System.out.println("\nFido starts barking...");
-    remote.pressButton();
-    assertTrue(door.isOpen());
+    this.remote.pressButton();
+    assertTrue(this.door.isOpen());
     System.out.println("\nFido has gone outside...");
     System.out.println("\nFido's all done...");
   }
@@ -32,46 +32,46 @@ public class DogDoorsSystemTest {
   @Test
   public void remotePath() {
     System.out.println("\nFido starts barking...");
-    remote.pressButton();
-    assertTrue(door.isOpen());
+    this.remote.pressButton();
+    assertTrue(this.door.isOpen());
     System.out.println("\nFido has gone outside...");
     System.out.println("\nFido's all done...");
 
     sleep();
 
-    assertFalse(door.isOpen());
+    assertFalse(this.door.isOpen());
     System.out.println("... but he's stuck outside!");
     System.out.println("\nFido starts barking...");
     System.out.println("...so Gina grabs the remote control.");
-    remote.pressButton();
-    assertTrue(door.isOpen());
+    this.remote.pressButton();
+    assertTrue(this.door.isOpen());
     System.out.println("\nFido’s back inside...");
   }
 
   @Test
   public void recognizerPath() {
-    BarkRecognizer recognizer = new BarkRecognizer(door);
+    final BarkRecognizer recognizer = new BarkRecognizer(this.door);
 
     System.out.println("\nFido starts barking.");
     recognizer.recognize(new Bark("Woof"));
-    assertTrue(door.isOpen());
+    assertTrue(this.door.isOpen());
     System.out.println("\nFido has gone outside...");
     System.out.println("\nFido's all done...");
 
     sleep();
 
-    assertFalse(door.isOpen());
+    assertFalse(this.door.isOpen());
     System.out.println("... but he's stuck outside!");
     System.out.println("\nFido starts barking...");
     recognizer.recognize(new Bark("Woof"));
-    assertTrue(door.isOpen());
+    assertTrue(this.door.isOpen());
     System.out.println("\nFido’s back inside...");
   }
 
   private void sleep() {
     try {
-      Thread.sleep(SLEEP);
-    } catch (InterruptedException e) {
+      Thread.sleep(DogDoorsSystemTest.SLEEP);
+    } catch (final InterruptedException e) {
       System.err.println(e.getMessage());
     }
   }
