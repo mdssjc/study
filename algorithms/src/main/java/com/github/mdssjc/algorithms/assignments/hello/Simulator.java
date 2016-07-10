@@ -17,7 +17,7 @@ import static com.github.mdssjc.algorithms.utils.Executor.execute;
 public class Simulator {
 
   @SuppressWarnings("boxing")
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     // Hello, World
     execute(HelloWorld.class);
 
