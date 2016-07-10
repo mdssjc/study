@@ -44,5 +44,14 @@ public class Simulator {
     for (String[] input : inputs3) {
       GreatCircle.main(input);
     }
+
+    // Type conversion
+    String[][] inputs4 = {
+        { "75", "0", "130" },
+        { "255", "143", "0" }
+    };
+    for (String[] input : inputs4) {
+      RGBtoCMYK.main(input);
+    }
   }
 }

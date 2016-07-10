@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.assignments.loops;
+package com.github.mdssjc.algorithms.assignments.hello;
 
 public class RGBtoCMYK {
 
@@ -7,9 +7,6 @@ public class RGBtoCMYK {
   }
 
   private static double getColor(final int color, final double white) {
-    if (white == 0.0) {
-      return 0.0;
-    }
     return (white - color / 255.0) / white;
   }
 
@@ -29,6 +26,9 @@ public class RGBtoCMYK {
     final double yellow = getColor(blue, white);
     final double black = getBlack(white);
 
+    System.out.println("red     = " + red);
+    System.out.println("green   = " + green);
+    System.out.println("blue    = " + blue);
     System.out.println("cyan    = " + cyan);
     System.out.println("magenta = " + magenta);
     System.out.println("yellow  = " + yellow);
