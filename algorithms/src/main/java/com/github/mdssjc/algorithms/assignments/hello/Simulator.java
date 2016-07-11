@@ -4,7 +4,7 @@ import static com.github.mdssjc.algorithms.utils.Executor.convert;
 import static com.github.mdssjc.algorithms.utils.Executor.execute;
 
 /**
- * Simulator: Creative Programming Assignments*
+ * Simulator: Creative Programming Assignments*.
  * </p>
  * Assignment: Hello, World
  * Description: Install a Java programming environment; write five short Java
@@ -16,6 +16,12 @@ import static com.github.mdssjc.algorithms.utils.Executor.execute;
  */
 public class Simulator {
 
+  /**
+   * Simulator: entry point.
+   * 
+   * @param args
+   *          Not used
+   */
   @SuppressWarnings("boxing")
   public static void main(final String[] args) {
     // Hello, World
