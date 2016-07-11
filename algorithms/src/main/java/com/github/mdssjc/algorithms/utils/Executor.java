@@ -3,9 +3,11 @@ package com.github.mdssjc.algorithms.utils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 public class Executor {
 
+  @SafeVarargs
   public static <T> String[] convert(final T... xs) {
     return Arrays.stream(xs)
                  .map(String::valueOf)
@@ -27,6 +29,14 @@ public class Executor {
         | InvocationTargetException | NoSuchMethodException
         | SecurityException exception) {
       System.err.println(exception.getMessage());
+    }
+  }
+
+  @SafeVarargs
+  public static <T> void execute(final Consumer<T> method,
+      final T... inputs) {
+    for (final T input : inputs) {
+      method.accept(input);
     }
   }
 }
