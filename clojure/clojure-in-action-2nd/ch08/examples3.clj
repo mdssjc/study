@@ -10,3 +10,11 @@
 
 (def some-class Person)
 (some-class :name)
+
+(defn new-object [klass]
+  (fn [command & args]
+    (case command
+      :class klass)))
+(def cindy (new-object Person))
+(new-object Person)
+((cindy :class) :name)
