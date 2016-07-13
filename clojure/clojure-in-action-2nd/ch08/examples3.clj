@@ -14,7 +14,19 @@
 (defn new-object [klass]
   (fn [command & args]
     (case command
-      :class klass)))
+      :class klass
+      :class-name (klass :name))))
 (def cindy (new-object Person))
 (new-object Person)
 ((cindy :class) :name)
+(cindy :class-name)
+
+(defn new-class [class-name]
+  (fn klass [command & args]
+    (case command
+      :name (name class-name)
+      :new (new-object klass))))
+
+(defclass Person)
+(def nancy (Person :new))
+(nancy :class-name)
