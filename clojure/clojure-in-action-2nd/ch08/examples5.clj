@@ -11,3 +11,17 @@
        (apply hash-map)))
 (method-specs '((method age [] (* 2 10))
                 (method greet [visitor] (str "Hello there, " visitor))))
+
+(defn new-class [class-name methods]
+  (fn klass [command & args]
+    (case command
+      :name (name class-name)
+      :new (new-object klass))))
+
+(defmacro defclass [class-name & specs]
+  (let [fns (or (method-specs specs) {})]
+    `(def ~class-name (new-class '~class-name ~fns))))
+
+(defclass Person
+  (method age [] (* 2 10))
+  (method greet [visitor] (str "Hello there, " visitor)))
