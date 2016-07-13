@@ -1,18 +1,21 @@
+(declare ^:dynamic this)
+
 (defn new-object [klass]
   (let [state (ref {})]
-    (fn [command & args]
+    (fn thiz [command & args]
       (case command
         :class klass
         :class-name (klass :name)
         :set! (let [[k v] args]
                 (dosync (alter state assoc k v))
                 nil)
-        :get (let [[key] args]
-               (@state key))
-        (if-let [method (klass :method command)]
-          (apply method args)
-          (throw (RuntimeException.
-                  (str "Unable to respond to " command))))))))
+        :get (let [[key] args] (@state key))
+        (let [method (klass :method command)]
+          (if-not method
+            (throw (RuntimeException.
+                    (str "Unable to respond to " command))))
+          (binding [this thiz]
+            (apply method args)))))))
 
 (defn find-method [method-name instance-methods]
   (instance-methods method-name))
@@ -27,11 +30,12 @@
 
 (defclass Person
   (method age [] (* 2 10))
-  (method greet [visitor] (str "Hello there, " visitor)))
+  (method about [diff]
+          (str "I was born about " (+ diff (this :age)) " years ago")))
 
 (Person :method :age)
 ((Person :method :age))
 
 (def shelly (Person :new))
 (shelly :age)
-(shelly :greet "Nancy")
+(shelly :about 2)
