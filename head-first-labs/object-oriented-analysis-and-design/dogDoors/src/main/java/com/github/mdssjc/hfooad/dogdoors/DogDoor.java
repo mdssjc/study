@@ -7,12 +7,12 @@ import java.util.TimerTask;
 
 public class DogDoor {
 
-  private boolean    open;
-  private List<Bark> allowedBarks;
+  private boolean          open;
+  private final List<Bark> allowedBarks;
 
   public DogDoor() {
     this.open = false;
-    allowedBarks = new ArrayList<>();
+    this.allowedBarks = new ArrayList<>();
   }
 
   public void open() {
@@ -44,6 +44,6 @@ public class DogDoor {
   }
 
   public void addAllowedBark(final Bark allowedBark) {
-    allowedBarks.add(allowedBark);
+    this.allowedBarks.add(allowedBark);
   }
 }
