@@ -16,56 +16,66 @@ public class DogDoorsSystemTest {
   @Before
   public void init() {
     this.door = new DogDoor();
-    this.door.addAllowedBark(new Bark("Woof"));
+  }
+
+  @Test
+  public void remoteInSimplePath() {
     this.remote = new Remote(this.door);
+
+    this.remote.pressButton();
+    final boolean result = this.door.isOpen();
+
+    assertTrue(result);
   }
 
   @Test
-  public void simplePath() {
-    System.out.println("\nFido starts barking...");
-    this.remote.pressButton();
-    assertTrue(this.door.isOpen());
-    System.out.println("\nFido has gone outside...");
-    System.out.println("\nFido's all done...");
-  }
+  public void remoteInCompletePath() {
+    this.remote = new Remote(this.door);
 
-  @Test
-  public void remotePath() {
-    System.out.println("\nFido starts barking...");
     this.remote.pressButton();
-    assertTrue(this.door.isOpen());
-    System.out.println("\nFido has gone outside...");
-    System.out.println("\nFido's all done...");
+    final boolean result1 = this.door.isOpen();
 
     sleep();
+    final boolean result2 = this.door.isOpen();
 
-    assertFalse(this.door.isOpen());
-    System.out.println("... but he's stuck outside!");
-    System.out.println("\nFido starts barking...");
-    System.out.println("...so Gina grabs the remote control.");
     this.remote.pressButton();
-    assertTrue(this.door.isOpen());
-    System.out.println("\nFido’s back inside...");
+    final boolean result3 = this.door.isOpen();
+
+    assertTrue(result1);
+    assertFalse(result2);
+    assertTrue(result3);
   }
 
   @Test
-  public void recognizerPath() {
+  public void recognizerAnAllowedBark() {
     final BarkRecognizer recognizer = new BarkRecognizer(this.door);
+    final Bark allowedBark = new Bark("Woof");
+    this.door.addAllowedBark(allowedBark);
 
-    System.out.println("\nFido starts barking.");
-    recognizer.recognize(new Bark("Woof"));
-    assertTrue(this.door.isOpen());
-    System.out.println("\nFido has gone outside...");
-    System.out.println("\nFido's all done...");
+    recognizer.recognize(allowedBark);
+    final boolean result1 = this.door.isOpen();
 
     sleep();
+    final boolean result2 = this.door.isOpen();
 
-    assertFalse(this.door.isOpen());
-    System.out.println("... but he's stuck outside!");
-    System.out.println("\nFido starts barking...");
-    recognizer.recognize(new Bark("Woof"));
-    assertTrue(this.door.isOpen());
-    System.out.println("\nFido’s back inside...");
+    recognizer.recognize(allowedBark);
+    final boolean result3 = this.door.isOpen();
+
+    assertTrue(result1);
+    assertFalse(result2);
+    assertTrue(result3);
+  }
+
+  @Test
+  public void recognizerAnUnallowedBark() {
+    final BarkRecognizer recognizer = new BarkRecognizer(this.door);
+    final Bark allowedBark = new Bark("Woof");
+    this.door.addAllowedBark(allowedBark);
+
+    recognizer.recognize(new Bark("yep"));
+    final boolean result = this.door.isOpen();
+
+    assertFalse(result);
   }
 
   private void sleep() {
