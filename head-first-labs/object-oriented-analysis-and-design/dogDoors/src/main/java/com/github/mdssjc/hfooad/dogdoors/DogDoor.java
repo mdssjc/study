@@ -1,15 +1,18 @@
 package com.github.mdssjc.hfooad.dogdoors;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class DogDoor {
 
-  private boolean open;
-  private Bark    allowedBark;
+  private boolean    open;
+  private List<Bark> allowedBarks;
 
   public DogDoor() {
     this.open = false;
+    allowedBarks = new ArrayList<>();
   }
 
   public void open() {
@@ -36,11 +39,11 @@ public class DogDoor {
     return this.open;
   }
 
-  public Bark getAllowedBark() {
-    return this.allowedBark;
+  public List<Bark> getAllowedBarks() {
+    return this.allowedBarks;
   }
 
-  public void setAllowedBark(final Bark allowedBark) {
-    this.allowedBark = allowedBark;
+  public void addAllowedBark(final Bark allowedBark) {
+    allowedBarks.add(allowedBark);
   }
 }
