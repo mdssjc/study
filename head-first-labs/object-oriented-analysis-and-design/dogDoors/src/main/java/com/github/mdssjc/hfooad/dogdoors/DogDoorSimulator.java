@@ -6,7 +6,7 @@ public class DogDoorSimulator {
 
   public static void main(final String[] args) {
     final DogDoor door = new DogDoor();
-    door.setAllowedBark(new Bark("Woof"));
+    door.addAllowedBark(new Bark("Woof"));
     final BarkRecognizer recognizer = new BarkRecognizer(door);
 
     System.out.println("\nFido starts barking.");
