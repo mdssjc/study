@@ -1,6 +1,6 @@
 package com.github.mdssjc.hfooad.dogdoors;
 
-public class DogDoorSimulator {
+public class DogDoorsSimulator {
 
   public static void main(final String[] args) {
     final DogDoor door = new DogDoor();
