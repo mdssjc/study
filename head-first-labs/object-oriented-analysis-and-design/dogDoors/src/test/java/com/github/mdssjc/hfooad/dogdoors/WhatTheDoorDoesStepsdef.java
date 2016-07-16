@@ -3,6 +3,8 @@ package com.github.mdssjc.hfooad.dogdoors;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -19,7 +21,7 @@ public class WhatTheDoorDoesStepsdef {
     this.door = new DogDoor();
     this.remote = new Remote(this.door);
     this.recognizer = new BarkRecognizer(this.door);
-    this.door.setAllowedBark(new Bark(bark));
+    this.door.addAllowedBark(new Bark(bark));
   }
 
   @When("^The owner presses the button on the remote control\\.$")
@@ -50,8 +52,8 @@ public class WhatTheDoorDoesStepsdef {
 
   @Then("^If it’s the owner’s dog barking, the bark recognizer sends a request to the door to open\\.$")
   public void if_it_s_the_owner_s_dog_barking_the_bark_recognizer_sends_a_request_to_the_door_to_open() {
-    final Bark allowedBark = this.door.getAllowedBark();
-    assertTrue(allowedBark.equals(this.heardBark));
+    final List<Bark> allowedBarks = this.door.getAllowedBarks();
+    assertTrue(allowedBarks.contains(this.heardBark));
     this.recognizer.recognize(this.heardBark);
   }
 }
