@@ -16,7 +16,7 @@ public class DogDoorsSystemTest {
   @Before
   public void init() {
     this.door = new DogDoor();
-    this.door.setAllowedBark(new Bark("Woof"));
+    this.door.addAllowedBark(new Bark("Woof"));
     this.remote = new Remote(this.door);
   }
 
