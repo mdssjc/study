@@ -1,6 +1,9 @@
 package com.github.mdssjc.hfooad.dogdoors;
 
+import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -10,19 +13,28 @@ public class StoringADogBarkStepsdef {
 
   private DogDoor door;
 
-  @Given("^In the first time\\.$")
-  public void in_the_first_time() {
+  private List<Bark> barks;
+
+  @Given("^The owner’s dog barks\\$ into the dog door\\.$")
+  public void the_owner_s_dog_barks$_into_the_dog_door(List<String> barks) {
     this.door = new DogDoor();
+    this.barks = barks.stream()
+                      .map(Bark::new)
+                      .collect(toList());
   }
 
-  @When("^The owner’s dog barks into the dog door \\(\"([^\"]*)\"\\)\\.$")
-  public void the_owner_s_dog_barks_into_the_dog_door(final String bark) {
-    this.door.setAllowedBark(new Bark(bark));
+  @When("^The dog door stores the owner’s dog’s bark\\.$")
+  public void the_dog_door_stores_the_owner_s_dog_s_bark() {
+    for (Bark bark : barks) {
+      door.addAllowedBark(bark);
+    }
   }
 
-  @Then("^The dog door stores the owner’s dog’s bark \\(\"([^\"]*)\"\\)\\.$")
-  public void the_dog_door_stores_the_owner_s_dog_s_bark(final String bark) {
-    assertTrue(this.door.getAllowedBark()
-                        .equals(new Bark(bark)));
+  @Then("^The barks\\$ are stored\\.$")
+  public void the_barks$_are_stored(List<String> barks) {
+    List<Bark> allowedBarks = door.getAllowedBarks();
+    for (String bark : barks) {
+      assertTrue(allowedBarks.contains(new Bark(bark)));
+    }
   }
 }
