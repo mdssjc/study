@@ -1,7 +1,9 @@
 [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](http://github.com/syl20bnr/spacemacs)
 
 # Study
-Material de estudos sobre computação.
+Materiais de estudos sobre computação.
+
+**algorithms**: estudo do livro *Algorithms, 4th Edition* dos autores *Robert Sedgewick* e *Kevin Wayne*.
 
 **caelum**: resolução das apostilas livres.
 
