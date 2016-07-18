@@ -7,11 +7,27 @@ import java.util.function.Consumer;
 
 public class Executor {
 
-  @SafeVarargs
-  public static <T> String[] convert(final T... xs) {
+  public static <T> String[][] toXSS(final T... xs) {
+    return Arrays.stream(xs)
+                 .map(String::valueOf)
+                 .map(x -> new String[] { x })
+                 .toArray(String[][]::new);
+  }
+
+  public static <T> String[] toXS(final T... xs) {
     return Arrays.stream(xs)
                  .map(String::valueOf)
                  .toArray(String[]::new);
+  }
+
+  public static <T> void execute(final Consumer<T> method, final T... xs) {
+    if (xs.length == 0) {
+      method.accept(null);
+    }
+
+    for (final T input : xs) {
+      method.accept(input);
+    }
   }
 
   public static void execute(final Class<?> clazz, final String[]... inputs) {
@@ -29,14 +45,6 @@ public class Executor {
         | InvocationTargetException | NoSuchMethodException
         | SecurityException exception) {
       System.err.println(exception.getMessage());
-    }
-  }
-
-  @SafeVarargs
-  public static <T> void execute(final Consumer<T> method,
-      final T... inputs) {
-    for (final T input : inputs) {
-      method.accept(input);
     }
   }
 }

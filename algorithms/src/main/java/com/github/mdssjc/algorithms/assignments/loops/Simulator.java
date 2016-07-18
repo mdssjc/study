@@ -1,7 +1,7 @@
 package com.github.mdssjc.algorithms.assignments.loops;
 
-import static com.github.mdssjc.algorithms.utils.Executor.convert;
 import static com.github.mdssjc.algorithms.utils.Executor.execute;
+import static com.github.mdssjc.algorithms.utils.Executor.toXSS;
 
 /**
  * Simulator: Creative Programming Assignments*.
@@ -19,9 +19,9 @@ public class Simulator {
   public static void main(String[] args) {
     // Bits
     System.out.println("Bits");
-    execute(Bits::main,
-        convert(0), convert(1), convert(2), convert(4),
-        convert(8), convert(16), convert(1000), convert(-23));
+    execute(Bits::main, toXSS(
+        0, 1, 2, 4,
+        8, 16, 1000, -23));
 
     // Noon snooze
     System.out.println("Noon snooze");
