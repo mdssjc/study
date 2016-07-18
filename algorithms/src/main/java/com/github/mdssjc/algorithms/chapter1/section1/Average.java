@@ -10,6 +10,7 @@ public class Average {
     double sum = 0.0;
     int cnt = 0;
     while (!StdIn.isEmpty()) {
+      // Read a number and cumulate the sum.
       sum += StdIn.readDouble();
       cnt++;
     }
