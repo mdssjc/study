@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdOut;
 public class Average {
 
   public static void main(String[] args) {
-    // Average the numbers on Stdin.
+    // Average the numbers on StdIn.
     double sum = 0.0;
     int cnt = 0;
     while (!StdIn.isEmpty()) {
