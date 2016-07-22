@@ -36,16 +36,22 @@ values."
      semantic
      syntax-checking
      spell-checking
+     ycmd
      ;; Languages
      emacs-lisp
      java
+     javascript
      clojure
      racket
+     shell-scripts
+     c-c++
      ;; Documents
      html
      markdown
+     plantuml
      ;; Planning
      org
+     ;; Terminal
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -60,7 +66,9 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     (peep-dired)
+     ;; (peep-dired)
+     ;; (wttrin)
+     (puml-mode)
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -199,7 +207,7 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
    dotspacemacs-fullscreen-at-startup nil
@@ -209,7 +217,7 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -230,7 +238,7 @@ values."
    dotspacemacs-line-numbers nil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode nil
+   dotspacemacs-smartparens-strict-mode t
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -271,8 +279,8 @@ layers configuration. You are free to put any user code."
 
   (setq user-full-name    "Marcelo dos Santos"
         user-mail-address "mdssjc@gmail.com")
-  ;; (setq eclim-eclipse-dirs "~/Applications/eclipse"
-  ;;       eclim-executable   "~/Applications/eclipse/eclim")
+  (setq eclim-eclipse-dirs "~/Applications/eclipse-mars"
+        eclim-executable   "~/Applications/eclipse-mars/eclim")
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 2)
 
@@ -283,10 +291,15 @@ layers configuration. You are free to put any user code."
   (setq ispell-program-name "hunspell")
   (setq ispell-dictionary "pt_BR")
 
+  ;; PLANT UML
+  (setq puml-plantuml-jar-path "/home/mdssjc/Applications/java/plantuml.jar")
+
   ;; AUTO-COMPLETE
   (global-company-mode)
   (add-to-list 'company-backend 'company-ispell)
-
+  ;; (setq ycmd-request-message-level -1)
+  (set-variable 'ycmd-server-command '("python2" "/usr/share/vim/vimfiles/third_party/ycmd/ycmd"))
+  (company-ycmd-setup)
   (setq ac-sources '(ac-source-abbrev
                      ac-source-dictionary
                      ac-source-eclim
@@ -306,23 +319,29 @@ layers configuration. You are free to put any user code."
   (setq ac-ignore-case 'smart)
 
   ;; SEMANTIC
-  ;; (require 'semantic)
-  ;; (require 'semantic/ia)
-  ;; (require 'semantic/db)
-  ;; (require 'semantic/bovine)
-  ;; (require 'semantic/senator)
-  ;; (require 'semantic/analyze)
-  ;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-  ;; (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
-  ;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
-  ;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
-  ;; (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
-  ;; (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
-  ;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-  ;; (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
-  ;; (global-semanticdb-minor-mode 1)
-  ;; (global-semantic-idle-summary-mode 1)
-  ;; (semantic-mode 1)
+  (require 'semantic)
+  (require 'semantic/ia)
+  (require 'semantic/db)
+  (require 'semantic/bovine)
+  (require 'semantic/senator)
+  (require 'semantic/analyze)
+  (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
+  (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+  (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
+  (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
+  (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
+  (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
+  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+  (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
+  (global-semanticdb-minor-mode 1)
+  (global-semantic-idle-summary-mode 1)
+  (semantic-mode 1)
+
+  ;; ORG MODE
+  (setq org-todo-keywords
+        '((sequence "TODO" "PROGRESS" "|" "DONE")
+          (sequence "REPORT" "BUG" "KNOWNCAUSE" "|" "FIXED")
+          (sequence "|" "CANCELED")))
 
   (spaceline-compile)
   )
@@ -344,7 +363,7 @@ layers configuration. You are free to put any user code."
  '(indent-tabs-mode nil)
  '(package-selected-packages
    (quote
-    (racket-mode faceup flycheck-clojure powerline alert log4e gntp parent-mode request haml-mode gitignore-mode fringe-helper git-gutter+ gh logito pcache flx iedit web-completion-data pos-tip peg eval-sexp-fu highlight pkg-info epl dash async bind-key bind-map popup smartparens with-editor git-gutter anzu s yasnippet spinner hydra auto-complete packed flycheck helm-core magit magit-popup git-commit evil projectile avy company helm markdown-mode clj-refactor cider quelpa zenburn-theme xterm-color ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe use-package toc-org tagedit stickyfunc-enhance srefactor spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters queue popwin persp-mode peep-dired pcre2el paredit paradox page-break-lines package-build orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree multiple-cursors multi-term move-text monokai-theme mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jade-mode info+ inflections indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode emacs-eclim elisp-slime-nav edn diff-hl define-word company-ycmd company-web company-statistics company-quickhelp clojure-mode clean-aindent-mode cider-eval-sexp-fu buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (ycmd request-deferred deferred web-beautify json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc fish-mode disaster company-tern dash-functional tern company-c-headers coffee-mode cmake-mode clang-format jdee puml-mode wttrin racket-mode faceup flycheck-clojure powerline alert log4e gntp parent-mode request haml-mode gitignore-mode fringe-helper git-gutter+ gh logito pcache flx iedit web-completion-data pos-tip peg eval-sexp-fu highlight pkg-info epl dash async bind-key bind-map popup smartparens with-editor git-gutter anzu s yasnippet spinner hydra auto-complete packed flycheck helm-core magit magit-popup git-commit evil projectile avy company helm markdown-mode clj-refactor cider quelpa zenburn-theme xterm-color ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe use-package toc-org tagedit stickyfunc-enhance srefactor spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters queue popwin persp-mode peep-dired pcre2el paredit paradox page-break-lines package-build orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree multiple-cursors multi-term move-text monokai-theme mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jade-mode info+ inflections indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode emacs-eclim elisp-slime-nav edn diff-hl define-word company-ycmd company-web company-statistics company-quickhelp clojure-mode clean-aindent-mode cider-eval-sexp-fu buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(require-final-newline t)
  '(show-trailing-whitespace t)
  '(smartparens-global-mode t)
