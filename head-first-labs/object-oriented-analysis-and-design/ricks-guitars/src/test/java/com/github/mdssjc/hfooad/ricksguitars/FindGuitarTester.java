@@ -3,10 +3,6 @@ package com.github.mdssjc.hfooad.ricksguitars;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
-import com.github.mdssjc.hfooad.ricksguitars.Guitar;
-import com.github.mdssjc.hfooad.ricksguitars.GuitarSpec;
-import com.github.mdssjc.hfooad.ricksguitars.InstrumentSpec;
-import com.github.mdssjc.hfooad.ricksguitars.Inventory;
 import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
 import com.github.mdssjc.hfooad.ricksguitars.types.Type;
 import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
@@ -14,13 +10,14 @@ import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
 public class FindGuitarTester {
 
   public static void main(final String[] args) {
-    final Inventory<Guitar, GuitarSpec> inventory = new Inventory<>();
+    final Inventory<Instrument, InstrumentSpec> inventory = new Inventory<>();
     GuitarsTestDataBuilder.initializeInventory(inventory);
 
-    final InstrumentSpec whatErinLikes = new GuitarSpec(Builder.FENDER,
+    final GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER,
         "Stratocastor", Type.ELECTRIC, 6, Wood.ALDER, Wood.ALDER);
 
-    final Iterator<Guitar> matchingGuitars = inventory.search(whatErinLikes);
+    final Iterator<Instrument> matchingGuitars = inventory.search(
+        whatErinLikes);
     if (matchingGuitars.hasNext()) {
       System.out.println("Erin, you might like these guitars:");
       matchingGuitars.forEachRemaining(formatMessage());
@@ -29,9 +26,9 @@ public class FindGuitarTester {
     }
   }
 
-  private static Consumer<? super Guitar> formatMessage() {
+  private static Consumer<? super Instrument> formatMessage() {
     return (guitar) -> {
-      final GuitarSpec spec = guitar.getSpec();
+      final GuitarSpec spec = (GuitarSpec) guitar.getSpec();
       System.out.println("  We have a " + spec.getBuilder() + " "
           + spec.getModel() + " " + spec.getType()
           + " guitar:\n     " + spec.getBackWood()

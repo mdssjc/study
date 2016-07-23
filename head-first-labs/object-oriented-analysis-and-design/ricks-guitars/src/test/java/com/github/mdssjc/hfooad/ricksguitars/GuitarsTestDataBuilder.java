@@ -1,9 +1,5 @@
 package com.github.mdssjc.hfooad.ricksguitars;
 
-import com.github.mdssjc.hfooad.ricksguitars.Guitar;
-import com.github.mdssjc.hfooad.ricksguitars.GuitarSpec;
-import com.github.mdssjc.hfooad.ricksguitars.Instrument;
-import com.github.mdssjc.hfooad.ricksguitars.Inventory;
 import com.github.mdssjc.hfooad.ricksguitars.builder.GuitarBuilder;
 import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
 import com.github.mdssjc.hfooad.ricksguitars.types.Type;
@@ -147,7 +143,7 @@ public class GuitarsTestDataBuilder {
   }
 
   public static void initializeInventory(
-      final Inventory<Guitar, GuitarSpec> inventory) {
+      final Inventory<Instrument, InstrumentSpec> inventory) {
     initialize();
     inventory.add(GUITAR1);
     inventory.add(GUITAR2);
