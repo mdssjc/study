@@ -1,10 +1,11 @@
-package com.github.mdssjc.hfooad.base.builder;
+package com.github.mdssjc.hfooad.ricksguitars.builder;
 
 import com.github.mdssjc.hfooad.base.Guitar;
 import com.github.mdssjc.hfooad.base.GuitarSpec;
-import com.github.mdssjc.hfooad.types.Builder;
-import com.github.mdssjc.hfooad.types.Type;
-import com.github.mdssjc.hfooad.types.Wood;
+import com.github.mdssjc.hfooad.base.Instrument;
+import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
+import com.github.mdssjc.hfooad.ricksguitars.types.Type;
+import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
 
 // FIXME ver Lombok.
 public class GuitarBuilder {
@@ -61,7 +62,7 @@ public class GuitarBuilder {
     return this;
   }
 
-  public Guitar makeGuitar() {
+  public Instrument makeGuitar() {
     return new Guitar(this.serialNumber, this.price,
         new GuitarSpec(this.builder, this.model, this.type, this.numStrings,
             this.backWood, this.topWood));

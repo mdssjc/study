@@ -1,4 +1,4 @@
-package com.github.mdssjc.hfooad.types;
+package com.github.mdssjc.hfooad.ricksguitars.types;
 
 public enum Type {
 
