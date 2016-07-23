@@ -8,6 +8,12 @@ import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
 
 import lombok.Data;
 
+/**
+ * GuitarSpec Class.
+ * 
+ * @author Marcelo dos Santos
+ *
+ */
 @Data
 public class GuitarSpec extends InstrumentSpec {
 

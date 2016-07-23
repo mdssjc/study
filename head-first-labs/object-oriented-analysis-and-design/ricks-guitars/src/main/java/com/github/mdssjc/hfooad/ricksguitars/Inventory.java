@@ -12,6 +12,7 @@ import java.util.List;
  *          Type
  * @param <S>
  *          Specification
+ * 
  */
 public class Inventory<T, S> {
 

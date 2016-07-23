@@ -5,6 +5,12 @@ import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * Instrument Abstract Class.
+ * 
+ * @author Marcelo dos Santos
+ *
+ */
 @Data
 @AllArgsConstructor
 public abstract class Instrument {

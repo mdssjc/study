@@ -1,5 +1,11 @@
 package com.github.mdssjc.hfooad.ricksguitars.types;
 
+/**
+ * Builder Enum.
+ * 
+ * @author Marcelo dos Santos
+ *
+ */
 public enum Builder {
 
   FENDER("Fender"),

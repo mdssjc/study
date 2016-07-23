@@ -1,5 +1,11 @@
 package com.github.mdssjc.hfooad.ricksguitars.types;
 
+/**
+ * Wood Enum.
+ * 
+ * @author Marcelo dos Santos
+ *
+ */
 public enum Wood {
 
   INDIAN_ROSEWOOD("Indian Rosewood"),

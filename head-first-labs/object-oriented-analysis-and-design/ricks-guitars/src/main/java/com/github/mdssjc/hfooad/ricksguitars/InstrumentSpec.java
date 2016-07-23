@@ -9,6 +9,12 @@ import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * InstrumentSpec Abstract Class.
+ * 
+ * @author Marcelo dos Santos
+ *
+ */
 @Data
 @AllArgsConstructor
 public abstract class InstrumentSpec {

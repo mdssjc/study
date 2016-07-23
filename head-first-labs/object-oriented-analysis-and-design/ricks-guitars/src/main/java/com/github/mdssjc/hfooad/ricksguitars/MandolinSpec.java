@@ -9,6 +9,12 @@ import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
 
 import lombok.Data;
 
+/**
+ * MandolinSpec Class.
+ * 
+ * @author Marcelo dos Santos
+ *
+ */
 @Data
 public class MandolinSpec extends InstrumentSpec {
 
