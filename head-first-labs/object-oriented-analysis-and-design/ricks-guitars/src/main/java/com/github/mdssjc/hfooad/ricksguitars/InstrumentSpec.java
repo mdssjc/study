@@ -1,5 +1,7 @@
 package com.github.mdssjc.hfooad.ricksguitars;
 
+import java.util.Objects;
+
 import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
 import com.github.mdssjc.hfooad.ricksguitars.types.Type;
 import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
@@ -17,23 +19,35 @@ public abstract class InstrumentSpec {
   private Wood    backWood;
   private Wood    topWood;
 
-  public boolean matches(InstrumentSpec otherSpec) {
-    if (this.builder != otherSpec.builder) {
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
       return false;
     }
-    if ((this.model != null) && (!this.model.equals(""))
-        && (!this.model.equals(otherSpec.model))) {
+    if (getClass() != obj.getClass()) {
       return false;
     }
-    if (this.type != otherSpec.type) {
+    final InstrumentSpec other = (InstrumentSpec) obj;
+    if (!Objects.equals(this.builder, other.builder)) {
       return false;
-    }
-    if (this.backWood != otherSpec.backWood) {
+    } else if (!Objects.equals(this.model, other.model)) {
       return false;
-    }
-    if (this.topWood != otherSpec.topWood) {
+    } else if (!Objects.equals(this.type, other.type)) {
+      return false;
+    } else if (!Objects.equals(this.backWood, other.backWood)) {
+      return false;
+    } else if (!Objects.equals(this.topWood, other.topWood)) {
       return false;
     }
     return true;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.builder, this.model, this.type, this.backWood,
+        this.topWood);
   }
 }

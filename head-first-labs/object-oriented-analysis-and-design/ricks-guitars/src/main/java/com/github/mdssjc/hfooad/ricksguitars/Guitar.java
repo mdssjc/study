@@ -6,8 +6,4 @@ public class Guitar extends Instrument {
       final InstrumentSpec spec) {
     super(serialNumber, price, spec);
   }
-
-  public boolean matches(final GuitarSpec other) {
-    return getSpec().matches(other);
-  }
 }

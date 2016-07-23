@@ -1,5 +1,7 @@
 package com.github.mdssjc.hfooad.ricksguitars;
 
+import java.util.Objects;
+
 import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
 import com.github.mdssjc.hfooad.ricksguitars.types.Type;
 import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
@@ -18,13 +20,25 @@ public class GuitarSpec extends InstrumentSpec {
   }
 
   @Override
-  public boolean matches(final InstrumentSpec otherSpec) {
-    if (!super.matches(otherSpec)) {
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (!super.equals(obj)) {
       return false;
     }
-    if (!(otherSpec instanceof GuitarSpec)) {
+    if (getClass() != obj.getClass()) {
       return false;
     }
-    return this.numStrings != ((GuitarSpec) otherSpec).numStrings;
+    final GuitarSpec other = (GuitarSpec) obj;
+    if (this.numStrings != other.numStrings) {
+      return false;
+    }
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(this.numStrings);
   }
 }

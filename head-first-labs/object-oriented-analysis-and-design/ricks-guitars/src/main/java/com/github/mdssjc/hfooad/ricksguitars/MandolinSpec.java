@@ -1,5 +1,7 @@
 package com.github.mdssjc.hfooad.ricksguitars;
 
+import java.util.Objects;
+
 import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
 import com.github.mdssjc.hfooad.ricksguitars.types.Style;
 import com.github.mdssjc.hfooad.ricksguitars.types.Type;
@@ -20,13 +22,25 @@ public class MandolinSpec extends InstrumentSpec {
   }
 
   @Override
-  public boolean matches(final InstrumentSpec otherSpec) {
-    if (!super.matches(otherSpec)) {
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (!super.equals(obj)) {
       return false;
     }
-    if (!(otherSpec instanceof MandolinSpec)) {
+    if (getClass() != obj.getClass()) {
       return false;
     }
-    return !this.style.equals(((MandolinSpec) otherSpec).style);
+    final MandolinSpec other = (MandolinSpec) obj;
+    if (this.style != other.style) {
+      return false;
+    }
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(style);
   }
 }

@@ -8,7 +8,6 @@ import java.util.List;
  * Inventory Class.
  *
  * @author Marcelo dos Santos
- *
  * @param <T>
  *          Type
  * @param <S>
@@ -33,7 +32,7 @@ public class Inventory<T, S> {
                     .orElse(null);
   }
 
-  public <R extends S> Iterator<T> search(final R search) {
+  public Iterator<T> search(final S search) {
     return this.list.stream()
                     .filter(item -> item.equals(search))
                     .iterator();
