@@ -1,4 +1,4 @@
-package com.github.mdssjc.hfooad;
+package com.github.mdssjc.hfooad.ricksguitars;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -7,26 +7,28 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import com.github.mdssjc.hfooad.base.Guitar;
-import com.github.mdssjc.hfooad.base.GuitarSpec;
-import com.github.mdssjc.hfooad.base.Inventory;
-import com.github.mdssjc.hfooad.types.Builder;
-import com.github.mdssjc.hfooad.types.Type;
-import com.github.mdssjc.hfooad.types.Wood;
+import com.github.mdssjc.hfooad.ricksguitars.Guitar;
+import com.github.mdssjc.hfooad.ricksguitars.GuitarSpec;
+import com.github.mdssjc.hfooad.ricksguitars.Instrument;
+import com.github.mdssjc.hfooad.ricksguitars.InstrumentSpec;
+import com.github.mdssjc.hfooad.ricksguitars.Inventory;
+import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
+import com.github.mdssjc.hfooad.ricksguitars.types.Type;
+import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
 
 public class InventoryTest {
 
   @Test
   public void addAndGetGuitar() {
     final String serialNumber = "12345";
-    final Guitar guitar = new Guitar(serialNumber, 1250.00,
+    final Instrument guitar = new Guitar(serialNumber, 1250.00,
         new GuitarSpec(Builder.GIBSON, "Test", Type.ELECTRIC, 6,
             Wood.BRAZILIAN_ROSEWOOD, Wood.BRAZILIAN_ROSEWOOD));
 
     final Inventory<Guitar, GuitarSpec> inventory = new Inventory<>();
     inventory.add(guitar);
 
-    final Guitar guitarResult = inventory.get(serialNumber);
+    final Instrument guitarResult = inventory.get(serialNumber);
 
     assertEquals(guitar, guitarResult);
   }
@@ -36,12 +38,12 @@ public class InventoryTest {
     final Inventory<Guitar, GuitarSpec> inventory = new Inventory<>();
     GuitarsTestDataBuilder.initializeInventory(inventory);
 
-    final GuitarSpec spec = new GuitarSpec(Builder.FENDER,
+    final InstrumentSpec spec = new GuitarSpec(Builder.FENDER,
         "Stratocastor", Type.ELECTRIC, 6, Wood.ALDER, Wood.ALDER);
 
     final Iterator<Guitar> guitars = inventory.search(spec);
-    final Guitar guitar1 = guitars.next();
-    final Guitar guitar2 = guitars.next();
+    final Instrument guitar1 = guitars.next();
+    final Instrument guitar2 = guitars.next();
     final boolean hasNext = guitars.hasNext();
 
     assertEquals(GuitarsTestDataBuilder.GUITAR2, guitar1);

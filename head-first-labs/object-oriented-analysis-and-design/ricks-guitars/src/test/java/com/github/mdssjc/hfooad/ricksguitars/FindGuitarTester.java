@@ -1,14 +1,15 @@
-package com.github.mdssjc.hfooad;
+package com.github.mdssjc.hfooad.ricksguitars;
 
 import java.util.Iterator;
 import java.util.function.Consumer;
 
-import com.github.mdssjc.hfooad.base.Guitar;
-import com.github.mdssjc.hfooad.base.GuitarSpec;
-import com.github.mdssjc.hfooad.base.Inventory;
-import com.github.mdssjc.hfooad.types.Builder;
-import com.github.mdssjc.hfooad.types.Type;
-import com.github.mdssjc.hfooad.types.Wood;
+import com.github.mdssjc.hfooad.ricksguitars.Guitar;
+import com.github.mdssjc.hfooad.ricksguitars.GuitarSpec;
+import com.github.mdssjc.hfooad.ricksguitars.InstrumentSpec;
+import com.github.mdssjc.hfooad.ricksguitars.Inventory;
+import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
+import com.github.mdssjc.hfooad.ricksguitars.types.Type;
+import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
 
 public class FindGuitarTester {
 
@@ -16,7 +17,7 @@ public class FindGuitarTester {
     final Inventory<Guitar, GuitarSpec> inventory = new Inventory<>();
     GuitarsTestDataBuilder.initializeInventory(inventory);
 
-    final GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER,
+    final InstrumentSpec whatErinLikes = new GuitarSpec(Builder.FENDER,
         "Stratocastor", Type.ELECTRIC, 6, Wood.ALDER, Wood.ALDER);
 
     final Iterator<Guitar> matchingGuitars = inventory.search(whatErinLikes);

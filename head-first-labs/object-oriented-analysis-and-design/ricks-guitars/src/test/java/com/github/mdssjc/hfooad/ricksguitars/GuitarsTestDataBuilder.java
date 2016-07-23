@@ -1,26 +1,27 @@
-package com.github.mdssjc.hfooad;
+package com.github.mdssjc.hfooad.ricksguitars;
 
-import com.github.mdssjc.hfooad.base.Guitar;
-import com.github.mdssjc.hfooad.base.GuitarSpec;
-import com.github.mdssjc.hfooad.base.Inventory;
-import com.github.mdssjc.hfooad.base.builder.GuitarBuilder;
-import com.github.mdssjc.hfooad.types.Builder;
-import com.github.mdssjc.hfooad.types.Type;
-import com.github.mdssjc.hfooad.types.Wood;
+import com.github.mdssjc.hfooad.ricksguitars.Guitar;
+import com.github.mdssjc.hfooad.ricksguitars.GuitarSpec;
+import com.github.mdssjc.hfooad.ricksguitars.Instrument;
+import com.github.mdssjc.hfooad.ricksguitars.Inventory;
+import com.github.mdssjc.hfooad.ricksguitars.builder.GuitarBuilder;
+import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
+import com.github.mdssjc.hfooad.ricksguitars.types.Type;
+import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
 
 public class GuitarsTestDataBuilder {
 
-  public static Guitar GUITAR1;
-  public static Guitar GUITAR2;
-  public static Guitar GUITAR3;
-  public static Guitar GUITAR4;
-  public static Guitar GUITAR5;
-  public static Guitar GUITAR6;
-  public static Guitar GUITAR7;
-  public static Guitar GUITAR8;
-  public static Guitar GUITAR9;
-  public static Guitar GUITAR10;
-  public static Guitar GUITAR11;
+  public static Instrument GUITAR1;
+  public static Instrument GUITAR2;
+  public static Instrument GUITAR3;
+  public static Instrument GUITAR4;
+  public static Instrument GUITAR5;
+  public static Instrument GUITAR6;
+  public static Instrument GUITAR7;
+  public static Instrument GUITAR8;
+  public static Instrument GUITAR9;
+  public static Instrument GUITAR10;
+  public static Instrument GUITAR11;
 
   private static void initialize() {
     GUITAR1 = new GuitarBuilder()
