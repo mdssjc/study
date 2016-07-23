@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.mdssjc.hfooad</groupId>
-	<artifactId>ricks-guitars</artifactId>
+	<artifactId>hfooad-ricks-guitars</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Ricks Guitars</name>
+	<name>RicksGuitars</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.8</version>
+			<version>1.16.10</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
