@@ -1,13 +1,12 @@
 package com.github.mdssjc.hfooad.ricksguitars.builder;
 
-import com.github.mdssjc.hfooad.base.Guitar;
-import com.github.mdssjc.hfooad.base.GuitarSpec;
-import com.github.mdssjc.hfooad.base.Instrument;
+import com.github.mdssjc.hfooad.ricksguitars.Guitar;
+import com.github.mdssjc.hfooad.ricksguitars.GuitarSpec;
+import com.github.mdssjc.hfooad.ricksguitars.Instrument;
 import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
 import com.github.mdssjc.hfooad.ricksguitars.types.Type;
 import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
 
-// FIXME ver Lombok.
 public class GuitarBuilder {
 
   private String  serialNumber;
