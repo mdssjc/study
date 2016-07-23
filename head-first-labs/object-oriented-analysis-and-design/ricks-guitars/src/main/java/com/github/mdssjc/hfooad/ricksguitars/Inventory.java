@@ -1,13 +1,13 @@
-package com.github.mdssjc.hfooad.base;
+package com.github.mdssjc.hfooad.ricksguitars;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Inventory Class
+ * Inventory Class.
  *
- * @author mdssjc
+ * @author Marcelo dos Santos
  *
  * @param <T>
  *          Type
@@ -19,7 +19,7 @@ public class Inventory<T, S> {
   private final List<T> list;
 
   public Inventory() {
-    this.list = new LinkedList<>();
+    this.list = new ArrayList<>();
   }
 
   public void add(final T item) {
@@ -33,7 +33,7 @@ public class Inventory<T, S> {
                     .orElse(null);
   }
 
-  public Iterator<T> search(final S search) {
+  public <R extends S> Iterator<T> search(final R search) {
     return this.list.stream()
                     .filter(item -> item.equals(search))
                     .iterator();
