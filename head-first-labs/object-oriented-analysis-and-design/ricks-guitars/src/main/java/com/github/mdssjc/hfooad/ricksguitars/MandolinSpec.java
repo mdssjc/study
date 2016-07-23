@@ -41,6 +41,6 @@ public class MandolinSpec extends InstrumentSpec {
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(style);
+    return Objects.hashCode(this.style);
   }
 }
