@@ -1,7 +1,7 @@
 package com.github.mdssjc.algorithms.assignments.loops;
 
-import static com.github.mdssjc.algorithms.utils.Executor.execute;
-import static com.github.mdssjc.algorithms.utils.Executor.toXSS;
+import static com.github.mdssjc.algorithms.utils.MainUtils.execute;
+import static com.github.mdssjc.algorithms.utils.MainUtils.toXSS;
 
 /**
  * Simulator: Creative Programming Assignments*.
@@ -16,6 +16,7 @@ import static com.github.mdssjc.algorithms.utils.Executor.toXSS;
  */
 public class Simulator {
 
+  // TODO: Completar os exercícios
   public static void main(String[] args) {
     // Bits
     System.out.println("Bits");

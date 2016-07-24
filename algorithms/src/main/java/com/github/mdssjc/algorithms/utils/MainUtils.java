@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
-public class Executor {
+public class MainUtils {
 
   public static <T> String[][] toXSS(final T... xs) {
     return Arrays.stream(xs)

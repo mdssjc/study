@@ -1,7 +1,7 @@
 package com.github.mdssjc.algorithms.assignments.hello;
 
-import static com.github.mdssjc.algorithms.utils.Executor.execute;
-import static com.github.mdssjc.algorithms.utils.Executor.toXS;
+import static com.github.mdssjc.algorithms.utils.MainUtils.execute;
+import static com.github.mdssjc.algorithms.utils.MainUtils.toXS;
 
 /**
  * Simulator: Creative Programming Assignments*.
