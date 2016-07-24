@@ -13,8 +13,14 @@ public class FindGuitarTester {
     final Inventory<Instrument, InstrumentSpec> inventory = new Inventory<>();
     GuitarsTestDataBuilder.initializeInventory(inventory);
 
-    final GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER,
-        "Stratocastor", Type.ELECTRIC, 6, Wood.ALDER, Wood.ALDER);
+    final InstrumentSpec whatErinLikes = new InstrumentSpec()
+      .addProperty("instrumentType", InstrumentType.GUITAR)
+      .addProperty("builder", Builder.FENDER)
+      .addProperty("model", "Stratocastor")
+      .addProperty("type", Type.ELECTRIC)
+      .addProperty("numStrings", 6)
+      .addProperty("backWood", Wood.ALDER)
+      .addProperty("topWood", Wood.ALDER);
 
     final Iterator<Instrument> matchingGuitars = inventory.search(
         whatErinLikes);
@@ -28,11 +34,11 @@ public class FindGuitarTester {
 
   private static Consumer<? super Instrument> formatMessage() {
     return (guitar) -> {
-      final GuitarSpec spec = (GuitarSpec) guitar.getSpec();
-      System.out.println("  We have a " + spec.getBuilder() + " "
-          + spec.getModel() + " " + spec.getType()
-          + " guitar:\n     " + spec.getBackWood()
-          + " back and sides,\n     " + spec.getTopWood()
+      final InstrumentSpec spec = guitar.getSpec();
+      System.out.println("  We have a " + spec.getProperty("builder") + " "
+          + spec.getProperty("model") + " " + spec.getProperty("type")
+          + " guitar:\n     " + spec.getProperty("backWood")
+          + " back and sides,\n     " + spec.getProperty("topWood")
           + " top.\n  You can have it for only $"
           + guitar.getPrice() + "!\n  ----");
     };

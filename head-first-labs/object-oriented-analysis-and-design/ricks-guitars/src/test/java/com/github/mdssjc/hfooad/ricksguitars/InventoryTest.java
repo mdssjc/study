@@ -17,9 +17,14 @@ public class InventoryTest {
   public void addAndGetGuitar() {
     final String serialNumber = "12345";
     final Instrument guitar = new Instrument(serialNumber, 1250.00,
-        InstrumentType.GUITAR,
-        new GuitarSpec(Builder.GIBSON, "Test", Type.ELECTRIC, 6,
-            Wood.BRAZILIAN_ROSEWOOD, Wood.BRAZILIAN_ROSEWOOD));
+        new InstrumentSpec()
+          .addProperty("instrumentType", InstrumentType.GUITAR)
+          .addProperty("builder", Builder.GIBSON)
+          .addProperty("model", "Test")
+          .addProperty("type", Type.ELECTRIC)
+          .addProperty("numStrings", 6)
+          .addProperty("backWood", Wood.BRAZILIAN_ROSEWOOD)
+          .addProperty("topWood", Wood.BRAZILIAN_ROSEWOOD));
 
     final Inventory<Instrument, InstrumentSpec> inventory = new Inventory<>();
     inventory.add(guitar);
@@ -34,8 +39,14 @@ public class InventoryTest {
     final Inventory<Instrument, InstrumentSpec> inventory = new Inventory<>();
     GuitarsTestDataBuilder.initializeInventory(inventory);
 
-    final InstrumentSpec spec = new GuitarSpec(Builder.FENDER,
-        "Stratocastor", Type.ELECTRIC, 6, Wood.ALDER, Wood.ALDER);
+    final InstrumentSpec spec = new InstrumentSpec()
+      .addProperty("instrumentType", InstrumentType.GUITAR)
+      .addProperty("builder", Builder.FENDER)
+      .addProperty("model", "Stratocastor")
+      .addProperty("type", Type.ELECTRIC)
+      .addProperty("numStrings", 6)
+      .addProperty("backWood", Wood.ALDER)
+      .addProperty("topWood", Wood.ALDER);
 
     final Iterator<Instrument> guitars = inventory.search(spec);
     final Instrument guitar1 = guitars.next();
