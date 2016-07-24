@@ -6,14 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Instrument Abstract Class.
+ * Instrument Class.
  * 
  * @author Marcelo dos Santos
  *
  */
 @Data
 @AllArgsConstructor
-public abstract class Instrument {
+public class Instrument {
 
   private final String         serialNumber;
   private double               price;
