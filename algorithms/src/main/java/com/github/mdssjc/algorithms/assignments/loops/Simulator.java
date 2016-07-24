@@ -12,7 +12,8 @@ import static com.github.mdssjc.algorithms.utils.MainUtils.toXSS;
  * Concepts: conditionals, loops and arrays
  * Difficulty: 1
  * 
- * @author mdssjc (Marcelo dos Santos)
+ * @author Marcelo dos Santos
+ * 
  */
 public class Simulator {
 
