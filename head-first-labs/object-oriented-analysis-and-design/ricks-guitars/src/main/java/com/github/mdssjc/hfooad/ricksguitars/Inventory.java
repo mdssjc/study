@@ -28,14 +28,14 @@ public class Inventory<T, S> {
 
   public T get(final String id) {
     return this.list.stream()
-                    .filter(item -> item.equals(id))
-                    .findFirst()
-                    .orElse(null);
+      .filter(item -> item.equals(id))
+      .findFirst()
+      .orElse(null);
   }
 
   public Iterator<T> search(final S search) {
     return this.list.stream()
-                    .filter(item -> item.equals(search))
-                    .iterator();
+      .filter(item -> item.equals(search))
+      .iterator();
   }
 }

@@ -18,8 +18,8 @@ public class InstrumentSpec {
     this.properties = new HashMap<>();
   }
 
-  public InstrumentSpec addProperty(String property, Object value) {
-    properties.put(property, value);
+  public InstrumentSpec addProperty(final String property, final Object value) {
+    this.properties.put(property, value);
     return this;
   }
 
@@ -29,7 +29,7 @@ public class InstrumentSpec {
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(properties);
+    return Objects.hashCode(this.properties);
   }
 
   @Override
