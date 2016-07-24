@@ -16,7 +16,8 @@ public class InventoryTest {
   @Test
   public void addAndGetGuitar() {
     final String serialNumber = "12345";
-    final Instrument guitar = new Guitar(serialNumber, 1250.00,
+    final Instrument guitar = new Instrument(serialNumber, 1250.00,
+        InstrumentType.GUITAR,
         new GuitarSpec(Builder.GIBSON, "Test", Type.ELECTRIC, 6,
             Wood.BRAZILIAN_ROSEWOOD, Wood.BRAZILIAN_ROSEWOOD));
 
