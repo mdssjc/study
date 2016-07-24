@@ -1,6 +1,7 @@
 package com.github.mdssjc.hfooad.ricksguitars;
 
 import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
+import com.github.mdssjc.hfooad.ricksguitars.types.InstrumentType;
 import com.github.mdssjc.hfooad.ricksguitars.types.Type;
 import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
 

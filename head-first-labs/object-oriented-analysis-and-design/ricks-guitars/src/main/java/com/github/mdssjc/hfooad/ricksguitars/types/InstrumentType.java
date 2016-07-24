@@ -1,4 +1,4 @@
-package com.github.mdssjc.hfooad.ricksguitars;
+package com.github.mdssjc.hfooad.ricksguitars.types;
 
 /**
  * Instrument Type Enum.
