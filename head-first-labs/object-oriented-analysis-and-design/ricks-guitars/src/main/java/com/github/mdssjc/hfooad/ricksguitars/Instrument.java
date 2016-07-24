@@ -17,6 +17,7 @@ public class Instrument {
 
   private final String         serialNumber;
   private double               price;
+  private final InstrumentType instrumentType;
   private final InstrumentSpec spec;
 
   @Override
