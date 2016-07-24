@@ -9,9 +9,9 @@ import java.util.List;
  *
  * @author Marcelo dos Santos
  * @param <T>
- *          Type
+ *          Type of Collection
  * @param <S>
- *          Specification
+ *          Specification of Type
  * 
  */
 public class Inventory<T, S> {
