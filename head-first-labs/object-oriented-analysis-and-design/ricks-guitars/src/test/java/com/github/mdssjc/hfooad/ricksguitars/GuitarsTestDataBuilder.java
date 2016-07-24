@@ -1,6 +1,7 @@
 package com.github.mdssjc.hfooad.ricksguitars;
 
-import com.github.mdssjc.hfooad.ricksguitars.builder.GuitarBuilder;
+import static com.github.mdssjc.hfooad.ricksguitars.InstrumentType.GUITAR;
+
 import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
 import com.github.mdssjc.hfooad.ricksguitars.types.Type;
 import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
@@ -20,165 +21,126 @@ public class GuitarsTestDataBuilder {
   public static Instrument GUITAR11;
 
   private static void initialize() {
-    GuitarsTestDataBuilder.GUITAR1 = new GuitarBuilder()
-                                                        .setSerialNumber(
-                                                            "11277")
-                                                        .setPrice(3999.95)
-                                                        .setBuilder(
-                                                            Builder.COLLINGS)
-                                                        .setModel("CJ")
-                                                        .setType(Type.ACOUSTIC)
-                                                        .setNumStrings(6)
-                                                        .setBackWood(
-                                                            Wood.INDIAN_ROSEWOOD)
-                                                        .setTopWood(Wood.SITKA)
-                                                        .makeGuitar();
+    GuitarsTestDataBuilder.GUITAR1 = Instrument.builder()
+                                               .serialNumber("11277")
+                                               .price(3999.95)
+                                               .instrumentType(GUITAR)
+                                               .spec(new GuitarSpec(
+                                                   Builder.COLLINGS, "CJ",
+                                                   Type.ACOUSTIC, 6,
+                                                   Wood.INDIAN_ROSEWOOD,
+                                                   Wood.SITKA))
+                                               .build();
 
-    GuitarsTestDataBuilder.GUITAR2 = new GuitarBuilder()
-                                                        .setSerialNumber(
-                                                            "V95693")
-                                                        .setPrice(1499.95)
-                                                        .setBuilder(
-                                                            Builder.FENDER)
-                                                        .setModel(
-                                                            "Stratocastor")
-                                                        .setType(Type.ELECTRIC)
-                                                        .setNumStrings(6)
-                                                        .setBackWood(Wood.ALDER)
-                                                        .setTopWood(Wood.ALDER)
-                                                        .makeGuitar();
+    GuitarsTestDataBuilder.GUITAR2 = Instrument.builder()
+                                               .serialNumber("V95693")
+                                               .price(1499.95)
+                                               .instrumentType(GUITAR)
+                                               .spec(new GuitarSpec(
+                                                   Builder.FENDER,
+                                                   "Stratocastor",
+                                                   Type.ELECTRIC, 6, Wood.ALDER,
+                                                   Wood.ALDER))
+                                               .build();
 
-    GuitarsTestDataBuilder.GUITAR3 = new GuitarBuilder()
-                                                        .setSerialNumber(
-                                                            "V9512")
-                                                        .setPrice(1549.95)
-                                                        .setBuilder(
-                                                            Builder.FENDER)
-                                                        .setModel(
-                                                            "Stratocastor")
-                                                        .setType(Type.ELECTRIC)
-                                                        .setNumStrings(6)
-                                                        .setBackWood(Wood.ALDER)
-                                                        .setTopWood(Wood.ALDER)
-                                                        .makeGuitar();
+    GuitarsTestDataBuilder.GUITAR3 = Instrument.builder()
+                                               .serialNumber("V9512")
+                                               .price(1549.95)
+                                               .instrumentType(GUITAR)
+                                               .spec(new GuitarSpec(
+                                                   Builder.FENDER,
+                                                   "Stratocastor",
+                                                   Type.ELECTRIC, 6, Wood.ALDER,
+                                                   Wood.ALDER))
+                                               .build();
 
-    GuitarsTestDataBuilder.GUITAR4 = new GuitarBuilder()
-                                                        .setSerialNumber(
-                                                            "122784")
-                                                        .setPrice(5495.95)
-                                                        .setBuilder(
-                                                            Builder.MARTIN)
-                                                        .setModel("D-18")
-                                                        .setType(Type.ACOUSTIC)
-                                                        .setNumStrings(6)
-                                                        .setBackWood(
-                                                            Wood.MAHOGANY)
-                                                        .setTopWood(
-                                                            Wood.ADIRONDACK)
-                                                        .makeGuitar();
+    GuitarsTestDataBuilder.GUITAR4 = Instrument.builder()
+                                               .serialNumber("122784")
+                                               .price(5495.95)
+                                               .instrumentType(GUITAR)
+                                               .spec(new GuitarSpec(
+                                                   Builder.MARTIN, "D-18",
+                                                   Type.ACOUSTIC, 6,
+                                                   Wood.MAHOGANY,
+                                                   Wood.ADIRONDACK))
+                                               .build();
 
-    GuitarsTestDataBuilder.GUITAR5 = new GuitarBuilder()
-                                                        .setSerialNumber(
-                                                            "76531")
-                                                        .setPrice(6295.95)
-                                                        .setBuilder(
-                                                            Builder.MARTIN)
-                                                        .setModel("OM-28")
-                                                        .setType(Type.ACOUSTIC)
-                                                        .setNumStrings(6)
-                                                        .setBackWood(
-                                                            Wood.BRAZILIAN_ROSEWOOD)
-                                                        .setTopWood(
-                                                            Wood.ADIRONDACK)
-                                                        .makeGuitar();
+    GuitarsTestDataBuilder.GUITAR5 = Instrument.builder()
+                                               .serialNumber("76531")
+                                               .price(6295.95)
+                                               .instrumentType(GUITAR)
+                                               .spec(new GuitarSpec(
+                                                   Builder.MARTIN, "OM-28",
+                                                   Type.ACOUSTIC, 6,
+                                                   Wood.BRAZILIAN_ROSEWOOD,
+                                                   Wood.ADIRONDACK))
+                                               .build();
 
-    GuitarsTestDataBuilder.GUITAR6 = new GuitarBuilder()
-                                                        .setSerialNumber(
-                                                            "70108276")
-                                                        .setPrice(2295.95)
-                                                        .setBuilder(
-                                                            Builder.GIBSON)
-                                                        .setModel("Les Paul")
-                                                        .setType(Type.ELECTRIC)
-                                                        .setNumStrings(6)
-                                                        .setBackWood(
-                                                            Wood.MAHOGANY)
-                                                        .setTopWood(
-                                                            Wood.MAHOGANY)
-                                                        .makeGuitar();
+    GuitarsTestDataBuilder.GUITAR6 = Instrument.builder()
+                                               .serialNumber("70108276")
+                                               .price(2295.95)
+                                               .instrumentType(GUITAR)
+                                               .spec(new GuitarSpec(
+                                                   Builder.GIBSON, "Les Paul",
+                                                   Type.ELECTRIC, 6,
+                                                   Wood.MAHOGANY,
+                                                   Wood.MAHOGANY))
+                                               .build();
 
-    GuitarsTestDataBuilder.GUITAR7 = new GuitarBuilder()
-                                                        .setSerialNumber(
-                                                            "82765501")
-                                                        .setPrice(1890.95)
-                                                        .setBuilder(
-                                                            Builder.GIBSON)
-                                                        .setModel(
-                                                            "SG '61 Reissue")
-                                                        .setType(Type.ELECTRIC)
-                                                        .setNumStrings(6)
-                                                        .setBackWood(
-                                                            Wood.MAHOGANY)
-                                                        .setTopWood(
-                                                            Wood.MAHOGANY)
-                                                        .makeGuitar();
+    GuitarsTestDataBuilder.GUITAR7 = Instrument.builder()
+                                               .serialNumber("82765501")
+                                               .price(1890.95)
+                                               .instrumentType(GUITAR)
+                                               .spec(new GuitarSpec(
+                                                   Builder.GIBSON,
+                                                   "SG '61 Reissue",
+                                                   Type.ELECTRIC, 6,
+                                                   Wood.MAHOGANY,
+                                                   Wood.MAHOGANY))
+                                               .build();
 
-    GuitarsTestDataBuilder.GUITAR8 = new GuitarBuilder()
-                                                        .setSerialNumber(
-                                                            "77023")
-                                                        .setPrice(6275.95)
-                                                        .setBuilder(
-                                                            Builder.MARTIN)
-                                                        .setModel("D-28")
-                                                        .setType(Type.ACOUSTIC)
-                                                        .setNumStrings(6)
-                                                        .setBackWood(
-                                                            Wood.BRAZILIAN_ROSEWOOD)
-                                                        .setTopWood(
-                                                            Wood.ADIRONDACK)
-                                                        .makeGuitar();
+    GuitarsTestDataBuilder.GUITAR8 = Instrument.builder()
+                                               .serialNumber("77023")
+                                               .price(6275.95)
+                                               .instrumentType(GUITAR)
+                                               .spec(new GuitarSpec(
+                                                   Builder.MARTIN, "D-28",
+                                                   Type.ACOUSTIC, 6,
+                                                   Wood.BRAZILIAN_ROSEWOOD,
+                                                   Wood.ADIRONDACK))
+                                               .build();
 
-    GuitarsTestDataBuilder.GUITAR9 = new GuitarBuilder()
-                                                        .setSerialNumber("1092")
-                                                        .setPrice(12995.95)
-                                                        .setBuilder(
-                                                            Builder.OLSON)
-                                                        .setModel("SJ")
-                                                        .setType(Type.ACOUSTIC)
-                                                        .setNumStrings(12)
-                                                        .setBackWood(
-                                                            Wood.INDIAN_ROSEWOOD)
-                                                        .setTopWood(Wood.CEDAR)
-                                                        .makeGuitar();
+    GuitarsTestDataBuilder.GUITAR9 = Instrument.builder()
+                                               .serialNumber("1092")
+                                               .price(12995.95)
+                                               .instrumentType(GUITAR)
+                                               .spec(
+                                                   new GuitarSpec(Builder.OLSON,
+                                                       "SJ", Type.ACOUSTIC, 12,
+                                                       Wood.INDIAN_ROSEWOOD,
+                                                       Wood.CEDAR))
+                                               .build();
 
-    GuitarsTestDataBuilder.GUITAR10 = new GuitarBuilder()
-                                                         .setSerialNumber(
-                                                             "566-62")
-                                                         .setPrice(8999.95)
-                                                         .setBuilder(
-                                                             Builder.RYAN)
-                                                         .setModel("Cathedral")
-                                                         .setType(Type.ACOUSTIC)
-                                                         .setNumStrings(12)
-                                                         .setBackWood(
-                                                             Wood.COCOBOLO)
-                                                         .setTopWood(Wood.CEDAR)
-                                                         .makeGuitar();
+    GuitarsTestDataBuilder.GUITAR10 = Instrument.builder()
+                                                .serialNumber("566-62")
+                                                .price(8999.95)
+                                                .instrumentType(GUITAR)
+                                                .spec(new GuitarSpec(
+                                                    Builder.RYAN, "Cathedral",
+                                                    Type.ACOUSTIC, 12,
+                                                    Wood.COCOBOLO, Wood.CEDAR))
+                                                .build();
 
-    GuitarsTestDataBuilder.GUITAR11 = new GuitarBuilder()
-                                                         .setSerialNumber(
-                                                             "6 29584")
-                                                         .setPrice(2100.95)
-                                                         .setBuilder(
-                                                             Builder.PRS)
-                                                         .setModel(
-                                                             "Dave Navarro Signature")
-                                                         .setType(Type.ELECTRIC)
-                                                         .setNumStrings(6)
-                                                         .setBackWood(
-                                                             Wood.MAHOGANY)
-                                                         .setTopWood(Wood.MAPLE)
-                                                         .makeGuitar();
+    GuitarsTestDataBuilder.GUITAR11 = Instrument.builder()
+                                                .serialNumber("6 29584")
+                                                .price(2100.95)
+                                                .instrumentType(GUITAR)
+                                                .spec(new GuitarSpec(
+                                                    Builder.PRS,
+                                                    "Dave Navarro Signature",
+                                                    Type.ELECTRIC, 6,
+                                                    Wood.MAHOGANY, Wood.MAPLE))
+                                                .build();
   }
 
   public static void initializeInventory(
