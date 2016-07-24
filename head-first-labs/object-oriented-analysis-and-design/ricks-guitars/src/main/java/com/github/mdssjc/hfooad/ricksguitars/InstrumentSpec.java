@@ -1,29 +1,36 @@
 package com.github.mdssjc.hfooad.ricksguitars;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
-import com.github.mdssjc.hfooad.ricksguitars.types.Builder;
-import com.github.mdssjc.hfooad.ricksguitars.types.Type;
-import com.github.mdssjc.hfooad.ricksguitars.types.Wood;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 /**
- * InstrumentSpec Abstract Class.
+ * InstrumentSpec Class.
  * 
  * @author Marcelo dos Santos
  *
  */
-@Data
-@AllArgsConstructor
-public abstract class InstrumentSpec {
+public class InstrumentSpec {
 
-  private Builder builder;
-  private String  model;
-  private Type    type;
-  private Wood    backWood;
-  private Wood    topWood;
+  private final Map<String, Object> properties;
+
+  public InstrumentSpec() {
+    this.properties = new HashMap<>();
+  }
+
+  public InstrumentSpec addProperty(String property, Object value) {
+    properties.put(property, value);
+    return this;
+  }
+
+  public Object getProperty(final String property) {
+    return this.properties.get(property);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(properties);
+  }
 
   @Override
   public boolean equals(final Object obj) {
@@ -37,23 +44,13 @@ public abstract class InstrumentSpec {
       return false;
     }
     final InstrumentSpec other = (InstrumentSpec) obj;
-    if (!Objects.equals(this.builder, other.builder)) {
-      return false;
-    } else if (!Objects.equals(this.model, other.model)) {
-      return false;
-    } else if (!Objects.equals(this.type, other.type)) {
-      return false;
-    } else if (!Objects.equals(this.backWood, other.backWood)) {
-      return false;
-    } else if (!Objects.equals(this.topWood, other.topWood)) {
+    if (this.properties == null) {
+      if (other.properties != null) {
+        return false;
+      }
+    } else if (!this.properties.equals(other.properties)) {
       return false;
     }
     return true;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.builder, this.model, this.type, this.backWood,
-        this.topWood);
   }
 }

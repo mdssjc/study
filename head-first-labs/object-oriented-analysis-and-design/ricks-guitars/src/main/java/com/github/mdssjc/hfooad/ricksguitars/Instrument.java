@@ -19,8 +19,12 @@ public class Instrument {
 
   private final String         serialNumber;
   private double               price;
-  private final InstrumentType instrumentType;
   private final InstrumentSpec spec;
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.serialNumber, this.price, this.spec);
+  }
 
   @Override
   public boolean equals(final Object obj) {
@@ -43,17 +47,9 @@ public class Instrument {
       return false;
     } else if (!Objects.equals(this.price, other.price)) {
       return false;
-    } else if (!Objects.equals(instrumentType, other.instrumentType)) {
-      return false;
     } else if (!Objects.equals(this.spec, other.spec)) {
       return false;
     }
     return true;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.serialNumber, this.price, instrumentType,
-        this.spec);
   }
 }
