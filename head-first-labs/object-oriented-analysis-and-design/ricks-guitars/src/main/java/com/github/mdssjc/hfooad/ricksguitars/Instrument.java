@@ -3,6 +3,7 @@ package com.github.mdssjc.hfooad.ricksguitars;
 import java.util.Objects;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -13,6 +14,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
+@Builder
 public class Instrument {
 
   private final String         serialNumber;
@@ -41,6 +43,8 @@ public class Instrument {
       return false;
     } else if (!Objects.equals(this.price, other.price)) {
       return false;
+    } else if (!Objects.equals(instrumentType, other.instrumentType)) {
+      return false;
     } else if (!Objects.equals(this.spec, other.spec)) {
       return false;
     }
@@ -49,6 +53,7 @@ public class Instrument {
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.serialNumber, this.price, this.spec);
+    return Objects.hash(this.serialNumber, this.price, instrumentType,
+        this.spec);
   }
 }
