@@ -38,7 +38,7 @@ public class InventoryTest {
   @Test
   public void searchGuitar() {
     final Inventory<Instrument, InstrumentSpec> inventory = new Inventory<>();
-    GuitarsTestDataBuilder.initializeInventory(inventory);
+    InstrumentsTestDataBuilder.initializeInventory(inventory);
 
     final InstrumentSpec spec = new InstrumentSpec()
       .addProperty("instrumentType", InstrumentType.GUITAR)
@@ -54,8 +54,8 @@ public class InventoryTest {
     final Instrument guitar2 = guitars.next();
     final boolean hasNext = guitars.hasNext();
 
-    assertEquals(GuitarsTestDataBuilder.GUITAR2, guitar1);
-    assertEquals(GuitarsTestDataBuilder.GUITAR3, guitar2);
+    assertEquals(InstrumentsTestDataBuilder.GUITAR2, guitar1);
+    assertEquals(InstrumentsTestDataBuilder.GUITAR3, guitar2);
     assertFalse(hasNext);
   }
 }
