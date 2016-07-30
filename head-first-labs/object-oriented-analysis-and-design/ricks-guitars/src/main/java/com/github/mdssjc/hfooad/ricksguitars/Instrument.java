@@ -38,7 +38,7 @@ public class Instrument {
       if (obj instanceof String) {
         return ((String) obj).equals(this.serialNumber);
       } else if (obj instanceof InstrumentSpec) {
-        return ((InstrumentSpec) obj).equals(getSpec());
+        return getSpec().equals(obj);
       }
       return false;
     }
