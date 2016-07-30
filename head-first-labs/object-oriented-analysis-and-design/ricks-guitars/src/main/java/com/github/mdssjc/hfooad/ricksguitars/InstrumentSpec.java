@@ -50,9 +50,9 @@ public class InstrumentSpec {
       return false;
     }
     final InstrumentSpec other = (InstrumentSpec) obj;
-    Iterator<String> property = other.getProperties();
+    final Iterator<String> property = other.getProperties();
     while (property.hasNext()) {
-      String value = property.next();
+      final String value = property.next();
       if (getProperty(value).equals(other.getProperty(value))) {
         return true;
       }
