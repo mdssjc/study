@@ -1,9 +1,9 @@
 package com.github.mdssjc.hfooad.ricksguitars;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
-
-import lombok.EqualsAndHashCode;
+import java.util.Objects;
 
 /**
  * InstrumentSpec Class.
@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
  * @author Marcelo dos Santos
  *
  */
-@EqualsAndHashCode
 public class InstrumentSpec {
 
   private final Map<String, Object> properties;
@@ -27,5 +26,37 @@ public class InstrumentSpec {
 
   public Object getProperty(final String property) {
     return this.properties.get(property);
+  }
+
+  public Iterator<String> getProperties() {
+    return this.properties.keySet()
+      .iterator();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(this.properties);
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    final InstrumentSpec other = (InstrumentSpec) obj;
+    Iterator<String> property = other.getProperties();
+    while (property.hasNext()) {
+      String value = property.next();
+      if (getProperty(value).equals(other.getProperty(value))) {
+        return true;
+      }
+    }
+    return false;
   }
 }
