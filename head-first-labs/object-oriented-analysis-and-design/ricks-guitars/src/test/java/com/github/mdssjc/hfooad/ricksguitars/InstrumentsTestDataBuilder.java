@@ -183,7 +183,7 @@ public class InstrumentsTestDataBuilder {
       .spec(new InstrumentSpec()
         .addProperty("instrumentType", InstrumentType.BANJO)
         .addProperty("builder", Builder.GIBSON)
-        .addProperty("model", "RB-3")
+        .addProperty("model", "RB-3 Wreath")
         .addProperty("type", Type.ACOUSTIC)
         .addProperty("numStrings", 5)
         .addProperty("backWood", Wood.MAPLE))
