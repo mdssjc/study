@@ -96,8 +96,8 @@ public class InstrumentsTestDataBuilder {
         .addProperty("model", "Les Paul")
         .addProperty("type", Type.ELECTRIC)
         .addProperty("numStrings", 6)
-        .addProperty("backWood", Wood.MAHOGANY)
-        .addProperty("topWood", Wood.MAHOGANY))
+        .addProperty("backWood", Wood.MAPLE)
+        .addProperty("topWood", Wood.MAPLE))
       .build();
 
     InstrumentsTestDataBuilder.GUITAR7 = Instrument.builder()
