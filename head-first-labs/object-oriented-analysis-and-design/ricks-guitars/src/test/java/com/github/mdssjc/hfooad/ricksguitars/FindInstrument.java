@@ -13,7 +13,7 @@ public class FindInstrument {
     InstrumentsTestDataBuilder.initializeInventory(inventory);
 
     final InstrumentSpec clientSpec = new InstrumentSpec()
-      .addProperty("builder", Builder.FENDER)
+      .addProperty("builder", Builder.GIBSON)
       .addProperty("backWood", Wood.MAPLE);
 
     final Iterator<Instrument> matchingInstruments = inventory
