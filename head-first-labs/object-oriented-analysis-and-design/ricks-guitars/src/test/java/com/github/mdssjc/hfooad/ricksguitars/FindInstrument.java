@@ -10,7 +10,7 @@ public class FindInstrument {
 
   public static void main(final String[] args) {
     final Inventory<Instrument, InstrumentSpec> inventory = new Inventory<>();
-    GuitarsTestDataBuilder.initializeInventory(inventory);
+    InstrumentsTestDataBuilder.initializeInventory(inventory);
 
     final InstrumentSpec clientSpec = new InstrumentSpec()
       .addProperty("builder", Builder.FENDER)
