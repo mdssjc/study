@@ -16,13 +16,10 @@ public class FindInstrument {
       .addProperty("builder", Builder.GIBSON)
       .addProperty("backWood", Wood.MAPLE);
 
-    final Iterator<Instrument> matchingInstruments = inventory
-      .search(clientSpec);
-    if (matchingInstruments.hasNext()) {
+    final Iterator<Instrument> matching = inventory.search(clientSpec);
+    if (matching.hasNext()) {
       System.out.println("You might like these instruments:");
-      while (matchingInstruments.hasNext()) {
-        matchingInstruments.forEachRemaining(formatMessage());
-      }
+      matching.forEachRemaining(formatMessage());
     } else {
       System.out.println("Sorry, we have nothing for you.");
     }
@@ -34,17 +31,15 @@ public class FindInstrument {
       System.out.println("We have a " + spec.getProperty("instrumentType")
           + " with the following properties:");
 
-      final Iterator<String> properties = spec.getProperties();
-      while (properties.hasNext()) {
-        final String p = properties.next();
-        if (p.equals("instrumentType")) {
-          continue;
-        }
-        System.out.println(" " + p + ": " + spec.getProperty(p));
-      }
-      System.out
-        .println(" You can have this " + spec.getProperty("instrumentType")
-            + " for $" + instrument.getPrice() + "\n---");
+      spec.getProperties()
+        .forEachRemaining(p -> {
+          if (!p.equals("instrumentType")) {
+            System.out.println(" " + p + ": " + spec.getProperty(p));
+          }
+        });
+      System.out.println(" You can have this " +
+          spec.getProperty("instrumentType") + " for $" +
+          instrument.getPrice() + "\n---");
     };
   }
 }
