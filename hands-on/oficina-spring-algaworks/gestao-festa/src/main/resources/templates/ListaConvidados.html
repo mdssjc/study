@@ -12,6 +12,27 @@
   crossorigin="anonymous" />
 </head>
 <body>
-  <h1>AlgaWorks!</h1>
+  <div class="panel panel-default" style="margin: 10px">
+    <div class="panel-heading">
+      <h1 class="panel-title">Lista de Convidados</h1>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <table class="table">
+      <thread>
+      <tr>
+        <th>Nome</th>
+        <th>Acompanhantes</th>
+      </tr>
+      </thread>
+      <tbody>
+        <tr th:each="convidado : ${convidados}">
+          <td th:text="${convidado.nome}"></td>
+          <td th:text="${convidado.quantidadeAcompanhantes}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </body>
 </html>
