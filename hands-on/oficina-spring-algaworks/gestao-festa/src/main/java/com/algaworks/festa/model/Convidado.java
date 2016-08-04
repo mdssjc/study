@@ -5,7 +5,11 @@ public class Convidado {
   private String  nome;
   private Integer quantidadeAcompanhantes;
 
+  public Convidado() {
+  }
+
   public Convidado(final String nome, final Integer quantidadeAcompanhantes) {
+    this();
     this.nome = nome;
     this.quantidadeAcompanhantes = quantidadeAcompanhantes;
   }
