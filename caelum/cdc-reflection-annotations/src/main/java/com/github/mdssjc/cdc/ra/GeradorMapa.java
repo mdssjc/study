@@ -12,8 +12,14 @@ public class GeradorMapa {
     for (final Method m : classe.getMethods()) {
       try {
         if (isGetter(m)) {
-          final String propriedade = deGetterParaPropriedade(m.getName());
-          final Object valor = m.invoke(o);
+          String propriedade = null;
+          if (m.isAnnotationPresent(NomePropriedade.class)) {
+            propriedade = m.getAnnotation(NomePropriedade.class)
+              .value();
+          } else {
+            propriedade = deGetterParaPropriedade(m.getName());
+          }
+          Object valor = m.invoke(o);
           mapa.put(propriedade, valor);
         }
       } catch (final Exception e) {
@@ -27,7 +33,8 @@ public class GeradorMapa {
     return m.getName()
       .startsWith("get") &&
         m.getReturnType() != void.class &&
-        m.getParameterTypes().length == 0;
+        m.getParameterTypes().length == 0 &&
+        !m.isAnnotationPresent(Ignorar.class);
   }
 
   private static String deGetterParaPropriedade(final String nomeGetter) {

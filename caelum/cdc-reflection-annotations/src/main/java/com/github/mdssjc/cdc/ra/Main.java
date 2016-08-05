@@ -7,5 +7,9 @@ public class Main {
         "Publicado pela Casa do Código");
     GeradorMapa.gerarMapa(p)
       .forEach((k, v) -> System.out.println(k + " = " + v));
+
+    final Telefone t = new Telefone("12", "TIM");
+    GeradorMapa.gerarMapa(t)
+        .forEach((k, v) -> System.out.println(k + " = " + v));
   }
 }
