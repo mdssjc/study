@@ -38,4 +38,10 @@ public class Executor {
       StdOut.println(exception.getMessage());
     }
   }
+
+  public static void sanity(final Class<?> clazz, final int length) {
+    if (length == 0) {
+      execute(clazz);
+    }
+  }
 }
