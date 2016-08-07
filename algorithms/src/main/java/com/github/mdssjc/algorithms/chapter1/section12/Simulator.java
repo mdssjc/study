@@ -20,5 +20,8 @@ public class Simulator {
 
     // FlipsMax
     execute(FlipsMax::main, toXSS(1000000));
+
+    // Rolls
+    execute(Rolls::main, toXSS(1000000));
   }
 }
