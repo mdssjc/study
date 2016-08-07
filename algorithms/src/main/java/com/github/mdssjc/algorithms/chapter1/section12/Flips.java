@@ -3,6 +3,12 @@ package com.github.mdssjc.algorithms.chapter1.section12;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
+/**
+ * Flips Class.
+ * 
+ * @author Marcelo dos Santos
+ *
+ */
 public class Flips {
 
   public static void main(final String[] args) {
