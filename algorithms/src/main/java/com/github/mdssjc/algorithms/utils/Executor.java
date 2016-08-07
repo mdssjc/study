@@ -21,17 +21,17 @@ public class Executor {
       final Annotation[] annotations = clazz
         .getAnnotationsByType(TestDrive.class);
 
-      if (annotations.length == 0) {
-        StdOut.printf("java %s%n", clazz.getSimpleName());
-        method.invoke(null, (Object) null);
-      } else {
-        for (final Annotation annotation : annotations) {
-          final TestDrive td = (TestDrive) annotation;
-          StdOut.printf("java %s %s%n", clazz.getSimpleName(),
-              Arrays.deepToString(td.value()));
-          method.invoke(null, (Object) td.value());
-        }
+      // if (annotations.length == 0) {
+      // StdOut.printf("java %s%n", clazz.getSimpleName());
+      // method.invoke(null, (Object) null);
+      // } else {
+      for (final Annotation annotation : annotations) {
+        final TestDrive td = (TestDrive) annotation;
+        StdOut.printf("java %s %s%n", clazz.getSimpleName(),
+            Arrays.deepToString(td.value()));
+        method.invoke(null, (Object) td.value());
       }
+      // }
     } catch (IllegalArgumentException | NoSuchMethodException
         | SecurityException | IllegalAccessException
         | InvocationTargetException exception) {
