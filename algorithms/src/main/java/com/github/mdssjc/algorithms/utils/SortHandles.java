@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.sort.utils;
+package com.github.mdssjc.algorithms.utils;
 
 /**
  * SortHandles.

@@ -1,6 +1,6 @@
 package com.github.mdssjc.algorithms.sort;
 
-import com.github.mdssjc.algorithms.sort.utils.SortHandles;
+import com.github.mdssjc.algorithms.utils.SortHandles;
 
 import edu.princeton.cs.algs4.Insertion;
 

@@ -7,7 +7,7 @@ import java.io.File;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.mdssjc.algorithms.sort.utils.SortHandles;
+import com.github.mdssjc.algorithms.utils.SortHandles;
 
 import edu.princeton.cs.algs4.StdRandom;
 
