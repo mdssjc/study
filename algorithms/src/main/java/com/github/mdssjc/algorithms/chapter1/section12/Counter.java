@@ -1,5 +1,7 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
+import com.github.mdssjc.algorithms.utils.TestDrive;
+
 import edu.princeton.cs.algs4.StdOut;
 
 /**
@@ -8,6 +10,7 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
+@TestDrive()
 public class Counter {
 
   private final String id;
