@@ -19,7 +19,7 @@ public class GeradorMapa {
           } else {
             propriedade = deGetterParaPropriedade(m.getName());
           }
-          Object valor = m.invoke(o);
+          final Object valor = m.invoke(o);
           mapa.put(propriedade, valor);
         }
       } catch (final Exception e) {

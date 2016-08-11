@@ -2,10 +2,10 @@ package com.github.mdssjc.cdc.ra;
 
 public class Telefone {
 
-  private String codigoPais;
-  private String operadora;
+  private final String codigoPais;
+  private final String operadora;
 
-  public Telefone(String codigoPais, String operadora) {
+  public Telefone(final String codigoPais, final String operadora) {
     this.codigoPais = codigoPais;
     this.operadora = operadora;
   }
