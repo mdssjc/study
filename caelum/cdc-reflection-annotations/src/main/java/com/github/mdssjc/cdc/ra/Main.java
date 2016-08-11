@@ -16,5 +16,15 @@ public class Main {
     final Telefone t = new Telefone("12", "TIM");
     GeradorMapa.gerarMapa(t)
       .forEach(print);
+
+    GeradorMapaPerformance gerador;
+
+    gerador = new GeradorMapaPerformance(Produto.class);
+    gerador.gerarMapa(p)
+      .forEach(print);
+
+    gerador = new GeradorMapaPerformance(Telefone.class);
+    gerador.gerarMapa(t)
+      .forEach(print);
   }
 }
