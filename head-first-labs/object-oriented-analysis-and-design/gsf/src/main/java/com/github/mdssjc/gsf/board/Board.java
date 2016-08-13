@@ -1,5 +1,8 @@
 package com.github.mdssjc.gsf.board;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.github.mdssjc.gsf.Tile;
 import com.github.mdssjc.gsf.unit.Unit;
 
@@ -11,12 +14,25 @@ import com.github.mdssjc.gsf.unit.Unit;
  */
 public class Board {
 
-  private final int width;
-  private final int height;
+  private final int        width;
+  private final int        height;
+  private List<List<Tile>> tiles;
 
   public Board(final int width, final int height) {
     this.width = width;
     this.height = height;
+    initialize();
+  }
+
+  private void initialize() {
+    this.tiles = new ArrayList<>(this.width);
+    for (int i = 0; i < this.width; i++) {
+      this.tiles.add(i, new ArrayList<>(this.height));
+      for (int j = 0; j < this.height; j++) {
+        this.tiles.get(i)
+          .add(j, new Tile());
+      }
+    }
   }
 
   public Tile getTile(final int posX, final int posY) {
