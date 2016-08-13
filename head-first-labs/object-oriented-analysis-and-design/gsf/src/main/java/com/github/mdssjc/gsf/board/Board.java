@@ -1,4 +1,7 @@
-package com.github.mdssjc.gsf;
+package com.github.mdssjc.gsf.board;
+
+import com.github.mdssjc.gsf.Tile;
+import com.github.mdssjc.gsf.Unit;
 
 /**
  * Representa o Board do sistema.
