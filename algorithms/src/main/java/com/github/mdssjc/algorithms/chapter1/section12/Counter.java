@@ -13,11 +13,11 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive()
 public class Counter {
 
-  private final String id;
+  private final String name;
   private int          counter;
 
   public Counter(final String id) {
-    this.id = id;
+    this.name = id;
   }
 
   public void increment() {
@@ -30,7 +30,7 @@ public class Counter {
 
   @Override
   public String toString() {
-    return this.counter + " " + this.id;
+    return this.counter + " " + this.name;
   }
 
   public static void main(final String[] args) {
@@ -38,7 +38,10 @@ public class Counter {
     final Counter tails = new Counter("tails");
 
     heads.increment();
-    final int result = heads.tally() - tails.tally();
-    StdOut.println(heads);
+    heads.increment();
+    tails.increment();
+
+    StdOut.println(heads + " " + tails);
+    StdOut.println(heads.tally() + tails.tally());
   }
 }
