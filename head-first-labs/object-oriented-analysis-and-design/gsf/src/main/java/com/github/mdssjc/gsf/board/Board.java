@@ -36,13 +36,26 @@ public class Board {
   }
 
   public Tile getTile(final int posX, final int posY) {
-    return null;
+    return this.tiles.get(posX - 1)
+      .get(posY - 1);
   }
 
-  public void addTile(final int posX, final int posY, final Tile tile) {
+  public void addUnit(final Unit unit, final int posX, final int posY) {
+    final Tile tile = getTile(posX, posY);
+    tile.addUnit(unit);
   }
 
-  public Unit[] getUnits(final int posX, final int posY) {
-    return null;
+  public void removeUnit(final Unit unit, final int posX, final int posY) {
+    final Tile tile = getTile(posX, posY);
+    tile.removeUnit(unit);
+  }
+
+  public void removeUnits(final int posX, final int posY) {
+    final Tile tile = getTile(posX, posY);
+    tile.removeUnits();
+  }
+
+  public List<Unit> getUnits(final int posX, final int posY) {
+    return getTile(posX, posY).getUnits();
   }
 }
