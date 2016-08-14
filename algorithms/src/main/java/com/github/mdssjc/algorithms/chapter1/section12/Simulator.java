@@ -15,5 +15,6 @@ public class Simulator {
     Executor.execute(Flips.class);
     Executor.execute(FlipsMax.class);
     Executor.execute(Rolls.class);
+    Executor.execute(DateA.class);
   }
 }
