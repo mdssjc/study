@@ -5,17 +5,17 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Implementation B of Date.
+ * Implementation small of Date.
  * 
  * @author Marcelo dos Santos
  *
  */
 @TestDrive({ "12", "31", "1999" })
-public class DateB implements Date {
+public class SmallDate implements Date {
 
   private final int value;
 
-  public DateB(final int m, final int d, final int y) {
+  public SmallDate(final int m, final int d, final int y) {
     this.value = y * 512 + m * 32 + d;
   }
 
@@ -43,7 +43,7 @@ public class DateB implements Date {
     final int m = Integer.parseInt(args[0]);
     final int d = Integer.parseInt(args[1]);
     final int y = Integer.parseInt(args[2]);
-    final Date date = new DateA(m, d, y);
+    final Date date = new SmallDate(m, d, y);
     StdOut.println(date);
   }
 }
