@@ -5,7 +5,7 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Implementation small of Date.
+ * Implementation basic of Date.
  * 
  * @author Marcelo dos Santos
  *
