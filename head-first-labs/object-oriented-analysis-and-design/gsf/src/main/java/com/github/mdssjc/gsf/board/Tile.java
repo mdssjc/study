@@ -1,4 +1,4 @@
-package com.github.mdssjc.gsf;
+package com.github.mdssjc.gsf.board;
 
 import java.util.List;
 

@@ -3,7 +3,6 @@ package com.github.mdssjc.gsf.board;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.mdssjc.gsf.Tile;
 import com.github.mdssjc.gsf.unit.Unit;
 
 /**
