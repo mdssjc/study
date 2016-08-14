@@ -16,6 +16,7 @@ public class Flips {
 
   public static void main(final String[] args) {
     final int T = Integer.parseInt(args[0]);
+
     final Counter heads = new Counter("heads");
     final Counter tails = new Counter("tails");
 
