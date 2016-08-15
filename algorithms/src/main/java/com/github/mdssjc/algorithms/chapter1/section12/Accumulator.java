@@ -1,5 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
+import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 
 import edu.princeton.cs.algs4.StdOut;
@@ -34,6 +35,11 @@ public class Accumulator {
   }
 
   public static void main(final String[] args) {
+    if (args.length == 0) {
+      Executor.execute(Accumulator.class);
+      return;
+    }
+
     final int T = Integer.parseInt(args[0]);
     final Accumulator a = new Accumulator();
     for (int i = 0; i < T; i++) {

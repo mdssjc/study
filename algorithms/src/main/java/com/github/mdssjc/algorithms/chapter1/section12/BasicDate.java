@@ -1,5 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
+import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 
 import edu.princeton.cs.algs4.StdOut;
@@ -44,6 +45,11 @@ public class BasicDate implements Date {
   }
 
   public static void main(final String[] args) {
+    if (args.length == 0) {
+      Executor.execute(BasicDate.class);
+      return;
+    }
+
     final int m = Integer.parseInt(args[0]);
     final int d = Integer.parseInt(args[1]);
     final int y = Integer.parseInt(args[2]);
