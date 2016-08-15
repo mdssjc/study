@@ -17,5 +17,6 @@ public class Simulator {
     Executor.execute(Rolls.class);
     Executor.execute(BasicDate.class);
     Executor.execute(SmallDate.class);
+    Executor.execute(Accumulator.class);
   }
 }
