@@ -18,5 +18,6 @@ public class Simulator {
     Executor.execute(BasicDate.class);
     Executor.execute(SmallDate.class);
     Executor.execute(Accumulator.class);
+    Executor.execute(VisualAccumulator.class);
   }
 }
