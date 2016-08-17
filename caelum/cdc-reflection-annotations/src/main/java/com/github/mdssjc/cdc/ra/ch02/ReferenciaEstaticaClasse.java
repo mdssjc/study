@@ -8,7 +8,7 @@ public class ReferenciaEstaticaClasse {
     imprimeNomeClasse(Integer.class);
   }
 
-  public static void imprimeNomeClasse(final Class<Integer> classe) {
+  public static void imprimeNomeClasse(final Class<?> classe) {
     System.out.println("Chamado o método com " + classe.getName());
   }
 }
