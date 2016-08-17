@@ -25,4 +25,16 @@ public class FornecedorImplementacoes {
   public Class<?> getImplementacao(final Class<?> interf) {
     return this.implementacoes.get(interf);
   }
+
+  public static void main(final String[] args) {
+    try {
+      final FornecedorImplementacoes f = new FornecedorImplementacoes(
+          "implementacoes.prop");
+      final Class<?> impl = f.getImplementacao(DAO.class);
+      System.out.println("Implementação recuperada: " + impl.getName());
+    } catch (ClassNotFoundException | IOException e) {
+      System.out
+        .println("Problemas ao obter implementações: " + e.getMessage());
+    }
+  }
 }
