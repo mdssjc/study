@@ -1,4 +1,4 @@
-package com.github.mdssjc.cdc.ra;
+package com.github.mdssjc.cdc.ra.ch01;
 
 import java.util.function.BiConsumer;
 
