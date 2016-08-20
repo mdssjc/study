@@ -36,6 +36,7 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     helm
      ;; Completion/Text
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
@@ -50,7 +51,7 @@ values."
      semantic
      syntax-checking
      spell-checking
-     ycmd
+     ;; ycmd
      smex
      ;; Documents
      org
@@ -91,14 +92,14 @@ values."
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '()
-   ;; Defines the behaviour of Spacemacs when downloading packages.
-   ;; Possible values are `used', `used-but-keep-unused' and `all'. `used' will
-   ;; download only explicitly used packages and remove any unused packages as
-   ;; well as their dependencies. `used-but-keep-unused' will download only the
-   ;; used packages but won't delete them if they become unused. `all' will
-   ;; download all the packages regardless if they are used or not and packages
-   ;; won't be deleted by Spacemacs. (default is `used')
-   dotspacemacs-download-packages 'used))
+   ;; Defines the behaviour of Spacemacs when installing packages.
+   ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
+   ;; `used-only' installs only explicitly used packages and uninstall any
+   ;; unused packages as well as their unused dependencies.
+   ;; `used-but-keep-unused' installs only the used packages but won't uninstall
+   ;; them if they become unused. `all' installs *all* packages supported by
+   ;; Spacemacs and never uninstall them. (default is `used-only')
+   dotspacemacs-install-packages 'used-only))
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -227,7 +228,7 @@ values."
    ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
    ;; in all non-asynchronous sources. If set to `source', preserve individual
    ;; source settings. Else, disable fuzzy matching in all sources.
-   ;; Default 'always.
+   ;; (default 'always)
    dotspacemacs-helm-use-fuzzy 'always
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
@@ -359,7 +360,9 @@ you should place your code here."
   (add-hook 'java-mode-hook 'semantic-mode)
 
   ;; CIDER/CLOJURE
-  (setq clojure-enable-fancify-symbols t)
+  (add-hook 'cider-mode-hook (lambda ()
+                               (setq clojure-enable-fancify-symbols t)
+                               ))
 
   ;; ISPELL
   (setq ispell-program-name "hunspell"
@@ -372,8 +375,8 @@ you should place your code here."
   (global-company-mode)
   (add-to-list 'company-backend 'company-ispell)
   ;; (setq ycmd-request-message-level -1)
-  (set-variable 'ycmd-server-command '("python2" "/usr/share/vim/vimfiles/third_party/ycmd/ycmd"))
-  (company-ycmd-setup)
+  ;; (set-variable 'ycmd-server-command '("python2" "/usr/share/vim/vimfiles/third_party/ycmd/ycmd"))
+  ;; (company-ycmd-setup)
   (setq ac-sources '(ac-source-abbrev
                      ac-source-dictionary
                      ac-source-eclim
@@ -412,10 +415,12 @@ you should place your code here."
   (semantic-mode 1)
 
   ;; ORG MODE
-  (setq org-todo-keywords
-        '((sequence "TODO" "PROGRESS" "|" "DONE")
-          (sequence "REPORT" "BUG" "KNOWNCAUSE" "|" "FIXED")
-          (sequence "|" "CANCELED")))
+  (add-hook org-mode-hook (lambda ()
+                            (setq org-todo-keywords
+                                  '((sequence "TODO" "PROGRESS" "|" "DONE")
+                                    (sequence "REPORT" "BUG" "KNOWNCAUSE" "|" "FIXED")
+                                    (sequence "|" "CANCELED")))
+                            ))
 
   ;; ABBREV
   (abbrev-mode t)
@@ -438,35 +443,12 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(clean-aindent-is-simple-indent t)
- '(company-auto-complete t)
- '(company-show-numbers t)
- '(company-statistics-mode t)
- '(electric-layout-mode t)
- '(electric-pair-mode t)
- '(global-company-mode t)
- '(ido-everywhere t)
- '(ido-mode (quote both) nil (ido))
- '(ido-record-commands t)
- '(ido-separator "|")
- '(ido-vertical-mode nil)
- '(indent-tabs-mode nil)
  '(package-selected-packages
    (quote
-    (ht mwim ox-reveal ox-gfm flyspell-popup flyspell-correct-popup flyspell-correct-ivy ivy evil-unimpaired f smex malabar-mode groovy-mode noflet ensime sbt-mode scala-mode uuidgen org-projectile org org-download livid-mode skewer-mode simple-httpd link-hint github-search flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-ediff goto-chg undo-tree eshell-z diminish company-shell column-enforce-mode clojure-snippets seq java-snippets ob-sml sml-mode marshal ycmd request-deferred deferred web-beautify json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc fish-mode disaster company-tern dash-functional tern company-c-headers coffee-mode cmake-mode clang-format jdee puml-mode wttrin racket-mode faceup flycheck-clojure powerline alert log4e gntp parent-mode request haml-mode gitignore-mode fringe-helper git-gutter+ gh logito pcache flx iedit web-completion-data pos-tip peg eval-sexp-fu highlight pkg-info epl dash async bind-key bind-map popup smartparens with-editor git-gutter anzu s yasnippet spinner hydra auto-complete packed flycheck helm-core magit magit-popup git-commit evil projectile avy company helm markdown-mode clj-refactor cider quelpa zenburn-theme xterm-color ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe use-package toc-org tagedit stickyfunc-enhance srefactor spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters queue popwin persp-mode peep-dired pcre2el paredit paradox page-break-lines package-build orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree multiple-cursors multi-term move-text monokai-theme mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jade-mode info+ inflections indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode emacs-eclim elisp-slime-nav edn diff-hl define-word company-ycmd company-web company-statistics company-quickhelp clojure-mode clean-aindent-mode cider-eval-sexp-fu buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
- '(require-final-newline t)
- '(show-trailing-whitespace t)
- '(smartparens-global-mode t)
- '(smartparens-global-strict-mode t)
- '(standard-indent 2)
- '(tab-always-indent (quote complete))
- '(tab-stop-list (quote (2 4 6)))
- '(tab-width 2)
- '(volatile-highlights-mode t))
+    (eclim ht mwim ox-reveal ox-gfm flyspell-popup flyspell-correct-popup flyspell-correct-ivy ivy evil-unimpaired f smex malabar-mode groovy-mode noflet ensime sbt-mode scala-mode uuidgen org-projectile org org-download livid-mode skewer-mode simple-httpd link-hint github-search flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-ediff goto-chg undo-tree eshell-z diminish company-shell column-enforce-mode clojure-snippets seq java-snippets ob-sml sml-mode marshal ycmd request-deferred deferred web-beautify json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc fish-mode disaster company-tern dash-functional tern company-c-headers coffee-mode cmake-mode clang-format jdee puml-mode wttrin racket-mode faceup flycheck-clojure powerline alert log4e gntp parent-mode request haml-mode gitignore-mode fringe-helper git-gutter+ gh logito pcache flx iedit web-completion-data pos-tip peg eval-sexp-fu highlight pkg-info epl dash async bind-key bind-map popup smartparens with-editor git-gutter anzu s yasnippet spinner hydra auto-complete packed flycheck helm-core magit magit-popup git-commit evil projectile avy company helm markdown-mode clj-refactor cider quelpa zenburn-theme xterm-color ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe use-package toc-org tagedit stickyfunc-enhance srefactor spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters queue popwin persp-mode peep-dired pcre2el paredit paradox page-break-lines package-build orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree multiple-cursors multi-term move-text monokai-theme mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jade-mode info+ inflections indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode emacs-eclim elisp-slime-nav edn diff-hl define-word company-ycmd company-web company-statistics company-quickhelp clojure-mode clean-aindent-mode cider-eval-sexp-fu buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+ )
