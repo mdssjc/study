@@ -15,4 +15,8 @@ import java.lang.annotation.RetentionPolicy;
 public @interface TestDrive {
 
   String[] value() default { "" };
+
+  boolean isFile() default false;
+
+  String inputs() default "";
 }
