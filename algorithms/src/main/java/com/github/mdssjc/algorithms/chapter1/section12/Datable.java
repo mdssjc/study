@@ -1,12 +1,12 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
 /**
- * Date Interface.
+ * Datable Interface.
  * 
  * @author Marcelo dos Santos
  *
  */
-public interface Date {
+public interface Datable {
 
   int month();
 

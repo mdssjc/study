@@ -12,7 +12,7 @@ import edu.princeton.cs.algs4.StdOut;
  *
  */
 @TestDrive({ "12", "31", "1999" })
-public class SmallDate implements Date {
+public class SmallDate implements Datable {
 
   private final int value;
 
@@ -49,7 +49,7 @@ public class SmallDate implements Date {
     final int m = Integer.parseInt(args[0]);
     final int d = Integer.parseInt(args[1]);
     final int y = Integer.parseInt(args[2]);
-    final Date date = new SmallDate(m, d, y);
+    final Datable date = new SmallDate(m, d, y);
     StdOut.println(date);
   }
 }
