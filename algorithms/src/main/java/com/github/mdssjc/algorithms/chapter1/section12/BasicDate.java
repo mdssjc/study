@@ -44,6 +44,30 @@ public class BasicDate implements Datable {
     return month() + "/" + day() + "/" + year();
   }
 
+  @Override
+  public boolean equals(final Object x) {
+    if (this == x) {
+      return true;
+    }
+    if (x == null) {
+      return false;
+    }
+    if (this.getClass() != x.getClass()) {
+      return false;
+    }
+    final Datable that = (Datable) x;
+    if (this.day != that.day()) {
+      return false;
+    }
+    if (this.month != that.month()) {
+      return false;
+    }
+    if (this.year != that.year()) {
+      return false;
+    }
+    return true;
+  }
+
   public static void main(final String[] args) {
     if (args.length == 0) {
       Executor.execute(BasicDate.class);
