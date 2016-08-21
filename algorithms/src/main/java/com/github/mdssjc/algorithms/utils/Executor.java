@@ -29,6 +29,11 @@ public class Executor {
         final TestDrive td = (TestDrive) annotation;
         StdOut.printf("java %s %s%n", clazz.getSimpleName(),
             Arrays.deepToString(td.value()));
+
+        // if (td.isFile()) {
+        // System.out.println(clazz.getPackage().getName());
+        // } else {
+        // }
         method.invoke(null, (Object) td.value());
       }
       // }
