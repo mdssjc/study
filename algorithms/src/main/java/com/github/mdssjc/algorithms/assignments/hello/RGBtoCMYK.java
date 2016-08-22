@@ -1,5 +1,10 @@
 package com.github.mdssjc.algorithms.assignments.hello;
 
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
+
+@TestDrive({ "75", "0", "130" })
+@TestDrive({ "255", "143", "0" })
 public class RGBtoCMYK {
 
   private static double getBlack(final double white) {
@@ -16,6 +21,8 @@ public class RGBtoCMYK {
   }
 
   public static void main(final String[] args) {
+    Executor.execute(RGBtoCMYK.class, args);
+
     final int red = Integer.parseInt(args[0]);
     final int green = Integer.parseInt(args[1]);
     final int blue = Integer.parseInt(args[2]);

@@ -2,9 +2,16 @@ package com.github.mdssjc.algorithms.assignments.hello;
 
 import static java.lang.Math.acos;
 
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
+
+@TestDrive({ "40.35", "74.65", "48.87", "-2.33" })
+@TestDrive({ "48.87", "-2.33", "40.35", "74.65" })
 public class GreatCircle {
 
   public static void main(final String[] args) {
+    Executor.execute(GreatCircle.class, args);
+
     // Latitude in degrees
     final double x1 = Double.parseDouble(args[0]); // Point 1
     final double y1 = Double.parseDouble(args[1]); // Point 2
