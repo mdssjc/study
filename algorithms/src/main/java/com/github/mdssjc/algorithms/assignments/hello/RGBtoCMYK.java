@@ -3,6 +3,8 @@ package com.github.mdssjc.algorithms.assignments.hello;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 
+import edu.princeton.cs.algs4.StdOut;
+
 @TestDrive({ "75", "0", "130" })
 @TestDrive({ "255", "143", "0" })
 public class RGBtoCMYK {
@@ -33,12 +35,12 @@ public class RGBtoCMYK {
     final double yellow = getColor(blue, white);
     final double black = getBlack(white);
 
-    System.out.println("red     = " + red);
-    System.out.println("green   = " + green);
-    System.out.println("blue    = " + blue);
-    System.out.println("cyan    = " + cyan);
-    System.out.println("magenta = " + magenta);
-    System.out.println("yellow  = " + yellow);
-    System.out.println("black   = " + black);
+    StdOut.println("red     = " + red);
+    StdOut.println("green   = " + green);
+    StdOut.println("blue    = " + blue);
+    StdOut.println("cyan    = " + cyan);
+    StdOut.println("magenta = " + magenta);
+    StdOut.println("yellow  = " + yellow);
+    StdOut.println("black   = " + black);
   }
 }

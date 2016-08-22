@@ -5,6 +5,8 @@ import static java.lang.Math.acos;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 
+import edu.princeton.cs.algs4.StdOut;
+
 @TestDrive({ "40.35", "74.65", "48.87", "-2.33" })
 @TestDrive({ "48.87", "-2.33", "40.35", "74.65" })
 public class GreatCircle {
@@ -24,7 +26,7 @@ public class GreatCircle {
         sin(x1) * sin(x2) + cos(x1) * cos(x2) * cos(y1 - y2));
     final double distance = 60 * Math.toDegrees(acos);
 
-    System.out.println(distance + " nautical miles");
+    StdOut.println(distance + " nautical miles");
   }
 
   private static double sin(final double x) {

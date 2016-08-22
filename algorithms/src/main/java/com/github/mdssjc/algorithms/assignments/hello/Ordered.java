@@ -3,6 +3,8 @@ package com.github.mdssjc.algorithms.assignments.hello;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 
+import edu.princeton.cs.algs4.StdOut;
+
 @TestDrive({ "10", "17", "49" })
 @TestDrive({ "49", "17", "10" })
 @TestDrive({ "10", "49", "17" })
@@ -30,6 +32,6 @@ public class Ordered {
     final int y = Integer.parseInt(args[1]);
     final int z = Integer.parseInt(args[2]);
 
-    System.out.println(isOrdered(x, y, z));
+    StdOut.println(isOrdered(x, y, z));
   }
 }
