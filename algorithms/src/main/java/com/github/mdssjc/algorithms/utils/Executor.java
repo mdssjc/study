@@ -53,4 +53,11 @@ public class Executor {
       StdOut.println(exception.getMessage());
     }
   }
+
+  public static void test(final Class<?> clazz, final String[] args) {
+    if (args.length == 0) {
+      execute(clazz);
+      System.exit(0);
+    }
+  }
 }
