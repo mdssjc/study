@@ -17,10 +17,7 @@ import edu.princeton.cs.algs4.StdOut;
 public class Ex2 {
 
   public static void main(final String[] args) {
-    if (args.length == 0) {
-      Executor.execute(Ex2.class);
-      return;
-    }
+    Executor.test(Ex2.class, args);
 
     final int N = Integer.parseInt(args[0]);
 
