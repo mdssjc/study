@@ -18,7 +18,7 @@ public @interface TestDrive {
 
   boolean valueFile() default false;
 
-  String[] input() default {  };
+  String[] input() default {};
 
   boolean inputFile() default false;
 }
