@@ -43,10 +43,7 @@ public class VisualAccumulator {
   }
 
   public static void main(final String[] args) {
-    if (args.length == 0) {
-      Executor.execute(VisualAccumulator.class);
-      return;
-    }
+    Executor.test(VisualAccumulator.class, args);
 
     final int T = Integer.parseInt(args[0]);
     final VisualAccumulator a = new VisualAccumulator(T, 1.0);
