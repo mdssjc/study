@@ -69,7 +69,7 @@ public class BasicDate implements Datable {
   }
 
   public static void main(final String[] args) {
-    Executor.test(BasicDate.class, args);
+    Executor.execute(BasicDate.class, args);
 
     final int m = Integer.parseInt(args[0]);
     final int d = Integer.parseInt(args[1]);

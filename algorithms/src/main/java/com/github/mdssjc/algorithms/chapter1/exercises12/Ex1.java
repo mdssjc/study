@@ -17,7 +17,7 @@ import edu.princeton.cs.algs4.StdRandom;
 public class Ex1 {
 
   public static void main(final String[] args) {
-    Executor.test(Ex1.class, args);
+    Executor.execute(Ex1.class, args);
 
     final int N = Integer.parseInt(args[0]);
 

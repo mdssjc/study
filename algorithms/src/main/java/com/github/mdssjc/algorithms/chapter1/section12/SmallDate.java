@@ -41,7 +41,7 @@ public class SmallDate implements Datable {
   }
 
   public static void main(final String[] args) {
-    Executor.test(SmallDate.class, args);
+    Executor.execute(SmallDate.class, args);
 
     final int m = Integer.parseInt(args[0]);
     final int d = Integer.parseInt(args[1]);

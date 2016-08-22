@@ -16,7 +16,7 @@ import edu.princeton.cs.algs4.StdRandom;
 public class Flips {
 
   public static void main(final String[] args) {
-    Executor.test(Flips.class, args);
+    Executor.execute(Flips.class, args);
 
     final int T = Integer.parseInt(args[0]);
 

@@ -23,7 +23,7 @@ public class FlipsMax {
   }
 
   public static void main(final String[] args) {
-    Executor.test(FlipsMax.class, args);
+    Executor.execute(FlipsMax.class, args);
 
     final int T = Integer.parseInt(args[0]);
     final Counter heads = new Counter("heads");

@@ -39,7 +39,7 @@ public class Accumulator {
   }
 
   public static void main(final String[] args) {
-    Executor.test(Accumulator.class, args);
+    Executor.execute(Accumulator.class, args);
 
     final int T = Integer.parseInt(args[0]);
     final Accumulator a = new Accumulator();
