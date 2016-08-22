@@ -54,7 +54,13 @@ public class Executor {
     }
   }
 
-  public static void test(final Class<?> clazz, final String[] args) {
+  public static void execute(Class<?> clazz, String label) {
+    StdOut.println(label);
+    execute(clazz);
+    StdOut.println();
+  }
+
+  public static void execute(final Class<?> clazz, final String[] args) {
     if (args.length == 0) {
       execute(clazz);
       System.exit(0);
