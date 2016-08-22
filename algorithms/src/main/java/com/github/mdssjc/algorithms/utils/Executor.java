@@ -1,5 +1,6 @@
 package com.github.mdssjc.algorithms.utils;
 
+import java.io.ByteArrayInputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -34,6 +35,14 @@ public class Executor {
         // System.out.println(clazz.getPackage().getName());
         // } else {
         // }
+
+        if (td.input().length > 0) {
+          for (int i = 0; i < td.input().length; i++) {
+            System.setIn(new ByteArrayInputStream(
+                td.input()[i].getBytes()));
+          }
+        }
+
         method.invoke(null, (Object) td.value());
       }
       // }

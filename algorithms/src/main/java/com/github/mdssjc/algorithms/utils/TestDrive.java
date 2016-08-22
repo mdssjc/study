@@ -16,7 +16,9 @@ public @interface TestDrive {
 
   String[] value() default { "" };
 
-  boolean isFile() default false;
+  boolean valueFile() default false;
 
-  String inputs() default "";
+  String[] input() default {  };
+
+  boolean inputFile() default false;
 }
