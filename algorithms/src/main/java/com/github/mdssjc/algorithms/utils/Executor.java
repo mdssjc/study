@@ -5,6 +5,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import edu.princeton.cs.algs4.StdOut;
 
@@ -37,10 +38,10 @@ public class Executor {
         // }
 
         if (td.input().length > 0) {
-          for (int i = 0; i < td.input().length; i++) {
-            System.setIn(new ByteArrayInputStream(
-                td.input()[i].getBytes()));
-          }
+          System.setIn(new ByteArrayInputStream(
+              Arrays.stream(td.input())
+                .collect(Collectors.joining(" "))
+                .getBytes()));
         }
 
         method.invoke(null, (Object) td.value());
