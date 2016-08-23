@@ -1,6 +1,7 @@
 package com.github.mdssjc.cdc.ra.ch02;
 
 import java.io.FileInputStream;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class FornecedorImplementacoes2 {
           "implementacoes.prop");
       final Class<?> impl = f.getImplementacao(DAO.class);
       System.out.println("Implementação recuperada: " + impl.getName());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       System.out
         .println("Problemas ao obter implementações: " + e.getMessage());
     }
@@ -53,5 +54,24 @@ public class FornecedorImplementacoes2 {
       final Class<?> impl) {
     return isInterfaceOuAbstract(interf) && !isInterfaceOuAbstract(impl)
         && interf.isAssignableFrom(impl);
+  }
+
+  private Constructor<?> acharConstrutor(final Class<?> c, final Object... objs)
+      throws Exception {
+    for (final Constructor<?> constr : c.getConstructors()) {
+      final Class<?>[] params = constr.getParameterTypes();
+      if (params.length == objs.length) {
+        boolean erro = false;
+        for (int i = 0; i < objs.length && !erro; i++) {
+          if (!params[i].isInstance(objs[i])) {
+            erro = true;
+          }
+          if (!erro) {
+            return constr;
+          }
+        }
+      }
+    }
+    throw new Exception("Construtor não encontradado");
   }
 }
