@@ -1,7 +1,6 @@
 package com.github.mdssjc.cdc.ra.ch02;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,14 +10,21 @@ public class FornecedorImplementacoes2 {
 
   private final Map<Class<?>, Class<?>> implementacoes = new HashMap<>();
 
-  public FornecedorImplementacoes2(final String nomeArquivo)
-      throws IOException, ClassNotFoundException {
+  public FornecedorImplementacoes2(final String nomeArquivo) throws Exception {
     final Properties p = new Properties();
     p.load(new FileInputStream(nomeArquivo));
+
     for (final Object interf : p.keySet()) {
       final Class<?> interfType = Class.forName(interf.toString());
       final Class<?> implType = Class.forName(p.get(interf)
         .toString());
+
+      if (!isAbstracaoEImplementacao(interfType, implType)) {
+        throw new Exception("Erro na configuração do arquivo " + nomeArquivo
+            + " : " + interfType.getName() + " não é abstração de "
+            + implType.getName());
+      }
+
       this.implementacoes.put(interfType, implType);
     }
   }
@@ -33,7 +39,7 @@ public class FornecedorImplementacoes2 {
           "implementacoes.prop");
       final Class<?> impl = f.getImplementacao(DAO.class);
       System.out.println("Implementação recuperada: " + impl.getName());
-    } catch (ClassNotFoundException | IOException e) {
+    } catch (Exception e) {
       System.out
         .println("Problemas ao obter implementações: " + e.getMessage());
     }
