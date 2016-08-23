@@ -34,6 +34,13 @@ public class FornecedorImplementacoes2 {
     return this.implementacoes.get(interf);
   }
 
+  public Object criarInstancia(final Class<?> interf, final Object... objs)
+      throws Exception {
+    final Class<?> impl = getImplementacao(interf);
+    final Constructor<?> constr = acharConstrutor(impl, objs);
+    return constr.newInstance(objs);
+  }
+
   public static void main(final String[] args) {
     try {
       final FornecedorImplementacoes2 f = new FornecedorImplementacoes2(
