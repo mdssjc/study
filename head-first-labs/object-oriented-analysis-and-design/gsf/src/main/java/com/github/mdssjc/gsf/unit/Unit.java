@@ -5,13 +5,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
 public class Unit {
 
+  @Getter
+  @Setter
   private String              type;
+  @Getter
   private final int           id;
+  @Getter
+  @Setter
   private String              name;
   private List<Weapon>        weapons;
   private Map<String, Object> properties;
