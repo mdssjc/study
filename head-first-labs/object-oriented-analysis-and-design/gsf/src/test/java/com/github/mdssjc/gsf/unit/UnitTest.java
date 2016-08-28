@@ -27,4 +27,16 @@ public class UnitTest {
 
     assertEquals("25", output);
   }
+
+  @Test
+  public void changingAnExistingPropertyValue() {
+    final Unit unit = new Unit(0);
+    final String property = "hitPoints";
+    unit.setProperty(property, "25");
+
+    unit.setProperty(property, "15");
+    final Object output = unit.getProperty(property);
+
+    assertEquals("15", output);
+  }
 }
