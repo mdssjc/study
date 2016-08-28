@@ -15,4 +15,14 @@ public class UnitTest {
 
     assertEquals("infantry", output);
   }
+
+  @Test
+  public void setAndGetASpecificProperty() {
+    Unit unit = new Unit(0);
+    unit.setProperty("hitPoints", "25");
+
+    Object output = unit.getProperty("hitPoints");
+
+    assertEquals("25", output);
+  }
 }
