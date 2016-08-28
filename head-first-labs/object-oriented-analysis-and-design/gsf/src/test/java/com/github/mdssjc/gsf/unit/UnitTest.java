@@ -1,6 +1,7 @@
 package com.github.mdssjc.gsf.unit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,5 +44,14 @@ public class UnitTest {
     final Object output = this.unit.getProperty(property);
 
     assertEquals("15", output);
+  }
+
+  @Test
+  public void gettingANonExistentPropertysValue() {
+    final String property = "strength";
+
+    final Object output = this.unit.getProperty(property);
+
+    assertNull(output);
   }
 }
