@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class UnitTest {
 
-  private static final int ID = 0;
+  private static final int ID = 1000;
   private Unit             unit;
 
   @Before
