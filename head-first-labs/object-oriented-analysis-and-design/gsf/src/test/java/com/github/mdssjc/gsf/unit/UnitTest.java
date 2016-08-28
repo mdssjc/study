@@ -59,12 +59,12 @@ public class UnitTest {
   }
 
   @Test
-  public void addingAWeapon() {
-    final Weapon weapon = new Weapon();
+  public void addingGettingWeapons() {
+    final Weapon axe = new Weapon();
 
-    this.unit.addWeapon(weapon);
+    this.unit.addWeapon(axe);
     final List<Weapon> weapons = this.unit.getWeapons();
 
-    assertSame(weapon, weapons.get(0));
+    assertSame(axe, weapons.get(0));
   }
 }
