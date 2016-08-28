@@ -7,7 +7,7 @@ import org.junit.Test;
 public class UnitTest {
 
   @Test
-  public void setAndGetACommonProperty() {
+  public void settingAndGettingACommonProperty() {
     final Unit unit = new Unit(0);
     final String property = "type";
     unit.setProperty(property, "infantry");
@@ -18,7 +18,7 @@ public class UnitTest {
   }
 
   @Test
-  public void setAndGetASpecificProperty() {
+  public void settingAndGettingAUnitSpecificProperty() {
     final Unit unit = new Unit(0);
     final String property = "hitPoints";
     unit.setProperty(property, "25");
@@ -29,7 +29,7 @@ public class UnitTest {
   }
 
   @Test
-  public void changingAnExistingPropertyValue() {
+  public void changingAnExistingPropertysValue() {
     final Unit unit = new Unit(0);
     final String property = "hitPoints";
     unit.setProperty(property, "25");
