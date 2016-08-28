@@ -32,10 +32,10 @@ public class Executor {
         StdOut.printf("java %s %s%n", clazz.getSimpleName(),
             Arrays.deepToString(td.value()));
 
-        // if (td.isFile()) {
-        // System.out.println(clazz.getPackage().getName());
-        // } else {
-        // }
+        final String[] value = td.value();
+        if (td.valueFile()) {
+          value[0] = "src/main/resources/" + value[0];
+        }
 
         if (td.input().length > 0) {
           System.setIn(new ByteArrayInputStream(
@@ -44,7 +44,7 @@ public class Executor {
                 .getBytes()));
         }
 
-        method.invoke(null, (Object) td.value());
+        method.invoke(null, (Object) value);
       }
       // }
     } catch (IllegalArgumentException | NoSuchMethodException
@@ -54,7 +54,7 @@ public class Executor {
     }
   }
 
-  public static void execute(Class<?> clazz, String label) {
+  public static void execute(final Class<?> clazz, final String label) {
     StdOut.println(label);
     execute(clazz);
     StdOut.println();
