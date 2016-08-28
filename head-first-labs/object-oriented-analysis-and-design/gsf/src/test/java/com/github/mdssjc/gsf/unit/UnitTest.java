@@ -22,8 +22,8 @@ public class UnitTest {
   @Test
   public void settingAndGettingACommonProperty() {
     final String property = "type";
-    this.unit.setProperty(property, "infantry");
 
+    this.unit.setProperty(property, "infantry");
     final Object output = this.unit.getProperty(property);
 
     assertEquals("infantry", output);
@@ -32,8 +32,8 @@ public class UnitTest {
   @Test
   public void settingAndGettingAUnitSpecificProperty() {
     final String property = "hitPoints";
-    this.unit.setProperty(property, "25");
 
+    this.unit.setProperty(property, "25");
     final Object output = this.unit.getProperty(property);
 
     assertEquals("25", output);
