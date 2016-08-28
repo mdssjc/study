@@ -27,8 +27,8 @@ public class Ex2 {
     }
 
     for (int i = 0; i < intervals.length; i++) {
-      for (int j = i + 1; j < intervals.length; j++) {
-        if (intervals[i].intersects(intervals[j])) {
+      for (int j = 0; j < intervals.length; j++) {
+        if (i != j && intervals[i].intersects(intervals[j])) {
           StdOut.println(intervals[i] + " " + intervals[j]);
         }
       }
