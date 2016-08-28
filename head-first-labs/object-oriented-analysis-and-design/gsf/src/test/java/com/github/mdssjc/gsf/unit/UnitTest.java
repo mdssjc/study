@@ -67,6 +67,16 @@ public class UnitTest {
   }
 
   @Test
+  public void settingGettingTheNameProperty() {
+    final String name = "Damon";
+
+    this.unit.setName(name);
+    final String nameOutput = this.unit.getName();
+
+    assertEquals(name, nameOutput);
+  }
+
+  @Test
   public void addingGettingWeapons() {
     final Weapon axe = new Weapon();
 
