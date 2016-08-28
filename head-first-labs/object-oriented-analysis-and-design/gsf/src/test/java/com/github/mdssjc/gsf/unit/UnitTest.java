@@ -11,11 +11,12 @@ import org.junit.Test;
 
 public class UnitTest {
 
-  private Unit unit;
+  private static final int ID = 0;
+  private Unit             unit;
 
   @Before
   public void initialize() {
-    this.unit = new Unit(0);
+    this.unit = new Unit(UnitTest.ID);
   }
 
   @Test
@@ -56,6 +57,13 @@ public class UnitTest {
     final Object output = this.unit.getProperty(property);
 
     assertNull(output);
+  }
+
+  @Test
+  public void gettingTheIdProperty() {
+    final int id = this.unit.getId();
+
+    assertEquals(UnitTest.ID, id);
   }
 
   @Test
