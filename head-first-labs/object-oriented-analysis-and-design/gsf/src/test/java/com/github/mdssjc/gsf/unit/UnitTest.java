@@ -2,6 +2,9 @@ package com.github.mdssjc.gsf.unit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,5 +56,15 @@ public class UnitTest {
     final Object output = this.unit.getProperty(property);
 
     assertNull(output);
+  }
+
+  @Test
+  public void addingAWeapon() {
+    final Weapon weapon = new Weapon();
+
+    this.unit.addWeapon(weapon);
+    final List<Weapon> weapons = this.unit.getWeapons();
+
+    assertSame(weapon, weapons.get(0));
   }
 }
