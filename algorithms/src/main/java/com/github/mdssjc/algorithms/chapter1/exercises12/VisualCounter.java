@@ -10,36 +10,36 @@ import edu.princeton.cs.algs4.StdDraw;
  */
 public class VisualCounter {
 
-  private int    n;
-  private double posX;
-  private int    max;
-  private int    counter;
+  private int       n;
+  private double    posX;
+  private final int max;
+  private int       counter;
 
-  public VisualCounter(int n, int max) {
+  public VisualCounter(final int n, final int max) {
     this.n = n;
     this.max = max;
-    posX = -0.5;
+    this.posX = -0.5;
     StdDraw.setXscale(0, n);
     StdDraw.setYscale(0, 2 * max);
     StdDraw.setPenRadius(0.025);
   }
 
   public void increment() {
-    if (n > 0 && Math.abs(counter) != max) {
-      counter++;
+    if (this.n > 0 && Math.abs(this.counter) != this.max) {
+      this.counter++;
       draw();
     }
   }
 
   public void decrement() {
-    if (n > 0 && Math.abs(counter) != max) {
-      counter--;
+    if (this.n > 0 && Math.abs(this.counter) != this.max) {
+      this.counter--;
       draw();
     }
   }
 
   private void draw() {
-    n--;
-    StdDraw.point(++posX, counter + max);
+    this.n--;
+    StdDraw.point(++this.posX, this.counter + this.max);
   }
 }
