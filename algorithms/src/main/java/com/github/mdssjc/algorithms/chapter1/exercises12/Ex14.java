@@ -16,7 +16,8 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive({ "Marcelos,08/28/2016,1520.55", "Marcelo,08/28/2016,1520.55" })
 @TestDrive({ "Marcelo,08/27/2016,1520.55", "Marcelo,08/28/2016,1520.55" })
 @TestDrive({ "Marcelo,08/28/2016,1520.56", "Marcelo,08/28/2016,1520.55" })
-public class Ex14 {
+@TestDrive({ "Marcelo,08/29/2016,1520.55", "Marcelo,08/28/2016,1520.55" })
+public class Ex14 implements Comparable<Ex14> {
 
   private final String who;
   private final Date   when;
@@ -45,6 +46,11 @@ public class Ex14 {
 
   public double amount() {
     return this.amount;
+  }
+
+  @Override
+  public int compareTo(final Ex14 t) {
+    return this.when.compareTo(t.when);
   }
 
   @Override
@@ -103,6 +109,6 @@ public class Ex14 {
     final Ex14 log1 = new Ex14(args[0]);
     final Ex14 log2 = new Ex14(args[1]);
 
-    StdOut.println(log1.equals(log2));
+    StdOut.println(log1.equals(log2) + " " + log1.compareTo(log2));
   }
 }
