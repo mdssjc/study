@@ -7,7 +7,7 @@ import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * Exercício 10.
+ * Exercício 10 (VisualCounter).
  * 
  * @author Marcelo dos Santos
  *
