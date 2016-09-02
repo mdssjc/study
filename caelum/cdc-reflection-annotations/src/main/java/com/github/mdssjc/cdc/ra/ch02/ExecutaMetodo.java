@@ -31,7 +31,7 @@ public class ExecutaMetodo {
     Object[] params = new Object[m.getParameterTypes().length];
     for (int i = 0; i < params.length; i++) {
       Class<?> paramType = m.getParameterTypes()[i];
-      System.out.println("Parametro " + (i + 1) +
+      System.out.println("Parâmetro " + (i + 1) +
           " (" + paramType.getName() + ")");
       String valor = in.nextLine();
       params[i] = paramType.getConstructor(String.class)
