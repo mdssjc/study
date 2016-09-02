@@ -4,17 +4,19 @@ import java.lang.reflect.Field;
 
 public class AcessoAtributo extends SuperClasseAtributo {
 
-  private int    atributoUm;
+  private int   atributoUm;
   public String atributoDois;
 
   public static void main(String[] args) {
-    System.out.println("Retornado pelo getFields()");
-    for (Field f : AcessoAtributo.class.getFields()) {
-      System.out.println("- " + f.getType()
-        .getSimpleName() + " " + f.getName());
-    }
-    System.out.println("Retornado pelo getDeclaredFields()");
-    for (Field f : AcessoAtributo.class.getDeclaredFields()) {
+    printFields("Retornado pelo getFields()",
+        AcessoAtributo.class.getFields());
+    printFields("Retornado pelo getDeclaredFields()",
+        AcessoAtributo.class.getDeclaredFields());
+  }
+
+  private static void printFields(String mensagem, Field[] fs) {
+    System.out.println(mensagem);
+    for (Field f : fs) {
       System.out.println("- " + f.getType()
         .getSimpleName() + " " + f.getName());
     }
