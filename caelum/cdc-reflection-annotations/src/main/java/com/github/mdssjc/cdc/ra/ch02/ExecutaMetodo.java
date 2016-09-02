@@ -22,12 +22,10 @@ public class ExecutaMetodo {
 
     Scanner in = new Scanner(System.in);
     String nomeClasse = in.nextLine();
-
     Class<?> c = Class.forName(nomeClasse);
 
     System.out.println("Entre com o nome do método:");
     String nomeMetodo = in.nextLine();
-
     Method m = acharMetodoPeloNome(c, nomeMetodo);
 
     Object[] params = new Object[m.getParameterTypes().length];
