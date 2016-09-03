@@ -21,7 +21,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=1
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -52,15 +52,23 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colorize cp archlinux zsh-autosuggestions zsh-completions)
+plugins=(git colorize cp archlinux zsh-autosuggestions zsh-completions systemd)
 autoload -U compinit && compinit
 
 # User configuration
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk/"
 export MAVEN_HOME="/home/mdssjc/Applications/java/apache-maven-3.3.9/bin/"
+export SBT="/usr/bin/"
+export RUBY="/home/mdssjc/.gem/ruby/2.3.0/bin/"
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/mdssjc/bin"
-export PATH="$PATH:$MAVEN_HOME"
+export PATH="$PATH:$JAVA_HOME:$MAVEN_HOME:$SBT:$RUBY"
 # export MANPATH="/usr/local/man:$MANPATH"
+
+# SML
+export SMLNJ_HOME=/usr/lib/smlnj
+export PATH="$PATH:/usr/lib/smlnj/bin"
+###
 
 source $ZSH/oh-my-zsh.sh
 
