@@ -79,5 +79,4 @@ public class UnitGroupTest {
     assertTrue(unitGroup.getUnits()
       .isEmpty());
   }
-
 }
