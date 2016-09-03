@@ -1,18 +1,22 @@
 package com.github.mdssjc.gsf.unit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class UnitTest {
 
   private static final int ID = 1000;
   private Unit             unit;
+
+  @Rule
+  public ExpectedException thrown = ExpectedException.none();
 
   @Before
   public void initialize() {
@@ -52,11 +56,11 @@ public class UnitTest {
 
   @Test
   public void gettingANonExistentPropertysValue() {
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("No properties for this Unit.");
     final String property = "strength";
 
-    final Object output = this.unit.getProperty(property);
-
-    assertNull(output);
+    this.unit.getProperty(property);
   }
 
   @Test

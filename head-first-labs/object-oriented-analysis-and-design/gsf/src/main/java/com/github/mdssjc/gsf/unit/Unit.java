@@ -45,7 +45,7 @@ public class Unit {
 
   public Object getProperty(final String property) {
     if (this.properties == null) {
-      return null;
+      throw new IllegalArgumentException("No properties for this Unit.");
     }
     return this.properties.get(property);
   }
