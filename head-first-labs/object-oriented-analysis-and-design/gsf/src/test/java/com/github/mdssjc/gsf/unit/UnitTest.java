@@ -44,7 +44,7 @@ public class UnitTest {
   }
 
   @Test
-  public void changingAnExistingPropertysValue() {
+  public void changingAnExistingPropertiesValue() {
     final String property = "hitPoints";
     this.unit.setProperty(property, "25");
 
@@ -55,9 +55,19 @@ public class UnitTest {
   }
 
   @Test
-  public void gettingANonExistentPropertysValue() {
-    thrown.expect(IllegalArgumentException.class);
-    thrown.expectMessage("No properties for this Unit.");
+  public void gettingANonExistentPropertiesValue() {
+    this.thrown.expect(IllegalArgumentException.class);
+    this.thrown.expectMessage("No properties for this Unit.");
+    final String property = "strength";
+
+    this.unit.getProperty(property);
+  }
+
+  @Test
+  public void gettingANonExistentPropertyValue() {
+    this.thrown.expect(IllegalArgumentException.class);
+    this.thrown.expectMessage("Request for non-existent property.");
+    this.unit.setProperty("hitPoints", "25");
     final String property = "strength";
 
     this.unit.getProperty(property);

@@ -47,6 +47,10 @@ public class Unit {
     if (this.properties == null) {
       throw new IllegalArgumentException("No properties for this Unit.");
     }
-    return this.properties.get(property);
+    Object value = properties.get(property);
+    if (value == null) {
+      throw new IllegalArgumentException("Request for non-existent property.");
+    }
+    return value;
   }
 }
