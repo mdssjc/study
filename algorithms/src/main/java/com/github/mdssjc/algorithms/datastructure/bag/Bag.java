@@ -24,7 +24,7 @@ public interface Bag<Item> extends Iterable<Item> {
   /**
    * Predicado para Bag vazio.
    * 
-   * @return boolean Valor do predicato
+   * @return boolean Resultado do predicato
    */
   boolean isEmpty();
 
