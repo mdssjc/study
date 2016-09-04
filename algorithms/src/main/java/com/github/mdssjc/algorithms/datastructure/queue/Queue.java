@@ -1,16 +1,20 @@
 package com.github.mdssjc.algorithms.datastructure.queue;
 
+import java.util.Iterator;
+
 /**
- * Interface da Estrutura de Dado Queue - Fila.
+ * FIFO Queue.
+ * <p>
+ * Interface da estrutura de dado.
  *
  * @author Marcelo dos Santos
  * @param <Item>
  *          Tipo de Dado
  */
-public interface Queue<Item> {
+public interface Queue<Item> extends Iterable<Item> {
 
   /**
-   * Enfileira o item.
+   * Enfileira um item.
    *
    * @param item
    *          Item a ser inserido
@@ -18,23 +22,31 @@ public interface Queue<Item> {
   void enqueue(Item item);
 
   /**
-   * Desenfileira o item.
+   * Desenfileira um item.
    *
    * @return Primeiro item
    */
   Item dequeue();
 
   /**
-   * Verifica se a fila está vazia.
-   *
-   * @return boolean Resultado da verificação
+   * Predicado para Queue vazio.
+   * 
+   * @return boolean Resultado do predicato
    */
   boolean isEmpty();
 
   /**
-   * Retorna a quantidade de itens na fila.
+   * Retorna a quantidade de itens na Queue.
    *
    * @return int Quantidade de itens
    */
   int size();
+
+  /**
+   * Retorna o iterador da Queue.
+   *
+   * @return Iterador da Queue
+   */
+  @Override
+  Iterator<Item> iterator();
 }
