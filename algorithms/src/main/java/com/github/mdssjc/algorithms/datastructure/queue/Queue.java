@@ -8,10 +8,10 @@ import java.util.Iterator;
  * Interface da estrutura de dado.
  *
  * @author Marcelo dos Santos
- * @param <Item>
+ * @param <T>
  *          Tipo de Dado
  */
-public interface Queue<Item> extends Iterable<Item> {
+public interface Queue<T> extends Iterable<T> {
 
   /**
    * Enfileira um item.
@@ -19,14 +19,14 @@ public interface Queue<Item> extends Iterable<Item> {
    * @param item
    *          Item a ser inserido
    */
-  void enqueue(Item item);
+  void enqueue(T item);
 
   /**
    * Desenfileira um item.
    *
    * @return Primeiro item
    */
-  Item dequeue();
+  T dequeue();
 
   /**
    * Predicado para Queue vazio.
@@ -48,5 +48,5 @@ public interface Queue<Item> extends Iterable<Item> {
    * @return Iterador da Queue
    */
   @Override
-  Iterator<Item> iterator();
+  Iterator<T> iterator();
 }

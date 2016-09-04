@@ -8,10 +8,10 @@ import java.util.Iterator;
  * Interface da estrutura de dado.
  *
  * @author Marcelo dos Santos
- * @param <Item>
+ * @param <T>
  *          Tipo de Dado
  */
-public interface Bag<Item> extends Iterable<Item> {
+public interface Bag<T> extends Iterable<T> {
 
   /**
    * Adiciona um item.
@@ -19,7 +19,7 @@ public interface Bag<Item> extends Iterable<Item> {
    * @param item
    *          Item a ser adicionado
    */
-  void add(Item item);
+  void add(T item);
 
   /**
    * Predicado para Bag vazio.
@@ -41,5 +41,5 @@ public interface Bag<Item> extends Iterable<Item> {
    * @return Iterador do Bag
    */
   @Override
-  Iterator<Item> iterator();
+  Iterator<T> iterator();
 }

@@ -8,10 +8,10 @@ import java.util.Iterator;
  * Interface da estrutura de dado.
  *
  * @author Marcelo dos Santos
- * @param <Item>
+ * @param <T>
  *          Tipo de Dado
  */
-public interface Stack<Item> extends Iterable<Item> {
+public interface Stack<T> extends Iterable<T> {
 
   /**
    * Empilha um item.
@@ -19,14 +19,14 @@ public interface Stack<Item> extends Iterable<Item> {
    * @param item
    *          Item a ser inserido
    */
-  void push(Item item);
+  void push(T item);
 
   /**
    * Desempilha um item.
    *
    * @return T Último item
    */
-  Item pop();
+  T pop();
 
   /**
    * Predicado para Stack vazio.
@@ -48,5 +48,5 @@ public interface Stack<Item> extends Iterable<Item> {
    * @return Iterador da Stack
    */
   @Override
-  Iterator<Item> iterator();
+  Iterator<T> iterator();
 }
