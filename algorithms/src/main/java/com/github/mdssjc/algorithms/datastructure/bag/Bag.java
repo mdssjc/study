@@ -3,7 +3,9 @@ package com.github.mdssjc.algorithms.datastructure.bag;
 import java.util.Iterator;
 
 /**
- * Interface da Estrutura de Dado Bag.
+ * Bag.
+ * <p>
+ * Interface da estrutura de dado.
  *
  * @author Marcelo dos Santos
  * @param <Item>
@@ -18,6 +20,13 @@ public interface Bag<Item> extends Iterable<Item> {
    *          Item a ser adicionado
    */
   void add(Item item);
+
+  /**
+   * Predicado para Bag vazio.
+   * 
+   * @return boolean Valor do predicato
+   */
+  boolean isEmpty();
 
   /**
    * Retorna a quantidade de itens no Bag.
