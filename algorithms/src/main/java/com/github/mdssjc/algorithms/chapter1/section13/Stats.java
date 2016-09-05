@@ -12,7 +12,8 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive
+@TestDrive(input = { "100", "99", "101", "120", "98", "107", "109", "81", "101",
+    "90" })
 public class Stats {
 
   public static void main(final String[] args) {
