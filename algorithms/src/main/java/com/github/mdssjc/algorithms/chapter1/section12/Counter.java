@@ -10,7 +10,7 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive()
+@TestDrive
 public class Counter {
 
   private final String name;
