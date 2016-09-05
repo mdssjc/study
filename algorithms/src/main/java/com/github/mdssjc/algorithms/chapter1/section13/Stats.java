@@ -1,5 +1,7 @@
 package com.github.mdssjc.algorithms.chapter1.section13;
 
+import com.github.mdssjc.algorithms.utils.TestDrive;
+
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
@@ -10,6 +12,7 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
+@TestDrive
 public class Stats {
 
   public static void main(final String[] args) {
