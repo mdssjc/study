@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Implementação de Stack (Pilha) com tamanho fixo.
+ * Implementação de Stack (Pilha) com capacidade fixa.
  * 
  * @author Marcelo dos Santos
  *
@@ -17,29 +17,31 @@ import edu.princeton.cs.algs4.StdOut;
  */
 public class FixedCapacityStack<T> implements Stack<T> {
 
-  private final int cap;
+  private final T[] a;
+  private int       n;
 
   public FixedCapacityStack(final int cap) {
-    this.cap = cap;
+    this.a = (T[]) new Object[cap];
   }
 
   @Override
   public void push(final T item) {
+    this.a[this.n++] = item;
   }
 
   @Override
   public T pop() {
-    return null;
+    return this.a[--this.n];
   }
 
   @Override
   public boolean isEmpty() {
-    return false;
+    return this.n == 0;
   }
 
   @Override
   public int size() {
-    return 0;
+    return this.n;
   }
 
   @Override
@@ -58,7 +60,7 @@ public class FixedCapacityStack<T> implements Stack<T> {
         StdOut.print(s.pop() + " ");
       }
     }
-    
+
     StdOut.println("(" + s.size() + " left on stack)");
   }
 }
