@@ -18,7 +18,7 @@ import lombok.Getter;
  * @param <Item>
  *          Tipo de Dado
  */
-public class StackLinkedList<Item> implements Stack<Item>, Iterable<Item> {
+public class StackLinkedList<Item> implements Stack<Item> {
 
   @Getter
   private Node<Item> first;
@@ -28,7 +28,7 @@ public class StackLinkedList<Item> implements Stack<Item>, Iterable<Item> {
   public void push(final Item item) {
     final Node<Item> oldfirst = this.first;
 
-    this.first = new Node<Item>();
+    this.first = new Node<>();
     this.first.setItem(item);
     this.first.setNext(oldfirst);
 
@@ -58,7 +58,7 @@ public class StackLinkedList<Item> implements Stack<Item>, Iterable<Item> {
 
   @Override
   public Iterator<Item> iterator() {
-    return new StackLinkedListIterator<Item>(this);
+    return new StackLinkedListIterator<>(this);
   }
 
   public static void main(final String[] args) {
