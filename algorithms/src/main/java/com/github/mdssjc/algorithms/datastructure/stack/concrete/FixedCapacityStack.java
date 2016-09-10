@@ -47,7 +47,7 @@ public class FixedCapacityStack<T> implements Stack<T> {
 
   @Override
   public Iterator<T> iterator() {
-    return new StackArrayIterator<>(a, n);
+    return new StackArrayIterator<>(this.a, this.n);
   }
 
   public static void main(final String[] args) {

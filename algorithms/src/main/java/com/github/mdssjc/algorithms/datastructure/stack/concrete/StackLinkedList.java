@@ -22,7 +22,7 @@ public class StackLinkedList<T> implements Stack<T> {
 
   @Getter
   private Node<T> first;
-  private int        size;
+  private int     size;
 
   @Override
   public void push(final T item) {
