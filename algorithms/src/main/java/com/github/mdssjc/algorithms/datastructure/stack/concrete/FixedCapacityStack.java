@@ -3,6 +3,7 @@ package com.github.mdssjc.algorithms.datastructure.stack.concrete;
 import java.util.Iterator;
 
 import com.github.mdssjc.algorithms.datastructure.stack.Stack;
+import com.github.mdssjc.algorithms.datastructure.stack.concrete.iterators.StackArrayIterator;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
@@ -46,7 +47,7 @@ public class FixedCapacityStack<T> implements Stack<T> {
 
   @Override
   public Iterator<T> iterator() {
-    return null;
+    return new StackArrayIterator<>(a, n);
   }
 
   public static void main(final String[] args) {
