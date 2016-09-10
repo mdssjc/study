@@ -15,18 +15,18 @@ import lombok.Getter;
  *
  * @author Marcelo dos Santos
  *
- * @param <Item>
+ * @param <T>
  *          Tipo de Dado
  */
-public class StackLinkedList<Item> implements Stack<Item> {
+public class StackLinkedList<T> implements Stack<T> {
 
   @Getter
-  private Node<Item> first;
+  private Node<T> first;
   private int        size;
 
   @Override
-  public void push(final Item item) {
-    final Node<Item> oldfirst = this.first;
+  public void push(final T item) {
+    final Node<T> oldfirst = this.first;
 
     this.first = new Node<>();
     this.first.setItem(item);
@@ -36,8 +36,8 @@ public class StackLinkedList<Item> implements Stack<Item> {
   }
 
   @Override
-  public Item pop() {
-    final Item item = this.first.getItem();
+  public T pop() {
+    final T item = this.first.getItem();
 
     this.first = this.first.getNext();
 
@@ -57,7 +57,7 @@ public class StackLinkedList<Item> implements Stack<Item> {
   }
 
   @Override
-  public Iterator<Item> iterator() {
+  public Iterator<T> iterator() {
     return new StackLinkedListIterator<>(this);
   }
 
