@@ -10,13 +10,14 @@ import lombok.AllArgsConstructor;
  *
  * @author Marcelo dos Santos
  *
- * @param <T> Tipo de Dado
+ * @param <T>
+ *          Tipo de Dado
  */
 @AllArgsConstructor
 public class ReverseArrayIterator<T> implements Iterator<T> {
 
   private final T[] items;
-  private int          i;
+  private int       i;
 
   @Override
   public boolean hasNext() {
