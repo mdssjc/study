@@ -16,6 +16,7 @@ Infinite Circle
 JavaRanch
 JSP Junction
 LSP Lane
+Mighty Gumball, Inc.
 Objectville Diner
 Objectville PizzaStore
 OCP Orchard
@@ -47,6 +48,7 @@ Head First Lounge
 Jacobson Line
 GoF Gardens
 Servlet Springs
+Mighty Gumball, Inc.
 JavaRanch
 JSP Junction
 GoF Gardens
