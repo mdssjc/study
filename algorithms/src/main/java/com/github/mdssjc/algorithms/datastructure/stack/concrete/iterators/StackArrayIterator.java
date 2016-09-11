@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import lombok.AllArgsConstructor;
 
 /**
- * Iterador para Stack (Pilha) com Array.
+ * Iterador para Stack (Pilha) com Reverse Array.
  *
  * @author Marcelo dos Santos
  *
