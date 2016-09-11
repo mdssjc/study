@@ -11,14 +11,14 @@ import com.github.mdssjc.algorithms.datastructure.stack.concrete.StackLinkedList
  *
  * @author Marcelo dos Santos
  *
- * @param <Item>
+ * @param <T>
  *          Tipo de Dado
  */
-public class StackLinkedListIterator<Item> implements Iterator<Item> {
+public class StackLinkedListIterator<T> implements Iterator<T> {
 
-  private Node<Item> current;
+  private Node<T> current;
 
-  public StackLinkedListIterator(final StackLinkedList<Item> reference) {
+  public StackLinkedListIterator(final StackLinkedList<T> reference) {
     this.current = reference.getFirst();
   }
 
@@ -28,12 +28,12 @@ public class StackLinkedListIterator<Item> implements Iterator<Item> {
   }
 
   @Override
-  public Item next() {
+  public T next() {
     if (!hasNext()) {
       throw new NoSuchElementException("No Such Element Exception");
     }
 
-    final Item item = this.current.getItem();
+    final T item = this.current.getItem();
     this.current = this.current.getNext();
     return item;
   }
