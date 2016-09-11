@@ -3,7 +3,7 @@ package com.github.mdssjc.algorithms.datastructure.stack.concrete;
 import java.util.Iterator;
 
 import com.github.mdssjc.algorithms.datastructure.stack.Stack;
-import com.github.mdssjc.algorithms.datastructure.stack.concrete.iterators.StackArrayIterator;
+import com.github.mdssjc.algorithms.datastructure.stack.concrete.iterators.ReverseArrayIterator;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
@@ -21,8 +21,8 @@ public class ResizingArrayStack<T> implements Stack<T> {
   private T[] a;
   private int n;
 
-  public ResizingArrayStack(final int cap) {
-    this.a = (T[]) new Object[cap];
+  public ResizingArrayStack() {
+    this.a = (T[]) new Object[1];
   }
 
   @Override
@@ -55,7 +55,7 @@ public class ResizingArrayStack<T> implements Stack<T> {
 
   @Override
   public Iterator<T> iterator() {
-    return new StackArrayIterator<>(this.a, this.n);
+    return new ReverseArrayIterator<>(this.a, this.n);
   }
 
   private void resize(final int max) {
@@ -67,7 +67,7 @@ public class ResizingArrayStack<T> implements Stack<T> {
   }
 
   public static void main(final String[] args) {
-    final ResizingArrayStack<String> s = new ResizingArrayStack<>(100);
+    final ResizingArrayStack<String> s = new ResizingArrayStack<>();
 
     while (!StdIn.isEmpty()) {
       final String item = StdIn.readString();
