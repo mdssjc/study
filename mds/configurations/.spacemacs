@@ -1,3 +1,11 @@
+;; =========================================
+;; Arquivo de Configuração do Emacs (25.1.1)
+;; Extensão: Spacemacs (Develop)
+;;
+;; autor  : Marcelo dos Santos
+;; versão : 1.1
+;; url    : https://github.com/mdssjc/emacs/blob/master/.spacemacs
+;;
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
@@ -36,8 +44,8 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
      ;; Completion/Text
+     helm
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
@@ -46,13 +54,48 @@ values."
                       auto-completion-private-snippets-directory nil
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t
-                      auto-completion-enable-sort-by-usage t)
+                      auto-completion-enable-sort-by-usage t
+                      spacemacs-default-company-backends '(
+                                                           company-abbrev
+                                                           company-bbdb
+                                                           company-capf
+                                                           company-clang
+                                                           company-cmake
+                                                           company-css
+                                                           company-dabbrev-code
+                                                           company-dabbrev
+                                                           ;; company-eclim
+                                                           company-elisp
+                                                           company-etags
+                                                           company-files
+                                                           company-gtags
+                                                           company-ispell
+                                                           company-keywords
+                                                           ;; company-nxml
+                                                           company-oddmuse
+                                                           company-semantic
+                                                           company-template
+                                                           company-tempo
+                                                           company-web-html
+                                                           company-yasnippet
+                                                           company-dict
+                                                           company-emacs-eclim))
+     (syntax-checking :variables
+                      syntax-checking-use-original-bitmaps t)
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil
+                     enable-flyspell-auto-completion t)
      better-defaults
      semantic
-     syntax-checking
-     spell-checking
      ;; ycmd
-     smex
+     ;; smex
+     (geolocation :variables
+                  geolocation-enable-automatic-theme-changer nil
+                  geolocation-enable-location-service nil
+                  geolocation-enable-weather-forecast t)
+     dash
+     colors
+     search-engine
      ;; Documents
      org
      html
@@ -60,13 +103,14 @@ values."
      plantuml
      ;; Languages
      emacs-lisp
+     racket
+     clojure
      java
      javascript
-     clojure
-     racket
-     shell-scripts
      c-c++
      sml
+     shell-scripts
+     sql
      ;; Terminal
      (shell :variables
             shell-default-height 30
@@ -75,6 +119,8 @@ values."
      git
      github
      version-control
+     ;; Private
+     mds-text                           ; https://github.com/mdssjc/emacs
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -82,11 +128,17 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     ;; (peep-dired)
-     ;; (wttrin)
-     (puml-mode) ; Plant UML
-     ;; (jdee)
+     (langtool)
      (java-snippets)
+     (peep-dired)
+     (company-dict)
+     (ensime)
+     (feature-mode)
+     (sqlup-mode)
+     ;; (wttrin)
+     ;; (puml-mode)
+     ;; (jdee)
+     ;; (company-emacs-eclim)
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -116,7 +168,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 10
    ;; If non nil then spacemacs will check for updates at startup
@@ -148,8 +200,12 @@ values."
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
+   ;; List sizes may be nil, in which case
+   ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
                                 (projects . 7))
+   ;; True if the home buffer should respond to resize events.
+   dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
@@ -194,7 +250,7 @@ values."
    dotspacemacs-retain-visual-state-on-shift t
    ;; If non-nil, J and K move lines up and down when in visual mode.
    ;; (default nil)
-   dotspacemacs-visual-line-move-text nil
+   dotspacemacs-visual-line-move-text t
    ;; If non nil, inverse the meaning of `g' in `:substitute' Evil ex-command.
    ;; (default nil)
    dotspacemacs-ex-substitute-global nil
@@ -326,101 +382,137 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; Arquivo com dados sigilosos.
+  ;; SECRET
   (load "~/.emacs-secrets.el")
 
   ;; GLOBAL
-  (define-key global-map [C-tab] 'cycle-spacing)
-  (setq powerline-default-separator 'bar)
+  (prefer-coding-system 'utf-8)
+  (setq powerline-default-separator 'bar
+        standard-indent 2
+        tab-width 2
+        indent-tabs-mode nil
+        tab-stop-list '(2  4  6)
+        tab-always-indent 'complete)
+  ;; -> ISPELL (HUNSPELL)
+  (setq ispell-program-name "hunspell"
+        ispell-dictionary "pt_BR"
+        ispell-really-hunspell t)
+  ;; -> LANGUAGETOOL
+  ;; https://github.com/languagetool-org/languagetool
+  (setq langtool-language-tool-jar "/home/mdssjc/Documents/Git/languagetool/languagetool-standalone/target/LanguageTool-3.5-SNAPSHOT/LanguageTool-3.5-SNAPSHOT/languagetool-commandline.jar"
+        langtool-default-language "pt-BR"
+        langtool-mother-tongue "pt-BR"
+        langtool-autoshow-message-function (lambda (overlays)
+                                             (when (require 'popup nil t)
+                                               (unless (or popup-instances
+                                                           (memq last-command '(keyboard-quit)))
+                                                 (let ((msg (langtool-details-error-message overlays)))
+                                                   (popup-tip msg))))))
+  (spacemacs/declare-prefix "Sl" "langtool")
+  (spacemacs/set-leader-keys
+    "Slc" 'langtool-check
+    "Slb" 'langtool-correct-buffer
+    "Sld" 'langtool-check-done)
+  ;; -> AUTO-COMPLETE
+  (global-company-mode t)
+   ;; -> OFFLINE DOC
+  (setq helm-dash-browser-func 'eww)
+
+  ;; TODO
+  ;; (defun mds/daemon-systemd ()
+  ;;   (interactive)
+  ;;   (message "todo"))
 
   ;; JAVA
-  (defun mds:java-mode()
-    ;; (require 'jdee)
-    (require 'eclim)
-    (require 'eclimd)
+  (defun mds/java-mode ()
     (require 'java-snippets)
-    (require 'company)
-    (require 'company-emacs-eclim)
     (setq c-basic-offset 2
-          tab-width 2
-          indent-tabs-mode nil)
-    (global-eclim-mode)
-    (global-company-mode)
-    (company-emacs-eclim-setup)
-    (setq eclim-eclipse-dirs "~/Applications/eclipse"
-          eclim-executable   "~/Applications/eclipse/eclim"
-          eclimd-executable  "~/Applications/eclipse/eclimd"
+          eclim-eclipse-dirs "~/Applications/eclipse-headless"
+          eclim-executable "~/Applications/eclipse-headless/eclim"
           eclimd-executable nil
-          eclimd-default-workspace "~/workspace"
+          eclimd-default-workspace "~/workspace-headless"
           eclim-auto-save nil
           eclimd-wait-for-process t)
-    ;; (setq jdee-server-dir "~/Documents/Git/jdee-server/target/")
-    (start-eclimd "~/workspace"))
-  (add-hook 'java-mode-hook 'mds:java-mode)
-  (add-hook 'java-mode-hook 'semantic-mode)
+    (global-eclim-mode)
+    (company-emacs-eclim-setup))
+  (add-hook 'java-mode-hook 'mds/java-mode)
 
   ;; CIDER/CLOJURE
   (add-hook 'cider-mode-hook (lambda ()
-                               (setq clojure-enable-fancify-symbols t)
-                               ))
-
-  ;; ISPELL
-  (setq ispell-program-name "hunspell"
-        ispell-dictionary "pt_BR")
+                               (setq clojure-enable-fancify-symbols t)))
 
   ;; PLANT UML
   ;; (setq puml-plantuml-jar-path "/home/mdssjc/Applications/java/plantuml.jar")
 
   ;; AUTO-COMPLETE
-  (global-company-mode)
-  (add-to-list 'company-backend 'company-ispell)
+  ;; (setq ac-sources '(ac-source-abbrev
+  ;;                    ac-source-dictionary
+  ;;                    ac-source-eclim
+  ;;                    ac-source-features
+  ;;                    ac-source-filename
+  ;;                    ac-source-functions
+  ;;                    ac-source-imenu
+  ;;                    ac-source-ispell
+  ;;                    ac-source-ispell-fuzzy
+  ;;                    ac-source-semantic
+  ;;                    ac-source-symbols
+  ;;                    ac-source-variables
+  ;;                    ac-source-words-in-all-buffer
+  ;;                    ac-source-words-in-same-mode-buffers
+  ;;                    ac-source-yasnippet
+  ;;                    ac-source-filename))
+  ;; (setq ac-ignore-case 'smart)
+
+  ;; YCMD
+  ;; https://github.com/abingham/emacs-ycmd
   ;; (setq ycmd-request-message-level -1)
   ;; (set-variable 'ycmd-server-command '("python2" "/usr/share/vim/vimfiles/third_party/ycmd/ycmd"))
   ;; (company-ycmd-setup)
-  (setq ac-sources '(ac-source-abbrev
-                     ac-source-dictionary
-                     ac-source-eclim
-                     ac-source-features
-                     ac-source-filename
-                     ac-source-functions
-                     ac-source-imenu
-                     ac-source-ispell
-                     ac-source-ispell-fuzzy
-                     ac-source-semantic
-                     ac-source-symbols
-                     ac-source-variables
-                     ac-source-words-in-all-buffer
-                     ac-source-words-in-same-mode-buffers
-                     ac-source-yasnippet
-                     ac-source-filename))
-  (setq ac-ignore-case 'smart)
 
   ;; SEMANTIC
-  (require 'semantic)
-  (require 'semantic/ia)
-  (require 'semantic/db)
-  (require 'semantic/bovine)
-  (require 'semantic/senator)
-  (require 'semantic/analyze)
-  (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-  (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
-  (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
-  (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
-  (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
-  (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
-  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-  (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
-  (global-semanticdb-minor-mode 1)
-  (global-semantic-idle-summary-mode 1)
-  (semantic-mode 1)
+  (defun mds/semantic ()
+    (require 'semantic)
+    (require 'semantic/ia)
+    (require 'semantic/db)
+    (require 'semantic/bovine)
+    (require 'semantic/senator)
+    (require 'semantic/analyze)
+    (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
+    (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+    (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
+    (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
+    (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
+    (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
+    (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+    (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
+    (global-semanticdb-minor-mode 1)
+    (global-semantic-idle-summary-mode 1)
+    (semantic-mode 1))
+  (mapcar (lambda (x) (add-hook x 'mds/semantic)) '(emacs-lisp-mode-hook
+                                                    c++-mode-hook
+                                                    java-mode-hook))
 
   ;; ORG MODE
-  (add-hook org-mode-hook (lambda ()
-                            (setq org-todo-keywords
-                                  '((sequence "TODO" "PROGRESS" "|" "DONE")
-                                    (sequence "REPORT" "BUG" "KNOWNCAUSE" "|" "FIXED")
-                                    (sequence "|" "CANCELED")))
-                            ))
+  (setq org-todo-keyword-faces '(("TODO"     . "blue1")
+                                 ("DONE"     . "forestgreen")
+                                 ("FIXED"    . "forestgreen")
+                                 ("PASS"     . "forestgreen")
+                                 ("FAIL"     . "red1")
+                                 ("CANCELED" . "red1")
+                                 ;; Kanban
+                                 ("TODO" . org-warning)
+                                 ("DOING" . "yellow")
+                                 ("BLOCKED" . "red")
+                                 ("REVIEW" . "orange")
+                                 ("DONE" . "green")
+                                 ("ARCHIVED" .  "blue"))
+        org-todo-keywords '((sequence "TODO" "PROGRESS" "|" "DONE")
+                            (sequence "REPORT" "BUG" "KNOWNCAUSE" "|" "FIXED")
+                            (sequence "VERIFY" "FAIL" "|" "PASS")
+                            (sequence "|" "CANCELED")
+                            ;; Kanban
+                            (sequence "TODO" "DOING" "BLOCKED" "REVIEW" "|" "DONE" "ARCHIVED")))
+  (setq org-default-notes-file "~/.todo-list.org")
 
   ;; ABBREV
   (abbrev-mode t)
@@ -430,8 +522,7 @@ you should place your code here."
       ("mds" "Marcelo dos Santos" nil 1)
       ("qw" "http://mdssjc.github.io/" nil 1)
       ("qb" "https://mdssjc.gitbooks.io/mds/content/" nil 1)
-      ("qr" "https://github.com/mdssjc/" nil 1)
-      ))
+      ("qr" "https://github.com/mdssjc/" nil 1)))
 
   (spaceline-compile)
   )
@@ -445,7 +536,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (eclim ht mwim ox-reveal ox-gfm flyspell-popup flyspell-correct-popup flyspell-correct-ivy ivy evil-unimpaired f smex malabar-mode groovy-mode noflet ensime sbt-mode scala-mode uuidgen org-projectile org org-download livid-mode skewer-mode simple-httpd link-hint github-search flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-ediff goto-chg undo-tree eshell-z diminish company-shell column-enforce-mode clojure-snippets seq java-snippets ob-sml sml-mode marshal ycmd request-deferred deferred web-beautify json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc fish-mode disaster company-tern dash-functional tern company-c-headers coffee-mode cmake-mode clang-format jdee puml-mode wttrin racket-mode faceup flycheck-clojure powerline alert log4e gntp parent-mode request haml-mode gitignore-mode fringe-helper git-gutter+ gh logito pcache flx iedit web-completion-data pos-tip peg eval-sexp-fu highlight pkg-info epl dash async bind-key bind-map popup smartparens with-editor git-gutter anzu s yasnippet spinner hydra auto-complete packed flycheck helm-core magit magit-popup git-commit evil projectile avy company helm markdown-mode clj-refactor cider quelpa zenburn-theme xterm-color ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe use-package toc-org tagedit stickyfunc-enhance srefactor spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters queue popwin persp-mode peep-dired pcre2el paredit paradox page-break-lines package-build orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree multiple-cursors multi-term move-text monokai-theme mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jade-mode info+ inflections indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode emacs-eclim elisp-slime-nav edn diff-hl define-word company-ycmd company-web company-statistics company-quickhelp clojure-mode clean-aindent-mode cider-eval-sexp-fu buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (engine-mode rainbow-mode rainbow-identifiers color-identifiers-mode sql-indent sqlup-mode feature-mode zeal-at-point helm-dash langtool company-dict ensime sbt-mode scala-mode company-emacs-eclim flyspell-popup theme-changer sunshine rase osx-location peep-dired dumb-jump powerline faceup org alert log4e gntp sml-mode markdown-mode skewer-mode simple-httpd json-snatcher json-reformat js2-mode parent-mode projectile request haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter gh marshal logito pcache ht flyspell-correct flycheck flx with-editor iedit anzu evil goto-chg undo-tree diminish web-completion-data dash-functional tern pos-tip company hydra inflections edn multiple-cursors paredit s peg eval-sexp-fu highlight cider seq spinner queue pkg-info clojure-mode epl bind-map bind-key yasnippet packed dash avy async auto-complete popup package-build magit magit-popup git-commit smartparens web-mode evil-unimpaired helm helm-core xterm-color ws-butler window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit stickyfunc-enhance srefactor spacemacs-theme spaceline smex smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters racket-mode quelpa puml-mode popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-sml neotree mwim multi-term move-text mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc java-snippets jade-mode info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator fancy-battery f eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav eclim disaster diff-hl define-word company-web company-tern company-statistics company-shell company-quickhelp company-c-headers column-enforce-mode coffee-mode cmake-mode clojure-snippets clj-refactor clean-aindent-mode clang-format cider-eval-sexp-fu auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
