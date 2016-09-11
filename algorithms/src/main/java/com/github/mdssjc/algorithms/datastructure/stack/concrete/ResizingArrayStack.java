@@ -9,19 +9,19 @@ import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Implementação de Stack (Pilha) com capacidade automática.
+ * Implementação de Stack (Pilha) com capacidade redimensionável.
  * 
  * @author Marcelo dos Santos
  *
  * @param <T>
  *          Tipo de Dado
  */
-public class ArrayResizingStack<T> implements Stack<T> {
+public class ResizingArrayStack<T> implements Stack<T> {
 
   private T[] a;
   private int n;
 
-  public ArrayResizingStack(final int cap) {
+  public ResizingArrayStack(final int cap) {
     this.a = (T[]) new Object[cap];
   }
 
@@ -67,7 +67,7 @@ public class ArrayResizingStack<T> implements Stack<T> {
   }
 
   public static void main(final String[] args) {
-    final ArrayResizingStack<String> s = new ArrayResizingStack<>(100);
+    final ResizingArrayStack<String> s = new ResizingArrayStack<>(100);
 
     while (!StdIn.isEmpty()) {
       final String item = StdIn.readString();
