@@ -25,6 +25,14 @@ public class ResizingArrayStack<T> implements Stack<T> {
     this.a = (T[]) new Object[1];
   }
 
+  private void resize(final int max) {
+    final T[] temp = (T[]) new Object[max];
+    for (int i = 0; i < this.n; i++) {
+      temp[i] = this.a[i];
+    }
+    this.a = temp;
+  }
+
   @Override
   public void push(final T item) {
     if (this.n == this.a.length) {
@@ -56,14 +64,6 @@ public class ResizingArrayStack<T> implements Stack<T> {
   @Override
   public Iterator<T> iterator() {
     return new ReverseArrayIterator<>(this.a, this.n);
-  }
-
-  private void resize(final int max) {
-    final T[] temp = (T[]) new Object[max];
-    for (int i = 0; i < this.n; i++) {
-      temp[i] = this.a[i];
-    }
-    this.a = temp;
   }
 
   public static void main(final String[] args) {
