@@ -10,12 +10,12 @@ import lombok.AllArgsConstructor;
  *
  * @author Marcelo dos Santos
  *
- * @param <Item> Tipo de Dado
+ * @param <T> Tipo de Dado
  */
 @AllArgsConstructor
-public class StackArrayIterator<Item> implements Iterator<Item> {
+public class ReverseArrayIterator<T> implements Iterator<T> {
 
-  private final Item[] items;
+  private final T[] items;
   private int          i;
 
   @Override
@@ -24,7 +24,7 @@ public class StackArrayIterator<Item> implements Iterator<Item> {
   }
 
   @Override
-  public Item next() {
+  public T next() {
     if (!hasNext()) {
       throw new NoSuchElementException("No Such Element Exception");
     }
