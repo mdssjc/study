@@ -8,7 +8,13 @@
 # autor: Marcelo dos Santos
 #
 
-skip=(citacoes files exercises emacs25-git mds mdssjc.github.io study)
+skip=(citacoes exercises mds mdssjc.github.io study)
+list=()
+
+if [[ ${list[@]} -eq 1 ]]
+then
+  echo "vazio"
+fi
 
 update () {
     case $1 in
@@ -18,12 +24,13 @@ update () {
         "emacs")
             ./configure
             make
-            make install
+            sudo make install
             ;;
         *)
-            makepkg -s --skippgpcheck
-            file=$(ls -A1t | tail -n +2 | head -1)
-            pacman -U $file
+            #makepkg -s --skippgpcheck
+            #file=$(ls -A1t | tail -n +2 | head -1)
+            #pacman -U $file
+            list+=$1
             ;;
     esac
 }
@@ -39,7 +46,7 @@ contains () {
     return 1
 }
 
-sudo echo "[[MDS]]"
+echo "[[MDS]]"
 for d in $(ls -d */); do
     directory=${d::-1}
     echo $directory
@@ -62,3 +69,11 @@ for d in $(ls -d */); do
     echo "Leaving directory" $(pwd)
     cd ..
 done
+
+if [[ ${list[@]} -eq 0 ]]
+then
+  echo "---"
+else
+  echo "Updates"
+  printf ${list}
+fi
