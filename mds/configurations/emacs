@@ -3,25 +3,20 @@
 #############
 
 Objetivo:
-    Realizar a instalação e/ou a atualização do software Emacs
+  Realizar a instalação e/ou a atualização do software Emacs
 
-Remova a versão antiga do emacs:
-    sudo apt-get remove emacs
+Clone o repositório do Emacs no Github:
+  git clone https://github.com/emacs-mirror/emacs
 
-Instale e construa as dependências do emacs:
-    sudo apt-get install build-essential
-    sudo apt-get build-dep emacs24
+Compile e instale o Emacs:
+  ./configure
+  make
+  sudo make install
 
-Faça o download do Emacs:
-    wget http://ftp.gnu.org/gnu/emacs/emacs-24.5.tar.gz
+Para atualizar:
+  git pull
+  make
+  sudo make install
 
-Descompacte o arquivo para o local /opt:
-    sudo mkdir /opt/emacs
-    sudo tar -xzf emacs-24.5.tar.gz -C /opt/emacs
-
-Compile e Instale o emacs:
-    cd /opt/emacs/emacs-24.5
-    ./configure
-    make
-    sudo make install
-
+Informações sobre a instalação:
+  Arquivo INSTALL
