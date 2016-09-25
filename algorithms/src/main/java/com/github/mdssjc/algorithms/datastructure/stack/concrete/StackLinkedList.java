@@ -11,7 +11,7 @@ import edu.princeton.cs.algs4.StdOut;
 import lombok.Getter;
 
 /**
- * Implementação de Stack (Pilha) com Linked List (Lista Linkada).
+ * Implementação de Pushdown Stack (Pilha) com Linked List (Lista Linkada).
  *
  * @author Marcelo dos Santos
  *
@@ -62,15 +62,16 @@ public class StackLinkedList<T> implements Stack<T> {
   }
 
   public static void main(final String[] args) {
-    final StackLinkedList<String> stack = new StackLinkedList<>();
+    final Stack<String> stack = new StackLinkedList<>();
 
     while (!StdIn.isEmpty()) {
       final String s = StdIn.readString();
-      if (s.equals("-")) {
-        StdOut.print(stack.pop() + " ");
-      } else {
+      if (!s.equals("-")) {
         stack.push(s);
+      } else if (!stack.isEmpty()) {
+        StdOut.print(stack.pop() + " ");
       }
+      StdOut.println("(" + stack.size() + " left on stack)");
     }
   }
 }
