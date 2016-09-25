@@ -5,6 +5,9 @@ import java.util.Iterator;
 import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
 import com.github.mdssjc.algorithms.datastructure.queue.Queue;
 
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
+
 /**
  * Implementação de FIFO Queue (Fila) com Linked List (Lista Linkada).
  *
@@ -64,5 +67,19 @@ public class QueueLinkedList<T> implements Queue<T> {
   @Override
   public Iterator<T> iterator() {
     return null;
+  }
+
+  public static void main(final String[] args) {
+    final Queue<String> q = new QueueLinkedList<>();
+
+    while (!StdIn.isEmpty()) {
+      final String item = StdIn.readString();
+      if (!item.equals("-")) {
+        q.enqueue(item);
+      } else if (!q.isEmpty()) {
+        StdOut.print(q.dequeue() + "");
+      }
+      StdOut.println("(" + q.size() + " left on queue)");
+    }
   }
 }
