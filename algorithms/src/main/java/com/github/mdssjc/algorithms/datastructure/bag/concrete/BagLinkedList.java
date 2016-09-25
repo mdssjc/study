@@ -3,6 +3,7 @@ package com.github.mdssjc.algorithms.datastructure.bag.concrete;
 import java.util.Iterator;
 
 import com.github.mdssjc.algorithms.datastructure.bag.Bag;
+import com.github.mdssjc.algorithms.datastructure.iterators.LinkedListIterator;
 import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
 
 /**
@@ -43,6 +44,6 @@ public class BagLinkedList<T> implements Bag<T> {
 
   @Override
   public Iterator<T> iterator() {
-    return null;
+    return new LinkedListIterator<>(this.first);
   }
 }
