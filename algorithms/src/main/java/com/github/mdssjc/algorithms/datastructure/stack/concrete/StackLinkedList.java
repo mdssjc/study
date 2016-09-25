@@ -11,7 +11,8 @@ import edu.princeton.cs.algs4.StdOut;
 import lombok.Getter;
 
 /**
- * Implementação de Pushdown Stack (Pilha) com Linked List (Lista Linkada).
+ * Implementação de Pushdown (LIFO) Stack (Pilha) com Linked List (Lista
+ * Linkada).
  *
  * @author Marcelo dos Santos
  *
