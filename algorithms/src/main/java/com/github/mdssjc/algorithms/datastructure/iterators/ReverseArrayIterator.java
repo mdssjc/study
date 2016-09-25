@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.datastructure.stack.concrete.iterators;
+package com.github.mdssjc.algorithms.datastructure.iterators;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import lombok.AllArgsConstructor;
 
 /**
- * Iterador para Stack (Pilha) com Reverse Array.
+ * Iterador para Reverse Array.
  *
  * @author Marcelo dos Santos
  *

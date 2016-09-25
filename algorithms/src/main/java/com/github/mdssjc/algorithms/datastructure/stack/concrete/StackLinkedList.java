@@ -2,9 +2,9 @@ package com.github.mdssjc.algorithms.datastructure.stack.concrete;
 
 import java.util.Iterator;
 
+import com.github.mdssjc.algorithms.datastructure.iterators.LinkedListIterator;
 import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
 import com.github.mdssjc.algorithms.datastructure.stack.Stack;
-import com.github.mdssjc.algorithms.datastructure.stack.concrete.iterators.StackLinkedListIterator;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
@@ -59,7 +59,7 @@ public class StackLinkedList<T> implements Stack<T> {
 
   @Override
   public Iterator<T> iterator() {
-    return new StackLinkedListIterator<>(this);
+    return new LinkedListIterator<>(this.first);
   }
 
   public static void main(final String[] args) {

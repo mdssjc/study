@@ -2,6 +2,7 @@ package com.github.mdssjc.algorithms.datastructure.queue.concrete;
 
 import java.util.Iterator;
 
+import com.github.mdssjc.algorithms.datastructure.iterators.LinkedListIterator;
 import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
 import com.github.mdssjc.algorithms.datastructure.queue.Queue;
 
@@ -66,7 +67,7 @@ public class QueueLinkedList<T> implements Queue<T> {
 
   @Override
   public Iterator<T> iterator() {
-    return null;
+    return new LinkedListIterator<>(this.first);
   }
 
   public static void main(final String[] args) {

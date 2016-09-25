@@ -27,6 +27,17 @@ public class Executor {
       // StdOut.printf("java %s%n", clazz.getSimpleName());
       // method.invoke(null, (Object) null);
       // } else {
+
+//      Queue<String> queue = new LinkedList<>();
+//      StubbedInputStream in = new StubbedInputStream(queue);
+//      for (final Annotation annotation : annotations) {
+//        final TestDrive td = (TestDrive) annotation;
+//        queue.add(Arrays.stream(td.input())
+//          .collect(Collectors.joining(" ")));
+//      }
+//
+//      System.setIn(in);
+
       for (final Annotation annotation : annotations) {
         final TestDrive td = (TestDrive) annotation;
         StdOut.printf("java %s %s%n", clazz.getSimpleName(),

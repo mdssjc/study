@@ -2,8 +2,8 @@ package com.github.mdssjc.algorithms.datastructure.stack.concrete;
 
 import java.util.Iterator;
 
+import com.github.mdssjc.algorithms.datastructure.iterators.ReverseArrayIterator;
 import com.github.mdssjc.algorithms.datastructure.stack.Stack;
-import com.github.mdssjc.algorithms.datastructure.stack.concrete.iterators.ReverseArrayIterator;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
