@@ -53,7 +53,7 @@ public class QueueLinkedList<T> implements Queue<T> {
 
   @Override
   public boolean isEmpty() {
-    return this.size() == 0;
+    return this.size == 0;
   }
 
   @Override
