@@ -32,8 +32,8 @@ public class LinkedListIterator<T> implements Iterator<T> {
       throw new NoSuchElementException("No Such Element Exception");
     }
 
-    final T item = this.current.getItem();
-    this.current = this.current.getNext();
+    final T item = this.current.item;
+    this.current = this.current.next;
     return item;
   }
 

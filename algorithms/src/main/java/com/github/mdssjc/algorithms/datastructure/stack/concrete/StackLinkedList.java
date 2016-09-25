@@ -30,17 +30,17 @@ public class StackLinkedList<T> implements Stack<T> {
     final Node<T> oldfirst = this.first;
 
     this.first = new Node<>();
-    this.first.setItem(item);
-    this.first.setNext(oldfirst);
+    this.first.item = item;
+    this.first.next = oldfirst;
 
     this.size++;
   }
 
   @Override
   public T pop() {
-    final T item = this.first.getItem();
+    final T item = this.first.item;
 
-    this.first = this.first.getNext();
+    this.first = this.first.next;
 
     this.size--;
 
