@@ -9,14 +9,14 @@ Clone o repositório do Emacs no Github:
   git clone https://github.com/emacs-mirror/emacs
 
 Compile e instale o Emacs:
-  ./configure
+  ./autogen.sh all
+  ./configure [--with-modules --enable-link-time-optimization --with-x-toolkit=gtk3 --with-xwidgets]
   make
   sudo make install
 
 Para atualizar:
   git pull
-  make
-  sudo make install
+  E repita a etapa anterior.
 
 Informações sobre a instalação:
   Arquivo INSTALL
