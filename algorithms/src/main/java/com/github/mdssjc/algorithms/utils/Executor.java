@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
@@ -23,21 +24,6 @@ public class Executor {
       final Annotation[] annotations = clazz
         .getAnnotationsByType(TestDrive.class);
 
-      // if (annotations.length == 0) {
-      // StdOut.printf("java %s%n", clazz.getSimpleName());
-      // method.invoke(null, (Object) null);
-      // } else {
-
-//      Queue<String> queue = new LinkedList<>();
-//      StubbedInputStream in = new StubbedInputStream(queue);
-//      for (final Annotation annotation : annotations) {
-//        final TestDrive td = (TestDrive) annotation;
-//        queue.add(Arrays.stream(td.input())
-//          .collect(Collectors.joining(" ")));
-//      }
-//
-//      System.setIn(in);
-
       for (final Annotation annotation : annotations) {
         final TestDrive td = (TestDrive) annotation;
         StdOut.printf("java %s %s%n", clazz.getSimpleName(),
@@ -53,15 +39,19 @@ public class Executor {
               Arrays.stream(td.input())
                 .collect(Collectors.joining(" "))
                 .getBytes()));
+
+          final Method resync = StdIn.class.getDeclaredMethod("resync");
+          resync.setAccessible(true);
+          resync.invoke(null);
         }
 
         method.invoke(null, (Object) value);
       }
-      // }
     } catch (IllegalArgumentException | NoSuchMethodException
         | SecurityException | IllegalAccessException
         | InvocationTargetException exception) {
       StdOut.println(exception.getMessage());
+      StdOut.println(exception);
     }
   }
 
