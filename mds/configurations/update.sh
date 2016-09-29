@@ -10,6 +10,7 @@
 
 skip=(citacoes exercises mds mdssjc.github.io study)
 list=()
+isEmacs=0
 
 if [[ ${list[@]} -eq 1 ]]
 then
@@ -22,9 +23,7 @@ update () {
             ./build.sh languagetool-standalone clean package -DskipTests
             ;;
         "emacs")
-            ./configure
-            make
-            sudo make install
+            isEmacs=1
             ;;
         *)
             #makepkg -s --skippgpcheck
@@ -70,10 +69,17 @@ for d in $(ls -d */); do
     cd ..
 done
 
-if [[ ${list[@]} -eq 0 ]]
-then
-  echo "---"
+if [[ isEmacs -eq 1 ]]; then
+    ./autogen.sh all
+    ./configure --with-modules --enable-link-time-optimization --with-x-toolkit=gtk3 --with-xwidgets
+    make
+    sudo make install
+fi
+
+
+if [[ ${list[@]} -eq 0 ]]; then
+    echo "---"
 else
-  echo "Updates"
-  printf ${list}
+    echo "Updates"
+    printf ${list}
 fi
