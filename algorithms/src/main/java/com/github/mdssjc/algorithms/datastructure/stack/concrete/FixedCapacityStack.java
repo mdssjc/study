@@ -18,8 +18,8 @@ import edu.princeton.cs.algs4.StdOut;
  */
 public class FixedCapacityStack<T> implements Stack<T> {
 
-  private final T[] a;
-  private int       n;
+  protected final T[] a;
+  protected int       n;
 
   public FixedCapacityStack(final int cap) {
     this.a = (T[]) new Object[cap];
@@ -38,10 +38,6 @@ public class FixedCapacityStack<T> implements Stack<T> {
   @Override
   public boolean isEmpty() {
     return this.n == 0;
-  }
-
-  public boolean isFull() {
-    return this.n == a.length;
   }
 
   @Override
