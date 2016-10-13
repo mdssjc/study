@@ -1,6 +1,5 @@
 package com.github.mdssjc.algorithms.chapter1.exercises13;
 
-import com.github.mdssjc.algorithms.datastructure.stack.concrete.FixedCapacityStack;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 
@@ -12,11 +11,12 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
  */
 @TestDrive( {"10"} )
 public class Ex1 {
+
   public static void main(String[] args) {
     Executor.execute(Ex1.class, args);
 
     final int n = Integer.parseInt(args[0]);
-    FixedCapacityStack<Integer> stack = new FixedCapacityStack<>(n);
+    StackEx1<Integer> stack = new StackEx1<>(n);
 
     for (int i = 0; i < n; i++) {
       stack.push(i);
