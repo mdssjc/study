@@ -40,6 +40,10 @@ public class FixedCapacityStack<T> implements Stack<T> {
     return this.n == 0;
   }
 
+  public boolean isFull() {
+    return this.n == a.length;
+  }
+
   @Override
   public int size() {
     return this.n;
