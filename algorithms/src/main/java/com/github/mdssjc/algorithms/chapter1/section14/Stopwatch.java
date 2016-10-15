@@ -1,6 +1,7 @@
-package com.github.mdssjc.algorithms.utils;
+package com.github.mdssjc.algorithms.chapter1.section14;
 
-import com.github.mdssjc.algorithms.chapter1.section14.ThreeSum;
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
