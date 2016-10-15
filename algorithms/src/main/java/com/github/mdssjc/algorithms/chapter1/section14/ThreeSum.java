@@ -7,6 +7,8 @@ import edu.princeton.cs.algs4.StdOut;
 
 /**
  * ThreeSum Class.
+ * <p>
+ * Count triples that sum to 0.
  *
  * @author Marcelo dos Santos
  *
@@ -18,7 +20,6 @@ import edu.princeton.cs.algs4.StdOut;
 public class ThreeSum {
 
   public static int count(final int[] a) {
-    // Count triples that sum to 0.
     final int n = a.length;
     int cnt = 0;
     for (int i = 0; i < n; i++) {
