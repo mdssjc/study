@@ -17,6 +17,7 @@ import com.github.mdssjc.dp.strategy.contexts.*;
 public class Main {
 
   public static void main(String[] args) {
+    // Versão Clássica
     ImplementationX ca = new ImplementationA();
     ImplementationX cb = new ImplementationB();
     ImplementationX cc = new ImplementationC();
@@ -37,5 +38,11 @@ public class Main {
     System.out.println("<<Null>>");
     ImplementationX cnull = new ImplementationNull();
     cnull.useAlgorithm();
+
+    // Versão Funcional
+    final ImplementationA fca = new ImplementationA();
+    fca.useAlgorithm();
+    fca.setAlgorithm(() -> System.out.println("Functional Algorithm A"));
+    fca.useAlgorithm();
   }
 }
