@@ -1,18 +1,17 @@
 package com.github.mdssjc.algorithms.chapter1.section13;
 
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
  * Stats Class.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive(input = { "100 99 101 120 98 107 109 81 101 90" })
+@TestDrive( input = "100 99 101 120 98 107 109 81 101 90" )
 public class Stats {
 
   public static void main(final String[] args) {

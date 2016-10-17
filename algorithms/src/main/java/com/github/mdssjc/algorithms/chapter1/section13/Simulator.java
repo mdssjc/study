@@ -4,9 +4,9 @@ import com.github.mdssjc.algorithms.utils.Executor;
 
 /**
  * Simulator Class.
- * 
+ *
  * @author Marcelo dos Santos
- * 
+ *
  */
 public class Simulator {
 

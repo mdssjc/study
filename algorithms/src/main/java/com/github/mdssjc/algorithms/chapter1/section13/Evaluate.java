@@ -2,7 +2,6 @@ package com.github.mdssjc.algorithms.chapter1.section13;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
@@ -11,12 +10,12 @@ import edu.princeton.cs.algs4.StdOut;
  * Evaluate Class.
  * <p>
  * Dijkstra’s two-Stack Algorithm for expression evaluation.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive(input = { "( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) )" })
-@TestDrive(input = { "( ( 1 + sqrt ( 5.0 ) ) / 2.0 )" })
+@TestDrive( input = "( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) )" )
+@TestDrive( input = "( ( 1 + sqrt ( 5.0 ) ) / 2.0 )" )
 public class Evaluate {
 
   public static void main(final String[] args) {
