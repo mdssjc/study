@@ -8,7 +8,7 @@ import com.github.mdssjc.algorithms.datastructure.stack.concrete.FixedCapacitySt
  * @author Marcelo dos Santos
  *
  */
-public class StackEx7<T> extends FixedCapacityStack<T>{
+public class StackEx7<T> extends FixedCapacityStack<T> {
 
   public StackEx7(final int cap) {
     super(cap);

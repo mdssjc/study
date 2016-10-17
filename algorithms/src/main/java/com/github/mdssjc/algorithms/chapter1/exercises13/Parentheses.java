@@ -9,6 +9,7 @@ import com.github.mdssjc.algorithms.datastructure.stack.concrete.StackLinkedList
  *
  */
 public class Parentheses {
+
   private final StackLinkedList<String> stack;
   private boolean result;
 

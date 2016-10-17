@@ -11,7 +11,7 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive("50")
+@TestDrive( "50" )
 public class Ex5 {
 
   public static void main(final String[] args) {
@@ -25,7 +25,7 @@ public class Ex5 {
       n = n / 2;
     }
 
-    for (final int d: stack) {
+    for (final int d : stack) {
       StdOut.print(d);
     }
     StdOut.println();
