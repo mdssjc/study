@@ -13,26 +13,26 @@ public class Parentheses {
   private boolean result;
 
   public Parentheses() {
-    stack = new StackLinkedList<>();
-    result = true;
+    this.stack = new StackLinkedList<>();
+    this.result = true;
   }
 
   public void add(final String s) {
     if ("[".equals(s) ||
         "(".equals(s) ||
         "{".equals(s)) {
-      stack.push(s);
+      this.stack.push(s);
     } else {
-      final String element = stack.pop();
+      final String element = this.stack.pop();
       if ("]".equals(s) && !"[".equals(element) ||
           ")".equals(s) && !"(".equals(element) ||
           "}".equals(s) && !"{".equals(element)) {
-        result = false;
+        this.result = false;
       }
     }
   }
 
   public boolean result() {
-    return result;
+    return this.result;
   }
 }

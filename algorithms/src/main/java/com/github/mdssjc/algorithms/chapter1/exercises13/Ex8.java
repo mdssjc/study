@@ -15,7 +15,7 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive( input = {"it was - the best - of times - - - it was - the - -"} )
 public class Ex8 {
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     Executor.execute(Ex8.class, args);
 
     final ResizingArrayStack<String> stack = new ResizingArrayStack<>();
@@ -29,7 +29,7 @@ public class Ex8 {
     }
 
     StdOut.print("Conteúdo: ");
-    for (String s : stack) {
+    for (final String s : stack) {
       StdOut.print(s + " ");
     }
     StdOut.println();

@@ -14,7 +14,7 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive( input = {"a b c d e f"} )
 public class Ex7 {
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     Executor.execute(Ex7.class, args);
 
     final StackEx7<String> stack = new StackEx7<>(10);

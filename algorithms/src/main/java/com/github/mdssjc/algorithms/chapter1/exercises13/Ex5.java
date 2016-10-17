@@ -14,7 +14,7 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive("50")
 public class Ex5 {
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     Executor.execute(Ex5.class, args);
 
     final StackLinkedList<Integer> stack = new StackLinkedList<>();
@@ -25,7 +25,7 @@ public class Ex5 {
       n = n / 2;
     }
 
-    for (int d: stack) {
+    for (final int d: stack) {
       StdOut.print(d);
     }
     StdOut.println();

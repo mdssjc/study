@@ -15,7 +15,7 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive( input = {"it was - the best - of times - - - it was - the - -"} )
 public class Ex2 {
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     Executor.execute(Ex2.class, args);
 
     final StackLinkedList<String> stack = new StackLinkedList<>();

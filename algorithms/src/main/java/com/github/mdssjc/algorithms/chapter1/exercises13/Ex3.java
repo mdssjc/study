@@ -13,7 +13,7 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive
 public class Ex3 {
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     Executor.execute(Ex3.class, args);
 
     StdOut.println("a - c - d - e - h");

@@ -15,6 +15,6 @@ public class StackEx1<T> extends FixedCapacityStack<T> {
   }
 
   public boolean isFull() {
-    return this.n == a.length;
+    return this.n == this.a.length;
   }
 }

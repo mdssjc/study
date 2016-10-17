@@ -14,7 +14,7 @@ public class InfixToPostfix {
     final StackLinkedList<String> ops = new StackLinkedList<>();
     final StringBuilder sb = new StringBuilder();
 
-    for (String s : infix.split(" ")) {
+    for (final String s : infix.split(" ")) {
       if ("+".equals(s) || "-".equals(s) || "*".equals(s) || "/".equals(s)) {
         ops.push(s);
       } else if (")".equals(s)) {

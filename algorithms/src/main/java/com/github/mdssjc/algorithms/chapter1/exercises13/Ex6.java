@@ -16,7 +16,7 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive( input = {"a b c d e f"} )
 public class Ex6 {
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     Executor.execute(Ex6.class, args);
 
     final QueueLinkedList<String> q = new QueueLinkedList<>();
@@ -34,7 +34,7 @@ public class Ex6 {
       q.enqueue(stack.pop());
     }
 
-    for (String s : q) {
+    for (final String s : q) {
       StdOut.print(s);
     }
   }

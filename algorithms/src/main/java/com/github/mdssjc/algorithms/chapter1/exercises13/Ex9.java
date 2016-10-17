@@ -15,7 +15,7 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive( value = {"( ( 1 + 2 ) * ( ( 3 - 4 ) * ( 5 - 6 ) ) )"}, input = {"1 + 2 ) * 3 - 4 ) * 5 - 6 ) ) )"} )
 public class Ex9 {
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     Executor.execute(Ex9.class, args);
 
     final StackLinkedList<String> in = new StackLinkedList<>();
@@ -60,7 +60,7 @@ public class Ex9 {
     }
 
     final StringBuilder sb = new StringBuilder();
-    for (String s : result) {
+    for (final String s : result) {
       sb.append(s + " ");
     }
 

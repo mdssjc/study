@@ -12,11 +12,11 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 @TestDrive( {"10"} )
 public class Ex1 {
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     Executor.execute(Ex1.class, args);
 
     final int n = Integer.parseInt(args[0]);
-    StackEx1<Integer> stack = new StackEx1<>(n);
+    final StackEx1<Integer> stack = new StackEx1<>(n);
 
     for (int i = 0; i < n; i++) {
       stack.push(i);

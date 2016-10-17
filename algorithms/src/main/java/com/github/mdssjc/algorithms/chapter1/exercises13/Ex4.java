@@ -15,7 +15,7 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive( value = "False", input = {"[ ( ] )"} )
 public class Ex4 {
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     Executor.execute(Ex4.class, args);
 
     final Parentheses typeChecker = new Parentheses();

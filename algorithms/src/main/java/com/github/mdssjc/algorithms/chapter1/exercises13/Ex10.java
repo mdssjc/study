@@ -13,10 +13,10 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive( value = {"( ( 1 + 2 ) * ( ( 3 - 4 ) * ( 5 - 6 ) ) )"} )
 public class Ex10 {
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     Executor.execute(Ex10.class, args);
 
-    String postfix = InfixToPostfix.convert(args[0]);
+    final String postfix = InfixToPostfix.convert(args[0]);
     StdOut.println(postfix);
   }
 }
