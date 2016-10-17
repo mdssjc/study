@@ -1,5 +1,7 @@
 package com.github.mdssjc.dp.singleton;
 
+import lombok.Getter;
+
 /**
  * Implementação do padrão Singleton.
  * <p>
@@ -11,6 +13,7 @@ package com.github.mdssjc.dp.singleton;
 public enum EnumSingleton {
   INSTANCE;
 
+  @Getter
   private int singletonData;
 
   public void singletonOperation() {
