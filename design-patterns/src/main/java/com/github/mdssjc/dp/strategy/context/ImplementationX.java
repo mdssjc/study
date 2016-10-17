@@ -18,11 +18,11 @@ public abstract class ImplementationX {
     this.algorithm = new NullAlgorithm();
   }
 
-  public void setAlgorithm(Strategy algorithm) {
+  public void setAlgorithm(final Strategy algorithm) {
     this.algorithm = algorithm;
   }
 
   public void useAlgorithm() {
-    algorithm.execute();
+    this.algorithm.execute();
   }
 }
