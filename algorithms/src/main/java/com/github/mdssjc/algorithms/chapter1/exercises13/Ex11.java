@@ -11,7 +11,7 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( input = "( ( 1 2 + ) ( ( 3 4 - ) ( 5 6 - ) * ) * )" )
+@TestDrive( value = "3", input = "( ( 1 2 + ) ( ( 3 4 - ) ( 5 6 - ) * ) * )" )
 public class Ex11 {
 
   public static void main(final String[] args) {
@@ -22,6 +22,9 @@ public class Ex11 {
       eval.add(StdIn.readString());
     }
 
-    StdOut.println(eval.result());
+    final double result = eval.result();
+
+    StdOut.println(result);
+    assert result == Double.parseDouble(args[0]);
   }
 }
