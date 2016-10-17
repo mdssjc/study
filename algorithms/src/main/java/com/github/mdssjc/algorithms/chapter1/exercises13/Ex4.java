@@ -11,8 +11,8 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( value = "True", input = {"[ ( ) ] { } { [ ( ) ( ) ] ( ) }"} )
-@TestDrive( value = "False", input = {"[ ( ] )"} )
+@TestDrive( value = "True", input = "[ ( ) ] { } { [ ( ) ( ) ] ( ) }" )
+@TestDrive( value = "False", input = "[ ( ] )" )
 public class Ex4 {
 
   public static void main(final String[] args) {

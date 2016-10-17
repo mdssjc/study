@@ -10,7 +10,7 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( value = {"( ( 1 + 2 ) * ( ( 3 - 4 ) * ( 5 - 6 ) ) )"} )
+@TestDrive( value = "( ( 1 + 2 ) * ( ( 3 - 4 ) * ( 5 - 6 ) ) )" )
 public class Ex10 {
 
   public static void main(final String[] args) {

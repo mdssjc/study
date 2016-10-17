@@ -9,7 +9,7 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( {"10"} )
+@TestDrive( "10" )
 public class Ex1 {
 
   public static void main(final String[] args) {

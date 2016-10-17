@@ -12,7 +12,7 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( input = {"it was - the best - of times - - - it was - the - -"} )
+@TestDrive( input = "it was - the best - of times - - - it was - the - -" )
 public class Ex8 {
 
   public static void main(final String[] args) {

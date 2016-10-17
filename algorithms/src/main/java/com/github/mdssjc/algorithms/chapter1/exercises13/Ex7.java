@@ -11,7 +11,7 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( input = {"a b c d e f"} )
+@TestDrive( input = "a b c d e f" )
 public class Ex7 {
 
   public static void main(final String[] args) {
