@@ -1,9 +1,6 @@
 package com.github.mdssjc.dp.singleton.base;
 
-import com.github.mdssjc.dp.singleton.DoubleCheckSingleton;
-import com.github.mdssjc.dp.singleton.SimpleEagerSingleton;
-import com.github.mdssjc.dp.singleton.SimpleLazySingleton;
-import com.github.mdssjc.dp.singleton.SynchronizedSingleton;
+import com.github.mdssjc.dp.singleton.*;
 
 /**
  * Test drive do padrão de projeto Singleton.
@@ -23,10 +20,12 @@ public class Main {
     final SimpleEagerSingleton eager = SimpleEagerSingleton.getInstance();
     final SynchronizedSingleton sync = SynchronizedSingleton.getInstance();
     final DoubleCheckSingleton doubleCheck = DoubleCheckSingleton.getInstance();
+    final EnumSingleton enumerated = EnumSingleton.INSTANCE;
 
     System.out.println(lazy);
     System.out.println(eager);
     System.out.println(sync);
     System.out.println(doubleCheck);
+    System.out.println(enumerated);
   }
 }
