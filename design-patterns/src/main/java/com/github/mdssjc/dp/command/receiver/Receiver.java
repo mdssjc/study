@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * Classe Receiver.
- * </p>
+ * <p>
  * Possui as funcionalidades abstraidas do sistema.
  *
  * @author Marcelo dos Santos

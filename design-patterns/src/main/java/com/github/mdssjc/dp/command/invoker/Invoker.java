@@ -4,6 +4,8 @@ import com.github.mdssjc.dp.command.Command;
 
 /**
  * Classe Invoker.
+ * <p>
+ * Executa os comandos em seu contexto.
  *
  * @author Marcelo dos Santos
  *

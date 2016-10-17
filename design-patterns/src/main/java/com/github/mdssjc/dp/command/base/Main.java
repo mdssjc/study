@@ -7,7 +7,7 @@ import com.github.mdssjc.dp.command.receiver.Receiver;
 
 /**
  * Test drive do padrão de projeto Command.
- *
+ * <p>
  * Design Pattern
  * Behavioral - Command (Action, Transaction)
  *

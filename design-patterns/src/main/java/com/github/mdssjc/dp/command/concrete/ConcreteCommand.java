@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 
 /**
  * Classe Command.
+ * <p>
+ * Implementação do comando.
  *
  * @author Marcelo dos Santos
  *
