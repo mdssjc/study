@@ -1,4 +1,4 @@
-package com.github.mdssjc.dp.strategy.contexts;
+package com.github.mdssjc.dp.strategy.context;
 
 /**
  * Classe Implementation Null.

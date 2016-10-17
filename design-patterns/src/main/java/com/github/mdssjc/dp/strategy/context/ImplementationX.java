@@ -1,7 +1,7 @@
-package com.github.mdssjc.dp.strategy.contexts;
+package com.github.mdssjc.dp.strategy.context;
 
-import com.github.mdssjc.dp.strategy.algorithms.Algorithm;
-import com.github.mdssjc.dp.strategy.algorithms.concrete.NullAlgorithm;
+import com.github.mdssjc.dp.strategy.Strategy;
+import com.github.mdssjc.dp.strategy.concrete.NullAlgorithm;
 
 /**
  * Classe Abstrata Implementation X.
@@ -11,14 +11,14 @@ import com.github.mdssjc.dp.strategy.algorithms.concrete.NullAlgorithm;
  */
 public abstract class ImplementationX {
 
-  private Algorithm algorithm;
+  private Strategy algorithm;
 
   public ImplementationX() {
     // Null Object Pattern
     this.algorithm = new NullAlgorithm();
   }
 
-  public void setAlgorithm(Algorithm algorithm) {
+  public void setAlgorithm(Strategy algorithm) {
     this.algorithm = algorithm;
   }
 

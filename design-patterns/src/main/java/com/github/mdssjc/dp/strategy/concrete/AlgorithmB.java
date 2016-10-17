@@ -1,6 +1,6 @@
-package com.github.mdssjc.dp.strategy.algorithms.concrete;
+package com.github.mdssjc.dp.strategy.concrete;
 
-import com.github.mdssjc.dp.strategy.algorithms.Algorithm;
+import com.github.mdssjc.dp.strategy.Strategy;
 
 /**
  * Implementação do Algorithm B.
@@ -8,7 +8,7 @@ import com.github.mdssjc.dp.strategy.algorithms.Algorithm;
  * @author Marcelo dos Santos
  *
  */
-public class AlgorithmB implements Algorithm {
+public class AlgorithmB implements Strategy {
 
   @Override
   public void execute() {

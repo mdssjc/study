@@ -1,6 +1,6 @@
-package com.github.mdssjc.dp.strategy.contexts;
+package com.github.mdssjc.dp.strategy.context;
 
-import com.github.mdssjc.dp.strategy.algorithms.concrete.AlgorithmC;
+import com.github.mdssjc.dp.strategy.concrete.AlgorithmC;
 
 /**
  * Classe Implementation C.

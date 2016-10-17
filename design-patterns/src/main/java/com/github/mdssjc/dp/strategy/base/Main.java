@@ -1,15 +1,15 @@
 package com.github.mdssjc.dp.strategy.base;
 
-import com.github.mdssjc.dp.strategy.algorithms.concrete.AlgorithmA;
-import com.github.mdssjc.dp.strategy.algorithms.concrete.AlgorithmB;
-import com.github.mdssjc.dp.strategy.algorithms.concrete.AlgorithmC;
-import com.github.mdssjc.dp.strategy.contexts.*;
+import com.github.mdssjc.dp.strategy.concrete.AlgorithmA;
+import com.github.mdssjc.dp.strategy.concrete.AlgorithmB;
+import com.github.mdssjc.dp.strategy.concrete.AlgorithmC;
+import com.github.mdssjc.dp.strategy.context.*;
 
 /**
  * Test drive do padrão de projeto Strategy.
  * <p>
  * Design Pattern
- * Behavioral - Strategy
+ * Behavioral - Strategy (Policy)
  *
  * @author Marcelo dos Santos
  *
