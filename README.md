@@ -5,6 +5,8 @@ Materiais de estudos sobre computação.
 
 **algorithms**: estudo do livro *Algorithms, 4th Edition* dos autores *Robert Sedgewick* e *Kevin Wayne*.
 
+**design-patterns**: estudo sobre os *Design Patterns* do GoF, *Java* e outros.
+
 **caelum**: resolução das apostilas livres.
 
 **headfirstlabs**: exercícios dos livros.
