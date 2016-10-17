@@ -5,6 +5,8 @@ import com.github.mdssjc.dp.command.concrete.ConcreteCommand;
 import com.github.mdssjc.dp.command.invoker.Invoker;
 import com.github.mdssjc.dp.command.receiver.Receiver;
 
+import java.util.ArrayList;
+
 /**
  * Test drive do padrão de projeto Command.
  * <p>
@@ -17,6 +19,7 @@ import com.github.mdssjc.dp.command.receiver.Receiver;
 public class Main {
 
   public static void main(final String[] args) {
+    // Versão Clássica
     final Invoker invoker = new Invoker();
     final Receiver receiver = new Receiver();
 
@@ -26,5 +29,10 @@ public class Main {
 
     invoker.play();
     invoker.reverse();
+
+    // Versão Funcional
+    final ArrayList<Runnable> tasks = new ArrayList<>();
+    tasks.add(() -> new Receiver().message());
+    tasks.forEach(Runnable::run);
   }
 }
