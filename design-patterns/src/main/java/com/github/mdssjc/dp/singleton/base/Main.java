@@ -1,24 +1,23 @@
-package com.github.mdssjc.dp.singleton;
+package com.github.mdssjc.dp.singleton.base;
+
+import com.github.mdssjc.dp.singleton.DoubleCheckSingleton;
+import com.github.mdssjc.dp.singleton.SimpleEagerSingleton;
+import com.github.mdssjc.dp.singleton.SimpleLazySingleton;
+import com.github.mdssjc.dp.singleton.SynchronizedSingleton;
 
 /**
  * Test drive do padrão de projeto Singleton.
- * </p>
+ * <p>
  * Design Pattern
  * Creational - Singleton
- * </p>
+ * <p>
  * Pode ser substituído pelo Dependency Injection.
  *
- * @author mdssjc &lt;Marcelo dos Santos&gt;
+ * @author Marcelo dos Santos
  *
  */
 public class Main {
 
-  /**
-   * Ponto de entrada para a execução experimental do Singleton.
-   *
-   * @param args
-   *          Não utilizado
-   */
   public static void main(final String[] args) {
     final SimpleLazySingleton lazy = SimpleLazySingleton.getInstance();
     final SimpleEagerSingleton eager = SimpleEagerSingleton.getInstance();

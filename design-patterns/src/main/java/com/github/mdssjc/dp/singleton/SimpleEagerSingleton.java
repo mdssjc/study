@@ -6,26 +6,18 @@ import lombok.NoArgsConstructor;
 
 /**
  * Implementação do padrão Singleton.
+ * <p>
  * Algoritmo: 'Eager'
  *
- * @author mdssjc &lt;Marcelo dos Santos&gt;
+ * @author Marcelo dos Santos
  *
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor( access = AccessLevel.PRIVATE )
 public class SimpleEagerSingleton {
 
-  private static SimpleEagerSingleton uniqueInstance = new SimpleEagerSingleton();
+  private static final SimpleEagerSingleton uniqueInstance = new SimpleEagerSingleton();
   @Getter
-  private int                         singletonData;
-
-  /**
-   * Obtém a instância do objeto.
-   *
-   * @return instância do objeto
-   */
-  public static SimpleEagerSingleton getInstance() {
-    return SimpleEagerSingleton.uniqueInstance;
-  }
+  private int singletonData;
 
   public void singletonOperation() {
     this.singletonData++;
@@ -34,5 +26,9 @@ public class SimpleEagerSingleton {
   @Override
   public String toString() {
     return "Simple Eager Singleton";
+  }
+
+  public static SimpleEagerSingleton getInstance() {
+    return SimpleEagerSingleton.uniqueInstance;
   }
 }

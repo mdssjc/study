@@ -6,23 +6,28 @@ import lombok.NoArgsConstructor;
 
 /**
  * Implementação do padrão Singleton.
+ * <p>
  * Algoritmo: 'Double Check'
  *
- * @author mdssjc &lt;Marcelo dos Santos&gt;
- * 
+ * @author Marcelo dos Santos
+ *
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor( access = AccessLevel.PRIVATE )
 public class DoubleCheckSingleton {
 
   private static volatile DoubleCheckSingleton uniqueInstance;
   @Getter
-  private int                                  singletonData;
+  private int singletonData;
 
-  /**
-   * Obtém a instância do objeto.
-   *
-   * @return instância do objeto
-   */
+  public void singletonOperation() {
+    this.singletonData++;
+  }
+
+  @Override
+  public String toString() {
+    return "Double Check Singleton";
+  }
+
   public static DoubleCheckSingleton getInstance() {
     if (DoubleCheckSingleton.uniqueInstance == null) {
       synchronized (DoubleCheckSingleton.class) {
@@ -32,14 +37,5 @@ public class DoubleCheckSingleton {
       }
     }
     return DoubleCheckSingleton.uniqueInstance;
-  }
-
-  public void singletonOperation() {
-    this.singletonData++;
-  }
-
-  @Override
-  public String toString() {
-    return "Double Check Singleton";
   }
 }

@@ -6,29 +6,18 @@ import lombok.NoArgsConstructor;
 
 /**
  * Implementação do padrão Singleton.
+ * <p>
  * Algoritmo: 'Lazy'
  *
- * @author mdssjc &lt;Marcelo dos Santos&gt;
+ * @author Marcelo dos Santos
  *
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor( access = AccessLevel.PRIVATE )
 public class SimpleLazySingleton {
 
   private static SimpleLazySingleton uniqueInstance;
   @Getter
-  private int                        singletonData;
-
-  /**
-   * Obtém a instância do objeto.
-   *
-   * @return instância do objeto
-   */
-  public static SimpleLazySingleton getInstance() {
-    if (SimpleLazySingleton.uniqueInstance == null) {
-      SimpleLazySingleton.uniqueInstance = new SimpleLazySingleton();
-    }
-    return SimpleLazySingleton.uniqueInstance;
-  }
+  private int singletonData;
 
   public void singletonOperation() {
     this.singletonData++;
@@ -37,5 +26,12 @@ public class SimpleLazySingleton {
   @Override
   public String toString() {
     return "Simple Lazy Singleton";
+  }
+
+  public static SimpleLazySingleton getInstance() {
+    if (SimpleLazySingleton.uniqueInstance == null) {
+      SimpleLazySingleton.uniqueInstance = new SimpleLazySingleton();
+    }
+    return SimpleLazySingleton.uniqueInstance;
   }
 }

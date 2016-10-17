@@ -6,29 +6,18 @@ import lombok.NoArgsConstructor;
 
 /**
  * Implementação do padrão Singleton.
+ * <p>
  * Algoritmo: 'Synchronized'
  *
- * @author mdssjc &lt;Marcelo dos Santos&gt;
- * 
+ * @author Marcelo dos Santos
+ *
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor( access = AccessLevel.PRIVATE )
 public class SynchronizedSingleton {
 
   private static SynchronizedSingleton uniqueInstance;
   @Getter
-  private int                          singletonData;
-
-  /**
-   * Obtém a instância do objeto.
-   *
-   * @return instância do objeto
-   */
-  public static synchronized SynchronizedSingleton getInstance() {
-    if (SynchronizedSingleton.uniqueInstance == null) {
-      SynchronizedSingleton.uniqueInstance = new SynchronizedSingleton();
-    }
-    return SynchronizedSingleton.uniqueInstance;
-  }
+  private int singletonData;
 
   public void singletonOperation() {
     this.singletonData++;
@@ -37,5 +26,12 @@ public class SynchronizedSingleton {
   @Override
   public String toString() {
     return "Synchronized Singleton";
+  }
+
+  public static synchronized SynchronizedSingleton getInstance() {
+    if (SynchronizedSingleton.uniqueInstance == null) {
+      SynchronizedSingleton.uniqueInstance = new SynchronizedSingleton();
+    }
+    return SynchronizedSingleton.uniqueInstance;
   }
 }
