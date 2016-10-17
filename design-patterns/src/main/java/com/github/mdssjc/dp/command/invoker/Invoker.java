@@ -2,6 +2,12 @@ package com.github.mdssjc.dp.command.invoker;
 
 import com.github.mdssjc.dp.command.Command;
 
+/**
+ * Classe Invoker.
+ *
+ * @author Marcelo dos Santos
+ *
+ */
 public class Invoker {
 
   private Command command;

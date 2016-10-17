@@ -8,7 +8,7 @@ package com.github.mdssjc.dp.command;
  * - store:
  * - load:
  *
- * @author mdssjc <Marcelo dos Santos>
+ * @author Marcelo dos Santos
  *
  */
 public interface Command {

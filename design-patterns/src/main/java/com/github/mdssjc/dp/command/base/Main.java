@@ -11,7 +11,7 @@ import com.github.mdssjc.dp.command.receiver.Receiver;
  * Design Pattern
  * Behavioral - Command (Action, Transaction)
  *
- * @author mdssjc <Marcelo dos Santos>
+ * @author Marcelo dos Santos
  *
  */
 public class Main {

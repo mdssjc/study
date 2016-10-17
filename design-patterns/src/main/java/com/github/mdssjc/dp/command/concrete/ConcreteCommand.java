@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 /**
  * Classe Command.
  *
- * @author mdssjc &lt;Marcelo dos Santos&gt;
+ * @author Marcelo dos Santos
  *
  */
 @AllArgsConstructor

@@ -7,7 +7,7 @@ import java.util.Random;
  * </p>
  * Possui as funcionalidades abstraidas do sistema.
  *
- * @author mdssjc &lt;Marcelo dos Santos&gt;
+ * @author Marcelo dos Santos
  *
  */
 public class Receiver {
