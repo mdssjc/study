@@ -28,6 +28,5 @@ public class Ex5 {
     for (final int d : stack) {
       StdOut.print(d);
     }
-    StdOut.println();
   }
 }

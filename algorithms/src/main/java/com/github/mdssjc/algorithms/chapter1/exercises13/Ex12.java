@@ -4,6 +4,7 @@ import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
 
 /**
  * Exercício 12.
@@ -33,7 +34,8 @@ public class Ex12 {
       resultB.append(s);
     }
 
-    assert resultA.equals(resultB);
+    StdOut.println(resultA + " == " + resultB);
+    assert resultA.toString().equals(resultB.toString());
     assert resultA != resultB;
   }
 

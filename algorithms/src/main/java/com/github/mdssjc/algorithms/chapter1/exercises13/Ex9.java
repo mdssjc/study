@@ -65,6 +65,6 @@ public class Ex9 {
     }
 
     StdOut.println(sb);
-    assert sb.equals(args[0]);
+    assert args[0].equals(sb.toString().trim());
   }
 }
