@@ -7,10 +7,10 @@ import com.github.mdssjc.dp.decorator.concrete.ConcreteDecoratorB;
 import com.github.mdssjc.dp.decorator.functional.FunctionalDecorator;
 
 /**
- * Test drive do padrão de projeto ConcreteDecoratorA.
+ * Test drive do padrão de projeto Decorator.
  * <p>
  * Design Pattern
- * Structural - ConcreteDecoratorA (Wrapper)
+ * Structural - Decorator (Wrapper)
  *
  * @author Marcelo dos Santos
  *
@@ -23,7 +23,6 @@ public class Main {
         new ConcreteDecoratorB(
             new ConcreteComponent()));
     component.operation("Minha mensagem");
-
 
     // Versão Funcional
     System.out.println(new FunctionalDecorator()

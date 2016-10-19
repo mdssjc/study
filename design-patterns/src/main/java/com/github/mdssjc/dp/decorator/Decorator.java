@@ -4,7 +4,7 @@ import com.github.mdssjc.dp.decorator.component.Component;
 import lombok.Getter;
 
 /**
- * Classe Abstrata ConcreteDecoratorA.
+ * Classe Abstrata Decorator.
  *
  * @author Marcelo dos Santos
  *
