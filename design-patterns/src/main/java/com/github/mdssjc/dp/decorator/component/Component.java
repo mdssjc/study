@@ -1,26 +1,12 @@
 package com.github.mdssjc.dp.decorator.component;
 
 /**
- * Classe Abstrata Component.
+ * Interface Component.
  *
  * @author Marcelo dos Santos
  *
  */
-public abstract class Component {
+public interface Component {
 
-  private static int result = 0;
-
-  public void inc() {
-    result++;
-  }
-
-  public void dec() {
-    result--;
-  }
-
-  public abstract String text();
-
-  public int getResult() {
-    return result;
-  }
+  void operation(String message);
 }
