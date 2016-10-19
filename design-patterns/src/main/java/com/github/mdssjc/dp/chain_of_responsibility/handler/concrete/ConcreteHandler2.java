@@ -14,7 +14,7 @@ public class ConcreteHandler2 extends Handler {
   public void handleRequest(final Object message) {
     if (message instanceof Integer) {
       System.out.println("Mensagem numérica: " + String.valueOf(message));
-    } else if (successor != null) {
+    } else if (this.successor != null) {
       this.successor.handleRequest(message);
     } else {
       throw new RuntimeException("Fim da cadeia");
