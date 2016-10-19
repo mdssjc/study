@@ -5,17 +5,17 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
- * Classe HandlerFunctional.
+ * Classe FunctionalHandler.
  *
  * @author Marcelo dos Santos
  *
  */
-public class HandlerFunctional {
+public class FunctionalHandler {
 
   public void handleRequest(final Object message) {
     System.out.println(Stream.<Function<Object, Optional<String>>>of(
-        HandlerFunctional::textual,
-        HandlerFunctional::numeric)
+        FunctionalHandler::textual,
+        FunctionalHandler::numeric)
         .map(f -> f.apply(message))
         .filter(Optional::isPresent)
         .findFirst()

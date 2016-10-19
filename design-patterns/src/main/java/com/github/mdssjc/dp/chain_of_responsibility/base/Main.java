@@ -1,6 +1,6 @@
 package com.github.mdssjc.dp.chain_of_responsibility.base;
 
-import com.github.mdssjc.dp.chain_of_responsibility.functional.HandlerFunctional;
+import com.github.mdssjc.dp.chain_of_responsibility.functional.FunctionalHandler;
 import com.github.mdssjc.dp.chain_of_responsibility.handler.Handler;
 import com.github.mdssjc.dp.chain_of_responsibility.handler.concrete.ConcreteHandler1;
 import com.github.mdssjc.dp.chain_of_responsibility.handler.concrete.ConcreteHandler2;
@@ -32,11 +32,11 @@ public class Main {
     }
 
     // Versão Funcional
-    final HandlerFunctional handlerFunctional = new HandlerFunctional();
-    handlerFunctional.handleRequest("Novo texto");
-    handlerFunctional.handleRequest(123);
+    final FunctionalHandler functionalHandler = new FunctionalHandler();
+    functionalHandler.handleRequest("Novo texto");
+    functionalHandler.handleRequest(123);
     try {
-      handlerFunctional.handleRequest('a');
+      functionalHandler.handleRequest('a');
     } catch (final Exception e) {
       System.out.println("Erro capturado: " + e.getMessage());
     }
