@@ -1,5 +1,7 @@
 package com.github.mdssjc.algorithms.chapter1.exercises13;
 
+import com.github.mdssjc.algorithms.datastructure.queue.Queue;
+import com.github.mdssjc.algorithms.datastructure.queue.concrete.ResizingArrayQueue;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdIn;
@@ -16,7 +18,7 @@ public class Ex14 {
   public static void main(final String[] args) {
     Executor.execute(Ex14.class, args);
 
-    final ResizingArrayQueueOfStrings queue = new ResizingArrayQueueOfStrings();
+    final Queue<String> queue = new ResizingArrayQueue<>();
 
     while (!StdIn.isEmpty()) {
       queue.enqueue(StdIn.readString());
