@@ -5,6 +5,8 @@ import com.github.mdssjc.dp.decorator.Decorator2;
 import com.github.mdssjc.dp.decorator.component.Component;
 import com.github.mdssjc.dp.decorator.component.ConcreteComponent;
 
+import java.util.function.UnaryOperator;
+
 /**
  * Test drive do padrão de projeto Decorator.
  * <p>
@@ -17,6 +19,7 @@ import com.github.mdssjc.dp.decorator.component.ConcreteComponent;
 public class Main {
 
   public static void main(final String[] args) {
+    // Versão Clássica
     Component counter = new ConcreteComponent();
 
     System.out.println(counter.text());
@@ -30,5 +33,14 @@ public class Main {
     System.out.println(counter.text());
     counter = new Decorator2(counter);
     System.out.println(counter.text());
+
+    // Versão Funcional
+    UnaryOperator<String> decorator = s -> s;
+
+    final String result = decorator
+        .andThen(s -> "--" + s + "--")
+        .andThen(s -> "$$" + s + "$$")
+        .apply(counter.text());
+    System.out.println(result);
   }
 }
