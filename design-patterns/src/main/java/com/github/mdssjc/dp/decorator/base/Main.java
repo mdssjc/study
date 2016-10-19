@@ -4,6 +4,7 @@ import com.github.mdssjc.dp.decorator.component.Component;
 import com.github.mdssjc.dp.decorator.component.concrete.ConcreteComponent;
 import com.github.mdssjc.dp.decorator.concrete.ConcreteDecoratorA;
 import com.github.mdssjc.dp.decorator.concrete.ConcreteDecoratorB;
+import com.github.mdssjc.dp.decorator.functional.FunctionalDecorator;
 
 /**
  * Test drive do padrão de projeto ConcreteDecoratorA.
@@ -25,12 +26,9 @@ public class Main {
 
 
     // Versão Funcional
-//    final UnaryOperator<String> decorator = s -> s;
-//
-//    final String result = decorator
-//        .andThen(s -> "--" + s + "--")
-//        .andThen(s -> "$$" + s + "$$")
-//        .apply(counter.text());
-//    System.out.println(result);
+    System.out.println(new FunctionalDecorator()
+        .andThen(FunctionalDecorator::tagA)
+        .andThen(FunctionalDecorator::tagB)
+        .apply("Minha mensagem"));
   }
 }
