@@ -6,6 +6,7 @@ import com.github.mdssjc.dp.visitor.concrete.ConcreteVisitor2;
 import com.github.mdssjc.dp.visitor.element.Element;
 import com.github.mdssjc.dp.visitor.element.concrete.ConcreteElementA;
 import com.github.mdssjc.dp.visitor.element.concrete.ConcreteElementB;
+import com.github.mdssjc.dp.visitor.functional.LambdaVisitor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
 public class Main {
 
   public static void main(final String[] args) {
+    // Versão Clássica
     final List<Element> elements = Arrays.asList(new ConcreteElementA(), new ConcreteElementB());
 
     final Visitor visitor1 = new ConcreteVisitor1();
@@ -30,5 +32,13 @@ public class Main {
       System.out.println(element.accept(visitor1));
       System.out.println(element.accept(visitor2));
     }
+
+    // Versão Funcional
+    elements.stream()
+            .map(LambdaVisitor.visitor1)
+            .forEach(System.out::println);
+    elements.stream()
+            .map(LambdaVisitor.visitor2)
+            .forEach(System.out::println);
   }
 }
