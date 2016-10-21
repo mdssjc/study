@@ -1,6 +1,8 @@
 package com.github.mdssjc.algorithms.chapter1.exercises13;
 
 import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
@@ -9,9 +11,12 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
+@TestDrive
 public class Ex19 {
 
   public static void main(final String[] args) {
+    Executor.execute(Ex19.class, args);
+
     Node first = create();
 
     if (first.next == null) {
