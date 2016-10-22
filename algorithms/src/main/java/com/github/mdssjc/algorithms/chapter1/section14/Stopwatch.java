@@ -18,12 +18,12 @@ public class Stopwatch {
   private final long start;
 
   public Stopwatch() {
-    start = System.currentTimeMillis();
+    this.start = System.currentTimeMillis();
   }
 
   public double elapsedTime() {
     final long now = System.currentTimeMillis();
-    return (now - start) / 1000.0;
+    return (now - this.start) / 1000.0;
   }
 
   public static void main(final String[] args) {
