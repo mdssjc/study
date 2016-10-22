@@ -1,13 +1,12 @@
 package com.github.mdssjc.algorithms.datastructure.queue.concrete;
 
-import java.util.Iterator;
-
 import com.github.mdssjc.algorithms.datastructure.iterators.LinkedListIterator;
 import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
 import com.github.mdssjc.algorithms.datastructure.queue.Queue;
-
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
+
+import java.util.Iterator;
 
 /**
  * Implementação de FIFO Queue (Fila) com Linked List (Lista Linkada).
@@ -19,8 +18,8 @@ import edu.princeton.cs.algs4.StdOut;
  */
 public class QueueLinkedList<T> implements Queue<T> {
 
-  private Node<T> first;
-  private Node<T> last;
+  protected Node<T> first;
+  protected Node<T> last;
   private int     size;
 
   @Override
