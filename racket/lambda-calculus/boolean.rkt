@@ -1,5 +1,10 @@
 #lang racket/base
 
+;;
+;; Boolean
+;;
+;; author: Marcelo dos Santos
+;;
 (define T (lambda (a b) a))
 (define F (lambda (a b) b))
 
