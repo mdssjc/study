@@ -1,7 +1,7 @@
 #lang racket/base
 
 ;;
-;; Booleans
+;; Booleans (Church Booleans)
 ;;
 ;; author: Marcelo dos Santos
 ;;
@@ -11,7 +11,7 @@
 (define FALSE F)
 
 (define NOT  (λ (p)     ((p FALSE) TRUE))) ; Normal Order
-(define NOTa (lambda (p a b) ((p a) b)))        ; Application Order
+(define NOT2 (lambda (p a b) ((p a) b)))        ; Application Order
 (define AND  (λ (a b)   ((a b) FALSE)))
 (define OR   (λ (a b)   ((a TRUE) b)))
 (define XOR  (lambda (a b)   ((a (NOT b)) b)))
@@ -24,8 +24,8 @@
 (println "NOT")
 (println (NOT  TRUE))
 (println (NOT  FALSE))
-(println (NOTa TRUE "1" "0"))
-(println (NOTa FALSE "1" "0"))
+(println (NOT2 TRUE "1" "0"))
+(println (NOT2 FALSE "1" "0"))
 
 (println "AND")
 (println (AND FALSE FALSE))

@@ -1,7 +1,7 @@
 #lang racket/base
 
 ;;
-;; Numerals
+;; Numerals (Church Numerals)
 ;;
 ;;  0 = λf.λx.x
 ;;  1 = λf.λx.fx

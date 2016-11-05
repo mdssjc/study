@@ -1,7 +1,7 @@
 #lang racket/base
 
 ;;
-;; Tuples
+;; Tuples (Church Pairs)
 ;;
 ;; author: Marcelo dos Santos
 ;;
@@ -13,5 +13,6 @@
 
 ;; Output
 (define p (pair "a" "b"))
+
 (println (head p))
 (println (tail p))
