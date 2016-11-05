@@ -14,5 +14,6 @@ public class Simulator {
     Executor.execute(BinarySearch.class);
     Executor.execute(BinarySearchRecursive.class);
     Executor.execute(RandomSeq.class);
+    Executor.execute(Average.class);
   }
 }
