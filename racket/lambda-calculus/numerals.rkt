@@ -5,17 +5,30 @@
 ;;
 ;; author: Marcelo dos Santos
 ;;
-(define N0 (lambda (f x) x))
-;; (define N1 (lambda (f x) (f x)))
-(define N1 (lambda (f x) (f (N0 f x))))
-;; (define N2 (lambda (f x) (f (f x))))
-(define N2 (lambda (f x) (f (N1 f x))))
-;; (define N3 (lambda (f x) (f (f (f x)))))
-(define N3 (lambda (f x) (f (N2 f x))))
+(require "combinators.rkt")
+
+(define :0 (lambda (f) I))
+(define :1 (lambda (f) (lambda (x) (f ((:0 f) x)))))
+(define :2 (lambda (f) (lambda (x) (f ((:1 f) x)))))
+(define :3 (lambda (f) (lambda (x) (f ((:2 f) x)))))
+(define :4 (lambda (f) (lambda (x) (f ((:3 f) x)))))
+(define :5 (lambda (f) (lambda (x) (f ((:4 f) x)))))
+(define :6 (lambda (f) (lambda (x) (f ((:5 f) x)))))
+(define :7 (lambda (f) (lambda (x) (f ((:6 f) x)))))
+(define :8 (lambda (f) (lambda (x) (f ((:7 f) x)))))
+(define :9 (lambda (f) (lambda (x) (f ((:8 f) x)))))
 
 ;; Output
 (define (inc x) (+ x 1))                ; TODO: refatorar
-(N0 inc 0)
-(N1 inc 0)
-(N2 inc 0)
-(N3 inc 0)
+(define (number n) ((n inc) 0))
+
+(number :0)
+(number :1)
+(number :2)
+(number :3)
+(number :4)
+(number :5)
+(number :6)
+(number :7)
+(number :8)
+(number :9)
