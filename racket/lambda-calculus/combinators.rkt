@@ -5,7 +5,8 @@
 ;;
 ;; author: Marcelo dos Santos
 ;;
-(provide combinators)
+(provide T)
+(provide F)
 
 ;; S -> Substitution/Slider: λx[λy[λz[xz(yz)]]]
 (define S (λ (x) (λ (y) (λ (z) ((x z) (y z))))))
