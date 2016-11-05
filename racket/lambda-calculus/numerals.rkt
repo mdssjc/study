@@ -3,6 +3,13 @@
 ;;
 ;; Numerals
 ;;
+;;  0 = λf.λx.x
+;;  1 = λf.λx.fx
+;;  2 = λf.λx.f(fx)
+;;  3 = λf.λx.f(f(fx))
+;;  ...
+;;  n = λf.λxfⁿx
+;;
 ;; author: Marcelo dos Santos
 ;;
 (require "combinators.rkt")
