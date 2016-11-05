@@ -5,10 +5,9 @@
 ;;
 ;; author: Marcelo dos Santos
 ;;
-(define T (lambda (a b) a))
-(define F (lambda (a b) b))
+(require "combinators.rkt")
 
-(define pair (λ (a b) (λ (f) (f a b))))
+(define pair (λ (a b) (λ (f) ((f a) b))))
 (define head (λ (p) (p T)))
 (define tail (λ (p) (p F)))
 
