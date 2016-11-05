@@ -5,29 +5,38 @@
 ;;
 ;; author: Marcelo dos Santos
 ;;
-(define T (lambda (a b) a))
-(define F (lambda (a b) b))
+(require "combinators.rkt")
 
-(define NOT (λ (x) (x F T)))
-(define AND (λ (b1 b2) (b1 b2 F)))
-(define OR  (λ (b1 b2) (b1 T b2)))
+(define TRUE  T)
+(define FALSE F)
+
+(define NOT (λ (p)   ((p FALSE) TRUE)))
+(define AND (λ (a b) ((a b) FALSE)))
+(define OR  (λ (a b) ((a TRUE) b)))
+(define XOR (lambda (a b) ((a ((b FALSE) TRUE)) b)))
 
 ;; Output
-(println (T 1 0))
-(println (F 1 0))
+(println TRUE)
+(println FALSE)
 
 (println "NOT")
-(println (NOT T))
-(println (NOT F))
+(println (NOT TRUE))
+(println (NOT FALSE))
 
 (println "AND")
-(println (AND F F))
-(println (AND F T))
-(println (AND T F))
-(println (AND T T))
+(println (AND FALSE FALSE))
+(println (AND FALSE TRUE))
+(println (AND TRUE FALSE))
+(println (AND TRUE TRUE))
 
 (println "OR")
-(println (OR F F))
-(println (OR F T))
-(println (OR T F))
-(println (OR T T))
+(println (OR FALSE FALSE))
+(println (OR FALSE TRUE))
+(println (OR TRUE FALSE))
+(println (OR TRUE TRUE))
+
+(println "XOR")
+(println (XOR FALSE FALSE))
+(println (XOR FALSE TRUE))
+(println (XOR TRUE FALSE))
+(println (XOR TRUE TRUE))
