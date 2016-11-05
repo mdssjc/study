@@ -12,5 +12,6 @@ public class Simulator {
 
   public static void main(final String[] args) {
     Executor.execute(BinarySearch.class);
+    Executor.execute(BinarySearchRecursive.class);
   }
 }
