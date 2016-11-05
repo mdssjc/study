@@ -15,5 +15,7 @@ public class Simulator {
     Executor.execute(Stopwatch.class);
     Executor.execute(DoublingTest.class);
     Executor.execute(TwoSumFast.class);
+    Executor.execute(ThreeSumFast.class);
+    Executor.execute(DoublingRatio.class);
   }
 }
