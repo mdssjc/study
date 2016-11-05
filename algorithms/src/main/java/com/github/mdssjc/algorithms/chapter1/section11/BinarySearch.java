@@ -15,6 +15,7 @@ import java.util.Arrays;
  *
  */
 @TestDrive( value = "largeW.txt", valueFile = true, input = "largeT.txt", inputFile = true )
+@TestDrive( value = "tinyW.txt", valueFile = true, input = "tinyT.txt", inputFile = true )
 public class BinarySearch {
 
   public static int rank(final int key, final int[] a) {
