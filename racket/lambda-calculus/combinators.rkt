@@ -7,6 +7,7 @@
 ;;
 (provide T)
 (provide F)
+(provide I)
 
 ;; S -> Substitution/Slider: λx[λy[λz[xz(yz)]]]
 (define S (λ (x) (λ (y) (λ (z) ((x z) (y z))))))
