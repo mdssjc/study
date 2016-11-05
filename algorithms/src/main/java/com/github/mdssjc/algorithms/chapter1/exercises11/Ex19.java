@@ -1,19 +1,23 @@
 package com.github.mdssjc.algorithms.chapter1.exercises11;
 
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  * Exercício 19.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
+@TestDrive
 public class Ex19 {
 
   public static void main(final String[] args) {
+    Executor.execute(Ex19.class, args);
 
     for (int N = 0; N < 100; N++) {
       StdOut.println(N + " " + Fibonacci.F(N));
@@ -23,7 +27,7 @@ public class Ex19 {
 
 class Fibonacci {
 
-  private static Map<Integer, Long> cache = new HashMap<>();
+  private static final Map<Integer, Long> cache = new HashMap<>();
 
   public static long F(final int N) {
     if (N == 0) {

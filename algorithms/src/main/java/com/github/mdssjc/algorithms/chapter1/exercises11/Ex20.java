@@ -1,5 +1,7 @@
 package com.github.mdssjc.algorithms.chapter1.exercises11;
 
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
@@ -8,16 +10,19 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
+@TestDrive
 public class Ex20 {
 
   public static void main(final String[] args) {
+    Executor.execute(Ex20.class, args);
+
     StdOut.println(Math.log(86) + " " + ln(86));
     StdOut.println(Math.log(3) + " " + ln(3));
     StdOut.println(Math.log(2) + " " + ln(2));
     StdOut.println(Math.log(1) + " " + ln(1));
   }
 
-  public static double ln(final int n) {
+  private static double ln(final int n) {
     if (n <= 1) {
       return 0;
     }
