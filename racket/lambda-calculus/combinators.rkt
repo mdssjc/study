@@ -11,10 +11,12 @@
 ;; S -> Substitution/Slider: λx[λy[λz[xz(yz)]]]
 (define S (λ (x) (λ (y) (λ (z) ((x z) (y z))))))
 
-;; k -> Killer/Cancellator: λx[λy[x]]
+;; K -> Killer/Cancellator: λx[λy[x]]
+;; K = λx.λy.x
 (define K (λ (x) (λ (y) x)))
 
-;; I -> Identificator: λx[x]
+;; I -> Identity/Identificator: λx[x]
+;; id = λx.x
 (define I (λ (x) x))
 
 ;; B -> Compositor: λx[λy[λz[x(yz)]]]
