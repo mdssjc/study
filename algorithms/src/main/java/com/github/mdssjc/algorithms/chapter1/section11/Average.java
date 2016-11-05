@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * RandomSeq Class.
+ * Average Class.
  *
  * @author Marcelo dos Santos
  *
