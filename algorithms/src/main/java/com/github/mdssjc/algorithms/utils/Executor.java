@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  */
 public class Executor {
 
-  public static final String RESOURCES_PATH = "src/main/resources/";
+  private static final String RESOURCES_PATH = "src/main/resources/";
 
   public static void execute(final Class<?> clazz) {
     try {
@@ -53,10 +53,13 @@ public class Executor {
         method.invoke(null, (Object) value);
       }
     } catch (IllegalArgumentException | NoSuchMethodException
-        | SecurityException | IllegalAccessException
-        | InvocationTargetException exception) {
+        | SecurityException | IllegalAccessException exception) {
       StdOut.println(exception.getMessage());
       StdOut.println(exception);
+    } catch (final InvocationTargetException exception) {
+      StdOut.println(exception.getMessage());
+      StdOut.println(exception);
+      StdOut.println(exception.getTargetException());
     }
   }
 
