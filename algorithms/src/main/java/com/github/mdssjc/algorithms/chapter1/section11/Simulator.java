@@ -11,6 +11,7 @@ import com.github.mdssjc.algorithms.utils.Executor;
 public class Simulator {
 
   public static void main(final String[] args) {
+    Executor.execute(Euclid.class);
     Executor.execute(BinarySearch.class);
     Executor.execute(BinarySearchRecursive.class);
     Executor.execute(RandomSeq.class);
