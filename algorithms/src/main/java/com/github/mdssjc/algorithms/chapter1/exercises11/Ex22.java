@@ -1,30 +1,38 @@
 package com.github.mdssjc.algorithms.chapter1.exercises11;
 
-import java.util.stream.IntStream;
-
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
+
+import java.util.stream.IntStream;
 
 /**
  * Exercício 22.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
+@TestDrive
 public class Ex22 {
 
   public static void main(final String[] args) {
-    final int[] xs = IntStream.range(0, 1000)
-      .sorted()
-      .toArray();
-    rank(5, xs);
-  }
+    Executor.execute(Ex22.class, args);
 
-  private static int rank(final int key, final int[] a) {
+    final int[] xs = IntStream.range(0, 1000)
+                              .sorted()
+                              .toArray();
+    BinarySearchRecursiveTraces.rank(5, xs);
+  }
+}
+
+class BinarySearchRecursiveTraces {
+
+  public static int rank(final int key, final int[] a) {
     return rank(key, a, 0, a.length - 1, 0);
   }
 
   private static int rank(final int key, final int[] a, final int lo,
-      final int hi, final int depth) {
+                          final int hi, final int depth) {
     traces(lo, hi, depth);
 
     if (lo > hi) {
