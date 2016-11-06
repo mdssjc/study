@@ -1,12 +1,12 @@
 package com.github.mdssjc.algorithms.chapter1.exercises11;
 
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.princeton.cs.algs4.StdOut;
-
 /**
- * Creative Exercício 27.
+ * Creative Exercise 27.
  * <p>
  * Binomial distribution.
  * 

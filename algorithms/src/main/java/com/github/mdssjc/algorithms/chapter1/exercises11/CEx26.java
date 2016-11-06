@@ -1,11 +1,11 @@
 package com.github.mdssjc.algorithms.chapter1.exercises11;
 
-import java.util.Arrays;
-
 import edu.princeton.cs.algs4.StdArrayIO;
 
+import java.util.Arrays;
+
 /**
- * Creative Exercício 26.
+ * Creative Exercise 26.
  * <p>
  * Sorting three numbers.
  * 

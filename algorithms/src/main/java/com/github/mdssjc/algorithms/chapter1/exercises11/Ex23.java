@@ -9,7 +9,7 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.stream.IntStream;
 
 /**
- * Exercício 23.
+ * Exercise 23.
  *
  * @author Marcelo dos Santos
  *

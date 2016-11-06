@@ -5,7 +5,7 @@ import com.github.mdssjc.algorithms.chapter1.section11.Euclid;
 import edu.princeton.cs.algs4.StdArrayIO;
 
 /**
- * Creative Exercício 30.
+ * Creative Exercise 30.
  * <p>
  * Array exercise.
  * 

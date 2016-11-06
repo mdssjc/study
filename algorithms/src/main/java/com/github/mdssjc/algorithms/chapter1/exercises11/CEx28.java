@@ -10,7 +10,7 @@ import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Creative Exercício 28.
+ * Creative Exercise 28.
  * <p>
  * Remove duplicates.
  * 

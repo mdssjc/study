@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Exercício 19.
+ * Exercise 19.
  *
  * @author Marcelo dos Santos
  *
