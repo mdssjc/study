@@ -1,35 +1,40 @@
 package com.github.mdssjc.algorithms.chapter1.exercises11;
 
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.IntPredicate;
 import java.util.stream.IntStream;
 
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  * Creative Exercise 29.
  * <p>
  * Equal keys.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
+@TestDrive( input = "1 2 3" )
 public class CEx29 {
 
   public static void main(final String[] args) {
+    Executor.execute(CEx29.class, args);
+
     final int[] whitelist = IntStream.generate(() -> ThreadLocalRandom.current()
-      .nextInt(5))
-      .limit(10)
-      .sorted()
-      .toArray();
+                                                                      .nextInt(5))
+                                     .limit(10)
+                                     .sorted()
+                                     .toArray();
 
     StdOut.println(Arrays.toString(whitelist));
     while (!StdIn.isEmpty()) {
       final int key = StdIn.readInt();
-      final int rank = rank(key, whitelist);
-      final int count = count(key, whitelist);
+      final int rank = BinarySearchCEx29.rank(key, whitelist);
+      final int count = BinarySearchCEx29.count(key, whitelist);
 
       StdOut.println("Smaller than the key: " + rank);
       StdOut.println("Elements equal to the key: " + count);
@@ -40,27 +45,30 @@ public class CEx29 {
       StdOut.println();
     }
   }
+}
 
-  public static int count(final int key, final int[] a) {
-    return rank(key, a, e -> e == key);
-  }
+class BinarySearchCEx29 {
 
   public static int rank(final int key, final int[] a) {
     return rank(key, a, e -> e < key);
   }
 
+  public static int count(final int key, final int[] a) {
+    return rank(key, a, e -> e == key);
+  }
+
   private static int rank(final int key, final int[] a,
-      final IntPredicate predicate) {
+                          final IntPredicate predicate) {
     if (rank(key, a, 0, a.length - 1) != -1) {
       return (int) Arrays.stream(a)
-        .filter(predicate)
-        .count();
+                         .filter(predicate)
+                         .count();
     }
     return 0;
   }
 
   private static int rank(final int key, final int[] a, final int lo,
-      final int hi) {
+                          final int hi) {
     if (lo > hi) {
       return -1;
     }
