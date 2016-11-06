@@ -25,7 +25,3 @@
 (define :7 (lambda (f) (lambda (x) (f ((:6 f) x)))))
 (define :8 (lambda (f) (lambda (x) (f ((:7 f) x)))))
 (define :9 (lambda (f) (lambda (x) (f ((:8 f) x)))))
-
-;; Helper
-(define (inc x) (+ x 1))
-(define (number n) ((n inc) 0))

@@ -9,18 +9,21 @@
 (require "numerals.rkt")
 (require "operators.rkt")
 
+;; Helper
+(define (eval f) ((f (λ (n) (+ n 1))) 0))
+
 ;; Numbers
 (println "Numbers:")
-(number :0)
-(number :1)
-(number :2)
-(number :3)
-(number :4)
-(number :5)
-(number :6)
-(number :7)
-(number :8)
-(number :9)
+(eval :0)
+(eval :1)
+(eval :2)
+(eval :3)
+(eval :4)
+(eval :5)
+(eval :6)
+(eval :7)
+(eval :8)
+(eval :9)
 
 ;; Operators
 (println "Operators:")
