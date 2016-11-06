@@ -1,5 +1,7 @@
 package com.github.mdssjc.algorithms.chapter1.exercises11;
 
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdArrayIO;
 
 import java.util.Arrays;
@@ -8,14 +10,17 @@ import java.util.Arrays;
  * Creative Exercise 26.
  * <p>
  * Sorting three numbers.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
+@TestDrive
 public class CEx26 {
 
   public static void main(final String[] args) {
-    final int[] vector = new int[] { 3, 1, 8 };
+    Executor.execute(CEx26.class, args);
+
+    final int[] vector = new int[]{3, 1, 8};
 
     final int[] sorted = sort(vector);
     StdArrayIO.print(sorted);
@@ -24,7 +29,7 @@ public class CEx26 {
     StdArrayIO.print(vector);
   }
 
-  public static int[] sort(final int[] vector) {
+  private static int[] sort(final int[] vector) {
     int a = vector[0];
     int b = vector[1];
     int c = vector[2];
@@ -46,6 +51,6 @@ public class CEx26 {
       c = t;
     }
 
-    return new int[] { a, b, c };
+    return new int[]{a, b, c};
   }
 }
