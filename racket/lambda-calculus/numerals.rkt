@@ -13,6 +13,7 @@
 ;; author: Marcelo dos Santos
 ;;
 (require "combinators.rkt")
+(provide (all-defined-out))
 
 (define :0 (lambda (f) I))
 (define :1 (lambda (f) (lambda (x) (f ((:0 f) x)))))
@@ -25,17 +26,6 @@
 (define :8 (lambda (f) (lambda (x) (f ((:7 f) x)))))
 (define :9 (lambda (f) (lambda (x) (f ((:8 f) x)))))
 
-;; Output
-(define (inc x) (+ x 1))                ; TODO: refatorar
+;; Helper
+(define (inc x) (+ x 1))
 (define (number n) ((n inc) 0))
-
-(number :0)
-(number :1)
-(number :2)
-(number :3)
-(number :4)
-(number :5)
-(number :6)
-(number :7)
-(number :8)
-(number :9)
