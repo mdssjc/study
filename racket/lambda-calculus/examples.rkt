@@ -29,3 +29,4 @@
 (println "Operators:")
 (eval (SUCC :0))
 (eval (PLUS :1 :2))
+(eval (MULT :3 :2))
