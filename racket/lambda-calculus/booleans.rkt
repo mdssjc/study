@@ -18,13 +18,14 @@
 (define IF   (lambda (p a b) ((p a) b)))
 
 ;; Output
+(println "BOOLEANS")
 (println TRUE)
 (println FALSE)
 
 (println "NOT")
 (println (NOT  TRUE))
 (println (NOT  FALSE))
-(println (NOT2 TRUE "1" "0"))
+(println (NOT2 TRUE  "1" "0"))
 (println (NOT2 FALSE "1" "0"))
 
 (println "AND")
