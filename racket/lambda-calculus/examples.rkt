@@ -33,6 +33,7 @@
 (eval (MULT :3 :2))
 (eval (POW  :2 :5))
 (eval (PRED :4))
+(eval (SUB :6 :2))
 
 ;; Tuples
 (define p (PAIR "a" "b"))
