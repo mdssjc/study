@@ -8,6 +8,7 @@
 (require "combinators.rkt")
 (require "numerals.rkt")
 (require "operators.rkt")
+(require "predicates.rkt")
 (require "tuples.rkt")
 
 ;; Helper
@@ -34,6 +35,9 @@
 (eval (POW  :2 :5))
 (eval (PRED :4))
 (eval (SUB :6 :2))
+
+;; Predicates
+(println "Predicates:")
 (ZERO? :0)
 (ZERO? :1)
 

@@ -15,4 +15,3 @@
 (define POW   (λ (b e) (e b)))
 (define PRED  (λ (n)   (λ (f) (λ (x) (((n (λ (g) (λ (h) (h (g f))))) (λ (u) x)) I)))))
 (define SUB   (λ (m n) ((n PRED) m)))
-(define ZERO? (λ (n)   ((n (λ (x) F)) T)))
