@@ -1,13 +1,11 @@
-#lang lazy
+#lang racket/base
 
 ;;
 ;; Combinators
 ;;
 ;; author: Marcelo dos Santos
 ;;
-(provide T)
-(provide F)
-(provide I)
+(provide (all-defined-out))
 
 ;; S -> Substitution/Slider: λx[λy[λz[xz(yz)]]]
 (define S (λ (x) (λ (y) (λ (z) ((x z) (y z))))))
@@ -47,21 +45,3 @@
 
 ;; Θ -> Distribution: (λx[λf[f(xxf)]])(λx[λf[f(xxf)]])
 (define Θ (λ (x) (λ (y) (λ (z) (λ (u) (x (y u) (z u)))))))
-
-;; Output
-(define multi (λ (x) (λ (y) (* x y))))
-(define div (λ (x) (λ (y) (/ x y))))
-(define (double x) (* x x))
-(define (succ x) (+ x 1))
-(define factorial (Y (λ (fact) (λ (n) (if (zero? n) 1 (* n (fact (- n 1))))))))
-
-(((S multi) double) 5)
-((K "A") "B")
-(I 1)
-(((B double) succ) 1)
-(((C div) 4) 2)
-((T 1) 0)
-((F 1) 0)
-((W multi) 5)
-
-(!! (map factorial '(1 2 4 8)))

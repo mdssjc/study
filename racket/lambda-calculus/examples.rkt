@@ -1,15 +1,16 @@
-#lang racket/base
+;; #lang racket/base
+#lang lazy
 
 ;;
 ;; Examples
 ;;
 ;; author: Marcelo dos Santos
 ;;
-(require "combinators.rkt")
 (require "numerals.rkt")
 (require "operators.rkt")
 (require "predicates.rkt")
 (require "tuples.rkt")
+(require "combinators.rkt")
 
 ;; Helper
 (define (eval f) ((f (λ (n) (+ n 1))) 0))
@@ -42,6 +43,26 @@
 (ZERO? :1)
 
 ;; Tuples
+(println "Tuples:")
 (define p (PAIR "a" "b"))
 (HEAD p)
 (TAIL p)
+
+;; Combinators
+(println "Combinators:")
+(define multi (λ (x) (λ (y) (* x y))))
+(define div (λ (x) (λ (y) (/ x y))))
+(define (double x) (* x x))
+(define (succ x) (+ x 1))
+(define factorial (Y (λ (fact) (λ (n) (if (zero? n) 1 (* n (fact (- n 1))))))))
+
+(((S multi) double) 5)
+((K "A") "B")
+(I 1)
+(((B double) succ) 1)
+(((C div) 4) 2)
+((T 1) 0)
+((F 1) 0)
+((W multi) 5)
+
+(!! (map factorial '(1 2 4 8)))
