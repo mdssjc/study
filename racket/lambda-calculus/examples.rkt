@@ -8,6 +8,7 @@
 ;;
 (require "numerals.rkt")
 (require "operators.rkt")
+(require "booleans.rkt")
 (require "predicates.rkt")
 (require "tuples.rkt")
 (require "combinators.rkt")
@@ -36,6 +37,40 @@
 (eval (POW  :2 :5))
 (eval (PRED :4))
 (eval (SUB :6 :2))
+
+;; Booleans
+(println "Booleans:")
+(println "BOOLEANS")
+TRUE
+FALSE
+
+(println "NOT")
+(NOT  TRUE)
+(NOT  FALSE)
+(NOT2 TRUE  "1" "0")
+(NOT2 FALSE "1" "0")
+
+(println "AND")
+(AND FALSE FALSE)
+(AND FALSE TRUE)
+(AND TRUE FALSE)
+(AND TRUE TRUE)
+
+(println "OR")
+(OR FALSE FALSE)
+(OR FALSE TRUE)
+(OR TRUE FALSE)
+(OR TRUE TRUE)
+
+(println "XOR")
+(XOR FALSE FALSE)
+(XOR FALSE TRUE)
+(XOR TRUE FALSE)
+(XOR TRUE TRUE)
+
+(println "IF")
+(IF TRUE  "1" "2")
+(IF FALSE "1" "2")
 
 ;; Predicates
 (println "Predicates:")
