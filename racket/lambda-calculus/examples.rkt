@@ -8,6 +8,7 @@
 (require "combinators.rkt")
 (require "numerals.rkt")
 (require "operators.rkt")
+(require "tuples.rkt")
 
 ;; Helper
 (define (eval f) ((f (λ (n) (+ n 1))) 0))
@@ -31,3 +32,8 @@
 (eval (PLUS :1 :2))
 (eval (MULT :3 :2))
 (eval (POW  :2 :5))
+
+;; Tuples
+(define p (PAIR "a" "b"))
+(HEAD p)
+(TAIL p)

@@ -6,13 +6,8 @@
 ;; author: Marcelo dos Santos
 ;;
 (require "combinators.rkt")
+(provide (all-defined-out))
 
-(define pair (λ (a b) (λ (f) ((f a) b))))
-(define head (λ (p) (p T)))
-(define tail (λ (p) (p F)))
-
-;; Output
-(define p (pair "a" "b"))
-
-(println (head p))
-(println (tail p))
+(define PAIR (λ (a b) (λ (f) ((f a) b))))
+(define HEAD (λ (p) (p T)))
+(define TAIL (λ (p) (p F)))
