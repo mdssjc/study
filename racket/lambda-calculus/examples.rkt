@@ -41,6 +41,10 @@
 (println "Predicates:")
 (ZERO? :0)
 (ZERO? :1)
+(LEQ?  :2 :3)
+(LEQ?  :7 :2)
+(EQ?   :2 :2)
+(EQ?   :2 :1)
 
 ;; Tuples
 (println "Tuples:")
@@ -65,4 +69,4 @@
 ((F 1) 0)
 ((W multi) 5)
 
-(!! (map factorial '(1 2 4 8)))
+;; (!! (map factorial '(1 2 4 8)))

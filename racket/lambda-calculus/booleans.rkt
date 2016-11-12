@@ -6,6 +6,7 @@
 ;; author: Marcelo dos Santos
 ;;
 (require "combinators.rkt")
+(provide (all-defined-out))
 
 (define TRUE  T)
 (define FALSE F)
