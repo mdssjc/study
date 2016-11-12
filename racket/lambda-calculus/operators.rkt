@@ -12,3 +12,4 @@
 (define SUCC (λ (n)   (λ (f) (λ (x) (f ((n f) x))))))
 (define PLUS (λ (m n) (m (SUCC n))))
 (define MULT (λ (m n) ((m (n SUCC)) :0)))
+(define POW  (λ (b e) (e b)))
