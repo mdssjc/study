@@ -34,6 +34,8 @@
 (eval (POW  :2 :5))
 (eval (PRED :4))
 (eval (SUB :6 :2))
+(ZERO? :0)
+(ZERO? :1)
 
 ;; Tuples
 (define p (PAIR "a" "b"))
