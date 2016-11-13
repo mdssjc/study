@@ -1,7 +1,7 @@
 #lang racket/base
 
 ;;
-;; Tuples (Church Pairs)
+;; Tuples (Church Tuples)
 ;;
 ;; author: Marcelo dos Santos
 ;;
