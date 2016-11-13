@@ -11,6 +11,7 @@
 (require "booleans.rkt")
 (require "predicates.rkt")
 (require "tuples.rkt")
+(require "lists.rkt")
 (require "combinators.rkt")
 
 ;; Helper
@@ -86,6 +87,15 @@ FALSE
 (define p (PAIR "a" "b"))
 (HEAD p)
 (TAIL p)
+
+;; Lists
+(println "Lists:")
+(define my-list (CONS "a" (CONS "b" (CONS "c" NIL))))
+(NULL NIL)
+(NULL my-list)
+(CAR my-list)
+(CAR (CDR my-list))
+(CDR my-list)
 
 ;; Combinators
 (println "Combinators:")
