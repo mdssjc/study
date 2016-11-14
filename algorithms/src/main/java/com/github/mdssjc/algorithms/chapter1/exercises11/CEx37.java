@@ -14,7 +14,7 @@ import edu.princeton.cs.algs4.StdRandom;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( {"10"} )
+@TestDrive( "10" )
 public class CEx37 {
 
   public static void main(final String[] args) {
