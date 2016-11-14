@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
  * Executor Class.
  *
  * @author Marcelo dos Santos
- *
  */
 public class Executor {
 
@@ -36,7 +35,9 @@ public class Executor {
 
         final String[] value = td.value();
         if (td.valueFile()) {
-          value[0] = RESOURCES_PATH + value[0];
+          for (int i = 0; i < value.length; i++) {
+            value[i] = RESOURCES_PATH + value[i];
+          }
         }
 
         if (td.input().length > 0) {
