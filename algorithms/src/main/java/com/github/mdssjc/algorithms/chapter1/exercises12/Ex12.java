@@ -3,18 +3,17 @@ package com.github.mdssjc.algorithms.chapter1.exercises12;
 import com.github.mdssjc.algorithms.chapter1.section12.Datable;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Exercício 12.
- * 
+ * Exercise 12.
+ *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive({ "7", "10", "2016" })
-@TestDrive({ "8", "20", "2016" })
-@TestDrive({ "8", "28", "2016" })
+@TestDrive( {"7", "10", "2016"} )
+@TestDrive( {"8", "20", "2016"} )
+@TestDrive( {"8", "28", "2016"} )
 public class Ex12 implements Datable {
 
   private final int value;
@@ -50,9 +49,9 @@ public class Ex12 implements Datable {
 
   // https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week
   public String dayOfTheWeek() {
-    final String[] daysWeek = { "Sunday", "Monday", "Tuesday", "Wednesday",
-        "Thursday", "Friday", "Saturday" };
-    final int[] t = { 0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4 };
+    final String[] daysWeek = {"Sunday", "Monday", "Tuesday", "Wednesday",
+        "Thursday", "Friday", "Saturday"};
+    final int[] t = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
     int year = year();
 
     if (month() < 3) {
