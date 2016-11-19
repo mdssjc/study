@@ -2,27 +2,26 @@ package com.github.mdssjc.algorithms.chapter1.exercises12;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * Exercício 1.
- * 
+ * Exercise 1.
+ *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive({ "6" })
+@TestDrive( "6" )
 public class Ex1 {
 
   public static void main(final String[] args) {
     Executor.execute(Ex1.class, args);
 
-    final int N = Integer.parseInt(args[0]);
+    final int n = Integer.parseInt(args[0]);
 
-    final Point2D[] points = new Point2D[N];
-    for (int i = 0; i < N; i++) {
+    final Point2D[] points = new Point2D[n];
+    for (int i = 0; i < n; i++) {
       points[i] = new Point2D(StdRandom.random(), StdRandom.random());
     }
 
