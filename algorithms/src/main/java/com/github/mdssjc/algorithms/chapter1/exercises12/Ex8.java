@@ -1,22 +1,27 @@
 package com.github.mdssjc.algorithms.chapter1.exercises12;
 
-import java.util.stream.IntStream;
-
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
+import java.util.stream.IntStream;
+
 /**
- * Exercício 8.
- * 
+ * Exercise 8.
+ *
  * @author Marcelo dos Santos
  *
  */
+@TestDrive
 public class Ex8 {
 
   public static void main(final String[] args) {
+    Executor.execute(Ex8.class, args);
+
     int[] a = IntStream.range(0, 1000)
-      .toArray();
+                       .toArray();
     int[] b = IntStream.range(1000, 2000)
-      .toArray();
+                       .toArray();
 
     final int[] t = a;
     a = b;
