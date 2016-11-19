@@ -2,25 +2,49 @@ package com.github.mdssjc.algorithms.chapter1.exercises12;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * Exercício 10 (VisualCounter).
- * 
+ * Exercise 10.
+ *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive({ "10", "10" })
+@TestDrive( {"10", "10"} )
 public class Ex10 {
 
-  private int       n;
-  private double    posX;
-  private final int max;
-  private int       counter;
+  public static void main(final String[] args) {
+    Executor.execute(Ex10.class, args);
 
-  public Ex10(final int n, final int max) {
+    final int n = Integer.parseInt(args[0]);
+    final int max = Integer.parseInt(args[1]);
+
+    final VisualCounter vc = new VisualCounter(n, max);
+    for (int i = 0; i < n; i++) {
+      if (StdRandom.bernoulli()) {
+        vc.increment();
+      } else {
+        vc.decrement();
+      }
+    }
+
+    try {
+      Thread.sleep(5000);
+    } catch (final InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+}
+
+class VisualCounter {
+
+  private final int max;
+  private int n;
+  private double posX;
+  private int counter;
+
+  public VisualCounter(final int n, final int max) {
     this.n = n;
     this.max = max;
     this.posX = -0.5;
@@ -46,27 +70,5 @@ public class Ex10 {
   private void draw() {
     this.n--;
     StdDraw.point(++this.posX, this.counter + this.max);
-  }
-
-  public static void main(final String[] args) {
-    Executor.execute(Ex10.class, args);
-
-    final int N = Integer.parseInt(args[0]);
-    final int max = Integer.parseInt(args[1]);
-
-    final Ex10 vc = new Ex10(N, max);
-    for (int i = 0; i < N; i++) {
-      if (StdRandom.bernoulli()) {
-        vc.increment();
-      } else {
-        vc.decrement();
-      }
-    }
-
-    try {
-      Thread.sleep(5000);
-    } catch (final InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 }
