@@ -18,33 +18,33 @@ public class Ex13 {
   public static void main(final String[] args) {
     Executor.execute(Ex13.class, args);
 
-    final Transaction transaction;
+    final TransactionEx13 transaction;
     if (args.length == 1) {
-      transaction = new Transaction(args[0]);
+      transaction = new TransactionEx13(args[0]);
     } else {
       final String who = args[0];
       final Date when = new Date(args[1]);
       final double amount = Double.parseDouble(args[2]);
-      transaction = new Transaction(who, when, amount);
+      transaction = new TransactionEx13(who, when, amount);
     }
 
     StdOut.println(transaction);
   }
 }
 
-class Transaction {
+class TransactionEx13 {
 
   private final String who;
   private final Date when;
   private final double amount;
 
-  public Transaction(final String who, final Date when, final double amount) {
+  public TransactionEx13(final String who, final Date when, final double amount) {
     this.who = who;
     this.when = when;
     this.amount = amount;
   }
 
-  public Transaction(final String transaction) {
+  public TransactionEx13(final String transaction) {
     final String[] xs = transaction.split(",");
     this.who = xs[0];
     this.when = new Date(xs[1]);
