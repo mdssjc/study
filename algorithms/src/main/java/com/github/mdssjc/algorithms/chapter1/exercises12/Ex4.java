@@ -3,7 +3,7 @@ package com.github.mdssjc.algorithms.chapter1.exercises12;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Exercício 4.
+ * Exercise 4.
  * 
  * @author Marcelo dos Santos
  *
