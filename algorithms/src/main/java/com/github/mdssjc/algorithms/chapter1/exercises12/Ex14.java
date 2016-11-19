@@ -2,34 +2,45 @@ package com.github.mdssjc.algorithms.chapter1.exercises12;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.Date;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Exercício 14 (Transaction).
- * 
+ * Exercise 14.
+ *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive({ "Marcelo,08/28/2016,1520.55", "Marcelo,08/28/2016,1520.55" })
-@TestDrive({ "Marcelos,08/28/2016,1520.55", "Marcelo,08/28/2016,1520.55" })
-@TestDrive({ "Marcelo,08/27/2016,1520.55", "Marcelo,08/28/2016,1520.55" })
-@TestDrive({ "Marcelo,08/28/2016,1520.56", "Marcelo,08/28/2016,1520.55" })
-@TestDrive({ "Marcelo,08/29/2016,1520.55", "Marcelo,08/28/2016,1520.55" })
-public class Ex14 implements Comparable<Ex14> {
+@TestDrive( {"Marcelo,08/28/2016,1520.55", "Marcelo,08/28/2016,1520.55"} )
+@TestDrive( {"Marcelos,08/28/2016,1520.55", "Marcelo,08/28/2016,1520.55"} )
+@TestDrive( {"Marcelo,08/27/2016,1520.55", "Marcelo,08/28/2016,1520.55"} )
+@TestDrive( {"Marcelo,08/28/2016,1520.56", "Marcelo,08/28/2016,1520.55"} )
+@TestDrive( {"Marcelo,08/29/2016,1520.55", "Marcelo,08/28/2016,1520.55"} )
+public class Ex14 {
+
+  public static void main(final String[] args) {
+    Executor.execute(Ex14.class, args);
+
+    final TransactionEx14 log1 = new TransactionEx14(args[0]);
+    final TransactionEx14 log2 = new TransactionEx14(args[1]);
+
+    StdOut.println(log1.equals(log2) + " " + log1.compareTo(log2));
+  }
+}
+
+class TransactionEx14 implements Comparable<TransactionEx14> {
 
   private final String who;
-  private final Date   when;
+  private final Date when;
   private final double amount;
 
-  public Ex14(final String who, final Date when, final double amount) {
+  public TransactionEx14(final String who, final Date when, final double amount) {
     this.who = who;
     this.when = when;
     this.amount = amount;
   }
 
-  public Ex14(final String transaction) {
+  public TransactionEx14(final String transaction) {
     final String[] xs = transaction.split(",");
     this.who = xs[0];
     this.when = new Date(xs[1]);
@@ -49,7 +60,7 @@ public class Ex14 implements Comparable<Ex14> {
   }
 
   @Override
-  public int compareTo(final Ex14 t) {
+  public int compareTo(final TransactionEx14 t) {
     return this.when.compareTo(t.when);
   }
 
@@ -57,7 +68,7 @@ public class Ex14 implements Comparable<Ex14> {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    long temp;
+    final long temp;
     temp = Double.doubleToLongBits(this.amount);
     result = prime * result + (int) (temp ^ (temp >>> 32));
     result = prime * result + ((this.when == null) ? 0 : this.when.hashCode());
@@ -76,9 +87,9 @@ public class Ex14 implements Comparable<Ex14> {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final Ex14 other = (Ex14) obj;
+    final TransactionEx14 other = (TransactionEx14) obj;
     if (Double.doubleToLongBits(this.amount) != Double
-      .doubleToLongBits(other.amount)) {
+        .doubleToLongBits(other.amount)) {
       return false;
     }
     if (this.when == null) {
@@ -101,14 +112,5 @@ public class Ex14 implements Comparable<Ex14> {
   @Override
   public String toString() {
     return String.format("%s: %s %.2f", this.who, this.when, this.amount);
-  }
-
-  public static void main(final String[] args) {
-    Executor.execute(Ex14.class, args);
-
-    final Ex14 log1 = new Ex14(args[0]);
-    final Ex14 log2 = new Ex14(args[1]);
-
-    StdOut.println(log1.equals(log2) + " " + log1.compareTo(log2));
   }
 }
