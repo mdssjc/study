@@ -2,36 +2,35 @@ package com.github.mdssjc.algorithms.chapter1.exercises12;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.Interval1D;
 import edu.princeton.cs.algs4.Interval2D;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * Exercício 3.
- * 
+ * Exercise 3.
+ *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive({ "5", "5", "50" })
+@TestDrive( {"5", "5", "50"} )
 public class Ex3 {
 
   public static void main(final String[] args) {
     Executor.execute(Ex3.class, args);
 
-    final int N = Integer.parseInt(args[0]);
+    final int n = Integer.parseInt(args[0]);
     final int min = Integer.parseInt(args[1]);
     final int max = Integer.parseInt(args[2]);
 
-    final Interval2D[] intervals = new Interval2D[N];
+    final Interval2D[] intervals = new Interval2D[n];
     for (int i = 0; i < intervals.length; i++) {
       final Interval1D width = makeInterval1D(min, max);
       final Interval1D height = makeInterval1D(min, max);
       intervals[i] = new Interval2D(width, height);
     }
 
-    final int[] intersects = new int[N];
+    final int[] intersects = new int[n];
     for (int i = 0; i < intervals.length; i++) {
       for (int j = 0; j < intervals.length; j++) {
         if (i != j && intervals[i].intersects(intervals[j])) {
@@ -56,7 +55,7 @@ public class Ex3 {
     return new Interval1D(Math.min(a, b), Math.max(a, b));
   }
 
-  public static double scale(final double x, final int min, final int max) {
+  private static double scale(final double x, final int min, final int max) {
     return (x - min) / (max - min);
   }
 }
