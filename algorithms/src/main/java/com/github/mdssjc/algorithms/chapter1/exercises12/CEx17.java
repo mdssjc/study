@@ -73,7 +73,6 @@ class RationalCEx17 implements Comparable<RationalCEx17> {
 
   // create and initialize a new Rational object
   public RationalCEx17(final long numerator, final long denominator) {
-
     // deal with x/0
     if (denominator == 0) {
       throw new ArithmeticException("denominator is zero");
@@ -107,23 +106,32 @@ class RationalCEx17 implements Comparable<RationalCEx17> {
 
   // return string representation of this rational number
   public String toString() {
-    if (den == 1) return num + "";
-    else return num + "/" + den;
+    if (den == 1) {
+      return num + "";
+    } else return num + "/" + den;
   }
 
   // return { -1, 0, +1 } if this < that, this = that, or this > that
   public int compareTo(final RationalCEx17 that) {
     final long lhs = this.num * that.den;
     final long rhs = this.den * that.num;
-    if (lhs < rhs) return -1;
-    if (lhs > rhs) return +1;
+    if (lhs < rhs) {
+      return -1;
+    }
+    if (lhs > rhs) {
+      return +1;
+    }
     return 0;
   }
 
   // is this RationalCEx17 object equal to other?
   public boolean equals(final Object other) {
-    if (other == null) return false;
-    if (other.getClass() != this.getClass()) return false;
+    if (other == null) {
+      return false;
+    }
+    if (other.getClass() != this.getClass()) {
+      return false;
+    }
     final RationalCEx17 that = (RationalCEx17) other;
     return this.compareTo(that) == 0;
   }
@@ -136,7 +144,6 @@ class RationalCEx17 implements Comparable<RationalCEx17> {
 
   // return this * that, staving off overflow as much as possible by cross-cancellation
   public RationalCEx17 times(final RationalCEx17 that) {
-
     // reduce p1/q2 and p2/q1, then multiply, where a = p1/q1 and b = p2/q2
     final RationalCEx17 c = new RationalCEx17(this.num, that.den);
     final RationalCEx17 d = new RationalCEx17(that.num, this.den);
@@ -145,10 +152,13 @@ class RationalCEx17 implements Comparable<RationalCEx17> {
 
   // return this + that, staving off overflow
   public RationalCEx17 plus(final RationalCEx17 that) {
-
     // special cases
-    if (this.compareTo(zero) == 0) return that;
-    if (that.compareTo(zero) == 0) return this;
+    if (this.compareTo(zero) == 0) {
+      return that;
+    }
+    if (that.compareTo(zero) == 0) {
+      return this;
+    }
 
     // Find gcd of numerators and denominators
     final long f = gcd(this.num, that.num);
@@ -190,16 +200,27 @@ class RationalCEx17 implements Comparable<RationalCEx17> {
 
   // return gcd(|m|, |n|)
   private static long gcd(long m, long n) {
-    if (m < 0) m = -m;
-    if (n < 0) n = -n;
-    if (0 == n) return m;
-    else return gcd(n, m % n);
+    if (m < 0) {
+      m = -m;
+    }
+    if (n < 0) {
+      n = -n;
+    }
+    if (0 == n) {
+      return m;
+    } else {
+      return gcd(n, m % n);
+    }
   }
 
   // return lcm(|m|, |n|)
   private static long lcm(long m, long n) {
-    if (m < 0) m = -m;
-    if (n < 0) n = -n;
+    if (m < 0) {
+      m = -m;
+    }
+    if (n < 0) {
+      n = -n;
+    }
     return m * (n / gcd(m, n));    // parentheses important to avoid overflow
   }
 }
