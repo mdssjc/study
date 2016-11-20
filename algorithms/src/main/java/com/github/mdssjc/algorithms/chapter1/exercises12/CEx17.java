@@ -80,35 +80,35 @@ class RationalCEx17 implements Comparable<RationalCEx17> {
 
     // reduce fraction
     final long g = gcd(numerator, denominator);
-    num = numerator / g;
-    den = denominator / g;
+    this.num = numerator / g;
+    this.den = denominator / g;
 
     // only needed for negative numbers
-    if (den < 0) {
-      den = -den;
-      num = -num;
+    if (this.den < 0) {
+      this.den = -this.den;
+      this.num = -this.num;
     }
   }
 
   // return the numerator and denominator of this rational number
   public long numerator() {
-    return num;
+    return this.num;
   }
 
   public long denominator() {
-    return den;
+    return this.den;
   }
 
   // return double precision representation of this rational number
   public double toDouble() {
-    return (double) num / den;
+    return (double) this.num / this.den;
   }
 
   // return string representation of this rational number
   public String toString() {
-    if (den == 1) {
-      return num + "";
-    } else return num + "/" + den;
+    if (this.den == 1) {
+      return this.num + "";
+    } else return this.num + "/" + this.den;
   }
 
   // return { -1, 0, +1 } if this < that, this = that, or this > that
@@ -176,7 +176,7 @@ class RationalCEx17 implements Comparable<RationalCEx17> {
 
   // return -this
   public RationalCEx17 negate() {
-    return new RationalCEx17(-num, den);
+    return new RationalCEx17(-this.num, this.den);
   }
 
   // return this - that
@@ -185,7 +185,7 @@ class RationalCEx17 implements Comparable<RationalCEx17> {
   }
 
   public RationalCEx17 reciprocal() {
-    return new RationalCEx17(den, num);
+    return new RationalCEx17(this.den, this.num);
   }
 
   // return this / that
