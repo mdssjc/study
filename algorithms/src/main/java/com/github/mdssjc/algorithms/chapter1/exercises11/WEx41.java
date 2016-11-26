@@ -29,7 +29,7 @@ public class WEx41 {
     try (Scanner scanner = new Scanner(new URL(url).openStream());
          PrintStream printStream = new PrintStream(filename)) {
       while (scanner.hasNext()) {
-        final String line = scanner.next();
+        final String line = scanner.nextLine();
         StdOut.println(line);
         printStream.println(line);
       }
