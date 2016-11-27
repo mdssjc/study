@@ -3,8 +3,6 @@ package com.github.mdssjc.algorithms.datastructure.iterators;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import lombok.AllArgsConstructor;
-
 /**
  * Iterador para Reverse Array.
  *
@@ -13,11 +11,15 @@ import lombok.AllArgsConstructor;
  * @param <T>
  *          Tipo de Dado
  */
-@AllArgsConstructor
 public class ReverseArrayIterator<T> implements Iterator<T> {
 
   private final T[] items;
   private int       i;
+
+  public ReverseArrayIterator(final T[] items, final int length) {
+    this.items = items;
+    this.i = length;
+  }
 
   @Override
   public boolean hasNext() {
@@ -35,7 +37,6 @@ public class ReverseArrayIterator<T> implements Iterator<T> {
 
   @Override
   public void remove() {
-    throw new UnsupportedOperationException(
-        "Unsupported Operation Exception");
+    throw new UnsupportedOperationException("Unsupported Operation Exception");
   }
 }
