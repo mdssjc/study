@@ -9,12 +9,12 @@ import java.util.NoSuchElementException;
  * @author Marcelo dos Santos
  *
  * @param <T>
- *          Tipo de Dado
+ *     Tipo de Dado
  */
 public class ReverseArrayIterator<T> implements Iterator<T> {
 
   private final T[] items;
-  private int       i;
+  private int i;
 
   public ReverseArrayIterator(final T[] items, final int length) {
     this.items = items;

@@ -1,9 +1,9 @@
 package com.github.mdssjc.algorithms.datastructure.iterators;
 
+import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
 
 /**
  * Iterador para Linked List (Lista Linkada).
@@ -11,7 +11,7 @@ import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
  * @author Marcelo dos Santos
  *
  * @param <T>
- *          Tipo de Dado
+ *     Tipo de Dado
  */
 public class LinkedListIterator<T> implements Iterator<T> {
 
