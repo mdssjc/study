@@ -2,17 +2,16 @@ package com.github.mdssjc.algorithms.chapter1.section12;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
  * Rolls Class.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive({ "1000000" })
+@TestDrive( "1000000" )
 public class Rolls {
 
   public static void main(final String[] args) {

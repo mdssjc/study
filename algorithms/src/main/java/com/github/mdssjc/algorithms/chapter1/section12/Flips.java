@@ -2,17 +2,16 @@ package com.github.mdssjc.algorithms.chapter1.section12;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
  * Flips Class.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive({ "1000" })
+@TestDrive( "1000" )
 public class Flips {
 
   public static void main(final String[] args) {

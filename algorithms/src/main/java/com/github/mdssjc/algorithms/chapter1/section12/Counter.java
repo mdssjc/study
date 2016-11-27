@@ -1,7 +1,7 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
+import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.StdOut;
 
 /**
@@ -14,7 +14,7 @@ import edu.princeton.cs.algs4.StdOut;
 public class Counter {
 
   private final String name;
-  private int          counter;
+  private int counter;
 
   public Counter(final String id) {
     this.name = id;
@@ -34,6 +34,8 @@ public class Counter {
   }
 
   public static void main(final String[] args) {
+    Executor.execute(Counter.class, args);
+
     final Counter heads = new Counter("heads");
     final Counter tails = new Counter("tails");
 
