@@ -2,38 +2,33 @@ package com.github.mdssjc.algorithms.chapter1.exercises11;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
-import java.io.IOException;
-import java.io.PrintStream;
-import java.net.URL;
-import java.util.Scanner;
-
 /**
- * Web Exercise 41.
+ * Web Exercise 42.
  * <p>
- * Wget.
+ * Right triangle.
  *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( "http://introcs.cs.princeton.edu/data/codes.csv" )
-public class WEx41 {
+@TestDrive
+public class WEx42 {
 
   public static void main(final String[] args) {
-    Executor.execute(WEx41.class, args);
+    Executor.execute(WEx42.class, args);
 
-    final String url = args[0];
-    final String filename = url.substring(url.lastIndexOf('/') + 1);
+    StdDraw.square(.5, .5, .5);
+    StdDraw.setPenColor(StdDraw.BLUE);
+    StdDraw.line(.5, .5, .9, .5);
+    StdDraw.line(.9, .5, .5, .8);
+    StdDraw.line(.5, .8, .5, .5);
+    StdDraw.circle(.7, .65, .25);
 
-    try (Scanner scanner = new Scanner(new URL(url).openStream());
-         PrintStream printStream = new PrintStream(filename)) {
-      while (scanner.hasNext()) {
-        final String line = scanner.nextLine();
-        StdOut.println(line);
-        printStream.println(line);
-      }
-    } catch (final IOException e) {
+    try {
+      Thread.sleep(5000);
+    } catch (final InterruptedException e) {
       StdOut.println(e.getMessage());
     }
   }
