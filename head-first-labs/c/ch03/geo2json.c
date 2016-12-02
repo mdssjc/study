@@ -13,7 +13,7 @@ int main() {
     } else {
       started = 1;
     }
-    printf("latitude: %f, longitude: %f, info: '%s'", latitude, longitude, info);
+    printf("{latitude: %f, longitude: %f, info: '%s'}", latitude, longitude, info);
   }
   puts("\n]");
   return 0;
