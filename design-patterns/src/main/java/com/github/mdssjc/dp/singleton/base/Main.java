@@ -9,6 +9,7 @@ import com.github.mdssjc.dp.singleton.*;
  * Creational - Singleton
  * <p>
  * Pode ser substituído pelo Dependency Injection.
+ * DoubleCheckSingleton é um anti-pattern.
  *
  * @author Marcelo dos Santos
  *
@@ -21,11 +22,13 @@ public class Main {
     final SynchronizedSingleton sync = SynchronizedSingleton.getInstance();
     final DoubleCheckSingleton doubleCheck = DoubleCheckSingleton.getInstance();
     final EnumSingleton enumerated = EnumSingleton.INSTANCE;
+    final InitializeOnDemandSingleton ondemand = InitializeOnDemandSingleton.getInstance();
 
     System.out.println(lazy);
     System.out.println(eager);
     System.out.println(sync);
     System.out.println(doubleCheck);
     System.out.println(enumerated);
+    System.out.println(ondemand);
   }
 }
