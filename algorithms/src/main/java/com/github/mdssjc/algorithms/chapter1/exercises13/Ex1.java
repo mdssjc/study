@@ -4,7 +4,7 @@ import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 
 /**
- * Exercício 1.
+ * Exercise 1.
  *
  * @author Marcelo dos Santos
  *

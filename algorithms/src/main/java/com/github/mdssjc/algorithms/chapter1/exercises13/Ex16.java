@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Exercício 16.
+ * Exercise 16.
  *
  * @author Marcelo dos Santos
  *
