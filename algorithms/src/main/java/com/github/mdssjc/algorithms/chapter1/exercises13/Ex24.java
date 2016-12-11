@@ -22,13 +22,12 @@ public class Ex24 {
     nodeRoot.item = "root";
     final Node<String> nodeA = new Node<>();
     nodeA.item = "node a";
+    nodeRoot.next = nodeA;
     final Node<String> nodeB = new Node<>();
     nodeB.item = "node b";
+    nodeA.next = nodeB;
     final Node<String> nodeC = new Node<>();
     nodeC.item = "node c";
-
-    nodeRoot.next = nodeA;
-    nodeA.next = nodeB;
     nodeB.next = nodeC;
 
     new LinkedListIterator<>(nodeRoot).forEachRemaining(StdOut::println);
