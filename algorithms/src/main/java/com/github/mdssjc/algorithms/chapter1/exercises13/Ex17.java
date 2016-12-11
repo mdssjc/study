@@ -1,5 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.exercises13;
 
+import com.github.mdssjc.algorithms.datastructure.queue.Queue;
 import com.github.mdssjc.algorithms.datastructure.queue.concrete.ResizingArrayQueue;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
@@ -25,7 +26,7 @@ public class Ex17 {
   }
 
   public static Transaction[] readTransactions() {
-    final ResizingArrayQueue<Transaction> transactions = new ResizingArrayQueue<>();
+    final Queue<Transaction> transactions = new ResizingArrayQueue<>();
     while (!StdIn.isEmpty()) {
       transactions.enqueue(new Transaction(StdIn.readLine()));
     }

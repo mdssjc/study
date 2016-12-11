@@ -16,6 +16,6 @@ public class Ex18 {
   public static void main(final String[] args) {
     Executor.execute(Ex18.class, args);
 
-    StdOut.println("Exclui da lista o nó imediatamente seguinte ao 'x'");
+    StdOut.println("Deletes from the list the node immediately following x.");
   }
 }

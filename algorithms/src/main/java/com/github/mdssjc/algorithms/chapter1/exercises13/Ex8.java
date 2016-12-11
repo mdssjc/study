@@ -1,5 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.exercises13;
 
+import com.github.mdssjc.algorithms.datastructure.stack.Stack;
 import com.github.mdssjc.algorithms.datastructure.stack.concrete.ResizingArrayStack;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
@@ -18,7 +19,7 @@ public class Ex8 {
   public static void main(final String[] args) {
     Executor.execute(Ex8.class, args);
 
-    final ResizingArrayStack<String> stack = new ResizingArrayStack<>();
+    final Stack<String> stack = new ResizingArrayStack<>();
     while (StdIn.hasNextLine()) {
       final String s = StdIn.readString();
       if ("-".equals(s)) {

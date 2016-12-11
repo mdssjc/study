@@ -1,5 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.exercises13;
 
+import com.github.mdssjc.algorithms.datastructure.stack.Stack;
 import com.github.mdssjc.algorithms.datastructure.stack.concrete.StackLinkedList;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
@@ -18,7 +19,7 @@ public class Ex2 {
   public static void main(final String[] args) {
     Executor.execute(Ex2.class, args);
 
-    final StackLinkedList<String> stack = new StackLinkedList<>();
+    final Stack<String> stack = new StackLinkedList<>();
 
     while (StdIn.hasNextLine()) {
       final String s = StdIn.readString();

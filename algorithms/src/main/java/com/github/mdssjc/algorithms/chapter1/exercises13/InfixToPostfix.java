@@ -1,5 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.exercises13;
 
+import com.github.mdssjc.algorithms.datastructure.stack.Stack;
 import com.github.mdssjc.algorithms.datastructure.stack.concrete.StackLinkedList;
 
 /**
@@ -11,7 +12,7 @@ import com.github.mdssjc.algorithms.datastructure.stack.concrete.StackLinkedList
 public class InfixToPostfix {
 
   public static String convert(final String infix) {
-    final StackLinkedList<String> ops = new StackLinkedList<>();
+    final Stack<String> ops = new StackLinkedList<>();
     final StringBuilder sb = new StringBuilder();
 
     for (final String s : infix.split(" ")) {

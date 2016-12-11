@@ -1,6 +1,8 @@
 package com.github.mdssjc.algorithms.chapter1.exercises13;
 
+import com.github.mdssjc.algorithms.datastructure.queue.Queue;
 import com.github.mdssjc.algorithms.datastructure.queue.concrete.QueueLinkedList;
+import com.github.mdssjc.algorithms.datastructure.stack.Stack;
 import com.github.mdssjc.algorithms.datastructure.stack.concrete.StackLinkedList;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
@@ -19,8 +21,8 @@ public class Ex6 {
   public static void main(final String[] args) {
     Executor.execute(Ex6.class, args);
 
-    final QueueLinkedList<String> q = new QueueLinkedList<>();
-    final StackLinkedList<String> stack = new StackLinkedList<>();
+    final Queue<String> q = new QueueLinkedList<>();
+    final Stack<String> stack = new StackLinkedList<>();
 
     while (StdIn.hasNextLine()) {
       q.enqueue(StdIn.readString());

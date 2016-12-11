@@ -1,5 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.exercises13;
 
+import com.github.mdssjc.algorithms.datastructure.queue.Queue;
 import com.github.mdssjc.algorithms.datastructure.queue.concrete.ResizingArrayQueue;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
@@ -25,7 +26,7 @@ public class Ex16 {
   }
 
   public static Date[] readDates() {
-    final ResizingArrayQueue<Date> dates = new ResizingArrayQueue<>();
+    final Queue<Date> dates = new ResizingArrayQueue<>();
     while (!StdIn.isEmpty()) {
       dates.enqueue(new Date(StdIn.readString()));
     }
