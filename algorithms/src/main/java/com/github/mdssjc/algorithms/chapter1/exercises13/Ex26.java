@@ -22,16 +22,15 @@ public class Ex26 {
     nodeRoot.item = "root";
     final Node<String> nodeA = new Node<>();
     nodeA.item = "node a";
+    nodeRoot.next = nodeA;
     final Node<String> nodeB = new Node<>();
     nodeB.item = "node b";
+    nodeA.next = nodeB;
     final Node<String> nodeA2 = new Node<>();
     nodeA2.item = "node a";
+    nodeB.next = nodeA2;
     final Node<String> nodeC = new Node<>();
     nodeC.item = "node c";
-
-    nodeRoot.next = nodeA;
-    nodeA.next = nodeB;
-    nodeB.next = nodeA2;
     nodeA2.next = nodeC;
 
     final String key = "node a";
