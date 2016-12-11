@@ -49,13 +49,3 @@ public class CEx38 {
     StdOut.printf("A: %.2f | B: %.2f%n", elapsedTimeA, elapsedTimeB);
   }
 }
-
-class BruteForceSearch {
-
-  public static int rank(final int key, final int[] a) {
-    for (int i = 0; i < a.length; i++) {
-      if (a[i] == key) return i;
-    }
-    return -1;
-  }
-}
