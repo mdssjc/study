@@ -22,20 +22,18 @@ public class Ex25 {
     nodeRoot.item = "root";
     final Node<String> nodeA = new Node<>();
     nodeA.item = "node a";
+    nodeRoot.next = nodeA;
     final Node<String> nodeB = new Node<>();
     nodeB.item = "node b";
+    nodeA.next = nodeB;
     final Node<String> nodeC = new Node<>();
     nodeC.item = "node c";
-
-    nodeRoot.next = nodeA;
-    nodeA.next = nodeB;
     nodeB.next = nodeC;
 
     final Node<String> nodeRoot2 = new Node<>();
     nodeRoot2.item = "root 2";
     final Node<String> nodeA2 = new Node<>();
     nodeA2.item = "node a";
-
     nodeRoot2.next = nodeA2;
 
     new LinkedListIterator<>(nodeRoot).forEachRemaining(StdOut::println);
