@@ -4,7 +4,7 @@ import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
 import com.github.mdssjc.algorithms.datastructure.queue.concrete.QueueLinkedList;
 
 /**
- * Classe QueueEx20.
+ * QueueEx20 Class.
  *
  * @author Marcelo dos Santos
  *

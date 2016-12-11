@@ -3,7 +3,7 @@ package com.github.mdssjc.algorithms.chapter1.exercises13;
 import edu.princeton.cs.algs4.Stack;
 
 /**
- * Classe EvaluatePostfix.
+ * EvaluatePostfix Class.
  *
  * @author Marcelo dos Santos
  *

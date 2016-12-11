@@ -3,7 +3,7 @@ package com.github.mdssjc.algorithms.chapter1.exercises13;
 import com.github.mdssjc.algorithms.datastructure.stack.concrete.FixedCapacityStack;
 
 /**
- * Classe StackEx7.
+ * StackEx7 Class.
  *
  * @author Marcelo dos Santos
  *

@@ -4,7 +4,7 @@ import com.github.mdssjc.algorithms.datastructure.stack.Stack;
 import com.github.mdssjc.algorithms.datastructure.stack.concrete.StackLinkedList;
 
 /**
- * Classe Parentheses.
+ * Parentheses Class.
  *
  * @author Marcelo dos Santos
  *
