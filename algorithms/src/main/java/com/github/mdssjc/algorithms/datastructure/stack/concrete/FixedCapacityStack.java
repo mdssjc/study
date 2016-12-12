@@ -1,12 +1,11 @@
 package com.github.mdssjc.algorithms.datastructure.stack.concrete;
 
-import java.util.Iterator;
-
 import com.github.mdssjc.algorithms.datastructure.iterators.ReverseArrayIterator;
 import com.github.mdssjc.algorithms.datastructure.stack.Stack;
-
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
+
+import java.util.Iterator;
 
 /**
  * Implementação de Stack (Pilha) com capacidade fixa.
@@ -18,8 +17,8 @@ import edu.princeton.cs.algs4.StdOut;
  */
 public class FixedCapacityStack<T> implements Stack<T> {
 
-  protected final T[] a;
-  protected int       n;
+  private final T[] a;
+  private int       n;
 
   public FixedCapacityStack(final int cap) {
     this.a = (T[]) new Object[cap];

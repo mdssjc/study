@@ -1,14 +1,12 @@
 package com.github.mdssjc.algorithms.datastructure.stack.concrete;
 
-import java.util.Iterator;
-
 import com.github.mdssjc.algorithms.datastructure.iterators.LinkedListIterator;
 import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
 import com.github.mdssjc.algorithms.datastructure.stack.Stack;
-
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
-import lombok.Getter;
+
+import java.util.Iterator;
 
 /**
  * Implementação de Pushdown (LIFO) Stack (Pilha) com Linked List (Lista
@@ -21,7 +19,6 @@ import lombok.Getter;
  */
 public class StackLinkedList<T> implements Stack<T> {
 
-  @Getter
   private Node<T> first;
   private int     size;
 

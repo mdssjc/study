@@ -18,8 +18,8 @@ import java.util.Iterator;
  */
 public class QueueLinkedList<T> implements Queue<T> {
 
-  protected Node<T> first;
-  protected Node<T> last;
+  private Node<T> first;
+  private Node<T> last;
   private int     size;
 
   @Override
