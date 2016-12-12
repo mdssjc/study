@@ -17,7 +17,7 @@ public class Ex7 {
   public static void main(final String[] args) {
     Executor.execute(Ex7.class, args);
 
-    final StackEx7<String> stack = new StackEx7<>(10);
+    final StackEx1_3<String> stack = new StackEx1_3<>(10);
     while (StdIn.hasNextLine()) {
       stack.push(StdIn.readString());
     }

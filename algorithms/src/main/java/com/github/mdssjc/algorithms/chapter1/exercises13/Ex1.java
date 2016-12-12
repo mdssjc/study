@@ -16,7 +16,7 @@ public class Ex1 {
     Executor.execute(Ex1.class, args);
 
     final int n = Integer.parseInt(args[0]);
-    final StackEx1<Integer> stack = new StackEx1<>(n);
+    final StackEx1_3<Integer> stack = new StackEx1_3<>(n);
 
     for (int i = 0; i < n; i++) {
       stack.push(i);
