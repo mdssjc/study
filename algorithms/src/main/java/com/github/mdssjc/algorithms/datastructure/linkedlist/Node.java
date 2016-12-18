@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * Classe de composição da Linked List - Lista Linkada.
- * </p>
+ * <p>
  * Item: valor armazenado
  * Node: próximo nó
  *
