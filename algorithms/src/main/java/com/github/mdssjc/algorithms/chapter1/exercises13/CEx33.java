@@ -18,8 +18,16 @@ public class CEx33 {
   public static void main(final String[] args) {
     Executor.execute(CEx33.class, args);
 
-    // Deque
-    final Deque<String> deque = new Deque<>();
+    // Deque Linked List
+    final Deque<String> deque = new DequeLinkedList<>();
+    execute(deque);
+
+    // Resizing Array Deque
+    final Deque<String> dequeRA = new ResizingArrayDeque<>();
+    execute(dequeRA);
+  }
+
+  private static void execute(final Deque<String> deque) {
     assert deque.isEmpty();
     assert deque.size() == 0;
     deque.pushLeft("um");
@@ -33,21 +41,5 @@ public class CEx33 {
 
     deque.iterator()
          .forEachRemaining(StdOut::println);
-
-    // Resizing Array Deque
-    final ResizingArrayDeque<String> dequeRA = new ResizingArrayDeque<>();
-    assert dequeRA.isEmpty();
-    assert dequeRA.size() == 0;
-    dequeRA.pushLeft("um");
-    dequeRA.pushLeft("dois");
-    dequeRA.pushRight("três");
-    dequeRA.pushRight("quatro");
-    assert dequeRA.popLeft()
-                  .equals("dois");
-    assert dequeRA.popRight()
-                  .equals("quatro");
-
-    dequeRA.iterator()
-           .forEachRemaining(StdOut::println);
   }
 }
