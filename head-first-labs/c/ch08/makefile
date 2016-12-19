@@ -13,10 +13,16 @@ bank_vault: bank_vault.c libhfsecurity.a
 
 # HF Cal
 hfcal.o: hfcal.c
-	gcc -I. -c hfcal.c -o hfcal.o
+	gcc -fPIC -I. -c hfcal.c -o hfcal.o
 
-libhfcal.a: hfcal.o
-	ar -rcs libhfcal.a hfcal.o
+# libhfcal.a: hfcal.o
+# 	ar -rcs libhfcal.a hfcal.o
 
-elliptical.o: elliptical.c libhfcal.a
-	gcc elliptical.c -I. -L. -lhfcal -o elliptical
+libhfcal.so: hfcal.o
+	gcc -shared hfcal.o -o libhfcal.so
+
+elliptical.o: elliptical.c
+	gcc -I. -c elliptical.c -o elliptical.o
+
+elliptical: elliptical.o libhfcal.so
+	gcc elliptical.o -L. -lhfcal -o elliptical
