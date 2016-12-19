@@ -12,8 +12,11 @@ bank_vault: bank_vault.c libhfsecurity.a
 	gcc bank_vault.c -I. -L. -lhfsecurity -o bank_vault
 
 # HF Cal
-hfcal.o: hfcal.c
-	gcc -fPIC -I. -c hfcal.c -o hfcal.o
+#hfcal.o: hfcal.c
+#	gcc -fPIC -I. -c hfcal.c -o hfcal.o
+
+hfcal.o: hfcal_UK.c
+	gcc -fPIC -I. -c hfcal_UK.c -o hfcal.o
 
 # libhfcal.a: hfcal.o
 # 	ar -rcs libhfcal.a hfcal.o
