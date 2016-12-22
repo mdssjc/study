@@ -29,7 +29,7 @@ void bind_to_port(int socket, int port) {
   if (setsockopt(socket, SOL_SOCKET, SO_REUSEADDR, (char *)&reuse, sizeof(int)) == -1) {
     error("Can't set the reuse option on the socket");
   }
-  int c = bind (socket, (struct sockaddr *) &name, sizeof(name));
+  int c = bind(socket, (struct sockaddr *) &name, sizeof(name));
   if (c == -1) {
     error("Can't bind to socket");
   }
@@ -68,7 +68,7 @@ int catch_signal(int sig, void (*handler)(int)) {
   action.sa_handler = handler;
   sigemptyset(&action.sa_mask);
   action.sa_flags = 0;
-  return sigaction (sig, &action, NULL);
+  return sigaction(sig, &action, NULL);
 }
 
 void handle_shutdown(int sig) {
