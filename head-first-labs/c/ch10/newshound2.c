@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     error("Can't open stories.txt");
   }
 
-  pid_t pid =  fork();
+  pid_t pid = fork();
   if (pid == -1) {
     error("Can't fork process");
   }
