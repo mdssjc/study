@@ -5,6 +5,8 @@ Materiais de estudos sobre computação.
 
 **algorithms**: estudo do livro *Algorithms, 4th Edition* dos autores *Robert Sedgewick* e *Kevin Wayne*.
 
+**cs-app**: estudo do livro *Computer Systems: A Programmer's Perspective, 3rd Edition* dos autores *Randal E. Bryant* e *David R. O'Hallaron* - [http://csapp.cs.cmu.edu/3e/](http://csapp.cs.cmu.edu/3e/home.html).
+
 **design-patterns**: estudo sobre os *Design Patterns* do GoF, *Java* e outros.
 
 **caelum**: resolução das apostilas livres.
