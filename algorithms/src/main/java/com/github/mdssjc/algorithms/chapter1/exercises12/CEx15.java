@@ -13,7 +13,7 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( "src/main/resources/intsEven10" )
+@TestDrive(value = "intsEven10", valueFile = true)
 public class CEx15 {
 
   public static void main(final String[] args) {
