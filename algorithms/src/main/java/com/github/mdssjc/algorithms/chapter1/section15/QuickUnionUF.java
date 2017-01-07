@@ -1,14 +1,14 @@
 package com.github.mdssjc.algorithms.chapter1.section15;
 
 /**
- * Quick Union.
+ * Quick Union UF.
  *
  * @author Marcelo dos Santos
  *
  */
-public class QuickUnion extends UnionFind {
+public class QuickUnionUF extends UnionFind {
 
-  public QuickUnion(final int n) {
+  public QuickUnionUF(final int n) {
     super(n);
   }
 
