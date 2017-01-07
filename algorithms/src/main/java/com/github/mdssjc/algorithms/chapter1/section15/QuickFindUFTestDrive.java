@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Quick Find Test Drive.
+ * Quick Find UF Test Drive.
  *
  * @author Marcelo dos Santos
  *
@@ -14,13 +14,13 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive( input = "tinyUF.txt", inputFile = true )
 @TestDrive( input = "mediumUF.txt", inputFile = true )
 @TestDrive( input = "largeUF.txt", inputFile = true )
-public class QuickFindTestDrive {
+public class QuickFindUFTestDrive {
 
   public static void main(final String[] args) {
-    Executor.execute(QuickFindTestDrive.class, args);
+    Executor.execute(QuickFindUFTestDrive.class, args);
 
     final int n = StdIn.readInt();
-    final UF uf = new QuickFind(n);
+    final UF uf = new QuickFindUF(n);
     while (!StdIn.isEmpty()) {
       final int p = StdIn.readInt();
       final int q = StdIn.readInt();
