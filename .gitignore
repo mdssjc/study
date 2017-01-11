@@ -18,3 +18,8 @@
 *.iml
 
 # ---
+
+### Racket ###
+# DrRacket autosave files
+*.rkt~
+# ---
