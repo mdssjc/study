@@ -13,7 +13,7 @@
 ; signature, purpose, commented out stub, examples/tests, commented out template and the completed function.
 
 
-;; Integer -> Image
+;; Natural -> Image
 ;; Produces a blue solid triangle with given size.
 (check-expect (blue-triangle 10) (triangle 10 "solid" "blue"))
 
