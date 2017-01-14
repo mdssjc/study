@@ -1,7 +1,7 @@
 package com.github.mdssjc.algorithms.search;
 
 /**
- * Binary Search.
+ * Binary Search O(log n).
  *
  * @author Marcelo dos Santos
  *
