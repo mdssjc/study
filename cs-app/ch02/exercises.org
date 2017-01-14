@@ -47,3 +47,10 @@ A. 0x503C + 0x8    = 0x5044
 B. 0x503C - 0x40   = 0x507C
 C. 0x503C + 64     = 0x507C
 D. 0x50EA - 0x503C = 0xAE
+* Practice Problem 2.5
+  value = 0x87654321, code in code/data/show-bytes.c
+
+ | -  | Little Endian | Big Endian  |
+ | A. | 21 00 00 00   | 00 00 00 21 |
+ | B. | 21 43 00 00   | 00 00 43 21 |
+ | C. | 21 43 65 00   | 00 65 43 21 |

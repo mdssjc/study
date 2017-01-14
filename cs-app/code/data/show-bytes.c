@@ -77,51 +77,60 @@ void float_eg() {
 void string_ueg() {
 /* $begin show-ustring */
 const char *s = "ABCDEF";
-show_bytes((byte_pointer) s, strlen(s)); 
+show_bytes((byte_pointer) s, strlen(s));
 /* $end show-ustring */
 }
 
 void string_leg() {
 /* $begin show-lstring */
 const char *s = "abcdef";
-show_bytes((byte_pointer) s, strlen(s)); 
+show_bytes((byte_pointer) s, strlen(s));
 /* $end show-lstring */
 }
 
-void show_twocomp() 
+void show_twocomp()
 {
 /* $begin show-twocomp */
-    short x = 12345; 
-    short mx = -x; 
-    
-    show_bytes((byte_pointer) &x, sizeof(short)); 
-    show_bytes((byte_pointer) &mx, sizeof(short)); 
+    short x = 12345;
+    short mx = -x;
+
+    show_bytes((byte_pointer) &x, sizeof(short));
+    show_bytes((byte_pointer) &mx, sizeof(short));
 /* $end show-twocomp */
 }
 
-int main(int argc, char *argv[])
-{
-    int val = 12345;
+int main(int argc, char *argv[]) {
+  int val = 12345;
 
+  if (argc > 1) {
     if (argc > 1) {
-	if (argc > 1) {
 	    val = strtol(argv[1], NULL, 0);
-	}
-	printf("calling test_show_bytes\n");
-	test_show_bytes(val);
-    } else {
-	printf("calling show_twocomp\n");
-	show_twocomp();
-	printf("Calling simple_show_a\n");
-	simple_show_a();
-	printf("Calling simple_show_b\n");
-	simple_show_b();
-	printf("Calling float_eg\n");
-	float_eg();
-	printf("Calling string_ueg\n");
-	string_ueg();
-	printf("Calling string_leg\n");
-	string_leg();
     }
-    return 0;
+    printf("calling test_show_bytes\n");
+    test_show_bytes(val);
+  } else {
+    printf("calling show_twocomp\n");
+    show_twocomp();
+    printf("Calling simple_show_a\n");
+    simple_show_a();
+    printf("Calling simple_show_b\n");
+    simple_show_b();
+    printf("Calling float_eg\n");
+    float_eg();
+    printf("Calling string_ueg\n");
+    string_ueg();
+    printf("Calling string_leg\n");
+    string_leg();
+  }
+
+  /* Practice Problem 2.5 */
+  printf("Practice Problem 2.5\n");
+  /* int val = 0x87654321; */
+  val = 0x87654321;
+  byte_pointer valp = (byte_pointer) &val;
+  show_bytes(valp, 1); /* A. */
+  show_bytes(valp, 2); /* B. */
+  show_bytes(valp, 3); /* C. */
+
+  return 0;
 }
