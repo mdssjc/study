@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.StdOut;
 /**
  * Sort.
  * <p>
- * Interface do sort.
+ * Interface do Sort.
  *
  * @author Marcelo dos Santos
  *
