@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.Arrays;
 
 /**
- * Implementação Iterativa do Binary Search.
+ * Implementação de Binary Search em Iteração.
  *
  * @author Marcelo dos Santos
  *

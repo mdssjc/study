@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.Arrays;
 
 /**
- * Implementação Recursiva do Binary Search.
+ * Implementação de Binary Search em Recursão.
  *
  * @author Marcelo dos Santos
  *
