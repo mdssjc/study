@@ -105,7 +105,7 @@ D. 0x50EA - 0x503C = 0xAE
 ** B
    ^ operator.
 ** C
-   Of first <= last to first < last. Line 11
+   Of first <= last to first < last - in line 11
 ** Code
 #+NAME: swap
 #+BEGIN_SRC C
