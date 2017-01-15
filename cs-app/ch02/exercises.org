@@ -152,3 +152,32 @@ int main() {
 | 4 | 3 | 2 | 1 |   |
 | 1 | 2 | 3 | 4 | 5 |
 | 5 | 4 | 3 | 2 | 1 |
+* Practice Problem 2.12
+** A
+   x & 0x000000FF
+** B
+   ~(x & 0xFFFFFF00) | (x & 0x000000FF)
+** C
+   x | 0xFF;
+** Code
+#+NAME: mask
+#+BEGIN_SRC C
+#include <stdio.h>
+
+int main() {
+  int x = 0x87654321;
+  int a = x & 0x000000FF;
+  int b = (~x & 0xFFFFFF00) | (x & 0x000000FF);
+  int c = x | 0xFF;
+
+  printf("%#010X\n%#010X\n%#010X\n%#010X\n", x, a, b, c);
+
+  return 0;
+}
+#+END_SRC
+
+#+RESULTS: mask
+| 0X87654321 |
+| 0X00000021 |
+| 0X789ABC21 |
+| 0X876543FF |
