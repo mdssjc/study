@@ -181,3 +181,51 @@ int main() {
 | 0X00000021 |
 | 0X789ABC21 |
 | 0X876543FF |
+* Practice Problem 2.13
+** Code
+#+NAME: devax
+#+BEGIN_SRC C
+#include <stdio.h>
+
+/* Declarations of functions implementing operations bis and bic */
+int bis(int x, int m) {
+  return x | m;
+}
+
+int bic(int x, int m) {
+  return x & ~m;
+}
+
+/* Compute x|y using only calls to functions bis and bic */
+int bool_or(int x, int y) {
+  int result = bis(x, y);
+  return result;
+}
+
+/* Compute x^y using only calls to functions bis and bic */
+int bool_xor(int x, int y) {
+  int result = bis(bic(x, y), bic(y, x));
+  return result;
+}
+
+int main() {
+  printf("%d\n", bis(2, 1));
+  printf("%d\n", bic(3, 1));
+  printf("%d\n", bool_or(2, 1));
+  printf("%d\n", bool_or(5, 1));
+  printf("%d\n", bool_or(5, 2));
+  printf("%d\n", bool_xor(2, 1));
+  printf("%d\n", bool_xor(5, 2));
+  printf("%d\n", bool_xor(10, 7));
+}
+#+END_SRC
+
+#+RESULTS: devax
+|  3 |
+|  2 |
+|  3 |
+|  5 |
+|  7 |
+|  3 |
+|  7 |
+| 13 |
