@@ -92,3 +92,63 @@ D. 0x50EA - 0x503C = 0xAE
    Blue | Green  = 011
    Yellow & Cyan = 010
    Red ^ Magenta = 001
+* Practice Problem 2.10
+ | Step      | *x            | *y            |
+ |-----------+---------------+---------------|
+ | Initially | a             | b             |
+ | Step 1    | a             | a ^ b         |
+ | Step 2    | a ^ a ^ b = b | a ^ b         |
+ | Step 3    | b             | b ^ a ^ b = a |
+* Practice Problem 2.11
+** A
+   first = 3 and last = 3, 3 ^ 3 == 0.
+** B
+   ^ operator.
+** C
+   Of first <= last to first < last. Line 11
+** Code
+#+NAME: swap
+#+BEGIN_SRC C
+#include <stdio.h>
+
+void inplace_swap(int *x, int *y) {
+  *y = *x ^ *y;                 /* Step 1 */
+  *x = *x ^ *y;                 /* Step 2 */
+  *y = *x ^ *y;                 /* Step 3 */
+}
+
+void reverse_array(int a[], int cnt) {
+  int first, last;
+  for (first = 0, last = cnt - 1; first < last; first++, last--) {
+    inplace_swap(&a[first], &a[last]);
+  }
+}
+
+void show(int a[], int len) {
+  for (int i = 0; i < len; ++i) {
+    printf("%d ", a[i]);
+  }
+  printf("\n");
+}
+
+int main() {
+  int a[] = {1, 2, 3, 4};
+  int b[] = {1, 2, 3, 4, 5};
+
+  show(a, 4);
+  reverse_array(a, 4);
+  show(a, 4);
+
+  show(b, 5);
+  reverse_array(b, 5);
+  show(b, 5);
+
+  return 0;
+}
+#+END_SRC
+
+#+RESULTS: swap
+| 1 | 2 | 3 | 4 |   |
+| 4 | 3 | 2 | 1 |   |
+| 1 | 2 | 3 | 4 | 5 |
+| 5 | 4 | 3 | 2 | 1 |
