@@ -132,5 +132,10 @@ int main(int argc, char *argv[]) {
   show_bytes(valp, 2); /* B. */
   show_bytes(valp, 3); /* C. */
 
+  /* Practice Problem 2.7 */
+  printf("Practice Problem 2.7\n");
+  const char *s = "abcdef";
+  show_bytes((byte_pointer) s, strlen(s));
+
   return 0;
 }
