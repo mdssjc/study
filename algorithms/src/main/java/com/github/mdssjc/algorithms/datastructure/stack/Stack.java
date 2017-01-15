@@ -3,11 +3,12 @@ package com.github.mdssjc.algorithms.datastructure.stack;
 import java.util.Iterator;
 
 /**
- * Pushdown (LIFO) Stack.
+ * Stack (Pilha) - Pushdown (LIFO) Stack.
  * <p>
  * Interface da estrutura de dado.
  *
  * @author Marcelo dos Santos
+ *
  * @param <T>
  *          Tipo de Dado
  */

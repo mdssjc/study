@@ -9,8 +9,7 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.Iterator;
 
 /**
- * Implementação de Pushdown (LIFO) Stack (Pilha) com Linked List (Lista
- * Linkada).
+ * Implementação de Stack (Pilha) com Linked List (Lista Linkada).
  *
  * @author Marcelo dos Santos
  *
