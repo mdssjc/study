@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.chapter1.section21;
+package com.github.mdssjc.algorithms.chapter2.section21;
 
 import com.github.mdssjc.algorithms.chapter1.section12.Datable;
 import com.github.mdssjc.algorithms.utils.Executor;
