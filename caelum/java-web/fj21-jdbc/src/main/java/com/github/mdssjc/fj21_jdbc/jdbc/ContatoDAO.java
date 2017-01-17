@@ -10,18 +10,18 @@ import java.util.List;
 
 public class ContatoDAO implements DAO {
 
-  private static final String ADD = "insert into contatos(nome,email,endereco,dataNascimento) values (?,?,?,?)";
-  private static final String LISTALL = "select * from contatos";
-  private static final String GET = "select * from contatos where id=?";
-  private static final String REMOVE = "delete from contatos where id=?";
-  private static final String UPDATE = "update contatos set nome=?, email=?,endereco=?, dataNascimento=? where id=?";
+  private static final String ADD = "INSERT INTO contatos(nome, email, endereco, dataNascimento) VALUES (?,?,?,?)";
+  private static final String LISTALL = "SELECT * FROM contatos";
+  private static final String GET = "SELECT * FROM contatos WHERE id=?";
+  private static final String REMOVE = "DELETE FROM contatos WHERE id=?";
+  private static final String UPDATE = "UPDATE contatos SET nome=?, email=?, endereco=?, dataNascimento=? WHERE id=?";
   private Connection con;
 
   public ContatoDAO() {
     con = new ConnectionMySQL().getConnection();
   }
 
-  private Contato makeContato(ResultSet rs) throws SQLException {
+  private Contato make(ResultSet rs) throws SQLException {
     Contato contato = new Contato();
     contato.setId(rs.getLong(1));
     contato.setNome(rs.getString(2));
@@ -54,7 +54,7 @@ public class ContatoDAO implements DAO {
       stmt.setLong(1, id);
       ResultSet rs = stmt.executeQuery();
       if (rs.next()) {
-        return makeContato(rs);
+        return make(rs);
       }
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -69,7 +69,7 @@ public class ContatoDAO implements DAO {
     try (ResultSet rs = con.prepareStatement(LISTALL)
                            .executeQuery()) {
       while (rs.next()) {
-        list.add(makeContato(rs));
+        list.add(make(rs));
       }
     } catch (SQLException e) {
       throw new RuntimeException(e);
