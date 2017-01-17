@@ -1,6 +1,6 @@
 package com.github.mdssjc.fj21_jdbc.entity;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 public class Contato {
 
@@ -8,13 +8,13 @@ public class Contato {
   private String nome;
   private String email;
   private String endereco;
-  private Calendar dataNascimento;
+  private LocalDate dataNascimento;
 
   public String getNome() {
     return this.nome;
   }
 
-  public void setNome(String novo) {
+  public void setNome(final String novo) {
     this.nome = novo;
   }
 
@@ -22,7 +22,7 @@ public class Contato {
     return this.email;
   }
 
-  public void setEmail(String novo) {
+  public void setEmail(final String novo) {
     this.email = novo;
   }
 
@@ -30,7 +30,7 @@ public class Contato {
     return this.endereco;
   }
 
-  public void setEndereco(String novo) {
+  public void setEndereco(final String novo) {
     this.endereco = novo;
   }
 
@@ -38,15 +38,15 @@ public class Contato {
     return this.id;
   }
 
-  public void setId(Long novo) {
+  public void setId(final Long novo) {
     this.id = novo;
   }
 
-  public Calendar getDataNascimento() {
+  public LocalDate getDataNascimento() {
     return this.dataNascimento;
   }
 
-  public void setDataNascimento(Calendar dataNascimento) {
+  public void setDataNascimento(final LocalDate dataNascimento) {
     this.dataNascimento = dataNascimento;
   }
 }
