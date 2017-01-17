@@ -1,7 +1,7 @@
-package com.github.mdssjc.jdbc;
+package com.github.mdssjc.fj21_jdbc.jdbc;
 
-import com.github.mdssjc.entity.Contato;
-import com.github.mdssjc.jdbc.connection.ConnectionMySQL;
+import com.github.mdssjc.fj21_jdbc.entity.Contato;
+import com.github.mdssjc.fj21_jdbc.jdbc.connection.ConnectionMySQL;
 
 import java.sql.*;
 import java.util.ArrayList;

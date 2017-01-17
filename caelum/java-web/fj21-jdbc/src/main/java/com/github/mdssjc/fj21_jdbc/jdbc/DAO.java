@@ -1,6 +1,6 @@
-package com.github.mdssjc.jdbc;
+package com.github.mdssjc.fj21_jdbc.jdbc;
 
-import com.github.mdssjc.entity.Contato;
+import com.github.mdssjc.fj21_jdbc.entity.Contato;
 
 import java.util.List;
 

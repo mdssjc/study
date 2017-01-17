@@ -1,4 +1,4 @@
-package com.github.mdssjc.entity;
+package com.github.mdssjc.fj21_jdbc.entity;
 
 import java.util.Calendar;
 

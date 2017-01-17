@@ -1,4 +1,4 @@
-package com.github.mdssjc.jdbc.connection;
+package com.github.mdssjc.fj21_jdbc.jdbc.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

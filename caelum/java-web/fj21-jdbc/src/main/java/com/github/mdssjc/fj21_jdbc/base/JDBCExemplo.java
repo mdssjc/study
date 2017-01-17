@@ -1,8 +1,8 @@
-package com.github.mdssjc.base;
+package com.github.mdssjc.fj21_jdbc.base;
 
-import com.github.mdssjc.entity.Contato;
-import com.github.mdssjc.jdbc.ContatoDAO;
-import com.github.mdssjc.jdbc.DAO;
+import com.github.mdssjc.fj21_jdbc.entity.Contato;
+import com.github.mdssjc.fj21_jdbc.jdbc.ContatoDAO;
+import com.github.mdssjc.fj21_jdbc.jdbc.DAO;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
