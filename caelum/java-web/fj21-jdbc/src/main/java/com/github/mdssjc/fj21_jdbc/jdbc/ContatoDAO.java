@@ -32,7 +32,7 @@ public class ContatoDAO implements DAO {
   }
 
   @Override
-  public void add(final Contato contato) throws RuntimeException {
+  public void add(final Contato contato) {
     try (PreparedStatement stmt = this.con.prepareStatement(ADD)) {
       stmt.setString(1, contato.getNome());
       stmt.setString(2, contato.getEmail());
@@ -40,7 +40,7 @@ public class ContatoDAO implements DAO {
       stmt.setDate(4, Date.valueOf(contato.getDataNascimento()));
       stmt.execute();
     } catch (final SQLException e) {
-      throw new RuntimeException(e);
+      throw new DAOException(e);
     }
   }
 
@@ -53,13 +53,13 @@ public class ContatoDAO implements DAO {
         return make(rs);
       }
     } catch (final SQLException e) {
-      throw new RuntimeException(e);
+      throw new DAOException(e);
     }
     return null;
   }
 
   @Override
-  public List<Contato> listAll() throws RuntimeException {
+  public List<Contato> listAll() {
     final List<Contato> list = new ArrayList<>();
 
     try (ResultSet rs = this.con.prepareStatement(LISTALL)
@@ -68,13 +68,13 @@ public class ContatoDAO implements DAO {
         list.add(make(rs));
       }
     } catch (final SQLException e) {
-      throw new RuntimeException(e);
+      throw new DAOException(e);
     }
     return list;
   }
 
   @Override
-  public void update(final Contato contato) throws RuntimeException {
+  public void update(final Contato contato) {
     try (PreparedStatement stmt = this.con.prepareStatement(UPDATE)) {
       stmt.setString(1, contato.getNome());
       stmt.setString(2, contato.getEmail());
@@ -83,17 +83,17 @@ public class ContatoDAO implements DAO {
       stmt.setLong(5, contato.getId());
       stmt.execute();
     } catch (final SQLException e) {
-      throw new RuntimeException(e);
+      throw new DAOException(e);
     }
   }
 
   @Override
-  public void remove(final Contato contato) throws RuntimeException {
+  public void remove(final Contato contato) {
     try (PreparedStatement stmt = this.con.prepareStatement(REMOVE)) {
       stmt.setLong(1, contato.getId());
       stmt.execute();
     } catch (final SQLException e) {
-      throw new RuntimeException(e);
+      throw new DAOException(e);
     }
   }
 }
