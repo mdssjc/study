@@ -12,20 +12,42 @@ public class JDBCExemplo {
   private static final String DATE = "dd/MM/yyyy";
 
   public static void main(final String[] args) {
-    final Contato contato = new Contato();
+    Contato contato = new Contato();
     contato.setNome("Caelum");
     contato.setEmail("contato@caelum.com.br");
     contato.setEndereco("R. Vergueiro 3185 cj57");
     contato.setDataNascimento(LocalDate.now());
 
-    final DAO bd = new ContatoDAO();
-    //bd.add(contato);
+    final DAO dao = new ContatoDAO();
 
-    //contato.setId(2L);
-    //bd.remove(contato);
+    System.out.println("Add");
+    dao.add(contato);
 
-    print(bd.get(1));
-    for (final Contato c : bd.listAll()) {
+    System.out.println("List all");
+    boolean first = true;
+    for (final Contato c : dao.listAll()) {
+      print(c);
+      if (first) {
+      contato = c;
+      first=false;
+      }
+    }
+
+    System.out.println("Get");
+    print(dao.get(contato.getId()));
+
+    System.out.println("Update");
+    contato.setNome("Kaleum");
+    dao.update(contato);
+
+    System.out.println("Get");
+    print(dao.get(contato.getId()));
+
+    System.out.println("Remove");
+    dao.remove(contato);
+
+    System.out.println("List all");
+    for (final Contato c : dao.listAll()) {
       print(c);
     }
   }
