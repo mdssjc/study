@@ -5,7 +5,6 @@ import com.github.mdssjc.fj21_jdbc.jdbc.connection.ConnectionMySQL;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class ContatoDAO implements DAO {
@@ -27,9 +26,8 @@ public class ContatoDAO implements DAO {
     contato.setNome(rs.getString(2));
     contato.setEmail(rs.getString(3));
     contato.setEndereco(rs.getString(4));
-    final Calendar date = Calendar.getInstance();
-    date.setTime(rs.getDate(5));
-    contato.setDataNascimento(date);
+    contato.setDataNascimento(rs.getDate(5)
+                                .toLocalDate());
     return contato;
   }
 
@@ -39,9 +37,7 @@ public class ContatoDAO implements DAO {
       stmt.setString(1, contato.getNome());
       stmt.setString(2, contato.getEmail());
       stmt.setString(3, contato.getEndereco());
-      stmt.setDate(4, new java.sql.Date(
-          contato.getDataNascimento()
-                 .getTimeInMillis()));
+      stmt.setDate(4, Date.valueOf(contato.getDataNascimento()));
       stmt.execute();
     } catch (final SQLException e) {
       throw new RuntimeException(e);
@@ -83,9 +79,7 @@ public class ContatoDAO implements DAO {
       stmt.setString(1, contato.getNome());
       stmt.setString(2, contato.getEmail());
       stmt.setString(3, contato.getEndereco());
-      stmt.setDate(4, new Date(
-          contato.getDataNascimento()
-                 .getTimeInMillis()));
+      stmt.setDate(4, Date.valueOf(contato.getDataNascimento()));
       stmt.setLong(5, contato.getId());
       stmt.execute();
     } catch (final SQLException e) {
