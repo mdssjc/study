@@ -15,27 +15,27 @@ public class ContatoDAO implements DAO {
   private static final String GET = "SELECT * FROM contatos WHERE id=?";
   private static final String REMOVE = "DELETE FROM contatos WHERE id=?";
   private static final String UPDATE = "UPDATE contatos SET nome=?, email=?, endereco=?, dataNascimento=? WHERE id=?";
-  private Connection con;
+  private final Connection con;
 
   public ContatoDAO() {
-    con = new ConnectionMySQL().getConnection();
+    this.con = new ConnectionMySQL().getConnection();
   }
 
-  private Contato make(ResultSet rs) throws SQLException {
-    Contato contato = new Contato();
+  private Contato make(final ResultSet rs) throws SQLException {
+    final Contato contato = new Contato();
     contato.setId(rs.getLong(1));
     contato.setNome(rs.getString(2));
     contato.setEmail(rs.getString(3));
     contato.setEndereco(rs.getString(4));
-    Calendar date = Calendar.getInstance();
+    final Calendar date = Calendar.getInstance();
     date.setTime(rs.getDate(5));
     contato.setDataNascimento(date);
     return contato;
   }
 
   @Override
-  public void add(Contato contato) throws RuntimeException {
-    try (PreparedStatement stmt = con.prepareStatement(ADD)) {
+  public void add(final Contato contato) throws RuntimeException {
+    try (PreparedStatement stmt = this.con.prepareStatement(ADD)) {
       stmt.setString(1, contato.getNome());
       stmt.setString(2, contato.getEmail());
       stmt.setString(3, contato.getEndereco());
@@ -43,20 +43,20 @@ public class ContatoDAO implements DAO {
           contato.getDataNascimento()
                  .getTimeInMillis()));
       stmt.execute();
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       throw new RuntimeException(e);
     }
   }
 
   @Override
-  public Contato get(long id) {
-    try (PreparedStatement stmt = con.prepareStatement(GET)) {
+  public Contato get(final long id) {
+    try (PreparedStatement stmt = this.con.prepareStatement(GET)) {
       stmt.setLong(1, id);
-      ResultSet rs = stmt.executeQuery();
+      final ResultSet rs = stmt.executeQuery();
       if (rs.next()) {
         return make(rs);
       }
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       throw new RuntimeException(e);
     }
     return null;
@@ -64,22 +64,22 @@ public class ContatoDAO implements DAO {
 
   @Override
   public List<Contato> listAll() throws RuntimeException {
-    List<Contato> list = new ArrayList<>();
+    final List<Contato> list = new ArrayList<>();
 
-    try (ResultSet rs = con.prepareStatement(LISTALL)
-                           .executeQuery()) {
+    try (ResultSet rs = this.con.prepareStatement(LISTALL)
+                                .executeQuery()) {
       while (rs.next()) {
         list.add(make(rs));
       }
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       throw new RuntimeException(e);
     }
     return list;
   }
 
   @Override
-  public void update(Contato contato) throws RuntimeException {
-    try (PreparedStatement stmt = con.prepareStatement(UPDATE)) {
+  public void update(final Contato contato) throws RuntimeException {
+    try (PreparedStatement stmt = this.con.prepareStatement(UPDATE)) {
       stmt.setString(1, contato.getNome());
       stmt.setString(2, contato.getEmail());
       stmt.setString(3, contato.getEndereco());
@@ -88,17 +88,17 @@ public class ContatoDAO implements DAO {
                  .getTimeInMillis()));
       stmt.setLong(5, contato.getId());
       stmt.execute();
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       throw new RuntimeException(e);
     }
   }
 
   @Override
-  public void remove(Contato contato) throws RuntimeException {
-    try (PreparedStatement stmt = con.prepareStatement(REMOVE)) {
+  public void remove(final Contato contato) throws RuntimeException {
+    try (PreparedStatement stmt = this.con.prepareStatement(REMOVE)) {
       stmt.setLong(1, contato.getId());
       stmt.execute();
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       throw new RuntimeException(e);
     }
   }
