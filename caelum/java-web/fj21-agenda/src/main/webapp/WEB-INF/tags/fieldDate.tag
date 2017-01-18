@@ -6,10 +6,11 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <%@ attribute name="id" required="true"%>
-<%@ attribute name="value" type="java.util.Calendar" required="false"%>
+<%@ attribute name="value" type="java.time.LocalDate" required="false"%>
 
+<fmt:parseDate value="${value}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
 <input id="${id}" name="${id}"
-    value="<fmt:formatDate value="${value.time}" pattern="dd/MM/yyyy" />" />
+    value="<fmt:formatDate value="${parsedDate}" pattern="dd/MM/yyyy" var="value" type="date" />" />
 
 <script>
 	$("#${id}").datepicker({

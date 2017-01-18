@@ -28,8 +28,8 @@
                 </td>
                 <td>${contato.endereco}</td>
                 <td>
-                    <fmt:formatDate value="${contato.dataNascimento.time}"
-                        pattern="dd/MM/yyyy" />
+                    <fmt:parseDate value="${contato.dataNascimento}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+                    <fmt:formatDate value="${parsedDate}" pattern="dd/MM/yyyy" type="date" />
                 </td>
                 <td>
                     <a href="do?cmd=RemoveContactLogic&id=${contato.id}">Remover</a>

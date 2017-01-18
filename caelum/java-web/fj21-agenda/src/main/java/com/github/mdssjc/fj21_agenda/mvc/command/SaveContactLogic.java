@@ -7,10 +7,9 @@ import com.github.mdssjc.fj21_agenda.persistence.DAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class SaveContactLogic implements LogicCommand {
 
@@ -22,13 +21,11 @@ public class SaveContactLogic implements LogicCommand {
     final String endereco = request.getParameter("endereco");
     final String email = request.getParameter("email");
     final String dataEmTexto = request.getParameter("dataNascimento");
-    Calendar dataNascimento = null;
+    LocalDate dataNascimento = null;
 
     try {
-      final Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dataEmTexto);
-      dataNascimento = Calendar.getInstance();
-      dataNascimento.setTime(date);
-    } catch (final ParseException e) {
+      dataNascimento = LocalDate.parse(dataEmTexto, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    } catch (final DateTimeParseException e) {
       System.out.println("Erro de conversão da data");
       throw e;
     }
