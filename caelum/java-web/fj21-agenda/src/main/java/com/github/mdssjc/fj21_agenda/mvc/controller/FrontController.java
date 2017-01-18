@@ -15,10 +15,6 @@ public class FrontController extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
-  public FrontController() {
-    super();
-  }
-
   @Override
   protected void service(final HttpServletRequest request, final HttpServletResponse response)
       throws ServletException, IOException {
