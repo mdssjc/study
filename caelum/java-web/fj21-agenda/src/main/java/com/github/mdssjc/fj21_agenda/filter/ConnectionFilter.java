@@ -16,23 +16,23 @@ public class ConnectionFilter implements javax.servlet.Filter {
   }
 
   @Override
-  public void doFilter(ServletRequest request, ServletResponse response,
-                       FilterChain chain)
+  public void doFilter(final ServletRequest request, final ServletResponse response,
+                       final FilterChain chain)
       throws IOException, ServletException {
     try {
-      Connection connection = new ConnectionMySQL().getConnection();
+      final Connection connection = new ConnectionMySQL().getConnection();
 
       request.setAttribute("connection", connection);
 
       chain.doFilter(request, response);
 
       connection.close();
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       throw new ServletException(e);
     }
   }
 
   @Override
-  public void init(FilterConfig config) throws ServletException {
+  public void init(final FilterConfig config) throws ServletException {
   }
 }

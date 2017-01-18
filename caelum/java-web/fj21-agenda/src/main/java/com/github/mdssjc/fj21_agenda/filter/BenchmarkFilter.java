@@ -12,19 +12,19 @@ public class BenchmarkFilter implements javax.servlet.Filter {
   }
 
   @Override
-  public void doFilter(ServletRequest request, ServletResponse response,
-                       FilterChain chain)
+  public void doFilter(final ServletRequest request, final ServletResponse response,
+                       final FilterChain chain)
       throws IOException, ServletException {
-    long start = System.currentTimeMillis();
+    final long start = System.currentTimeMillis();
 
     chain.doFilter(request, response);
 
-    long stop = System.currentTimeMillis();
+    final long stop = System.currentTimeMillis();
 
     System.out.println("Tempo da requisição (ms): " + (stop - start));
   }
 
   @Override
-  public void init(FilterConfig config) throws ServletException {
+  public void init(final FilterConfig config) throws ServletException {
   }
 }

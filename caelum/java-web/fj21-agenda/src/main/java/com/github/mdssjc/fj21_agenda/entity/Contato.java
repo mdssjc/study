@@ -14,7 +14,7 @@ public class Contato {
     return this.nome;
   }
 
-  public void setNome(String novo) {
+  public void setNome(final String novo) {
     this.nome = novo;
   }
 
@@ -22,7 +22,7 @@ public class Contato {
     return this.email;
   }
 
-  public void setEmail(String novo) {
+  public void setEmail(final String novo) {
     this.email = novo;
   }
 
@@ -30,7 +30,7 @@ public class Contato {
     return this.endereco;
   }
 
-  public void setEndereco(String novo) {
+  public void setEndereco(final String novo) {
     this.endereco = novo;
   }
 
@@ -38,7 +38,7 @@ public class Contato {
     return this.id;
   }
 
-  public void setId(Long novo) {
+  public void setId(final Long novo) {
     this.id = novo;
   }
 
@@ -46,7 +46,7 @@ public class Contato {
     return this.dataNascimento;
   }
 
-  public void setDataNascimento(LocalDate dataNascimento) {
+  public void setDataNascimento(final LocalDate dataNascimento) {
     this.dataNascimento = dataNascimento;
   }
 }

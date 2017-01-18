@@ -21,7 +21,7 @@ public class SaveContactLogic implements LogicCommand {
     final String endereco = request.getParameter("endereco");
     final String email = request.getParameter("email");
     final String dataEmTexto = request.getParameter("dataNascimento");
-    LocalDate dataNascimento = null;
+    LocalDate dataNascimento;
 
     try {
       dataNascimento = LocalDate.parse(dataEmTexto, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
