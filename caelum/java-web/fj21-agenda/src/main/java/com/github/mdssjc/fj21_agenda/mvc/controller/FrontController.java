@@ -2,6 +2,7 @@ package com.github.mdssjc.fj21_agenda.mvc.controller;
 
 import com.github.mdssjc.fj21_agenda.mvc.command.LogicCommand;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,18 @@ import java.util.Optional;
 public class FrontController extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
+
+  @Override
+  public void init(final ServletConfig config) throws ServletException {
+    super.init(config);
+    log("Iniciando a servlet");
+  }
+
+  @Override
+  public void destroy() {
+    super.destroy();
+    log("Destruindo a servlet");
+  }
 
   @Override
   protected void service(final HttpServletRequest request, final HttpServletResponse response)
