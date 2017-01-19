@@ -1,6 +1,7 @@
 package com.github.mdssjc.dp.command.invoker;
 
 import com.github.mdssjc.dp.command.Command;
+import com.github.mdssjc.dp.command.concrete.NullObjectCommand;
 
 /**
  * Classe Invoker.
@@ -15,8 +16,7 @@ public class Invoker {
   private Command command;
 
   public Invoker() {
-    // TODO
-    // this.command = new NullObjectCommand();
+    this.command = new NullObjectCommand();
   }
 
   public void setCommand(final Command command) {
