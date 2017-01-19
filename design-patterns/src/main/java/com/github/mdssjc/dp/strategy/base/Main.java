@@ -18,6 +18,7 @@ public class Main {
 
   public static void main(final String[] args) {
     // Versão Clássica
+    System.out.println("Versão Clássica");
     final ImplementationX ca = new ImplementationA();
     final ImplementationX cb = new ImplementationB();
     final ImplementationX cc = new ImplementationC();
@@ -40,6 +41,7 @@ public class Main {
     cnull.useAlgorithm();
 
     // Versão Funcional
+    System.out.println("Versão Funcional");
     final ImplementationA fca = new ImplementationA();
 
     System.out.println("<<Execution>>");

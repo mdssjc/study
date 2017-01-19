@@ -14,7 +14,6 @@ public abstract class ImplementationX {
   private Strategy algorithm;
 
   public ImplementationX() {
-    // Null Object Pattern
     this.algorithm = new NullAlgorithm();
   }
 
