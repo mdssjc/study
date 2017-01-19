@@ -1,5 +1,7 @@
 package com.github.mdssjc.dp.command.receiver;
 
+import lombok.Getter;
+
 import java.util.Random;
 
 /**
@@ -14,12 +16,14 @@ public class Receiver {
 
   private static final int BOUND = 10000;
   private final Random random;
+  @Getter
+  private int number;
 
   public Receiver() {
     this.random = new Random();
   }
 
   public void action() {
-    System.out.printf("Mensagem %d%n", this.random.nextInt(Receiver.BOUND));
+    this.number = this.random.nextInt(Receiver.BOUND);
   }
 }
