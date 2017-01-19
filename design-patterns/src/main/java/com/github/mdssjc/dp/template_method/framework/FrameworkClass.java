@@ -24,6 +24,5 @@ public abstract class FrameworkClass {
   public abstract void stepThree();
 
   public void hook() {
-
   }
 }

@@ -2,6 +2,7 @@ package com.github.mdssjc.dp.template_method.base;
 
 import com.github.mdssjc.dp.template_method.application.ApplicationClassA;
 import com.github.mdssjc.dp.template_method.application.ApplicationClassB;
+import com.github.mdssjc.dp.template_method.framework.FrameworkClass;
 
 /**
  * Test drive do padrão de projeto Template Method.
@@ -15,8 +16,8 @@ import com.github.mdssjc.dp.template_method.application.ApplicationClassB;
 public class Main {
 
   public static void main(final String[] args) {
-    final ApplicationClassA appA = new ApplicationClassA();
-    final ApplicationClassB appB = new ApplicationClassB();
+    final FrameworkClass appA = new ApplicationClassA();
+    final FrameworkClass appB = new ApplicationClassB();
 
     appA.templateMethod();
     appB.templateMethod();
