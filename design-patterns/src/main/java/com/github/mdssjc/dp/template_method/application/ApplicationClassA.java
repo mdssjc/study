@@ -1,6 +1,6 @@
 package com.github.mdssjc.dp.template_method.application;
 
-import com.github.mdssjc.dp.template_method.framework.FrameworkClass;
+import com.github.mdssjc.dp.template_method.Template;
 
 /**
  * Classe ApplicationClassA.
@@ -8,7 +8,7 @@ import com.github.mdssjc.dp.template_method.framework.FrameworkClass;
  * @author Marcelo dos Santos
  *
  */
-public class ApplicationClassA extends FrameworkClass {
+public class ApplicationClassA extends Template {
 
   @Override
   public void stepTwo() {

@@ -1,12 +1,12 @@
-package com.github.mdssjc.dp.template_method.framework;
+package com.github.mdssjc.dp.template_method;
 
 /**
- * Classe Abstrata FrameworkClass.
+ * Classe Abstrata Template.
  *
  * @author Marcelo dos Santos
  *
  */
-public abstract class FrameworkClass {
+public abstract class Template {
 
   public final void templateMethod() {
     stepOne();
