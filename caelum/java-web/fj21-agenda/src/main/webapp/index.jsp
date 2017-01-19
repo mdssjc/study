@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="mds" tagdir="/WEB-INF/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="mds" tagdir="/WEB-INF/tags"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Contatos</title>
+    <title>Contatos</title>
 </head>
 <body>
     <mds:header name="Marcelo" />
@@ -19,8 +19,7 @@
         <input id="email" name="email" type="text" value="${contato.email}" />
         <br />
         <label for="endereco">Endereço: </label>
-        <input id="endereco" name="endereco" type="text"
-            value="${contato.endereco}" />
+        <input id="endereco" name="endereco" type="text" value="${contato.endereco}" />
         <br />
         <label for="dataNascimento">Data Nascimento: </label>
         <mds:fieldDate id="dataNascimento" value="${contato.dataNascimento}" />

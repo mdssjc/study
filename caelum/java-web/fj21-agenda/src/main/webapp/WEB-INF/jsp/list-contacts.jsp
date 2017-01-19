@@ -1,20 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@taglib prefix="mds" tagdir="/WEB-INF/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="mds" tagdir="/WEB-INF/tags"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Contatos</title>
+    <title>Contatos</title>
 </head>
 <body>
     <mds:header name="Marcelo" />
 
     <table>
-        <c:forEach var="contato" items="${contatos}">
-            <tr>
+        <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Endereço</th>
+            <th>Data de Nascimento</th>
+            <th colspan="2">Comandos</th>
+        </tr>
+        <c:forEach var="contato" items="${contatos}" varStatus="id">
+            <tr style='background-color: "#${id.count % 2 == 0 ? 'aaee88' : 'ffffff' }"'>
                 <td>${contato.nome}</td>
                 <td>
                     <c:choose>
