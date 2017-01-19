@@ -2,6 +2,7 @@ package com.github.mdssjc.dp.command.base;
 
 import com.github.mdssjc.dp.command.Command;
 import com.github.mdssjc.dp.command.concrete.ConcreteCommand;
+import com.github.mdssjc.dp.command.concrete.SleepCommand;
 import com.github.mdssjc.dp.command.invoker.Invoker;
 import com.github.mdssjc.dp.command.receiver.Receiver;
 
@@ -15,7 +16,6 @@ import java.util.List;
  * Behavioral - Command (Action, Transaction)
  *
  * @author Marcelo dos Santos
- *
  */
 public class Main {
 
@@ -42,5 +42,12 @@ public class Main {
       System.out.println(r.getNumber());
     });
     tasks.forEach(Runnable::run);
+
+    // Active Object Engine
+    System.out.println("Active Object Engine");
+    final ActiveObjectEngine engine = new ActiveObjectEngine();
+    engine.add(command);
+    engine.add(new SleepCommand(1000, engine, command));
+    engine.run();
   }
 }
