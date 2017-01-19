@@ -32,7 +32,7 @@ public class Main {
 
     // Versão Funcional
     final ArrayList<Runnable> tasks = new ArrayList<>();
-    tasks.add(() -> new Receiver().message());
+    tasks.add(() -> new Receiver().action());
     tasks.forEach(Runnable::run);
   }
 }

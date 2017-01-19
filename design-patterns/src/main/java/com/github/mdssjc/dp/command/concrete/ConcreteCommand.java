@@ -20,7 +20,7 @@ public class ConcreteCommand implements Command {
 
   @Override
   public void execute() {
-    this.receiver.message();
+    this.receiver.action();
   }
 
   @Override
