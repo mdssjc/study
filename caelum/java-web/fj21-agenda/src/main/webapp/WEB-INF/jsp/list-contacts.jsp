@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="mds" tagdir="/WEB-INF/tags"%>
+<!--
+<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
+-->
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +13,15 @@
 </head>
 <body>
     <mds:header name="Marcelo" />
+
+<!--
+    <display:table name="${contatos}">
+          <display:column property="nome" title="Nome" />
+          <display:column property="email" title="E-Mail" />
+          <display:column property="endereco" title="Endereço" />
+          <display:column property="dataNascimento" title="Data de Nascimento" />
+    </display:table>
+-->
 
     <c:choose>
        <c:when test="${not empty contatos}">
