@@ -38,7 +38,7 @@ public class SaveContactLogic implements LogicCommand {
 
     final Connection connection = (Connection) request.getAttribute("connection");
     final DAO<Contato> dao = new ContatoDAO(connection);
-    if (id == null) {
+    if (id == null || id.isEmpty()) {
       // add
       dao.save(contato);
       System.out.println("Contato adicionado.");
