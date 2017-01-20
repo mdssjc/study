@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebFilter( "/*" )
+@WebFilter("/*")
 public class ConnectionFilter implements javax.servlet.Filter {
 
   @Override
@@ -17,8 +17,7 @@ public class ConnectionFilter implements javax.servlet.Filter {
 
   @Override
   public void doFilter(final ServletRequest request, final ServletResponse response,
-                       final FilterChain chain)
-      throws IOException, ServletException {
+                       final FilterChain chain) throws IOException, ServletException {
     try {
       final Connection connection = new ConnectionMySQL().getConnection();
 
