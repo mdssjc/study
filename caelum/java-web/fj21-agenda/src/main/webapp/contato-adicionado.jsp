@@ -10,6 +10,8 @@
     <mds:header name="Marcelo" />
 
     <p>Contato ${param.nome} salvo com sucesso</p>
+    <br />
+    <a href="index.jsp">Voltar</a>
 
     <mds:footer />
 </body>
