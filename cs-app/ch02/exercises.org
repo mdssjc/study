@@ -74,7 +74,7 @@ D. 0x50EA - 0x503C = 0xAE
  | ~a        | [10010110] |
  | ~b        | [10101010] |
  | a & b     | [01000001] |
- | a \vert b     | [01111101] |
+ | a \vert b | [01111101] |
  | a ^ b     | [00111100] |
 * Practice Problem 2.9
 ** A
@@ -229,3 +229,16 @@ int main() {
 |  3 |
 |  7 |
 | 13 |
+* Practice Problem 2.14
+  x = 0x66
+  y = 0x39
+  | Expression | Value |
+  |------------+-------|
+  | x & y      |  0x20 |
+  | x \vert  y     |  0x7F |
+  | ~x \vert ~y    |  0xDF |
+  | x & !y     |  0x00 |
+  | x && y     |  0x39 |
+  | x \vert\vert y     |  0x66 |
+  | !x \vert\vert !y   |  0x00 |
+  | x && ~y    |  0xC6 |
