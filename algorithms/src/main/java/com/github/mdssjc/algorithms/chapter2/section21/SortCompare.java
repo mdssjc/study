@@ -11,6 +11,7 @@ import edu.princeton.cs.algs4.*;
  *
  */
 @TestDrive( {"Insertion", "Selection", "1000", "100"} )
+@TestDrive( {"Shell", "Insertion", "100000", "100"} )
 public class SortCompare {
 
   public static double time(final String alg, final Comparable[] a) {
