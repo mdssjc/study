@@ -1,9 +1,4 @@
 /target/
 /.settings/
-/.classpath
-/.project
-/jgrasp.gpj
-/.checkstyle
-/.eclipse-pmd
-/.factorypath
 /.idea
+/algorithms.iml
