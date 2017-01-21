@@ -2,6 +2,7 @@ package com.github.mdssjc.algorithms.sort;
 
 import com.github.mdssjc.algorithms.sort.concrete.InsertionSort;
 import com.github.mdssjc.algorithms.sort.concrete.SelectionSort;
+import com.github.mdssjc.algorithms.sort.concrete.ShellSort;
 import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,13 +66,15 @@ public class SortTest {
 
   @Test
   public void testShellSort() {
-//    ShellSort.sort(this.numbers);
-//    ShellSort.sort(this.letters);
-//    ShellSort.sort(this.files);
-//
-//    assertTrue(Sort.isSorted(this.numbers));
-//    assertTrue(Sort.isSorted(this.letters));
-//    assertTrue(Sort.isSorted(this.files));
+    final Sort selection = new ShellSort();
+
+    selection.sort(this.numbers);
+    selection.sort(this.letters);
+    selection.sort(this.files);
+
+    assertTrue(Sort.isSorted(this.numbers));
+    assertTrue(Sort.isSorted(this.letters));
+    assertTrue(Sort.isSorted(this.files));
   }
 
   @Test
