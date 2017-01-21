@@ -242,3 +242,24 @@ int main() {
   | x \vert\vert y     |  0x66 |
   | !x \vert\vert !y   |  0x00 |
   | x && ~y    |  0xC6 |
+* Practice Problem 2.15
+#+NAME: equals
+#+BEGIN_SRC C
+#include <stdio.h>
+
+int main() {
+  int a = 7;
+  int b = 7;
+  int c = 4;
+
+  int res1 = !((~a & b) | (a & ~b));
+  int res2 = !((~a & c) | (a & ~c));
+
+  printf("Res1: %d / Res2: %d", res1, res2);
+
+  return 0;
+}
+#+END_SRC
+
+#+RESULTS: equals
+: Res1: 1 / Res2: 0
