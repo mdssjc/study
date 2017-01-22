@@ -6,6 +6,7 @@ import java.util.Iterator;
  * FIFO Queue.
  * <p>
  * Interface da estrutura de dado.
+ * Examina o item menos recentemente adicionado.
  *
  * @author Marcelo dos Santos
  * @param <T>

@@ -6,6 +6,7 @@ import java.util.Iterator;
  * Stack (Pilha) - Pushdown (LIFO) Stack.
  * <p>
  * Interface da estrutura de dado.
+ * Examina o item mais recentemente adicionado.
  *
  * @author Marcelo dos Santos
  *
