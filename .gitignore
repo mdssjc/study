@@ -11,15 +11,14 @@
 # Shared objects
 *.dll
 *.so
-
 # ---
 
 ### IntelliJ IDEA ###
 *.iml
-
 # ---
 
 ### Racket ###
-# DrRacket autosave files
 *.rkt~
+*~
+*.bak
 # ---
