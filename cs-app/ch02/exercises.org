@@ -310,3 +310,33 @@ int main() {
   -1 = -1+2⁴ = -1+16 = 15 for x < 0
    0 = 0 for x >= 0
    5 = 5 for x >= 0
+* Practice Problem 2.21
+  | Expression                    | Type     | Evaluation |
+  |-------------------------------+----------+------------|
+  | -2147483647-1 ==  2147483648U | Signed   |         1* |
+  | -2147483647-1  <  2147483647  | Signed   |          1 |
+  | -2147483647-1U <  2147483647  | Unsigned |         0* |
+  | -2147483647-1  < -2147483647  | Signed   |          1 |
+  | -2147483647-1U < -2147483647  | Signed   |          1 |
+
+#+NAME: casting
+#+BEGIN_SRC C
+#include <stdio.h>
+
+int main() {
+  printf("Result: %d\n", -2147483647-1 ==  2147483648U);
+  printf("Result: %d\n", -2147483647-1  <  2147483647);
+  printf("Result: %d\n", -2147483647-1U <  2147483647);
+  printf("Result: %d\n", -2147483647-1  < -2147483647);
+  printf("Result: %d\n", -2147483647-1U < -2147483647);
+
+  return 0;
+}
+#+END_SRC
+
+#+RESULTS: convert
+| Result: | 1 |
+| Result: | 1 |
+| Result: | 0 |
+| Result: | 1 |
+| Result: | 1 |
