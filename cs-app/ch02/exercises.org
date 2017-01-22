@@ -232,16 +232,16 @@ int main() {
 * Practice Problem 2.14
   x = 0x66
   y = 0x39
-  | Expression | Value |
-  |------------+-------|
-  | x & y      |  0x20 |
-  | x \vert  y     |  0x7F |
-  | ~x \vert ~y    |  0xDF |
-  | x & !y     |  0x00 |
-  | x && y     |  0x39 |
-  | x \vert\vert y     |  0x66 |
-  | !x \vert\vert !y   |  0x00 |
-  | x && ~y    |  0xC6 |
+  | Expression       | Value |
+  |------------------+-------|
+  | x & y            |  0x20 |
+  | x \vert  y       |  0x7F |
+  | ~x \vert ~y      |  0xDF |
+  | x & !y           |  0x00 |
+  | x && y           |  0x39 |
+  | x \vert\vert y   |  0x66 |
+  | !x \vert\vert !y |  0x00 |
+  | x && ~y          |  0xC6 |
 * Practice Problem 2.15
 #+NAME: equals
 #+BEGIN_SRC C
@@ -282,6 +282,8 @@ int main() {
   |         0xD | [1101] | 2³+2²+2⁰=13    | -2³+2²+2⁰=-3     |
   |         0xF | [1111] | 2³+2²+2¹+2⁰=15 | -2³+2²+2¹+2⁰= -1 |
 * Practice Problem 2.18
+  |   |   Hex | Dec |
+  |---+-------+-----|
   | A | 0x2E0 | 736 |
   | B | -0x58 | -88 |
   | C |  0x28 |  40 |
