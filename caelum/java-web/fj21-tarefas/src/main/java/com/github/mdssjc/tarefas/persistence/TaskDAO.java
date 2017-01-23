@@ -39,7 +39,7 @@ public class TaskDAO implements DAO<Task> {
       Optional<Calendar> calendar = Optional.ofNullable(task.getDataFinalizacao());
       Calendar other = Calendar.getInstance();
       stmt.setString(1, task.getDescricao());
-      stmt.setBoolean(2, task.getFinalizado());
+      stmt.setBoolean(2, task.isFinalizado());
       stmt.setDate(3, new java.sql.Date(calendar.orElse(other)
                                                 .getTimeInMillis()));
       stmt.execute();
@@ -101,7 +101,7 @@ public class TaskDAO implements DAO<Task> {
   public void set(Task type) throws DAOException {
     try (PreparedStatement stmt = connection.prepareStatement(UPDATE)) {
       stmt.setString(1, type.getDescricao());
-      stmt.setBoolean(2, type.getFinalizado());
+      stmt.setBoolean(2, type.isFinalizado());
       stmt.setDate(3, new Date(type.getDataFinalizacao()
                                    .getTimeInMillis()));
       stmt.setLong(4, type.getId());
