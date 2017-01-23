@@ -84,8 +84,10 @@ public class Ex3 {
     for (int i = 1; i <= last; i++) {
       final double x0 = lg(xs[i - 1]);
       final double y0 = b * lg(xs[i - 1]) + c;
+      // final double y0 = lg(ys[i-1]);
       final double x1 = lg(xs[i]);
       final double y1 = b * lg(xs[i]) + c;
+      // final double y1 = lg(ys[i]);
 
       StdDraw.line(x0, y0, x1, y1);
     }
