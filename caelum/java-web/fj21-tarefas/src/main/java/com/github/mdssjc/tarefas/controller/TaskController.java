@@ -1,16 +1,15 @@
-package mds.java.controller;
+package com.github.mdssjc.tarefas.controller;
 
 import javax.validation.Valid;
 
+import com.github.mdssjc.tarefas.entity.Task;
+import com.github.mdssjc.tarefas.persistence.DAOException;
+import com.github.mdssjc.tarefas.persistence.TaskDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import mds.java.entity.Task;
-import mds.java.persistence.DAOException;
-import mds.java.persistence.TaskDAO;
 
 @Controller
 public class TaskController {

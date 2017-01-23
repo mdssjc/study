@@ -1,4 +1,4 @@
-package mds.java.entity;
+package com.github.mdssjc.tarefas.entity;
 
 import java.util.Calendar;
 

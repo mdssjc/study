@@ -1,6 +1,6 @@
-package mds.java.persistence;
+package com.github.mdssjc.tarefas.persistence;
 
-import mds.java.entity.User;
+import com.github.mdssjc.tarefas.entity.User;
 
 public class UserDAO {
 

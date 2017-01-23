@@ -13,7 +13,7 @@
     <mvc:annotation-driven />
     <mvc:default-servlet-handler />
     <mvc:interceptors>
-        <bean class="mds.java.interceptor.AuthorizeInterceptor" />
+        <bean class="com.github.mdssjc.tarefas.interceptor.AuthorizeInterceptor" />
     </mvc:interceptors>
 
     <bean

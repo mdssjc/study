@@ -1,4 +1,4 @@
-package mds.java.interceptor;
+package com.github.mdssjc.tarefas.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

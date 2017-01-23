@@ -1,4 +1,4 @@
-package mds.java.persistence;
+package com.github.mdssjc.tarefas.persistence;
 
 import java.util.List;
 

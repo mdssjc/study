@@ -1,12 +1,11 @@
-package mds.java.controller;
+package com.github.mdssjc.tarefas.controller;
 
 import javax.servlet.http.HttpSession;
 
+import com.github.mdssjc.tarefas.entity.User;
+import com.github.mdssjc.tarefas.persistence.UserDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import mds.java.entity.User;
-import mds.java.persistence.UserDAO;
 
 @Controller
 public class LoginController {

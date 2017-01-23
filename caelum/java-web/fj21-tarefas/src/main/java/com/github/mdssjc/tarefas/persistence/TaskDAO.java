@@ -1,4 +1,4 @@
-package mds.java.persistence;
+package com.github.mdssjc.tarefas.persistence;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -12,10 +12,9 @@ import java.util.Optional;
 
 import javax.sql.DataSource;
 
+import com.github.mdssjc.tarefas.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import mds.java.entity.Task;
 
 @Repository
 public class TaskDAO implements DAO<Task> {

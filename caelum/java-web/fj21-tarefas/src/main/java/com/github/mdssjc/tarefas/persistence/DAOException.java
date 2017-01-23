@@ -1,4 +1,4 @@
-package mds.java.persistence;
+package com.github.mdssjc.tarefas.persistence;
 
 @SuppressWarnings("serial")
 public class DAOException extends Exception {
