@@ -7,7 +7,7 @@
 </head>
 <body>
     <h3>Adicionar tarefas</h3>
-    <form:errors path="task.descricao" cssStyle="color: red"/>
+    <form:errors path="task.description" cssStyle="color: red"/>
     <form action="newTask" method="post">
         Descrição:
         <br />

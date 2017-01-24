@@ -34,7 +34,7 @@ public class TaskController {
   @RequestMapping("newTask")
   public String add(@Valid Task task, BindingResult result) {
     try {
-      if (result.hasFieldErrors("descricao")) {
+      if (result.hasFieldErrors("description")) {
         return "task/form";
       }
       dao.save(task);
