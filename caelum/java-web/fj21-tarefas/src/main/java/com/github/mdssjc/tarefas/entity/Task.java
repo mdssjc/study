@@ -11,8 +11,8 @@ import java.util.Calendar;
 public class Task {
   private Long id;
 
-  @NotNull
-  @Size(min = 5)
+  @NotNull(message = "{task.description.empty}")
+  @Size(min = 5, message = "{task.description.minimum}")
   private String descricao;
   private boolean finalizado;
   @DateTimeFormat(pattern = "dd/MM/yyyy")
