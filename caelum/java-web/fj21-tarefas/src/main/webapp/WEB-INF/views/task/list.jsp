@@ -38,7 +38,7 @@
                     <td>Finalizado</td>
                 </c:if>
                 <c:if test="${tarefa.finalizado eq false}">
-                    <td><a href="#" onClick="finalizaAgora(${tarefa.id})">Finalizar </a></td>
+                    <td><a href="#" onClick="finalizaAgora(${tarefa.id})">Finalizar</a></td>
                 </c:if>
                 <td><fmt:formatDate value="${tarefa.dataFinalizacao.time}" pattern="dd/MM/yyyy" /></td>
                 <td><a href="removeTask?id=${tarefa.id}">Remover</a></td>
