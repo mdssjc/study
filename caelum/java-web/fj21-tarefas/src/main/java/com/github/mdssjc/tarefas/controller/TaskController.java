@@ -76,7 +76,7 @@ public class TaskController {
   }
 
   @RequestMapping("removeTask")
-  public String del(Task task) {
+  public String remove(Task task) {
     try {
       dao.delete(task);
     } catch (DAOException e) {
