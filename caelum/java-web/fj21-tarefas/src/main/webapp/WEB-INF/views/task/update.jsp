@@ -20,8 +20,7 @@
         <br />
         Data de finalização:
         <br />
-        <mds:fieldDate id="dataFinalizacao"
-            value="${tarefa.dataFinalizacao}" />
+        <mds:fieldDate id="dataFinalizacao" value="${tarefa.dataFinalizacao}" />
         <br />
         <input type="submit" value="Alterar" />
     </form>
