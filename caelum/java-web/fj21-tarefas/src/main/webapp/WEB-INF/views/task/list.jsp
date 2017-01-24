@@ -31,7 +31,7 @@
             <th>Finalizado?</th>
             <th>Data de Finalização</th>
         </tr>
-        <c:forEach items="${tarefas}" var="tarefa">
+        <c:forEach items="${tasks}" var="tarefa">
             <tr id="tarefa_${tarefa.id}">
                 <td>${tarefa.id}</td>
                 <td>${tarefa.descricao}</td>

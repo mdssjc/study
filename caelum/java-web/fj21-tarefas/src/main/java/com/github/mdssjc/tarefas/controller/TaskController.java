@@ -47,7 +47,7 @@ public class TaskController {
   @RequestMapping("listAll")
   public String list(Model model) {
     try {
-      model.addAttribute("tarefas", dao.findAll());
+      model.addAttribute("tasks", dao.findAll());
     } catch (DAOException e) {
       e.printStackTrace();
     }
