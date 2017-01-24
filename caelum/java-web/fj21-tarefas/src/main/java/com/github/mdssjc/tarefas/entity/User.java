@@ -1,8 +1,11 @@
 package com.github.mdssjc.tarefas.entity;
 
+import lombok.Data;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Data
 public class User {
   @NotNull
   @Size(max = 255)
@@ -12,21 +15,5 @@ public class User {
   String password;
 
   public User() {
-  }
-
-  public String getLogin() {
-    return this.login;
-  }
-
-  public void setLogin(String login) {
-    this.login = login;
-  }
-
-  public String getPassword() {
-    return this.password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 }
