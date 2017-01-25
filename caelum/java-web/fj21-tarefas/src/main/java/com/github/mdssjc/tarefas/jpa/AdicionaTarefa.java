@@ -3,8 +3,6 @@ package com.github.mdssjc.tarefas.jpa;
 import com.github.mdssjc.tarefas.entity.Task;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.Calendar;
 
 public class AdicionaTarefa {
@@ -15,8 +13,7 @@ public class AdicionaTarefa {
     task.setFinalizado(true);
     task.setDataFinalizacao(Calendar.getInstance());
 
-    final EntityManagerFactory factory = Persistence.createEntityManagerFactory("pu-tasks");
-    final EntityManager manager = factory.createEntityManager();
+    final EntityManager manager = EMFactory.get();
 
     manager.getTransaction()
            .begin();
