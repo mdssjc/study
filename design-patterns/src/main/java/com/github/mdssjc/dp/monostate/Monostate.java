@@ -7,6 +7,7 @@ package com.github.mdssjc.dp.monostate;
  *
  */
 public class Monostate {
+
   private static int x;
 
   public int getX() {

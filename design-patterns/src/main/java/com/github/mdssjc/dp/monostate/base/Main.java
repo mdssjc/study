@@ -11,6 +11,7 @@ import com.github.mdssjc.dp.monostate.Monostate;
  *
  */
 public class Main {
+
   public static void main(final String[] args) {
     final Monostate m1 = new Monostate();
     final Monostate m2 = new Monostate();
