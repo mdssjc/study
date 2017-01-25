@@ -5,7 +5,7 @@ package com.github.mdssjc.dp.mediator.base;
  * <p>
  * Design Pattern
  * Behavioral - Mediator
- *
+ * <p>
  * Ao cliente: impõe a política de baixo, invisível e habilitado
  *
  * @author Marcelo dos Santos
