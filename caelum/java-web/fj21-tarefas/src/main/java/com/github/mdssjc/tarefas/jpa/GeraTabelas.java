@@ -5,8 +5,8 @@ import javax.persistence.Persistence;
 
 public class GeraTabelas {
 
-  public static void main(String[] args) {
-    EntityManagerFactory em = Persistence.createEntityManagerFactory("pu-tasks");
+  public static void main(final String[] args) {
+    final EntityManagerFactory em = Persistence.createEntityManagerFactory("pu-tasks");
     em.close();
   }
 }
