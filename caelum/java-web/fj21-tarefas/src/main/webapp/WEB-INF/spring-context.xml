@@ -14,12 +14,20 @@
                            http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
     <context:component-scan base-package="com.github.mdssjc.tarefas"/>
+
     <mvc:annotation-driven/>
     <tx:annotation-driven/>
     <mvc:default-servlet-handler/>
     <mvc:interceptors>
         <bean class="com.github.mdssjc.tarefas.interceptor.AuthorizeInterceptor"/>
     </mvc:interceptors>
+
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5"/>
+        <property name="maxPoolSize" value="50"/>
+        <property name="queueCapacity" value="10"/>
+        <property name="keepAliveSeconds" value="120"/>
+    </bean>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
