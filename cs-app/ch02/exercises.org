@@ -1,150 +1,150 @@
 * Practice Problem 2.1
 ** A
-   Ox39A7F8 to binary
+  Ox39A7F8 to binary
 
-   3    9    A    7    F    8
-   0011 1001 1010 0111 1111 1000
+  3    9    A    7    F    8
+  0011 1001 1010 0111 1111 1000
 ** B
-   binary 1100100101111011 to hexadecimal
+  binary 1100100101111011 to hexadecimal
 
-   1100 1001 0111 1011
-   C    9    7    B
+  1100 1001 0111 1011
+  C    9    7    B
 ** C
-   OxD5E4C to binary
+  OxD5E4C to binary
 
-   D    5    E    4    C
-   1101 0101 1110 0100 1100
+  D    5    E    4    C
+  1101 0101 1110 0100 1100
 ** D
-   binary 1001101110011110110101 to hexadecimal
+  binary 1001101110011110110101 to hexadecimal
 
-   0010 0110 1110 0111 1011 0101
-   2    6    E    7    B    5
+  0010 0110 1110 0111 1011 0101
+  2    6    E    7    B    5
 * Practice Problem 2.2
- |  n | 2^n (decimal) | 2^n (hexadecimal) |
- |----+--------------+------------------|
- |  9 |          512 |            0x200 |
- | 19 |       524288 |          0x80000 |
- | 14 |        16384 |           0x4000 |
- | 16 |        65536 |          0x10000 |
- | 17 |       131072 |          0x20000 |
- |  5 |           32 |             0x20 |
- |  7 |          128 |             0x80 |
+  |  n | 2^n (decimal) | 2^n (hexadecimal) |
+  |----+--------------+------------------|
+  |  9 |          512 |            0x200 |
+  | 19 |       524288 |          0x80000 |
+  | 14 |        16384 |           0x4000 |
+  | 16 |        65536 |          0x10000 |
+  | 17 |       131072 |          0x20000 |
+  |  5 |           32 |             0x20 |
+  |  7 |          128 |             0x80 |
 * Practice Problem 2.3
-| Decimal | Binary    | Hexadecimal |
-|---------+-----------+-------------|
-|       0 | 0000 0000 |        0x00 |
-|     167 | 1010 0111 |        0xA7 |
-|      62 | 0011 1110 |        0x3E |
-|     188 | 1011 1100 |        0xBC |
-|      55 | 0011 0111 |        0x37 |
-|     136 | 1000 1000 |        0x88 |
-|     243 | 1111 0011 |        0xF3 |
-|      82 | 0101 0010 |        0x52 |
-|     172 | 1010 1100 |        0xAC |
-|     231 | 1110 0111 |        0xE7 |
+  | Decimal | Binary    | Hexadecimal |
+  |---------+-----------+-------------|
+  |       0 | 0000 0000 |        0x00 |
+  |     167 | 1010 0111 |        0xA7 |
+  |      62 | 0011 1110 |        0x3E |
+  |     188 | 1011 1100 |        0xBC |
+  |      55 | 0011 0111 |        0x37 |
+  |     136 | 1000 1000 |        0x88 |
+  |     243 | 1111 0011 |        0xF3 |
+  |      82 | 0101 0010 |        0x52 |
+  |     172 | 1010 1100 |        0xAC |
+  |     231 | 1110 0111 |        0xE7 |
 * Practice Problem 2.4
-A. 0x503C + 0x8    = 0x5044
-B. 0x503C - 0x40   = 0x507C
-C. 0x503C + 64     = 0x507C
-D. 0x50EA - 0x503C = 0xAE
+  A. 0x503C + 0x8    = 0x5044
+  B. 0x503C - 0x40   = 0x507C
+  C. 0x503C + 64     = 0x507C
+  D. 0x50EA - 0x503C = 0xAE
 * Practice Problem 2.5
   value = 0x87654321, code in code/data/show-bytes.c
 
- | -  | Little Endian | Big Endian  |
- | A. | 21 00 00 00   | 00 00 00 21 |
- | B. | 21 43 00 00   | 00 00 43 21 |
- | C. | 21 43 65 00   | 00 65 43 21 |
+  | -  | Little Endian | Big Endian  |
+  | A. | 21 00 00 00   | 00 00 00 21 |
+  | B. | 21 43 00 00   | 00 00 43 21 |
+  | C. | 21 43 65 00   | 00 65 43 21 |
 * Practice Problem 2.6
 ** A
-   0x00359141 -> 0011 0101 1001 0001 0100 0001
-   0x4A564504 -> 0100 1010 0101 0110 0100 0101 0000 0100
+  0x00359141 -> 0011 0101 1001 0001 0100 0001
+  0x4A564504 -> 0100 1010 0101 0110 0100 0101 0000 0100
 ** B
-   22 bits.
-         001 *101011001000101000001*
-   010010100 *101011001000101000001* 00
+  22 bits.
+        001 *101011001000101000001*
+  010010100 *101011001000101000001* 00
 ** C
-   001 and 010010100..00
+  001 and 010010100..00
 * Practice Problem 2.7
   0x61 0x62 0x63 0x64 0x65 0x66
 * Practice Problem 2.8
- | Operation | Result     |
- |-----------+------------|
- | a         | [01101001] |
- | b         | [01010101] |
- | ~a        | [10010110] |
- | ~b        | [10101010] |
- | a & b     | [01000001] |
- | a \vert b | [01111101] |
- | a ^ b     | [00111100] |
+  | Operation | Result     |
+  |-----------+------------|
+  | a         | [01101001] |
+  | b         | [01010101] |
+  | ~a        | [10010110] |
+  | ~b        | [10101010] |
+  | a & b     | [01000001] |
+  | a \vert b     | [01111101] |
+  | a ^ b     | [00111100] |
 * Practice Problem 2.9
 ** A
-   | R | G | B | Color    |
-   |---+---+---+----------|
-   | 1 | 1 | 1 | ~Black   |
-   | 1 | 1 | 0 | ~Blue    |
-   | 1 | 0 | 1 | ~Green   |
-   | 1 | 0 | 0 | ~Cyan    |
-   | 0 | 1 | 1 | ~Red     |
-   | 0 | 1 | 0 | ~Magenta |
-   | 0 | 0 | 1 | ~Yellow  |
-   | 0 | 0 | 0 | ~White   |
+  | R | G | B | Color    |
+  |---+---+---+----------|
+  | 1 | 1 | 1 | ~Black   |
+  | 1 | 1 | 0 | ~Blue    |
+  | 1 | 0 | 1 | ~Green   |
+  | 1 | 0 | 0 | ~Cyan    |
+  | 0 | 1 | 1 | ~Red     |
+  | 0 | 1 | 0 | ~Magenta |
+  | 0 | 0 | 1 | ~Yellow  |
+  | 0 | 0 | 0 | ~White   |
 ** B
-   Blue | Green  = 011
-   Yellow & Cyan = 010
-   Red ^ Magenta = 001
+  Blue | Green  = 011
+  Yellow & Cyan = 010
+  Red ^ Magenta = 001
 * Practice Problem 2.10
- | Step      | *x            | *y            |
- |-----------+---------------+---------------|
- | Initially | a             | b             |
- | Step 1    | a             | a ^ b         |
- | Step 2    | a ^ a ^ b = b | a ^ b         |
- | Step 3    | b             | b ^ a ^ b = a |
+  | Step      | *x            | *y            |
+  |-----------+---------------+---------------|
+  | Initially | a             | b             |
+  | Step 1    | a             | a ^ b         |
+  | Step 2    | a ^ a ^ b = b | a ^ b         |
+  | Step 3    | b             | b ^ a ^ b = a |
 * Practice Problem 2.11
 ** A
-   first = 3 and last = 3, 3 ^ 3 == 0.
+  first = 3 and last = 3, 3 ^ 3 == 0.
 ** B
-   ^ operator.
+  ^ operator.
 ** C
-   Of first <= last to first < last - in line 11
+  Of first <= last to first < last - in line 11
 ** Code
-#+NAME: swap
+#+NAME: ex11
 #+BEGIN_SRC C
-#include <stdio.h>
+  #include <stdio.h>
 
-void inplace_swap(int *x, int *y) {
-  *y = *x ^ *y;                 /* Step 1 */
-  *x = *x ^ *y;                 /* Step 2 */
-  *y = *x ^ *y;                 /* Step 3 */
-}
-
-void reverse_array(int a[], int cnt) {
-  int first, last;
-  for (first = 0, last = cnt - 1; first < last; first++, last--) {
-    inplace_swap(&a[first], &a[last]);
+  void inplace_swap(int *x, int *y) {
+    ,*y = *x ^ *y;                 /* Step 1 */
+    ,*x = *x ^ *y;                 /* Step 2 */
+    ,*y = *x ^ *y;                 /* Step 3 */
   }
-}
 
-void show(int a[], int len) {
-  for (int i = 0; i < len; ++i) {
-    printf("%d ", a[i]);
+  void reverse_array(int a[], int cnt) {
+    int first, last;
+    for (first = 0, last = cnt - 1; first < last; first++, last--) {
+      inplace_swap(&a[first], &a[last]);
+    }
   }
-  printf("\n");
-}
 
-int main() {
-  int a[] = {1, 2, 3, 4};
-  int b[] = {1, 2, 3, 4, 5};
+  void show(int a[], int len) {
+    for (int i = 0; i < len; ++i) {
+      printf("%d ", a[i]);
+    }
+    printf("\n");
+  }
 
-  show(a, 4);
-  reverse_array(a, 4);
-  show(a, 4);
+  int main() {
+    int a[] = {1, 2, 3, 4};
+    int b[] = {1, 2, 3, 4, 5};
 
-  show(b, 5);
-  reverse_array(b, 5);
-  show(b, 5);
+    show(a, 4);
+    reverse_array(a, 4);
+    show(a, 4);
 
-  return 0;
-}
+    show(b, 5);
+    reverse_array(b, 5);
+    show(b, 5);
+
+    return 0;
+  }
 #+END_SRC
 
 #+RESULTS: swap
@@ -154,26 +154,26 @@ int main() {
 | 5 | 4 | 3 | 2 | 1 |
 * Practice Problem 2.12
 ** A
-   x & 0x000000FF
+  x & 0x000000FF
 ** B
-   ~(x & 0xFFFFFF00) | (x & 0x000000FF)
+  ~(x & 0xFFFFFF00) | (x & 0x000000FF)
 ** C
-   x | 0xFF;
+  x | 0xFF;
 ** Code
-#+NAME: mask
+#+NAME: ex12
 #+BEGIN_SRC C
-#include <stdio.h>
+  #include <stdio.h>
 
-int main() {
-  int x = 0x87654321;
-  int a = x & 0x000000FF;
-  int b = (~x & 0xFFFFFF00) | (x & 0x000000FF);
-  int c = x | 0xFF;
+  int main() {
+    int x = 0x87654321;
+    int a = x & 0x000000FF;
+    int b = (~x & 0xFFFFFF00) | (x & 0x000000FF);
+    int c = x | 0xFF;
 
-  printf("%#010X\n%#010X\n%#010X\n%#010X\n", x, a, b, c);
+    printf("%#010X\n%#010X\n%#010X\n%#010X\n", x, a, b, c);
 
-  return 0;
-}
+    return 0;
+  }
 #+END_SRC
 
 #+RESULTS: mask
@@ -183,41 +183,41 @@ int main() {
 | 0X876543FF |
 * Practice Problem 2.13
 ** Code
-#+NAME: devax
+#+NAME: ex13
 #+BEGIN_SRC C
-#include <stdio.h>
+  #include <stdio.h>
 
-/* Declarations of functions implementing operations bis and bic */
-int bis(int x, int m) {
-  return x | m;
-}
+  /* Declarations of functions implementing operations bis and bic */
+  int bis(int x, int m) {
+    return x | m;
+  }
 
-int bic(int x, int m) {
-  return x & ~m;
-}
+  int bic(int x, int m) {
+    return x & ~m;
+  }
 
-/* Compute x|y using only calls to functions bis and bic */
-int bool_or(int x, int y) {
-  int result = bis(x, y);
-  return result;
-}
+  /* Compute x|y using only calls to functions bis and bic */
+  int bool_or(int x, int y) {
+    int result = bis(x, y);
+    return result;
+  }
 
-/* Compute x^y using only calls to functions bis and bic */
-int bool_xor(int x, int y) {
-  int result = bis(bic(x, y), bic(y, x));
-  return result;
-}
+  /* Compute x^y using only calls to functions bis and bic */
+  int bool_xor(int x, int y) {
+    int result = bis(bic(x, y), bic(y, x));
+    return result;
+  }
 
-int main() {
-  printf("%d\n", bis(2, 1));
-  printf("%d\n", bic(3, 1));
-  printf("%d\n", bool_or(2, 1));
-  printf("%d\n", bool_or(5, 1));
-  printf("%d\n", bool_or(5, 2));
-  printf("%d\n", bool_xor(2, 1));
-  printf("%d\n", bool_xor(5, 2));
-  printf("%d\n", bool_xor(10, 7));
-}
+  int main() {
+    printf("%d\n", bis(2, 1));
+    printf("%d\n", bic(3, 1));
+    printf("%d\n", bool_or(2, 1));
+    printf("%d\n", bool_or(5, 1));
+    printf("%d\n", bool_or(5, 2));
+    printf("%d\n", bool_xor(2, 1));
+    printf("%d\n", bool_xor(5, 2));
+    printf("%d\n", bool_xor(10, 7));
+  }
 #+END_SRC
 
 #+RESULTS: devax
@@ -232,33 +232,33 @@ int main() {
 * Practice Problem 2.14
   x = 0x66
   y = 0x39
-  | Expression       | Value |
-  |------------------+-------|
-  | x & y            |  0x20 |
-  | x \vert  y       |  0x7F |
-  | ~x \vert ~y      |  0xDF |
-  | x & !y           |  0x00 |
-  | x && y           |  0x39 |
-  | x \vert\vert y   |  0x66 |
-  | !x \vert\vert !y |  0x00 |
-  | x && ~y          |  0xC6 |
+  | Expression | Value |
+  |------------+-------|
+  | x & y      |  0x20 |
+  | x \vert  y     |  0x7F |
+  | ~x \vert ~y    |  0xDF |
+  | x & !y     |  0x00 |
+  | x && y     |  0x39 |
+  | x \vert\vert y     |  0x66 |
+  | !x \vert\vert !y   |  0x00 |
+  | x && ~y    |  0xC6 |
 * Practice Problem 2.15
-#+NAME: equals
+#+NAME: ex15
 #+BEGIN_SRC C
-#include <stdio.h>
+  #include <stdio.h>
 
-int main() {
-  int a = 7;
-  int b = 7;
-  int c = 4;
+  int main() {
+    int a = 7;
+    int b = 7;
+    int c = 4;
 
-  int res1 = !((~a & b) | (a & ~b));
-  int res2 = !((~a & c) | (a & ~c));
+    int res1 = !((~a & b) | (a & ~b));
+    int res2 = !((~a & c) | (a & ~c));
 
-  printf("Res1: %d / Res2: %d", res1, res2);
+    printf("Res1: %d / Res2: %d", res1, res2);
 
-  return 0;
-}
+    return 0;
+  }
 #+END_SRC
 
 #+RESULTS: equals
@@ -319,19 +319,19 @@ int main() {
   | -2147483647-1  < -2147483647  | Signed   |          1 |
   | -2147483647-1U < -2147483647  | Signed   |          1 |
 
-#+NAME: casting
+#+NAME: ex21
 #+BEGIN_SRC C
-#include <stdio.h>
+  #include <stdio.h>
 
-int main() {
-  printf("Result: %d\n", -2147483647-1 ==  2147483648U);
-  printf("Result: %d\n", -2147483647-1  <  2147483647);
-  printf("Result: %d\n", -2147483647-1U <  2147483647);
-  printf("Result: %d\n", -2147483647-1  < -2147483647);
-  printf("Result: %d\n", -2147483647-1U < -2147483647);
+  int main() {
+    printf("Result: %d\n", -2147483647-1 ==  2147483648U);
+    printf("Result: %d\n", -2147483647-1  <  2147483647);
+    printf("Result: %d\n", -2147483647-1U <  2147483647);
+    printf("Result: %d\n", -2147483647-1  < -2147483647);
+    printf("Result: %d\n", -2147483647-1U < -2147483647);
 
-  return 0;
-}
+    return 0;
+  }
 #+END_SRC
 
 #+RESULTS: convert
@@ -342,25 +342,25 @@ int main() {
 | Result: | 1 |
 * Practice Problem 2.22
 ** A
-   [1011]
-   -x_3*2³ + Sum(x_i*2^i)
-   -8 + (0*4) + (1*2) + (1*1)
-   -8 + 3
-   -5
+  [1011]
+  -x_3*2³ + Sum(x_i*2^i)
+  -8 + (0*4) + (1*2) + (1*1)
+  -8 + 3
+  -5
 ** B
-   [11011]
-   -x_4*2⁴ + Sum(x_i*2^i)
-   -1*16 + (1*8) + (0*4) + (1*2) + (1*1)
-   -16 + 11
-   -5
+  [11011]
+  -x_4*2⁴ + Sum(x_i*2^i)
+  -1*16 + (1*8) + (0*4) + (1*2) + (1*1)
+  -16 + 11
+  -5
 ** C
-   [111011]
-   -x_5*2⁵ + Sum(x_i*2^i)
-   -1*32 + (1*16) + (1*8) + (0*4) + (1*2) + (1*1)
-   -32 + 27
-   -5
+  [111011]
+  -x_5*2⁵ + Sum(x_i*2^i)
+  -1*32 + (1*16) + (1*8) + (0*4) + (1*2) + (1*1)
+  -32 + 27
+  -5
 * Practice Problem 2.23
-#+NAME: cast
+#+NAME: ex23
 #+BEGIN_SRC C
   #include <stdio.h>
 
@@ -444,25 +444,25 @@ int main() {
 * Practice Problem 2.26
 #+NAME: ex26
 #+BEGIN_SRC C
-#include <stdio.h>
-#include <string.h>
+  #include <stdio.h>
+  #include <string.h>
 
-/* Determine whether string s is longer than string t */
-/* WARNING: This is buggy code */
-int strlonger(char *s, char *t) {
-  int diff = strlen(s) - strlen(t);
-  return diff > 0;
-  /* return strlen(s) - strlen(t) > 0; */
-}
+  /* Determine whether string s is longer than string t */
+  /* WARNING: This is buggy code */
+  int strlonger(char *s, char *t) {
+    int diff = strlen(s) - strlen(t);
+    return diff > 0;
+    /* return strlen(s) - strlen(t) > 0; */
+  }
 
-int main() {
-  char *s1 = "ABC";
-  char *s2 = "ABCDEF";
+  int main() {
+    char *s1 = "ABC";
+    char *s2 = "ABCDEF";
 
-  printf("%d\n", strlonger(s1, s2));
-  printf("%d\n", strlonger(s2, s1));
-  return 0;
-}
+    printf("%d\n", strlonger(s1, s2));
+    printf("%d\n", strlonger(s2, s1));
+    return 0;
+  }
 #+END_SRC
 
 #+RESULTS: ex26
