@@ -410,3 +410,34 @@ int main() {
   T(-7) -> U(9)  = 1 -> -0*2^2 + 0*2¹ + 1*2^0 = 1
   T(-5) -> U(11) = 3 -> -0*2^2 + 1*2¹ + 1*2^0 = 3
   T(-1) -> U(15) = 7 -> -1*2^2 + 1*2¹ + 1*2^0 = -5
+* Practice Problem 2.25
+#+NAME: ex25
+#+BEGIN_SRC C
+  #include <stdio.h>
+
+  /* WARNING: This is buggy code */
+  float sum_elements(float a[], unsigned length) {
+    int i;
+    float result = 0;
+
+    /* for (i = 0; i <= length - 1; i++) { */
+    for (i = 0; i < length; i++) {
+      result += a[i];
+    }
+    return result;
+  }
+
+  int main() {
+    float v[] = {1, 2};
+
+    printf("%f\n", sum_elements(v, 2));
+    printf("%f\n", sum_elements(v, 1));
+    printf("%f\n", sum_elements(v, 0));
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS: ex25
+| 3.0 |
+| 1.0 |
+| 0.0 |
