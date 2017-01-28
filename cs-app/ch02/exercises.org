@@ -359,3 +359,36 @@ int main() {
    -1*32 + (1*16) + (1*8) + (0*4) + (1*2) + (1*1)
    -32 + 27
    -5
+* Practice Problem 2.23
+#+NAME: cast
+#+BEGIN_SRC C
+  #include <stdio.h>
+
+  int fun1(unsigned word) {
+    return (int) ((word <<  24) >>  24);
+  }
+
+  int fun2(unsigned word) {
+    return ((int) word <<  24) >> 24
+  }
+
+  int main() {
+    unsigned w1 = 0x00000076;
+    unsigned w2 = 0x87654321;
+    unsigned w3 = 0x000000C9;
+    unsigned w4 = 0xEDCBA987;
+
+    printf("fun1(w) %d fun2(w) %d\n", fun1(w1), fun2(w1));
+    printf("fun1(w) %d fun2(w) %d\n", fun1(w2), fun2(w2));
+    printf("fun1(w) %d fun2(w) %d\n", fun1(w3), fun2(w3));
+    printf("fun1(w) %d fun2(w) %d\n", fun1(w4), fun2(w4));
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS: cast
+| fun1(w) | 118 | fun2(w) |  118 |
+| fun1(w) |  33 | fun2(w) |   33 |
+| fun1(w) | 201 | fun2(w) |  -55 |
+| fun1(w) | 135 | fun2(w) | -121 |
