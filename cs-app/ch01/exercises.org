@@ -1,38 +1,38 @@
 * Practice Problem 1.1
-total distance 2500 km
-average 100 km/h
-trip in 25 hours
+  total distance 2500 km
+  average 100 km/h
+  trip in 25 hours
 ** A
-   \alpha = (1500 / 2500) = 0.6
-   k = 150 / 100 = 1.5
+  \alpha = (1500 / 2500) = 0.6
+  k = 150 / 100 = 1.5
 
-   S = 1 / ((1 - \alpha) + \alpha / k)
-   S = 1 / (0.4 + 0.6 / 1.5)
-   S = 1 / (0.4 + 0.4)
-   S = 1 / 0.8
-   S = 1.25x
+  S = 1 / ((1 - \alpha) + \alpha / k)
+  S = 1 / (0.4 + 0.6 / 1.5)
+  S = 1 / (0.4 + 0.4)
+  S = 1 / 0.8
+  S = 1.25x
 *** Solution
     In terms of Equation 1.1, we have \alpha = 0.6 and k = 1.5. More
     directly, traveling the 1.500 kilometers through Montana will require
     10 hours, and the rest of the trip also requires 10 hours. This will
     give a speedup, of 25/(10 + 10) = 1.25x.
 ** B
-   \alpha = (1500 / 2500) = 0.6
-   k = x / 100
-   S = 1.67x
+  \alpha = (1500 / 2500) = 0.6
+  k = x / 100
+  S = 1.67x
 
-   S = 1 / ((1 - \alpha) + \alpha / k)
-   1.67 = 1 / ((1 - 0.6) + 0.6 / k)
-   1.67 = 1 / (0.4 + 0.6 / (x / 100))
-   1.67 (0.4 + 0.6 / (x / 100)) = 1
-   0.668 + 1.002 / (x / 100) = 1
-   0.668 + 100.2 / x = 1
-   100.2 / x = 0.332
-   0.332x = 100.2
-   x = 301.80 km/h
+  S = 1 / ((1 - \alpha) + \alpha / k)
+  1.67 = 1 / ((1 - 0.6) + 0.6 / k)
+  1.67 = 1 / (0.4 + 0.6 / (x / 100))
+  1.67 (0.4 + 0.6 / (x / 100)) = 1
+  0.668 + 1.002 / (x / 100) = 1
+  0.668 + 100.2 / x = 1
+  100.2 / x = 0.332
+  0.332x = 100.2
+  x = 301.80 km/h
 
-   trip = (1500 / 301.80) + (1000 / 100)
-   trip = 14.97 hours
+  trip = (1500 / 301.80) + (1000 / 100)
+  trip = 14.97 hours
 *** Solution
     In terms of Equation 1.1, we have \alpha = 0.6, and we require S =
     1.67, from which we can solve for k. More directly, to speed up
@@ -52,4 +52,4 @@ trip in 25 hours
   0.6k = 1.6
   k = 2.67x
 ** Solution
-   Same as above
+  Same as above
