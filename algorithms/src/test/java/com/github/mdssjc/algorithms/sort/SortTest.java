@@ -1,6 +1,7 @@
 package com.github.mdssjc.algorithms.sort;
 
 import com.github.mdssjc.algorithms.sort.concrete.InsertionSort;
+import com.github.mdssjc.algorithms.sort.concrete.MergeSort;
 import com.github.mdssjc.algorithms.sort.concrete.SelectionSort;
 import com.github.mdssjc.algorithms.sort.concrete.ShellSort;
 import edu.princeton.cs.algs4.StdRandom;
@@ -79,13 +80,15 @@ public class SortTest {
 
   @Test
   public void testMergeSort() {
-//    MergeSort.sort(this.numbers);
-//    MergeSort.sort(this.letters);
-//    MergeSort.sort(this.files);
-//
-//    assertTrue(Sort.isSorted(this.numbers));
-//    assertTrue(Sort.isSorted(this.letters));
-//    assertTrue(Sort.isSorted(this.files));
+    final Sort selection = new MergeSort(MergeSort.TYPE.TOP_DOWN);
+
+    selection.sort(this.numbers);
+    selection.sort(this.letters);
+    selection.sort(this.files);
+
+    assertTrue(Sort.isSorted(this.numbers));
+    assertTrue(Sort.isSorted(this.letters));
+    assertTrue(Sort.isSorted(this.files));
   }
 
   @Test
