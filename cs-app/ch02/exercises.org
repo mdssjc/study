@@ -559,3 +559,5 @@
 | 0 | (-2147483648) |
 | 1 | (-2)          |
 | 1 | (2)           |
+* Practice Problem 2.31
+  The ~sum-x~ and ~sum-y~ can cause overflow.
