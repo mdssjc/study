@@ -46,7 +46,16 @@ public class MergeSortMonitor implements Sort {
       } else {
         a[k] = this.aux[i++];
       }
-      monitor2(a, lo, hi, i, j, k);
+      if (this.monitor == MONITOR.M1 &&
+          lo == 0 && hi == a.length - 1 &&
+          this.m1FirstTime) {
+        final Comparable[] result = Arrays.copyOf(a, k + 1);
+        StdOut.printf("%2d %2d %2d  %s%n", k, i, j, Arrays.deepToString(result));
+        if (k == hi) {
+          this.m1FirstTime = false;
+          StdOut.printf("          %s%n", Arrays.deepToString(a));
+        }
+      }
     }
 
     // Postcondition: a[lo..mid] sorted
@@ -63,7 +72,9 @@ public class MergeSortMonitor implements Sort {
     sort(a, mid + 1, hi);
 
     merge(a, lo, mid, hi);
-    monitor1(a, lo, hi);
+    if (this.monitor == MONITOR.M2) {
+      StdOut.printf("%2d %2d  %s%n", lo, hi, Arrays.deepToString(a));
+    }
   }
 
   // Top-down
@@ -78,8 +89,12 @@ public class MergeSortMonitor implements Sort {
     this.aux = new Comparable[n];
 
     for (int sz = 1; sz < n; sz = sz + sz) {
+      StdOut.printf("sz = %d%n", sz);
       for (int lo = 0; lo < n - sz; lo += sz + sz) {
         merge(a, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, n - 1));
+        if (this.monitor == MONITOR.M3) {
+          StdOut.printf("%2d %2d  %s%n", lo, Math.min(lo + sz + sz - 1, n - 1), Arrays.deepToString(a));
+        }
       }
     }
   }
@@ -92,26 +107,7 @@ public class MergeSortMonitor implements Sort {
     sortBottomUp(a);
   }
 
-  private void monitor1(final Comparable[] a, final int lo, final int hi) {
-    if (this.monitor == MONITOR.M2) {
-      StdOut.printf("%2d %2d  %s%n", lo, hi, Arrays.deepToString(a));
-    }
-  }
-
-  private void monitor2(final Comparable[] a, final int lo, final int hi, final int i, final int j, final int k) {
-    if (this.monitor == MONITOR.M1 &&
-        lo == 0 && hi == a.length - 1 &&
-        this.m1FirstTime) {
-      final Comparable[] result = Arrays.copyOf(a, k + 1);
-      StdOut.printf("%2d %2d %2d  %s%n", k, i, j, Arrays.deepToString(result));
-      if (k == hi) {
-        this.m1FirstTime = false;
-        StdOut.printf("          %s%n", Arrays.deepToString(a));
-      }
-    }
-  }
-
   public enum TYPE {TOP_DOWN, BOTTOM_UP}
 
-  public enum MONITOR {M1, M2}
+  public enum MONITOR {M1, M3, M2}
 }
