@@ -522,3 +522,40 @@
   | [00010] | [00101] | [00111]  | [00111] |      |
   | 12      | 4       | 16       | -16     |    4 |
   | [01100] | [00100] | [10000]  | [10000] |      |
+* Practice Problem 2.30
+#+NAME: ex30
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <limits.h>
+
+  /* Determine whether arguments can be added without overflow */
+  int tadd_ok(int x, int y);
+
+  int tadd_ok(int x, int y) {
+    int sum = x + y;
+    if (x >  0 && y > 0 && sum < 0) {
+      return 0;
+    } else if (x < 0 && y < 0 && sum > 0) {
+      return 0;
+    }
+    return 1;
+  }
+
+  int main() {
+    int a = INT_MIN;
+    int b = INT_MAX;
+    int c = -1;
+    int d = 1;
+    printf("%d (%d)\n", tadd_ok(a, c), a + c);
+    printf("%d (%d)\n", tadd_ok(b, d), b + d);
+    printf("%d (%d)\n", tadd_ok(c, c), c + c);
+    printf("%d (%d)\n", tadd_ok(d, d), d + d);
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS: ex30
+| 0 | (2147483647)  |
+| 0 | (-2147483648) |
+| 1 | (-2)          |
+| 1 | (2)           |
