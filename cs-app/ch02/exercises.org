@@ -433,6 +433,7 @@
     printf("%f\n", sum_elements(v, 2));
     printf("%f\n", sum_elements(v, 1));
     printf("%f\n", sum_elements(v, 0));
+
     return 0;
   }
 #+END_SRC
@@ -533,7 +534,7 @@
 
   int tadd_ok(int x, int y) {
     int sum = x + y;
-    if (x >  0 && y > 0 && sum < 0) {
+    if (x > 0 && y > 0 && sum < 0) {
       return 0;
     } else if (x < 0 && y < 0 && sum > 0) {
       return 0;
@@ -546,10 +547,12 @@
     int b = INT_MAX;
     int c = -1;
     int d = 1;
+
     printf("%d (%d)\n", tadd_ok(a, c), a + c);
     printf("%d (%d)\n", tadd_ok(b, d), b + d);
     printf("%d (%d)\n", tadd_ok(c, c), c + c);
     printf("%d (%d)\n", tadd_ok(d, d), d + d);
+
     return 0;
   }
 #+END_SRC
@@ -561,3 +564,52 @@
 | 1 | (2)           |
 * Practice Problem 2.31
   The ~sum-x~ and ~sum-y~ can cause overflow.
+* Practice Problem 2.32
+  The values with overflow are with inverted results.
+** Code
+#+NAME: ex32
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <limits.h>
+
+  /* Determine whether arguments can be subtracted without overflow */
+  int tsub_ok(int x, int y);
+
+  int tsub_ok(int x, int y) {
+    int sum = x + y;
+    if (x > 0 && y > 0 && sum < 0) {
+      return 0;
+    } else if (x < 0 && y < 0 && sum > 0) {
+      return 0;
+    }
+    return 1;
+  }
+
+  int main() {
+    int a = INT_MIN;
+    int b = INT_MAX;
+    int c = -1;
+    int d = 1;
+
+    printf("%d (%d)\n", tsub_ok(a, d), a - d);
+    printf("%d (%d)\n", tsub_ok(a, c), a - c);
+
+    printf("%d (%d)\n", tsub_ok(b, c), b - c);
+    printf("%d (%d)\n", tsub_ok(b, d), b - d);
+
+    printf("%d (%d)\n", tsub_ok(c, c), c - c);
+    printf("%d (%d)\n", tsub_ok(d, d), d - d);
+    printf("%d (%d)\n", tsub_ok(c, d), c - d);
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS: ex32
+| 1 | (2147483647)  |
+| 0 | (-2147483647) |
+| 1 | (-2147483648) |
+| 0 | (2147483646)  |
+| 1 | (0)           |
+| 1 | (0)           |
+| 1 | (-2)          |
