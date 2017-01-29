@@ -9,6 +9,7 @@ import java.util.Arrays;
  * MergeSortMonitor Class.
  *
  * @author Marcelo dos Santos
+ *
  */
 public class MergeSortMonitor implements Sort {
 
