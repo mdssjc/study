@@ -80,8 +80,9 @@ public class MergeSort implements Sort {
   public void sort(final Comparable[] a) {
     if (TYPE.TOP_DOWN.equals(this.type)) {
       sortTopDown(a);
+    } else {
+      sortBottomUp(a);
     }
-    sortBottomUp(a);
   }
 
   public enum TYPE {TOP_DOWN, BOTTOM_UP}
