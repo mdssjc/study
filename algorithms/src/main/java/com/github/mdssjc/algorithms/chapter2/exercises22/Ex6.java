@@ -3,6 +3,7 @@ package com.github.mdssjc.algorithms.chapter2.exercises22;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 
+import java.util.Collections;
 import java.util.stream.IntStream;
 
 /**
@@ -26,6 +27,7 @@ public class Ex6 {
   private static void experiment(final MergeSortMonitor.TYPE topDown) {
     final Integer[] values = IntStream.rangeClosed(1, LEN)
                                       .boxed()
+                                      .sorted(Collections.reverseOrder())
                                       .toArray(Integer[]::new);
 
     final MergeSortMonitor merge = new MergeSortMonitor(topDown,
