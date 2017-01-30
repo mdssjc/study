@@ -15,9 +15,10 @@ public class MergeSortMonitor implements Sort {
 
   private final TYPE type;
   private final MONITOR monitor;
-  private int countAccesses;
   private Comparable[] aux;
   private boolean m1FirstTime;
+  private int countAccesses;
+  private int countCompares;
 
   public MergeSortMonitor(final TYPE type, final MONITOR monitor) {
     this.type = type;
@@ -49,9 +50,10 @@ public class MergeSortMonitor implements Sort {
       } else if (Sort.less(this.aux[j], this.aux[i])) {
         a[k] = this.aux[j++];
         this.countAccesses += 4;
+        this.countCompares++;
       } else {
         a[k] = this.aux[i++];
-        this.countAccesses += 2;
+        this.countAccesses += (2 + 2);
       }
 
       if (this.monitor == MONITOR.M1 &&
@@ -66,11 +68,14 @@ public class MergeSortMonitor implements Sort {
       }
 
       if (this.monitor == MONITOR.M4 &&
-          lo == 0 && hi == a.length - 1 &&
-          this.m1FirstTime) {
+          lo == 0 && hi == a.length - 1) {
         final double calculate = 6 * (k + 1) * (Math.log(k + 1) / Math.log(2));
         StdOut.printf("k(%d) %d / %.2f -> %.2f times %n",
                       k + 1, this.countAccesses, calculate, calculate / this.countAccesses);
+      }
+
+      if (this.monitor == MONITOR.M5) {
+        StdOut.printf("k(%d) %d compares%n", k, this.countCompares);
       }
     }
 
@@ -128,5 +133,5 @@ public class MergeSortMonitor implements Sort {
 
   public enum TYPE {TOP_DOWN, BOTTOM_UP}
 
-  public enum MONITOR {M1, M3, NULL, M4, M2}
+  public enum MONITOR {M1, M2, M3, M4, M5}
 }
