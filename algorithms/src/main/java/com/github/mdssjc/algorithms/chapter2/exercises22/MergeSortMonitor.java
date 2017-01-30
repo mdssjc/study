@@ -15,7 +15,7 @@ public class MergeSortMonitor implements Sort {
 
   private final TYPE type;
   private final MONITOR monitor;
-  private int countArray;
+  private int countAccesses;
   private Comparable[] aux;
   private boolean m1FirstTime;
 
@@ -36,22 +36,22 @@ public class MergeSortMonitor implements Sort {
 
     for (int k = lo; k <= hi; k++) {
       this.aux[k] = a[k];
-      this.countArray += 2;
+      this.countAccesses += 2;
     }
 
     for (int k = lo; k <= hi; k++) {
       if (i > mid) {
         a[k] = this.aux[j++];
-        this.countArray += 2;
+        this.countAccesses += 2;
       } else if (j > hi) {
         a[k] = this.aux[i++];
-        this.countArray += 2;
+        this.countAccesses += 2;
       } else if (Sort.less(this.aux[j], this.aux[i])) {
         a[k] = this.aux[j++];
-        this.countArray += 4;
+        this.countAccesses += 4;
       } else {
         a[k] = this.aux[i++];
-        this.countArray += 2;
+        this.countAccesses += 2;
       }
 
       if (this.monitor == MONITOR.M1 &&
@@ -70,7 +70,7 @@ public class MergeSortMonitor implements Sort {
           this.m1FirstTime) {
         final double calculate = 6 * (k + 1) * (Math.log(k + 1) / Math.log(2));
         StdOut.printf("k(%d) %d / %.2f -> %.2f times %n",
-                      k + 1, this.countArray, calculate, calculate / this.countArray);
+                      k + 1, this.countAccesses, calculate, calculate / this.countAccesses);
       }
     }
 
