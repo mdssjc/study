@@ -15,6 +15,7 @@ public class MergeSortMonitor implements Sort {
 
   private final TYPE type;
   private final MONITOR monitor;
+  private int countArray;
   private Comparable[] aux;
   private boolean m1FirstTime;
 
@@ -35,18 +36,24 @@ public class MergeSortMonitor implements Sort {
 
     for (int k = lo; k <= hi; k++) {
       this.aux[k] = a[k];
+      this.countArray += 2;
     }
 
     for (int k = lo; k <= hi; k++) {
       if (i > mid) {
         a[k] = this.aux[j++];
+        this.countArray += 2;
       } else if (j > hi) {
         a[k] = this.aux[i++];
+        this.countArray += 2;
       } else if (Sort.less(this.aux[j], this.aux[i])) {
         a[k] = this.aux[j++];
+        this.countArray += 4;
       } else {
         a[k] = this.aux[i++];
+        this.countArray += 2;
       }
+
       if (this.monitor == MONITOR.M1 &&
           lo == 0 && hi == a.length - 1 &&
           this.m1FirstTime) {
@@ -56,6 +63,14 @@ public class MergeSortMonitor implements Sort {
           this.m1FirstTime = false;
           StdOut.printf("          %s%n", Arrays.deepToString(a));
         }
+      }
+
+      if (this.monitor == MONITOR.M4 &&
+          lo == 0 && hi == a.length - 1 &&
+          this.m1FirstTime) {
+        final double calculate = 6 * (k + 1) * (Math.log(k + 1) / Math.log(2));
+        StdOut.printf("k(%d) %d / %.2f -> %.2f times %n",
+                      k + 1, this.countArray, calculate, calculate / this.countArray);
       }
     }
 
@@ -90,7 +105,9 @@ public class MergeSortMonitor implements Sort {
     this.aux = new Comparable[n];
 
     for (int sz = 1; sz < n; sz = sz + sz) {
-      StdOut.printf("sz = %d%n", sz);
+      if (this.monitor == MONITOR.M3) {
+        StdOut.printf("sz = %d%n", sz);
+      }
       for (int lo = 0; lo < n - sz; lo += sz + sz) {
         merge(a, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, n - 1));
         if (this.monitor == MONITOR.M3) {
@@ -104,11 +121,12 @@ public class MergeSortMonitor implements Sort {
   public void sort(final Comparable[] a) {
     if (MergeSortMonitor.TYPE.TOP_DOWN.equals(this.type)) {
       sortTopDown(a);
+    } else {
+      sortBottomUp(a);
     }
-    sortBottomUp(a);
   }
 
   public enum TYPE {TOP_DOWN, BOTTOM_UP}
 
-  public enum MONITOR {M1, M3, M2}
+  public enum MONITOR {M1, M3, NULL, M4, M2}
 }
