@@ -35,16 +35,21 @@
 (require 2htdp/image)
 (require 2htdp/universe)
 
-;; A cow, meandering back and forth across the screen.
+;; A cow, waddling back and forth across the screen.
+
 
 ;; =================
 ;; Constants:
 
 (define WIDTH  400)
 (define HEIGHT 200)
-(define CTR-Y (/ HEIGHT 2))
+(define CTR-Y (/ HEIGHT 2)) 
 (define RCOW .)
 (define LCOW .)
+(define RCOW- (rotate -2 RCOW))
+(define RCOW+ (rotate  2 RCOW))
+(define LCOW- (rotate -2 LCOW))
+(define LCOW+ (rotate  2 LCOW))
 (define MTS (empty-scene WIDTH HEIGHT))
 
 
@@ -62,8 +67,8 @@
 (define C2 (make-cow 20 -4)) ; at 20, moving left <- right
 #;
 (define (fn-for-cow c)
-  (... (cow-x c)    ; Natural[0, WIDTH]
-       (cow-dx c))) ; Integer
+  (... (cow-x c)    ;Natural[0, WIDTH]
+       (cow-dx c))) ;Integer
 
 ;; Template rules used:
 ;;  - compound: 2 fields
@@ -84,16 +89,16 @@
 
 ;; Cow -> Cow  
 ;; increase cow x by dx; when gets to edge, change dir and move off by 1
-(check-expect (next-cow (make-cow 20           3)) (make-cow (+ 20 3)  3)) ; away from edges
+(check-expect (next-cow (make-cow 20           3)) (make-cow (+ 20 3)  3)) ;away from edges
 (check-expect (next-cow (make-cow 20          -3)) (make-cow (- 20 3) -3))
 
-(check-expect (next-cow (make-cow (- WIDTH 3)  3)) (make-cow WIDTH     3)) ; reaches edge
+(check-expect (next-cow (make-cow (- WIDTH 3)  3)) (make-cow WIDTH     3)) ;reaches edge
 (check-expect (next-cow (make-cow 3           -3)) (make-cow 0        -3))
 
-(check-expect (next-cow (make-cow (- WIDTH 2)  3)) (make-cow WIDTH    -3)) ; tries to pass edge
+(check-expect (next-cow (make-cow (- WIDTH 2)  3)) (make-cow WIDTH    -3)) ;tries to pass edge
 (check-expect (next-cow (make-cow 2           -3)) (make-cow 0         3)) 
 
-;(define (next-cow c) c)      ; stub
+;(define (next-cow c) c)      ;stub
 
 (define (next-cow c)
   (cond [(> (+ (cow-x c) (cow-dx c)) WIDTH) (make-cow WIDTH (- (cow-dx c)))]
@@ -106,35 +111,51 @@
 ;; Cow -> Image
 ;; place appropriate cow image on MTS at (cow-x c) and CTR-Y
 (check-expect (render-cow (make-cow 99 3))
-              (place-image RCOW 99 CTR-Y MTS))
+              (place-image RCOW- 99 CTR-Y MTS))
 (check-expect (render-cow (make-cow 33 -3))
-              (place-image LCOW 33 CTR-Y MTS))
+              (place-image LCOW- 33 CTR-Y MTS))
 
-#;
-(define (render-cow c) MTS)  ;stub  
+;(define (render-cow c) MTS)  ;stub
 
-;<template from Cow>
-(define (render-cow c)
+(define (render-cow c)  
   (place-image (choose-image c) (cow-x c) CTR-Y MTS))
 
 
 ;; Cow -> Image
-;; produce RCOW or LCOW depending on direction cow is going; LCOW if dx = 0
-(check-expect (choose-image (make-cow 10  3)) RCOW)
-(check-expect (choose-image (make-cow 11 -3)) LCOW)
-(check-expect (choose-image (make-cow 11  0)) LCOW)
+;; choose [L|R]COW[+|-] depending on cow's direction and position
+(check-expect (choose-image (make-cow 1  3)) RCOW-)
+(check-expect (choose-image (make-cow 2  3)) RCOW+)
+(check-expect (choose-image (make-cow 1 -4)) LCOW-)
+(check-expect (choose-image (make-cow 2 -4)) LCOW+)
+(check-expect (choose-image (make-cow 1  0)) LCOW-)
+(check-expect (choose-image (make-cow 2 -4)) LCOW+)
 
-#;
-(define (choose-image c) RCOW) ;stub
+;(define (choose-image c) RCOW) ;stub
 
-;<template from Cow>
+;took template from Cow
+
 (define (choose-image c)
   (if (> (cow-dx c) 0)
-      RCOW
-      LCOW))
+      (if (odd? (cow-x c))
+          RCOW-
+          RCOW+)
+      (if (odd? (cow-x c))
+          LCOW-
+          LCOW+)))
 
 
 ;; Cow KeyEvent-> Cow
 ;; reverse direction of cow travel when space bar is pressed
-;; !!!
-(define (handle-key c ke) c) ;stub
+(check-expect (handle-key (make-cow (/ WIDTH 2) -3) " ") (make-cow (/ WIDTH 2) 3))
+(check-expect (handle-key (make-cow (/ WIDTH 2) 3) " ")     (make-cow (/ WIDTH 2) -3))
+(check-expect (handle-key (make-cow (/ WIDTH 2) 3) "a")     (make-cow (/ WIDTH 2) 3))
+
+;(define (handle-key c ke) (make-cow 100 -5)) ;stub
+
+;<template according to KeyEvent>
+
+(define (handle-key c ke)
+  (cond [(key=? ke " ") 
+         (make-cow (cow-x c)
+                   (- (cow-dx c)))]
+        [else c]))
