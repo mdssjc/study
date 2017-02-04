@@ -7,7 +7,7 @@ import com.github.mdssjc.dp.facade.Facade;
  * <p>
  * Design Pattern
  * Structural - Facade
- *
+ * <p>
  * Ao cliente: impõe a política de cima, visível e restringido
  *
  * @author Marcelo dos Santos
