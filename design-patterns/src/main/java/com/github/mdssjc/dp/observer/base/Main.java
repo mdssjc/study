@@ -9,6 +9,9 @@ import com.github.mdssjc.dp.observer.subject.News;
  * <p>
  * Design Pattern
  * Behavioral - Observer (Dependents, Publish-Subscribe)
+ * <p>
+ * Pull-model: modelo simples, os observadores requisitam os dados ao assunto
+ * Push-model: modelo completo, o assunto envia os dados para os observadores
  *
  * @author Marcelo dos Santos
  *
