@@ -9,6 +9,8 @@ import com.github.mdssjc.dp.composite.concrete.Leaf;
  * <p>
  * Design Pattern
  * Structural - Composite
+ * <p>
+ * Permite manter um relacionamento um para muitos (1:N) através de uma referência um para um (1:1).
  *
  * @author Marcelo dos Santos
  *
