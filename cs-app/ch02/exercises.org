@@ -661,6 +661,7 @@
 #+NAME: ex35
 #+BEGIN_SRC C
   #include <stdio.h>
+  #include <limits.h>
 
   /* Determine whether arguments can be multiplied without overflow */
   int tmult_ok(int x, int y) {
@@ -673,9 +674,12 @@
     int a = 0;
     int b = 2;
     int c = 5;
+    int d = INT_MAX;
 
     printf("%d (%d)\n", tmult_ok(a, a), a * a);
     printf("%d (%d)\n", tmult_ok(b, c), b * c);
+    printf("%d (%d)\n", tmult_ok(b, d), b * d);
+
     return 0;
   }
 #+END_SRC
@@ -683,3 +687,35 @@
 #+RESULTS: ex35
 | 1 | (0)  |
 | 1 | (10) |
+| 0 | (-2) |
+* Practice Problem 2.36
+#+NAME: ex36
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <limits.h>
+
+  /* Determine whether arguments can be multiplied without overflow */
+  int tmult_ok(int64_t x, int64_t y) {
+    int64_t p = x*y;
+    return p == (int)(x*y);
+  }
+
+  int main() {
+    int a = 0;
+    int b = 2;
+    int c = 5;
+    int d = INT_MAX;
+
+    printf("%d (%d)\n", tmult_ok(a, a), a * a);
+    printf("%d (%d)\n", tmult_ok(b, c), b * c);
+    printf("%d (%d)\n", tmult_ok(b, d), b * d);
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS: ex36
+| 1 | (0)  |
+| 1 | (10) |
+| 0 | (-2) |
