@@ -636,3 +636,50 @@
   | Two's complement |  2 | [010] | -7 | [111] | -14 | [110010] | 2             | [010] |
   | Unsigned         |  6 | [110] |  6 | [110] |  36 | [100100] | 4             | [100] |
   | Two's complement | -6 | [110] | -6 | [110] |  36 | [100100] | -4            | [100] |
+* Practice Problem 2.35
+** 1
+  x = 2 and y = 4 -> w = 3
+  2*4 = 8 + 1*2³ -> (-8 .. 7)
+  8 = 8 + 9
+  8 = 17 (overflow)
+
+  x = 2 and y = 3 -> w = 3
+  2*3 = 6 + 0*2³
+  6 = 6
+** 2
+  x = 2 and y = 4, p = 8
+  8 = 2 * 4 + r (r = 0)
+  8 = 8
+
+  p = 3 * 2 + 1 -> (x = 3 and r = 1)
+  p = 7
+** 3
+  x = 2 and y = 4, p = 8 and r = 0
+  8 = 2 * q + 0
+  q = 8 / 2 = 4
+** Code
+#+NAME: ex35
+#+BEGIN_SRC C
+  #include <stdio.h>
+
+  /* Determine whether arguments can be multiplied without overflow */
+  int tmult_ok(int x, int y) {
+    int p = x*y;
+    /* Either x is zero, or dividing p by x gives y */
+    return !x || p/x == y;
+  }
+
+  int main() {
+    int a = 0;
+    int b = 2;
+    int c = 5;
+
+    printf("%d (%d)\n", tmult_ok(a, a), a * a);
+    printf("%d (%d)\n", tmult_ok(b, c), b * c);
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS: ex35
+| 1 | (0)  |
+| 1 | (10) |
