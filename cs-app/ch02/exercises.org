@@ -756,3 +756,26 @@
 * Practice Problem 2.41
   Patterns: A for 0..[10]..0
             B for 0..1..0
+* Practice Problem 2.42
+#+Name ex42
+#+BEGIN_SRC C
+  #include <stdio.h>
+
+  int div16(int x) {
+    return x >> 4;
+  }
+
+  int main() {
+    int a = 16 * 1;
+    int b = 16 * 3;
+
+    printf("%d\n", div16(a));
+    printf("%d\n", div16(b));
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| 1 |
+| 3 |
