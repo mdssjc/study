@@ -630,12 +630,12 @@
   15 -> -15 = 1 (overflow)
 * Practice Problem 2.34
   | Mode             |  x |       |  y |       | x*y |          | Truncated x*y |       |
-  | Unsigned         |  4 | [100] |  5 | [101] |  20 | [010100] | 4             | [100] |
-  | Two's complement | -4 | [100] | -5 | [101] |  20 | [010100] | -4            | [100] |
-  | Unsigned         |  2 | [010] |  7 | [111] |  14 | [001110] | 6             | [110] |
-  | Two's complement |  2 | [010] | -7 | [111] | -14 | [110010] | 2             | [010] |
-  | Unsigned         |  6 | [110] |  6 | [110] |  36 | [100100] | 4             | [100] |
-  | Two's complement | -6 | [110] | -6 | [110] |  36 | [100100] | -4            | [100] |
+  | Unsigned         |  4 | [100] |  5 | [101] |  20 | [010100] |             4 | [100] |
+  | Two's complement | -4 | [100] | -5 | [101] |  20 | [010100] |            -4 | [100] |
+  | Unsigned         |  2 | [010] |  7 | [111] |  14 | [001110] |             6 | [110] |
+  | Two's complement |  2 | [010] | -7 | [111] | -14 | [110010] |             2 | [010] |
+  | Unsigned         |  6 | [110] |  6 | [110] |  36 | [100100] |             4 | [100] |
+  | Two's complement | -6 | [110] | -6 | [110] |  36 | [100100] |            -4 | [100] |
 * Practice Problem 2.35
 ** 1
   x = 2 and y = 4 -> w = 3
@@ -719,3 +719,8 @@
 | 1 | (0)  |
 | 1 | (10) |
 | 0 | (-2) |
+* Practice Problem 2.37
+** A
+  Yes for 64-bit systems, while for 32-bit systems the problem still exists.
+** B
+   Checking multiplication overflow with defensive programming.
