@@ -12,7 +12,7 @@ public abstract class UnionFind implements UF {
   protected int count;
 
   /**
-   * Initialize N sites with integer names ( 0 to N-1).
+   * Initialize N sites with integer names (0 to N-1).
    *
    * @param n
    *     Sites
