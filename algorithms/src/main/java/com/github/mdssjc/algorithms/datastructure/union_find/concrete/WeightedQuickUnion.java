@@ -3,7 +3,7 @@ package com.github.mdssjc.algorithms.datastructure.union_find.concrete;
 import com.github.mdssjc.algorithms.datastructure.union_find.UnionFind;
 
 /**
- * Weighted Quick Union.
+ * Weighted Quick Union O(N+MlogN).
  * <p>
  * Aproximação: Lazy
  * <p>
