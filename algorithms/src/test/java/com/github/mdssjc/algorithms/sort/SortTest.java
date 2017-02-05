@@ -1,9 +1,6 @@
 package com.github.mdssjc.algorithms.sort;
 
-import com.github.mdssjc.algorithms.sort.concrete.InsertionSort;
-import com.github.mdssjc.algorithms.sort.concrete.MergeSort;
-import com.github.mdssjc.algorithms.sort.concrete.SelectionSort;
-import com.github.mdssjc.algorithms.sort.concrete.ShellSort;
+import com.github.mdssjc.algorithms.sort.concrete.*;
 import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,18 +12,18 @@ import static org.junit.Assert.assertTrue;
 /**
  * Sort Test.
  * <p>
- * - numbers
- * - letters
- * - files
+ * - números
+ * - letras
+ * - arquivos
  *
  * @author Marcelo dos Santos
  *
  */
 public class SortTest {
 
-  final Double[] numbers = new Double[100];
-  String[] letters;
-  File[] files;
+  private final Double[] numbers = new Double[100];
+  private String[] letters;
+  private File[] files;
 
   @Before
   public void generateArray() {
@@ -93,12 +90,14 @@ public class SortTest {
 
   @Test
   public void testQuickSort() {
-//    QuickSort.sort(this.numbers);
-//    QuickSort.sort(this.letters);
-//    QuickSort.sort(this.files);
-//
-//    assertTrue(Sort.isSorted(this.numbers));
-//    assertTrue(Sort.isSorted(this.letters));
-//    assertTrue(Sort.isSorted(this.files));
+    final Sort selection = new QuickSort();
+
+    selection.sort(this.numbers);
+    selection.sort(this.letters);
+    selection.sort(this.files);
+
+    assertTrue(Sort.isSorted(this.numbers));
+    assertTrue(Sort.isSorted(this.letters));
+    assertTrue(Sort.isSorted(this.files));
   }
 }
