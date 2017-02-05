@@ -812,3 +812,39 @@
 
 #+RESULTS:
 : 62 == 62
+* Practice Problem 2.44
+  1: B C D F
+  0: A E G
+#+Name ex44
+#+BEGIN_SRC C
+    #include <stdio.h>
+    #include <limits.h>
+
+    int main() {
+      /* int x = INT_MAX; */
+      int x = INT_MIN;
+      /* int y = INT_MAX; */
+      int y = INT_MIN;
+
+      unsigned ux = x;
+      unsigned uy = y;
+      printf("A. %d\n", (x > 0) || (x - 1 < 0));
+      printf("B. %d\n", (x & 7) != 7 || (x << 29 < 0));
+      printf("C. %d\n", (x * x) >= 0);
+      printf("D. %d\n", x < 0 || -x <= 0);
+      printf("E. %d\n", x > 0 || -x >= 0);
+      printf("F. %d\n", x + y == uy + ux);
+      printf("G. %d\n", x * -y + uy * ux == -x);
+
+      return 0;
+    }
+#+END_SRC
+
+#+RESULTS:
+| A. | 0 |
+| B. | 1 |
+| C. | 1 |
+| D. | 1 |
+| E. | 0 |
+| F. | 1 |
+| G. | 0 |
