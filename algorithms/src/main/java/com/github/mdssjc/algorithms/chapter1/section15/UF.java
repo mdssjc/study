@@ -19,7 +19,7 @@ public interface UF {
   void union(int p, int q);
 
   /**
-   * Component identifier for p ( 0 to N-1).
+   * Component identifier for p (0 to N-1).
    *
    * @param p
    *     Site p
