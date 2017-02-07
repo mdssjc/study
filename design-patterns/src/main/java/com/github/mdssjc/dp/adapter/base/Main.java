@@ -1,5 +1,9 @@
 package com.github.mdssjc.dp.adapter.base;
 
+import com.github.mdssjc.dp.adapter.adaptee.Adaptee;
+import com.github.mdssjc.dp.adapter.adapter.Adapter;
+import com.github.mdssjc.dp.adapter.adapter.Target;
+
 /**
  * Test drive do padrão de projeto Adapter.
  * <p>
@@ -14,6 +18,7 @@ package com.github.mdssjc.dp.adapter.base;
 public class Main {
 
   public static void main(final String[] args) {
-    // TODO: implementar o padrão
+    final Target target = new Adapter(new Adaptee());
+    target.request();
   }
 }
