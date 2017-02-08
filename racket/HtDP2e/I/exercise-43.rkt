@@ -26,8 +26,8 @@
                             0 (* (/ (image-height CHASSIS) 2) -1)
                             CHASSIS))
 
-(define WIDTH (* (image-width CAR) 10))
-(define HEIGHT (image-height CAR))
+(define WIDTH  (* (image-width CAR) 10))
+(define HEIGHT (*(image-height CAR) 2))
 
 (define TREE
   (underlay/xy (circle 10 "solid" "green")
@@ -45,34 +45,46 @@
 ; An AnimationState is a Number.
 ; interpretation the number of clock ticks 
 ; since the animation started
-
+(define AS1 10)
 
 ; AnimationState -> AnimationState
 ; launches the program from some initial state 
-(define (main as)
-  (big-bang as
+(define (main ws)
+  (big-bang ws
             [on-tick tock]
-            [to-draw render]))
+            [to-draw render]
+            [stop-when stop?]))
 
 ; AnimationState -> AnimationState 
 ; moves the car by 3 pixels for every clock tick
-(check-expect (tock 20) 20.1)
-(check-expect (tock 78) 78.1)
+(check-expect (tock 20) 23)
+(check-expect (tock 78) 81)
 
 (define (tock as)
-  (+ as 0.1))
+  (+ as 3))
 
 ; AnimationState -> Image
 ; places the car into the BACKGROUND scene,
 ; according to the given world state
-(check-expect (render 50)  (place-image CAR (+ (* (sin  50) (/ WIDTH 2)) (/ WIDTH 2)) Y-CAR BACKGROUND))
-(check-expect (render 100) (place-image CAR (+ (* (sin 100) (/ WIDTH 2)) (/ WIDTH 2)) Y-CAR BACKGROUND))
-(check-expect (render 150) (place-image CAR (+ (* (sin 150) (/ WIDTH 2)) (/ WIDTH 2)) Y-CAR BACKGROUND))
-(check-expect (render 200) (place-image CAR (+ (* (sin 200) (/ WIDTH 2)) (/ WIDTH 2)) Y-CAR BACKGROUND))
+(check-expect (render 50)  (place-image CAR (+  50 (image-width CAR)) (jump  50) BACKGROUND))
+(check-expect (render 100) (place-image CAR (+ 100 (image-width CAR)) (jump 100) BACKGROUND))
+(check-expect (render 150) (place-image CAR (+ 150 (image-width CAR)) (jump 150) BACKGROUND))
+(check-expect (render 200) (place-image CAR (+ 200 (image-width CAR)) (jump 200) BACKGROUND))
 
 (define (render as)
-  (place-image CAR
-               (+ (* (sin as) (/ WIDTH 2)) (/ WIDTH 2))
-               Y-CAR BACKGROUND))
+  (place-image CAR (+ as (image-width CAR)) (jump as) BACKGROUND))
+
+;; AnimationState -> Number
+;; produce the Y position of the car given an AnimationState
+(define (jump as)
+  (+ (/ HEIGHT 2) (* 10 (sin as))))
+
+; AnimationState -> Boolean
+; checks if the car has collided with the tree
+(check-expect (stop? 20)     (>= 20 X-TREE))
+(check-expect (stop? X-TREE) (>= X-TREE X-TREE))
+
+(define (stop? as)
+  (>= (+ as (image-width CAR)) X-TREE))
 
 (main 0)
