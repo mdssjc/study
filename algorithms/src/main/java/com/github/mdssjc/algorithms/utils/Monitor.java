@@ -31,13 +31,23 @@ public class Monitor {
                                     .map(String::valueOf)
                                     .toArray(String[]::new);
 
-    this.format = String.format(" %%%ds ", String.valueOf(a.length)
-                                                 .length());
+    this.format = String.format("%%%ds ", String.valueOf(a.length)
+                                                .length());
 
     final String vars = Arrays.stream(this.variables)
                               .map(s -> String.format(this.format, s))
                               .collect(Collectors.joining());
-    StdOut.printf("%30s %s%s%n", " ", vars, Arrays.deepToString(index));
+    StdOut.printf("%32s%s%s%n", " ", vars, Arrays.deepToString(index));
+  }
+
+  public void print(final MONITOR m, final Comparable[] a, final int... xs) {
+    print(m, a, " ", xs);
+  }
+
+  public void print(final MONITOR m, final boolean predicate, final Comparable[] a, final String message, final int... xs) {
+    if (predicate) {
+      print(m, a, message, xs);
+    }
   }
 
   public void print(final Monitor.MONITOR m, final Comparable[] a, final String message, final int... xs) {
@@ -47,7 +57,7 @@ public class Monitor {
         this.isLabel = false;
       }
 
-      StdOut.printf("%30s:", message);
+      StdOut.printf("%30s: ", message);
       for (int i = xs.length; i < this.variables.length; i++) {
         StdOut.printf(this.format, " ");
       }
@@ -59,5 +69,13 @@ public class Monitor {
     }
   }
 
-  public enum MONITOR {M1, M2}
+  public boolean test(final MONITOR m) {
+    return this.monitor.equals(m);
+  }
+
+  public boolean test(final MONITOR m, final boolean predicate) {
+    return test(m) && predicate;
+  }
+
+  public enum MONITOR {M1, M2, M3, M4, M5}
 }
