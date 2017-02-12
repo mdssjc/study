@@ -1,6 +1,7 @@
 package com.github.mdssjc.algorithms.chapter2.exercises22;
 
 import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.Monitor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 
 import java.util.Collections;
@@ -30,8 +31,8 @@ public class Ex6 {
                                       .sorted(Collections.reverseOrder())
                                       .toArray(Integer[]::new);
 
-    final MergeSortMonitor merge = new MergeSortMonitor(topDown,
-                                                        MergeSortMonitor.MONITOR.M4);
+    final Monitor monitor = new Monitor(Monitor.MONITOR.M4);
+    final MergeSortMonitor merge = new MergeSortMonitor(topDown, monitor);
     merge.sort(values);
   }
 }
