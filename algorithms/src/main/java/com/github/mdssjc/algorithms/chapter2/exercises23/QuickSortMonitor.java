@@ -1,25 +1,29 @@
 package com.github.mdssjc.algorithms.chapter2.exercises23;
 
 import com.github.mdssjc.algorithms.sort.Sort;
-import edu.princeton.cs.algs4.StdOut;
+import com.github.mdssjc.algorithms.utils.Monitor;
 import edu.princeton.cs.algs4.StdRandom;
-
-import java.util.Arrays;
 
 /**
  * QuickSortMonitor Class.
  *
  * @author Marcelo dos Santos
- *
  */
 public class QuickSortMonitor implements Sort {
+
+  private Monitor monitor;
+
+  public QuickSortMonitor(Monitor monitor) {
+    this.monitor = monitor;
+  }
 
   private int partition(final Comparable[] a, final int lo, final int hi) {
     int i = lo;
     int j = hi + 1;
     final Comparable v = a[lo];
 
-    StdOut.printf("%23s%2d %2d %s%n", "initial values: ", i, j, Arrays.deepToString(a));
+    monitor.print(Monitor.MONITOR.M1, a, "initial values", i, j);
+
     while (true) {
       while (Sort.less(a[++i], v)) {
         if (i == hi) {
@@ -34,12 +38,13 @@ public class QuickSortMonitor implements Sort {
       if (i >= j) {
         break;
       }
-      StdOut.printf("%23s%2d %2d %s%n","scan left, scan right: ", i, j, Arrays.deepToString(a));
+
+      monitor.print(Monitor.MONITOR.M1, a, "scan left, scan right", i, j);
       Sort.exch(a, i, j);
-      StdOut.printf("%23s%2d %2d %s%n","exchange: ", i, j, Arrays.deepToString(a));
+      monitor.print(Monitor.MONITOR.M1, a, "exchange", i, j);
     }
     Sort.exch(a, lo, j);
-    StdOut.printf("%23s%2d %2d %s%n","final exchange: ", i, j, Arrays.deepToString(a));
+    monitor.print(Monitor.MONITOR.M1, a, "final exchange", i, j);
     return j;
   }
 
@@ -49,7 +54,7 @@ public class QuickSortMonitor implements Sort {
     }
 
     final int j = partition(a, lo, hi);
-    StdOut.printf("%26s%2d %s%n","result:    ", j, Arrays.deepToString(a));
+    monitor.print(Monitor.MONITOR.M1, a, "result", j);
     sort(a, lo, j - 1);
     sort(a, j + 1, hi);
   }
