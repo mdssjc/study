@@ -23,7 +23,7 @@ public class QuickSortMonitor implements Sort {
     int j = hi + 1;
     final Comparable v = a[lo];
 
-    this.monitor.print(Monitor.MONITOR.M1, a, "initial values", i, j);
+    this.monitor.print("m1", a, "initial values", i, j);
 
     while (true) {
       while (Sort.less(a[++i], v)) {
@@ -40,12 +40,12 @@ public class QuickSortMonitor implements Sort {
         break;
       }
 
-      this.monitor.print(Monitor.MONITOR.M1, a, "scan left, scan right", i, j);
+      this.monitor.print("m1", a, "scan left, scan right", i, j);
       Sort.exch(a, i, j);
-      this.monitor.print(Monitor.MONITOR.M1, a, "exchange", i, j);
+      this.monitor.print("m1", a, "exchange", i, j);
     }
     Sort.exch(a, lo, j);
-    this.monitor.print(Monitor.MONITOR.M1, a, "final exchange", i, j);
+    this.monitor.print("m1", a, "final exchange", i, j);
     return j;
   }
 
@@ -55,7 +55,7 @@ public class QuickSortMonitor implements Sort {
     }
 
     final int j = partition(a, lo, hi);
-    this.monitor.print(Monitor.MONITOR.M1, a, "result", j);
+    this.monitor.print("m1", a, "result", j);
     sort(a, lo, j - 1);
     sort(a, j + 1, hi);
   }

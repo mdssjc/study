@@ -26,7 +26,7 @@ public class Ex7 {
                                               .boxed()
                                               .toArray(Integer[]::new);
 
-    final Monitor monitor = new Monitor(Monitor.MONITOR.M5);
+    final Monitor monitor = new Monitor("m5");
     final MergeSortMonitor merge = new MergeSortMonitor(MergeSortMonitor.TYPE.TOP_DOWN, monitor);
     merge.sort(values);
   }

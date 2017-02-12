@@ -20,7 +20,7 @@ public class Ex3 {
 
     final String[] a = args[0].split(" ");
 
-    final Monitor monitor = new Monitor(Monitor.MONITOR.M3);
+    final Monitor monitor = new Monitor("m3");
     final Sort merge = new MergeSortMonitor(MergeSortMonitor.TYPE.BOTTOM_UP, monitor);
     merge.sort(a);
   }

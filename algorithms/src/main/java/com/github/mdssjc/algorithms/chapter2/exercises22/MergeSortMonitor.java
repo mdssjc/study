@@ -6,8 +6,6 @@ import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Arrays;
 
-import static com.github.mdssjc.algorithms.utils.Monitor.MONITOR.*;
-
 /**
  * MergeSortMonitor Class.
  *
@@ -59,19 +57,19 @@ public class MergeSortMonitor implements Sort {
         this.countAccesses += (2 + 2);
       }
 
-      if (this.monitor.test(M1, lo == 0 && hi == a.length - 1)) {
+      if (this.monitor.test("m1", lo == 0 && hi == a.length - 1)) {
         final Comparable[] result = Arrays.copyOf(a, a.length);
         Arrays.fill(result, k + 1, a.length, " ");
-        this.monitor.print(M1, result, "", k, i, j);
+        this.monitor.print("m1", result, "", k, i, j);
       }
 
-      if (this.monitor.test(M4, lo == 0 && hi == a.length - 1)) {
+      if (this.monitor.test("m4", lo == 0 && hi == a.length - 1)) {
         final double calculate = 6 * (k + 1) * (Math.log(k + 1) / Math.log(2));
         StdOut.printf("k(%d) %d / %.2f -> %.2f times %n",
                       k + 1, this.countAccesses, calculate, calculate / this.countAccesses);
       }
 
-      if (this.monitor.test(M5)) {
+      if (this.monitor.test("m5")) {
         StdOut.printf("k(%d) %d compares%n", k, this.countCompares);
       }
     }
@@ -90,11 +88,11 @@ public class MergeSortMonitor implements Sort {
     sort(a, mid + 1, hi);
 
     final boolean predicate = lo == 0 && hi == a.length - 1;
-    this.monitor.print(M1, predicate, a, "input");
-    this.monitor.print(M1, predicate, a, "copy");
+    this.monitor.print("m1", predicate, a, "input");
+    this.monitor.print("m1", predicate, a, "copy");
     merge(a, lo, mid, hi);
-    this.monitor.print(M1, predicate, a, "merged result");
-    this.monitor.print(M2, a, String.format("merge(a, %d, %d, %d)", lo, mid, hi), lo, hi);
+    this.monitor.print("m1", predicate, a, "merged result");
+    this.monitor.print("m2", a, String.format("merge(a, %d, %d, %d)", lo, mid, hi), lo, hi);
   }
 
   // Top-down
@@ -109,10 +107,10 @@ public class MergeSortMonitor implements Sort {
     this.aux = new Comparable[n];
 
     for (int sz = 1; sz < n; sz = sz + sz) {
-      this.monitor.print(M3, a, String.format("sz=%d", sz));
+      this.monitor.print("m3", a, String.format("sz=%d", sz));
       for (int lo = 0; lo < n - sz; lo += sz + sz) {
         merge(a, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, n - 1));
-        this.monitor.print(M3, a, String.format("merge(a, %d, %d, %d)", lo, lo + sz - 1, Math.min(lo + sz + sz - 1, n - 1)));
+        this.monitor.print("m3", a, String.format("merge(a, %d, %d, %d)", lo, lo + sz - 1, Math.min(lo + sz + sz - 1, n - 1)));
       }
     }
   }

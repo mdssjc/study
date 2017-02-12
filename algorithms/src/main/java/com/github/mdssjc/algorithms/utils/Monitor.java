@@ -14,12 +14,12 @@ import java.util.stream.IntStream;
  */
 public class Monitor {
 
-  private final MONITOR monitor;
+  private final String monitor;
   private final String[] variables;
   private boolean isLabel;
   private String format;
 
-  public Monitor(final MONITOR monitor, final String... variables) {
+  public Monitor(final String monitor, final String... variables) {
     this.monitor = monitor;
     this.variables = variables;
     this.isLabel = true;
@@ -40,17 +40,17 @@ public class Monitor {
     StdOut.printf("%32s%s%s%n", " ", vars, Arrays.deepToString(index));
   }
 
-  public void print(final MONITOR m, final Comparable[] a, final int... xs) {
+  public void print(final String m, final Comparable[] a, final int... xs) {
     print(m, a, " ", xs);
   }
 
-  public void print(final MONITOR m, final boolean predicate, final Comparable[] a, final String message, final int... xs) {
+  public void print(final String m, final boolean predicate, final Comparable[] a, final String message, final int... xs) {
     if (predicate) {
       print(m, a, message, xs);
     }
   }
 
-  public void print(final Monitor.MONITOR m, final Comparable[] a, final String message, final int... xs) {
+  public void print(final String m, final Comparable[] a, final String message, final int... xs) {
     if (this.monitor.equals(m)) {
       if (this.isLabel) {
         print(a);
@@ -69,13 +69,11 @@ public class Monitor {
     }
   }
 
-  public boolean test(final MONITOR m) {
+  public boolean test(final String m) {
     return this.monitor.equals(m);
   }
 
-  public boolean test(final MONITOR m, final boolean predicate) {
+  public boolean test(final String m, final boolean predicate) {
     return test(m) && predicate;
   }
-
-  public enum MONITOR {M1, M2, M3, M4, M5}
 }

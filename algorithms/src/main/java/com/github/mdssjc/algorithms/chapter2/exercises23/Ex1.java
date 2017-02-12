@@ -19,7 +19,7 @@ public class Ex1 {
 
     final String[] a = args[0].split(" ");
 
-    final Monitor monitor = new Monitor(Monitor.MONITOR.M1, "i", "j");
+    final Monitor monitor = new Monitor("m1", "i", "j");
     final QuickSortMonitor quick = new QuickSortMonitor(monitor);
     quick.sort(a);
   }

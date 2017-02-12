@@ -31,7 +31,7 @@ public class Ex6 {
                                       .sorted(Collections.reverseOrder())
                                       .toArray(Integer[]::new);
 
-    final Monitor monitor = new Monitor(Monitor.MONITOR.M4);
+    final Monitor monitor = new Monitor("m4");
     final MergeSortMonitor merge = new MergeSortMonitor(topDown, monitor);
     merge.sort(values);
   }
