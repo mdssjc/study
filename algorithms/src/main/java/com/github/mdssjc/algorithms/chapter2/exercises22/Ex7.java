@@ -1,6 +1,7 @@
 package com.github.mdssjc.algorithms.chapter2.exercises22;
 
 import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.Monitor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -25,8 +26,8 @@ public class Ex7 {
                                               .boxed()
                                               .toArray(Integer[]::new);
 
-    final MergeSortMonitor merge = new MergeSortMonitor(MergeSortMonitor.TYPE.TOP_DOWN,
-                                                        MergeSortMonitor.MONITOR.M5);
+    final Monitor monitor = new Monitor(Monitor.MONITOR.M5);
+    final MergeSortMonitor merge = new MergeSortMonitor(MergeSortMonitor.TYPE.TOP_DOWN, monitor);
     merge.sort(values);
   }
 }
