@@ -936,3 +936,53 @@
   =#define POS_INFINITY  1.8E308=
   =#define NEG_INFINITY  2.2E-308=
   =#define NEG_ZERO     -0=
+* Practice Problem 2.54
+** A
+  True
+** B
+  True
+** C
+  Both
+** D
+  True
+** E
+  True
+** F
+  True
+** G
+  Both
+** H
+  Both
+** Code
+#+Name ex54
+#+BEGIN_SRC C
+  #include <stdio.h>
+
+  int main() {
+    int x = 1;
+    float f = 1/3.0;
+    double d = 1/3.0;
+
+    printf("A. %d\n", x == (int)(double)x);
+    printf("B. %d\n", x == (int)(float)x);
+    printf("C. %d\n", d == (double)(float)d);
+    printf("D. %d\n", f == (float)(double)f);
+    printf("E. %d\n", f == -(-f));
+    printf("F. %d\n", 1.0 / 2 == 1 / 2.0);
+    printf("G. %d\n", d * d == 0.0);
+    printf("H. %d\n", (f + d) - f == d);
+
+    return 0;
+  }
+
+#+END_SRC
+
+#+RESULTS:
+| A. | 1 |
+| B. | 1 |
+| C. | 0 |
+| D. | 1 |
+| E. | 1 |
+| F. | 1 |
+| G. | 0 |
+| H. | 1 |
