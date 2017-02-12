@@ -2,11 +2,8 @@ package com.github.mdssjc.algorithms.chapter2.exercises22;
 
 import com.github.mdssjc.algorithms.sort.Sort;
 import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.Monitor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-import edu.princeton.cs.algs4.StdOut;
-
-import java.util.Arrays;
-import java.util.stream.IntStream;
 
 /**
  * Exercise 1.
@@ -23,16 +20,8 @@ public class Ex1 {
 
     final String[] a = args[0].split(" ");
 
-    final String[] index = IntStream.range(0, a.length)
-                                    .boxed()
-                                    .map(String::valueOf)
-                                    .toArray(String[]::new);
-
-    StdOut.printf("%2s %2s %2s  %s%n", "k", "i", "j",
-                  Arrays.deepToString(index));
-    final Sort merge = new MergeSortMonitor(MergeSortMonitor.TYPE.TOP_DOWN,
-                                            MergeSortMonitor.MONITOR.M1);
-
+    final Monitor monitor = new Monitor(Monitor.MONITOR.M1, "k", "i", "j");
+    final Sort merge = new MergeSortMonitor(MergeSortMonitor.TYPE.TOP_DOWN, monitor);
     merge.sort(a);
   }
 }
