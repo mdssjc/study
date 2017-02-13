@@ -44,6 +44,10 @@ public class Monitor {
     print(m, a, " ", xs);
   }
 
+  public void print(final String m, final boolean predicate, final Comparable[] a, final int... xs) {
+    print(this.monitor, predicate, a, "", xs);
+  }
+
   public void print(final String m, final boolean predicate, final Comparable[] a, final String message, final int... xs) {
     if (predicate) {
       print(m, a, message, xs);
