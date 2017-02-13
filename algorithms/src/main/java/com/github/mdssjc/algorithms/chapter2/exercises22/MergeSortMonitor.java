@@ -101,14 +101,12 @@ public class MergeSortMonitor implements Sort {
 
   // Top-down
   private void sortTopDown(final Comparable[] a) {
-    this.aux = new Comparable[a.length];
     sort(a, 0, a.length - 1);
   }
 
   // Bottom-up
   private void sortBottomUp(final Comparable[] a) {
     final int n = a.length;
-    this.aux = new Comparable[n];
 
     for (int sz = 1; sz < n; sz = sz + sz) {
       this.monitor.print("m3", a, String.format("sz=%d", sz));
@@ -121,6 +119,8 @@ public class MergeSortMonitor implements Sort {
 
   @Override
   public void sort(final Comparable[] a) {
+    this.aux = new Comparable[a.length];
+
     if (MergeSortMonitor.TYPE.TOP_DOWN.equals(this.type)) {
       sortTopDown(a);
     } else {
