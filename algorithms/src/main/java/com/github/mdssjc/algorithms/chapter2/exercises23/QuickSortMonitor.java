@@ -50,19 +50,24 @@ public class QuickSortMonitor implements Sort {
   }
 
   private void sort(final Comparable[] a, final int lo, final int hi) {
+    this.monitor.print("m2", lo == hi, a, "no partition for subarrays of size 1", lo, 0, hi);
     if (hi <= lo) {
       return;
     }
 
     final int j = partition(a, lo, hi);
     this.monitor.print("m1", a, "result", j);
+    this.monitor.print("m2", a, lo, j, hi);
     sort(a, lo, j - 1);
     sort(a, j + 1, hi);
   }
 
   @Override
   public void sort(final Comparable[] a) {
+    this.monitor.print("m2", a, "initial values");
     StdRandom.shuffle(a);
+    this.monitor.print("m2", a, "random shuffle");
     sort(a, 0, a.length - 1);
+    this.monitor.print("m2", a, "result");
   }
 }
