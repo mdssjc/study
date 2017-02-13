@@ -2,6 +2,7 @@ package com.github.mdssjc.algorithms.chapter2.exercises23;
 
 import com.github.mdssjc.algorithms.sort.Sort;
 import com.github.mdssjc.algorithms.utils.Monitor;
+import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
@@ -13,6 +14,7 @@ import edu.princeton.cs.algs4.StdRandom;
 public class QuickSortMonitor implements Sort {
 
   private final Monitor monitor;
+  private int cntLargestItem;
 
   public QuickSortMonitor(final Monitor monitor) {
     this.monitor = monitor;
@@ -28,6 +30,7 @@ public class QuickSortMonitor implements Sort {
     while (true) {
       while (Sort.less(a[++i], v)) {
         if (i == hi) {
+          this.cntLargestItem++;
           break;
         }
       }
@@ -69,5 +72,8 @@ public class QuickSortMonitor implements Sort {
     this.monitor.print("m2", a, "random shuffle");
     sort(a, 0, a.length - 1);
     this.monitor.print("m2", a, "result");
+    if (this.monitor.test("m3")) {
+      StdOut.printf("N=%d, maximum of exchange: %d%n", a.length, this.cntLargestItem);
+    }
   }
 }
