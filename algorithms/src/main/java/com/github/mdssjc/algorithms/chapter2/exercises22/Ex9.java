@@ -13,6 +13,7 @@ import java.util.Arrays;
  * @author Marcelo dos Santos
  *
  */
+@TestDrive("E E G M R A C E R T")
 @TestDrive("A E Q S U Y E I N O S T")
 public class Ex9 {
 
