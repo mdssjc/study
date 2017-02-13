@@ -9,16 +9,14 @@ import java.util.Arrays;
 /**
  * MergeSortMonitor Class.
  *
- * TODO: usar um vetor para contar os acessos e compares de cada k.
- *
  * @author Marcelo dos Santos
  *
  */
 public class MergeSortMonitor implements Sort {
 
-  private Comparable[] aux;
   private final TYPE type;
   private final Monitor monitor;
+  private Comparable[] aux;
   private int countAccesses;
   private int countCompares;
 
@@ -69,7 +67,7 @@ public class MergeSortMonitor implements Sort {
                       k + 1, this.countAccesses, calculate, calculate / this.countAccesses);
       }
 
-      if (this.monitor.test("m5")) {
+      if (this.monitor.test("m5") || this.monitor.test("m6")) {
         StdOut.printf("k(%d) %d compares%n", k, this.countCompares);
       }
     }
@@ -90,7 +88,13 @@ public class MergeSortMonitor implements Sort {
     final boolean predicate = lo == 0 && hi == a.length - 1;
     this.monitor.print("m1", predicate, a, "input");
     this.monitor.print("m1", predicate, a, "copy");
-    merge(a, lo, mid, hi);
+    if (this.monitor.test("m6")) {
+      if (a[mid].compareTo(a[mid + 1]) > 0) {
+        merge(a, lo, mid, hi);
+      }
+    } else {
+      merge(a, lo, mid, hi);
+    }
     this.monitor.print("m1", predicate, a, "merged result");
     this.monitor.print("m2", a, String.format("merge(a, %d, %d, %d)", lo, mid, hi), lo, hi);
   }
