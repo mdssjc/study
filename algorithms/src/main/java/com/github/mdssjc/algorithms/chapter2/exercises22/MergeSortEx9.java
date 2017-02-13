@@ -45,28 +45,26 @@ public class MergeSortEx9 implements Sort {
     assert Sort.isSorted(a, lo, mid);
   }
 
-  private void sort(final Comparable[] a, final int lo, final int hi) {
+  private void sort(final Comparable[] a, final Comparable[] aux, final int lo, final int hi) {
     if (hi <= lo) {
       return;
     }
     final int mid = lo + (hi - lo) / 2;
 
-    sort(a, lo, mid);
-    sort(a, mid + 1, hi);
+    sort(a, aux, lo, mid);
+    sort(a, aux, mid + 1, hi);
 
-    final Comparable[] aux = new Comparable[a.length];
     merge(a, aux, lo, mid, hi);
   }
 
   // Top-down
-  private void sortTopDown(final Comparable[] a) {
-    sort(a, 0, a.length - 1);
+  private void sortTopDown(final Comparable[] a, final Comparable[] aux) {
+    sort(a, aux, 0, a.length - 1);
   }
 
   // Bottom-up
-  private void sortBottomUp(final Comparable[] a) {
+  private void sortBottomUp(final Comparable[] a, final Comparable[] aux) {
     final int n = a.length;
-    final Comparable[] aux = new Comparable[n];
 
     for (int sz = 1; sz < n; sz = sz + sz) {
       for (int lo = 0; lo < n - sz; lo += sz + sz) {
@@ -77,10 +75,12 @@ public class MergeSortEx9 implements Sort {
 
   @Override
   public void sort(final Comparable[] a) {
+    final Comparable[] aux = new Comparable[a.length];
+
     if (TYPE.TOP_DOWN.equals(this.type)) {
-      sortTopDown(a);
+      sortTopDown(a, aux);
     } else {
-      sortBottomUp(a);
+      sortBottomUp(a, aux);
     }
   }
 
