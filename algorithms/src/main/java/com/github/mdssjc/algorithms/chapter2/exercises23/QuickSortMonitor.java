@@ -57,7 +57,7 @@ public class QuickSortMonitor implements Sort {
   }
 
   private void sort(final Comparable[] a, final int lo, final int hi) {
-    this.monitor.print("m2", lo == hi, a, "no partition for subarrays of size 1", lo, 0, hi);
+    this.monitor.print("m2", lo == hi, a, "no partition (size 1)", lo, 0, hi);
     if (hi <= lo) {
       return;
     }
