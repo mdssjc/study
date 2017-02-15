@@ -15,6 +15,7 @@ public class QuickSortMonitor implements Sort {
 
   private final Monitor monitor;
   private int cntLargestItem;
+  private int cntCompares;
 
   public QuickSortMonitor(final Monitor monitor) {
     this.monitor = monitor;
@@ -31,15 +32,18 @@ public class QuickSortMonitor implements Sort {
       while (Sort.less(a[++i], v)) {
         if (i == hi) {
           this.cntLargestItem++;
+          this.cntCompares++;
           break;
         }
       }
       while (Sort.less(v, a[--j])) {
         if (j == lo) {
+          this.cntCompares++;
           break;
         }
       }
       if (i >= j) {
+        this.cntCompares++;
         break;
       }
 
@@ -68,12 +72,17 @@ public class QuickSortMonitor implements Sort {
   @Override
   public void sort(final Comparable[] a) {
     this.monitor.print("m2", a, "initial values");
-    StdRandom.shuffle(a);
+    if (!this.monitor.test("m4")) {
+      StdRandom.shuffle(a);
+    }
     this.monitor.print("m2", a, "random shuffle");
     sort(a, 0, a.length - 1);
     this.monitor.print("m2", a, "result");
     if (this.monitor.test("m3")) {
       StdOut.printf("N=%d, maximum of exchange: %d%n", a.length, this.cntLargestItem);
+    }
+    if (this.monitor.test("m4")) {
+      StdOut.printf("Compares: %d%n", this.cntCompares);
     }
   }
 }
