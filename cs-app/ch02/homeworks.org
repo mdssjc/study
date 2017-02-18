@@ -86,3 +86,97 @@
 #+RESULTS:
 
 * Homework Problem 2.61
+#+NAME ex61
+#+BEGIN_SRC C :flags -lm
+  #include <stdio.h>
+  #include <math.h>
+  #include <assert.h>
+
+  /* produces 1 when any bit in stream is 1 */
+  int anyBit1(int x, int i) {
+    return (x & (int)(pow(2, i))) > 0;
+  }
+
+  /* produces 1 when any bit in stream is 0 */
+  int anyBit0(int x, int i) {
+    return (x & (int)(pow(2, i))) == 0;
+  }
+
+  /* produces 1 when any bit in LSB of stream is 1 */
+  int anyBit1InLSB(int x, int i) {
+    if (i > (sizeof(int) - 1) << 1) {
+      return 0;
+    }
+    return anyBit1(x, i);
+  }
+
+  /* produces 1 when any bit in MSB of stream is 0 */
+  int anyBit0InMSB(int x, int i) {
+    if (i < (sizeof(int) - 1) << 3) {
+      return 0;
+    }
+    return anyBit0(x, i);
+  }
+
+  /* checks each bit of x with the pointer function */
+  int checkBitsBy(int (*func)(int, int), int x) {
+    int i;
+    for (i = 0; i < (sizeof (int)) * 8; i++) {
+      if (func(x, i)) {
+        return 1;
+      }
+    }
+    return 0;
+  }
+
+  void tests() {
+    /* anyBit1 */
+    assert(checkBitsBy(anyBit1, 5) == 1);
+    assert(checkBitsBy(anyBit1, 0) == 0);
+
+    /* anyBit0 */
+    assert(checkBitsBy(anyBit0, 0) == 1);
+    assert(checkBitsBy(anyBit0, -1) == 0);
+
+    /* anyBit1InLSB */
+    assert(checkBitsBy(anyBit1InLSB, 0x000000FF) == 1);
+    assert(checkBitsBy(anyBit1InLSB, 0xFFFFFF00) == 0);
+
+    /* anyBit0InMSB */
+    assert(checkBitsBy(anyBit0InMSB, 0x00FFFFFF) == 1);
+    assert(checkBitsBy(anyBit0InMSB, 0xFF000000) == 0);
+  }
+
+  int main() {
+    tests();
+
+    /* A */
+    printf("%d\n", checkBitsBy(anyBit1, 5));
+    printf("%d\n", checkBitsBy(anyBit1, 0));
+
+    /* B */
+    printf("%d\n", checkBitsBy(anyBit0, 0));
+    printf("%d\n", checkBitsBy(anyBit0, -1));
+
+    /* C */
+    printf("%d\n", checkBitsBy(anyBit1InLSB, 0x000000FF));
+    printf("%d\n", checkBitsBy(anyBit1InLSB, 0xFFFFFF00));
+
+    /* D */
+    printf("%d\n", checkBitsBy(anyBit0InMSB, 0x00FFFFFF));
+    printf("%d\n", checkBitsBy(anyBit0InMSB, 0xFF000000));
+
+    return 0;
+  }
+
+#+END_SRC
+
+#+RESULTS:
+| 1 |
+| 0 |
+| 1 |
+| 0 |
+| 1 |
+| 0 |
+| 1 |
+| 0 |
