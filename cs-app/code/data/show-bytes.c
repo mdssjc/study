@@ -14,8 +14,16 @@ void show_bytes(byte_pointer start, size_t len) {
     printf("\n");
 }
 
-void show_short(int x) {
+void show_short(short x) {
   show_bytes((byte_pointer) &x, sizeof(short));
+}
+
+void show_long(long x) {
+  show_bytes((byte_pointer) &x, sizeof(long));
+}
+
+void show_double(double x) {
+  show_bytes((byte_pointer) &x, sizeof(double));
 }
 
 void show_int(int x) {
@@ -143,8 +151,9 @@ int main(int argc, char *argv[]) {
 
   /* Homework 2.57 */
   printf("Homework 2.57\n");
-  short valShort = 5;
   show_short(5);
+  show_long(5);
+  show_double(5.0);
 
   return 0;
 }
