@@ -24,3 +24,16 @@
   show_long(5);
   show_double(5.0);
 #+END_SRC
+* Homework Problem 2.58
+#+NAME ex58
+#+BEGIN_SRC C
+  int is_little_endian() {
+    int x = 1;
+    byte_pointer bytes = (byte_pointer) &x;
+    return bytes[0] == 1;
+  }
+
+  /* Homework 2.58 */
+  printf("Homework 2.58\n");
+  printf("Is little endian? %d\n", is_little_endian());
+#+END_SRC
