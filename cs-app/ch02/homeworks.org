@@ -42,8 +42,39 @@
   ~./cs-app/code/data/show-bytes.c~ : [[file:~/Documents/Git/study/cs-app/code/data/show-bytes.c][show_bytes.c]]
 #+NAME ex59
 #+BEGIN_SRC C
-  /* Homework 2.59 */
-  printf("Homework 2.59\n");
-  printf("x=0x89ABCDEF and y=0x76543210 -> 0x765432EF\n");
-  printf("%X\n", (0x89ABCDEF & 0xFF) | (0x76543210 & 0xFFFFFF00));
+  #include <stdio.h>
+
+  int main() {
+   /* Homework 2.59 */
+    printf("Homework 2.59\n");
+    printf("x=0x89ABCDEF and y=0x76543210 -> 0x765432EF\n");
+    printf("%X\n", (0x89ABCDEF & 0xFF) | (0x76543210 & 0xFFFFFF00));
+    return 0;
+  }
 #+END_SRC
+
+#+RESULTS:
+| Homework     | 2.59 |              |    |            |
+| x=0x89ABCDEF |  and | y=0x76543210 | -> | 0x765432EF |
+| 765432EF     |      |              |    |            |
+* Homework Problem 2.60
+#+NAME ex60
+#+BEGIN_SRC C
+  #include <assert.h>
+
+  unsigned replace_byte(unsigned x, int i, unsigned char b) {
+    int pos = 8 * i;
+    int mask = 0xFFFFFFFF ^ (0xFF << pos);
+    return (x & mask) | (b << pos);
+  }
+
+  int main() {
+    assert(replace_byte(0x12345678, 2, 0xAB) == 0x12AB5678);
+    assert(replace_byte(0x12345678, 0, 0xAB) == 0x123456AB);
+
+    return 0;
+  }
+
+#+END_SRC
+
+#+RESULTS:
