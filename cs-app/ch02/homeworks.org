@@ -69,8 +69,8 @@
   #include <assert.h>
 
   unsigned replace_byte(unsigned x, int i, unsigned char b) {
-    int pos = 8 * i;
-    int mask = 0xFFFFFFFF ^ (0xFF << pos);
+    int pos = (sizeof(int)) * 2 * i;
+    int mask = ~(0xFF << pos);
     return (x & mask) | (b << pos);
   }
 
@@ -84,4 +84,5 @@
 #+END_SRC
 
 #+RESULTS:
+
 * Homework Problem 2.61
