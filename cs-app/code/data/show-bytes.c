@@ -109,12 +109,6 @@ void show_twocomp() {
 /* $end show-twocomp */
 }
 
-int is_little_endian() {
-  int x = 1;
-  byte_pointer bytes = (byte_pointer) &x;
-  return bytes[0] == 1;
-}
-
 int main(int argc, char *argv[]) {
   int val = 12345;
 
@@ -158,10 +152,6 @@ int main(int argc, char *argv[]) {
   show_short(5);
   show_long(5);
   show_double(5.0);
-
-  /* Homework 2.58 */
-  printf("Homework 2.58\n");
-  printf("Is little endian? %d\n", is_little_endian());
 
   return 0;
 }
