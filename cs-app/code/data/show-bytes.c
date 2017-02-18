@@ -14,6 +14,10 @@ void show_bytes(byte_pointer start, size_t len) {
     printf("\n");
 }
 
+void show_short(int x) {
+  show_bytes((byte_pointer) &x, sizeof(short));
+}
+
 void show_int(int x) {
     show_bytes((byte_pointer) &x, sizeof(int)); //line:data:show_bytes_amp1
 }
@@ -136,6 +140,11 @@ int main(int argc, char *argv[]) {
   printf("Practice Problem 2.7\n");
   const char *s = "abcdef";
   show_bytes((byte_pointer) s, strlen(s));
+
+  /* Homework 2.57 */
+  printf("Homework 2.57\n");
+  short valShort = 5;
+  show_short(5);
 
   return 0;
 }
