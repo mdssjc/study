@@ -163,10 +163,5 @@ int main(int argc, char *argv[]) {
   printf("Homework 2.58\n");
   printf("Is little endian? %d\n", is_little_endian());
 
-  /* Homework 2.59 */
-  printf("Homework 2.59\n");
-  printf("x=0x89ABCDEF and y=0x76543210 -> 0x765432EF\n");
-  printf("%X\n", (0x89ABCDEF & 0xFF) | (0x76543210 & 0xFFFFFF00));
-
   return 0;
 }
