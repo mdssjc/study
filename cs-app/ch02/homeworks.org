@@ -2,3 +2,25 @@
   Ok
 * Homework Problem 2.56
   Ok
+* Homework Problem 2.57
+~./cs-app/code/data/show-bytes.c~ : [[file:~/Documents/Git/study/cs-app/code/data/show-bytes.c][show_bytes.c]]
+#+NAME hp57
+#+BEGIN_SRC C
+  void show_short(short x) {
+    show_bytes((byte_pointer) &x, sizeof(short));
+  }
+
+  void show_long(long x) {
+    show_bytes((byte_pointer) &x, sizeof(long));
+  }
+
+  void show_double(double x) {
+    show_bytes((byte_pointer) &x, sizeof(double));
+  }
+
+  /* Homework 2.57 */
+  printf("Homework 2.57\n");
+  show_short(5);
+  show_long(5);
+  show_double(5.0);
+#+END_SRC
