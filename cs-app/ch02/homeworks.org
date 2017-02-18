@@ -25,19 +25,25 @@
   show_double(5.0);
 #+END_SRC
 * Homework Problem 2.58
-  ~./cs-app/code/data/show-bytes.c~ : [[file:~/Documents/Git/study/cs-app/code/data/show-bytes.c][show_bytes.c]]
 #+NAME ex58
 #+BEGIN_SRC C
+  #include <stdio.h>
+
   int is_little_endian() {
     int x = 1;
-    byte_pointer bytes = (byte_pointer) &x;
-    return bytes[0] == 1;
+    return (x & 0xFF) == 1;
   }
 
-  /* Homework 2.58 */
-  printf("Homework 2.58\n");
-  printf("Is little endian? %d\n", is_little_endian());
+  int main() {
+    printf("Is little endian? %d\n", is_little_endian());
+
+    return 0;
+  }
 #+END_SRC
+
+#+RESULTS:
+: Is little endian? 1
+
 * Homework Problem 2.59
 #+NAME ex59
 #+BEGIN_SRC C
@@ -78,3 +84,4 @@
 #+END_SRC
 
 #+RESULTS:
+* Homework Problem 2.61
