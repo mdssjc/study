@@ -39,7 +39,6 @@
   printf("Is little endian? %d\n", is_little_endian());
 #+END_SRC
 * Homework Problem 2.59
-  ~./cs-app/code/data/show-bytes.c~ : [[file:~/Documents/Git/study/cs-app/code/data/show-bytes.c][show_bytes.c]]
 #+NAME ex59
 #+BEGIN_SRC C
   #include <stdio.h>
