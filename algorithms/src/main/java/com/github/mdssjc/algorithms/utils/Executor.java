@@ -43,7 +43,7 @@ public class Executor {
         if (td.input().length > 0) {
           System.setIn(new ByteArrayInputStream(
               Arrays.stream(getInputValue(td))
-                    .collect(Collectors.joining(" "))
+                    .collect(Collectors.joining("\n"))
                     .getBytes()));
 
           final Method resync = StdIn.class.getDeclaredMethod("resync");
