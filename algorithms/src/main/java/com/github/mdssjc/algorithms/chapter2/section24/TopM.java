@@ -1,11 +1,11 @@
-package com.github.mdssjc.algorithms.datastructure.priority_queue;
+package com.github.mdssjc.algorithms.chapter2.section24;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.*;
 
 /**
- * Cliente TopM.
+ * TopM Class.
  *
  * @author Marcelo dos Santos
  *
@@ -16,21 +16,18 @@ public class TopM {
   public static void main(final String[] args) {
     Executor.execute(TopM.class, args);
 
-    // Print the top M lines in the input stream.
-    final int M = Integer.parseInt(args[0]);
-    final MinPQ<Transaction> pq = new MinPQ<>(M + 1);
+    final int m = Integer.parseInt(args[0]);
+    final MinPQ<Transaction> pq = new MinPQ<>(m + 1);
 
     while (StdIn.hasNextLine()) {
-      // Create an entry from the next line and put on the PQ.
       final String s = StdIn.readLine();
 
       pq.insert(new Transaction(s));
-      if (pq.size() > M) {
-        pq.delMin(); // Remove minimum if M+1 entries on the PQ.
+      if (pq.size() > m) {
+        pq.delMin();
       }
     }
 
-    // Top M entries are on the PQ.
     final Stack<Transaction> stack = new Stack<>();
     while (!pq.isEmpty()) {
       stack.push(pq.delMin());
