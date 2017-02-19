@@ -467,3 +467,49 @@
 #+RESULTS:
 |    0x3F |
 | 0x1FFFF |
+* Homework Problem 2.69
+#+NAME ex69
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <assert.h>
+
+  /*
+   ,* Do rotating left shift. Assume 0 <= n < w
+   ,* Examples when x = 0x12345678 and w = 32:
+   ,*    n=4 -> 0x23456781, n=20 -> 0x67812345
+   ,*/
+  unsigned rotate_left(unsigned x, int n) {
+    unsigned w = 8 * sizeof(unsigned);
+    unsigned mask = 1 << w - 1;
+
+    int bit;
+    int i;
+    for (i = 0; i < n; i++) {
+      bit = (x & mask) >> w - 1;
+      x =  x << 1 | bit;
+    }
+
+    return x;
+  }
+
+  void tests() {
+    assert(rotate_left(0x12345678, 0) == 0x12345678);
+    assert(rotate_left(0x12345678, 4) == 0x23456781);
+    assert(rotate_left(0x12345678, 20) == 0x67812345);
+  }
+
+  int main() {
+    tests();
+
+    printf("0x%X\n", rotate_left(0x12345678, 0));
+    printf("0x%X\n", rotate_left(0x12345678, 4));
+    printf("0x%X\n", rotate_left(0x12345678, 20));
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| 0x12345678 |
+| 0x23456781 |
+| 0x67812345 |
