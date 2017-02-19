@@ -180,3 +180,23 @@
 | 0 |
 | 1 |
 | 0 |
+* Homework Problem 2.62
+#+NAME ex62
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <limits.h>
+
+  int int_shift_are_arithmetic() {
+    return (INT_MIN >> 1) < 0;
+  }
+
+  int main() {
+    printf("Arithmetic Shift? %d\n", int_shift_are_arithmetic());
+
+    return 0;
+  }
+
+#+END_SRC
+
+#+RESULTS:
+: Arithmetic Shift? 1
