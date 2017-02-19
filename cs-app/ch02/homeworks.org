@@ -200,3 +200,60 @@
 
 #+RESULTS:
 : Arithmetic Shift? 1
+* Homework Problem 2.63
+#+NAME ex63
+#+BEGIN_SRC C :flags -lm
+  #include <stdio.h>
+  #include <assert.h>
+  #include <limits.h>
+  #include <math.h>
+
+  /* Perform shift arithmetically */
+  unsigned srl(unsigned x, int k) {
+    unsigned xsra = (int) x >> k;
+    int size = 8 * sizeof(unsigned);
+
+    if ((x & (unsigned)pow(2, size - 1)) > 0) {
+      int i;
+      for (i = 1; i <= k; i++) {
+        xsra -= (unsigned)pow(2, size - i);
+      }
+    }
+
+    return xsra;
+  }
+
+  /* Perform shift logically */
+  int sra(int x, int k) {
+    int xsrl = (unsigned) x >> k;
+    int size = 8 * sizeof(int);
+
+    if ((x & (int)pow(2, size - 1)) > 0) {
+      int i;
+      for (i = 1; i <= k; i++) {
+        xsrl += (int)pow(2, size - i);
+      }
+    }
+
+    return xsrl;
+  }
+
+  void tests() {
+    assert(srl(UINT_MAX, 2) == UINT_MAX >> 2);
+    assert(sra(INT_MAX, 2) == INT_MAX >> 2);
+  }
+
+  int main() {
+    tests();
+
+    printf("%u\n", srl(UINT_MAX, 2));
+    printf("%d\n", sra(INT_MAX, 2));
+
+    return 0;
+  }
+
+#+END_SRC
+
+#+RESULTS:
+| 1073741823 |
+|  536870911 |
