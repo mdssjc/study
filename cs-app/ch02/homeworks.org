@@ -427,3 +427,43 @@
 | 1 |
 | 1 |
 | 1 |
+* Homework Problem 2.68
+#+NAME ex68
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <assert.h>
+
+  /*
+   ,* Mask with least signficant n bits set to 1
+   ,* Examples: n = 6 --> 0x3F, n = 17 --> 0x1FFFF
+   ,* Assume 1 <= n <= w
+   ,*/
+  int lower_one_mask(int n) {
+    int result;
+    int i;
+
+    for (i = 0; i < n; i++) {
+      result |= 1 << i;
+    }
+
+    return result;
+  }
+
+  void tests() {
+    assert(lower_one_mask(6) == 0x3F);
+    assert(lower_one_mask(17) == 0x1FFFF);
+  }
+
+  int main() {
+    tests();
+
+    printf("0x%X\n", lower_one_mask(6));
+    printf("0x%X\n", lower_one_mask(17));
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+|    0x3F |
+| 0x1FFFF |
