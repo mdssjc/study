@@ -268,6 +268,46 @@
      Assume w=32 */
   int any_odd_one(unsigned x) {
     int w = 8 * sizeof(unsigned);
+
+    int i;
+    for (i = 0; i < w; i++) {
+      if ((x & (unsigned)pow(2, w - 1 - i)) > 0) {
+        return 1;
+      }
+    }
+
+    return 0;
+  }
+
+  void tests() {
+    assert(any_odd_one(84) == 1);
+    assert(any_odd_one(0) == 0);
+  }
+
+  int main() {
+    tests();
+
+    printf("%d\n", any_odd_one(84));
+    printf("%d\n", any_odd_one(0));
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| 1 |
+| 0 |
+* Homework Problem 2.65
+#+NAME ex65
+#+BEGIN_SRC C :flags -lm
+  #include <stdio.h>
+  #include <math.h>
+  #include <assert.h>
+
+  /* Return 1 when x contains an odd number of 1s; 0 otherwise.
+     Assume w=32 */
+  int odd_ones(unsigned x) {
+    int w = 8 * sizeof(unsigned);
     int count = 0;
 
     int i;
@@ -281,15 +321,15 @@
   }
 
   void tests() {
-    assert(any_odd_one(84) == 1);
-    assert(any_odd_one(51) == 0);
+    assert(odd_ones(84) == 1);
+    assert(odd_ones(51) == 0);
   }
 
   int main() {
     tests();
 
-    printf("%d\n", any_odd_one(84));
-    printf("%d\n", any_odd_one(51));
+    printf("%d\n", odd_ones(84));
+    printf("%d\n", odd_ones(51));
 
     return 0;
   }
