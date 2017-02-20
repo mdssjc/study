@@ -100,4 +100,17 @@ public class SortTest {
     assertTrue(Sort.isSorted(this.letters));
     assertTrue(Sort.isSorted(this.files));
   }
+
+  @Test
+  public void testHeapSort() {
+    final Sort selection = new HeapSort();
+
+    selection.sort(this.numbers);
+    selection.sort(this.letters);
+    selection.sort(this.files);
+
+    assertTrue(Sort.isSorted(this.numbers));
+    assertTrue(Sort.isSorted(this.letters));
+    assertTrue(Sort.isSorted(this.files));
+  }
 }
