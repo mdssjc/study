@@ -36,7 +36,7 @@ public interface UF {
    * @param q
    *     Site q
    *
-   * @return Result of predicate
+   * @return Result of test
    */
   default boolean connected(final int p, final int q) {
     return find(p) == find(q);
