@@ -13,40 +13,51 @@ import com.github.mdssjc.algorithms.datastructure.priority_queue.PriorityQueue;
 public class MaxPQ<Key extends Comparable<Key>> implements PriorityQueue<Key> {
 
   private final Key[] pq;
-  private int N = 0;
+  private int n;
+
+  public MaxPQ() {
+    this.pq = (Key[]) new Comparable[100];
+  }
 
   public MaxPQ(final int maxN) {
     this.pq = (Key[]) new Comparable[maxN + 1];
   }
 
-  @Override
-  public void insert(final Key v) {
-    this.pq[++this.N] = v;
-    swim(this.N);
+  public MaxPQ(final Key[] pq) {
+    this.pq = pq;
   }
 
   @Override
+  public void insert(final Key v) {
+    this.pq[++this.n] = v;
+    swim(this.n);
+  }
+
+  @Override
+  public Key delete() {
+    return delMax();
+  }
+
+  public Key max() {
+    return this.pq[1];
+  }
+
   public Key delMax() {
     final Key max = this.pq[1];
-    exch(1, this.N--);
-    this.pq[this.N + 1] = null;
+    exch(1, this.n--);
+    this.pq[this.n + 1] = null;
     sink(1);
     return max;
   }
 
   @Override
-  public Key max() {
-    return this.pq[1];
-  }
-
-  @Override
   public boolean isEmpty() {
-    return this.N == 0;
+    return this.n == 0;
   }
 
   @Override
   public int size() {
-    return this.N;
+    return this.n;
   }
 
   @Override
