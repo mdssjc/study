@@ -11,36 +11,29 @@ package com.github.mdssjc.algorithms.datastructure.priority_queue;
 public interface PriorityQueue<Key extends Comparable<Key>> {
 
   /**
-   * Insere uma chave na priority queue.
+   * Insere uma chave.
    *
    * @param v
-   *     Valor da chave
+   *     a chave
    */
   void insert(Key v);
 
   /**
-   * Retorna a maior chave.
+   * Remove uma chave.
    *
-   * @return a chave
+   * @return a chave removida
    */
-  Key max();
+  Key delete();
 
   /**
-   * Retorna e remove a maior chave.
-   *
-   * @return a chave
-   */
-  Key delMax();
-
-  /**
-   * Predicado: a priority queue está vazia?
+   * Predicado: a Priority Queue está vazia?
    *
    * @return resultdo do predicado
    */
   boolean isEmpty();
 
   /**
-   * Retorna o número de chaves do priority queue.
+   * Retorna o número total de chaves.
    *
    * @return número de chaves
    */
