@@ -43,8 +43,8 @@
 
 
 ; VCat -> World
-; Starts a world with (main (make-vcat 0 100))
-(define (main vcat)
+; Starts a world with (happy-cat (make-vcat 0 100))
+(define (happy-cat vcat)
   (big-bang vcat
             [on-tick tock]
             [to-draw render]
