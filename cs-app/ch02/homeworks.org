@@ -606,3 +606,46 @@
 |  127 |
 |  -50 |
 | -128 |
+* Homework Problem 2.72
+** A
+  The expression is encoded as unsigned (always positive), because the sizeof operator returns an unsigned type.
+** B
+  Ok.
+** Code
+#+NAME ex72
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <string.h>
+
+  /* Copy integer into buffer if space is available */
+  /* WARNING: The following code is buggy */
+  /* FIXED */
+  void copy_int(int val, void *buf, int maxbytes) {
+    int bytes = maxbytes - sizeof(val);
+    if (bytes >= 0) {
+      memcpy(buf, (void *) &val, sizeof(val));
+    }
+  }
+
+  int main() {
+    int in = -2;
+    int result;
+    short noresult = 5;
+
+    copy_int(in, &result, 4);
+    printf("%d\n", in);
+    printf("%d\n", result);
+
+    copy_int(in, &noresult, 2);
+    printf("%d\n", in);
+    printf("%d\n", noresult);
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| -2 |
+| -2 |
+| -2 |
+|  5 |
