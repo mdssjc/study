@@ -742,3 +742,40 @@
 |         -8 |
 | 4294967295 |
 | 4294967295 |
+* Homework Problem 2.76
+#+NAME ex76
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <string.h>
+  #include <stdlib.h>
+
+  void *calloc(size_t nmemb, size_t size) {
+    size_t total = nmemb * size;
+
+    if (total != 0 && total / nmemb != size) {
+      return NULL;
+    }
+
+    void *ptr = malloc(total);
+    if (ptr == 0) {
+      return NULL;
+    } else {
+      memset(ptr, 1, total);
+      return ptr;
+    }
+  }
+
+  int main() {
+    char *res = calloc(2, 1);
+    printf("%d\n", *(res + 0));
+    printf("%d\n", *(res + 1));
+    printf("%d\n", *(res + 2));
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| 1 |
+| 1 |
+| 0 |
