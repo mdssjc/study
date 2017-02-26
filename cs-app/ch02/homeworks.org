@@ -3,7 +3,7 @@
 * Homework Problem 2.56
   Ok.
 * Homework Problem 2.57
-  ~./cs-app/code/data/show-bytes.c~ : [[file:~/Documents/Git/study/cs-app/code/data/show-bytes.c][show_bytes.c]]
+  ~./cs-app/code/data/show-bytes.c~ : [[file:../code/data/show-bytes.c][show_bytes.c]]
 #+NAME hp57
 #+BEGIN_SRC C
   void show_short(short x) {
