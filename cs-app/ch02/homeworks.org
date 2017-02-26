@@ -688,3 +688,28 @@
 |  2147483647 |
 | -2147483648 |
 |           2 |
+* Homework Problem 2.74
+#+NAME ex74
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <limits.h>
+
+  /* Determine whether arguments can be subtracted without overflow */
+  int tsub_ok(int x, int y) {
+    int result = x - y;
+    return (x > y && result < x) || (x < y && result > y);
+  }
+
+  int main() {
+    printf("%d\n", tsub_ok(1, 1));
+    printf("%d\n", tsub_ok(INT_MIN, 1));
+    printf("%d\n", tsub_ok(INT_MAX, -1));
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| 0 |
+| 1 |
+| 1 |
