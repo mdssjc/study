@@ -24,3 +24,25 @@
   movq %rax,$0x123    : incorrect memory value (12 bits).
   movl %eax,%rdx      : rdx register is a quad word.
   movb %si, 8(%rbp)   : si register is a word.
+* Practice Problem 3.4
+  ~src_t *sp;  // rdi~
+  ~dest_t *dp; // rsi~
+  ~*dp = (dest_t) *sp;~
+  Registers: %rax, %eax, %ax, or %al
+
+  | src_t         | dest_t        | Instruction         |
+  |---------------+---------------+---------------------|
+  | long          | long          | movq (%rdi), %rax   |
+  |               |               | movq %rax, (%rsi)   |
+  | char          | int           | movsbl (%rdi), %eax |
+  |               |               | movl %eax, (%rsi)   |
+  | char          | unsigned      | movl (%rdi), %eax   |
+  |               |               | movl %eax, (%rsi)   |
+  | unsigned char | long          | movq (%rdi), %rax   |
+  |               |               | movq %rax, (%rsi)   |
+  | int           | char          | movb (%rdi), %al    |
+  |               |               | movb %al, (%rsi)    |
+  | unsigned      | unsigned char | movb (%rdi), %al    |
+  |               |               | movb %al, (%rsi)    |
+  | char          | short         | movsbw (%rdi), %ax  |
+  |               |               | movw %ax, (%rsi)    |
