@@ -760,7 +760,7 @@
     if (ptr == 0) {
       return NULL;
     } else {
-      memset(ptr, 1, total);
+      memset(ptr, 0, total);
       return ptr;
     }
   }
@@ -776,6 +776,6 @@
 #+END_SRC
 
 #+RESULTS:
-| 1 |
-| 1 |
+| 0 |
+| 0 |
 | 0 |
