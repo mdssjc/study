@@ -48,7 +48,7 @@
   | char          | short         | movsbw (%rdi), %ax  |
   |               |               | movw %ax, (%rsi)    |
 * Practice Problem 3.5
-#+NAME ex35
+#+NAME ex5
 #+BEGIN_SRC C
   #include <stdio.h>
 
