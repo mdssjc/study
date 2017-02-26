@@ -16,3 +16,11 @@
   movb (%rsp,%rdx,4), %dl
   movq (%rdx), %rax
   movb %dx, (%rax)
+* Practice Problem 3.3
+  movb $0xF, (%ebx)   : incorrect memory value (4 bits).
+  movl %rax, (%rsp)   : rax register is a quad word.
+  movw (%rax),4(%rsp) : invalid operand form.
+  movb %al,%sl        : sl register doesn't exist.
+  movq %rax,$0x123    : incorrect memory value (12 bits).
+  movl %eax,%rdx      : rdx register is a quad word.
+  movb %si, 8(%rbp)   : si register is a word.
