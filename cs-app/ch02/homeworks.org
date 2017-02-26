@@ -311,15 +311,15 @@
   }
 
   void tests() {
-    assert(odd_ones(84) == 1);
-    assert(odd_ones(51) == 0);
+    assert(odd_ones(0b10101) == 1);
+    assert(odd_ones(0b10001) == 0);
   }
 
   int main() {
     tests();
 
-    printf("%d\n", odd_ones(84));
-    printf("%d\n", odd_ones(51));
+    printf("%d\n", odd_ones(0b10101));
+    printf("%d\n", odd_ones(0b10001));
 
     return 0;
   }
