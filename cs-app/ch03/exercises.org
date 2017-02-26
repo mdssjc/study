@@ -9,3 +9,10 @@
   | 260(%rcx,%rdx) |  0x13 |
   | 0xFC(,%rcx,4)  |  0xFF |
   | (%rax,%rdx,4)  |  0x11 |
+* Practice Problem 3.2
+  movl %eax, (%rsp)
+  movw (%rax), %dx
+  movb $0xFF, %bl
+  movb (%rsp,%rdx,4), %dl
+  movq (%rdx), %rax
+  movb %dx, (%rax)
