@@ -1,14 +1,14 @@
 package com.github.mdssjc.algorithms.datastructure.priority_queue;
 
 /**
- * Array Priority Queue.
+ * Ordered Array Priority Queue.
  *
  * @author Marcelo dos Santos
  *
  * @param <Key>
  *     Tipo da chave
  */
-public interface ArrayPQ<Key extends Comparable<Key>> extends PriorityQueue<Key>{
+public interface OrderedArrayPQ<Key extends Comparable<Key>> extends PriorityQueue<Key>{
 
   /**
    * Retorna a Priority Queue.

@@ -1,6 +1,6 @@
 package com.github.mdssjc.algorithms.datastructure.priority_queue.concrete;
 
-import com.github.mdssjc.algorithms.datastructure.priority_queue.ArrayPQ;
+import com.github.mdssjc.algorithms.datastructure.priority_queue.OrderedArrayPQ;
 
 /**
  * Implementação MaxPQ de Priority Queue.
@@ -10,7 +10,7 @@ import com.github.mdssjc.algorithms.datastructure.priority_queue.ArrayPQ;
  * @param <Key>
  *     Tipo da chave
  */
-public class MaxPQ<Key extends Comparable<Key>> implements ArrayPQ<Key> {
+public class MaxPQ<Key extends Comparable<Key>> implements OrderedArrayPQ<Key> {
 
   private final Key[] pq;
   private int n;
