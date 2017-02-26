@@ -649,3 +649,42 @@
 | -2 |
 | -2 |
 |  5 |
+* Homework Problem 2.73
+#+NAME ex73
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <limits.h>
+  #include <assert.h>
+
+  /* Addition that saturates to TMin or TMax */
+  int saturating_add(int x, int y) {
+    int result = x + y;
+    if (x > 0 && y > 0 && result <= 0) {
+      return INT_MAX;
+    } else if (x < 0 && y < 0 && result >= 0) {
+      return INT_MIN;
+    }
+    return result;
+  }
+
+  void tests() {
+    assert(saturating_add(INT_MAX, 1) == INT_MAX);
+    assert(saturating_add(INT_MIN, -1) == INT_MIN);
+    assert(saturating_add(1, 1) == 2);
+  }
+
+  int main() {
+    tests();
+
+    printf("%d\n", saturating_add(INT_MAX, 1));
+    printf("%d\n", saturating_add(INT_MIN, -1));
+    printf("%d\n", saturating_add(1, 1));
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+|  2147483647 |
+| -2147483648 |
+|           2 |
