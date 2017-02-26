@@ -713,3 +713,32 @@
 | 0 |
 | 1 |
 | 1 |
+* Homework Problem 2.75
+#+NAME ex75
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <limits.h>
+
+  int signed_high_prod(int x, int y) {
+    int result = (x * y) % (1 << (sizeof(int) * 8 - 1));
+    return result;
+  }
+
+  unsigned unsigned_high_prod(unsigned x, unsigned y) {
+    return signed_high_prod(x, y);
+  }
+
+  int main() {
+    printf("%u\n", unsigned_high_prod(2, 4));
+    printf("%u\n", unsigned_high_prod(UINT_MAX, 1));
+    printf("%d\n", signed_high_prod(2, -4));
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+|          8 |
+|         -8 |
+| 4294967295 |
+| 4294967295 |
