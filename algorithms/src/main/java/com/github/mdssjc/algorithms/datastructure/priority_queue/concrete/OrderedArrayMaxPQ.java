@@ -47,8 +47,4 @@ public class OrderedArrayMaxPQ<Key extends Comparable<Key>> implements PriorityQ
   public int size() {
     return this.n;
   }
-
-  private boolean less(final Key v, final Key w) {
-    return v.compareTo(w) < 0;
-  }
 }
