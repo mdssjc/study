@@ -114,6 +114,19 @@ public class SortTest {
   }
 
   @Test
+  public void testQuick3WaySort() {
+    final Sort selection = new Quick3WaySort();
+
+    selection.sort(this.numbers);
+    selection.sort(this.letters);
+    selection.sort(this.files);
+
+    assertArrayEquals(this.numbersRef, this.numbers);
+    assertArrayEquals(this.lettersRef, this.letters);
+    assertArrayEquals(this.filesRef, this.files);
+  }
+
+  @Test
   public void testHeapSort() {
     final Sort selection = new HeapSort();
 
