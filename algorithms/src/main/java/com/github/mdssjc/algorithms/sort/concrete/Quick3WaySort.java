@@ -1,15 +1,21 @@
-package com.github.mdssjc.algorithms.chapter2.section23;
+package com.github.mdssjc.algorithms.sort.concrete;
 
 import com.github.mdssjc.algorithms.sort.Sort;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * Quick3way Class.
+ * Quick3Way Sort.
  *
  * @author Marcelo dos Santos
  *
  */
-public class Quick3way implements Sort {
+public class Quick3WaySort implements Sort {
+
+  @Override
+  public void sort(final Comparable[] a) {
+    StdRandom.shuffle(a);
+    sort(a, 0, a.length - 1);
+  }
 
   private void sort(final Comparable[] a, final int lo, final int hi) {
     if (hi <= lo) {
@@ -31,11 +37,5 @@ public class Quick3way implements Sort {
     }
     sort(a, lo, lt - 1);
     sort(a, gt + 1, hi);
-  }
-
-  @Override
-  public void sort(final Comparable[] a) {
-    StdRandom.shuffle(a);
-    sort(a, 0, a.length - 1);
   }
 }
