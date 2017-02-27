@@ -10,7 +10,19 @@ import com.github.mdssjc.algorithms.sort.Sort;
  */
 public class HeapSort implements Sort {
 
-  private static void sink(final Comparable[] a, int k, final int n) {
+  @Override
+  public void sort(final Comparable[] a) {
+    int n = a.length;
+    for (int k = n / 2; k >= 1; k--) {
+      sink(a, k, n);
+    }
+    while (n > 1) {
+      exch(a, 1, n--);
+      sink(a, 1, n);
+    }
+  }
+
+  private void sink(final Comparable[] a, int k, final int n) {
     while (2 * k <= n) {
       int j = 2 * k;
       if (j < n && less(a, j, j + 1)) {
@@ -24,25 +36,13 @@ public class HeapSort implements Sort {
     }
   }
 
-  private static boolean less(final Comparable[] a, final int i, final int j) {
+  public boolean less(final Comparable[] a, final int i, final int j) {
     return a[i - 1].compareTo(a[j - 1]) < 0;
   }
 
-  private static void exch(final Comparable[] a, final int i, final int j) {
+  public void exch(final Comparable[] a, final int i, final int j) {
     final Comparable swap = a[i - 1];
     a[i - 1] = a[j - 1];
     a[j - 1] = swap;
-  }
-
-  @Override
-  public void sort(final Comparable[] a) {
-    int n = a.length;
-    for (int k = n / 2; k >= 1; k--) {
-      sink(a, k, n);
-    }
-    while (n > 1) {
-      exch(a, 1, n--);
-      sink(a, 1, n);
-    }
   }
 }

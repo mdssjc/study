@@ -17,12 +17,12 @@ public class QuickSort implements Sort {
     final Comparable v = a[lo];
 
     while (true) {
-      while (Sort.less(a[++i], v)) {
+      while (less(a[++i], v)) {
         if (i == hi) {
           break;
         }
       }
-      while (Sort.less(v, a[--j])) {
+      while (less(v, a[--j])) {
         if (j == lo) {
           break;
         }
@@ -30,9 +30,9 @@ public class QuickSort implements Sort {
       if (i >= j) {
         break;
       }
-      Sort.exch(a, i, j);
+      exch(a, i, j);
     }
-    Sort.exch(a, lo, j);
+    exch(a, lo, j);
     return j;
   }
 

@@ -20,8 +20,8 @@ public class ShellSort implements Sort {
 
     while (h >= 1) {
       for (int i = h; i < n; i++) {
-        for (int j = i; j >= h && Sort.less(a[j], a[j - h]); j -= h) {
-          Sort.exch(a, j, j - h);
+        for (int j = i; j >= h && less(a[j], a[j - h]); j -= h) {
+          exch(a, j, j - h);
         }
       }
       h = h / 3;
