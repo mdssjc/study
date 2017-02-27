@@ -10,8 +10,8 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( {"123", "123", "123"} )
-@TestDrive( {"111", "222", "333"} )
+@TestDrive({"123", "123", "123"})
+@TestDrive({"111", "222", "333"})
 public class Ex3 {
 
   public static void main(final String[] args) {

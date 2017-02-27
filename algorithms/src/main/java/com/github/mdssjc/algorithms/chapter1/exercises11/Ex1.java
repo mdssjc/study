@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 /**
  * Exercise 1.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
