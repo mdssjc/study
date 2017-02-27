@@ -18,10 +18,13 @@ public class Ex4 {
 
     // if (a > b) then c = 0;
     StdOut.println("syntax error");
+
     // if a > b { c = 0; }
     StdOut.println("syntax error");
+
     // if (a > b) c = 0;
     StdOut.println("ok");
+
     // if (a > b) c = 0 else b = 0;
     StdOut.println("syntax error");
   }
