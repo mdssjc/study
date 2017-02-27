@@ -45,10 +45,10 @@ public class UnorderedLinkedListMaxPQ<Key extends Comparable<Key>> implements Pr
       current = current.next;
     }
 
-    if (prevMax != null) {
-      prevMax.next = max.next;
-    } else {
+    if (prevMax == null) {
       this.first = max.next;
+    } else {
+      prevMax.next = max.next;
     }
 
     this.size--;
