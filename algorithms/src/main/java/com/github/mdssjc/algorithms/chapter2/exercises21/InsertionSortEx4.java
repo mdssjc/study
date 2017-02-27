@@ -16,8 +16,8 @@ public class InsertionSortEx4 implements Sort {
   public void sort(final Comparable[] a) {
     int j;
     for (int i = 1; i < a.length; i++) {
-      for (j = i; j > 0 && Sort.less(a[j], a[j - 1]); j--) {
-        Sort.exch(a, j, j - 1);
+      for (j = i; j > 0 && less(a[j], a[j - 1]); j--) {
+        exch(a, j, j - 1);
       }
       StdOut.printf("%2d %2d  %s%n", i, j, Arrays.deepToString(a));
     }

@@ -29,14 +29,14 @@ public class QuickSortMonitor implements Sort {
     this.monitor.print("m1", a, "initial values", i, j);
 
     while (true) {
-      while (Sort.less(a[++i], v)) {
+      while (less(a[++i], v)) {
         if (i == hi) {
           this.cntLargestItem++;
           this.cntCompares++;
           break;
         }
       }
-      while (Sort.less(v, a[--j])) {
+      while (less(v, a[--j])) {
         if (j == lo) {
           this.cntCompares++;
           break;
@@ -48,10 +48,10 @@ public class QuickSortMonitor implements Sort {
       }
 
       this.monitor.print("m1", a, "scan left, scan right", i, j);
-      Sort.exch(a, i, j);
+      exch(a, i, j);
       this.monitor.print("m1", a, "exchange", i, j);
     }
-    Sort.exch(a, lo, j);
+    exch(a, lo, j);
     this.monitor.print("m1", a, "final exchange", i, j);
     return j;
   }

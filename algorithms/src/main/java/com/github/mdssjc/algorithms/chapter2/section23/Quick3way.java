@@ -22,9 +22,9 @@ public class Quick3way implements Sort {
     while (i <= gt) {
       final int cmp = a[i].compareTo(v);
       if (cmp < 0) {
-        Sort.exch(a, lt++, i++);
+        exch(a, lt++, i++);
       } else if (cmp > 0) {
-        Sort.exch(a, i, gt--);
+        exch(a, i, gt--);
       } else {
         i++;
       }

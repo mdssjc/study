@@ -18,9 +18,9 @@ public class MergeSortEx9 implements Sort {
 
   private void merge(final Comparable[] a, final Comparable[] aux, final int lo, final int mid, final int hi) {
     // Precondition: a[lo..mid] sorted
-    assert Sort.isSorted(a, lo, mid);
+    assert isSorted(a, lo, mid);
     // Precondition: a[mid+1..hi] sorted
-    assert Sort.isSorted(a, mid + 1, hi);
+    assert isSorted(a, mid + 1, hi);
 
     int i = lo;
     int j = mid + 1;
@@ -34,7 +34,7 @@ public class MergeSortEx9 implements Sort {
         a[k] = aux[j++];
       } else if (j > hi) {
         a[k] = aux[i++];
-      } else if (Sort.less(aux[j], aux[i])) {
+      } else if (less(aux[j], aux[i])) {
         a[k] = aux[j++];
       } else {
         a[k] = aux[i++];
@@ -42,7 +42,7 @@ public class MergeSortEx9 implements Sort {
     }
 
     // Postcondition: a[lo..mid] sorted
-    assert Sort.isSorted(a, lo, mid);
+    assert isSorted(a, lo, mid);
   }
 
   private void sort(final Comparable[] a, final Comparable[] aux, final int lo, final int hi) {
