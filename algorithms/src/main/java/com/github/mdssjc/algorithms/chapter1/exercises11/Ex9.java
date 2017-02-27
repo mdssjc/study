@@ -16,13 +16,13 @@ public class Ex9 {
   public static void main(final String[] args) {
     Executor.execute(Ex9.class, args);
 
-    final int N = 5;
+    final int in = 5;
 
-    String s = Integer.toBinaryString(N);
+    String s = Integer.toBinaryString(in);
     StdOut.println(s);
 
     s = "";
-    for (int n = N; n > 0; n /= 2) {
+    for (int n = in; n > 0; n /= 2) {
       s = (n % 2) + s;
     }
     StdOut.println(s);
