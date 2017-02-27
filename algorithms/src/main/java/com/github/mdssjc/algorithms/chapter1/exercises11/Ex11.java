@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 /**
  * Exercise 11.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
@@ -17,11 +17,11 @@ public class Ex11 {
     Executor.execute(Ex11.class, args);
 
     final boolean[][] matrix = {
-        { true, true, true, true, true },
-        { true, false, false, false, true },
-        { true, false, true, false, true },
-        { true, false, false, false, true },
-        { true, true, true, true, true } };
+        {true, true, true, true, true},
+        {true, false, false, false, true},
+        {true, false, true, false, true},
+        {true, false, false, false, true},
+        {true, true, true, true, true}};
 
     for (int row = 0; row < matrix.length; row++) {
       final int length = matrix[row].length;
