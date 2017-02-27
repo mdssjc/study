@@ -1,6 +1,7 @@
 package com.github.mdssjc.algorithms.chapter2.section23;
 
 import com.github.mdssjc.algorithms.sort.Sort;
+import com.github.mdssjc.algorithms.sort.concrete.Quick3WaySort;
 import com.github.mdssjc.algorithms.sort.concrete.QuickSort;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
@@ -14,7 +15,7 @@ import edu.princeton.cs.algs4.Stopwatch;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive({"Quick", "Quick3way", "1000000", "100"})
+@TestDrive({"Quick", "Quick3WaySort", "1000000", "100"})
 public class SortCompare {
 
   public static double time(final String alg, final Comparable[] a) {
@@ -23,8 +24,8 @@ public class SortCompare {
       final Sort sort = new QuickSort();
       sort.sort(a);
     }
-    if (alg.equals("Quick3way")) {
-      final Sort sort = new Quick3way();
+    if (alg.equals("Quick3WaySort")) {
+      final Sort sort = new Quick3WaySort();
       sort.sort(a);
     }
     return timer.elapsedTime();
@@ -35,7 +36,7 @@ public class SortCompare {
     final Integer[] a = new Integer[n];
     for (int x = 0; x < t; x++) {
       for (int i = 0; i < n; i++) {
-        a[i] = StdRandom.uniform(0,10);
+        a[i] = StdRandom.uniform(0, 10);
       }
       total += time(alg, a);
     }
