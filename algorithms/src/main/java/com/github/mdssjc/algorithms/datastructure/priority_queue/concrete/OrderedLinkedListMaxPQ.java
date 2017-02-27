@@ -2,7 +2,6 @@ package com.github.mdssjc.algorithms.datastructure.priority_queue.concrete;
 
 import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
 import com.github.mdssjc.algorithms.datastructure.priority_queue.PriorityQueue;
-import com.github.mdssjc.algorithms.sort.Sort;
 
 /**
  * OrderedLinkedListMaxPQ Class.
@@ -20,7 +19,7 @@ public class OrderedLinkedListMaxPQ<Key extends Comparable<Key>> implements Prio
     Node<Key> prev = null;
     Node<Key> current = this.first;
 
-    while (current != null && Sort.less(key, current.item)) {
+    while (current != null && less(key, current.item)) {
       prev = current;
       current = current.next;
     }
