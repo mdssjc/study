@@ -16,8 +16,13 @@ public class Ex8 {
   public static void main(final String[] args) {
     Executor.execute(Ex8.class, args);
 
+    // Prints a char
     StdOut.println('b');
+
+    // Adds the numbers representing the char and prints its result
     StdOut.println('b' + 'c');
+
+    // Adds the numbers representing the char and prints its result in char
     StdOut.println((char) ('a' + 4));
   }
 }
