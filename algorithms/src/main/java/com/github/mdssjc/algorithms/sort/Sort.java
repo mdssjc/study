@@ -14,14 +14,26 @@ import java.util.Comparator;
  */
 public interface Sort<T> {
 
+  void sort(Comparable[] a);
+
   default boolean less(final Comparable v, final Comparable w) {
     return v.compareTo(w) < 0;
+  }
+
+  default boolean less(final Comparator c, final T v, final T w) {
+    return c.compare(v, w) < 0;
   }
 
   default void exch(final Comparable[] a, final int i, final int j) {
     final Comparable swap = a[i];
     a[i] = a[j];
     a[j] = swap;
+  }
+
+  default void exch(final T[] a, final int i, final int j) {
+    final T t = a[i];
+    a[i] = a[j];
+    a[j] = t;
   }
 
   default void show(final Comparable[] a) {
@@ -48,16 +60,4 @@ public interface Sort<T> {
     }
     return true;
   }
-
-  default boolean less(final Comparator c, final T v, final T w) {
-    return c.compare(v, w) < 0;
-  }
-
-  default void exch(final T[] a, final int i, final int j) {
-    final T t = a[i];
-    a[i] = a[j];
-    a[j] = t;
-  }
-
-  void sort(Comparable[] a);
 }
