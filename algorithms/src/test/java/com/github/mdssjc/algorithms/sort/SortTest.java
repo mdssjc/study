@@ -6,8 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.Arrays;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Sort Test.
@@ -24,6 +25,9 @@ public class SortTest {
   private final Double[] numbers = new Double[100];
   private String[] letters;
   private File[] files;
+  private Double[] numbersRef;
+  private String[] lettersRef;
+  private File[] filesRef;
 
   @Before
   public void generateArray() {
@@ -34,6 +38,14 @@ public class SortTest {
     this.letters = "Marcelo".split("");
 
     this.files = new File(".").listFiles();
+
+    this.numbersRef = Arrays.copyOf(this.numbers, this.numbers.length);
+    this.lettersRef = Arrays.copyOf(this.letters, this.letters.length);
+    this.filesRef = Arrays.copyOf(this.files, this.files.length);
+
+    Arrays.sort(this.numbersRef);
+    Arrays.sort(this.lettersRef);
+    Arrays.sort(this.filesRef);
   }
 
   @Test
@@ -44,9 +56,9 @@ public class SortTest {
     selection.sort(this.letters);
     selection.sort(this.files);
 
-    assertTrue(Sort.isSorted(this.numbers));
-    assertTrue(Sort.isSorted(this.letters));
-    assertTrue(Sort.isSorted(this.files));
+    assertArrayEquals(this.numbersRef, this.numbers);
+    assertArrayEquals(this.lettersRef, this.letters);
+    assertArrayEquals(this.filesRef, this.files);
   }
 
   @Test
@@ -57,9 +69,9 @@ public class SortTest {
     selection.sort(this.letters);
     selection.sort(this.files);
 
-    assertTrue(Sort.isSorted(this.numbers));
-    assertTrue(Sort.isSorted(this.letters));
-    assertTrue(Sort.isSorted(this.files));
+    assertArrayEquals(this.numbersRef, this.numbers);
+    assertArrayEquals(this.lettersRef, this.letters);
+    assertArrayEquals(this.filesRef, this.files);
   }
 
   @Test
@@ -70,9 +82,9 @@ public class SortTest {
     selection.sort(this.letters);
     selection.sort(this.files);
 
-    assertTrue(Sort.isSorted(this.numbers));
-    assertTrue(Sort.isSorted(this.letters));
-    assertTrue(Sort.isSorted(this.files));
+    assertArrayEquals(this.numbersRef, this.numbers);
+    assertArrayEquals(this.lettersRef, this.letters);
+    assertArrayEquals(this.filesRef, this.files);
   }
 
   @Test
@@ -83,9 +95,9 @@ public class SortTest {
     selection.sort(this.letters);
     selection.sort(this.files);
 
-    assertTrue(Sort.isSorted(this.numbers));
-    assertTrue(Sort.isSorted(this.letters));
-    assertTrue(Sort.isSorted(this.files));
+    assertArrayEquals(this.numbersRef, this.numbers);
+    assertArrayEquals(this.lettersRef, this.letters);
+    assertArrayEquals(this.filesRef, this.files);
   }
 
   @Test
@@ -96,9 +108,9 @@ public class SortTest {
     selection.sort(this.letters);
     selection.sort(this.files);
 
-    assertTrue(Sort.isSorted(this.numbers));
-    assertTrue(Sort.isSorted(this.letters));
-    assertTrue(Sort.isSorted(this.files));
+    assertArrayEquals(this.numbersRef, this.numbers);
+    assertArrayEquals(this.lettersRef, this.letters);
+    assertArrayEquals(this.filesRef, this.files);
   }
 
   @Test
@@ -109,8 +121,8 @@ public class SortTest {
     selection.sort(this.letters);
     selection.sort(this.files);
 
-    assertTrue(Sort.isSorted(this.numbers));
-    assertTrue(Sort.isSorted(this.letters));
-    assertTrue(Sort.isSorted(this.files));
+    assertArrayEquals(this.numbersRef, this.numbers);
+    assertArrayEquals(this.lettersRef, this.letters);
+    assertArrayEquals(this.filesRef, this.files);
   }
 }
