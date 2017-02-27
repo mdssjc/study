@@ -38,4 +38,14 @@ public interface PriorityQueue<Key extends Comparable<Key>> {
    * @return número de chaves
    */
   int size();
+
+  default boolean less(final Comparable v, final Comparable w) {
+    return v.compareTo(w) < 0;
+  }
+
+  default void exch(final Comparable[] a, final int i, final int j) {
+    final Comparable swap = a[i];
+    a[i] = a[j];
+    a[j] = swap;
+  }
 }
