@@ -16,9 +16,16 @@ public class Ex2 {
   public static void main(final String[] args) {
     Executor.execute(Ex2.class, args);
 
-    StdOut.println((1 + 2.236) / 2); // double
-    StdOut.println(1 + 2 + 3 + 4.0); // double
-    StdOut.println(4.1 >= 4); // boolean
-    StdOut.println(1 + 2 + "3"); // String
+    final double a = (1 + 2.236) / 2;
+    StdOut.println(a);
+
+    final double b = 1 + 2 + 3 + 4.0;
+    StdOut.println(b);
+
+    final boolean c = 4.1 >= 4;
+    StdOut.println(c);
+
+    final String d = 1 + 2 + "3";
+    StdOut.println(d);
   }
 }
