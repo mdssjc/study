@@ -9,23 +9,24 @@ import java.util.Map;
  * @author Marcelo dos Santos
  *
  */
-class Fibonacci {
+public class Fibonacci {
 
   private static final Map<Integer, Long> cache = new HashMap<>();
 
-  public static long F(final int N) {
-    if (N == 0) {
+  public static long f(final int n) {
+    if (n == 0) {
       return 0;
     }
-    if (N == 1) {
+    if (n == 1) {
       return 1;
     }
 
-    if (Fibonacci.cache.containsKey(N)) {
-      return Fibonacci.cache.get(N);
+    if (Fibonacci.cache.containsKey(n)) {
+      return Fibonacci.cache.get(n);
     }
-    final long value = F(N - 1) + F(N - 2);
-    Fibonacci.cache.put(N, value);
+
+    final long value = f(n - 1) + f(n - 2);
+    Fibonacci.cache.put(n, value);
     return value;
   }
 }

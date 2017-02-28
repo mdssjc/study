@@ -16,8 +16,8 @@ public class Ex19 {
   public static void main(final String[] args) {
     Executor.execute(Ex19.class, args);
 
-    for (int N = 0; N < 100; N++) {
-      StdOut.println(N + " " + Fibonacci.F(N));
+    for (int n = 0; n < 100; n++) {
+      StdOut.println(n + " " + Fibonacci.f(n));
     }
   }
 }
