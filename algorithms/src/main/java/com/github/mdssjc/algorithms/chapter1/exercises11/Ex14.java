@@ -20,7 +20,7 @@ public class Ex14 {
       final int lg = lg(i);
       final double log = Math.log(i) / Math.log(2);
 
-      StdOut.println(i + " " + lg + " " + log);
+      StdOut.printf("%d %d %.2f%n", i, lg, log);
 
       if (lg > log && Double.isFinite(log)) {
         throw new RuntimeException();
