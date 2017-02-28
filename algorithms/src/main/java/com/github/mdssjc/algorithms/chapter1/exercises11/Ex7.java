@@ -26,7 +26,7 @@ public class Ex7 {
     while (Math.abs(t - 9.0 / t) > .001) {
       t = (9.0 / t + t) / 2.0;
     }
-    StdOut.printf("%.5f\n", t);
+    StdOut.printf("%.5f%n", t);
   }
 
   private static void optionB() {
