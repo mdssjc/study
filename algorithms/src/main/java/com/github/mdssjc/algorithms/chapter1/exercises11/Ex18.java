@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 /**
  * Exercise 18.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
@@ -18,11 +18,9 @@ public class Ex18 {
 
     StdOut.println(mystery(2, 25));
     StdOut.println(mystery(3, 11));
-    StdOut.println(mystery(4, 12));
 
     StdOut.println(mystery2(2, 25));
     StdOut.println(mystery2(3, 11));
-    StdOut.println(mystery2(4, 12));
   }
 
   private static int mystery(final int a, final int b) {
