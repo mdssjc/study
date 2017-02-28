@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 /**
  * Exercise 20.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
@@ -16,10 +16,10 @@ public class Ex20 {
   public static void main(final String[] args) {
     Executor.execute(Ex20.class, args);
 
-    StdOut.println(Math.log(86) + " " + ln(86));
-    StdOut.println(Math.log(3) + " " + ln(3));
-    StdOut.println(Math.log(2) + " " + ln(2));
-    StdOut.println(Math.log(1) + " " + ln(1));
+    StdOut.printf("%.2f %.2f%n", Math.log(86), ln(86));
+    StdOut.printf("%.2f %.2f%n", Math.log(3), ln(3));
+    StdOut.printf("%.2f %.2f%n", Math.log(2), ln(2));
+    StdOut.printf("%.2f %.2f%n", Math.log(1), ln(1));
   }
 
   private static double ln(final int n) {
