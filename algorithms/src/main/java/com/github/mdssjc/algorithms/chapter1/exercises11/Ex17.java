@@ -16,7 +16,11 @@ public class Ex17 {
   public static void main(final String[] args) {
     Executor.execute(Ex17.class, args);
 
-    StdOut.println(exR2(3)); // StackOverflowError
+    try {
+      StdOut.println(exR2(3));
+    } catch (final StackOverflowError e) {
+      StdOut.println("Result: StackOverflowError");
+    }
   }
 
   private static String exR2(final int n) throws RuntimeException {
