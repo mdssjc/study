@@ -4,6 +4,8 @@ import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
+import java.util.Arrays;
+
 /**
  * Exercise 13.
  *
@@ -16,28 +18,24 @@ public class Ex13 {
   public static void main(final String[] args) {
     Executor.execute(Ex13.class, args);
 
-    final int[][] xss = {
+    final int[][] matrix = {
         {1, 1, 1},
         {2, 2, 2},
         {3, 4, 5}};
 
-    for (final int[] result : transpose(xss)) {
-      for (final int value : result) {
-        StdOut.print(value);
-      }
-      StdOut.println();
-    }
+    StdOut.println(Arrays.deepToString(matrix));
+    StdOut.println(Arrays.deepToString(transpose(matrix)));
   }
 
-  private static int[][] transpose(final int[][] xss) {
-    final int rows = xss.length;
-    final int cols = xss[0].length;
+  private static int[][] transpose(final int[][] matrix) {
+    final int rows = matrix.length;
+    final int cols = matrix[0].length;
 
     final int[][] result = new int[cols][rows];
 
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
-        result[j][i] = xss[i][j];
+        result[j][i] = matrix[i][j];
       }
     }
     return result;
