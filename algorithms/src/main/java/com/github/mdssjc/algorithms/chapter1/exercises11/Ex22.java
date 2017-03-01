@@ -17,9 +17,9 @@ public class Ex22 {
   public static void main(final String[] args) {
     Executor.execute(Ex22.class, args);
 
-    final int[] xs = IntStream.range(0, 1000)
-                              .sorted()
-                              .toArray();
-    BinarySearchRecursiveTraces.rank(5, xs);
+    final int[] inputs = IntStream.range(0, 1000)
+                                  .sorted()
+                                  .toArray();
+    BinarySearchRecursiveTraces.rank(5, inputs);
   }
 }
