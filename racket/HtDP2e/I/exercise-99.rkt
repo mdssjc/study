@@ -86,13 +86,24 @@
 
 ; UFO Number -> UFO
 ; updates the UFO by a value
+(check-expect (update-ufo (make-posn 1 1) 2) (make-posn 2 2))
+(check-expect (update-ufo (make-posn 0 1) 0) (make-posn 1 2))
+
 (define (update-ufo u v)
-  (make-posn v (add1 (posn-y u))))
+  (make-posn (if (= v 0) 1 v) (add1 (posn-y u))))
 
 ; Tank -> Tank
 ; updates the Tank
+(check-expect (update-tank (make-tank 0 -1))    (make-tank 0 -1))
+(check-expect (update-tank (make-tank WIDTH 1)) (make-tank WIDTH 1))
+(check-expect (update-tank (make-tank 5 -1))    (make-tank 4 -1))
+(check-expect (update-tank (make-tank 5  1))    (make-tank 6 1))
+
 (define (update-tank t)
-  (make-tank (+ (tank-loc t) (tank-vel t)) (tank-vel t)))
+  (make-tank (cond [(<   (+ (tank-loc t) (tank-vel t)) 0) 0]
+                   [(>   (+ (tank-loc t) (tank-vel t)) WIDTH) WIDTH]
+                   [else (+ (tank-loc t) (tank-vel t))])
+             (tank-vel t)))
 
 ; Missile -> Missile
 ; updates the missile
