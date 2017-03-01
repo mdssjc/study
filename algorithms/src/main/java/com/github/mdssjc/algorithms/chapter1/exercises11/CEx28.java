@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( input = "4 5 6" )
+@TestDrive(input = "4 5 6")
 public class CEx28 {
 
   public static void main(final String[] args) {
@@ -27,14 +27,20 @@ public class CEx28 {
     int[] whitelist = IntStream.generate(() -> ThreadLocalRandom.current()
                                                                 .nextInt(5))
                                .limit(50)
+                               .sorted()
                                .toArray();
 
-    StdOut.println("Length: " + whitelist.length);
-    whitelist = Arrays.stream(whitelist)
-                      .sorted()
-                      .distinct()
-                      .toArray();
-    StdOut.println("Length: " + whitelist.length);
+    int[] temp = null;
+    for (final int key : whitelist) {
+      if (temp == null) {
+        temp = new int[]{key};
+      } else if (BinarySearchRecursive.rank(key, temp) == -1) {
+        temp = Arrays.copyOf(temp, temp.length + 1);
+        temp[temp.length - 1] = key;
+      }
+    }
+    StdOut.printf("From %s%nto %s%n", Arrays.toString(whitelist), Arrays.toString(temp));
+    whitelist = temp;
 
     while (!StdIn.isEmpty()) {
       final int key = StdIn.readInt();
