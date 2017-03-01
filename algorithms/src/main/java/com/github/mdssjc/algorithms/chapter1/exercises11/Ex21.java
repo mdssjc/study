@@ -11,7 +11,7 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( input = "Marcelo 10 20\nMaria 5 6\nJosé 15 10" )
+@TestDrive(input = "Marcelo 10 20\nMaria 5 6\nJosé 15 10")
 public class Ex21 {
 
   public static void main(final String[] args) {
@@ -21,12 +21,12 @@ public class Ex21 {
                   "Name", "Value 1", "Value 2", "Result");
 
     while (StdIn.hasNextLine()) {
-      final String[] xs = StdIn.readLine()
-                               .split(" ");
+      final String[] inputs = StdIn.readLine()
+                                   .split(" ");
 
-      final String name = xs[0];
-      final int value1 = Integer.parseInt(xs[1]);
-      final int value2 = Integer.parseInt(xs[2]);
+      final String name = inputs[0];
+      final int value1 = Integer.parseInt(inputs[1]);
+      final int value2 = Integer.parseInt(inputs[2]);
       final double result = (double) (value1) / value2;
 
       StdOut.printf("%10s | %7d | %7d | %5.3f%n",
