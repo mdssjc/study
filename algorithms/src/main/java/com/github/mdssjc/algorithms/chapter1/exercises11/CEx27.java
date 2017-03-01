@@ -15,7 +15,7 @@ import java.util.Map;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive
+@TestDrive({"100", "50", "0.25"})
 public class CEx27 {
 
   private static final Map<String, Double> memoizer = new HashMap<>();
@@ -24,28 +24,32 @@ public class CEx27 {
   public static void main(final String[] args) {
     Executor.execute(CEx27.class, args);
 
-    final double binomial = binomial(100, 50, 0.25);
+    final int n1 = Integer.parseInt(args[0]);
+    final int n2 = Integer.parseInt(args[1]);
+    final double n3 = Double.parseDouble(args[2]);
+
+    final double binomial = binomial(n1, n2, n3);
     StdOut.println(binomial);
     StdOut.println("Calls: " + CEx27.counter);
   }
 
-  private static double binomial(final int N, final int k, final double p) {
-    final String key = String.format("%d|%d", N, k);
+  private static double binomial(final int n, final int k, final double p) {
+    final String key = String.format("%d|%d", n, k);
     if (CEx27.memoizer.containsKey(key)) {
       return CEx27.memoizer.get(key);
     }
 
     CEx27.counter++;
 
-    if ((N == 0) && (k == 0)) {
+    if ((n == 0) && (k == 0)) {
       return 1.0;
     }
-    if ((N < 0) || (k < 0)) {
+    if ((n < 0) || (k < 0)) {
       return 0.0;
     }
 
-    final double value = (1 - p) * binomial(N - 1, k, p)
-        + p * binomial(N - 1, k - 1, p);
+    final double value = (1 - p) * binomial(n - 1, k, p)
+                         + p * binomial(n - 1, k - 1, p);
 
     CEx27.memoizer.put(key, value);
     return value;
