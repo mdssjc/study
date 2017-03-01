@@ -20,10 +20,10 @@ public class Ex25 {
     final int p = 4;
     final int q = 2;
 
-    final boolean res1 = Euclid.gcd(p, 0) == p;
-    final boolean res2 = Euclid.gcd(p, q) == Euclid.gcd(q, p % q);
+    final boolean result1 = Euclid.gcd(p, 0) == p;
+    final boolean result2 = Euclid.gcd(p, q) == Euclid.gcd(q, p % q);
 
-    StdOut.println(res1); // true
-    StdOut.println(res2); // true
+    StdOut.println(result1);
+    StdOut.println(result2);
   }
 }
