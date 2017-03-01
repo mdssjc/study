@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( input = "29 30 31 59 60 61" )
+@TestDrive(input = "29 30 31 59 60 61")
 public class Ex23 {
 
   public static void main(final String[] args) {
