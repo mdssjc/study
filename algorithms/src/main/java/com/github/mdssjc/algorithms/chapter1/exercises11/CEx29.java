@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( input = "1 2 3" )
+@TestDrive(input = "1 2 3")
 public class CEx29 {
 
   public static void main(final String[] args) {
@@ -30,14 +30,20 @@ public class CEx29 {
                                      .toArray();
 
     StdOut.println(Arrays.toString(whitelist));
+
     while (!StdIn.isEmpty()) {
       final int key = StdIn.readInt();
       final int rank = BinarySearchCEx29.rank(key, whitelist);
       final int count = BinarySearchCEx29.count(key, whitelist);
 
-      StdOut.println("Smaller than the key: " + rank);
-      StdOut.println("Elements equal to the key: " + count);
+      StdOut.println();
+      StdOut.printf("Key is %d%n", key);
+      StdOut.printf("Smaller than the key: %d%n", rank);
+      StdOut.printf("Elements equal to the key: %d%n", count);
 
+      // i = rank(key, a)
+      // j = count(key, a)
+      // a[i..i+j-1
       for (int i = rank; i < rank + count; i++) {
         StdOut.print(whitelist[i] + " ");
       }
