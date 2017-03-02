@@ -3,7 +3,6 @@ package com.github.mdssjc.algorithms.chapter1.exercises11;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 import java.awt.*;
@@ -16,7 +15,7 @@ import java.awt.*;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( {"5", "0.2"} )
+@TestDrive({"5", "0.2"})
 public class CEx31 {
 
   private static final double CENTER = 0.5;
@@ -34,18 +33,18 @@ public class CEx31 {
     double xOld = -1;
     double yOld = -1;
 
-    for (int i = 0; i < n; ) {
-      final double x = StdRandom.random();
-      final double y = StdRandom.random();
+    int i = 0;
+    while (i < n) {
+      final double x = StdRandom.uniform();
+      final double y = StdRandom.uniform();
 
-      final double dx = (CENTER - x + (x > CENTER ? -DOT_RADIUS : DOT_RADIUS));
-      final double dy = (CENTER - y + (y > CENTER ? -DOT_RADIUS : DOT_RADIUS));
+      final double dx = doPoint(x);
+      final double dy = doPoint(y);
       final double distanceSquare = dx * dx + dy * dy;
       final double radiusSquare = RADIUS * RADIUS;
 
       if (distanceSquare <= radiusSquare) {
         StdDraw.filledCircle(x, y, DOT_RADIUS);
-        i++;
 
         if (xOld > 0 && yOld > 0 && StdRandom.bernoulli(p)) {
           StdDraw.setPenColor(Color.GRAY);
@@ -53,15 +52,17 @@ public class CEx31 {
           StdDraw.setPenColor(Color.BLACK);
         }
 
+        StdDraw.pause(500);
         xOld = x;
         yOld = y;
+        i++;
       }
     }
 
-    try {
-      Thread.sleep(5000);
-    } catch (final InterruptedException exception) {
-      StdOut.println(exception.getMessage());
-    }
+    StdDraw.show();
+  }
+
+  private static double doPoint(final double p) {
+    return CENTER - p + (p > CENTER ? -DOT_RADIUS : DOT_RADIUS);
   }
 }
