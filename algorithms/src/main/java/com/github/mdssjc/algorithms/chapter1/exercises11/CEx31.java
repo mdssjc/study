@@ -58,8 +58,6 @@ public class CEx31 {
         i++;
       }
     }
-
-    StdDraw.show();
   }
 
   private static double doPoint(final double p) {
