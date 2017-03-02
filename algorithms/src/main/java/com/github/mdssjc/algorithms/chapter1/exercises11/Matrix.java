@@ -22,10 +22,12 @@ public interface Matrix {
     if (x.length != y.length) {
       throw new RuntimeException("Illegal vector dimensions.");
     }
+
     double sum = 0.0;
     for (int i = 0; i < x.length; i++) {
       sum += x[i] * y[i];
     }
+
     return sum;
   }
 
@@ -44,9 +46,11 @@ public interface Matrix {
     final int n1 = a[0].length;
     final int m2 = b.length;
     final int n2 = b[0].length;
+
     if (n1 != m2) {
       throw new RuntimeException("Illegal matrix dimensions.");
     }
+
     final double[][] c = new double[m1][n2];
     for (int i = 0; i < m1; i++) {
       for (int j = 0; j < n2; j++) {
@@ -55,6 +59,7 @@ public interface Matrix {
         }
       }
     }
+
     return c;
   }
 
@@ -69,12 +74,14 @@ public interface Matrix {
   static double[][] transpose(final double[][] a) {
     final int m = a.length;
     final int n = a[0].length;
+
     final double[][] b = new double[n][m];
     for (int i = 0; i < m; i++) {
       for (int j = 0; j < n; j++) {
         b[j][i] = a[i][j];
       }
     }
+
     return b;
   }
 
@@ -91,15 +98,18 @@ public interface Matrix {
   static double[] mult(final double[][] a, final double[] x) {
     final int m = a.length;
     final int n = a[0].length;
+
     if (x.length != n) {
       throw new RuntimeException("Illegal matrix dimensions.");
     }
+
     final double[] y = new double[m];
     for (int i = 0; i < m; i++) {
       for (int j = 0; j < n; j++) {
         y[i] += a[i][j] * x[j];
       }
     }
+
     return y;
   }
 
@@ -116,15 +126,18 @@ public interface Matrix {
   static double[] mult(final double[] y, final double[][] a) {
     final int m = a.length;
     final int n = a[0].length;
+
     if (y.length != m) {
       throw new RuntimeException("Illegal matrix dimensions.");
     }
+
     final double[] x = new double[n];
     for (int j = 0; j < n; j++) {
       for (int i = 0; i < m; i++) {
         x[j] += a[i][j] * y[i];
       }
     }
+
     return x;
   }
 }
