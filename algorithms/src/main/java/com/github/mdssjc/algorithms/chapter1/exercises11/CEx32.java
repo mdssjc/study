@@ -4,7 +4,6 @@ import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
 
 /**
  * Creative Exercise 32.
@@ -14,7 +13,7 @@ import edu.princeton.cs.algs4.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( value = {"10", "0.2", "3.0"}, input = "0.2 0.2 0.2 0.7 1.2 1.3 1.4 2.5 3.0" )
+@TestDrive(value = {"10", "0.2", "3.0"}, input = "0.2 0.2 0.2 0.7 1.2 1.3 1.4 2.5 3.0")
 public class CEx32 {
 
   public static void main(final String[] args) {
@@ -40,12 +39,6 @@ public class CEx32 {
       final double rw = 0.5 / n;
       final double rh = count[i] / total;
       StdDraw.filledRectangle(x, y, rw, rh);
-    }
-
-    try {
-      Thread.sleep(5000);
-    } catch (final InterruptedException exception) {
-      StdOut.println(exception);
     }
   }
 }
