@@ -17,7 +17,7 @@ import java.util.Scanner;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( "http://introcs.cs.princeton.edu/data/codes.csv" )
+@TestDrive("http://introcs.cs.princeton.edu/data/codes.csv")
 public class WEx41 {
 
   public static void main(final String[] args) {
