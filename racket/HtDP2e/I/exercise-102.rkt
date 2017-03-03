@@ -55,8 +55,8 @@
                       #false))
 
 
-; SIGS.v2 -> SIGS.v2
-; starts the world with (main S1)
+; SIGS.v2 -> World
+; starts a world with (main S1)
 (define (main s)
   (big-bang s
             (on-tick   si-move)

@@ -16,7 +16,7 @@
 
 
 ; Posn -> Posn
-; Starts the world with (main (make-posn 0 0))
+; starts the world with (main (make-posn 0 0))
 (define (main p0)
   (big-bang p0
             [on-tick x+]
@@ -37,7 +37,7 @@
 (define (posn-up-x p n)
   (make-posn n (posn-y p)))
 
-; Posn Number Number MouseEvt -> Posn 
+; Posn Number Number MouseEvt -> Posn
 ; for mouse clicks, (make-posn x y); otherwise p
 (check-expect (reset-dot (make-posn 10 20) 29 31 "button-down")
               (make-posn 29 31))

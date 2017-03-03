@@ -43,14 +43,14 @@
 
 
 ; VCat -> World
-; Starts a world with (happy-cat (make-vcat 0 100))
+; starts a world with (happy-cat (make-vcat 0 100))
 (define (happy-cat vcat)
   (big-bang vcat
             [on-tick tock]
             [to-draw render]
             [on-key  increase]))
 
-; VCat -> VCat 
+; VCat -> VCat
 ; moves the virtual cat by SPEED pixels and
 ; decreases the happiness by DEC for every clock tick,
 ; reset when the virtual cat disappears on the right

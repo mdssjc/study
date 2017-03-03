@@ -56,8 +56,8 @@
             (make-tank 28 -3)))
 
 
-; SIGS -> SIGS
-; starts the world with (main S1)
+; SIGS -> World
+; starts a world with (main S1)
 (define (main s)
   (big-bang s
             (on-tick   si-move)

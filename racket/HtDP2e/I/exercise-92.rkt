@@ -46,7 +46,7 @@
 
 
 ; VCham -> World
-; Starts a world with (cham (make-vcham 0 100 "red"))
+; starts a world with (cham (make-vcham 0 100 "red"))
 (define (cham vcham)
   (big-bang vcham
             [on-tick   tock]
@@ -54,7 +54,7 @@
             [on-key    interact]
             [stop-when sad?]))
 
-; VCham -> VCham 
+; VCham -> VCham
 ; moves the virtual cham by SPEED pixels and
 ; decreases the happiness by DEC for every clock tick,
 ; reset when the virtual cham disappears on the right

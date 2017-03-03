@@ -13,7 +13,6 @@
 
 ; TrafficLight -> TrafficLight
 ; start the world with (main "red")
-;
 (define (main tl)
   (big-bang tl
             (on-tick traffic-light-next 3)

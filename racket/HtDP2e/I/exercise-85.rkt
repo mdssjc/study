@@ -7,7 +7,7 @@
 (require 2htdp/universe)
 
 ; String -> World
-; Starts with (main "abc")
+; starts a world with (main "abc")
 (define (main pre)
   (big-bang pre
             (to-draw render)
