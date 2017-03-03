@@ -17,14 +17,14 @@ import java.util.Arrays;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( value = {"largeW.txt", "largeT.txt"}, valueFile = true )
+@TestDrive(value = {"largeW.txt", "largeT.txt"}, valueFile = true)
 public class CEx38 {
 
   public static void main(final String[] args) {
     Executor.execute(CEx38.class, args);
 
-    final int[] whitelist = In.readInts(args[0]);
-    final int[] inputs = In.readInts(args[1]);
+    final int[] whitelist = new In(args[0]).readAllInts();
+    final int[] inputs = new In(args[1]).readAllInts();
 
     Arrays.sort(whitelist);
 
@@ -46,6 +46,6 @@ public class CEx38 {
     }
     final double elapsedTimeB = stopwatchB.elapsedTime();
 
-    StdOut.printf("A: %.2f | B: %.2f%n", elapsedTimeA, elapsedTimeB);
+    StdOut.printf("Results:%nA: %.2f | B: %.2f%n", elapsedTimeA, elapsedTimeB);
   }
 }
