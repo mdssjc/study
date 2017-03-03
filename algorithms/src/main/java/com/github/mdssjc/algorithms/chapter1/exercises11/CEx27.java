@@ -24,11 +24,11 @@ public class CEx27 {
   public static void main(final String[] args) {
     Executor.execute(CEx27.class, args);
 
-    final int n1 = Integer.parseInt(args[0]);
-    final int n2 = Integer.parseInt(args[1]);
-    final double n3 = Double.parseDouble(args[2]);
+    final int n = Integer.parseInt(args[0]);
+    final int k = Integer.parseInt(args[1]);
+    final double p = Double.parseDouble(args[2]);
 
-    final double binomial = binomial(n1, n2, n3);
+    final double binomial = binomial(n, k, p);
     StdOut.println(binomial);
     StdOut.println("Calls: " + CEx27.counter);
   }
