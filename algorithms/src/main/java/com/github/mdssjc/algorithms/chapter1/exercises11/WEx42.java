@@ -3,7 +3,6 @@ package com.github.mdssjc.algorithms.chapter1.exercises11;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
 
 /**
  * Web Exercise 42.
@@ -25,11 +24,5 @@ public class WEx42 {
     StdDraw.line(.9, .5, .5, .8);
     StdDraw.line(.5, .8, .5, .5);
     StdDraw.circle(.7, .65, .25);
-
-    try {
-      Thread.sleep(5000);
-    } catch (final InterruptedException e) {
-      StdOut.println(e.getMessage());
-    }
   }
 }
