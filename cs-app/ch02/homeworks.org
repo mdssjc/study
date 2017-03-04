@@ -779,3 +779,30 @@
 | 0 |
 | 0 |
 | 0 |
+* Homework Problem 2.77
+#+NAME ex77
+#+BEGIN_SRC C
+  #include <stdio.h>
+
+  int main() {
+    int x = 32;
+
+    int ka = 17;
+    int kb = -7;
+    int kc = 60;
+    int kd = -112;
+
+    printf("%d = %d\n", x * ka, (x << 4) + x);
+    printf("%d = %d\n", x * kb, -(x << 3) + x);
+    printf("%d = %d\n", x * kc, (x << 5) + (kc << 4) - x - x);
+    printf("%d = %d\n", x * kd, -(x << 7) - (kd << 2) + x + x);
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+|   544 | = |   544 |
+|  -224 | = |  -224 |
+|  1920 | = |  1920 |
+| -3584 | = | -3584 |
