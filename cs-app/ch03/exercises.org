@@ -131,3 +131,12 @@ shift_left4_rightn:
     return t4;
   }
 #+END_SRC
+* Practice Problem 3.11
+~xorq %rdx, %rdx~
+** A
+  It's a optimization of compiler, in which it always results in zero.
+  & e ~.
+** B
+  movq $0, %rdx
+** C
+  Both use the same amount.
