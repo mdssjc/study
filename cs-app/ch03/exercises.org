@@ -120,3 +120,14 @@ shift_left4_rightn:
   salq $4, %rax     x <<= 4
   movl %esi, %ecx   Get n (4 bytes)
   sarq %ecx, %rax   x >>= n
+* Practice Problem 3.10
+#+NAME ex10
+#+BEGIN_SRC C
+  long arith2(long x, long y, long z) {
+    long t1 = x | y;
+    long t2 = 3 >> t1;
+    long t3 = ~t2;
+    long t4 = z - t3;
+    return t4;
+  }
+#+END_SRC
