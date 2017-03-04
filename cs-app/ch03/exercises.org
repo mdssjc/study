@@ -31,7 +31,7 @@
   ~*dp = (dest_t) *sp;~
   Registers: %rax, %eax, %ax, or %al
 
-  | src_t         | dest_t        | Instruction         |
+  | src_t          | dest_t         | Instruction         |
   |---------------+---------------+---------------------|
   | long          | long          | movq (%rdi), %rax   |
   |               |               | movq %rax, (%rsi)   |
@@ -79,3 +79,15 @@
 #+RESULTS:
 | 1 | 2 | 3 |
 | 3 | 1 | 2 |
+* Practice Problem 3.6
+  rax = x
+  rcx = y
+
+  | Instruction                 | Result |
+  |-----------------------------+--------|
+  | leaq 6(%rax), %rdx          | 6+x    |
+  | leaq (%rax, %rcx), %rdx     | x+y    |
+  | leaq (%rax, %rcx, 4), %rdx  | x+4y   |
+  | leaq 7(%rax, %rax, 8), %rdx | 7+9x   |
+  | leaq 0xA(, %rcx, 4), %rdx   | 10+4y  |
+  | leaq 9(%rax, %rcx, 2), %rdx | 9+x+2y |
