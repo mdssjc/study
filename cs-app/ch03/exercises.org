@@ -112,3 +112,11 @@
   | incq 16(%rax)              |       0x110 |  0x14 |
   | decq %rcx                  |        %rcx |   0x0 |
   | subq %rdx, %rax            |        %rax |  0xFD |
+* Practice Problem 3.9
+  long shift_left4_rightn(long x, long n)
+  x in %rdi, n in %rsi
+shift_left4_rightn:
+  movq %rdi, %rax   Get x
+  salq $4, %rax     x <<= 4
+  movl %rsi, %ecx   Get n (4 bytes)
+  sarq %ecx, %rax   x >>= n
