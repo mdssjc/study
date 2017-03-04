@@ -91,3 +91,15 @@
   | leaq 7(%rax, %rax, 8), %rdx | 7+9x   |
   | leaq 0xA(, %rcx, 4), %rdx   | 10+4y  |
   | leaq 9(%rax, %rcx, 2), %rdx | 9+x+2y |
+* Practice Problem 3.7
+  x+4x -> 5x
+  5x+2y
+  5x+2y+8z
+
+#+NAME ex7
+#+BEGIN_SRC C
+  long scale2(long x, long y, long z) {
+    long t = (5 * x) + (2 * y) + (8 * z);
+    return t;
+  }
+#+END_SRC
