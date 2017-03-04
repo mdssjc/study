@@ -814,7 +814,11 @@
 
   /* Divide by power of 2. Assume 0 <= k < w-1 */
   int divide_power2(int x, int k) {
-    return (x < 0 ? x + (1 << k) - 1 : x) >> k;
+    int w = 8 * sizeof(int) - 1;
+    int sign = (x & (1 << w)) >> w == 0;
+    int mask = (1 << k) - 1;
+    int bias = (mask + sign) & mask;
+    return (x + bias) >> k;
   }
 
   void tests() {
