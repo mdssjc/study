@@ -855,15 +855,18 @@
 
   /* Multiply by 3 and divide by 4 */
   int mult3div4(int x) {
+    int w = 8 * sizeof(int) - 1;
     int64_t p = 3 * (int64_t)(x);
-    int of = (p == (int)(3 * x));
-    int mask = (1 << 31) - of;
-    return (((x << 1) + x) >> 2) & mask;
+    int sign = (x & (1 << w)) >> w != 0;
+    int of = (1 << w) - (p == (int)(3 * x)) | (1 << w);
+
+    return (((x << 1) + x) >> 2) + sign & of;
   }
 
   void tests() {
-    assert(mult3div4(10) == (3 * 10 / 4));
-    assert(mult3div4(30) == (3 * 30 / 4));
+    assert(mult3div4(10) == 3 * 10 / 4);
+    assert(mult3div4(-10) == 3 * -10 / 4);
+    assert(mult3div4(30) == 3 * 30 / 4);
     assert(mult3div4(INT_MAX) == 0);
   }
 
@@ -871,6 +874,7 @@
     tests();
 
     printf("%d = %d\n", 3 * 10 / 4, mult3div4(10));
+    printf("%d = %d\n", 3 * -10 / 4, mult3div4(-10));
     printf("%d = %d\n", 3 * 30 / 4, mult3div4(30));
     printf("%d = %d\n", (long)(3) * INT_MAX / 4 , mult3div4(INT_MAX));
 
@@ -880,5 +884,48 @@
 
 #+RESULTS:
 |          7 | = |  7 |
+|         -7 | = | -7 |
+|         22 | = | 22 |
+| 1610612735 | = |  0 |
+* Homework Problem 2.80
+#+NAME ex80
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <limits.h>
+  #include <assert.h>
+
+  /* Computes the 3/4 of x */
+  int threefourths(int x) {
+    int w = 8 * sizeof(int) - 1;
+    int64_t p = 3 * (int64_t)(x);
+    int sign = (x & (1 << w)) >> w != 0;
+    int of = (1 << w) - (p == (int)(3 * x)) | (1 << w);
+
+    return (((x << 1) + x) >> 2) + sign & of;
+  }
+
+  void tests() {
+    assert(threefourths(10) == (int)(3.0 / 4 * 10));
+    assert(threefourths(-10) == (int)(3.0 / 4 * -10));
+    assert(threefourths(30) == (int)(3.0 / 4 * 30));
+    assert(threefourths(INT_MAX) == 0);
+  }
+
+  int main() {
+    tests();
+
+    printf("%d = %d\n", (int)(3.0 / 4 * 10), threefourths(10));
+    printf("%d = %d\n", (int)(3.0 / 4 * -10), threefourths(-10));
+    printf("%d = %d\n", (int)(3.0 / 4 * 30), threefourths(30));
+    printf("%d = %d\n", (long)(3.0 / 4 * INT_MAX), threefourths(INT_MAX));
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+|          7 | = |  7 |
+|         -7 | = | -7 |
 |         22 | = | 22 |
 | 1610612735 | = |  0 |
