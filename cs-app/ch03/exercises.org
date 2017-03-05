@@ -150,3 +150,10 @@ uremdiv:
   movq  %rax, (%r8)
   movq  %rdx, (%rcx)
   ret
+* Practice Problem 3.13
+  A -> setl  (SF ^ OF)
+  B -> setge ~(SF ^ OF)
+  C -> setbe (CF | ZF)
+  D -> setne ~ZF
+
+  C and D.
