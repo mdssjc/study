@@ -157,3 +157,10 @@ uremdiv:
   D -> setne ~ZF
 
   C and D.
+* Practice Problem 3.14
+  A -> setge ~(SF ^ OF)
+  B -> sete  ZF
+  C -> seta  (~CF ^ ~ZF)
+  D -> setle (SF ^ OF) | ZF
+
+  B, C and D.
