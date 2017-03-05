@@ -10,7 +10,7 @@ package com.github.mdssjc.algorithms.datastructure.symbol_table;
  * @param <Value>
  *     O tipo de dado do valor
  */
-public interface OrderedST<Key extends Comparable<Key>, Value> extends ST {
+public interface OrderedST<Key extends Comparable<Key>, Value> extends ST<Key, Value> {
 
   /**
    * A menor chave.
