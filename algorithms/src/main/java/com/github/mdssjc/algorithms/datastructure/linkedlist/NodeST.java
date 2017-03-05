@@ -1,5 +1,6 @@
 package com.github.mdssjc.algorithms.datastructure.linkedlist;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -13,6 +14,7 @@ import lombok.Data;
  *     O tipo de dado do valor
  */
 @Data
+@AllArgsConstructor
 public class NodeST<Key, Value> {
 
   public Key key;
