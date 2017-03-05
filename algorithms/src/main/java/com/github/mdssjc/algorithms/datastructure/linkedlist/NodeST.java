@@ -17,5 +17,5 @@ public class NodeST<Key, Value> {
 
   public Key key;
   public Value value;
-  public Node next;
+  public NodeST<Key, Value> next;
 }
