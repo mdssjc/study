@@ -163,4 +163,4 @@ uremdiv:
   C -> seta  (~CF ^ ~ZF)
   D -> setle (SF ^ OF) | ZF
 
-  B, C and D.
+  A and C.
