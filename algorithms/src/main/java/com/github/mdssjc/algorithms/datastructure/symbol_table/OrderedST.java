@@ -3,12 +3,12 @@ package com.github.mdssjc.algorithms.datastructure.symbol_table;
 /**
  * Ordered Symbol Table.
  *
+ * @author Marcelo dos Santos
+ *
  * @param <Key>
  *     O tipo de dado da chave
  * @param <Value>
  *     O tipo de dado do valor
- *
- * @author Marcelo dos Santos
  */
 public interface OrderedST<Key extends Comparable<Key>, Value> extends ST {
 

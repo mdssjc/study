@@ -5,12 +5,12 @@ import java.util.Iterator;
 /**
  * Symbol Table.
  *
+ * @author Marcelo dos Santos
+ *
  * @param <Key>
  *     O tipo de dado da chave
  * @param <Value>
  *     O tipo de dado do valor
- *
- * @author Marcelo dos Santos
  */
 public interface ST<Key, Value> extends Iterable<Key> {
 
