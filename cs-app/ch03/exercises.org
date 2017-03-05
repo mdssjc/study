@@ -164,3 +164,9 @@ uremdiv:
   D -> setle (SF ^ OF) | ZF
 
   A and C.
+* Practice Problem 3.15
+  A. je 4003fc
+  B. je 400431
+  C. 400540
+     400547
+  D. jmpq 4005ed
