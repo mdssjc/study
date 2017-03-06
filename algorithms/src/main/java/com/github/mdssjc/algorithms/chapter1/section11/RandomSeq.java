@@ -23,7 +23,7 @@ public class RandomSeq {
 
     for (int i = 0; i < n; i++) {
       final double x = StdRandom.uniform(lo, hi);
-      StdOut.printf("%.2f\n", x);
+      StdOut.printf("%.2f%n", x);
     }
   }
 }
