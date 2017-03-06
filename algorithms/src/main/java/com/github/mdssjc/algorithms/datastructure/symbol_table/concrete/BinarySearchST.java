@@ -63,12 +63,12 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
 
   @Override
   public Key min() {
-    return null;
+    return this.keys[0];
   }
 
   @Override
   public Key max() {
-    return null;
+    return this.keys[this.n - 1];
   }
 
   @Override
