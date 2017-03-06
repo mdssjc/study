@@ -9,12 +9,12 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.Arrays;
 
 /**
- * BinarySearchRecursive Class.
+ * Binary Search Recursive algorithm.
  *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( value = "largeW.txt", valueFile = true, input = "largeT.txt", inputFile = true )
+@TestDrive(value = "largeW.txt", valueFile = true, input = "largeT.txt", inputFile = true)
 public class BinarySearchRecursive {
 
   public static int rank(final int key, final int[] a) {
@@ -22,25 +22,24 @@ public class BinarySearchRecursive {
   }
 
   private static int rank(final int key, final int[] a, final int lo, final int hi) {
-    // Index of key in a[], if present, is not smaller than lo and not larger
-    // than hi.
     if (lo > hi) {
       return -1;
     }
+
     final int mid = lo + (hi - lo) / 2;
     if (key < a[mid]) {
       return rank(key, a, lo, mid - 1);
-    } else if (key > a[mid]) {
-      return rank(key, a, mid + 1, hi);
-    } else {
-      return mid;
     }
+    if (key > a[mid]) {
+      return rank(key, a, mid + 1, hi);
+    }
+    return mid;
   }
 
   public static void main(final String[] args) {
     Executor.execute(BinarySearchRecursive.class, args);
 
-    final int[] whitelist = In.readInts(args[0]);
+    final int[] whitelist = new In(args[0]).readAllInts();
 
     Arrays.sort(whitelist);
 
