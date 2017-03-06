@@ -83,7 +83,21 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
 
   @Override
   public int rank(final Key key) {
-    return 0;
+    int lo = 0;
+    int hi = this.n - 1;
+
+    while (lo <= hi) {
+      final int mid = lo + (hi - lo) / 2;
+      final int cmp = key.compareTo(this.keys[mid]);
+      if (cmp < 0) {
+        hi = mid - 1;
+      } else if (cmp > 0) {
+        lo = mid + 1;
+      } else {
+        return mid;
+      }
+    }
+    return lo;
   }
 
   @Override
