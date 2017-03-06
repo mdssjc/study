@@ -1,7 +1,5 @@
 package com.github.mdssjc.algorithms.datastructure.symbol_table;
 
-import java.util.Iterator;
-
 /**
  * Symbol Table.
  *
@@ -12,7 +10,7 @@ import java.util.Iterator;
  * @param <Value>
  *     O tipo de dado do valor
  */
-public interface ST<Key, Value> extends Iterable<Key> {
+public interface ST<Key, Value> {
 
   /**
    * Coloca o par chave-valor na tabela.
@@ -79,6 +77,5 @@ public interface ST<Key, Value> extends Iterable<Key> {
    *
    * @return O iterator com as chaves
    */
-  @Override
-  Iterator<Key> iterator();
+  Iterable<Key> keys();
 }
