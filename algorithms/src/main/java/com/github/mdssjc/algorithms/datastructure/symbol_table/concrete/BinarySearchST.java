@@ -1,8 +1,8 @@
 package com.github.mdssjc.algorithms.datastructure.symbol_table.concrete;
 
+import com.github.mdssjc.algorithms.datastructure.queue.Queue;
+import com.github.mdssjc.algorithms.datastructure.queue.concrete.ResizingArrayQueue;
 import com.github.mdssjc.algorithms.datastructure.symbol_table.OrderedST;
-
-import java.util.Iterator;
 
 /**
  * Implementação de Symbol Table com Busca Binária.
@@ -78,7 +78,8 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
 
   @Override
   public Key ceiling(final Key key) {
-    return null;
+    final int i = rank(key);
+    return this.keys[i];
   }
 
   @Override
@@ -102,16 +103,21 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> implements Order
 
   @Override
   public Key select(final int k) {
-    return null;
+    return this.keys[k];
   }
 
   @Override
   public Iterable<Key> keys(final Key lo, final Key hi) {
-    return null;
-  }
+    final Queue<Key> queue = new ResizingArrayQueue<>();
 
-  @Override
-  public Iterator<Key> iterator() {
-    return null;
+    for (int i = rank(lo); i < rank(hi); i++) {
+      queue.enqueue(this.keys[i]);
+    }
+
+    if (contains(hi)) {
+      queue.enqueue(this.keys[rank(hi)]);
+    }
+
+    return queue;
   }
 }
