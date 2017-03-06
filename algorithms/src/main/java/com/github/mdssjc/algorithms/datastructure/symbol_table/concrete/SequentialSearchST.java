@@ -3,8 +3,6 @@ package com.github.mdssjc.algorithms.datastructure.symbol_table.concrete;
 import com.github.mdssjc.algorithms.datastructure.linkedlist.NodeST;
 import com.github.mdssjc.algorithms.datastructure.symbol_table.ST;
 
-import java.util.Iterator;
-
 /**
  * Implementação de Symbol Table com Busca Sequencial.
  *
@@ -48,7 +46,7 @@ public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
   }
 
   @Override
-  public Iterator<Key> iterator() {
+  public Iterable<Key> keys() {
     return null;
   }
 }
