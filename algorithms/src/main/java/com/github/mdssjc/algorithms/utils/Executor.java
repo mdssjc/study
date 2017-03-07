@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
  * Executor Class.
  *
  * @author Marcelo dos Santos
+ *
  */
 public class Executor {
 
@@ -51,7 +52,16 @@ public class Executor {
           resync.invoke(null);
         }
 
+        int threads = Thread.activeCount();
         method.invoke(null, (Object) value);
+        try {
+          while (Thread.activeCount() != threads) {
+            Thread.sleep(50);
+          }
+        } catch (InterruptedException exception) {
+          StdOut.println(exception.getMessage());
+          StdOut.println(exception);
+        }
       }
     } catch (IllegalArgumentException | NoSuchMethodException
         | SecurityException | IllegalAccessException exception) {
