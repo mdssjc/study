@@ -2,10 +2,9 @@ package com.github.mdssjc.algorithms.chapter1.exercises11;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdRandom;
-
-import java.awt.*;
 
 /**
  * Creative Exercise 31.
@@ -15,7 +14,7 @@ import java.awt.*;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive({"5", "0.2"})
+@TestDrive({"12", "0.25"})
 public class CEx31 {
 
   private static final double CENTER = 0.5;
@@ -27,40 +26,34 @@ public class CEx31 {
 
     final int n = Integer.parseInt(args[0]);
     final double p = Double.parseDouble(args[1]);
+    final Point2D[] points = new Point2D[n];
+    final double distance = 360.0 / n * Math.PI / 180;
+
+    for (int i = 0; i < n; i++) {
+      final double arc = i * distance;
+      final double dx = RADIUS * Math.cos(arc);
+      final double dy = RADIUS * Math.sin(arc);
+
+      points[i] = new Point2D(CENTER + dx, CENTER + dy);
+    }
 
     StdDraw.circle(CENTER, CENTER, RADIUS);
 
-    double xOld = -1;
-    double yOld = -1;
+    for (int i = 0; i < points.length; i++) {
+      StdDraw.setPenRadius(DOT_RADIUS);
+      points[i].draw();
+      StdDraw.setPenRadius();
 
-    int i = 0;
-    while (i < n) {
-      final double x = StdRandom.uniform();
-      final double y = StdRandom.uniform();
-
-      final double dx = doPoint(x);
-      final double dy = doPoint(y);
-      final double distanceSquare = dx * dx + dy * dy;
-      final double radiusSquare = RADIUS * RADIUS;
-
-      if (distanceSquare <= radiusSquare) {
-        StdDraw.filledCircle(x, y, DOT_RADIUS);
-
-        if (xOld > 0 && yOld > 0 && StdRandom.bernoulli(p)) {
-          StdDraw.setPenColor(Color.GRAY);
-          StdDraw.line(xOld, yOld, x, y);
-          StdDraw.setPenColor(Color.BLACK);
+      int k = i + 1;
+      while (true) {
+        if (k > points.length - 1) {
+          break;
         }
-
-        StdDraw.pause(500);
-        xOld = x;
-        yOld = y;
-        i++;
+        if (StdRandom.bernoulli(p)) {
+          StdDraw.line(points[i].x(), points[i].y(), points[k].x(), points[k].y());
+        }
+        k++;
       }
     }
-  }
-
-  private static double doPoint(final double p) {
-    return CENTER - p + (p > CENTER ? -DOT_RADIUS : DOT_RADIUS);
   }
 }
