@@ -2,16 +2,15 @@ package com.github.mdssjc.algorithms.chapter1.section12;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Basic Date Class.
- * 
+ * Basic Date: implementation.
+ *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive({ "12", "31", "1999" })
+@TestDrive({"12", "31", "1999"})
 public class BasicDate implements Datable {
 
   private final int month;
@@ -22,6 +21,16 @@ public class BasicDate implements Datable {
     this.month = m;
     this.day = d;
     this.year = y;
+  }
+
+  public static void main(final String[] args) {
+    Executor.execute(BasicDate.class, args);
+
+    final int m = Integer.parseInt(args[0]);
+    final int d = Integer.parseInt(args[1]);
+    final int y = Integer.parseInt(args[2]);
+    final Datable date = new BasicDate(m, d, y);
+    StdOut.println(date);
   }
 
   @Override
@@ -66,15 +75,5 @@ public class BasicDate implements Datable {
       return false;
     }
     return true;
-  }
-
-  public static void main(final String[] args) {
-    Executor.execute(BasicDate.class, args);
-
-    final int m = Integer.parseInt(args[0]);
-    final int d = Integer.parseInt(args[1]);
-    final int y = Integer.parseInt(args[2]);
-    final Datable date = new BasicDate(m, d, y);
-    StdOut.println(date);
   }
 }
