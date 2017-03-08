@@ -18,6 +18,21 @@ import java.util.Arrays;
 @TestDrive(value = "tinyW.txt", valueFile = true, input = "tinyT.txt", inputFile = true)
 public class BinarySearch {
 
+  public static void main(final String[] args) {
+    Executor.execute(BinarySearch.class, args);
+
+    final int[] whitelist = new In(args[0]).readAllInts();
+
+    Arrays.sort(whitelist);
+
+    while (!StdIn.isEmpty()) {
+      final int key = StdIn.readInt();
+      if (rank(key, whitelist) == -1) {
+        StdOut.println(key);
+      }
+    }
+  }
+
   public static int rank(final int key, final int[] a) {
     int lo = 0;
     int hi = a.length - 1;
@@ -33,20 +48,5 @@ public class BinarySearch {
       }
     }
     return -1;
-  }
-
-  public static void main(final String[] args) {
-    Executor.execute(BinarySearch.class, args);
-
-    final int[] whitelist = new In(args[0]).readAllInts();
-
-    Arrays.sort(whitelist);
-
-    while (!StdIn.isEmpty()) {
-      final int key = StdIn.readInt();
-      if (rank(key, whitelist) == -1) {
-        StdOut.println(key);
-      }
-    }
   }
 }
