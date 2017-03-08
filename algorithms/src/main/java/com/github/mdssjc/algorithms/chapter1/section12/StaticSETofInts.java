@@ -3,8 +3,8 @@ package com.github.mdssjc.algorithms.chapter1.section12;
 import java.util.Arrays;
 
 /**
- * Static SET of Ints Class.
- * 
+ * ADt for search in a set of integers.
+ *
  * @author Marcelo dos Santos
  *
  */
@@ -15,7 +15,7 @@ public class StaticSETofInts {
   public StaticSETofInts(final int[] keys) {
     this.a = new int[keys.length];
     for (int i = 0; i < keys.length; i++) {
-      this.a[i] = keys[i]; // defensive copy
+      this.a[i] = keys[i];
       Arrays.sort(this.a);
     }
   }
@@ -25,11 +25,10 @@ public class StaticSETofInts {
   }
 
   private int rank(final int key) {
-    // Binary search.
     int lo = 0;
     int hi = this.a.length - 1;
+
     while (lo <= hi) {
-      // Key is in a[lo..hi] or not present.
       final int mid = lo + (hi - lo) / 2;
       if (key < this.a[mid]) {
         hi = mid - 1;
