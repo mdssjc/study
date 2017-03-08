@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * Visual Accumulator Class.
+ * Visual Accumulator data type.
  * 
  * @author Marcelo dos Santos
  *
@@ -45,10 +45,10 @@ public class VisualAccumulator {
   public static void main(final String[] args) {
     Executor.execute(VisualAccumulator.class, args);
 
-    final int T = Integer.parseInt(args[0]);
-    final VisualAccumulator a = new VisualAccumulator(T, 1.0);
-    for (int i = 0; i < T; i++) {
-      a.addDataValue(StdRandom.random());
+    final int trails = Integer.parseInt(args[0]);
+    final VisualAccumulator a = new VisualAccumulator(trails, 1.0);
+    for (int i = 0; i < trails; i++) {
+      a.addDataValue(StdRandom.uniform());
     }
     StdOut.println(a);
   }
