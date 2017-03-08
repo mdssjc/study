@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * RandomSeq - Sample StdOut client.
+ * Random numbers in a given range.
  *
  * @author Marcelo dos Santos
  *
