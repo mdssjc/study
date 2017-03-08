@@ -26,6 +26,7 @@ public class CEx31 {
 
     final int n = Integer.parseInt(args[0]);
     final double p = Double.parseDouble(args[1]);
+
     final Point2D[] points = new Point2D[n];
     final double distance = 360.0 / n * Math.PI / 180;
 
