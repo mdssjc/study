@@ -6,18 +6,18 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * Rolls Class.
+ * Counter client that simulates T rolls of a die.
  *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( "1000000" )
+@TestDrive("1000000")
 public class Rolls {
 
   public static void main(final String[] args) {
     Executor.execute(Rolls.class, args);
 
-    final int T = Integer.parseInt(args[0]);
+    final int trails = Integer.parseInt(args[0]);
     final int SIDES = 6;
     final Counter[] rolls = new Counter[SIDES + 1];
 
@@ -25,7 +25,7 @@ public class Rolls {
       rolls[i] = new Counter(i + "'s");
     }
 
-    for (int t = 0; t < T; t++) {
+    for (int t = 0; t < trails; t++) {
       final int result = StdRandom.uniform(1, SIDES + 1);
       rolls[result].increment();
     }
