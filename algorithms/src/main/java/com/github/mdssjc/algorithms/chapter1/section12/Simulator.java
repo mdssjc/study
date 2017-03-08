@@ -11,6 +11,7 @@ import com.github.mdssjc.algorithms.utils.Executor;
 public class Simulator {
 
   public static void main(final String[] args) {
+    Executor.execute(Cat.class, "Concatenate files");
     Executor.execute(Flips.class, "Counter client that simulates t coin flips");
     Executor.execute(FlipsMax.class, "Example of a static method with object arguments and return values");
     Executor.execute(Rolls.class, "Counter client that simulates T rolls of a die");
