@@ -11,7 +11,9 @@ import com.github.mdssjc.algorithms.utils.Executor;
 public class Simulator {
 
   public static void main(final String[] args) {
-    Executor.execute(Stats.class);
-    Executor.execute(Evaluate.class);
+    Executor.execute(Stats.class, "Stats Class");
+    Executor.execute(QueueClient.class, "Sample Queue client");
+    Executor.execute(Reverse.class, "Sample Stack client");
+    Executor.execute(Evaluate.class, "Dijkstra’s two-Stack Algorithm for expression evaluation");
   }
 }
