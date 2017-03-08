@@ -5,7 +5,7 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Counter Class.
+ * Counter data type.
  *
  * @author Marcelo dos Santos
  *
@@ -20,19 +20,6 @@ public class Counter {
     this.name = id;
   }
 
-  public void increment() {
-    this.counter++;
-  }
-
-  public int tally() {
-    return this.counter;
-  }
-
-  @Override
-  public String toString() {
-    return this.counter + " " + this.name;
-  }
-
   public static void main(final String[] args) {
     Executor.execute(Counter.class, args);
 
@@ -45,5 +32,18 @@ public class Counter {
 
     StdOut.println(heads + " " + tails);
     StdOut.println(heads.tally() + tails.tally());
+  }
+
+  public void increment() {
+    this.counter++;
+  }
+
+  public int tally() {
+    return this.counter;
+  }
+
+  @Override
+  public String toString() {
+    return this.counter + " " + this.name;
   }
 }
