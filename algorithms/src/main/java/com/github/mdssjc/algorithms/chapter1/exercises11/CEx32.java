@@ -25,19 +25,20 @@ public class CEx32 {
 
     final int[] count = new int[n];
     final double k = (right - left) / (n - 1);
+
     double total = 0;
     while (!StdIn.isEmpty()) {
-      final double current = StdIn.readDouble();
-      final int v = (int) (current / k);
+      final int v = (int) (StdIn.readDouble() / k);
       count[v]++;
       total++;
     }
 
     for (int i = 0; i < n; i++) {
-      final double x = (1.0 * i / n) + (1.0 / n / 2);
-      final double y = count[i] / total;
+      final double x = 1.0 * i / n;
+      final double y = count[i] / total / 2.0;
       final double rw = 0.5 / n;
-      final double rh = count[i] / total;
+      final double rh = count[i] / total / 2.0;
+
       StdDraw.filledRectangle(x, y, rw, rh);
     }
   }
