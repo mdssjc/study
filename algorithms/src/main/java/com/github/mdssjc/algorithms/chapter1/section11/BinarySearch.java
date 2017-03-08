@@ -14,8 +14,8 @@ import java.util.Arrays;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive(value = "largeW.txt", valueFile = true, input = "largeT.txt", inputFile = true)
 @TestDrive(value = "tinyW.txt", valueFile = true, input = "tinyT.txt", inputFile = true)
+@TestDrive(value = "largeW.txt", valueFile = true, input = "largeT.txt", inputFile = true)
 public class BinarySearch {
 
   public static void main(final String[] args) {
