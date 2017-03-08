@@ -6,29 +6,22 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * FlipsMax Class.
+ * Example of a static method with object arguments and return values.
  *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( "1000000" )
+@TestDrive("1000000")
 public class FlipsMax {
-
-  public static Counter max(final Counter x, final Counter y) {
-    if (x.tally() > y.tally()) {
-      return x;
-    }
-    return y;
-  }
 
   public static void main(final String[] args) {
     Executor.execute(FlipsMax.class, args);
 
-    final int T = Integer.parseInt(args[0]);
+    final int trails = Integer.parseInt(args[0]);
     final Counter heads = new Counter("heads");
     final Counter tails = new Counter("tails");
 
-    for (int t = 0; t < T; t++) {
+    for (int t = 0; t < trails; t++) {
       if (StdRandom.bernoulli(0.5)) {
         heads.increment();
       } else {
@@ -39,7 +32,14 @@ public class FlipsMax {
     if (heads.tally() == tails.tally()) {
       StdOut.println("Tie");
     } else {
-      StdOut.println(max(heads, tails) + " wins");
+      StdOut.printf("%s wins%n", max(heads, tails));
     }
+  }
+
+  private static Counter max(final Counter x, final Counter y) {
+    if (x.tally() > y.tally()) {
+      return x;
+    }
+    return y;
   }
 }
