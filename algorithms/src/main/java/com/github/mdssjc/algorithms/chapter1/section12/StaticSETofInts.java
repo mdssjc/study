@@ -3,7 +3,7 @@ package com.github.mdssjc.algorithms.chapter1.section12;
 import java.util.Arrays;
 
 /**
- * ADt for search in a set of integers.
+ * Set of integers.
  *
  * @author Marcelo dos Santos
  *
@@ -16,8 +16,8 @@ public class StaticSETofInts {
     this.a = new int[keys.length];
     for (int i = 0; i < keys.length; i++) {
       this.a[i] = keys[i];
-      Arrays.sort(this.a);
     }
+    Arrays.sort(this.a);
   }
 
   public boolean contains(final int key) {
