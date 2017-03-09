@@ -13,17 +13,18 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive
 public class Euclid {
 
+
+  public static void main(final String[] args) {
+    Executor.execute(Euclid.class, args);
+
+    StdOut.println(gcd(10, 12));
+  }
+
   public static int gcd(final int p, final int q) {
     if (q == 0) {
       return p;
     }
     final int r = p % q;
     return gcd(q, r);
-  }
-
-  public static void main(final String[] args) {
-    Executor.execute(Euclid.class, args);
-
-    StdOut.println(gcd(10, 12));
   }
 }
