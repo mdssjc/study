@@ -2,14 +2,13 @@ package com.github.mdssjc.algorithms.chapter1.section12;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
  * Visual Accumulator data type.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
@@ -23,6 +22,17 @@ public class VisualAccumulator {
     StdDraw.setYscale(0, max);
     StdDraw.setPenRadius(0.005);
     this.acc = new Accumulator();
+  }
+
+  public static void main(final String[] args) {
+    Executor.execute(VisualAccumulator.class, args);
+
+    final int trails = Integer.parseInt(args[0]);
+    final VisualAccumulator a = new VisualAccumulator(trails, 1.0);
+    for (int i = 0; i < trails; i++) {
+      a.addDataValue(StdRandom.uniform());
+    }
+    StdOut.println(a);
   }
 
   public void addDataValue(final double val) {
@@ -40,16 +50,5 @@ public class VisualAccumulator {
   @Override
   public String toString() {
     return this.acc.toString();
-  }
-
-  public static void main(final String[] args) {
-    Executor.execute(VisualAccumulator.class, args);
-
-    final int trails = Integer.parseInt(args[0]);
-    final VisualAccumulator a = new VisualAccumulator(trails, 1.0);
-    for (int i = 0; i < trails; i++) {
-      a.addDataValue(StdRandom.uniform());
-    }
-    StdOut.println(a);
   }
 }
