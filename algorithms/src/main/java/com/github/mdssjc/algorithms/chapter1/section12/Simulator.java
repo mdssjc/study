@@ -13,10 +13,10 @@ public class Simulator {
   public static void main(final String[] args) {
     Executor.execute(Cat.class, "Concatenate files");
     Executor.execute(Knuth.class, "Knuth shuffle");
+    Executor.execute(Counter.class, "Counter data type");
     Executor.execute(Flips.class, "Counter client that simulates t coin flips");
     Executor.execute(FlipsMax.class, "Example of a static method with object arguments and return values");
     Executor.execute(Rolls.class, "Counter client that simulates T rolls of a die");
-    Executor.execute(Counter.class, "Counter data type");
     Executor.execute(BasicDate.class, "Basic Date: implementation");
     Executor.execute(SmallDate.class, "Small Date: alternate implementation");
     Executor.execute(Accumulator.class, "Accumulator data type");
