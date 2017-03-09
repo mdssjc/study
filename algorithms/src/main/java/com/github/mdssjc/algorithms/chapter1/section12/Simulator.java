@@ -18,6 +18,7 @@ public class Simulator {
     Executor.execute(FlipsMax.class, "Example of a static method with object arguments and return values");
     Executor.execute(Rolls.class, "Counter client that simulates T rolls of a die");
     Executor.execute(Whitelist.class, "Whitelist client");
+    Executor.execute(VectorClient.class, "Euclidean vector client");
     Executor.execute(BasicDate.class, "Basic Date: implementation");
     Executor.execute(SmallDate.class, "Small Date: alternate implementation");
     Executor.execute(Accumulator.class, "Accumulator data type");
