@@ -23,6 +23,7 @@ public class Simulator {
     Executor.execute(SmallDate.class, "Small Date: alternate implementation");
     Executor.execute(DateClient.class, "Date client");
     Executor.execute(TransactionClient.class, "Transaction client");
+    Executor.execute(Point2DClient.class, "Point2D client");
     Executor.execute(Accumulator.class, "Accumulator data type");
     Executor.execute(VisualAccumulator.class, "Visual Accumulator data type");
   }
