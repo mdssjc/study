@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * DoublingRatio Class.
+ * Doubling ratio.
  *
  * @author Marcelo dos Santos
  *
@@ -14,17 +14,7 @@ import edu.princeton.cs.algs4.StdRandom;
 @TestDrive
 public class DoublingRatio {
 
-  public static double timeTrial(final int n) {
-    // Time ThreeSum.count() for N random 6-digit ints.
-    final int MAX = 1000000;
-    final int[] a = new int[n];
-    for (int i = 0; i < n; i++) {
-      a[i] = StdRandom.uniform(-MAX, MAX);
-    }
-    final Stopwatch timer = new Stopwatch();
-    final int cnt = ThreeSum.count(a);
-    return timer.elapsedTime();
-  }
+  private static final int MAX = 1000000;
 
   public static void main(final String[] args) {
     Executor.execute(DoublingRatio.class, args);
@@ -32,9 +22,18 @@ public class DoublingRatio {
     double prev = timeTrial(125);
     for (int n = 250; true; n += n) {
       final double time = timeTrial(n);
-      StdOut.printf("%6d %7.1f", n, time);
-      StdOut.printf("%5.1f\n", time / prev);
+      StdOut.printf("%7d %7.1f %5.1f%n", n, time, time / prev);
       prev = time;
     }
+  }
+
+  public static double timeTrial(final int n) {
+    final int[] a = new int[n];
+    for (int i = 0; i < n; i++) {
+      a[i] = StdRandom.uniform(-MAX, MAX);
+    }
+    final Stopwatch timer = new Stopwatch();
+    ThreeSum.count(a);
+    return timer.elapsedTime();
   }
 }

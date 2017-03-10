@@ -17,6 +17,6 @@ public class Simulator {
     Executor.execute(DoublingTest.class, "Doubling test");
     Executor.execute(TwoSumFast.class, "Faster two sum");
     Executor.execute(ThreeSumFast.class, "Faster three sum");
-    Executor.execute(DoublingRatio.class);
+    Executor.execute(DoublingRatio.class, "Doubling ratio");
   }
 }
