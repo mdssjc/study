@@ -2,14 +2,11 @@ package com.github.mdssjc.algorithms.chapter1.section14;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-import edu.princeton.cs.algs4.BinarySearch;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 
-import java.util.Arrays;
-
 /**
- * Faster two sum.
+ * Brute-force two sum.
  *
  * @author Marcelo dos Santos
  *
@@ -21,7 +18,7 @@ import java.util.Arrays;
 @TestDrive(value = "16Kints.txt", valueFile = true)
 @TestDrive(value = "32Kints.txt", valueFile = true)
 @TestDrive(value = "1Mints.txt", valueFile = true)
-public class TwoSumFast {
+public class TwoSum {
 
   public static void main(final String[] args) {
     Executor.execute(TwoSumFast.class, args);
@@ -31,12 +28,13 @@ public class TwoSumFast {
   }
 
   public static int count(final int[] a) {
-    Arrays.sort(a);
     final int n = a.length;
     int count = 0;
     for (int i = 0; i < n; i++) {
-      if (BinarySearch.indexOf(a, -a[i]) > i) {
-        count++;
+      for (int j = i + 1; j < n; j++) {
+        if (a[i] + a[j] == 0) {
+          count++;
+        }
       }
     }
     return count;
