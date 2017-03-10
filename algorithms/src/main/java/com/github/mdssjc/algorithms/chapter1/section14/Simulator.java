@@ -13,7 +13,7 @@ public class Simulator {
   public static void main(final String[] args) {
     Executor.execute(ThreeSum.class, "Brute-force three sum");
     Executor.execute(Stopwatch.class, "Timer (wall time)");
-    Executor.execute(DoublingTest.class);
+    Executor.execute(DoublingTest.class, "Doubling test");
     Executor.execute(TwoSumFast.class);
     Executor.execute(ThreeSumFast.class);
     Executor.execute(DoublingRatio.class);
