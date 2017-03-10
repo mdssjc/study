@@ -1,26 +1,29 @@
 package com.github.mdssjc.algorithms.chapter1.section15;
 
+import com.github.mdssjc.algorithms.datastructure.union_find.UF;
+import com.github.mdssjc.algorithms.datastructure.union_find.concrete.QuickFind;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Quick Union UF Test Drive.
+ * Quick Find test drive.
  *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( input = "tinyUF.txt", inputFile = true )
-@TestDrive( input = "mediumUF.txt", inputFile = true )
-@TestDrive( input = "largeUF.txt", inputFile = true )
-public class QuickUnionUFTestDrive {
+@TestDrive(input = "tinyUF.txt", inputFile = true)
+@TestDrive(input = "mediumUF.txt", inputFile = true)
+@TestDrive(input = "largeUF.txt", inputFile = true)
+public class QuickFindTestDrive {
 
   public static void main(final String[] args) {
-    Executor.execute(QuickUnionUFTestDrive.class, args);
+    Executor.execute(QuickFindTestDrive.class, args);
 
     final int n = StdIn.readInt();
-    final UF uf = new QuickUnionUF(n);
+    final UF uf = new QuickFind(n);
+
     while (!StdIn.isEmpty()) {
       final int p = StdIn.readInt();
       final int q = StdIn.readInt();
@@ -30,6 +33,7 @@ public class QuickUnionUFTestDrive {
       uf.union(p, q);
       StdOut.println(p + " " + q);
     }
+
     StdOut.println(uf.count() + " components");
   }
 }

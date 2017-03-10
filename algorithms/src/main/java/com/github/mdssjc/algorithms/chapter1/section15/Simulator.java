@@ -11,8 +11,8 @@ import com.github.mdssjc.algorithms.utils.Executor;
 public class Simulator {
 
   public static void main(final String[] args) {
-    Executor.execute(QuickFindUFTestDrive.class);
-    Executor.execute(QuickUnionUFTestDrive.class);
-    Executor.execute(WeightedQuickUnionUFTestDrive.class);
+    Executor.execute(QuickFindTestDrive.class, "Quick Find test drive");
+    Executor.execute(QuickUnionTestDrive.class, "Quick Union test drive");
+    Executor.execute(WeightedQuickUnionTestDrive.class, "Weighted Quick Union test drive");
   }
 }
