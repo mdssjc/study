@@ -12,8 +12,8 @@ public class Simulator {
 
   public static void main(final String[] args) {
     Executor.execute(Euclid.class, "Euclid's algorithm");
-    Executor.execute(BinarySearch.class, "Binary Search algorithm");
-    Executor.execute(BinarySearchRecursive.class, "Binary Search Recursive algorithm");
+    Executor.execute(BinarySearchClient.class, "Binary Search client");
+    Executor.execute(BinarySearchRecursiveClient.class, "Binary Search Recursive client");
     Executor.execute(RandomSeq.class, "Random numbers in a given range");
     Executor.execute(Average.class, "Average of a sequence of numbers");
   }
