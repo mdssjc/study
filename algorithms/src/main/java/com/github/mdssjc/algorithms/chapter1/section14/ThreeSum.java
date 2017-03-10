@@ -15,21 +15,24 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive(value = "2Kints.txt", valueFile = true)
 @TestDrive(value = "4Kints.txt", valueFile = true)
 @TestDrive(value = "8Kints.txt", valueFile = true)
+@TestDrive(value = "16Kints.txt", valueFile = true)
+@TestDrive(value = "32Kints.txt", valueFile = true)
+@TestDrive(value = "1Mints.txt", valueFile = true)
 public class ThreeSum {
 
   public static int count(final int[] a) {
     final int n = a.length;
-    int cnt = 0;
+    int count = 0;
     for (int i = 0; i < n; i++) {
       for (int j = i + 1; j < n; j++) {
         for (int k = j + 1; k < n; k++) {
           if (a[i] + a[j] + a[k] == 0) {
-            cnt++;
+            count++;
           }
         }
       }
     }
-    return cnt;
+    return count;
   }
 
   public static void main(final String[] args) {
