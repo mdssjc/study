@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * Stopwatch Class.
+ * Timer (wall time).
  *
  * @author Marcelo dos Santos
  *
@@ -21,11 +21,6 @@ public class Stopwatch {
     this.start = System.currentTimeMillis();
   }
 
-  public double elapsedTime() {
-    final long now = System.currentTimeMillis();
-    return (now - this.start) / 1000.0;
-  }
-
   public static void main(final String[] args) {
     Executor.execute(Stopwatch.class, args);
 
@@ -37,9 +32,14 @@ public class Stopwatch {
     }
 
     final Stopwatch timer = new Stopwatch();
-    final int cnt = ThreeSum.count(a);
+    final int count = ThreeSum.count(a);
     final double time = timer.elapsedTime();
 
-    StdOut.println(cnt + " triples " + time + " seconds");
+    StdOut.println(count + " triples " + time + " seconds");
+  }
+
+  public double elapsedTime() {
+    final long now = System.currentTimeMillis();
+    return (now - this.start) / 1000.0;
   }
 }
