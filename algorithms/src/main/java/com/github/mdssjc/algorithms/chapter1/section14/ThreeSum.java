@@ -20,6 +20,13 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive(value = "1Mints.txt", valueFile = true)
 public class ThreeSum {
 
+  public static void main(final String[] args) {
+    Executor.execute(ThreeSum.class, args);
+
+    final int[] a = new In(args[0]).readAllInts();
+    StdOut.println(count(a));
+  }
+
   public static int count(final int[] a) {
     final int n = a.length;
     int count = 0;
@@ -33,12 +40,5 @@ public class ThreeSum {
       }
     }
     return count;
-  }
-
-  public static void main(final String[] args) {
-    Executor.execute(ThreeSum.class, args);
-
-    final int[] a = new In(args[0]).readAllInts();
-    StdOut.println(count(a));
   }
 }
