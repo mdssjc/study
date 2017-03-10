@@ -1,7 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.section11;
 
 import com.github.mdssjc.algorithms.search.BinarySearch;
-import com.github.mdssjc.algorithms.search.concrete.BinarySearchIterative;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.In;
@@ -23,7 +22,7 @@ public class BinarySearchClient {
   public static void main(final String[] args) {
     Executor.execute(BinarySearchClient.class, args);
 
-    final BinarySearch bs = new BinarySearchIterative();
+    final BinarySearch bs = BinarySearch.of(BinarySearch.BS.ITERATIVE);
     final int[] whitelist = new In(args[0]).readAllInts();
 
     Arrays.sort(whitelist);
