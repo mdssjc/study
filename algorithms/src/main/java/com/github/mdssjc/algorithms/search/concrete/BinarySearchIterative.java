@@ -34,10 +34,10 @@ public class BinarySearchIterative implements BinarySearch {
   }
 
   public static void main(final String[] args) {
-    final int[] whitelist = In.readInts(args[0]);
+    final BinarySearch bs = new BinarySearchIterative();
+    final int[] whitelist = new In(args[0]).readAllInts();
 
     Arrays.sort(whitelist);
-    final BinarySearch bs = new BinarySearchIterative();
 
     while (!StdIn.isEmpty()) {
       final int key = StdIn.readInt();

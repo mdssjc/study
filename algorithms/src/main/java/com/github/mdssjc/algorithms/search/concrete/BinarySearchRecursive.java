@@ -24,21 +24,21 @@ public class BinarySearchRecursive implements BinarySearch {
     if (lo > hi) {
       return -1;
     }
+
     final int mid = lo + (hi - lo) / 2;
     if (key < a[mid]) {
       return rank(key, a, lo, mid - 1);
     } else if (key > a[mid]) {
       return rank(key, a, mid + 1, hi);
-    } else {
-      return mid;
     }
+    return mid;
   }
 
   public static void main(final String[] args) {
-    final int[] whitelist = In.readInts(args[0]);
+    final BinarySearch bs = new BinarySearchRecursive();
+    final int[] whitelist = new In(args[0]).readAllInts();
 
     Arrays.sort(whitelist);
-    final BinarySearch bs = new BinarySearchRecursive();
 
     while (!StdIn.isEmpty()) {
       final int key = StdIn.readInt();
