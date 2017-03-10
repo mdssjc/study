@@ -6,17 +6,15 @@ import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * ThreeSum Class.
- * <p>
- * Count triples that sum to 0.
+ * Brute-force three sum.
  *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( value = "1Kints.txt", valueFile = true )
-@TestDrive( value = "2Kints.txt", valueFile = true )
-@TestDrive( value = "4Kints.txt", valueFile = true )
-@TestDrive( value = "8Kints.txt", valueFile = true )
+@TestDrive(value = "1Kints.txt", valueFile = true)
+@TestDrive(value = "2Kints.txt", valueFile = true)
+@TestDrive(value = "4Kints.txt", valueFile = true)
+@TestDrive(value = "8Kints.txt", valueFile = true)
 public class ThreeSum {
 
   public static int count(final int[] a) {
@@ -37,7 +35,7 @@ public class ThreeSum {
   public static void main(final String[] args) {
     Executor.execute(ThreeSum.class, args);
 
-    final int[] a = In.readInts(args[0]);
+    final int[] a = new In(args[0]).readAllInts();
     StdOut.println(count(a));
   }
 }

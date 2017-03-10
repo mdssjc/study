@@ -11,7 +11,7 @@ import com.github.mdssjc.algorithms.utils.Executor;
 public class Simulator {
 
   public static void main(final String[] args) {
-    Executor.execute(ThreeSum.class);
+    Executor.execute(ThreeSum.class, "Brute-force three sum");
     Executor.execute(Stopwatch.class);
     Executor.execute(DoublingTest.class);
     Executor.execute(TwoSumFast.class);
