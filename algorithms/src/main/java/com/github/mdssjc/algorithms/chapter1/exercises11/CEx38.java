@@ -1,8 +1,8 @@
 package com.github.mdssjc.algorithms.chapter1.exercises11;
 
-import com.github.mdssjc.algorithms.chapter1.section11.BinarySearch;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.BinarySearch;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.Stopwatch;
@@ -31,7 +31,7 @@ public class CEx38 {
     StdOut.println("BinarySearch:");
     final Stopwatch stopwatchA = new Stopwatch();
     for (final int input : inputs) {
-      if (BinarySearch.rank(input, whitelist) == -1) {
+      if (BinarySearch.indexOf(whitelist, input) == -1) {
         StdOut.println(input);
       }
     }

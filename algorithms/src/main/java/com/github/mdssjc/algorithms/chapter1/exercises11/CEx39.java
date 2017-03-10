@@ -1,8 +1,8 @@
 package com.github.mdssjc.algorithms.chapter1.exercises11;
 
-import com.github.mdssjc.algorithms.chapter1.section11.BinarySearch;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.BinarySearch;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
@@ -40,7 +40,7 @@ public class CEx39 {
       init(b);
 
       for (int i = 0; i < experiment; i++) {
-        if (BinarySearch.rank(a[i], b) >= 0) {
+        if (BinarySearch.indexOf(b, a[i]) >= 0) {
           times++;
         }
       }

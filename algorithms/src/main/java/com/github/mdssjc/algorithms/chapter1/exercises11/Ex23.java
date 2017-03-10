@@ -1,8 +1,8 @@
 package com.github.mdssjc.algorithms.chapter1.exercises11;
 
-import com.github.mdssjc.algorithms.chapter1.section11.BinarySearch;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.BinarySearch;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -26,7 +26,7 @@ public class Ex23 {
 
     while (!StdIn.isEmpty()) {
       final int key = StdIn.readInt();
-      if (BinarySearch.rank(key, whitelist) == -1) {
+      if (BinarySearch.indexOf(whitelist, key) == -1) {
         StdOut.print("- ");
       } else {
         StdOut.print("+ ");
