@@ -1,8 +1,8 @@
 package com.github.mdssjc.algorithms.chapter1.exercises11;
 
-import com.github.mdssjc.algorithms.chapter1.section11.BinarySearchRecursive;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.BinarySearch;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -34,7 +34,7 @@ public class CEx28 {
     for (final int key : whitelist) {
       if (temp == null) {
         temp = new int[]{key};
-      } else if (BinarySearchRecursive.rank(key, temp) == -1) {
+      } else if (BinarySearch.indexOf(temp, key) == -1) {
         temp = Arrays.copyOf(temp, temp.length + 1);
         temp[temp.length - 1] = key;
       }
@@ -44,7 +44,7 @@ public class CEx28 {
 
     while (!StdIn.isEmpty()) {
       final int key = StdIn.readInt();
-      if (BinarySearchRecursive.rank(key, whitelist) == -1) {
+      if (BinarySearch.indexOf(whitelist, key) == -1) {
         StdOut.println(key);
       }
     }
