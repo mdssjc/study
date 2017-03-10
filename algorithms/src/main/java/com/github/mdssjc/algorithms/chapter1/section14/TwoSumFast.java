@@ -9,33 +9,36 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.Arrays;
 
 /**
- * TwoSumFast Class.
- * <p>
- * Count pairs that sum to 0.
+ * Two sum fast.
  *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive( value = "1Mints.txt", valueFile = true )
+@TestDrive(value = "1Kints.txt", valueFile = true)
+@TestDrive(value = "2Kints.txt", valueFile = true)
+@TestDrive(value = "4Kints.txt", valueFile = true)
+@TestDrive(value = "8Kints.txt", valueFile = true)
+@TestDrive(value = "16Kints.txt", valueFile = true)
+@TestDrive(value = "32Kints.txt", valueFile = true)
+@TestDrive(value = "1Mints.txt", valueFile = true)
 public class TwoSumFast {
-
-  public static int count(final int[] a) {
-    // Count pairs that sum to 0.
-    Arrays.sort(a);
-    final int n = a.length;
-    int cnt = 0;
-    for (int i = 0; i < n; i++) {
-      if (BinarySearch.rank(-a[i], a) > i) {
-        cnt++;
-      }
-    }
-    return cnt;
-  }
 
   public static void main(final String[] args) {
     Executor.execute(TwoSumFast.class, args);
 
-    final int[] a = In.readInts(args[0]);
+    final int[] a = new In(args[0]).readAllInts();
     StdOut.println(count(a));
+  }
+
+  public static int count(final int[] a) {
+    Arrays.sort(a);
+    final int n = a.length;
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+      if (BinarySearch.indexOf(a, -a[i]) > i) {
+        count++;
+      }
+    }
+    return count;
   }
 }

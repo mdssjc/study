@@ -14,7 +14,7 @@ public class Simulator {
     Executor.execute(ThreeSum.class, "Brute-force three sum");
     Executor.execute(Stopwatch.class, "Timer (wall time)");
     Executor.execute(DoublingTest.class, "Doubling test");
-    Executor.execute(TwoSumFast.class);
+    Executor.execute(TwoSumFast.class, "Two sum fast");
     Executor.execute(ThreeSumFast.class);
     Executor.execute(DoublingRatio.class);
   }
