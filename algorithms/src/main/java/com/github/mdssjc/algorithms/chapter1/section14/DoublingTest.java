@@ -21,7 +21,7 @@ public class DoublingTest {
 
     for (int n = 250; true; n += n) {
       final double time = timeTrial(n);
-      StdOut.printf("%7d %5.1f%n", n, time);
+      StdOut.printf("%7d %7.1f%n", n, time);
     }
   }
 
