@@ -957,3 +957,36 @@
 #+RESULTS:
 | 4294966272 |
 |       2016 |
+* Homework Problem 2.82
+#+NAME ex82
+#+BEGIN_SRC C
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int main() {
+    /* Create some arbitrary values */
+    int x = random();
+    int y = random();
+    /* Convert to unsigned */
+    unsigned ux = (unsigned) x;
+    unsigned uy = (unsigned) y;
+
+    printf("%d %d %u %u\n", x, y, ux, uy);
+
+    printf("A. %d\n", (x < y) == (-x > -y));
+    printf("B. %d\n", ((x + y) << 4) + y - x == 17 * y + 15 * x);
+    printf("C. %d\n", ~x + ~y + 1 == ~(x + y));
+    printf("D. %d\n", (ux - uy) == -(unsigned)(y - x));
+    printf("E. %d\n", ((x >> 2) << 2) <= x);
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| 1804289383 | 846930886 | 1804289383 | 846930886 |
+| A.         |         1 |            |           |
+| B.         |         1 |            |           |
+| C.         |         1 |            |           |
+| D.         |         1 |            |           |
+| E.         |         1 |            |           |
