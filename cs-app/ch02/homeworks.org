@@ -997,3 +997,45 @@
   101    -> 5/7   (* 5  (/ (expt 2 -3) (- 1 (expt 2 -3)))) 0.7142857142857142
   0110   -> 2/5   (* 6  (/ (expt 2 -4) (- 1 (expt 2 -4)))) 0.4
   010011 -> 19/63 (* 19 (/ (expt 2 -6) (- 1 (expt 2 -6)))) 0.30158730158730157
+* Homework Problem 2.84
+#+NAME ex84
+#+BEGIN_SRC C
+  unsigned f2u(float x) {
+    return *(unsigned*)(&x);
+  }
+
+  int float_le(float x, float y) {
+    unsigned ux = f2u(x);
+    unsigned uy = f2u(y);
+
+    /* Get the sign bits */
+    unsigned sx = ux >> 31;
+    unsigned sy = uy >> 31;
+    /* Give an expression using only ux, uy, sx, and sy */
+    return sx > sy || (sx == sy && ((sx == 1 && ux > uy) || (sx == 0 && ux < uy)));
+  }
+
+  int main() {
+    printf("%d\n", float_le(0.2, 0.5));   /* 1 */
+    printf("%d\n", float_le(0.2, -0.5));  /* 0 */
+    printf("%d\n", float_le(-0.2, 0.5));  /* 1 */
+    printf("%d\n", float_le(-0.2, -0.5)); /* 0 */
+
+    printf("%d\n", float_le(0.5, 0.2));   /* 0 */
+    printf("%d\n", float_le(0.5, -0.2));  /* 0 */
+    printf("%d\n", float_le(-0.5, 0.2));  /* 1 */
+    printf("%d\n", float_le(-0.5, -0.2)); /* 1 */
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| 1 |
+| 0 |
+| 1 |
+| 0 |
+| 0 |
+| 0 |
+| 1 |
+| 1 |
