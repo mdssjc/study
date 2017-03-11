@@ -21,7 +21,7 @@ public class BinarySearchRecursiveClient {
   public static void main(final String[] args) {
     Executor.execute(BinarySearchRecursiveClient.class, args);
 
-    final BinarySearch bs = BinarySearch.of(BinarySearch.BS.RECURSIVE);
+    final BinarySearch bs = BinarySearch.METHOD.RECURSIVE.get();
     final int[] whitelist = new In(args[0]).readAllInts();
 
     Arrays.sort(whitelist);

@@ -11,14 +11,21 @@ import com.github.mdssjc.algorithms.search.concrete.BinarySearchRecursive;
  */
 public interface BinarySearch {
 
-  static BinarySearch of(final BS type) {
-    if (type == BS.ITERATIVE) {
-      return new BinarySearchIterative();
-    }
-    return new BinarySearchRecursive();
-  }
-
   int rank(int key, int[] a);
 
-  enum BS {ITERATIVE, RECURSIVE}
+  enum METHOD {
+    ITERATIVE {
+      @Override
+      public BinarySearch get() {
+        return new BinarySearchIterative();
+      }
+    }, RECURSIVE {
+      @Override
+      public BinarySearch get() {
+        return new BinarySearchRecursive();
+      }
+    };
+
+    public abstract BinarySearch get();
+  }
 }

@@ -22,7 +22,7 @@ public class BinarySearchClient {
   public static void main(final String[] args) {
     Executor.execute(BinarySearchClient.class, args);
 
-    final BinarySearch bs = BinarySearch.of(BinarySearch.BS.ITERATIVE);
+    final BinarySearch bs = BinarySearch.METHOD.ITERATIVE.get();
     final int[] whitelist = new In(args[0]).readAllInts();
 
     Arrays.sort(whitelist);
