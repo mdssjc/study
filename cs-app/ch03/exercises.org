@@ -170,3 +170,23 @@ uremdiv:
   C. 400540
      400547
   D. jmpq 4005ed
+* Practice Problem 3.16
+** A
+#+NAME ex36
+#+BEGIN_SRC C
+  void cond(long a,  long *p) {
+    if (*p & *p) {
+      goto l1;
+    }
+    if (a >= *p) {
+      goto l1;
+    }
+    a = *p;
+  l1: return;
+  }
+#+END_SRC
+
+#+RESULTS:
+
+** B
+  Each conditional has a branch because there are different tests.
