@@ -212,3 +212,20 @@ uremdiv:
 #+END_SRC
 ** B
   Code optimization, when multiple branches.
+* Practice Problem 3.18
+#+NAME ex18
+#+BEGIN_SRC C
+  long test(long x, long y, long z) {
+    long val = x * y;
+    if (x >= -3) {
+      if (x <= 2) {
+        val = z + (x + y);
+      } else {
+        val = x * z;
+      }
+    } else if (y >= x) {
+      val = y * z;
+    }
+    return val;
+  }
+#+END_SRC
