@@ -185,8 +185,5 @@ uremdiv:
   l1: return;
   }
 #+END_SRC
-
-#+RESULTS:
-
 ** B
   Each conditional has a branch because there are different tests.
