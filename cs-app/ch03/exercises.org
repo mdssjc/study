@@ -244,3 +244,20 @@ uremdiv:
     res = x
   res = res >> 3
   return res
+* Practice Problem 3.21
+#+NAME ex21
+#+BEGIN_SRC C
+  long test(long x, long y) {
+    long val = y - x;
+    if (y <= 0) {
+      if (y <= -2) {
+        val = x + y;
+      } else {
+        val = 8 * x;
+      }
+    } else if (y >= x) {
+      val = x + y;
+    }
+    return val;
+  }
+#+END_SRC
