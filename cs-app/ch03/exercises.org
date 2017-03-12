@@ -229,3 +229,9 @@ uremdiv:
     return val;
   }
 #+END_SRC
+* Practice Problem 3.19
+** A
+  T_mp = 2(31-16)
+  T_mp = 30
+** B
+  Between 16 and 46 cycles.
