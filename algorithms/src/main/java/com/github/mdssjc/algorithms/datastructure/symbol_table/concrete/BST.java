@@ -18,14 +18,44 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
   private NodeBST<Key, Value> root;
 
   @Override
-  public void put(final Key key, final Value val) {
-    // TODO
+  public void put(final Key key, final Value value) {
+    this.root = put(this.root, key, value);
+  }
+
+  private NodeBST<Key, Value> put(final NodeBST<Key, Value> x, final Key key, final Value value) {
+    if (x == null) {
+      return new NodeBST<>(key, value, 1);
+    }
+
+    final int cmp = key.compareTo(x.key);
+    if (cmp < 0) {
+      x.left = put(x.left, key, value);
+    } else if (cmp > 0) {
+      x.right = put(x.right, key, value);
+    } else {
+      x.value = value;
+    }
+    x.n = size(x.left) + size(x.right) + 1;
+    return x;
   }
 
   @Override
   public Value get(final Key key) {
-    // TODO
-    return null;
+    return get(this.root, key);
+  }
+
+  private Value get(final NodeBST<Key, Value> x, final Key key) {
+    if (x == null) {
+      return null;
+    }
+
+    final int cmp = key.compareTo(x.key);
+    if (cmp < 0) {
+      return get(x.left, key);
+    } else if (cmp > 0) {
+      return get(x.right, key);
+    }
+    return x.value;
   }
 
   @Override
