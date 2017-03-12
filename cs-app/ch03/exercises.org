@@ -235,3 +235,12 @@ uremdiv:
   T_mp = 30
 ** B
   Between 16 and 46 cycles.
+* Practice Problem 3.20
+** A
+  OP -> mod
+** B
+  res = 7 + x
+  if x >= 0
+    res = x
+  res = res >> 3
+  return res
