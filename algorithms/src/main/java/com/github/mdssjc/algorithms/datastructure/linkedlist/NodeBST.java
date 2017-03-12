@@ -1,6 +1,5 @@
 package com.github.mdssjc.algorithms.datastructure.linkedlist;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -14,7 +13,6 @@ import lombok.Data;
  *     O tipo de dado do valor
  */
 @Data
-@AllArgsConstructor
 public class NodeBST<Key, Value> {
 
   public Key key;
@@ -22,4 +20,10 @@ public class NodeBST<Key, Value> {
   public NodeBST<Key, Value> left;
   public NodeBST<Key, Value> right;
   public int n;
+
+  public NodeBST(final Key key, final Value val, final int n) {
+    this.key = key;
+    this.value = val;
+    this.n = n;
+  }
 }
