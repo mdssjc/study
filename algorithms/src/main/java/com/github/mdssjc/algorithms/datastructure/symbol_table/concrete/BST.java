@@ -73,7 +73,14 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
 
   @Override
   public Key min() {
-    return null;
+    return min(this.root).key;
+  }
+
+  private NodeBST<Key, Value> min(final NodeBST<Key, Value> x) {
+    if (x.left == null) {
+      return null;
+    }
+    return min(x.left);
   }
 
   @Override
@@ -83,7 +90,31 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
 
   @Override
   public Key floor(final Key key) {
-    return null;
+    final NodeBST<Key, Value> x = floor(this.root, key);
+    if (x == null) {
+      return null;
+    }
+    return x.key;
+  }
+
+  private NodeBST<Key, Value> floor(final NodeBST<Key, Value> x, final Key key) {
+    if (x == null) {
+      return null;
+    }
+
+    final int cmp = key.compareTo(x.key);
+    if (cmp == 0) {
+      return x;
+    }
+    if (cmp < 0) {
+      return floor(x.left, key);
+    }
+    final NodeBST<Key, Value> t = floor(x.right, key);
+    if (t != null) {
+      return t;
+    } else {
+      return x;
+    }
   }
 
   @Override
