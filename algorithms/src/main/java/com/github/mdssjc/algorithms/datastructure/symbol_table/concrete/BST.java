@@ -1,6 +1,7 @@
 package com.github.mdssjc.algorithms.datastructure.symbol_table.concrete;
 
 import com.github.mdssjc.algorithms.datastructure.linkedlist.NodeBST;
+import com.github.mdssjc.algorithms.datastructure.queue.concrete.QueueLinkedList;
 import com.github.mdssjc.algorithms.datastructure.symbol_table.OrderedST;
 
 /**
@@ -258,6 +259,26 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
 
   @Override
   public Iterable<Key> keys(final Key lo, final Key hi) {
-    return null;
+    final QueueLinkedList<Key> queue = new QueueLinkedList<>();
+    keys(this.root, queue, lo, hi);
+    return queue;
+  }
+
+  private void keys(final NodeBST<Key, Value> x, final QueueLinkedList<Key> queue, final Key lo, final Key hi) {
+    if (x == null) {
+      return;
+    }
+
+    final int cmplo = lo.compareTo(x.key);
+    final int cmphi = hi.compareTo(x.key);
+    if (cmplo < 0) {
+      keys(x.left, queue, lo, hi);
+    }
+    if (cmplo <= 0 && cmphi >= 0) {
+      queue.enqueue(x.key);
+    }
+    if (cmphi > 0) {
+      keys(x.right, queue, lo, hi);
+    }
   }
 }
