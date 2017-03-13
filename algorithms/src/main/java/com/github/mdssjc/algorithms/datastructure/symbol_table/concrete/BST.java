@@ -92,7 +92,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     if (x.right == null) {
       return null;
     }
-    return min(x.right);
+    return max(x.right);
   }
 
   @Override
