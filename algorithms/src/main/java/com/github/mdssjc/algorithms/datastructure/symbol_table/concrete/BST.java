@@ -155,12 +155,42 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
 
   @Override
   public int rank(final Key key) {
-    return 0;
+    return rank(key, this.root);
+  }
+
+  private int rank(final Key key, final NodeBST<Key, Value> x) {
+    if (x == null) {
+      return 0;
+    }
+
+    final int cmp = key.compareTo(x.key);
+    if (cmp < 0) {
+      return rank(key, x.left);
+    } else if (cmp > 0) {
+      return 1 + size(x.left) + rank(key, x.right);
+    } else {
+      return size(x.left);
+    }
   }
 
   @Override
   public Key select(final int k) {
-    return null;
+    return select(this.root, k).key;
+  }
+
+  private NodeBST<Key, Value> select(final NodeBST<Key, Value> x, final int k) {
+    if (x == null) {
+      return null;
+    }
+
+    final int t = size(x.left);
+    if (t > k) {
+      return select(x.left, k);
+    } else if (t < k) {
+      return select(x.right, k - t - 1);
+    } else {
+      return x;
+    }
   }
 
   @Override
