@@ -80,6 +80,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     if (x.left == null) {
       return null;
     }
+
     return min(x.left);
   }
 
@@ -92,6 +93,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     if (x.right == null) {
       return null;
     }
+
     return max(x.right);
   }
 
@@ -101,6 +103,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     if (x == null) {
       return null;
     }
+
     return x.key;
   }
 
@@ -130,6 +133,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     if (x == null) {
       return null;
     }
+
     return x.key;
   }
 
