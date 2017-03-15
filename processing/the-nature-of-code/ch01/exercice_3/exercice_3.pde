@@ -44,7 +44,6 @@ class Walker {
 }
 
 Walker w;
-int[] randomCounts;
 
 void setup() {
   size(640, 360);
