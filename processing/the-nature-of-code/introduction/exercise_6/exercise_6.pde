@@ -11,6 +11,7 @@ class Walker {
 
   void display() {
     stroke(0);
+    strokeWeight(2);
     line(x_prev, y_prev, x, y);
   }
 
@@ -36,6 +37,9 @@ class Walker {
     y_prev = y;
     x += stepx;
     y += stepy;
+
+    x = constrain(x, 0, width-1);
+    y = constrain(y, 0, height-1);
   }
 }
 
