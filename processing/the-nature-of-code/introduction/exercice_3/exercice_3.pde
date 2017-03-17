@@ -9,6 +9,7 @@ class Walker {
 
   void display() {
     stroke(0);
+    strokeWeight(2);
     point(x, y);
   }
 
@@ -26,6 +27,9 @@ class Walker {
     } else {
       updateByMouse();
     }
+
+    x = constrain(x, 0, width-1);
+    y = constrain(y, 0, height-1);
   }
 
   void updateByMouse() {
