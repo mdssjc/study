@@ -30,7 +30,7 @@ class Landscape {
       float yoff = 0;
       for (int j = 0; j < rows; j++)
       {
-        z[i][j] = map(noise(xoff, yoff,zoff), 0, 1, -120, 120);
+        z[i][j] = map(noise(xoff, yoff, zoff), 0, 1, -120, 120);
         yoff += 0.1;
       }
       xoff += 0.1;
