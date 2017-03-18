@@ -261,3 +261,31 @@ uremdiv:
     return val;
   }
 #+END_SRC
+* Practice Problem 3.22
+** A
+  n = 4294967296.
+** B
+  n = 18446744073709551616.
+* Practice Problem 3.23
+** A
+  x = rdi.
+  y = rcx.
+  n = rdx.
+** B
+  In the leaq instruction.
+** C
+#+NAME ex24
+#+BEGIN_SRC C
+  long dw_loop(long x) {
+    int result = x;
+    int y = x * x;
+    int n = 2 * x;
+  loop:
+    result += 1 + y;
+    n--;
+    if (n > 0) {
+      goto loop;
+    }
+    return result;
+  }
+#+END_SRC
