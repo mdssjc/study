@@ -274,7 +274,7 @@ uremdiv:
 ** B
   In the leaq instruction.
 ** C
-#+NAME ex24
+#+NAME ex23
 #+BEGIN_SRC C
   long dw_loop(long x) {
     int result = x;
@@ -290,7 +290,7 @@ uremdiv:
   }
 #+END_SRC
 * Practice Problem 3.24
-#+NAME ex23
+#+NAME ex24
 #+BEGIN_SRC C
   long loop_while (long a, long b) {
     long result = 1;
@@ -298,5 +298,17 @@ uremdiv:
       result *= a + b;
       a =  a + 1;
     }
+  }
+#+END_SRC
+* Practice Problem 3.25
+#+NAME ex25
+#+BEGIN_SRC C
+  long loop_while2(long a, long b) {
+    long result = b;
+    while (b > 0) {
+      result *= a;
+      b = b - a;
+    }
+    return result;
   }
 #+END_SRC
