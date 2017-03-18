@@ -312,3 +312,62 @@ uremdiv:
     return result;
   }
 #+END_SRC
+* Practice Problem 3.26
+** A
+  Jump-to-middle translation method.
+** B
+#+NAME ex26
+#+BEGIN_SRC C
+  #include <stdio.h>
+
+  long fun_a(unsigned long x) {
+    long val = 0;
+    while (x != 0) {
+      val ^= x;
+      x >>= 1;
+    }
+    return val & 1;
+  }
+
+  int main() {
+    for (int i = 0; i < 30; ++i) {
+      printf("%d\n", fun_a(i));
+    }
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| 0 |
+| 1 |
+| 1 |
+| 0 |
+| 1 |
+| 0 |
+| 0 |
+| 1 |
+| 1 |
+| 0 |
+| 0 |
+| 1 |
+| 0 |
+| 1 |
+| 1 |
+| 0 |
+| 1 |
+| 0 |
+| 0 |
+| 1 |
+| 0 |
+| 1 |
+| 1 |
+| 0 |
+| 0 |
+| 1 |
+| 1 |
+| 0 |
+| 1 |
+| 0 |
+** C
+  Thue-Morse sequence.
