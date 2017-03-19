@@ -472,3 +472,8 @@ uremdiv:
   Code optimization with do-while behavior.
 ** C
   The output shows 0 when even and 31 when odd.
+* Practice Problem 3.29
+** A
+  The update-expt statement is skipped and an infinite loop will occur.
+** B
+  Yes, with a block for update-expt.
