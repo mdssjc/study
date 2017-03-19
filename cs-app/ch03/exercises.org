@@ -371,3 +371,61 @@ uremdiv:
 | 0 |
 ** C
   Thue-Morse sequence.
+* Practice Problem 3.27
+#+NAME ex27
+#+BEGIN_SRC C
+  #include <stdio.h>
+
+  long fact_for(long n) {
+    long result = 1;
+    long i = 2;
+    goto test;
+  loop:
+    result *= i;
+    i++;
+  test:
+    if (i <= n) {
+      goto loop;
+    }
+    return result;
+  }
+
+  long fact_for_while (long n) {
+    long result = 1;
+    long i = 2;
+    while (i <= n) {
+      result *= i;
+      i++;
+    }
+    return result;
+  }
+
+  long fact_for_gd(long n) {
+    long result = 1;
+    long i = 2;
+    if (i > n) {
+      goto done;
+    }
+  loop:
+    result *= i;
+    i++;
+    if (i <= n) {
+      goto loop;
+    }
+  done:
+    return result;
+  }
+
+  int main() {
+    printf("%d\n", fact_for(10));
+    printf("%d\n", fact_for_while(10));
+    printf("%d\n", fact_for_gd(10));
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| 3628800 |
+| 3628800 |
+| 3628800 |
