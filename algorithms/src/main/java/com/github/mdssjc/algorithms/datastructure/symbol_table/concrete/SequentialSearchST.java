@@ -1,6 +1,7 @@
 package com.github.mdssjc.algorithms.datastructure.symbol_table.concrete;
 
 import com.github.mdssjc.algorithms.datastructure.symbol_table.ST;
+import edu.princeton.cs.algs4.Queue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -48,7 +49,11 @@ public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
 
   @Override
   public Iterable<Key> keys() {
-    return null;
+    final Queue<Key> queue = new Queue<>();
+    for (Node<Key, Value> x = this.first; x != null; x = x.next) {
+      queue.enqueue(x.key);
+    }
+    return queue;
   }
 
   @Data
