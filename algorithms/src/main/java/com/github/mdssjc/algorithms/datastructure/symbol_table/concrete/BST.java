@@ -1,8 +1,8 @@
 package com.github.mdssjc.algorithms.datastructure.symbol_table.concrete;
 
-import com.github.mdssjc.algorithms.datastructure.linkedlist.NodeBST;
 import com.github.mdssjc.algorithms.datastructure.queue.concrete.QueueLinkedList;
 import com.github.mdssjc.algorithms.datastructure.symbol_table.OrderedST;
+import lombok.Data;
 
 /**
  * Implementação de Symbol Table com Binary Search Tree.
@@ -16,16 +16,16 @@ import com.github.mdssjc.algorithms.datastructure.symbol_table.OrderedST;
  */
 public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, Value> {
 
-  private NodeBST<Key, Value> root;
+  private Node<Key, Value> root;
 
   @Override
   public void put(final Key key, final Value value) {
     this.root = put(this.root, key, value);
   }
 
-  private NodeBST<Key, Value> put(final NodeBST<Key, Value> x, final Key key, final Value value) {
+  private Node<Key, Value> put(final Node<Key, Value> x, final Key key, final Value value) {
     if (x == null) {
-      return new NodeBST<>(key, value, 1);
+      return new Node<>(key, value, 1);
     }
 
     final int cmp = key.compareTo(x.key);
@@ -45,7 +45,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     return get(this.root, key);
   }
 
-  private Value get(final NodeBST<Key, Value> x, final Key key) {
+  private Value get(final Node<Key, Value> x, final Key key) {
     if (x == null) {
       return null;
     }
@@ -64,7 +64,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     return size(this.root);
   }
 
-  private int size(final NodeBST<Key, Value> x) {
+  private int size(final Node<Key, Value> x) {
     if (x == null) {
       return 0;
     } else {
@@ -77,7 +77,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     return min(this.root).key;
   }
 
-  private NodeBST<Key, Value> min(final NodeBST<Key, Value> x) {
+  private Node<Key, Value> min(final Node<Key, Value> x) {
     if (x.left == null) {
       return null;
     }
@@ -90,7 +90,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     return max(this.root).key;
   }
 
-  private NodeBST<Key, Value> max(final NodeBST<Key, Value> x) {
+  private Node<Key, Value> max(final Node<Key, Value> x) {
     if (x.right == null) {
       return null;
     }
@@ -100,7 +100,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
 
   @Override
   public Key floor(final Key key) {
-    final NodeBST<Key, Value> x = floor(this.root, key);
+    final Node<Key, Value> x = floor(this.root, key);
     if (x == null) {
       return null;
     }
@@ -108,7 +108,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     return x.key;
   }
 
-  private NodeBST<Key, Value> floor(final NodeBST<Key, Value> x, final Key key) {
+  private Node<Key, Value> floor(final Node<Key, Value> x, final Key key) {
     if (x == null) {
       return null;
     }
@@ -120,7 +120,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     if (cmp < 0) {
       return floor(x.left, key);
     }
-    final NodeBST<Key, Value> t = floor(x.right, key);
+    final Node<Key, Value> t = floor(x.right, key);
     if (t != null) {
       return t;
     } else {
@@ -130,7 +130,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
 
   @Override
   public Key ceiling(final Key key) {
-    final NodeBST<Key, Value> x = ceiling(this.root, key);
+    final Node<Key, Value> x = ceiling(this.root, key);
     if (x == null) {
       return null;
     }
@@ -138,7 +138,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     return x.key;
   }
 
-  private NodeBST<Key, Value> ceiling(final NodeBST<Key, Value> x, final Key key) {
+  private Node<Key, Value> ceiling(final Node<Key, Value> x, final Key key) {
     if (x == null) {
       return null;
     }
@@ -150,7 +150,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     if (cmp > 0) {
       return floor(x.right, key);
     }
-    final NodeBST<Key, Value> t = ceiling(x.left, key);
+    final Node<Key, Value> t = ceiling(x.left, key);
     if (t != null) {
       return t;
     } else {
@@ -163,7 +163,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     return rank(key, this.root);
   }
 
-  private int rank(final Key key, final NodeBST<Key, Value> x) {
+  private int rank(final Key key, final Node<Key, Value> x) {
     if (x == null) {
       return 0;
     }
@@ -183,7 +183,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     return select(this.root, k).key;
   }
 
-  private NodeBST<Key, Value> select(final NodeBST<Key, Value> x, final int k) {
+  private Node<Key, Value> select(final Node<Key, Value> x, final int k) {
     if (x == null) {
       return null;
     }
@@ -203,7 +203,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     this.root = deleteMin(this.root);
   }
 
-  private NodeBST<Key, Value> deleteMin(final NodeBST<Key, Value> x) {
+  private Node<Key, Value> deleteMin(final Node<Key, Value> x) {
     if (x.left == null) {
       return x.right;
     }
@@ -217,7 +217,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     this.root = deleteMax(this.root);
   }
 
-  private NodeBST<Key, Value> deleteMax(final NodeBST<Key, Value> x) {
+  private Node<Key, Value> deleteMax(final Node<Key, Value> x) {
     if (x.right == null) {
       return x.left;
     }
@@ -231,7 +231,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     this.root = delete(this.root, key);
   }
 
-  private NodeBST<Key, Value> delete(NodeBST<Key, Value> x, final Key key) {
+  private Node<Key, Value> delete(Node<Key, Value> x, final Key key) {
     if (x == null) {
       return null;
     }
@@ -248,7 +248,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
       if (x.left == null) {
         return x.right;
       }
-      final NodeBST<Key, Value> t = x;
+      final Node<Key, Value> t = x;
       x = min(t.right);
       x.right = deleteMin(t.right);
       x.left = t.left;
@@ -264,7 +264,7 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     return queue;
   }
 
-  private void keys(final NodeBST<Key, Value> x, final QueueLinkedList<Key> queue, final Key lo, final Key hi) {
+  private void keys(final Node<Key, Value> x, final QueueLinkedList<Key> queue, final Key lo, final Key hi) {
     if (x == null) {
       return;
     }
@@ -279,6 +279,22 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
     }
     if (cmphi > 0) {
       keys(x.right, queue, lo, hi);
+    }
+  }
+
+  @Data
+  public static class Node<Key, Value> {
+
+    public Key key;
+    public Value value;
+    public Node<Key, Value> left;
+    public Node<Key, Value> right;
+    public int n;
+
+    public Node(final Key key, final Value val, final int n) {
+      this.key = key;
+      this.value = val;
+      this.n = n;
     }
   }
 }
