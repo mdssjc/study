@@ -5,7 +5,7 @@ import com.github.mdssjc.algorithms.datastructure.queue.concrete.ResizingArrayQu
 import com.github.mdssjc.algorithms.datastructure.symbol_table.OrderedST;
 
 /**
- * Implementação de Symbol Table com Busca Binária.
+ * Implementação de Symbol Table com Binary Search.
  *
  * @author Marcelo dos Santos
  *
