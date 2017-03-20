@@ -1,7 +1,8 @@
 package com.github.mdssjc.algorithms.datastructure.symbol_table.concrete;
 
-import com.github.mdssjc.algorithms.datastructure.linkedlist.NodeST;
 import com.github.mdssjc.algorithms.datastructure.symbol_table.ST;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
  * Implementação de Symbol Table com Busca Sequencial.
@@ -15,24 +16,24 @@ import com.github.mdssjc.algorithms.datastructure.symbol_table.ST;
  */
 public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
 
-  private NodeST<Key, Value> first;
+  private Node<Key, Value> first;
   private int size;
 
   @Override
   public void put(final Key key, final Value value) {
-    for (NodeST<Key, Value> x = this.first; x != null; x = x.next) {
+    for (Node<Key, Value> x = this.first; x != null; x = x.next) {
       if (key.equals(x.key)) {
         x.value = value;
         return;
       }
     }
-    this.first = new NodeST<>(key, value, this.first);
+    this.first = new Node<>(key, value, this.first);
     this.size++;
   }
 
   @Override
   public Value get(final Key key) {
-    for (NodeST<Key, Value> x = this.first; x != null; x = x.next) {
+    for (Node<Key, Value> x = this.first; x != null; x = x.next) {
       if (key.equals(x.key)) {
         return x.value;
       }
@@ -48,5 +49,14 @@ public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
   @Override
   public Iterable<Key> keys() {
     return null;
+  }
+
+  @Data
+  @AllArgsConstructor
+  public static class Node<Key, Value> {
+
+    public Key key;
+    public Value value;
+    public Node<Key, Value> next;
   }
 }
