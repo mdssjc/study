@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Implementação de Symbol Table com Busca Sequencial.
+ * Implementação de Symbol Table com Sequential Search.
  *
  * @author Marcelo dos Santos
  *
