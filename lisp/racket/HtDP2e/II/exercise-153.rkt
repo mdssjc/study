@@ -49,6 +49,7 @@
 ; List-of-posn -> Image
 ; produces an image of the lecture hall with red dots added as specified by the Posns
 (check-expect (add-balloons '()) HALL)
+(check-expect (add-balloons (cons (make-posn 0 0) '())) (place-image DOT  0  0 HALL))
 (check-expect (add-balloons (cons (make-posn 1 1) '())) (place-image DOT 10 10 HALL))
 (check-expect (add-balloons (cons (make-posn 1 1) (cons (make-posn 5 5) '())))
               (place-image DOT 10 10 (place-image DOT 50 50 HALL)))
