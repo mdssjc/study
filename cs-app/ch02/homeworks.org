@@ -100,67 +100,37 @@
 
   /* produces 1 when any bit in stream is 1 */
   int anyBit1(int x) {
-    int byte = (x & 0xFF000000) >> 8 |
-      (x & 0xFF0000) >> 8 |
-      (x & 0xFF00) >> 8 |
-      x & 0xFF;
-    int result = byte >> 8 |
-      byte >> 7 |
-      byte >> 6 |
-      byte >> 5 |
-      byte >> 4 |
-      byte >> 3 |
-      byte >> 2 |
-      byte >> 1 |
-      byte >> 0;
+    int result = (x & 0xFF000000) >> 8 | (x & 0xFF0000) >> 8 | (x & 0xFF00) >> 8 | (x & 0xFF);
+    result = (result & 0xF0) >> 4 | (result & 0xF);
+    result = (result & 0xC) >> 2 | (result & 0x3);
+    result = (result & 0x2) >> 1 | (result & 0x1);
     return result & 1;
   }
 
   /* produces 1 when any bit in stream is 0 */
   int anyBit0(int x) {
-    int byte = (x & 0xFF000000) >> 8 |
-      (x & 0xFF0000) >> 8 |
-      (x & 0xFF00) >> 8 |
-      x & 0xFF;
-    int result = byte >> 8 |
-      byte >> 7 |
-      byte >> 6 |
-      byte >> 5 |
-      byte >> 4 |
-      byte >> 3 |
-      byte >> 2 |
-      byte >> 1 |
-      byte >> 0;
+    int result = (x & 0xFF000000) >> 8 | (x & 0xFF0000) >> 8 | (x & 0xFF00) >> 8 | (x & 0xFF);
+    result = (result & 0xF0) >> 4 | (result & 0xF);
+    result = (result & 0xC) >> 2 | (result & 0x3);
+    result = (result & 0x2) >> 1 | (result & 0x1);
     return ~result & 1;
   }
 
   /* produces 1 when any bit in LSB of stream is 1 */
   int anyBit1InLSB(int x) {
-    int byte = x & 0xFF;
-    int result = byte >> 8 |
-      byte >> 7 |
-      byte >> 6 |
-      byte >> 5 |
-      byte >> 4 |
-      byte >> 3 |
-      byte >> 2 |
-      byte >> 1 |
-      byte >> 0;
+    int result = x & 0xFF;
+    result = (result & 0xF0) >> 4 | (result & 0xF);
+    result = (result & 0xC) >> 2 | (result & 0x3);
+    result = (result & 0x2) >> 1 | (result & 0x1);
     return result & 1;
   }
 
   /* produces 1 when any bit in MSB of stream is 0 */
   int anyBit0InMSB(int x) {
-    int byte = ((x & 0xFF000000) >> 24) & 0xFF;
-    int result = byte >> 8 |
-      byte >> 7 |
-      byte >> 6 |
-      byte >> 5 |
-      byte >> 4 |
-      byte >> 3 |
-      byte >> 2 |
-      byte >> 1 |
-      byte >> 0;
+    int result = ((x & 0xFF000000) >> 24) & 0xFF;
+    result = (result & 0xF0) >> 4 | (result & 0xF);
+    result = (result & 0xC) >> 2 | (result & 0x3);
+    result = (result & 0x2) >> 1 | (result & 0x1);
     return ~result & 1;
   }
 
@@ -180,6 +150,7 @@
     /* anyBit0InMSB */
     assert(anyBit0InMSB(0x00FFFFFF) == 1);
     assert(anyBit0InMSB(0xFF000000) == 0);
+    assert(anyBit0InMSB(0x80000000) == 0);
   }
 
   int main() {
@@ -200,6 +171,7 @@
     /* D */
     printf("%d\n", anyBit0InMSB(0x00FFFFFF));
     printf("%d\n", anyBit0InMSB(0xFF000000));
+    printf("%d\n", anyBit0InMSB(0x80000000));
 
     return 0;
   }
@@ -213,6 +185,7 @@
 | 1 |
 | 0 |
 | 1 |
+| 0 |
 | 0 |
 
 * Homework Problem 2.62
