@@ -207,6 +207,7 @@
 
 #+RESULTS:
 : Arithmetic Shift? 1
+
 * Homework Problem 2.63
 #+NAME ex63
 #+BEGIN_SRC C
