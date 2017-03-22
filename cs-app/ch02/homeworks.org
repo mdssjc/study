@@ -352,25 +352,16 @@
    ,* If x = 0, then return 0.
    ,*/
   int leftmost_one(unsigned x) {
-    if (x == 0) {
-      return 0;
-    }
-
-    int w = 8 * sizeof(unsigned);
-    int i;
-    unsigned mask;
-    for (i = w - 1; i > 0; i--) {
-      mask = 1 << i;
-      if ((x & mask) > 0) {
-        return mask;
-      }
-    }
-
-    return 0;
+    x |= x >> 1;
+    x |= x >> 2;
+    x |= x >> 4;
+    x |= x >> 8;
+    x |= x >> 16;
+    return x ^ (x >> 1);
   }
 
   void tests() {
-    assert(leftmost_one(0) == 0);
+    assert(leftmost_one(0) == 0x0);
     assert(leftmost_one(0xFF00) == 0x8000);
     assert(leftmost_one(0x6600) == 0x4000);
   }
@@ -390,6 +381,7 @@
 |    0x0 |
 | 0x8000 |
 | 0x4000 |
+
 * Homework Problem 2.67
 ** A
   Overflow in ~1 << 32~.
