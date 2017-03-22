@@ -263,6 +263,7 @@
 #+RESULTS:
 | 1073741823 |
 |  536870911 |
+
 * Homework Problem 2.64
 #+NAME ex64
 #+BEGIN_SRC C
