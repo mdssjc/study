@@ -270,23 +270,19 @@
   #include <stdio.h>
   #include <assert.h>
 
-  /* Return 1 when any odd bit of x equals 1; 0 otherwise.
-     Assume w=32 */
+  /* Return 1 when any odd bit of x equals 1; 0 otherwise. Assume w=32 */
   int any_odd_one(unsigned x) {
-    int w = 8 * sizeof(unsigned);
-
-    int i;
-    for (i = 0; i < w; i++) {
-      if ((x & 1 << w - i - 1) > 0) {
-        return 1;
-      }
-    }
-
-    return 0;
+    int result = x & 0x55555555;
+    result = (result & 0xFF000000) >> 8 | (result & 0xFF0000) >> 8 | (result & 0xFF00) >> 8 | (result & 0xFF);
+    result = (result & 0xF0) >> 4 | (result & 0xF);
+    result = (result & 0xC) >> 2 | (result & 0x3);
+    result = (result & 0x2) >> 1 | (result & 0x1);
+    return result & 1;
   }
 
   void tests() {
     assert(any_odd_one(84) == 1);
+    assert(any_odd_one(2) == 0);
     assert(any_odd_one(0) == 0);
   }
 
@@ -294,6 +290,7 @@
     tests();
 
     printf("%d\n", any_odd_one(84));
+    printf("%d\n", any_odd_one(2));
     printf("%d\n", any_odd_one(0));
 
     return 0;
@@ -303,6 +300,8 @@
 #+RESULTS:
 | 1 |
 | 0 |
+| 0 |
+
 * Homework Problem 2.65
 #+NAME ex65
 #+BEGIN_SRC C
