@@ -535,7 +535,9 @@
    ,* Assume 1 <= n <= w
    ,*/
   int fits_bits(int x, int n) {
-    return x < 1 << n;
+    int bits = 1 << (n - 1);
+    int mask = bits | bits - 1;
+    return (x & mask) == x;
   }
 
   void tests() {
@@ -556,6 +558,7 @@
 #+RESULTS:
 | 1 |
 | 0 |
+
 * Homework Problem 2.71
 ** A
   It does not convert the data to two's complement.
