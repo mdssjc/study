@@ -492,17 +492,13 @@
    ,*/
   unsigned rotate_left(unsigned x, int n) {
     unsigned w = 8 * sizeof(unsigned);
-    unsigned mask = 1 << w - 1;
+    unsigned bits = 1 << (n - 1);
+    unsigned maskLower = (bits | bits - 1) << (w - n);
+    unsigned maskUpper = ~maskLower;
+    unsigned xLower = (x & maskLower) >> (w - n);
+    unsigned xUpper = (x & maskUpper) << n;
 
-    int result = x;
-    int bit;
-    int i;
-    for (i = 0; i < n; i++) {
-      bit = (result & mask) >> w - 1;
-      result = result << 1 | bit;
-    }
-
-    return result;
+    return xUpper | xLower;
   }
 
   void tests() {
@@ -526,6 +522,7 @@
 | 0x12345678 |
 | 0x23456781 |
 | 0x67812345 |
+
 * Homework Problem 2.70
 #+NAME ex70
 #+BEGIN_SRC C
