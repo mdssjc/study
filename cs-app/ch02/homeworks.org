@@ -450,34 +450,35 @@
    ,* Assume 1 <= n <= w
    ,*/
   int lower_one_mask(int n) {
-    int result;
-    int i;
-
-    for (i = 0; i < n; i++) {
-      result |= 1 << i;
-    }
-
-    return result;
+    int bits = 1 << (n - 1);
+    return bits | bits - 1;
   }
 
   void tests() {
+    assert(lower_one_mask(1) == 0x1);
     assert(lower_one_mask(6) == 0x3F);
     assert(lower_one_mask(17) == 0x1FFFF);
+    assert(lower_one_mask(32) == 0xFFFFFFFF);
   }
 
   int main() {
     tests();
 
+    printf("0x%X\n", lower_one_mask(1));
     printf("0x%X\n", lower_one_mask(6));
     printf("0x%X\n", lower_one_mask(17));
+    printf("0x%X\n", lower_one_mask(32));
 
     return 0;
   }
 #+END_SRC
 
 #+RESULTS:
-|    0x3F |
-| 0x1FFFF |
+|        0x1 |
+|       0x3F |
+|    0x1FFFF |
+| 0xFFFFFFFF |
+
 * Homework Problem 2.69
 #+NAME ex69
 #+BEGIN_SRC C
