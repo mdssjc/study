@@ -57,6 +57,6 @@
 (define (add-balloons lop)
   (cond [(empty? lop) HALL]
         [else (place-image DOT
-                           (* (posn-x(first lop)) 10)
+                           (* (posn-x (first lop)) 10)
                            (* (posn-y (first lop)) 10)
                            (add-balloons (rest lop)))]))
