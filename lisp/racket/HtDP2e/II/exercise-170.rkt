@@ -4,15 +4,15 @@
 ;; Exercise 170
 
 (define-struct phone [area switch four])
-; A Phone is a structure: 
+; A Phone is a structure:
 ;   (make-phone Three Three Four)
-; A Three is a Number between 100 and 999. 
+; A Three is a Number between 100 and 999.
 ; A Four is a Number between 1000 and 9999.
 (define P1 (make-phone 713 123 4567))
 (define P2 (make-phone 281 123 4567))
 (define P3 (make-phone 123 123 4567))
 
-; Lop is one of:
+; A Lop is one of:
 ; - '()
 ; - (cons Phone Lop)
 ; interpretation an instance of Lop represents a Phone list

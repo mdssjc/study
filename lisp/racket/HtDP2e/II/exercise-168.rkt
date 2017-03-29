@@ -3,7 +3,7 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname exercise-168) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; Exercise 168
 
-; Lop is one of:
+; A Lop is one of:
 ; - '()
 ; - (cons Posn Lop)
 ; interpretation an instance of Lop represents a Posn list

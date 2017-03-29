@@ -4,9 +4,9 @@
 ;; Exercise 166
 
 (define-struct work [employee number rate hours])
-; A (piece of) Work is a structure: 
+; A (piece of) Work is a structure:
 ;   (make-work String Number Number Number)
-; interpretation (make-work n num r h) combines the name 
+; interpretation (make-work n num r h) combines the name
 ; with the number num, pay rate r and the number of hours h
 
 (define-struct pay-check (number name amount))
@@ -15,21 +15,21 @@
 ; interpretation (make-pay-check num n a) contains
 ; the employee's number num, name n and an amount a
 
-; Low (short for list of works) is one of: 
+; A Low (short for list of works) is one of:
 ; - '()
 ; - (cons Work Low)
-; interpretation an instance of Low represents the 
+; interpretation an instance of Low represents the
 ; hours worked for a number of employees
 
-; Lop is one of:
+; A Lop is one of:
 ; - '()
 ; - (cons Pay-check Lop)
-; interpretation an instance of Lop represents the 
+; interpretation an instance of Lop represents the
 ; employee's name and an amount
 
 
 ; Low -> Lop
-; consumes a list of work records and computes a list of pay checks 
+; consumes a list of work records and computes a list of pay checks
 (check-expect
  (wage*.v4 (cons (make-work "Robby" 1 11.95 39) '()))
  (cons (make-pay-check 1 "Robby" (* 11.95 39)) '()))
