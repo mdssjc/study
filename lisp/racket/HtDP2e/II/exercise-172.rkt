@@ -23,8 +23,8 @@
 
 
 ; LLS -> String
-; converts a list of lines into a string
-; the strings should be separated by blank spaces (" ")
+; converts a list of lines into a String
+; the Strings should be separated by blank spaces (" ")
 ; the lines should be separated with a newline ("\n")
 (check-expect (collapse lls0) "")
 (check-expect (collapse lls1) "hello world\n")
@@ -38,7 +38,8 @@
                              (collapse (rest lls)))]))
 
 ; Los -> String
-; converts a list of String into a string separated by blank spaces (" ")
+; converts a list of Strings into a String
+; the Strings should be separated by blank spaces (" ")
 (check-expect (collapse-line line0) "hello world")
 (check-expect (collapse-line line1) "")
 
