@@ -13,7 +13,7 @@
                  [luminus-nrepl "0.1.4"]
                  [luminus/ring-ttl-session "0.3.2"]
                  [markdown-clj "0.9.98"]
-                 [metosin/muuntaja "0.2.0"]
+                 [metosin/muuntaja "0.2.1"]
                  [metosin/ring-http-response "0.8.2"]
                  [mount "0.1.11"]
                  [org.clojure/clojure "1.8.0"]
@@ -28,7 +28,6 @@
                  [ring/ring-core "1.6.0-RC1"]
                  [ring/ring-defaults "0.2.3"]
                  [selmer "1.10.7"]
-                 [clojure-msgpack "1.2.0"]
                  [yesql "0.5.3"]
                  [yogthos/config "0.8"]]
 
