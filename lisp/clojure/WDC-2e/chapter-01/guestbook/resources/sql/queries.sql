@@ -1,6 +1,6 @@
 --name:save-message!
 -- creates a new message
-INSERT INTO guestbook (NAME, message, TIMESTAMP) VALUES (:NAME, :message, :TIMESTAMP)
+INSERT INTO guestbook (name, message, timestamp) VALUES (:name, :message, :timestamp)
 
 --name:get-messages
 -- selects all available messages
