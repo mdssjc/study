@@ -28,7 +28,9 @@
                  [ring/ring-core "1.6.0-RC1"]
                  [ring/ring-defaults "0.2.3"]
                  [selmer "1.10.7"]
-                 [clojure-msgpack "1.2.0"]]
+                 [clojure-msgpack "1.2.0"]
+                 [yesql "0.5.3"]
+                 [yogthos/config "0.8"]]
 
   :min-lein-version "2.0.0"
 
@@ -59,7 +61,7 @@
                                  [ring/ring-devel "1.5.1"]
                                  [pjstadig/humane-test-output "0.8.1"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.18.1"]]
-                  
+
                   :source-paths ["env/dev/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}
