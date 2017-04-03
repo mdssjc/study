@@ -27,7 +27,8 @@
                  [ring-webjars "0.1.1"]
                  [ring/ring-core "1.6.0-RC1"]
                  [ring/ring-defaults "0.2.3"]
-                 [selmer "1.10.7"]]
+                 [selmer "1.10.7"]
+                 [bouncer "1.0.1"]]
 
   :min-lein-version "2.0.0"
 
@@ -41,7 +42,8 @@
 
   :plugins [[lein-cprop "1.0.1"]
             [migratus-lein "0.4.4"]
-            [lein-immutant "2.1.0"]]
+            [lein-immutant "2.1.0"]
+            [cider/cider-nrepl "0.14.0"]]
 
   :profiles
   {:uberjar {:omit-source    true
