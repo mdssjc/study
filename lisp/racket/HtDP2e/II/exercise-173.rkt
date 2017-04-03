@@ -4,7 +4,6 @@
 ;; Exercise 173
 
 (require 2htdp/batch-io)
-(require racket/string)
 
 ; A Los is one of:
 ; - '()
