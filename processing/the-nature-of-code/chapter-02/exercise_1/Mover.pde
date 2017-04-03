@@ -25,4 +25,18 @@ class Mover {
   void applyForce(PVector force) {
     acceleration.add(force);
   }
+
+  void checkEdges() {  
+    if (location.x > (width + 15)) {
+      location.x = (width + 15);
+    } else if (location.x < 15) {
+      location.x = 15;
+    }
+
+    if (location.y > (height - 25)) {
+      location.y = (height - 25);
+    } else if (location.y < 25) {
+      location.y = 25;
+    }
+  }
 }
