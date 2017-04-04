@@ -483,29 +483,29 @@ uremdiv:
   void switch2(long x, long *dest) {
     long val = 0;
     switch (x) {
-    case 1: { // .L9
+    case 1: {                     /* .L9 */
       val = 0;
       break;
     }
-    case 2: { // .L5
+    case 2: {                     /* .L5 */
     case 9: {
       val = 0;
       break;
     }
-    case 3: { // .L6
+    case 3: {                     /* .L6 */
       val = 0;
       break;
     }
-    case 4: { // .L7
+    case 4: {                     /* .L7 */
     case 6: {
       val = 0;
       break;
     }
-    case 7: { // .L8
+    case 7: {                     /* .L8 */
       val = 0;
       break;
     }
-    default: // .L2
+    default:                      /* .L2 */
       val = 0;
       break;
     }
