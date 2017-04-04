@@ -516,3 +516,32 @@ uremdiv:
   Labels: 1, 2,9, 3, 4,6, 7 and default (5 and 8).
 ** B
   Multiple labels: 2 and 9; 4 and 6.
+* Practice Problem 3.31
+#+NAME ex31
+#+BEGIN_SRC C
+  void switcher(long a, long b, long c, long *dest) {
+    long val;
+    switch (a) {
+    case 5: {                     /* Case A */
+      c = a ^ 15;
+      /* Fall through */
+    }
+    case 0: {                     /* Case B */
+      val = 112 + d;
+      break;
+    }
+    case 2:                       /* Case C */
+    case 7: {                     /* Case D */
+      val = 4 * (c * a);
+      break;
+    }
+    case 4: {                     /* Case E */
+      val = b;
+      break;
+    }
+    default:
+      val = a;
+    }
+    ,*dest = val;
+  }
+#+END_SRC
