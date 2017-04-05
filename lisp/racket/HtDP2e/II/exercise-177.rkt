@@ -6,7 +6,6 @@
 (define-struct editor [pre post])
 ; An Editor is a structure:
 ;   (make-editor Lo1S Lo1S)
-
 ; An Lo1S is one of: 
 ; - '()
 ; - (cons 1String Lo1S)
@@ -18,4 +17,4 @@
               (make-editor (explode "left") (explode "right")))
 
 (define (create-editor lo1s1 lo1s2)
-  (make-editor (implode lo1s1) (implode lo1s2)))
+  (make-editor lo1s1 lo1s2))
