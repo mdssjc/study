@@ -11,10 +11,10 @@
 ; - (cons 1String Lo1S)
 
 
-; Lo1S Lo1S -> Editor
+; String String -> Editor
 ; consumes two strings and produces an Editor
-(check-expect (create-editor (explode "left") (explode "right"))
+(check-expect (create-editor "left" "right")
               (make-editor (explode "left") (explode "right")))
 
 (define (create-editor lo1s1 lo1s2)
-  (make-editor lo1s1 lo1s2))
+  (make-editor (explode lo1s1) (explode lo1s2)))
