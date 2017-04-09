@@ -33,6 +33,6 @@
   (layout/render "about.html"))
 
 (defroutes home-routes
-  (GET "/" request (home-page request))
+  (GET "/" [] (home-page))
   (POST "/message" request (save-message! request))
   (GET "/about" [] (about-page)))

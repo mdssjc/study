@@ -32,19 +32,21 @@
                 (when repl-server
                   (repl/stop repl-server)))
 
-
 (defn stop-app []
-  (doseq [component (:stopped (mount/stop))]
-    (log/info component "stopped"))
+  (repl-port)
+  (http/stop destroy)
   (shutdown-agents))
 
-(defn start-app [args]
-  (doseq [component (-> args
-                        (parse-opts cli-options)
-                        mount/start-with-args
-                        :started)]
-    (log/info component "started"))
-  (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
+(defn start-app
+  "e.g. lein run 3000"
+  [[port]]
+  (let [port (http-port port)]
+    (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
+    (when-let [repl-port (env :nrepl-port)]
+      (repl/start {:port (parse-port repl-port)}))
+    (http/start {:handler app
+                 :init    init
+                 :port    port})))
 
 (defn -main [& args]
   (cond
@@ -55,4 +57,3 @@
       (System/exit 0))
     :else
     (start-app args)))
-  
