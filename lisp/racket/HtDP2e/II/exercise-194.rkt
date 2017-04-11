@@ -50,13 +50,13 @@
 
 ; Image NELoP -> Image
 ; connects the Posns in p in an image
-(check-expect (connect-dots MT triangle-p (make-posn 20 10))
+(check-expect (connect-dots MT triangle-p (first triangle-p))
               (scene+line
                (scene+line
                 (scene+line MT 20 10 20 20 "red")
                 20 20 30 20 "red")
                30 20 20 10 "red"))
-(check-expect (connect-dots MT square-p (make-posn 10 10))
+(check-expect (connect-dots MT square-p (first square-p))
               (scene+line
                (scene+line
                 (scene+line
