@@ -10,6 +10,17 @@ import com.github.mdssjc.dp.singleton.*;
  * <p>
  * Pode ser substituído pelo Dependency Injection.
  * DoubleCheckSingleton é um anti-pattern.
+ * <p>
+ * Benefícios:
+ *  - cross platform;
+ *  - applicable to any class;
+ *  - can be created through derivation; and
+ *  - lazy evaluation.
+ * Custos:
+ *  - destruction is undefined;
+ *  - not inherited;
+ *  - efficiency; and
+ *  - nontransparent.
  *
  * @author Marcelo dos Santos
  *
