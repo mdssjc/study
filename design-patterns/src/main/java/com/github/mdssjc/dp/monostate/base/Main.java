@@ -6,6 +6,17 @@ import com.github.mdssjc.dp.monostate.Monostate;
  * Test drive do padrão de projeto Monostate.
  * <p>
  * Design Pattern
+ * <p>
+ * Benefícios:
+ *  - transparency;
+ *  - derivability;
+ *  - polymorphism; and
+ *  - well-defined creation and destruction.
+ * Custos:
+ *  - no conversion;
+ *  - efficiency;
+ *  - presence; and
+ *  - platform local.
  *
  * @author Marcelo dos Santos
  *
