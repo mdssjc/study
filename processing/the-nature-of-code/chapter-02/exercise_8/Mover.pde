@@ -37,7 +37,7 @@ class Mover {
     strokeWeight(2);
     fill(127, 200);
     ellipse(location.x, location.y, mass*16, mass*16);
-    
+
     noStroke();
     fill(127, 10);
     for (int i = 0; i < trail.size(); i++) {

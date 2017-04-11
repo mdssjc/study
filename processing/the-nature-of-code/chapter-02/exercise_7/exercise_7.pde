@@ -1,8 +1,11 @@
-Mover[] movers = new Mover[9];
+Mover[] movers;
 Liquid liquid;
 
 void setup() {
   size(640, 360);
+
+  movers = new Mover[9];
+
   reset();
   liquid = new Liquid(0, height/2, width, height/2, 0.1);
 }
