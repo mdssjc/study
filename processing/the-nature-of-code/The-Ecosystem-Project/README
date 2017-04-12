@@ -9,3 +9,14 @@ Develop a set of rules for simulating the real-world behavior of a creature, suc
 - high jump, depending on the impact with the ground
 
 Only acceleration is not enough.
+
+
+Step 2 Exercise:
+
+Incorporate the concept of forces into your ecosystem. Try introducing other elements into the environment (food, a predator) for the creature to interact with. Does the creature experience attraction or repulsion to things in its world? Can you think more abstractly and design forces based on the creature’s desires or goals?
+
+- environment: energy, fields and mini-enemies
+- the creature experiences kinds of forces like gravity, tension... when in the action of jumping and flying... as well as the powers of enemies
+
+- use the force when jump in two stages: normal and high, comform an enegy
+- use force when in the jump action, in the stages: normal and high, according to a rate of energy
