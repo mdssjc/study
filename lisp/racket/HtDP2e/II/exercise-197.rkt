@@ -37,7 +37,7 @@
 (define (most-frequent d)
   (maximum-count (count-by-letter d) '()))
 
-; LoLC -> Letter-Count
+; LoLC Letter-Count -> Letter-Count
 ; picks the pair with the maximum count
 (check-expect (maximum-count (count-by-letter '()) '()) '())
 (check-expect (maximum-count (count-by-letter DICTIONARY-AS-LIST) '()) (list "e" 2))
