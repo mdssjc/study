@@ -44,14 +44,14 @@
                                         :asset-path "/js/out"
                                         :optimizations :none
                                         :source-map true
-                                        :pretty-print true
-                                        :target-path "target/%s/"
-                                        :main ^:skip-aot guestbook.core}}}}
+                                        :pretty-print true}}}}
   :clean-targets
   ^{:protect false}
   [:target-path
    [:cljsbuild :builds :app :compiler :output-dir]
    [:cljsbuild :builds :app :compiler :output-to]]
+  :target-path "target/%s/"
+  :main ^:skip-aot guestbook.core
   :migratus {:store :database :db ~(get (System/getenv) "DATABASE_URL")}
   :plugins [[lein-cprop "1.0.1"]
             [migratus-lein "0.4.4"]
@@ -59,7 +59,6 @@
             [cider/cider-nrepl "0.14.0"]
             [lein-environ "1.1.0"]
             [lein-cljsbuild "1.1.5"]]
-
   :profiles
   {:uberjar {:omit-source    true
              :aot            :all
