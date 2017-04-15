@@ -30,22 +30,35 @@
                  [ring/ring-defaults "0.2.3"]
                  [ring-middleware-format "0.7.2"]
                  [selmer "1.10.7"]
-                 [bouncer "1.0.1"]]
-
+                 [bouncer "1.0.1"]
+                 [org.clojure/clojurescript "1.9.521"]]
   :min-lein-version "2.0.0"
-
   :jvm-opts ["-server" "-Dconf=.lein-env"]
   :source-paths ["src/clj"]
   :test-paths ["test/clj"]
-  :resource-paths ["resources"]
-  :target-path "target/%s/"
-  :main ^:skip-aot guestbook.core
+  :resource-paths ["resources" "target/cljsbuild"]
+  :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
+                             :compiler {:output-to "target/cljsbuild/public/js/app.js"
+                                        :output-dir "target/cljsbuild/public/js/out"
+                                        :main "guestbook.core"
+                                        :asset-path "/js/out"
+                                        :optimizations :none
+                                        :source-map true
+                                        :pretty-print true
+                                        :target-path "target/%s/"
+                                        :main ^:skip-aot guestbook.core}}}}
+  :clean-targets
+  ^{:protect false}
+  [:target-path
+   [:cljsbuild :builds :app :compiler :output-dir]
+   [:cljsbuild :builds :app :compiler :output-to]]
   :migratus {:store :database :db ~(get (System/getenv) "DATABASE_URL")}
-
   :plugins [[lein-cprop "1.0.1"]
             [migratus-lein "0.4.4"]
             [lein-immutant "2.1.0"]
-            [cider/cider-nrepl "0.14.0"]]
+            [cider/cider-nrepl "0.14.0"]
+            [lein-environ "1.1.0"]
+            [lein-cljsbuild "1.1.5"]]
 
   :profiles
   {:uberjar {:omit-source    true
