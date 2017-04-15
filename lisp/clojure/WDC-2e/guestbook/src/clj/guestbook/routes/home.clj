@@ -7,11 +7,8 @@
             [bouncer.core :as b]
             [bouncer.validators :as v]))
 
-(defn home-page [{:keys [flash]}]
-  (layout/render
-   "home.html"
-   (merge {:messages (db/get-messages)}
-          (select-keys flash [:name :message :errors]))))
+(defn home-page []
+  (layout/render "home.html"))
 
 (defn validate-message [params]
   (first
