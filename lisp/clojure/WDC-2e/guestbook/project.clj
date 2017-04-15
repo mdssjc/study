@@ -31,7 +31,8 @@
                  [ring-middleware-format "0.7.2"]
                  [selmer "1.10.7"]
                  [bouncer "1.0.1"]
-                 [org.clojure/clojurescript "1.9.521"]]
+                 [org.clojure/clojurescript "1.9.521"]
+                 [reagent "0.6.1"]]
   :min-lein-version "2.0.0"
   :jvm-opts ["-server" "-Dconf=.lein-env"]
   :source-paths ["src/clj"]
