@@ -1,11 +1,11 @@
 (ns guestbook.routes.home
   (:require [guestbook.layout :as layout]
             [compojure.core :refer [defroutes GET POST]]
-            [ring.util.http-response :as response]
             [clojure.java.io :as io]
             [guestbook.db.core :as db]
             [bouncer.core :as b]
-            [bouncer.validators :as v]))
+            [bouncer.validators :as v]
+            [ring.util.response :refer [response status]]))
 
 (defn home-page []
   (layout/render "home.html"))
@@ -19,17 +19,17 @@
 
 (defn save-message! [{:keys [params]}]
   (if-let [errors (validate-message params)]
-    (-> (response/found "/")
-        (assoc :flash (assoc params :errors errors)))
+    (-> {:errors errors} response (status 400))
     (do
       (db/save-message!
        (assoc params :timestamp (java.util.Date.)))
-      (response/found "/"))))
+      (response {:status :ok}))))
 
 (defn about-page []
   (layout/render "about.html"))
 
 (defroutes home-routes
   (GET "/" [] (home-page))
-  (POST "/message" request (save-message! request))
+  (POST "/messages" [] (response (db/get-messages)))
+  (POST "add-message" req (save-message! req))
   (GET "/about" [] (about-page)))
