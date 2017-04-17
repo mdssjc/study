@@ -80,7 +80,7 @@
 
 ; ---
 
-;(check-expect (most-frequent DICTIONARY-AS-LIST) (most-frequent.v2 DICTIONARY-AS-LIST))
+(check-expect (most-frequent DICTIONARY-AS-LIST) (most-frequent.v2 DICTIONARY-AS-LIST))
 
 ; Dictionary -> Letter-Count
 ; produces the Letter-Count for the letter that is occurs most often
