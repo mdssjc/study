@@ -1,11 +1,10 @@
 (ns guestbook.routes.home
   (:require [guestbook.layout :as layout]
-            [compojure.core :refer [defroutes GET POST]]
-            [clojure.java.io :as io]
             [guestbook.db.core :as db]
             [bouncer.core :as b]
             [bouncer.validators :as v]
-            [ring.util.response :refer [response status]]))
+            [compojure.core :refer [defroutes GET POST]]
+            [ring.util.http-response :as response]))
 
 (defn home-page []
   (layout/render "home.html"))
@@ -19,17 +18,20 @@
 
 (defn save-message! [{:keys [params]}]
   (if-let [errors (validate-message params)]
-    (-> {:errors errors} response (status 400))
-    (do
+    (response/bad-request {:errors errors})
+    (try
       (db/save-message!
        (assoc params :timestamp (java.util.Date.)))
-      (response {:status :ok}))))
+      (response/ok {:status :ok})
+      (catch Exception e
+        (response/internal-server-error
+          {:errors {:server-error ["Failed to save message!"]}})))))
 
 (defn about-page []
   (layout/render "about.html"))
 
 (defroutes home-routes
   (GET "/" [] (home-page))
-  (POST "/messages" [] (response (db/get-messages)))
-  (POST "add-message" req (save-message! req))
+  (GET "/messages" [] (response/ok (db/get-messages)))
+  (POST "/message" req (save-message! req))
   (GET "/about" [] (about-page)))
