@@ -33,7 +33,8 @@
                  [bouncer "1.0.1"]
                  [org.clojure/clojurescript "1.9.521" :scope "provided"]
                  [reagent "0.6.1"]
-                 [cljs-ajax "0.5.9"]]
+                 [cljs-ajax "0.5.9"]
+                 [com.cognitect/transit-clj "0.8.300"]]
   :min-lein-version "2.0.0"
   :jvm-opts ["-server" "-Dconf=.lein-env"]
   :source-paths ["src/clj"]

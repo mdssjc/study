@@ -3,10 +3,12 @@
             [guestbook.layout :refer [error-page]]
             [guestbook.routes.home :refer [home-routes]]
             [compojure.route :as route]
-            [guestbook.middleware :as middleware]))
+            [guestbook.middleware :as middleware]
+            [guestbook.routes.ws :refer [websocket-routes]]))
 
 (def app-routes
   (routes
+   #'websocket-routes
     (wrap-routes #'home-routes middleware/wrap-csrf)
     (route/not-found
       (:body
