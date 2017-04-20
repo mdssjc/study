@@ -1,6 +1,6 @@
 (ns guestbook.core
   (:require [reagent.core :as reagent :refer [atom]]
-            [ajax.core :refer [GET POST]]
+            [ajax.core :refer [GET]]
             [guestbook.ws :as ws]))
 
 (defn message-list [messages]
@@ -16,18 +16,6 @@
   (GET "/messages"
        {:headers {"Accept" "application/transit+json"}
         :handler #(reset! messages (vec %))}))
-
-(defn send-message! [fields errors messages]
-  (POST "/message"
-        {:headers {"Accept"       "application/transit+json"
-                   "x-csrf-token" (.-value (.getElementById js/document "token"))}
-         :params @fields
-         :handler #(do
-                    (reset! errors nil)
-                    (swap! messages conj (assoc @fields :timestamp (js/Date.))))
-         :error-handler #(do
-                          (.log js/console (str %))
-                          (reset! errors (get-in % [:response :errors])))}))
 
 (defn errors-component [errors id]
   (when-let [error (id @errors)]
@@ -51,11 +39,11 @@
        :on-change #(swap! fields assoc :message (-> % .-target .-value))}]]
     [:input.btn.btn-primary
      {:type     :submit
-      :on-click #(ws/send-message! @fields)
+      :on-click #(ws/send-message! [:guestbook/add-message @fields] 8000)
       :value    "comment"}]]])
 
 (defn response-handler [messages fields errors]
-  (fn [message]
+  (fn [{[_ message] :?data}]
     (if-let [response-errors (:errors message)]
       (reset! errors response-errors)
       (do
@@ -67,8 +55,7 @@
   (let [messages (atom nil)
         errors   (atom nil)
         fields   (atom nil)]
-    (ws/connect! (str "ws://" (.-host js/location) "/ws")
-                 (response-handler messages fields errors))
+    (ws/start-router! (response-handler messages fields errors))
     (get-messages messages)
     (fn []
       [:div
