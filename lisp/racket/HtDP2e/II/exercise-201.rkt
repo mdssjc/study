@@ -5,7 +5,7 @@
 
 (require 2htdp/itunes)
 
-; An LTracks is one of:
+; A LTracks is one of:
 ; - '()
 ; - (cons Track LTracks)
 (define T1 (create-track "title A" "two" "three" 4 5 (create-date 1 2 3 4 5 6) 7 (create-date 1 2 3 4 5 6)))
@@ -40,7 +40,7 @@
   (cond [(empty? los) ""]
         [(empty? (rest los)) (first los)]
         [else (string-append (first los) " "
-                             (create-set (remove (first los) (rest los))))]))
+                             (create-set (remove-all (first los) (rest los))))]))
 
 ; LTracks -> List-of-strings
 ; produces a list of unique album titles
@@ -51,4 +51,4 @@
 (define (select-album-titles/unique lt)
   (cond [(empty? lt) '()]
         [else (cons (track-name (first lt))
-                    (select-album-titles/unique (remove (first lt) (rest lt))))]))
+                    (select-album-titles/unique (remove-all (first lt) (rest lt))))]))
