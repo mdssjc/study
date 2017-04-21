@@ -15,11 +15,12 @@
 
 ; LTracks -> Number
 ; produces the total amount of play time
-(check-within (total-time LT1) 7.11861 0.00001)
+(check-expect (total-time LT1) (+ 4 (/ 5 60) (/ 6 60 60)
+                                  3 (/ 2 60) (/ 1 60 60)))
 
 (define (total-time lt)
   (cond [(empty? lt) 0]
         [else (+ (date-hour (track-played (first lt)))
-                 (/ (date-hour (track-played (first lt))) 60)
-                 (/ (date-hour (track-played (first lt))) 60 60)
+                 (/ (date-minute (track-played (first lt))) 60)
+                 (/ (date-second (track-played (first lt))) 60 60)
                  (total-time (rest lt)))]))
