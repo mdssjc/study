@@ -33,7 +33,7 @@
 (define (select-albums lt)
   (cond [(empty? lt) '()]
         [else (cons (select-album (track-album (first lt)) lt)
-                    (select-albums (remove-album (track-album (first lt)) (rest lt))))]))
+                    (select-albums (delete-album (track-album (first lt)) (rest lt))))]))
 
 ; String LTracks -> LTracks
 ; extracts the tracks belonging to the given album from the list of tracks
@@ -52,14 +52,14 @@
 
 ; String LTracks -> LTracks
 ; removes the tracks belonging to the given album from the list of tracks
-(check-expect (remove-album "three" LT1) '())
-(check-expect (remove-album "new-three" LT1) (list T1 T2))
-(check-expect (remove-album "three" LT2) '())
-(check-expect (remove-album "three" LT3) (list T4 T3))
-(check-expect (remove-album "new-three" LT3) (list T2 T1))
+(check-expect (delete-album "three" LT1) '())
+(check-expect (delete-album "new-three" LT1) (list T1 T2))
+(check-expect (delete-album "three" LT2) '())
+(check-expect (delete-album "three" LT3) (list T4 T3))
+(check-expect (delete-album "new-three" LT3) (list T2 T1))
 
-(define (remove-album a lt)
+(define (delete-album a lt)
   (cond [(empty? lt) '()]
         [(string=? (track-album (first lt)) a)
-         (remove-album a (remove (first lt) (rest lt)))]
-        [else (cons (first lt) (remove-album a (rest lt)))]))
+         (delete-album a (remove (first lt) (rest lt)))]
+        [else (cons (first lt) (delete-album a (rest lt)))]))
