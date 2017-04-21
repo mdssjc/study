@@ -32,5 +32,5 @@
 (define LA3 '())
 
 (define LL1 (list LA1 LA2))
-(define LL2 (list LA1 LA3 LA2))
+(define LL2 (list LA1 LA2 LA3))
 (define LL3 '())
