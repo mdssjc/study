@@ -25,7 +25,8 @@
                  [ring-webjars "0.1.1"]
                  [ring/ring-core "1.6.0-RC3"]
                  [ring/ring-defaults "0.2.3"]
-                 [selmer "1.10.7"]]
+                 [selmer "1.10.7"]
+                 [clj-http "3.5.0"]]
 
   :min-lein-version "2.0.0"
 
@@ -46,7 +47,7 @@
    :nrepl-port 7002
    :css-dirs ["resources/public/css"]
    :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
-  
+
 
   :profiles
   {:uberjar {:omit-source true
@@ -61,8 +62,8 @@
                  :pretty-print false
                  :closure-warnings
                  {:externs-validation :off :non-standard-jsdoc :off}}}}}
-             
-             
+
+
              :aot :all
              :uberjar-name "swagger-service.jar"
              :source-paths ["env/prod/clj"]
@@ -95,9 +96,9 @@
                       :source-map true
                       :optimizations :none
                       :pretty-print true}}}}
-                  
-                  
-                  
+
+
+
                   :doo {:build "test"}
                   :source-paths ["env/dev/clj"]
                   :resource-paths ["env/dev/resources"]
@@ -114,7 +115,7 @@
                       :main "swagger-service.doo-runner"
                       :optimizations :whitespace
                       :pretty-print true}}}}
-                  
+
                   }
    :profiles/dev {}
    :profiles/test {}})
