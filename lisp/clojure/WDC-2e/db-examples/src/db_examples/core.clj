@@ -19,3 +19,15 @@
   (first (sql/query db ["SELECT * FROM users WHERE id = ?" id])))
 
 (get-user "foo")
+
+(defn add-user! [user]
+  (sql/insert! db :users user))
+
+(add-user! {:id "foo" :pass "bar"})
+
+(defn add-users! [& users]
+  (sql/insert-multi! db :users users))
+
+(add-users! {:id "foo1" :pass "bar"}
+            {:id "foo2" :pass "bar"}
+            {:id "foo3" :pass "bar"})
