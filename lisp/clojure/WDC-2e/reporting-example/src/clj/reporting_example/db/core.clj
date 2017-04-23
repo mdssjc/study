@@ -15,8 +15,8 @@
    :jdbc-url   (env :database-url)})
 
 (defstate ^:dynamic *db*
-          :start (conman/connect! pool-spec)
-          :stop (conman/disconnect! *db*))
+  :start (conman/connect! pool-spec)
+  :stop (conman/disconnect! *db*))
 
 (conman/bind-connection *db* "sql/queries.sql")
 
@@ -32,6 +32,9 @@
 
   Array
   (result-set-read-column [v _ _] (vec (.getArray v)))
+
+  String
+  (result-set-read-column [v _ _] v)
 
   Object
   (result-set-read-column [mysqlobj _metadata _index]
@@ -58,3 +61,18 @@
   (sql-value [value] (to-mysql-json value))
   IPersistentVector
   (sql-value [value] (to-mysql-json value)))
+
+;; (defn add-employees! [& employees]
+;;   (jdbc/insert-multi! *db* :employee employees))
+
+;; (add-employees!
+;;  {:name "Albert Einstein"   , :occupation "Engineer"        , :place "Ulm"    , :country "Germany"}
+;;  {:name "Alfred Hitchcock"  , :occupation "Movie Director"  , :place "London" , :country "UK"}
+;;  {:name "Wernher Von Braun" , :occupation "Rocket Scientist", :place "Wyrzysk", :country "Poland"}
+;;  {:name "Sigmund Freud"     , :occupation "Neurologist"     , :place "Pribor" , :country "Czech Republic"}
+;;  {:name "Mahatma Gandhi"    , :occupation "Lawyer"          , :place "Gujarat", :country "India"}
+;;  {:name "Sachin Tendulkar"  , :occupation "Cricket Player"  , :place "Mumbai" , :country "India"}
+;;  {:name "Michael Schumacher", :occupation "F1 Racer"        , :place "Cologne", :country "Germany"})
+
+(mount.core/start #'*db*)
+(read-employees)
