@@ -31,3 +31,12 @@
 (add-users! {:id "foo1" :pass "bar"}
             {:id "foo2" :pass "bar"}
             {:id "foo3" :pass "bar"})
+
+(defn set-pass! [id pass]
+  (sql/update!
+   db
+   :users
+   {:pass pass}
+   ["id=?" id]))
+
+(set-pass! "foo" "bar")
