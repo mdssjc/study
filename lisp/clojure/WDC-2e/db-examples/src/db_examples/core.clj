@@ -40,3 +40,8 @@
    ["id=?" id]))
 
 (set-pass! "foo" "bar")
+
+(defn remove-user! [id]
+  (sql/delete! db :users ["id=?" id]))
+
+(remove-user! "foo")
