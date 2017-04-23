@@ -24,3 +24,12 @@
 (defquery add-user<! "add_user.sql" {:connection db})
 
 ;(add-user<! {:id "another-user" :pass "foo"})
+
+(defqueries "queries.sql" {:connection db})
+
+(defn find-user-transaction []
+  (sql/with-db-transaction [t-conn db]
+    {:limeys (find-user {:id "foo"} {:connection t-conn})}
+    {:yanks  (find-user {:id "bar"} {:connection t-conn})}))
+
+;(find-user-transaction)
