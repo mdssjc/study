@@ -1,14 +1,14 @@
 (ns reporting-example.handler
-  (:require [compojure.core :refer [defroutes routes wrap-routes]]
-            [reporting-example.layout :refer [error-page]]
-            [reporting-example.routes.home :refer [home-routes]]
-            [reporting-example.middleware :as middleware]
-            [clojure.tools.logging :as log]
+  (:require [clojure.tools.logging :as log]
+            [compojure.core :refer [defroutes routes wrap-routes]]
             [compojure.route :as route]
             [config.core :refer [env]]
-            [reporting-example.config :refer [defaults]]
+            [luminus.logger :as logger]
             [mount.core :as mount]
-            [luminus.logger :as logger]))
+            [reporting-example.config :refer [defaults]]
+            [reporting-example.layout :refer [error-page]]
+            [reporting-example.middleware :as middleware]
+            [reporting-example.routes.home :refer [home-routes]]))
 
 (defn init
   "init will be called once when

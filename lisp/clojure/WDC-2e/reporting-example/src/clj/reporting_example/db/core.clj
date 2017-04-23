@@ -1,4 +1,4 @@
-(ns reporting-example.core
+(ns reporting-example.db.core
   (:require [cheshire.core :refer [generate-string parse-string]]
             [clojure.java.jdbc :as jdbc]
             [config.core :refer [env]]
@@ -75,4 +75,4 @@
 ;;  {:name "Michael Schumacher", :occupation "F1 Racer"        , :place "Cologne", :country "Germany"})
 
 (mount.core/start #'*db*)
-(read-employees)
+;; (read-employees)
