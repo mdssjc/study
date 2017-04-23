@@ -1,58 +1,43 @@
 (ns reporting-example.core
-  (:require [reporting-example.handler :as handler]
-            [luminus.repl-server :as repl]
-            [luminus.http-server :as http]
-            [luminus-migrations.core :as migrations]
-            [reporting-example.config :refer [env]]
-            [clojure.tools.cli :refer [parse-opts]]
-            [clojure.tools.logging :as log]
-            [mount.core :as mount])
-  (:gen-class))
+  (:gen-class)
+  (:require [config.core :refer [env]]
+            [luminus
+             [http-server :as http]
+             [repl-server :as repl]]
+            [reporting-example.db.migrations :as migrations]
+            [reporting-example.handler :refer [app destroy init]]))
 
-(def cli-options
-  [["-p" "--port PORT" "Port number"
-    :parse-fn #(Integer/parseInt %)]])
+(defn parse-port [port]
+  (when port
+    (cond
+      (string? port) (Integer/parseInt port)
+      (number? port) port
+      :else          (throw (Exception. (str "invalid port value: " port))))))
 
-(mount/defstate ^{:on-reload :noop}
-                http-server
-                :start
-                (http/start
-                  (-> env
-                      (assoc :handler (handler/app))
-                      (update :port #(or (-> env :options :port) %))))
-                :stop
-                (http/stop http-server))
-
-(mount/defstate ^{:on-reload :noop}
-                repl-server
-                :start
-                (when-let [nrepl-port (env :nrepl-port)]
-                  (repl/start {:port nrepl-port}))
-                :stop
-                (when repl-server
-                  (repl/stop repl-server)))
-
+(defn http-port [port]
+  ;;default production port is set in
+  ;;env/prod/resources/config.edn
+  (parse-port (or port (env :port))))
 
 (defn stop-app []
-  (doseq [component (:stopped (mount/stop))]
-    (log/info component "stopped"))
+  (repl/stop)
+  (http/stop destroy)
   (shutdown-agents))
 
-(defn start-app [args]
-  (doseq [component (-> args
-                        (parse-opts cli-options)
-                        mount/start-with-args
-                        :started)]
-    (log/info component "started"))
-  (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
+(defn start-app
+  "e.g. lein run 3000"
+  [[port]]
+  (let [port (http-port port)]
+    (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
+    (when-let [repl-port (env :nrepl-port)]
+      (repl/start {:port (parse-port repl-port)}))
+    (http/start {:handler app
+                 :init    init
+                 :port    port})))
 
 (defn -main [& args]
   (cond
     (some #{"migrate" "rollback"} args)
-    (do
-      (mount/start #'reporting-example.config/env)
-      (migrations/migrate args (select-keys env [:database-url]))
-      (System/exit 0))
+    (do (migrations/migrate args) (System/exit 0))
     :else
     (start-app args)))
-  

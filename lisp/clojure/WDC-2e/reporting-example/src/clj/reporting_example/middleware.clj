@@ -1,14 +1,14 @@
 (ns reporting-example.middleware
-  (:require [reporting-example.env :refer [defaults]]
+  (:require [reporting-example.layout :refer [*app-context* error-page]]
             [clojure.tools.logging :as log]
-            [reporting-example.layout :refer [*app-context* error-page]]
-            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
-            [ring.middleware.webjars :refer [wrap-webjars]]
-            [muuntaja.middleware :refer [wrap-format wrap-params]]
-            [reporting-example.config :refer [env]]
+            [config.core :refer [env]]
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]
-            [ring.middleware.defaults :refer [site-defaults wrap-defaults]])
+            [ring.middleware.webjars :refer [wrap-webjars]]
+            [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
+            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
+            [ring.middleware.format :refer [wrap-restful-format]]
+            [reporting-example.config :refer [defaults]])
   (:import [javax.servlet ServletContext]))
 
 (defn wrap-context [handler]
@@ -45,7 +45,9 @@
         :title "Invalid anti-forgery token"})}))
 
 (defn wrap-formats [handler]
-  (let [wrapped (-> handler wrap-params wrap-format)]
+  (let [wrapped (wrap-restful-format
+                  handler
+                  {:formats [:json-kw :transit-json :transit-msgpack]})]
     (fn [request]
       ;; disable wrap-formats for websockets
       ;; since they're not compatible with this middleware
@@ -53,8 +55,10 @@
 
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)
+      wrap-formats
       wrap-webjars
       wrap-flash
+      wrap-csrf
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
         (-> site-defaults

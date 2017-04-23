@@ -1,11 +1,8 @@
-(ns reporting-example.env
+(ns reporting-example.config
   (:require [clojure.tools.logging :as log]))
 
 (def defaults
   {:init
    (fn []
      (log/info "\n-=[reporting-example started successfully]=-"))
-   :stop
-   (fn []
-     (log/info "\n-=[reporting-example has shut down successfully]=-"))
    :middleware identity})

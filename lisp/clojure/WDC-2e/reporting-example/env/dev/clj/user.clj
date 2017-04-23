@@ -1,12 +1,15 @@
 (ns user
-  (:require [mount.core :as mount]
-            reporting-example.core))
+  (:require [reporting-example.handler :refer [app init destroy]]
+            [luminus.http-server :as http]
+            [config.core :refer [env]]))
 
 (defn start []
-  (mount/start-without #'reporting-example.core/repl-server))
+  (http/start {:handler app
+               :init    init
+               :port    (:port env)}))
 
 (defn stop []
-  (mount/stop-except #'reporting-example.core/repl-server))
+  (http/stop destroy))
 
 (defn restart []
   (stop)
