@@ -29,7 +29,8 @@
                  [ring-webjars "0.1.1"]
                  [ring/ring-core "1.6.0-RC3"]
                  [ring/ring-defaults "0.2.3"]
-                 [selmer "1.10.7"]]
+                 [selmer "1.10.7"]
+                 [bouncer "1.0.1"]]
 
   :min-lein-version "2.0.0"
 
