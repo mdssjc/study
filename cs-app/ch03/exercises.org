@@ -545,3 +545,17 @@ uremdiv:
     ,*dest = val;
   }
 #+END_SRC
+* Practice Problem 3.32
+  first(10) in main.
+  | Instruction |          |             | State values (at beginning) |      |      |                |          | ---                   |
+  | Label       |       PC | Instruction | %rdi                        | %rsi | %rax | %rsp           |    *%rsp | Description           |
+  |-------------+----------+-------------+-----------------------------+------+------+----------------+----------+-----------------------|
+  | M1          | 0x400560 | callq       | 10                          | -    | -    | 0x7fffffffe820 |        - | Call first(10)        |
+  | F1          | 0x400548 | lea         | 10                          | -    | -    | Ox7fffffffe818 | 0x400560 | Entry of first        |
+  | F2          | 0x40054C | sub         | -                           | 11   | -    | Ox7fffffffe818 | 0x400560 | Resume first          |
+  | F3          | 0x400550 | callq       | 10                          | -    | -    | Ox7fffffffe818 | 0x400560 | Call last(10, 11)     |
+  | L1          | 0x400540 | mov         | 10                          | -    | -    | Ox7fffffffe810 | 0x400555 | Resume last           |
+  | L2          | 0x400543 | imul        | -                           | -    | 10   | Ox7fffffffe810 | 0x400555 | Resume last           |
+  | L3          | 0x400547 | retq        | -                           | -    | 110  | Ox7fffffffe810 | 0x400555 | Return 110 from last  |
+  | F4          | 0x400555 | repz        | -                           | -    | 110  | Ox7fffffffe818 | 0x400560 | Return 110 from first |
+  | M2          | 0x400565 | mov         | -                           | -    | 110  | 0x7fffffffe820 |        - | Resume main           |
