@@ -13,6 +13,7 @@
            :stop (conman/disconnect! *db*))
 
 (conman/bind-connection *db* "sql/queries.sql")
+(mount.core/start #'*db*)
 
 (defn to-date [^java.sql.Date sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
@@ -28,4 +29,3 @@
   jdbc/ISQLParameter
   (set-parameter [v ^PreparedStatement stmt idx]
     (.setTimestamp stmt idx (java.sql.Timestamp. (.getTime v)))))
-

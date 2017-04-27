@@ -5,19 +5,33 @@
             [buddy.hashers :as hashers]
             [clojure.tools.logging :as log]))
 
-(defn register [{:keys [session]} user]
+(defn handle-registration-error [e]
+  (if (and
+        (instance? java.sql.SQLException e)
+        (-> e (.getNextException)
+              (.getMessage)
+              (.startsWith "ERROR: duplicate key value")))
+    (response/precondition-failed
+      {:result  :error
+       :message "user with the selected ID already exists"})
+    (do
+      (log/error e)
+      (response/internal-server-error
+        {:result  :error
+         :message "server error occurred while adding the user"}))))
+
+(defn register! [{:keys [session]} user]
   (if (registration-errors user)
     (response/precondition-failed {:result :error})
     (try
       (db/create-user!
-       (-> user
-          (dissoc :pass-confirm)
-          (update :pass hashers/encrypt)))
+        (-> user
+            (dissoc :pass-confirm)
+            (update :pass hashers/encrypt)))
       (-> {:result :ok}
-         (response/ok)
-         (assoc :session (assoc session :identity (:id user))))
+          (response/ok)
+          (assoc :session (assoc session :identity (:id user))))
       (catch Exception e
-        (log/error e)
-        (response/internal-server error
-                                  {:result :error
-                                   :message "server error occurred while adding the user"})))))
+        (handle-registration-error e)))))
+
+;;(register! {} {:id "foo" :pass "12345678" :pass-confirm "12345678"})
