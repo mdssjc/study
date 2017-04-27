@@ -3,6 +3,10 @@
 #reader(lib "htdp-beginner-abbr-reader.ss" "lang")((modname exercise-211) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; Exercise 211
 
+; A Dictionary is a List-of-strings.
+(define DICTIONARY-AS-LIST (list "hello" "world" "egg"))
+
+
 ; List-of-strings -> List-of-strings
 ; pick out all those Strings that occur in the dictionary
 (check-expect (in-dictionary (list "hello" "world")) (list "hello" "world"))
@@ -10,6 +14,6 @@
 
 (define (in-dictionary los)
   (cond [(empty? los) '()]
-        [(member? (first los) (list "hello" "world" "egg"))
+        [(member? (first los) DICTIONARY-AS-LIST)
          (cons (first los) (in-dictionary (rest los)))]
         [else (in-dictionary (rest los))]))
