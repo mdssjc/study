@@ -559,3 +559,9 @@ uremdiv:
   | L3          | 0x400547 | retq        | -                           | -    | 110  | Ox7fffffffe810 | 0x400555 | Return 110 from last  |
   | F4          | 0x400555 | repz        | -                           | -    | 110  | Ox7fffffffe818 | 0x400560 | Return 110 from first |
   | M2          | 0x400565 | mov         | -                           | -    | 110  | 0x7fffffffe820 |        - | Resume main           |
+* Practice Problem 3.33
+  Arguments: ~u a v b~
+  u: ~int~
+  a: ~char~
+  v: ~long~
+  b: ~long~
