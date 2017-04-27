@@ -30,17 +30,17 @@ class Car {
   }
 
   void turnLeft() {
-    angle += angleStep;
-    if (angle > 360) {
-      angle = 0;
+    angle -= angleStep;
+    if (angle < 0) {
+      angle = 359;
     }
     applyForce();
   }
 
   void turnRight() {
-    angle -= angleStep;
-    if (angle < 0) {
-      angle = 359;
+    angle += angleStep;
+    if (angle > 360) {
+      angle = 0;
     }
     applyForce();
   }

@@ -14,10 +14,10 @@ void draw() {
 }
 
 void keyPressed() {
-  if (key == CODED && keyCode == RIGHT) {
+  if (key == CODED && keyCode == LEFT) {
     car.turnLeft();
   }
-  if (key == CODED && keyCode == LEFT) {
+  if (key == CODED && keyCode == RIGHT) {
     car.turnRight();
   }
 }
