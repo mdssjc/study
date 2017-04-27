@@ -1,4 +1,5 @@
-class CannonBall { 
+class CannonBall {
+
   PVector position;
   PVector velocity;
   PVector acceleration;
@@ -9,9 +10,9 @@ class CannonBall {
     position = new PVector(x, y);
     velocity = new PVector();
     acceleration = new PVector();
-  } 
+  }
 
-  void update() { 
+  void update() {
     velocity.add(acceleration);
     velocity.limit(topspeed);
     position.add(velocity);
@@ -22,7 +23,7 @@ class CannonBall {
     acceleration.add(force);
   }
 
-  void display() { 
+  void display() {
     stroke(0);
     strokeWeight(2);
 

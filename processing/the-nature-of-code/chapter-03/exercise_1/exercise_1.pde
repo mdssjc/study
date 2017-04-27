@@ -14,7 +14,7 @@ void draw() {
 
   pushMatrix();
 
-  translate(width / 2, height / 2); 
+  translate(width / 2, height / 2);
   rotate(radians(i % 360));
   i += 3;
 

@@ -25,9 +25,9 @@ class Spaceship {
     heading = 0;
     r = 16;
     thrusting = false;
-  } 
+  }
 
-  void update() { 
+  void update() {
     velocity.add(acceleration);
     velocity.mult(damping);
     velocity.limit(topspeed);
@@ -57,7 +57,7 @@ class Spaceship {
     float angle = heading - PI/2;
     PVector force = new PVector(cos(angle), sin(angle));
     force.mult(0.1);
-    applyForce(force); 
+    applyForce(force);
     thrusting = true;
   }
 

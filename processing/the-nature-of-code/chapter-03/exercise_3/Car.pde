@@ -1,4 +1,5 @@
 class Car {
+
   PVector position;
   PVector velocity;
   PVector acceleration;
@@ -13,9 +14,9 @@ class Car {
     angle = 0;
     angleStep = 4;
     topspeed = 4;
-  } 
+  }
 
-  void update() { 
+  void update() {
     velocity.add(acceleration);
     velocity.limit(topspeed);
     position.add(velocity);

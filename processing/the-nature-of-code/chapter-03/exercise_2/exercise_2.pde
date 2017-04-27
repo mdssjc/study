@@ -12,7 +12,7 @@ void setup() {
 }
 
 void draw() {
-  background(255); 
+  background(255);
 
   pushMatrix();
 
@@ -30,7 +30,7 @@ void draw() {
   ball.display();
 
   if (ball.position.y > height) {
-    ball = new CannonBall(position.x, position.y);  
+    ball = new CannonBall(position.x, position.y);
     shot = false;
   }
 }

@@ -6,7 +6,7 @@ void setup() {
 }
 
 void draw() {
-  background(255); 
+  background(255);
 
   car.update();
   car.checkEdges();
