@@ -13,7 +13,7 @@
            :stop (conman/disconnect! *db*))
 
 (conman/bind-connection *db* "sql/queries.sql")
-(mount.core/start #'*db*)
+;;(mount.core/start #'*db*)
 
 (defn to-date [^java.sql.Date sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
