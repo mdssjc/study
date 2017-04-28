@@ -15,7 +15,6 @@
 ; 3) IMAGE1 has both the same width AND height as IMAGE2
 ; 
 
-
 (define IMAGE1 (rectangle 10 15 "solid" "red"))
 (define IMAGE2 (rectangle 15 10 "solid" "red"))
 
