@@ -57,6 +57,6 @@
       (internal-server-error "error"))))
 
 ;; (ImageIO/write
-;;  (scale (ImageIO/read (io/input-stream "taijitu.png")) 0.5 150 150)
+;;  (scale-image (io/input-stream "taijitu.png") thumb-size)
 ;;  "png"
-;;  (File. "scale.png"))
+;;  (File. "scaled.png"))
