@@ -109,9 +109,8 @@
       (and (= (snake-top s) (- HEIGHT SIZE)) (string=? (snake-direction s) "down"))))
 
 ; Snake -> Image
-; renders the game over message on the BACKGROUND
+; renders the game over message on the last render
 (define (game-over s)
-  (place-image SEG (snake-left s) (snake-top s)
-               (place-image (text "worm hit border" 12 "black") 50 (- HEIGHT 10) BACKGROUND)))
+   (place-image (text "worm hit border" 12 "black") 50 (- HEIGHT 10) (render s)))
 
 (worm-main (make-snake (/ WIDTH 2) (/ HEIGHT 2) "down"))
