@@ -9,3 +9,7 @@ SELECT * FROM users WHERE id = :id
 -- :name delete-user! :! :n
 -- :doc delete a user given the id
 DELETE FROM users WHERE id = :id
+
+-- :name save-file! :! :n
+-- :doc saves a file to the database
+INSERT INTO files (owner, type, name, data) VALUES (:owner, :type, :name, :DATA)
