@@ -63,7 +63,10 @@
 ; Snake -> Image
 ; renders the snake on the BACKGROUND
 (define (render s)
-  (place-image SEG (snake-left s) (snake-top s) BACKGROUND))
+  (place-image SEG
+               (+ (snake-left s) (/ SIZE 2))
+               (+ (snake-top s)  (/ SIZE 2))
+               BACKGROUND))
 
 ; Snake KeyEvent -> Snake
 ; updates the direction of snake with Direction
@@ -104,13 +107,13 @@
 
 (define (hit-border? s)
   (or (and (= (snake-left s) 0) (string=? (snake-direction s) "left"))
-      (and (= (snake-top s) 0) (string=? (snake-direction s) "up"))
-      (and (= (snake-left s) (- WIDTH SIZE)) (string=? (snake-direction s) "right"))
-      (and (= (snake-top s) (- HEIGHT SIZE)) (string=? (snake-direction s) "down"))))
+      (and (= (snake-top s)  0) (string=? (snake-direction s) "up"))
+      (and (= (snake-left s) (- WIDTH SIZE))  (string=? (snake-direction s) "right"))
+      (and (= (snake-top s)  (- HEIGHT SIZE)) (string=? (snake-direction s) "down"))))
 
 ; Snake -> Image
 ; renders the game over message on the last render
 (define (game-over s)
-   (place-image (text "worm hit border" 12 "black") 50 (- HEIGHT 10) (render s)))
+  (place-image (text "worm hit border" 12 "black") 50 (- HEIGHT 10) (render s)))
 
 (worm-main (make-snake (/ WIDTH 2) (/ HEIGHT 2) "down"))
