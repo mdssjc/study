@@ -60,7 +60,7 @@
      (response/ok)
      (assoc :session nil)))
 
-(str "Basic "
-     (.encodeToString
-      (java.util.Base64/getEncoder)
-      (.getBytes "user:pass")))
+;; (str "Basic "
+;;      (.encodeToString
+;;       (java.util.Base64/getEncoder)
+;;       (.getBytes "user:pass")))

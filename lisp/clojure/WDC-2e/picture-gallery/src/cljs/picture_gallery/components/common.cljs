@@ -9,8 +9,7 @@
      [:div.modal-header [:h3 header]]
      [:div.modal-body body]
      [:div.modal-footer
-      [:div.bootstrap-dialog-footer
-       footer]]]]
+      [:div.bootstrap-dialog-footer footer]]]]
    [:div.modal-backdrop.fade.in]])
 
 (defn input [type id placeholder fields]
@@ -27,8 +26,7 @@
      [input type id placeholder fields]
      [:div.input-group
       [input type id placeholder fields]
-      [:span.input-group-addon
-       "âœ±"]])])
+      [:span.input-group-addon "✱"]])])
 
 (defn text-input [label id placeholder fields & [optional?]]
   (form-input :text label id placeholder fields optional?))

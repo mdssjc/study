@@ -1,18 +1,19 @@
 (ns picture-gallery.middleware
-  (:require [picture-gallery.env :refer [defaults]]
+  (:require [picture-gallery.layout :refer [*app-context* error-page]]
             [clojure.tools.logging :as log]
-            [picture-gallery.layout :refer [*app-context* error-page]]
-            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
-            [ring.middleware.webjars :refer [wrap-webjars]]
-            [muuntaja.middleware :refer [wrap-format wrap-params]]
+            [picture-gallery.env :refer [defaults]]
             [picture-gallery.config :refer [env]]
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]
+            [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
+            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
+            [ring.middleware.format :refer [wrap-restful-format]]
             [buddy.auth.middleware :refer [wrap-authentication wrap-authorization]]
+            [buddy.auth.backends.session :refer [session-backend]]
             [buddy.auth.accessrules :refer [restrict]]
             [buddy.auth :refer [authenticated?]]
-            [buddy.auth.backends.session :refer [session-backend]])
+            [picture-gallery.layout :refer [*identity*]])
   (:import [javax.servlet ServletContext]))
 
 (defn wrap-context [handler]
@@ -45,11 +46,13 @@
     handler
     {:error-response
      (error-page
-       {:status 403
-        :title "Invalid anti-forgery token"})}))
+      {:status 403
+       :title  "Invalid anti-forgery token"})}))
 
 (defn wrap-formats [handler]
-  (let [wrapped (-> handler wrap-params wrap-format)]
+  (let [wrapped (wrap-restful-format
+                  handler
+                  {:formats [:json-kw :transit-json :transit-msgpack]})]
     (fn [request]
       ;; disable wrap-formats for websockets
       ;; since they're not compatible with this middleware
@@ -64,15 +67,22 @@
   (restrict handler {:handler authenticated?
                      :on-error on-error}))
 
+(defn wrap-identity [handler]
+  (fn [request]
+    (binding [*identity* (get-in request [:session :identity])]
+      (handler request))))
+
 (defn wrap-auth [handler]
   (let [backend (session-backend)]
     (-> handler
+        wrap-identity
         (wrap-authentication backend)
         (wrap-authorization backend))))
 
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)
       wrap-auth
+      wrap-formats
       wrap-webjars
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
