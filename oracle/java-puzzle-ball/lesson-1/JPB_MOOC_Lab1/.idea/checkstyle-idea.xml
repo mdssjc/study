@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CheckStyle-IDEA">
+    <option name="configuration">
+      <map>
+        <entry key="active-configuration" value="LOCAL_FILE:/home/mdssjc/java/sevntu-checkstyle-default-configuration.xml:sevntu-checkstyle-default-configuration.xml" />
+        <entry key="checkstyle-version" value="7.6" />
+        <entry key="location-0" value="CLASSPATH:/sun_checks.xml:The default Checkstyle rules" />
+        <entry key="location-1" value="LOCAL_FILE:/home/mdssjc/Documents/Git/checkstyle/src/main/resources/google_checks.xml:google_checks.xml" />
+        <entry key="location-2" value="LOCAL_FILE:/home/mdssjc/java/sevntu-checkstyle-default-configuration.xml:sevntu-checkstyle-default-configuration.xml" />
+        <entry key="location-3" value="LOCAL_FILE:/home/mdssjc/Documents/Git/checkstyle/src/main/resources/sun_checks.xml:sun_checks.xml" />
+        <entry key="scanscope" value="JavaOnly" />
+        <entry key="suppress-errors" value="false" />
+        <entry key="thirdparty-classpath" value="$USER_HOME$/java/sevntu-checkstyle-idea-extension-1.23.1.jar;/home/mdssjc/java/checkstyle-addons-4.1.0-all.jar" />
+      </map>
+    </option>
+  </component>
+</project>
