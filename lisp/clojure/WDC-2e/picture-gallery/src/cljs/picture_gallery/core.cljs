@@ -8,7 +8,8 @@
             [picture-gallery.ajax :refer [load-interceptors!]]
             [ajax.core :as ajax]
             [picture-gallery.components.registration :as reg]
-            [picture-gallery.components.login :as l])
+            [picture-gallery.components.login :as l]
+            [picture-gallery.components.upload :as u])
   (:import goog.History))
 
 (defn nav-link [uri title page collapsed?]
@@ -21,11 +22,12 @@
 (defn user-menu []
   (if-let [id (session/get :identity)]
     [:ul.nav.navbar-nav.pull-xs-right
+     [:li.nav-item [u/upload-button]]
      [:li.nav-item
       [:a.dropdown-item.btn
        {:on-click #(ajax/POST
-                     "/logout"
-                     {:handler (fn [] (session/remove! :identity))})}
+                    "/logout"
+                    {:handler (fn [] (session/remove! :identity))})}
        [:i.fa.fa-user] " " id " | sign out"]]]
     [:ul.nav.navbar-nav.pull-xs-right
      [:li.nav-item [l/login-button]]
