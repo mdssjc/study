@@ -56,10 +56,10 @@
        (gallery/list-galleries)))
 
 (defapi restricted-service-routes
-  {:swagger {:ui "/swagger-ui-private"
+  {:swagger {:ui   "/swagger-ui-private"
              :spec "/swagger-private.json"
-             :data {:info {:version "1.0.0"
-                           :title "Picture Gallery API"
+             :data {:info {:version     "1.0.0"
+                           :title       "Picture Gallery API"
                            :description "Private Services"}}}}
   (POST "/upload" {:keys [identity]}
         :multipart-params [file :- TempFileUpload]

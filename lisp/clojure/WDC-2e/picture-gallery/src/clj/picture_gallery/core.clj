@@ -6,6 +6,8 @@
             [picture-gallery.config :refer [env]]
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.tools.logging :as log]
+            [picture-gallery.env :refer [defaults]]
+            [luminus.logger :as logger]
             [mount.core :as mount])
   (:gen-class))
 
@@ -18,7 +20,7 @@
                 :start
                 (http/start
                   (-> env
-                      (assoc :handler (handler/app))
+                      (assoc :handler handler/app)
                       (update :port #(or (-> env :options :port) %))))
                 :stop
                 (http/stop http-server))
@@ -26,8 +28,8 @@
 (mount/defstate ^{:on-reload :noop}
                 repl-server
                 :start
-                (when-let [nrepl-port (env :nrepl-port)]
-                  (repl/start {:port nrepl-port}))
+  (when-let [nrepl-port (env :nrepl-port)]
+    (repl/start {:port nrepl-port}))
                 :stop
                 (when repl-server
                   (repl/stop repl-server)))
@@ -38,11 +40,13 @@
   (shutdown-agents))
 
 (defn start-app [args]
+  (logger/init (:log-config env))
   (doseq [component (-> args
-                        (parse-opts cli-options)
-                        mount/start-with-args
-                        :started)]
+                       (parse-opts cli-options)
+                       mount/start-with-args
+                       :started)]
     (log/info component "started"))
+  ((:init defaults))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 
 (defn -main [& args]
@@ -50,7 +54,7 @@
     (some #{"migrate" "rollback"} args)
     (do
       (mount/start #'picture-gallery.config/env)
-      (migrations/migrate args (select-keys env [:database-url]))
+      (migrations/migrate args (env :database-url))
       (System/exit 0))
     :else
     (start-app args)))

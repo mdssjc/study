@@ -12,6 +12,7 @@
                  [luminus-migrations "0.3.0"]
                  [luminus-nrepl "0.1.4"]
                  [luminus/ring-ttl-session "0.3.2"]
+                 [luminus-log4j "0.1.5"]
                  [markdown-clj "0.9.99"]
                  [metosin/compojure-api "1.1.10"]
                  [metosin/muuntaja "0.2.1"]

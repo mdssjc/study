@@ -13,10 +13,8 @@
 (def thumb-prefix "thumb_")
 
 (defn scale [img ratio width height]
-  (let [scale (AffineTransform/getScaleInstance
-                (double ratio) (double ratio))
-        transform-op (AffineTransformOp.
-                       scale AffineTransformOp/TYPE_BILINEAR)]
+  (let [scale (AffineTransform/getScaleInstance (double ratio) (double ratio))
+        transform-op (AffineTransformOp. scale AffineTransformOp/TYPE_BILINEAR)]
     (.filter transform-op img (BufferedImage. width height (.getType img)))))
 
 (defn scale-image [file thumb-size]
@@ -32,7 +30,7 @@
     (.toByteArray baos)))
 
 (defn file->byte-array [x]
-  (with-open [input ( FileInputStream. x)
+  (with-open [input  ( FileInputStream. x)
               buffer (ByteArrayOutputStream.)]
     (clojure.java.io/copy input buffer)
     (.toByteArray buffer)))
@@ -49,8 +47,7 @@
                       :data  (file->byte-array tempfile)})
       (db/save-file! {:owner user
                       :type  "image/png"
-                      :data  (image->byte-array
-                               (scale-image tempfile thumb-size))
+                      :data  (image->byte-array (scale-image tempfile thumb-size))
                       :name  (str thumb-prefix db-file-name)}))
     (ok {:result :ok})
     (catch Exception e

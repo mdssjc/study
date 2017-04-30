@@ -21,7 +21,7 @@
     (-> {:result :ok}
         (response/ok)
         (assoc :session (assoc session :identity id)))
-    (response/unauthorized {:result :unauthorized
+    (response/unauthorized {:result  :unauthorized
                             :message "login failure"})))
 
 (defn logout! []
@@ -36,13 +36,13 @@
             (.getMessage)
             (.startsWith "ERROR: duplicate key value")))
     (response/precondition-failed
-      {:result  :error
-       :message "user with the selected ID already exists"})
+     {:result  :error
+      :message "user with the selected ID already exists"})
     (do
       (log/error e)
       (response/internal-server-error
-        {:result  :error
-         :message "server error occurred while adding the user"}))))
+       {:result  :error
+        :message "server error occurred while adding the user"}))))
 
 (defn register! [{:keys [session]} user]
   (if (registration-errors user)
