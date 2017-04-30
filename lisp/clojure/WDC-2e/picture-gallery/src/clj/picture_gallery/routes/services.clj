@@ -28,9 +28,9 @@
                            :title       "Picture Gallery API"
                            :description "Public Services"}}}}
   (POST "/register" req
-        :return Result
         :body [user UserRegistration]
         :summary "register a new user"
+        :return Result
         (auth/register! req user))
   (POST "/login" req
         :header-params [authorization :- String]
@@ -52,10 +52,10 @@
        (gallery/list-thumbnails owner)))
 
 (defapi restricted-service-routes
-  {:swagger {:ui   "/swagger-ui-private"
+  {:swagger {:ui "/swagger-ui-private"
              :spec "/swagger-private.json"
-             :data {:info {:version     "1.0.0"
-                           :title       "Picture Gallery API"
+             :data {:info {:version "1.0.0"
+                           :title "Picture Gallery API"
                            :description "Private Services"}}}}
   (POST "/upload" req
         :multipart-params [file :- TempFileUpload]
