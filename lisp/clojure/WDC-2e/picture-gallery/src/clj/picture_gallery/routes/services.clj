@@ -68,8 +68,10 @@
         :return Result
         (upload/save-image! identity file))
   (DELETE "/image/:thumbnail" {:keys [identity]}
-        :path-params [thumbnail :- String]
-        :summary "delete the specified file from the database"
-        :return Result
-        (gallery/delete-image!
-          identity thumbnail (clojure.string/replace thumbnail #"thumb_" ""))))
+          :path-params [thumbnail :- String]
+          :summary "delete the specified file from the database"
+          :return Result
+          (gallery/delete-image!
+           identity thumbnail (clojure.string/replace thumbnail #"thumb_" "")))
+  (DELETE "/account" {:keys [identity]}
+          (auth/delete-account! identity)))

@@ -23,7 +23,7 @@
       "/upload")))
 
 (defn upload-form []
-  (let [status (atom nil)
+  (let [status  (atom nil)
         form-id "upload-form"]
     (fn []
       [c/modal

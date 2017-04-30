@@ -94,3 +94,7 @@ html, body {
   right: 0;
   padding:20px;
 }
+
+.user-actions {
+  margin-left: -80px;
+}

@@ -50,6 +50,16 @@
             [lein-immutant "2.1.0"]]
   :clean-targets ^{:protect false}
   [:target-path [:cljsbuild :builds :app :compiler :output-dir] [:cljsbuild :builds :app :compiler :output-to]]
+  :cljsbuild
+  {:builds
+   {:app
+    {:source-paths ["src/cljc" "src/cljs"]
+     :compiler
+     {:output-to "target/cljsbuild/public/js/app.js"
+      :output-dir "target/cljsbuild/public/js/out"
+      :externs ["react/externs/react.js"
+                "resources/externs.js"]
+      :pretty-print true}}}}
   :figwheel
   {:http-server-root "public"
    :nrepl-port       7002

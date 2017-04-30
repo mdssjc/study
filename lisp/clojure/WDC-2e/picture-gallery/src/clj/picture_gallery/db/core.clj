@@ -28,3 +28,8 @@
   jdbc/ISQLParameter
   (set-parameter [v ^PreparedStatement stmt idx]
     (.setTimestamp stmt idx (java.sql.Timestamp. (.getTime v)))))
+
+(defn delete-account! [id]
+  (conman/with-transaction [*db*]
+    (delete-user! {:id id})
+    (delete-user-images! {:owner id})))
