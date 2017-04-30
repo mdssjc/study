@@ -9,7 +9,8 @@
             [ajax.core :as ajax]
             [picture-gallery.components.registration :as reg]
             [picture-gallery.components.login :as l]
-            [picture-gallery.components.upload :as u])
+            [picture-gallery.components.upload :as u]
+            [picture-gallery.components.gallery :as g])
   (:import goog.History))
 
 (defn nav-link [uri title page collapsed?]
@@ -59,8 +60,9 @@
      [:h2 "TODO: display pictures"]]]])
 
 (def pages
-  {:home  #'home-page
-   :about #'about-page})
+  {:home    #'home-page
+   :gallery #'g/gallery-page
+   :about   #'about-page})
 
 (defn modal []
   (when-let [session-modal (session/get :modal)]
@@ -74,10 +76,14 @@
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
-                    (session/put! :page :home))
+  (session/put! :page :home))
+
+(secretary/defroute "/gallery/:owner" [owner]
+  (g/fetch-gallery-thumbs! owner)
+  (session/put! :page :gallery))
 
 (secretary/defroute "/about" []
-                    (session/put! :page :about))
+  (session/put! :page :about))
 
 (defn hook-browser-navigation! []
   (doto (History.)
