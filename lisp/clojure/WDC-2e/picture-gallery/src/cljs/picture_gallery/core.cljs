@@ -27,8 +27,8 @@
      [:li.nav-item
       [:a.dropdown-item.btn
        {:on-click #(ajax/POST
-                    "/logout"
-                    {:handler (fn [] (session/remove! :identity))})}
+                     "/logout"
+                     {:handler (fn [] (session/remove! :identity))})}
        [:i.fa.fa-user] " " id " | sign out"]]]
     [:ul.nav.navbar-nav.pull-xs-right
      [:li.nav-item [l/login-button]]
@@ -51,13 +51,30 @@
 (defn about-page []
   [:div "this is the story of picture-gallery... work in progress"])
 
+(defn galleries [gallery-links]
+  [:div.text-xs-center
+   (for [row (partition-all 3 gallery-links)]
+     ^{:key row}
+     [:div.row
+      (for [{:keys [owner name]} row]
+        ^{:key (str owner name)}
+        [:div.col-sm-4
+         [:a {:href (str "#/gallery/" owner)}
+          [:img {:src (str js/context "/gallery/" owner "/" name)}]]])])])
+
+(defn list-galleries! []
+  (ajax/GET "/list-galleries"
+            {:handler #(session/put! :gallery-links %)}))
+
 (defn home-page []
-  [:div.container
-   [:div.jumbotron
-    [:h1 "Welcome to picture-gallery"]]
-   [:div.row
-    [:div.col-md-12
-     [:h2 "TODO: display pictures"]]]])
+  (list-galleries!)
+  (fn []
+    [:div.container
+     [:div.row
+      [:div.col-md-12>h2 "Available Galleries"]]
+     (when-let [gallery-links (session/get :gallery-links)]
+       [:div.row>div.col-md-12
+        [galleries gallery-links]])]))
 
 (def pages
   {:home    #'home-page
@@ -73,18 +90,21 @@
    [modal]
    [(pages (session/get :page))]])
 
+;; -------------------------
+;; Routes
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
-  (session/put! :page :home))
-
+                    (session/put! :page :home))
 (secretary/defroute "/gallery/:owner" [owner]
-  (g/fetch-gallery-thumbs! owner)
-  (session/put! :page :gallery))
-
+                    (g/fetch-gallery-thumbs! owner)
+                    (session/put! :page :gallery))
 (secretary/defroute "/about" []
-  (session/put! :page :about))
+                    (session/put! :page :about))
 
+;; -------------------------
+;; History
+;; must be called after routes have been defined
 (defn hook-browser-navigation! []
   (doto (History.)
     (events/listen
@@ -93,6 +113,8 @@
         (secretary/dispatch! (.-token event))))
     (.setEnabled true)))
 
+;; -------------------------
+;; Initialize app
 (defn mount-components []
   (r/render [#'navbar] (.getElementById js/document "navbar"))
   (r/render [#'page] (.getElementById js/document "app")))

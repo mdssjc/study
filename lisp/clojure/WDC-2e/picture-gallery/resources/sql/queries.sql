@@ -21,3 +21,10 @@ SELECT owner, name FROM files WHERE owner = :owner AND name LIKE 'thumb\_%'
 -- :name get-image :? :1
 -- :doc retrieve image data by name
 SELECT type, data FROM files WHERE name = :name AND owner = :owner
+
+-- :name select-gallery-previews :? :*
+-- :doc selects a thumbnail for each user gallery
+SET @rownumber=0
+SELECT s.* FROM
+  (SELECT f.owner, f.name, @rownumber := @rownumber + 1 AS rank FROM files f WHERE name LIKE 'thumb\_%') AS s
+WHERE s.rank = 1
