@@ -14,7 +14,15 @@ DELETE FROM users WHERE id = :id
 -- :doc saves a file to the database
 INSERT INTO files (owner, type, name, data) VALUES (:owner, :type, :name, :data)
 
--- :name list-thumbnails :? :n
+-- :name delete-file! :! :n
+-- :doc deletes the file with the given name and owner
+DELETE FROM files WHERE name = :name AND owner = :owner
+
+-- :name thumbnails-for-user :? :*
+-- :doc retrieves thumbnails ids for the user
+SELECT name FROM files WHERE owner = :identity
+
+-- :name list-thumbnails :? :*
 -- :doc selects thumbnail names for the given gallery owner
 SELECT owner, name FROM files WHERE owner = :owner AND name LIKE 'thumb\_%'
 

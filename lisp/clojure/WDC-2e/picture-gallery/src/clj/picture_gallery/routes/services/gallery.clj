@@ -10,7 +10,12 @@
         (ok)
         (content-type type))
     (error-page {:status 404
-                 :title  "page not found"})))
+                 :title "page not found"})))
+
+(defn delete-image! [owner thumb-name image-name]
+  (db/delete-file! {:owner owner :name thumb-name})
+  (db/delete-file! {:owner owner :name image-name})
+  (ok {:result :ok}))
 
 (defn list-thumbnails [owner]
   (ok (db/list-thumbnails {:owner owner})))
