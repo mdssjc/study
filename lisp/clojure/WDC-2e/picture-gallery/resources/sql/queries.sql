@@ -12,7 +12,7 @@ DELETE FROM users WHERE id = :id
 
 -- :name save-file! :! :n
 -- :doc saves a file to the database
-INSERT INTO files (owner, type, name, data) VALUES (:owner, :type, :name, :DATA)
+INSERT INTO files (owner, type, name, data) VALUES (:owner, :type, :name, :data)
 
 -- :name list-thumbnails :? :n
 -- :doc selects thumbnail names for the given gallery owner

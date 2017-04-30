@@ -1,24 +1,22 @@
 (ns picture-gallery.routes.services.upload
   (:require [picture-gallery.db.core :as db]
             [ring.util.http-response :refer :all]
-            [clojure.tools.logging :as log]
-            [clojure.java.io :as io])
+            [clojure.tools.logging :as log])
   (:import [java.awt.image AffineTransformOp BufferedImage]
            [java.io ByteArrayOutputStream FileInputStream]
            java.awt.geom.AffineTransform
            javax.imageio.ImageIO
-           java.net.URLEncoder
-           java.io.File))
+           java.net.URLEncoder))
 
 (def thumb-size 150)
 
 (def thumb-prefix "thumb_")
 
 (defn scale [img ratio width height]
-  (let [scale        (AffineTransform/getScaleInstance
-                      (double ratio) (double ratio))
+  (let [scale (AffineTransform/getScaleInstance
+                (double ratio) (double ratio))
         transform-op (AffineTransformOp.
-                      scale AffineTransformOp/TYPE_BILINEAR)]
+                       scale AffineTransformOp/TYPE_BILINEAR)]
     (.filter transform-op img (BufferedImage. width height (.getType img)))))
 
 (defn scale-image [file thumb-size]
@@ -34,10 +32,13 @@
     (.toByteArray baos)))
 
 (defn file->byte-array [x]
-  (with-open [input  (FileInputStream. x)
+  (with-open [input ( FileInputStream. x)
               buffer (ByteArrayOutputStream.)]
     (clojure.java.io/copy input buffer)
     (.toByteArray buffer)))
+
+(defn url-encode [s]
+  (URLEncoder/encode s "UTF-8"))
 
 (defn save-image! [user {:keys [tempfile filename content-type]}]
   (try
@@ -49,14 +50,9 @@
       (db/save-file! {:owner user
                       :type  "image/png"
                       :data  (image->byte-array
-                              (scale-image tempfile thumb-size))
+                               (scale-image tempfile thumb-size))
                       :name  (str thumb-prefix db-file-name)}))
     (ok {:result :ok})
     (catch Exception e
       (log/error e)
       (internal-server-error "error"))))
-
-;; (ImageIO/write
-;;  (scale-image (io/input-stream "taijitu.png") thumb-size)
-;;  "png"
-;;  (File. "scaled.png"))
