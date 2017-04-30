@@ -24,7 +24,7 @@ SELECT type, data FROM files WHERE name = :name AND owner = :owner
 
 -- :name select-gallery-previews :? :*
 -- :doc selects a thumbnail for each user gallery
-SET @rownumber=0
+SET @rownumber = 0;
 SELECT s.* FROM
   (SELECT f.owner, f.name, @rownumber := @rownumber + 1 AS rank FROM files f WHERE name LIKE 'thumb\_%') AS s
 WHERE s.rank = 1
