@@ -17,7 +17,7 @@
 
 
 ;; Number -> Number
-;; Given length of one side of square, procuce the area of the square
+;; Given length of one side of square, produce the area of the square
 (check-expect (area 3) 9)
 (check-expect (area 3.2) (* 3.2 3.2))
 
