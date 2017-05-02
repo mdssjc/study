@@ -565,3 +565,10 @@ uremdiv:
   a: ~char~
   v: ~long~
   b: ~long~
+* Practice Problem 3.34
+** A
+  ~%r15~, ~%r14~, ~%r13~, ~%r12~, ~%rbp~ and ~%rbx~.
+** B
+  ~%rax~ and ~%rdx~.
+** C
+  Because of the limit on the number of callee-saved registers.
