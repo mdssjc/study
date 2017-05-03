@@ -1,7 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname cartesian-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
-
 ;; cartesian-starter.rkt
 
 ; 
@@ -10,7 +9,9 @@
 ; In interactive games it is often useful to be able to determine the distance between two points on 
 ; the screen. We can describe those points using Cartesian coordinates as four numbers: x1, y1 and x2, y2. 
 ; The formula for the distance between those points is:
-; .
+;
+; d = sqrt(sqr(x2-x1) + sqr(y2-y1))
+;
 ; Use the How to Design Functions (HtDF) recipe to design a function called distance that consumes 
 ; four numbers representing two points and produces the distance between the two points.
 ; 

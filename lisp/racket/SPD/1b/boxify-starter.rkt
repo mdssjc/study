@@ -13,7 +13,7 @@
 ; rectangle that is bigger than the image, and then using overlay to put it on top of the image. 
 ; For example:
 ; 
-; (boxify (ellipse 60 30 "solid" "red")) should produce .
+; (boxify (ellipse 60 30 "solid" "red")) should produce [Boxify Image]
 ; 
 ; Remember, when we say DESIGN, we mean follow the recipe.
 ; 
