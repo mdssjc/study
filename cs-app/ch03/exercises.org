@@ -572,3 +572,18 @@ uremdiv:
   ~%rax~ and ~%rdx~.
 ** C
   Because of the limit on the number of callee-saved registers.
+* Practice Problem 3.35
+** A
+  x value;
+** B
+#+NAME ex35
+#+BEGIN_SRC C
+  long rfun(unsigned long x) {
+    if (x == 0) {
+      return x;
+    }
+    unsigned long nx = x >> 2;
+    long rv = rfun(nx);
+    return x;
+  }
+#+END_SRC
