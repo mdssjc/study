@@ -15,6 +15,7 @@
 (define BACKGROUND (empty-scene WIDTH HEIGHT))
 
 
+; Variability
 ; A Direction is one of:
 ; - "left"
 ; - "up"
