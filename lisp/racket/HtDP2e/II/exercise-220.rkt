@@ -55,13 +55,13 @@
             (to-draw tetris-render)))
 
 ; Tetris -> Image
-; !!!
+; renders the tetris on the BACKGROUND
 (define (tetris-render t)
   (place-image/align BLOCK (block-x (tetris-block t)) (block-y (tetris-block t)) "left" "top"
                (landscape-render (tetris-landscape t))))
 
 ; Landscape -> Image
-; !!!
+; renders the landscape on the BACKGROUND
 (define (landscape-render l)
   (cond [(empty? l) BACKGROUND]
         [else (place-image/align BLOCK (block-x (first l)) (block-y (first l)) "left" "top"
