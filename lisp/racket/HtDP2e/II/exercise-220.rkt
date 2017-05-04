@@ -36,13 +36,13 @@
 ; (make-tetris b0 (list b1 b2 ...)) means b0 is the
 ; dropping block, while b1, b2, and ... are resting
 (define landscape0 (cons (make-block 0 0)
-                         (cons (make-block 0 SCENE-SIZE) '())))
+                         (cons (make-block 0 (* 9 SIZE)) '())))
 (define block-dropping (cons (make-block 0 1)
-                             (cons (make-block 0 SCENE-SIZE) '())))
-(define tetris0 (make-tetris (make-block 0 0) (cons (make-block 10 SCENE-SIZE)
-                                                    (cons (make-block 0 SCENE-SIZE) '()))))
-(define tetris0-drop (make-tetris (make-block 0 1) (cons (make-block 10 SCENE-SIZE)
-                                                         (cons (make-block 0 SCENE-SIZE) '()))))
+                             (cons (make-block 0 (* 9 SIZE)) '())))
+(define tetris0 (make-tetris (make-block 0 0) (cons (make-block 10 (* 9 SIZE))
+                                                    (cons (make-block 0 (* 9 SIZE)) '()))))
+(define tetris0-drop (make-tetris (make-block 0 1) (cons (make-block 10 (* 9 SIZE))
+                                                         (cons (make-block 0 (* 9 SIZE)) '()))))
 (define block-landed   (make-block 0 (- SCENE-SIZE 1)))
 (define block-on-block (make-block 0 (- SCENE-SIZE 2)))
 
@@ -57,14 +57,14 @@
 ; Tetris -> Image
 ; !!!
 (define (tetris-render t)
-  (place-image BLOCK (block-x (tetris-block t)) (block-y (tetris-block t))
+  (place-image/align BLOCK (block-x (tetris-block t)) (block-y (tetris-block t)) "left" "top"
                (landscape-render (tetris-landscape t))))
 
 ; Landscape -> Image
 ; !!!
 (define (landscape-render l)
   (cond [(empty? l) BACKGROUND]
-        [else (place-image BLOCK (block-x (first l)) (block-y (first l))
+        [else (place-image/align BLOCK (block-x (first l)) (block-y (first l)) "left" "top"
                            (landscape-render (rest l)))]))
 
 ; TestDrive
