@@ -51,7 +51,7 @@
 
 
 ; Environment
-; WS -> WS
+; Tetris -> Tetris
 ; starts a world with (tetris-main (make-tetris (make-block (* 5 SIZE) 0) '()))
 (define (tetris-main t)
   (big-bang t

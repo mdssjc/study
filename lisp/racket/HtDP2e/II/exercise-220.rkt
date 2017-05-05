@@ -50,7 +50,7 @@
 
 
 ; Environment
-; WS -> WS
+; Tetris -> Tetris
 ; starts a world with !!!
 (define (main t)
   (big-bang t
