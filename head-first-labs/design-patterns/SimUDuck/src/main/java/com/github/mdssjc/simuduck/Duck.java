@@ -10,6 +10,6 @@ public class Duck {
   }
 
   public void performQuack() {
-    quackBehavior.quick();
+    quackBehavior.quack();
   }
 }
