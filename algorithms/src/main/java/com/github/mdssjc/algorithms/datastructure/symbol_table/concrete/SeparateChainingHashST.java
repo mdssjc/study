@@ -1,36 +1,55 @@
 package com.github.mdssjc.algorithms.datastructure.symbol_table.concrete;
 
+import com.github.mdssjc.algorithms.datastructure.symbol_table.ST;
 import edu.princeton.cs.algs4.SequentialSearchST;
 
-public class SeparateChainingHashST<Key, Value> {
+/**
+ * Implementação de Symbol Table com Separate Chaining Hash.
+ *
+ * @author Marcelo dos Santos
+ *
+ * @param <Key>
+ *     O tipo de dado da chave
+ * @param <Value>
+ *     O tipo de dado do valor
+ */
+public class SeparateChainingHashST<Key, Value> implements ST<Key, Value> {
 
-  private int m;
-  private SequentialSearchST<Key, Value>[] st;
+  private final int m;
+  private final SequentialSearchST<Key, Value>[] st;
 
   public SeparateChainingHashST() {
     this(997);
   }
 
-  public SeparateChainingHashST(int m) {
+  public SeparateChainingHashST(final int m) {
     this.m = m;
-    st = (SequentialSearchST<Key, Value>[]) new SequentialSearchST[m];
+    this.st = (SequentialSearchST<Key, Value>[]) new SequentialSearchST[m];
     for (int i = 0; i < m; i++) {
-      st[i] = new SequentialSearchST();
+      this.st[i] = new SequentialSearchST();
     }
   }
 
-  private int hash(Key key) {
-    return (key.hashCode() & 0x7fffffff) % m;
+  private int hash(final Key key) {
+    return (key.hashCode() & 0x7fffffff) % this.m;
   }
 
-  public Value get(Key key) {
-    return st[hash(key)].get(key);
+  @Override
+  public Value get(final Key key) {
+    return this.st[hash(key)].get(key);
   }
 
-  public void put(Key key, Value val) {
-    st[hash(key)].put(key, val);
+  @Override
+  public void put(final Key key, final Value value) {
+    this.st[hash(key)].put(key, value);
   }
 
+  @Override
+  public int size() {
+    return 0;
+  }
+
+  @Override
   public Iterable<Key> keys() {
     return null;
   }
