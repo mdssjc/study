@@ -1,5 +1,7 @@
 package com.github.mdssjc.ricksguitars;
 
+import java.util.List;
+
 public class FindGuitarTester {
 
   public static void main(String[] args) {
@@ -9,14 +11,16 @@ public class FindGuitarTester {
 
     Guitar whatErinLikes = new Guitar("", 0, Builder.FENDER, "Stratocastor",
                                       Type.ELECTRIC, Wood.ALDER, Wood.ALDER);
-    Guitar guitar = inventory.search(whatErinLikes);
-    if (guitar != null) {
-      System.out.printf("Erin, you might like this " +
-                         guitar.getBuilder() + " " + guitar.getModel() + " " +
-                         guitar.getType() + " guitar:%n   " +
-                         guitar.getBackWood() + " back and sides,%n   " +
-                         guitar.getTopWood() + " top.%nYou can have it for only $" +
-                         guitar.getPrice() + "!%n");
+
+    List<Guitar> matchingGuitars = inventory.search(whatErinLikes);
+    if (!matchingGuitars.isEmpty()) {
+      System.out.println("Erin, you might like these guitars:");
+      for (Guitar guitar : matchingGuitars) {
+        System.out.printf(
+            "  We have a %s %s %s guitar:%n     %s back and sides,%n     %s top.%n  You can have it for only $%.2f!%n ----%n",
+            guitar.getBuilder(), guitar.getModel(), guitar.getType(),
+            guitar.getBackWood(), guitar.getTopWood(), guitar.getPrice());
+      }
     } else {
       System.out.println("Sorry, Erin, we have nothing for you.");
     }
