@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.hash;
+package com.github.mdssjc.algorithms.datastructure.symbol_table.concrete;
 
 import edu.princeton.cs.algs4.SequentialSearchST;
 
