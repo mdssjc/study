@@ -14,7 +14,16 @@
 # ---
 
 ### IntelliJ IDEA ###
+/.idea/
 *.iml
+# ---
+
+### Maven ###
+target/
+# ---
+
+### Java ###
+*.class
 # ---
 
 ### Racket ###
@@ -22,3 +31,7 @@
 *~
 *.bak
 # ---
+
+### Others ###
+*.log
+hs_err_pid*
