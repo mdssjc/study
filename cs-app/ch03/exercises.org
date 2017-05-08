@@ -595,3 +595,15 @@ uremdiv:
   | U     |            8 |         48 | x_U            | x_U + 8i   |
   | V     |            4 |         32 | x_V            | x_V + 4i   |
   | W     |            8 |         32 | x_W            | x_W + 8i   |
+* Practice Problem 3.37
+  x_S = short (%rdx)
+  i = long (%rcx)
+  result = %rax (%ax)
+
+  | Expression | Type   | Value      | Assembly Code              |
+  |------------+--------+------------+----------------------------|
+  | S+1        | short* | x_s+2       | leaq 2(%rdx),%rax          |
+  | S[3]       | short  | M[x_s+6]    | movw 6(%rdx),%ax           |
+  | &S[i]      | short* | x_s+2i      | leaq (%rdx,%rcx,2),%rax    |
+  | S[4*i+1]   | short  | M[x_s+8i+2] | movw 2(%rdx,%rcx,8),%ax    |
+  | S+i-5      | short* | x_s+2i-10   | leaq -10(%rdx,%rcx,2),%rax |
