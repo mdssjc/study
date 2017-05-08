@@ -1,5 +1,7 @@
 package com.github.mdssjc.simuduck;
 
+import com.github.mdssjc.simuduck.fly.FlyRocketPowered;
+
 public class MiniDuckSimulator {
 
   public static void main(String[] args) {

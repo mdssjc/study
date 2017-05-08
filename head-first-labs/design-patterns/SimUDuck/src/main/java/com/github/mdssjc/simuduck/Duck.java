@@ -1,5 +1,8 @@
 package com.github.mdssjc.simuduck;
 
+import com.github.mdssjc.simuduck.fly.FlyBehavior;
+import com.github.mdssjc.simuduck.quack.QuackBehavior;
+
 public abstract class Duck {
 
   private FlyBehavior flyBehavior;

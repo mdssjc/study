@@ -1,5 +1,8 @@
 package com.github.mdssjc.simuduck;
 
+import com.github.mdssjc.simuduck.fly.FlyWithWings;
+import com.github.mdssjc.simuduck.quack.Quack;
+
 public class MallardDuck extends Duck {
 
   public MallardDuck() {

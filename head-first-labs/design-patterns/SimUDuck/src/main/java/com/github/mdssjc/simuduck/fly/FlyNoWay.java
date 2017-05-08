@@ -1,4 +1,4 @@
-package com.github.mdssjc.simuduck;
+package com.github.mdssjc.simuduck.fly;
 
 public class FlyNoWay implements FlyBehavior {
 

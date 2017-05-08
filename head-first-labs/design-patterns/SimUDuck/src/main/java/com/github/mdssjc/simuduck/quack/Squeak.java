@@ -1,4 +1,4 @@
-package com.github.mdssjc.simuduck;
+package com.github.mdssjc.simuduck.quack;
 
 public class Squeak implements QuackBehavior {
 
