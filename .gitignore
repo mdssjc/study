@@ -14,7 +14,20 @@
 # ---
 
 ### IntelliJ IDEA ###
+.idea/
 *.iml
+out/
+# ---
+
+### NetBeans ###
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+build.xml
+manifest.mf
 # ---
 
 ### Racket ###
