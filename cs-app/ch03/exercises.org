@@ -607,3 +607,11 @@ uremdiv:
   | &S[i]      | short* | x_s+2i      | leaq (%rdx,%rcx,2),%rax    |
   | S[4*i+1]   | short  | M[x_s+8i+2] | movw 2(%rdx,%rcx,8),%ax    |
   | S+i-5      | short* | x_s+2i-10   | leaq -10(%rdx,%rcx,2),%rax |
+* Practice Problem 3.38
+  ~long P[M][N];~
+  ~long Q[N][M];~
+
+  M[x_q + 8 (5j + i)] -> 5
+  N[x_p + 8 (7i + j)] -> 7
+
+  M = 5 and N = 7
