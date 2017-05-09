@@ -90,14 +90,13 @@
 ;;  - false
 ;;  - Natural
 ;; interp. false means dead, number is x extra lives
-
 (define H1 false)
 (define H2 5)
 
 #;
 (define (fn-for-health h)
   (cond [(false? h) (...)]
-        [(number? h) (... h)]))
+        [(number? h) (...)]))
 
 ;; Template rules used:
 ;;  - one of: 2 cases
@@ -110,8 +109,8 @@
 (check-expect (increase-health 0) 1)
 (check-expect (increase-health 5) 6)
 
-;(define (increase-health ih) 0) ; Stub
+;(define (increase-health h) 0) ; Stub
 
-(define (increase-health ih)
-  (cond [(false? ih) false]
-        [(number? ih) (+ ih 1)]))
+(define (increase-health h)
+  (cond [(false? h) false]
+        [(number? h) (+ h 1)]))
