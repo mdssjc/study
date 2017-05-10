@@ -44,8 +44,8 @@
 ;   (make-posn Natural Natural)
 ; interpretation (make-posn x y) is the Missile's location 
 ; (using the top-down, left-to-right convention)
-(define M1 (make-posn 10 10))
-(define M2 (make-posn 20 10))
+(define M1 (make-posn 10 50))
+(define M2 (make-posn 50 20))
 
 ; A List-of-Missile is one of:
 ; '()
@@ -58,16 +58,15 @@
 ; A SIGS is a structure:
 ;   (make-sigs UFO Tank List-of-Missile)
 ; interpretation represents the complete state of a space invader game
-(define S1 (make-sigs (make-posn 10 20)
-                      (make-tank 28 -3)
-                      #false))
-(define S2 (make-sigs (make-posn 10 20)
+(define S1 (make-sigs U1 T-MR LOM1))
+(define S2 (make-sigs U1 T-MR LOM2))
+(define S3 (make-sigs (make-posn 10 20)
                       (make-tank 28 -3)
                       (make-posn 32 (- HEIGHT TANK-HEIGHT 10))))
-(define S3 (make-sigs (make-posn 20 100)
+(define S4 (make-sigs (make-posn 20 100)
                       (make-tank 100 3)
                       (make-posn 22 120)))
-(define S4 (make-sigs (make-posn 10 (- HEIGHT CLOSE))
+(define S5 (make-sigs (make-posn 10 (- HEIGHT CLOSE))
                       (make-tank 28 -3)
                       #false))
 
@@ -115,8 +114,8 @@
 ; List-of-Missile -> List-of-Missile
 ; updates the position of missiles
 (check-expect (update-missiles LOM1) '())
-(check-expect (update-missiles LOM2) (list (make-posn 10 9)
-                                           (make-posn 20 9)))
+(check-expect (update-missiles LOM2) (list (make-posn 10 49)
+                                           (make-posn 50 19)))
 
 (define (update-missiles lom)
   (cond [(empty? lom) '()]
@@ -125,46 +124,44 @@
   
 ; Missile -> Missile
 ; updates the position of missile
-(check-expect (update-missile M1) (make-posn 10 9))
-(check-expect (update-missile M2) (make-posn 20 9))
+(check-expect (update-missile M1) (make-posn 10 49))
+(check-expect (update-missile M2) (make-posn 50 19))
 
 (define (update-missile m)
   (make-posn (posn-x m) (sub1 (posn-y m))))
 
-; SIGS.v2 -> Image 
+; SIGS -> Image 
 ; renders the given game state on top of BACKGROUND
-;(check-expect (si-render.v2 S1) (place-image UFO 10 20
-;                                             (place-image TANK 28 HEIGHT
-;                                                          BACKGROUND)))
-;(check-expect (si-render.v2 S2) (place-image UFO 10 20
-;                                             (place-image TANK 28 HEIGHT
-;                                                          (place-image MISSILE 32 (- HEIGHT TANK-HEIGHT 10)
-;                                                                       BACKGROUND))))
-;
-;(define (si-render.v2 s)
-;  (tank-render
-;   (sigs-tank s)
-;   (ufo-render (sigs-ufo s)
-;               (missile-render.v2 (sigs-missile s)
-;                                  BACKGROUND))))
+(check-expect (si-render S1) (place-image UFO (posn-x (sigs-ufo S1)) (posn-y (sigs-ufo S1))
+                                          (place-image TANK (tank-loc (sigs-tank S1)) HEIGHT BACKGROUND)))
+(check-expect (si-render S2) (place-image UFO (posn-x (sigs-ufo S2)) (posn-y (sigs-ufo S2))
+                                          (place-image TANK (tank-loc (sigs-tank S2)) HEIGHT
+                                                       (place-image MISSILE (posn-x (first (sigs-missiles S2))) (posn-y (first (sigs-missiles S2)))
+                                                                    (place-image MISSILE (posn-x (second (sigs-missiles S2))) (posn-y (second (sigs-missiles S2))) BACKGROUND)))))
 
-; Tank Image -> Image 
-; adds t to the given image im
-;(define (tank-render t im)
-;  (place-image TANK (tank-loc t) HEIGHT im))
-; 
+(define (si-render s)
+  (ufo-render (sigs-ufo s)
+              (tank-render (sigs-tank s)
+                           (missiles-render (sigs-missiles s) BACKGROUND))))
+
 ; UFO Image -> Image 
 ; adds u to the given image im
-;(define (ufo-render u im)
-;  (place-image UFO (posn-x u) (posn-y u) im))
+(define (ufo-render u im)
+  (place-image UFO (posn-x u) (posn-y u) im))
 
-; MissileOrNot Image -> Image 
-; adds an image of missile m to scene s
-;(define (missile-render.v2 m s)
-;  (cond [(boolean? m) s]
-;        [(posn? m) (place-image MISSILE (posn-x m) (posn-y m) s)]))
+; Tank Image -> Image
+; adds t to the given image im
+(define (tank-render t im)
+  (place-image TANK (tank-loc t) HEIGHT im))
+ 
+; List-of-Missile Image -> Image 
+; adds the missiles lom to the given image im
+(define (missiles-render lom im)
+  (cond [(empty? lom) im]
+        [else (place-image MISSILE (posn-x (first lom)) (posn-y (first lom))
+                           (missiles-render (rest lom) im))]))
 
-; SIGS.v2 KeyEvent -> SIGS.v2
+; SIGS KeyEvent -> SIGS
 ; handles the main events:
 ; - pressing the left arrow ensures that the tank moves left;
 ; - pressing the right arrow ensures that the tank moves right; and
@@ -200,7 +197,7 @@
 ;                              (* v -1)
 ;                              v)]))
 
-; SIGS.v2 -> Boolean
+; SIGS -> Boolean
 ; returns true when the game stop;
 ; the game stops if the UFO lands or if the missile hits the UFO
 ;(check-expect (si-game-over? S1) #false)
