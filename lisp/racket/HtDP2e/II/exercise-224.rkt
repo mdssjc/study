@@ -165,37 +165,52 @@
 ; handles the main events:
 ; - pressing the left arrow ensures that the tank moves left;
 ; - pressing the right arrow ensures that the tank moves right; and
-; - pressing the space bar fires the missile if it hasn’t been launched yet.
-;(define (si-control s ke)
-;  (cond [(or (key=? ke "left")
-;             (key=? ke "right"))
-;         (make-sigs (sigs-ufo s)
-;                    (make-tank (tank-loc (sigs-tank s))
-;                               (tank-direction (if (string=? ke "left")
-;                                                   "l" "r")
-;                                               (tank-vel (sigs-tank s))))
-;                    (sigs-missile s))]
-;        [(key=? ke " ")
-;         (make-sigs (sigs-ufo s)
-;                    (sigs-tank s)
-;                    (make-posn (tank-loc (sigs-tank s))
-;                               (- HEIGHT TANK-HEIGHT)))]
-;        [else s]))
+; - pressing the space bar fires a new missile.
+(check-expect (si-control S1 "up") S1)
+(check-expect (si-control S1 "left") (make-sigs (sigs-ufo S1)
+                                                (make-tank (tank-loc (sigs-tank S1))
+                                                           (* -1 (tank-vel (sigs-tank S1))))
+                                                (sigs-missiles S1)))
+(check-expect (si-control S1 "right") (make-sigs (sigs-ufo S1)
+                                                 (make-tank (tank-loc (sigs-tank S1))
+                                                            (tank-vel (sigs-tank S1)))
+                                                 (sigs-missiles S1)))
+(check-expect (si-control S1 " ") (make-sigs (sigs-ufo S1)
+                                             (sigs-tank S1)
+                                             (list (make-posn (tank-loc (sigs-tank S1))
+                                                              (- HEIGHT TANK-HEIGHT)))))
 
-; String Number -> Number
-; updates the speed direction, "l" to left and "r" to right
-;(check-expect (tank-direction "l"  10) -10)
-;(check-expect (tank-direction "l" -10) -10)
-;(check-expect (tank-direction "r"  10)  10)
-;(check-expect (tank-direction "r" -10)  10)
-;
-;(define (tank-direction d v)
-;  (cond [(string=? d "l") (if (negative? v)
-;                              v
-;                              (* v -1))]
-;        [(string=? d "r") (if (negative? v)
-;                              (* v -1)
-;                              v)]))
+(define (si-control s ke)
+  (make-sigs (sigs-ufo s) 
+             (cond [(or (key=? ke "left")
+                        (key=? ke "right"))
+                    (tank-direction (sigs-tank s) ke)]
+                   [else (sigs-tank s)])
+             (cond [(key=? ke " ")
+                    (missiles-fire (tank-loc (sigs-tank s))
+                                   (sigs-missiles s))]
+                   [else (sigs-missiles s)])))
+
+; Tank String -> Tank
+; changes the speed direction of tank
+(check-expect (tank-direction T-ML "left")  T-ML)
+(check-expect (tank-direction T-ML "right") T-MR)
+(check-expect (tank-direction T-MR "left")  T-ML)
+(check-expect (tank-direction T-MR "right") T-MR)
+
+(define (tank-direction t s)
+  (make-tank (tank-loc t)  
+             (cond [(string=? s "left")  (* -1 (abs (tank-vel t)))]
+                   [(string=? s "right") (abs (tank-vel t))]
+                   [else t])))
+
+; List-of-Missiles -> List-of-Missiles
+; fires a missile at the coordinate: x and (- HEIGHT TANK-HEIGHT)
+(check-expect (missiles-fire 10 LOM1) (list (make-posn 10 (- HEIGHT TANK-HEIGHT))))
+(check-expect (missiles-fire 30 LOM2) (list M1 M2 (make-posn 30 (- HEIGHT TANK-HEIGHT))))
+
+(define (missiles-fire x lom)
+  (append lom (cons (make-posn x (- HEIGHT TANK-HEIGHT)) '())))
 
 ; SIGS -> Boolean
 ; returns true when the game stop;
