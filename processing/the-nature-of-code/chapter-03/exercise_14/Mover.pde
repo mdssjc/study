@@ -42,10 +42,6 @@ class Mover {
     float x = cos(angle) * r;
     float y = height - sin(angle) * r;
 
-    strokeWeight(10);
-    point(x, y);
-    strokeWeight(2);
-
     if (location.y >= y) {
       location.y = y;
     }
