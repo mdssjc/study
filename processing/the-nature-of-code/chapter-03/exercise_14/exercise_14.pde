@@ -6,7 +6,7 @@ void setup() {
   size(640, 360);
 
   gravity = 0.4;
-  angle = radians(60);
+  angle = radians(10);
 
   float theta = angle;
   float x = cos(theta) * width;
@@ -18,25 +18,23 @@ void setup() {
 void draw() {
   background(255);
 
-  float r = (box.location.x / cos(angle)) / (cos(angle) * width);
-  if (r <= 0) {
-    r = 0;
+  PVector forceNormal = new PVector(
+    box.mass * gravity * -sin(angle), 
+    box.mass * gravity *  sin(angle));
+  box.applyForce(forceNormal);
+
+  PVector forcePush = forceNormal.copy();
+  forcePush.mult(-1);
+  forcePush.mult(0.5);
+
+  box.applyForce(forceNormal);
+  box.applyForce(forcePush);
+
+  if (box.location.x > box.mass) {
+    box.update();
+    box.checkEdges();
   }
-
-  PVector force = new PVector(
-    gravity * -cos(angle) * r, 
-    gravity *  sin(angle) * r);
-  box.applyForce(force);
-
-  PVector friction = box.velocity.copy();
-  friction.mult(-1);
-  friction.normalize();
-  friction.mult(1 - r);
-  box.applyForce(friction);
-
-  box.update();
   box.display();
-  box.checkEdges();
 
   line(0, height, cos(angle) * width, height - sin(angle) * width);
 }
