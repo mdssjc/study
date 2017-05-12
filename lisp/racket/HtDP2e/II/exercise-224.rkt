@@ -62,30 +62,30 @@
 (define S2 (make-sigs U1 T-MR LOM2))
 (define S3 (make-sigs (make-posn 10 20)
                       (make-tank 28 -3)
-                      (make-posn 32 (- HEIGHT TANK-HEIGHT 10))))
+                      (list (make-posn 32 (- HEIGHT TANK-HEIGHT 10)))))
 (define S4 (make-sigs (make-posn 20 100)
                       (make-tank 100 3)
-                      (make-posn 22 120)))
+                      (list (make-posn 22 120))))
 (define S5 (make-sigs (make-posn 10 (- HEIGHT CLOSE))
                       (make-tank 28 -3)
-                      #false))
+                      '()))
 
 
 ; SIGS -> World
 ; starts a world with (main S1)
-;(define (main s)
-;  (big-bang s
-;            (on-tick   si-move)
-;            (on-draw   si-render)
-;            (on-key    si-control)
-;            (stop-when si-game-over?)))
+(define (main s)
+  (big-bang s
+            (on-tick   si-move)
+            (on-draw   si-render)
+            (on-key    si-control)
+            (stop-when si-game-over?)))
 
 ; SIGS -> SIGS
 ; updates the position of objects
 (define (si-move s)
-  (make-sigs (update-ufo     (sigs-ufo s))
-             (update-tank    (sigs-tank s))
-             (update-missile (sigs-missiles s))))
+  (make-sigs (update-ufo      (sigs-ufo s))
+             (update-tank     (sigs-tank s))
+             (update-missiles (sigs-missiles s))))
 
 ; UFO Number -> UFO
 ; updates the position of UFO
@@ -215,19 +215,25 @@
 ; SIGS -> Boolean
 ; returns true when the game stop;
 ; the game stops if the UFO lands or if the missile hits the UFO
-;(check-expect (si-game-over? S1) #false)
-;(check-expect (si-game-over? S2) #false)
-;(check-expect (si-game-over? S3) #true)
-;(check-expect (si-game-over? S4) #true)
-;
-;(define (si-game-over? s)
-;  (cond
-;    [(>= (posn-y (sigs-ufo s)) (- HEIGHT CLOSE)) #true]
-;    [(and (posn? (sigs-missile s))
-;          (<= (- (posn-x (sigs-ufo s)) UFO-X)
-;              (posn-x (sigs-missile s))
-;              (+ (posn-x (sigs-ufo s)) UFO-X))
-;          (<= (- (posn-y (sigs-ufo s)) UFO-Y)
-;              (posn-y (sigs-missile s))
-;              (+ (posn-y (sigs-ufo s)) UFO-Y))) #true]
-;    [else #false]))
+(check-expect (si-game-over? S1) #false)
+(check-expect (si-game-over? S2) #false)
+(check-expect (si-game-over? S3) #false)
+(check-expect (si-game-over? S4) #true)
+(check-expect (si-game-over? S5) #true)
+
+(define (si-game-over? s)
+  (cond [(>= (posn-y (sigs-ufo s))
+             (- HEIGHT CLOSE)) #true]
+        [else (hit-missile? (sigs-missiles s) (sigs-ufo s))]))
+
+; List-of-Missiles UFO -> Boolean
+; checks if any missiles hit the UFO
+(define (hit-missile? lom u)
+  (cond [(empty? lom) #false]
+        [(and (<= (- (posn-x u) UFO-X)
+                  (posn-x (first lom))
+                  (+ (posn-x u) UFO-X))
+              (<= (- (posn-y u) UFO-Y)
+                  (posn-y (first lom))
+                  (+ (posn-y u) UFO-Y))) #true]
+        [else (hit-missile? (rest lom) u)]))
