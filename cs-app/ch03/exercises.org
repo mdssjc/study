@@ -712,3 +712,23 @@ uremdiv:
     sp->next = sp->p;
   }
 #+END_SRC
+* Practice Problem 3.42
+** A
+#+NAME ex42
+#+BEGIN_SRC C
+  struct ELE {
+    long v;
+    struct ELE *p;
+  };
+
+  long fun(struct ELE *ptr) {
+    long result = 0;
+    while (ptr) {
+      result += ptr->v;
+      ptr = ptr->p;
+    }
+    return result;
+  }
+#+END_SRC
+** B
+  It's a Linked List.
