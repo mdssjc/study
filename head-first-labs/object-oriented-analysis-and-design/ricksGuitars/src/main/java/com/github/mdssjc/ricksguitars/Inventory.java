@@ -1,29 +1,23 @@
 package com.github.mdssjc.ricksguitars;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Inventory {
 
-  private List guitars;
+  private final List<Guitar> guitars;
 
   public Inventory() {
     guitars = new LinkedList();
   }
 
-  public void addGuitar(String serialNumber, double price,
-                        Builder builder, String model,
-                        Type type, Wood backWood, Wood topWood) {
-    Guitar guitar = new Guitar(serialNumber, price,
-                               new GuitarSpec(builder, model, type, backWood,
-                                              topWood));
+  public void addGuitar(String serialNumber, double price, GuitarSpec spec) {
+    Guitar guitar = new Guitar(serialNumber, price, spec);
     guitars.add(guitar);
   }
 
   public Guitar getGuitar(String serialNumber) {
-    for (Iterator i = guitars.iterator(); i.hasNext(); ) {
-      Guitar guitar = (Guitar) i.next();
+    for (Guitar guitar : guitars) {
       if (guitar.getSerialNumber()
                 .equals(serialNumber)) {
         return guitar;
@@ -35,34 +29,11 @@ public class Inventory {
   public List<Guitar> search(GuitarSpec searchGuitar) {
     List<Guitar> matchingGuitars = new LinkedList<>();
 
-    for (Iterator i = guitars.iterator(); i.hasNext(); ) {
-      Guitar guitar = (Guitar) i.next();
-      GuitarSpec guitarSpec = guitar.getSpec();
-
-      if (searchGuitar.getBuilder() != guitarSpec.getBuilder()) {
-        continue;
+    for (Guitar guitar : guitars) {
+      if (guitar.getSpec()
+                .equals(searchGuitar)) {
+        matchingGuitars.add(guitar);
       }
-
-      String model = searchGuitar.getModel()
-                                 .toLowerCase();
-      if ((model != null) && (!model.equals("")) &&
-          (!model.equals(guitarSpec.getModel()
-                                   .toLowerCase()))) {
-        continue;
-      }
-
-      if (searchGuitar.getType() != guitarSpec.getType()) {
-        continue;
-      }
-
-      if (searchGuitar.getBackWood() != guitarSpec.getBackWood()) {
-        continue;
-      }
-
-      if (searchGuitar.getTopWood() != guitarSpec.getTopWood()) {
-        continue;
-      }
-      matchingGuitars.add(guitar);
     }
     return matchingGuitars;
   }

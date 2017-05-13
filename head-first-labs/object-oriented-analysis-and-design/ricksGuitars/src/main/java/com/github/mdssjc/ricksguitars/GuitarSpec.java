@@ -7,9 +7,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class GuitarSpec {
 
-  public Builder builder;
-  public String model;
-  public Type type;
-  public Wood backWood;
-  public Wood topWood;
+  private Builder builder;
+  private String model;
+  private Type type;
+  private int numStrings;
+  private Wood backWood;
+  private Wood topWood;
 }
