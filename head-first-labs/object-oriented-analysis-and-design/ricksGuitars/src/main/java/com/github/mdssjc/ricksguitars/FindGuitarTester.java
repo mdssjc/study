@@ -17,15 +17,11 @@ public class FindGuitarTester {
     if (!matchingGuitars.isEmpty()) {
       System.out.println("Erin, you might like these guitars:");
       for (Guitar guitar : matchingGuitars) {
+        GuitarSpec spec = guitar.getSpec();
         System.out.printf(
             "  We have a %s %s %s guitar:%n     %s back and sides,%n     %s top.%n  You can have it for only $%.2f!%n ----%n",
-            guitar.getSpec()
-                  .getBuilder(), guitar.getSpec()
-                                       .getModel(), guitar.getSpec()
-                                                          .getType(),
-            guitar.getSpec()
-                  .getBackWood(), guitar.getSpec()
-                                        .getTopWood(), guitar.getPrice());
+            spec.getBuilder(), spec.getModel(), spec.getType(),
+            spec.getBackWood(), spec.getTopWood(), guitar.getPrice());
       }
     } else {
       System.out.println("Sorry, Erin, we have nothing for you.");
