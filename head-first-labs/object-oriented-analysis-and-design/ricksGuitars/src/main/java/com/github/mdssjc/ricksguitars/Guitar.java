@@ -9,5 +9,5 @@ public class Guitar {
 
   private String serialNumber;
   private double price;
-  private GuitarSpec spec;
+  private final GuitarSpec spec;
 }
