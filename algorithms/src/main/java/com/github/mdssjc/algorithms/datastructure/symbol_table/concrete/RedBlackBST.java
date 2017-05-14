@@ -114,7 +114,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements ST<Key, 
   }
 
   @Data
-  private class Node<Key, Value> {
+  public static class Node<Key, Value> {
 
     public Key key;
     public Value value;
