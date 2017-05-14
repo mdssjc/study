@@ -1,15 +1,12 @@
-### Java ###
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# Package Files #
-*.jar
 *.zip
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+### Java ###
+*.class
+*.jar
+# ---
+
+### Others ###
+*.log
 hs_err_pid*
