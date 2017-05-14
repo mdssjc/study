@@ -1,5 +1,6 @@
 package com.github.mdssjc.ricksguitars;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Inventory {
     return null;
   }
 
-  public List<Guitar> search(GuitarSpec searchGuitar) {
+  public Iterator<Guitar> search(GuitarSpec searchGuitar) {
     List<Guitar> matchingGuitars = new LinkedList<>();
 
     for (Guitar guitar : guitars) {
@@ -35,6 +36,6 @@ public class Inventory {
         matchingGuitars.add(guitar);
       }
     }
-    return matchingGuitars;
+    return matchingGuitars.iterator();
   }
 }

@@ -1,6 +1,6 @@
 package com.github.mdssjc.ricksguitars;
 
-import java.util.List;
+import java.util.Iterator;
 
 public class FindGuitarTester {
 
@@ -13,17 +13,21 @@ public class FindGuitarTester {
                                               Type.ELECTRIC, 6, Wood.ALDER,
                                               Wood.ALDER);
 
-    List<Guitar> matchingGuitars = inventory.search(whatErinLikes);
-    if (!matchingGuitars.isEmpty()) {
+    Iterator<Guitar> matchingGuitars = inventory.search(whatErinLikes);
+    if (matchingGuitars.hasNext()) {
       System.out.println("Erin, you might like these guitars:");
-      for (Guitar guitar : matchingGuitars) {
+      matchingGuitars.forEachRemaining(guitar -> {
         GuitarSpec spec = guitar.getSpec();
         System.out.printf(
-            "  We have a %s %s %d-string %s guitar:%n     %s back and sides,%n     %s top.%n  You can have it for only $%.2f!%n ----%n",
+            "  We have a %s %s %d-string %s guitar:%n" +
+            "     %s back and sides,%n" +
+            "     %s top.%n" +
+            "  You can have it for only $%.2f!%n" +
+            " ----%n",
             spec.getBuilder(), spec.getModel(), spec.getNumStrings(),
             spec.getType(), spec.getBackWood(), spec.getTopWood(),
             guitar.getPrice());
-      }
+      });
     } else {
       System.out.println("Sorry, Erin, we have nothing for you.");
     }
