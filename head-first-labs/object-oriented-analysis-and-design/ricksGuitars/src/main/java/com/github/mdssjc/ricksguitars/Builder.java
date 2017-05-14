@@ -2,26 +2,23 @@ package com.github.mdssjc.ricksguitars;
 
 public enum Builder {
 
-  FENDER, MARTIN, GIBSON, COLLINGS, OLSON, RYAN, PRS, ANY;
+  FENDER("Fender"),
+  MARTIN("Martin"),
+  GIBSON("Gibson"),
+  COLLINGS("Collings"),
+  OLSON("Olson"),
+  RYAN("Ryan"),
+  PRS("PRS"),
+  ANY("unspecified");
 
+  private final String value;
+
+  Builder(String value) {
+    this.value = value;
+  }
+
+  @Override
   public String toString() {
-    switch (this) {
-      case FENDER:
-        return "Fender";
-      case MARTIN:
-        return "Martin";
-      case GIBSON:
-        return "Gibson";
-      case COLLINGS:
-        return "Collings";
-      case OLSON:
-        return "Olson";
-      case RYAN:
-        return "Ryan";
-      case PRS:
-        return "PRS";
-      default:
-        return "Unspecified";
-    }
+    return value;
   }
 }
