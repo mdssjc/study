@@ -1,29 +1,37 @@
 package com.github.mdssjc.algorithms.chapter3.section35;
 
+import edu.princeton.cs.algs4.LinearProbingHashST;
+
 public class HashSET<Key> implements SET<Key> {
+
+  private final LinearProbingHashST<Key, Key> hashST;
+
+  public HashSET() {
+    hashST = new LinearProbingHashST<>();
+  }
 
   @Override
   public void add(Key key) {
-
+    hashST.put(key, key);
   }
 
   @Override
   public void delete(Key key) {
-
+    hashST.delete(key);
   }
 
   @Override
   public boolean contains(Key key) {
-    return false;
+    return hashST.contains(key);
   }
 
   @Override
   public boolean isEmpty() {
-    return false;
+    return hashST.isEmpty();
   }
 
   @Override
   public int size() {
-    return 0;
+    return hashST.size();
   }
 }
