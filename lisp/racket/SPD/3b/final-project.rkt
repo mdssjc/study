@@ -32,6 +32,7 @@
 
 ;; =================
 ;; Constants:
+
 (define STAR-SIZE 20)
 (define STAR-OUTLINE "solid")
 (define STAR-DEFAULT-COLOR "gray")
@@ -39,8 +40,10 @@
 (define HEIGHT 200)
 (define MTS (empty-scene WIDTH HEIGHT))
 
+
 ;; =================
 ;; Data definitions:
+
 (define-struct the-star (x y color))
 ;; TheStar is (make-the-star Number Number String)
 ;; interp. a star at position x, y with color
@@ -57,12 +60,12 @@
 ;; Template rules used:
 ;;  - compound: 3 fields
 
+
 ;; =================
 ;; Functions:
 
 ;; TheStar -> TheStar
 ;; start the world with (main (make-the-star 0 0 STAR-DEFAULT-COLOR))
-;; 
 (define (main ts)
   (big-bang ts                  ; TheStar
             (to-draw  render)   ; TheStar -> Image
@@ -89,6 +92,7 @@
 (check-expect (action S1 20 30 "move")        (make-the-star 20 30 (the-star-color S1)))
 (check-expect (action S1 20 30 "button-down") (make-the-star 20 30 "green"))
 (check-expect (action S2 20 30 "button-down") (make-the-star 20 30 "black"))
+(check-expect (action S1 20 30 "button-up") S1)
 
 #;
 (define (action ts x y me) S1) ; stub
