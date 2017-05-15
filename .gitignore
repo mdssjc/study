@@ -14,7 +14,7 @@
 # ---
 
 ### IntelliJ IDEA ###
-.idea/
+/.idea/
 *.iml
 out/
 # ---
@@ -30,8 +30,20 @@ build.xml
 manifest.mf
 # ---
 
+### Maven ###
+target/
+# ---
+
+### Java ###
+*.class
+# ---
+
 ### Racket ###
 *.rkt~
 *~
 *.bak
 # ---
+
+### Others ###
+*.log
+hs_err_pid*

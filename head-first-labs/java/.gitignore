@@ -1,0 +1,12 @@
+*.zip
+*.tar.gz
+*.rar
+
+### Java ###
+*.class
+*.jar
+# ---
+
+### Others ###
+*.log
+hs_err_pid*
