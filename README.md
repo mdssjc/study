@@ -3,7 +3,7 @@
 # Study
 Materiais de estudos sobre computação.
 
-**algorithms**: estudo do livro *Algorithms, 4th Edition* dos autores *Robert Sedgewick* e *Kevin Wayne*.
+**algorithms**: estudo do livro *Algorithms, 4th Edition* dos autores *Robert Sedgewick* e *Kevin Wayne* - [http://algs4.cs.princeton.edu/](http://algs4.cs.princeton.edu/home/).
 
 **cs-app**: estudo do livro *Computer Systems: A Programmer's Perspective, 3rd Edition* dos autores *Randal E. Bryant* e *David R. O'Hallaron* - [http://csapp.cs.cmu.edu/3e/](http://csapp.cs.cmu.edu/3e/home.html).
 
