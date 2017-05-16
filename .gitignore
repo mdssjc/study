@@ -14,7 +14,7 @@
 # ---
 
 ### IntelliJ IDEA ###
-/.idea/
+.idea/
 *.iml
 out/
 # ---
