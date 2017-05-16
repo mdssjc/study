@@ -759,3 +759,26 @@ uremdiv:
   |2*5+6|8*3|, alignment 8, offset 6 bytes and total of 40 bytes.
 ** E
   |10*2+4|16|, alignment 8, offset 4 bytes and total of 40 bytes.
+* Practice Problem 3.45
+** A
+  |8|2+6|8|1+3|4|1+7|8|4+4|
+  Offset of 20 bytes with alignment 8.
+** B
+  Total of 56 bytes.
+** C
+#+NAME ex45
+#+BEGIN_SRC C
+  struct {
+    char   *a;
+    double  c;
+    long    g;
+    float   e;
+    int     h;
+    short   b;
+    char    d;
+    char    f;
+  } rec;
+#+END_SRC
+  |8|8|8|4|4|2|1|1+4|
+  Total of 40 bytes.
+  Alignment 8 and 4 bytes of offset.
