@@ -7,6 +7,7 @@
 (require 2htdp/universe)
 
 ; Constants
+
 (define UFO      (overlay (rectangle 70 10 "solid" "green")
                           (circle 20 "solid" "green")))
 (define UFO-X (/ (image-width  UFO) 2))
@@ -70,6 +71,8 @@
                       (make-tank 28 -3)
                       '()))
 
+
+; Environment
 
 ; SIGS -> World
 ; starts a world with (main S1)
