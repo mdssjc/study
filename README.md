@@ -16,5 +16,6 @@ Materiais de estudos sobre computação.
 **k19** resolução das apostilas livres.
 
 **oracle**:
-*   **lambdas-streams**: conteúdo do curso JDK 8 Massive Open and Online Course: Lambdas and Streams Introduction, citando os slides e resolução das atividades.
+*   **lambdas-streams**: material de estudo do curso *JDK 8 Massive Open and Online Course: Lambdas and Streams Introduction*.
+*   **java-puzzle-ball**: material de estudo do curso *Oracle Developer MOOC: Java Coding & Concepts with a Game*.
 *   **jni**: interface nativa.
