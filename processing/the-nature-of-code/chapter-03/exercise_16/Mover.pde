@@ -30,5 +30,5 @@ class Bob {
     strokeWeight(2);
     fill(175);
     ellipse(position.x, position.y, mass*2, mass*2);
-  } 
+  }
 }
