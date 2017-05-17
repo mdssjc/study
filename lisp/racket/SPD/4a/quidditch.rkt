@@ -10,7 +10,7 @@
 ;; your favorite Quidditch teams. (http://iqaquidditch.org/).
 ;;
 ;; (A) Design a data definition to represent a list of Quidditch teams.
-;; (B) Design a function that consumes ListOfString and produces true if 
+;; (B) Design a function that consumes ListOfString and produces true if
 ;; the list includes "UBC".
 ;;
 ;; Information:                     Data:
@@ -42,6 +42,7 @@
 ;;  - one of: 2 cases
 ;;  - atomic distinct: empty
 ;;  - compound: (cons String ListOfString)
+;;  - self-reference: (rest los) is ListOfString
 
 
 ;; ListOfString -> Boolean
