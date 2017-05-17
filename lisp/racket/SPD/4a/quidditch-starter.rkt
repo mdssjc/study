@@ -29,6 +29,7 @@
 (define LOS2 (cons "McGill" empty))
 (define LOS3 (cons "UBC" (cons "McGill" empty)))
 
+#;
 (define (fn-for-los los)
   (cond [(empty? los) (...)]
         [else
@@ -41,8 +42,24 @@
 ;;  - compound: (cons String ListOfString)
 
 
-; PROBLEM:
-;
-; We want to know whether your list of favorite Quidditch teams includes
-; UBC! Design a function that consumes ListOfString and produces true if 
-; the list includes "UBC".
+;; PROBLEM:
+;;
+;; We want to know whether your list of favorite Quidditch teams includes
+;; UBC! Design a function that consumes ListOfString and produces true if 
+;; the list includes "UBC".
+
+;; ListOfString -> Boolean
+;; produce true if los includes "UBC"
+(check-expect (contains-ubc? LOS1) false)
+(check-expect (contains-ubc? LOS2) false)
+(check-expect (contains-ubc? LOS3) true)
+(check-expect (contains-ubc? (cons "McGill" (cons "UBC" empty))) true)
+
+; (define (contains-ubc? los) false) ; stub
+
+(define (contains-ubc? los)
+  (cond [(empty? los) false]
+        [else
+         (if (string=? (first los) "UBC")
+             true
+             (contains-ubc? (rest los)))]))
