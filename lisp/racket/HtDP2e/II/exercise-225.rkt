@@ -3,6 +3,8 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname exercise-225) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; Exercise 225
 
+(require 2htdp/image)
+
 ;Design a fire-fighting game.
 ;
 ;The game is set in the western states where fires rage through vast forests.
@@ -18,17 +20,31 @@
 ;approach as illustrated in this chapter to create this game.
 
 ; Constants
-;  - airplane (image)
-;  - tree (image)
-;  - florest (image)
-;  - fire (image)
-;  - water (image)
-;  - limit of fires
-;  - limit of time
-;  - pos-y (airplane)
-;  - width
-;  - height
-;  - mts
+(define AIRPLANE (overlay/xy (circle 10 "solid" "blue")
+                             -15 -20
+                             (overlay (ellipse 10 80 "solid" "blue")
+                                      (rectangle 50 10 "solid" "blue"))))
+(define TREE (overlay (above (circle 5 "solid" "forestgreen")
+                             (beside (circle 5 "solid" "forestgreen")
+                                     (circle 5 "solid" "forestgreen")))
+                      (circle 14 "outline" "black")))
+(define FOREST (beside TREE (above TREE TREE)))
+(define FIRE (overlay (circle 4 75 "red")
+                      (overlay (circle 8 75 "orange")
+                               (circle 12 75 "yellow"))))
+(define WATER (above (ellipse 2 4 "solid" "blue")
+                     (ellipse 2 4 "solid" "blue")
+                     (ellipse 2 4 "solid" "blue")
+                     (ellipse 2 4 "solid" "blue")
+                     (ellipse 2 4 "solid" "blue")))
+(define WIDTH  640)
+(define HEIGHT WIDTH)
+(define FIRES 5)
+(define WATER-LOAD 5)
+(define TIMEOUT 60)
+(define CTR-Y (- HEIGHT (/ (image-height AIRPLANE) 2)))
+(define MTS (empty-scene WIDTH HEIGHT "mediumgoldenrod"))
+
 
 ; Variability
 ;  - fires
