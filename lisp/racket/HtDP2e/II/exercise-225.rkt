@@ -39,6 +39,7 @@
                      (ellipse 2 4 "solid" "blue")))
 (define WIDTH  640)
 (define HEIGHT WIDTH)
+(define CENTER-Y (/ WIDTH 2))
 (define FIRES 5)
 (define WATER-LOAD 5)
 (define TIMEOUT 60)
@@ -47,9 +48,31 @@
 
 
 ; Variability
-;  - fires
-;  - time
-;  - pos-x
+; A Fire is a Posn:
+;   (make-posn Natural Natural)
+; interpretation (make-posn x y) is the Fire location
+; (using the top-down, left-to-right convention)
+(define F1 (make-posn 10 20))
+(define F2 (make-posn 50 50))
+
+; A ListOfFires is one of:
+; '()
+; (cons Fire ListOfFires)
+; interpretation represents all fires in the game
+(define LOF1 '())
+(define LOF2 (cons F1 '()))
+(define LOF3 (cons F1 (cons F2 '())))
+
+(define-struct fire-fighting (fires water time ctr-x))
+; A Fire-Fighting is a structure:
+;   (make-fire-fighting ListOfFires Integer[0, WATER-LOAD] Integer[0, TIMEOUT) Integer[0, WIDTH))
+; interpretation (make-fire-fighting lof w t cx) is an instance of the game where:
+;  - lof is the references to fires;
+;  - w is a counter for the water charge, in total of WATER-LOAD;
+;  - t is the time counter, between 0 and TIMEOUT; and
+;  - cx is the current x position, between 0 and WIDTH
+(define FF (make-fire-fighting LOF1 WATER-LOAD TIMEOUT CENTER-Y))
+
 
 ; Environment
 ;  - on-tick
