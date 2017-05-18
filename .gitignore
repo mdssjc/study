@@ -11,6 +11,9 @@
 # Shared objects
 *.dll
 *.so
+
+# Assembler
+*.[sS]
 # ---
 
 ### IntelliJ IDEA ###
