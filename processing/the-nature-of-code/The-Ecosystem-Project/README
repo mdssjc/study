@@ -1,26 +1,47 @@
 The Ecosystem Project
 
-Step 1 Exercise:
+Problema:
+ Uma bola com o objetivo de obter energias perante um cenário com diversas adversidades - assim ativando um portal para o retorno ao seu mundo.
 
-Develop a set of rules for simulating the real-world behavior of a creature, such as a nervous fly, swimming fish, hopping bunny, slithering snake, etc. Can you control the object’s motion by only manipulating the acceleration? Try to give the creature a personality through its behavior (rather than through its visual design).
+====================
+=== Comunalidade ===
+====================
+WIDTH:  800 px
+HEIGHT: 600 px
+MTS: #FFFFFF
 
-- flexible ball
-- two wings
-- high jump, depending on the impact with the ground
+=====================
+=== Variabilidade ===
+=====================
+Bola (Ball):
+ - visual: bola com duas asas
+ - animação: asas, conforme o movimento do personagem
+ - interação: movimento horizontal (left e right); pulo (space)
+  - regra do pulo: depende do impacto no solo; dois estágios: normal ou alto - conforme a energia
+ - colisão: apresenta flexibilidade no corpo do personagem
+ - energia
 
-Only acceleration is not enough.
+Poste:
+ - inimigo estático
+ - dificuldade: conforme um campo de energia (força de atração ou repulsão)
 
+Minibolas:
+ - inimigo dinâmico
+ - versões menores do Ball
+ - terreste, aéreo e marítimo: conforme o cenário
 
-Step 2 Exercise:
+Campos:
+ - apoio (interação com o Ball)
+ - recarregar energia ou criar poderes...
+ - um com o objetivo de criar um portal
 
-Incorporate the concept of forces into your ecosystem. Try introducing other elements into the environment (food, a predator) for the creature to interact with. Does the creature experience attraction or repulsion to things in its world? Can you think more abstractly and design forces based on the creature’s desires or goals?
-
-- environment: energy, fields and mini-enemies
-- the creature experiences kinds of forces like gravity, tension... when in the action of jumping and flying... as well as the powers of enemies
-
-- use the force when jump in two stages: normal and high, comform an enegy
-- use force when in the jump action, in the stages: normal and high, according to a rate of energy
-
+================
+=== Ambiente ===
+================
+Inicialização: criação do cenário e personagens
+Teclado: left, right e space
+Encerra: quando obtém energia suficiente para ativar um portal
+---
 
 Step 3 Exercise:
 
