@@ -4,20 +4,22 @@
 ;; Exercise 225
 
 (require 2htdp/image)
+(require 2htdp/universe)
 
-;Design a fire-fighting game.
+; Design a fire-fighting game.
 ;
-;The game is set in the western states where fires rage through vast forests.
-;It simulates an airborne fire-fighting effort.
-;Specifically, the player acts as the pilot of an airplane that drops loads
-;of water on fires on the ground. The player controls the plane’s horizontal
-;movements and the release of water loads.
+; The game is set in the western states where fires rage through vast forests.
+; It simulates an airborne fire-fighting effort.
+; Specifically, the player acts as the pilot of an airplane that drops loads
+; of water on fires on the ground. The player controls the plane’s horizontal
+; movements and the release of water loads.
 ;
-;Your game software starts fires at random places on the ground.
-;You may wish to limit the number of fires, making them a function of how many
-;fires are currently burning or other factors. The purpose of the game is to
-;extinguish all fires in a limited amount of time. Hint Use an iterative design
-;approach as illustrated in this chapter to create this game.
+; Your game software starts fires at random places on the ground.
+; You may wish to limit the number of fires, making them a function of how many
+; fires are currently burning or other factors. The purpose of the game is to
+; extinguish all fires in a limited amount of time. Hint Use an iterative design
+; approach as illustrated in this chapter to create this game.
+
 
 ; Constants
 (define AIRPLANE (overlay/xy (circle 10 "solid" "blue")
@@ -79,3 +81,31 @@
 ;  - on-render
 ;  - on-key: left, right (horizontal movements) and space (water)
 ;  - stop-when: timeout
+; Fire-Fighting -> World
+; starts a world with (main FF)
+(define (main ff)
+  (big-bang ff
+            (on-tick   tock)
+            (on-draw   render)
+            (on-key    control)
+            (stop-when game-over?)))
+
+; Fire-Fighting -> Fire-Fighting
+; updates the status of the game
+(define (tock ff) ff)
+
+; Fire-Fighting -> Image
+; renders the given game state on top of MTS
+(define (render ff) MTS)
+
+; Fire-Fighting KeyEvent -> Fire-Fighting
+; handles the main events:
+; - pressing the left arrow ensures that the airplane moves left;
+; - pressing the right arrow ensures that the airplane moves right; and
+; - pressing the space bar ensures that the airplane releases of water loads
+(define (control ff ke) ff)
+
+; Fire-Fighting -> Boolean
+; returns true when the game stop;
+; the game stops if extinguish all FIRES before the TIMEOUT
+(define (game-over? ff) #false)
