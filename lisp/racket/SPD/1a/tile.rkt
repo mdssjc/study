@@ -2,11 +2,12 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname tile-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; tile.rkt
+;; BSL P3
 
 (require 2htdp/image)
 
+
 ;; PROBLEM:
-;; BSL P3
 ;;
 ;; Use the DrRacket square, beside and above functions to create an
 ;; image like this one:

@@ -2,9 +2,10 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname more-foo-evaluation-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; more-foo-evaluation.rkt
+;; BSL P6
+
 
 ;; PROBLEM:
-;; BSL P6
 ;;
 ;; Given the following function definition:
 ;;

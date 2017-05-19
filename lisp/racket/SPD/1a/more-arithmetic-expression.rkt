@@ -2,10 +2,10 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname more-arithmetic-expression-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; more-arithmetic-expression.rkt
+;; BSL P1
 
 
 ;; PROBLEM:
-;; BSL P1
 ;;
 ;; Write two expressions that multiply the numbers 3, 5 and 7.
 ;; The first should take advantage of the fact that * can accept more

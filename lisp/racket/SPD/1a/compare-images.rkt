@@ -2,11 +2,12 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname compare-images-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; compare-images.rkt
+;; BSL P5
+
 
 (require 2htdp/image)
 
 ;; PROBLEM:
-;; BSL P5
 ;;
 ;; Based on the two constants provided, write three expressions to
 ;; determine whether:
