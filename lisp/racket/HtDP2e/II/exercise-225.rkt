@@ -6,6 +6,7 @@
 (require 2htdp/image)
 (require 2htdp/universe)
 
+
 ; Design a fire-fighting game.
 ;
 ; The game is set in the western states where fires rage through vast forests.
@@ -41,7 +42,7 @@
                      (ellipse 2 4 "solid" "blue")))
 (define WIDTH  640)
 (define HEIGHT WIDTH)
-(define CENTER-Y (/ WIDTH 2))
+(define CENTER-X (/ WIDTH 2))
 (define FIRES 5)
 (define WATER-LOAD 5)
 (define TIMEOUT 60)
@@ -73,7 +74,7 @@
 ;  - w is a counter for the water charge, in total of WATER-LOAD;
 ;  - t is the time counter, between 0 and TIMEOUT; and
 ;  - cx is the current x position, between 0 and WIDTH
-(define FF (make-fire-fighting LOF1 WATER-LOAD TIMEOUT CENTER-Y))
+(define FF (make-fire-fighting LOF1 WATER-LOAD TIMEOUT CENTER-X))
 
 
 ; Environment
@@ -92,7 +93,13 @@
 
 ; Fire-Fighting -> Fire-Fighting
 ; updates the status of the game
-(define (tock ff) ff)
+(check-expect (tock FF) (make-fire-fighting LOF1 WATER-LOAD (sub1 TIMEOUT) CENTER-X))
+
+(define (tock ff)
+  (make-fire-fighting (fire-fighting-fires ff)
+                      (fire-fighting-water ff)
+                      (sub1 (fire-fighting-time ff))
+                      (fire-fighting-ctr-x ff)))
 
 ; Fire-Fighting -> Image
 ; renders the given game state on top of MTS
