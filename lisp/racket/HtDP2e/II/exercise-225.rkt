@@ -59,8 +59,8 @@
 (define F2 (make-posn 50 50))
 
 ; A ListOfFires is one of:
-; '()
-; (cons Fire ListOfFires)
+;   '()
+;   (cons Fire ListOfFires)
 ; interpretation represents all fires in the game
 (define LOF1 '())
 (define LOF2 (cons F1 '()))
@@ -78,10 +78,6 @@
 
 
 ; Environment
-;  - on-tick
-;  - on-render
-;  - on-key: left, right (horizontal movements) and space (water)
-;  - stop-when: timeout
 ; Fire-Fighting -> World
 ; starts a world with (main FF)
 (define (main ff)
@@ -90,6 +86,24 @@
             (on-draw   render)
             (on-key    control)
             (stop-when game-over?)))
+
+; Fire-Fighting Integer -> Fire-Fighting
+; creates fires on the game
+(check-random (create-fires FF)
+              (make-fire-fighting
+               (list (make-posn (random WIDTH) (random HEIGHT))
+                     (make-posn (random WIDTH) (random HEIGHT))
+                     (make-posn (random WIDTH) (random HEIGHT))
+                     (make-posn (random WIDTH) (random HEIGHT))
+                     (make-posn (random WIDTH) (random HEIGHT)))
+               WATER-LOAD TIMEOUT CENTER-X))
+
+(define (create-fires ff)
+  (cond [(= (length (fire-fighting-fires ff)) FIRES) ff]
+        [else (create-fires (make-fire-fighting
+                             (append (fire-fighting-fires ff)
+                                     (list (make-posn (random WIDTH) (random HEIGHT))))
+                             WATER-LOAD TIMEOUT CENTER-X))]))
 
 ; Fire-Fighting -> Fire-Fighting
 ; updates the status of the game
