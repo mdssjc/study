@@ -11,7 +11,6 @@ public class DogDoor {
   private boolean open;
 
   public DogDoor() {
-    this.open = false;
     this.allowedBarks = new ArrayList<>();
   }
 
