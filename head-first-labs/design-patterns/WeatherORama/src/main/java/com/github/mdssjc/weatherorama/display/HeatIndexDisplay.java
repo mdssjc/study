@@ -1,26 +1,34 @@
 package com.github.mdssjc.weatherorama.display;
 
 import com.github.mdssjc.weatherorama.DisplayElement;
-import com.github.mdssjc.weatherorama.Observer;
-import com.github.mdssjc.weatherorama.Subject;
+import com.github.mdssjc.weatherorama.WeatherData;
+
+import java.util.Observable;
+import java.util.Observer;
 
 public class HeatIndexDisplay implements Observer, DisplayElement {
 
-  private final Subject weatherData;
+  private final Observable observable;
   private float heatIndex = 0.0f;
 
-  public HeatIndexDisplay(Subject weatherData) {
-    this.weatherData = weatherData;
-    weatherData.registerObserver(this);
+  public HeatIndexDisplay(final Observable observable) {
+    this.observable = observable;
+    observable.addObserver(this);
   }
 
   @Override
-  public void update(float temp, float humidity, float pressure) {
-    heatIndex = computeHeatIndex(temp, humidity);
-    display();
+  public void update(final Observable observable, final Object arg) {
+    if (observable instanceof WeatherData) {
+      final WeatherData weatherData = (WeatherData) observable;
+
+      this.heatIndex = computeHeatIndex(weatherData.getTemperature(),
+                                        weatherData.getHumidity());
+
+      display();
+    }
   }
 
-  private float computeHeatIndex(float t, float rh) {
+  private float computeHeatIndex(final float t, final float rh) {
     return (float) ((16.923 + (0.185212 * t) + (5.37941 * rh) - (0.100254 * t * rh) +
                      (0.00941695 * (t * t)) + (0.00728898 * (rh * rh)) +
                      (0.000345372 * (t * t * rh)) - (0.000814971 * (t * rh * rh)) +
@@ -34,6 +42,6 @@ public class HeatIndexDisplay implements Observer, DisplayElement {
 
   @Override
   public void display() {
-    System.out.println("Heat index is " + heatIndex);
+    System.out.println("Heat index is " + this.heatIndex);
   }
 }

@@ -1,54 +1,38 @@
 package com.github.mdssjc.weatherorama;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Observable;
 
-public class WeatherData implements Subject {
+public class WeatherData extends Observable {
 
-  private final List<Observer> observers;
   private float temperature;
   private float humidity;
   private float pressure;
 
   public WeatherData() {
-    observers = new ArrayList<>();
+
   }
 
   public void measurementsChanged() {
+    setChanged();
     notifyObservers();
   }
 
-  public void setMeasurements(float temperature, float humidity, float pressure) {
+  public void setMeasurements(final float temperature, final float humidity, final float pressure) {
     this.temperature = temperature;
     this.humidity = humidity;
     this.pressure = pressure;
     measurementsChanged();
   }
 
-  @Override
-  public void registerObserver(Observer observer) {
-    observers.add(observer);
-  }
-
-  @Override
-  public void removeObserver(Observer observer) {
-    observers.remove(observer);
-  }
-
-  @Override
-  public void notifyObservers() {
-    observers.forEach(o -> o.update(temperature, humidity, pressure));
-  }
-
   public float getTemperature() {
-    return temperature;
+    return this.temperature;
   }
 
   public float getHumidity() {
-    return humidity;
+    return this.humidity;
   }
 
   public float getPressure() {
-    return pressure;
+    return this.pressure;
   }
 }
