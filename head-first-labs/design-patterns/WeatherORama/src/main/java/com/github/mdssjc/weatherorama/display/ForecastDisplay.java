@@ -1,4 +1,8 @@
-package com.github.mdssjc.weatherorama;
+package com.github.mdssjc.weatherorama.display;
+
+import com.github.mdssjc.weatherorama.DisplayElement;
+import com.github.mdssjc.weatherorama.Observer;
+import com.github.mdssjc.weatherorama.WeatherData;
 
 public class ForecastDisplay implements Observer, DisplayElement {
 

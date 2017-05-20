@@ -1,5 +1,10 @@
 package com.github.mdssjc.weatherorama;
 
+import com.github.mdssjc.weatherorama.display.CurrentConditionsDisplay;
+import com.github.mdssjc.weatherorama.display.ForecastDisplay;
+import com.github.mdssjc.weatherorama.display.HeatIndexDisplay;
+import com.github.mdssjc.weatherorama.display.StatisticsDisplay;
+
 public class WeatherStation {
 
   public static void main(String[] args) {

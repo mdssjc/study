@@ -1,4 +1,4 @@
-package com.github.mdssjc.weatherorama;
+package com.github.mdssjc.weatherorama.display;
 
 public class ThirdPartyDisplay implements Observer, DisplayElement {
 
