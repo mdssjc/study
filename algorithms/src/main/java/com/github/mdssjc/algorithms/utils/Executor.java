@@ -38,7 +38,7 @@ public class Executor {
         if (td.valueFile()) {
           for (int i = 0; i < value.length; i++) {
             boolean exists = Files.exists(Paths.get(RESOURCES_PATH + value[i]));
-            if (exists) {
+            if (exists && value[i].length() > 1) {
               value[i] = RESOURCES_PATH + value[i];
             }
           }
