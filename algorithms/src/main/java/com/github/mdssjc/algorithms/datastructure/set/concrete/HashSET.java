@@ -1,5 +1,6 @@
-package com.github.mdssjc.algorithms.chapter3.section35;
+package com.github.mdssjc.algorithms.datastructure.set.concrete;
 
+import com.github.mdssjc.algorithms.datastructure.set.SET;
 import edu.princeton.cs.algs4.LinearProbingHashST;
 
 public class HashSET<Key> implements SET<Key> {

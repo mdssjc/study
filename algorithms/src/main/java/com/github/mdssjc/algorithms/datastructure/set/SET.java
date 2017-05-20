@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.chapter3.section35;
+package com.github.mdssjc.algorithms.datastructure.set;
 
 public interface SET<Key> {
 
