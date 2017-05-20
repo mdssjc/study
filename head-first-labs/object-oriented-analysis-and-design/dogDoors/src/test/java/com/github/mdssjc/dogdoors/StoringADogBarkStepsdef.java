@@ -1,13 +1,13 @@
-package com.github.mdssjc.hfooad.dogdoors;
-
-import static java.util.stream.Collectors.toList;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
+package com.github.mdssjc.dogdoors;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+import static org.junit.Assert.assertTrue;
 
 public class StoringADogBarkStepsdef {
 

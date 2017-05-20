@@ -1,11 +1,11 @@
-package com.github.mdssjc.hfooad.dogdoors;
-
-import org.junit.runner.RunWith;
+package com.github.mdssjc.dogdoors;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = { "pretty" })
+@CucumberOptions(plugin = {"pretty"})
 public class RunDogDoorsTest {
+
 }

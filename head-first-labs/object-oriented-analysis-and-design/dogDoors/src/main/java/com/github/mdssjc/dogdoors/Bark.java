@@ -1,4 +1,4 @@
-package com.github.mdssjc.hfooad.dogdoors;
+package com.github.mdssjc.dogdoors;
 
 import java.util.Objects;
 
