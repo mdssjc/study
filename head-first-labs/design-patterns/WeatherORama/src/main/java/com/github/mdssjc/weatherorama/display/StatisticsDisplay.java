@@ -1,5 +1,9 @@
 package com.github.mdssjc.weatherorama.display;
 
+import com.github.mdssjc.weatherorama.DisplayElement;
+import com.github.mdssjc.weatherorama.Observer;
+import com.github.mdssjc.weatherorama.WeatherData;
+
 public class StatisticsDisplay implements Observer, DisplayElement {
 
   private float maxTemp = 0.0f;
