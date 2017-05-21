@@ -12,7 +12,6 @@ import static org.junit.Assert.assertTrue;
 public class StoringADogBarkStepsdef {
 
   private DogDoor door;
-
   private List<Bark> barks;
 
   @Given("^The owner’s dog barks\\$ into the dog door\\.$")
