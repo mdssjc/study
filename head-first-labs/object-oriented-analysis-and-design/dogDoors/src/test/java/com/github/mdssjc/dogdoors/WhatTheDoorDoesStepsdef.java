@@ -41,7 +41,7 @@ public class WhatTheDoorDoesStepsdef {
   @When("^The door shuts automatically\\.$")
   public void the_door_shuts_automatically() throws InterruptedException {
     while (this.door.isOpen()) {
-      Thread.sleep(100);
+      Thread.sleep(100L);
     }
   }
 
