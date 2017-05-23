@@ -91,7 +91,7 @@
 ; Fire-Fighting -> World
 ; starts a world with (main FF)
 (define (main ff)
-  (big-bang ff
+  (big-bang (create-fires ff)
             (on-tick   tock)
             (on-draw   render)
             (on-key    control)
@@ -101,11 +101,11 @@
 ; creates fires on the game
 (check-random (create-fires FF)
               (make-fire-fighting
-               (list (make-posn (random WIDTH) (random HEIGHT))
-                     (make-posn (random WIDTH) (random HEIGHT))
-                     (make-posn (random WIDTH) (random HEIGHT))
-                     (make-posn (random WIDTH) (random HEIGHT))
-                     (make-posn (random WIDTH) (random HEIGHT)))
+               (list (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
+                     (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
+                     (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
+                     (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
+                     (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE)))))
                WATER-LOAD TIMEOUT CENTER-X))
 
 (define (create-fires ff)
@@ -127,7 +127,18 @@
 
 ; Fire-Fighting -> Image
 ; renders the given game state on top of MTS
-(define (render ff) MTS)
+(define (render ff)
+  (place-image
+   AIRPLANE
+   (fire-fighting-ctr-x ff) CTR-Y
+   (render-fires (fire-fighting-fires ff) MTS)))
+
+; ListOfFires Image -> Image
+; renders the fires on top of image
+(define (render-fires lof i)
+  (cond [(empty? lof) i]
+        [else (place-image FIRE (posn-x (first lof)) (posn-y (first lof))
+                           (render-fires (rest lof) i))]))
 
 ; Fire-Fighting KeyEvent -> Fire-Fighting
 ; handles the main events:
