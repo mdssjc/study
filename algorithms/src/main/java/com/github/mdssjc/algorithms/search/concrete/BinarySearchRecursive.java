@@ -16,20 +16,21 @@ import java.util.Arrays;
 public class BinarySearchRecursive implements BinarySearch {
 
   @Override
-  public int rank(final int key, final int[] a) {
-    return rank(key, a, 0, a.length - 1);
+  public int indexOf(final int[] a, final int key) {
+    return indexOf(a, key, 0, a.length - 1);
   }
 
-  private int rank(final int key, final int[] a, final int lo, final int hi) {
+  private int indexOf(final int[] a, final int key, final int lo, final int hi) {
     if (lo > hi) {
       return -1;
     }
 
     final int mid = lo + (hi - lo) / 2;
     if (key < a[mid]) {
-      return rank(key, a, lo, mid - 1);
-    } else if (key > a[mid]) {
-      return rank(key, a, mid + 1, hi);
+      return indexOf(a, key, lo, mid - 1);
+    }
+    if (key > a[mid]) {
+      return indexOf(a, key, mid + 1, hi);
     }
     return mid;
   }
@@ -42,7 +43,7 @@ public class BinarySearchRecursive implements BinarySearch {
 
     while (!StdIn.isEmpty()) {
       final int key = StdIn.readInt();
-      if (bs.rank(key, whitelist) == -1) {
+      if (bs.indexOf(whitelist, key) == -1) {
         StdOut.println(key);
       }
     }

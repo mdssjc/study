@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class BinarySearchIterative implements BinarySearch {
 
   @Override
-  public int rank(final int key, final int[] a) {
+  public int indexOf(final int[] a, final int key) {
     int lo = 0;
     int hi = a.length - 1;
 
@@ -41,7 +41,7 @@ public class BinarySearchIterative implements BinarySearch {
 
     while (!StdIn.isEmpty()) {
       final int key = StdIn.readInt();
-      if (bs.rank(key, whitelist) == -1) {
+      if (bs.indexOf(whitelist, key) == -1) {
         StdOut.println(key);
       }
     }

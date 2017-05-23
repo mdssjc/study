@@ -11,7 +11,12 @@ import com.github.mdssjc.algorithms.search.concrete.BinarySearchRecursive;
  */
 public interface BinarySearch {
 
-  int rank(int key, int[] a);
+  int indexOf(int[] a, int key);
+
+  @Deprecated
+  default int rank(int key, int[] a) {
+    return indexOf(a, key);
+  }
 
   enum METHOD {
     ITERATIVE {
