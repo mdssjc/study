@@ -13,7 +13,6 @@ import edu.princeton.cs.algs4.StdOut;
 @TestDrive
 public class Euclid {
 
-
   public static void main(final String[] args) {
     Executor.execute(Euclid.class, args);
 
