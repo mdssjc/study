@@ -19,7 +19,8 @@ public interface BinarySearch {
       public BinarySearch get() {
         return new BinarySearchIterative();
       }
-    }, RECURSIVE {
+    },
+    RECURSIVE {
       @Override
       public BinarySearch get() {
         return new BinarySearchRecursive();
