@@ -47,7 +47,17 @@
 (define WATER-LOAD 5)
 (define TIMEOUT 60)
 (define CTR-Y (- HEIGHT (/ (image-height AIRPLANE) 2)))
-(define MTS (empty-scene WIDTH HEIGHT "mediumgoldenrod"))
+(define MTS
+  (place-image FOREST (* WIDTH 0.2) (* HEIGHT 0.2)
+               (place-image FOREST (* WIDTH 0.2) (* HEIGHT 0.5)
+                            (place-image FOREST (* WIDTH 0.2) (* HEIGHT 0.8)
+                                         (place-image FOREST (* WIDTH 0.5) (* HEIGHT 0.2)
+                                                      (place-image FOREST (* WIDTH 0.5) (* HEIGHT 0.5)
+                                                                   (place-image FOREST (* WIDTH 0.5) (* HEIGHT 0.8)
+                                                                                (place-image FOREST (* WIDTH 0.8) (* HEIGHT 0.2)
+                                                                                             (place-image FOREST (* WIDTH 0.8) (* HEIGHT 0.5)
+                                                                                                          (place-image FOREST (* WIDTH 0.8) (* HEIGHT 0.8)
+                                                                                                                       (empty-scene WIDTH HEIGHT "mediumgoldenrod")))))))))))
 
 
 ; Variability
