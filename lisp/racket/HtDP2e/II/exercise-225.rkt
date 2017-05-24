@@ -76,12 +76,25 @@
 (define LOF2 (cons F1 '()))
 (define LOF3 (cons F1 (cons F2 '())))
 
+(define-struct water (enable? timer))
+; A Water is a structure:
+;   (make-water Boolean Integer)
+; interpretation (make-water e? t) is the status of water control:
+;  - e? is the enable of water; and
+;  - t is the timer, WATER-LOAD to 0 for drop and 120 to 0 for recharge
+(define W1 (make-water #true WATER-LOAD))
+(define W2 (make-water #true 3))
+(define W3 (make-water #true 0))
+(define W4 (make-water #false 120))
+(define W5 (make-water #false 60))
+(define W6 (make-water #false 0))
+
 (define-struct fire-fighting (fires water time ctr-x))
 ; A Fire-Fighting is a structure:
-;   (make-fire-fighting ListOfFire Integer[0, WATER-LOAD] Integer[0, TIMEOUT) Integer[0, WIDTH))
+;   (make-fire-fighting ListOfFire Integer[-120, WATER-LOAD] Integer[0, TIMEOUT) Integer[0, WIDTH))
 ; interpretation (make-fire-fighting lof w t cx) is an instance of the game where:
 ;  - lof is the references to fires;
-;  - w is a counter for the water charge, in total of WATER-LOAD;
+;  - w is a counter for the water charge, in total of WATER-LOAD and -120 of recharge;
 ;  - t is the time counter, between 0 and TIMEOUT; and
 ;  - cx is the current x position, between 0 and WIDTH
 (define FF (make-fire-fighting LOF1 0 TIMEOUT CENTER-X))
