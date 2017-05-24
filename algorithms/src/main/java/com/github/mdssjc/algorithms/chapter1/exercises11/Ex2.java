@@ -5,7 +5,7 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Exercise 2.
+ * Exercise 1.1.2.
  *
  * @author Marcelo dos Santos
  *
@@ -17,15 +17,15 @@ public class Ex2 {
     Executor.execute(Ex2.class, args);
 
     final double a = (1 + 2.236) / 2;
-    StdOut.println(a);
+    StdOut.printf("a. double | %f%n", a);
 
     final double b = 1 + 2 + 3 + 4.0;
-    StdOut.println(b);
+    StdOut.printf("b. double | %f%n", b);
 
     final boolean c = 4.1 >= 4;
-    StdOut.println(c);
+    StdOut.printf("c. boolean | %s%n", c);
 
     final String d = 1 + 2 + "3";
-    StdOut.println(d);
+    StdOut.printf("d. String | %s%n", d);
   }
 }
