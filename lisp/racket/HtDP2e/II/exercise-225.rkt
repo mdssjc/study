@@ -68,9 +68,9 @@
 (define F1 (make-posn 10 20))
 (define F2 (make-posn 50 50))
 
-; A ListOfFires is one of:
+; A ListOfFire is one of:
 ;   '()
-;   (cons Fire ListOfFires)
+;   (cons Fire ListOfFire)
 ; interpretation represents all fires in the game
 (define LOF1 '())
 (define LOF2 (cons F1 '()))
@@ -78,7 +78,7 @@
 
 (define-struct fire-fighting (fires water time ctr-x))
 ; A Fire-Fighting is a structure:
-;   (make-fire-fighting ListOfFires Integer[0, WATER-LOAD] Integer[0, TIMEOUT) Integer[0, WIDTH))
+;   (make-fire-fighting ListOfFire Integer[0, WATER-LOAD] Integer[0, TIMEOUT) Integer[0, WIDTH))
 ; interpretation (make-fire-fighting lof w t cx) is an instance of the game where:
 ;  - lof is the references to fires;
 ;  - w is a counter for the water charge, in total of WATER-LOAD;
@@ -128,7 +128,7 @@
                       (sub1 (fire-fighting-time ff))
                       (fire-fighting-ctr-x ff)))
 
-; ListOfFires -> ListOfFires
+; ListOfFire -> ListOfFire
 ; increments the height by 1 in list
 (check-expect (move-fires LOF1) LOF1)
 (check-expect (move-fires LOF2) (list (make-posn 10 21)))
@@ -147,7 +147,7 @@
    (fire-fighting-ctr-x ff) CTR-Y
    (render-fires (fire-fighting-fires ff) MTS)))
 
-; ListOfFires Image -> Image
+; ListOfFire Image -> Image
 ; renders the fires on top of image
 (define (render-fires lof i)
   (cond [(empty? lof) i]
