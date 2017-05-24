@@ -44,7 +44,7 @@
 (define CENTER-X (/ WIDTH 2))
 (define FIRES 5)
 (define WATER-LOAD 5)
-(define TIMEOUT 60)
+(define TIMEOUT (* 60 28)) ; tock: 28 times by second
 (define CTR-Y (- HEIGHT (/ (image-height AIRPLANE) 2)))
 (define STEP-X 5)
 (define MTS
@@ -160,7 +160,9 @@
   (place-image
    AIRPLANE
    (fire-fighting-ctr-x ff) CTR-Y
-   (render-water ff (render-fires (fire-fighting-fires ff) MTS))))
+   (render-water ff
+                 (render-fires (fire-fighting-fires ff)
+                               (render-time (fire-fighting-time ff) MTS)))))
 
 ; ListOfFire Image -> Image
 ; renders the fires on top of image
@@ -175,6 +177,11 @@
   (if (= (fire-fighting-water ff) 0)
       i
       (place-image WATER (fire-fighting-ctr-x ff) (- CTR-Y (image-height AIRPLANE)) i)))
+
+; Integer Image -> Image
+; renders the time on top of image
+(define (render-time t i)
+  (place-image (text (number->string (inexact->exact (floor (/ t 28.0)))) 20 "black") CENTER-X 20 i))
 
 ; Fire-Fighting KeyEvent -> Fire-Fighting
 ; handles the main events:
