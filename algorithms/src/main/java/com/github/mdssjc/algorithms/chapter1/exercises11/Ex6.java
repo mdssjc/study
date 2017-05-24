@@ -5,7 +5,7 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Exercise 6.
+ * Exercise 1.1.6.
  *
  * @author Marcelo dos Santos
  *
@@ -16,7 +16,7 @@ public class Ex6 {
   public static void main(final String[] args) {
     Executor.execute(Ex6.class, args);
 
-    // Fibonacci
+    StdOut.println("Fibonacci");
     int f = 0;
     int g = 1;
 
