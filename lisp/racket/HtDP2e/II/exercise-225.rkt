@@ -21,7 +21,6 @@
 ; extinguish all fires in a limited amount of time. Hint Use an iterative design
 ; approach as illustrated in this chapter to create this game.
 
-
 ; Constants
 (define AIRPLANE (overlay/xy (circle 10 "solid" "blue")
                              -15 -20
@@ -47,6 +46,7 @@
 (define WATER-LOAD 5)
 (define TIMEOUT 60)
 (define CTR-Y (- HEIGHT (/ (image-height AIRPLANE) 2)))
+(define STEP-X 5)
 (define MTS
   (place-image FOREST (* WIDTH 0.2) (* HEIGHT 0.2)
                (place-image FOREST (* WIDTH 0.2) (* HEIGHT 0.5)
@@ -84,7 +84,7 @@
 ;  - w is a counter for the water charge, in total of WATER-LOAD;
 ;  - t is the time counter, between 0 and TIMEOUT; and
 ;  - cx is the current x position, between 0 and WIDTH
-(define FF (make-fire-fighting LOF1 WATER-LOAD TIMEOUT CENTER-X))
+(define FF (make-fire-fighting LOF1 0 TIMEOUT CENTER-X))
 
 
 ; Environment
@@ -106,24 +106,38 @@
                      (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
                      (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
                      (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE)))))
-               WATER-LOAD TIMEOUT CENTER-X))
+               0 TIMEOUT CENTER-X))
 
 (define (create-fires ff)
   (cond [(= (length (fire-fighting-fires ff)) FIRES) ff]
         [else (create-fires (make-fire-fighting
                              (append (fire-fighting-fires ff)
-                                     (list (make-posn (random WIDTH) (random HEIGHT))))
-                             WATER-LOAD TIMEOUT CENTER-X))]))
+                                     (list (make-posn (random WIDTH)
+                                                      (random (- HEIGHT (image-height AIRPLANE))))))
+                             0 TIMEOUT CENTER-X))]))
 
 ; Fire-Fighting -> Fire-Fighting
 ; updates the status of the game
-(check-expect (tock FF) (make-fire-fighting LOF1 WATER-LOAD (sub1 TIMEOUT) CENTER-X))
+(check-expect (tock FF) (make-fire-fighting LOF1 0 (sub1 TIMEOUT) CENTER-X))
+(check-expect (tock (make-fire-fighting LOF2 0 TIMEOUT CENTER-X))
+              (make-fire-fighting (list (make-posn 10 21)) 0 (sub1 TIMEOUT) CENTER-X))
 
 (define (tock ff)
-  (make-fire-fighting (fire-fighting-fires ff)
+  (make-fire-fighting (move-fires (fire-fighting-fires ff))
                       (fire-fighting-water ff)
                       (sub1 (fire-fighting-time ff))
                       (fire-fighting-ctr-x ff)))
+
+; ListOfFires -> ListOfFires
+; increments the height by 1 in list
+(check-expect (move-fires LOF1) LOF1)
+(check-expect (move-fires LOF2) (list (make-posn 10 21)))
+(check-expect (move-fires LOF3) (list (make-posn 10 21) (make-posn 50 51)))
+
+(define (move-fires lof)
+  (cond [(empty? lof) '()]
+        [else (cons (make-posn (posn-x (first lof)) (add1 (posn-y (first lof))))
+                    (move-fires (rest lof)))]))
 
 ; Fire-Fighting -> Image
 ; renders the given game state on top of MTS
@@ -142,10 +156,35 @@
 
 ; Fire-Fighting KeyEvent -> Fire-Fighting
 ; handles the main events:
-; - pressing the left arrow ensures that the airplane moves left;
-; - pressing the right arrow ensures that the airplane moves right; and
-; - pressing the space bar ensures that the airplane releases of water loads
-(define (control ff ke) ff)
+;  - pressing the left arrow ensures that the airplane moves left;
+;  - pressing the right arrow ensures that the airplane moves right; and
+;  - pressing the space bar ensures that the airplane releases of water loads
+(check-expect (control FF "left") (make-fire-fighting LOF1 0 TIMEOUT (- CENTER-X STEP-X)))
+(check-expect (control FF "right") (make-fire-fighting LOF1 0 TIMEOUT (+ CENTER-X STEP-X)))
+(check-expect (control FF " ") (make-fire-fighting LOF1 5 TIMEOUT CENTER-X))
+(check-expect (control (make-fire-fighting LOF1 3 TIMEOUT CENTER-X) " ")
+              (make-fire-fighting LOF1 3 TIMEOUT CENTER-X))
+(check-expect (control FF "a") (make-fire-fighting LOF1 0 TIMEOUT CENTER-X))
+
+(define (control ff ke)
+  (cond [(key=? ke "left")
+         (make-fire-fighting (fire-fighting-fires ff)
+                             (fire-fighting-water ff)
+                             (fire-fighting-time ff)
+                             (- (fire-fighting-ctr-x ff) STEP-X))]
+        [(key=? ke "right")
+         (make-fire-fighting (fire-fighting-fires ff)
+                             (fire-fighting-water ff)
+                             (fire-fighting-time ff)
+                             (+ (fire-fighting-ctr-x ff) STEP-X))]
+        [(key=? ke " ")
+         (make-fire-fighting (fire-fighting-fires ff)
+                             (if (= (fire-fighting-water ff) 0)
+                                 WATER-LOAD
+                                 (fire-fighting-water ff))
+                             (fire-fighting-time ff)
+                             (fire-fighting-ctr-x ff))]
+        [else ff]))
 
 ; Fire-Fighting -> Boolean
 ; returns true when the game stop;
