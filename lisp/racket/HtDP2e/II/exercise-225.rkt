@@ -34,11 +34,11 @@
 (define FIRE (overlay (circle 4 75 "red")
                       (overlay (circle 8 75 "orange")
                                (circle 12 75 "yellow"))))
-(define WATER (above (ellipse 2 4 "solid" "blue")
-                     (ellipse 2 4 "solid" "blue")
-                     (ellipse 2 4 "solid" "blue")
-                     (ellipse 2 4 "solid" "blue")
-                     (ellipse 2 4 "solid" "blue")))
+(define WATER (above (ellipse 8 10 "solid" "blue")
+                     (ellipse 8 10 "solid" "blue")
+                     (ellipse 8 10 "solid" "blue")
+                     (ellipse 8 10 "solid" "blue")
+                     (ellipse 8 10 "solid" "blue")))
 (define WIDTH  640)
 (define HEIGHT WIDTH)
 (define CENTER-X (/ WIDTH 2))
@@ -145,7 +145,7 @@
   (place-image
    AIRPLANE
    (fire-fighting-ctr-x ff) CTR-Y
-   (render-fires (fire-fighting-fires ff) MTS)))
+   (render-water ff (render-fires (fire-fighting-fires ff) MTS))))
 
 ; ListOfFire Image -> Image
 ; renders the fires on top of image
@@ -153,6 +153,13 @@
   (cond [(empty? lof) i]
         [else (place-image FIRE (posn-x (first lof)) (posn-y (first lof))
                            (render-fires (rest lof) i))]))
+
+; Fire-Fighting Image -> Image
+; renders the water on top of image
+(define (render-water ff i)
+  (if (= (fire-fighting-water ff) 0)
+      i
+      (place-image WATER (fire-fighting-ctr-x ff) (- CTR-Y (image-height AIRPLANE)) i)))
 
 ; Fire-Fighting KeyEvent -> Fire-Fighting
 ; handles the main events:
