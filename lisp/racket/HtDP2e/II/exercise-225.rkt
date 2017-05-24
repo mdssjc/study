@@ -124,7 +124,9 @@
 
 (define (tock ff)
   (make-fire-fighting (move-fires (fire-fighting-fires ff))
-                      (fire-fighting-water ff)
+                      (if (= (fire-fighting-water ff) 0)
+                          0
+                          (sub1 (fire-fighting-water ff)))
                       (sub1 (fire-fighting-time ff))
                       (fire-fighting-ctr-x ff)))
 
