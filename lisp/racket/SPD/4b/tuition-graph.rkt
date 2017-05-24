@@ -74,3 +74,27 @@
 
 
 ;; Functions:
+
+;; ListOfSchool -> Image
+;; produce bar chart showing names and tuitions of consumed schools
+(check-expect (chart empty) (square 0 "solid" "white"))
+(check-expect (chart (cons (make-school "S1" 8000) empty))
+              (beside/align "bottom"
+                            (overlay/align "center" "bottom"
+                                           (rotate 90 (text "S1" FONT-SIZE FONT-COLOR))
+                                           (rectangle BAR-WIDTH (* 8000 Y-SCALE) "outline" "black")
+                                           (rectangle BAR-WIDTH (* 8000 Y-SCALE) "solid" BAR-COLOR))
+                            (square 0 "solid" "white")))
+(check-expect (chart (cons (make-school "S2" 12000) (cons (make-school "S1" 8000) empty)))
+              (beside/align "bottom"
+                            (overlay/align "center" "bottom"
+                                           (rotate 90 (text "S2" FONT-SIZE FONT-COLOR))
+                                           (rectangle BAR-WIDTH (* 12000 Y-SCALE) "outline" "black")
+                                           (rectangle BAR-WIDTH (* 12000 Y-SCALE) "solid" BAR-COLOR))
+                            (overlay/align "center" "bottom"
+                                           (rotate 90 (text "S1" FONT-SIZE FONT-COLOR))
+                                           (rectangle BAR-WIDTH (* 8000 Y-SCALE) "outline" "black")
+                                           (rectangle BAR-WIDTH (* 8000 Y-SCALE) "solid" BAR-COLOR))
+                            (square 0 "solid" "white")))
+
+(define (chart los) (square 0 "solid" "white"))
