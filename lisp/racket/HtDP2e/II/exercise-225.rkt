@@ -211,4 +211,10 @@
 ; Fire-Fighting -> Boolean
 ; returns true when the game stop;
 ; the game stops if extinguish all FIRES before the TIMEOUT
-(define (game-over? ff) #false)
+(check-expect (game-over? (make-fire-fighting LOF2 0 TIMEOUT CENTER-X)) #false)
+(check-expect (game-over? FF) #true)
+(check-expect (game-over? (make-fire-fighting LOF1 0 0 CENTER-X)) #true)
+
+(define (game-over? ff)
+  (or (= (length (fire-fighting-fires ff)) 0)
+      (= (fire-fighting-time ff) 0)))
