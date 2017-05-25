@@ -42,6 +42,7 @@
 (define WIDTH  640)
 (define HEIGHT WIDTH)
 (define CENTER-X (/ WIDTH 2))
+(define CENTER-Y (/ HEIGHT 2))
 (define FIRES 5)
 (define WATER-LOAD 5)
 (define TIMEOUT (* 60 28)) ; tock: 28 times by second
@@ -108,7 +109,7 @@
             (on-tick   tock)
             (on-draw   render)
             (on-key    control)
-            (stop-when game-over?)))
+            (stop-when game-over? render-gamer-over)))
 
 ; Fire-Fighting Integer -> Fire-Fighting
 ; creates fires on the game
@@ -225,3 +226,8 @@
 (define (game-over? ff)
   (or (= (length (fire-fighting-fires ff)) 0)
       (= (fire-fighting-time ff) 0)))
+
+; Fire-Fighting -> Image
+; renders the game over message on the last render
+(define (render-gamer-over ff)
+  (place-image (text "Game Over" 32 "black") CENTER-X CENTER-Y (render ff)))
