@@ -3,10 +3,8 @@ import java.util.Iterator;
 class ParticleSystem {
 
   ArrayList<Particle> particles;
-  PVector origin;
 
-  ParticleSystem(PVector location) {
-    origin = location.copy();
+  ParticleSystem() {
     particles = new ArrayList();
   }
 
