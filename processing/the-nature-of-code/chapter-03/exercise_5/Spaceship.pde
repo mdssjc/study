@@ -41,16 +41,10 @@ class Spaceship {
 
   void ccw() {
     heading -= headingStep;
-    if (heading < 0) {
-      heading = 359;
-    }
   }
 
   void cw() {
     heading += headingStep;
-    if (heading > 360) {
-      heading = 0;
-    }
   }
 
   void thrust() {
