@@ -4,6 +4,8 @@
 ;; alternative-tuition-graph.rkt
 ;; Reference P1 - Alternative Tuition Graph
 
+(require 2htdp/image)
+
 
 ;; Consider the following alternative type comment for Eva's school tuition
 ;; information program. Note that this is just a single type, with no reference,
@@ -27,3 +29,80 @@
 ;;     simply copying the tests over from the original version of chart.
 ;;
 ;; (D) Compare the two versions of chart. Which do you prefer? Why?
+
+;; Constants:
+
+(define FONT-SIZE 24)
+(define FONT-COLOR "black")
+(define Y-SCALE 1/200)
+(define BAR-WIDTH 30)
+(define BAR-COLOR "lightblue")
+
+
+;; Data definitions
+
+(define-struct school (name tuition next))
+;; School is one of:
+;;  - false
+;;  - (make-school String Natural School)
+;; interp. an arbitrary number of schools, where for each school we have its
+;;         name and its tuition in USD
+(define S1 false)
+(define S2 (make-school "School1" 27797 false))
+(define S3 (make-school "School1" 27797 (make-school "School2" 23300 (make-school "School3" 28500 false))))
+
+#;
+(define (fn-for-school s)
+  (cond [(false? s) (...)]
+        [else (... (school-name s)
+                   (school-tuition s)
+                   (fn-for-school (school-next s)))]))
+
+;; Template rules used:
+;;  - one of: 2 cases
+;;  - atomic distinct: false
+;;  - compound: (make-school String Natural School)
+;;  - atomic non-distinct: (school-name s) is String
+;;  - atomic non-distinct: (school-tuition s) is Natural
+;;  - self-reference: (school-next s) is School
+
+
+;; Functions:
+
+;; School -> Image
+;; produce bar chart showing names and tuitions of consumed schools
+(check-expect (chart S1) (square 0 "solid" "white"))
+(check-expect (chart S2)
+              (beside/align "bottom"
+                            (overlay/align "center" "bottom"
+                                           (rotate 90 (text "School1" FONT-SIZE FONT-COLOR))
+                                           (rectangle BAR-WIDTH (* 27797 Y-SCALE) "outline" "black")
+                                           (rectangle BAR-WIDTH (* 27797 Y-SCALE) "solid" BAR-COLOR))
+                            (square 0 "solid" "white")))
+(check-expect (chart S3)
+              (beside/align "bottom"
+                            (overlay/align "center" "bottom"
+                                           (rotate 90 (text "School1" FONT-SIZE FONT-COLOR))
+                                           (rectangle BAR-WIDTH (* 27797 Y-SCALE) "outline" "black")
+                                           (rectangle BAR-WIDTH (* 27797 Y-SCALE) "solid" BAR-COLOR))
+                            (overlay/align "center" "bottom"
+                                           (rotate 90 (text "School2" FONT-SIZE FONT-COLOR))
+                                           (rectangle BAR-WIDTH (* 23300 Y-SCALE) "outline" "black")
+                                           (rectangle BAR-WIDTH (* 23300 Y-SCALE) "solid" BAR-COLOR))
+                            (overlay/align "center" "bottom"
+                                           (rotate 90 (text "School3" FONT-SIZE FONT-COLOR))
+                                           (rectangle BAR-WIDTH (* 28500 Y-SCALE) "outline" "black")
+                                           (rectangle BAR-WIDTH (* 28500 Y-SCALE) "solid" BAR-COLOR))
+                            (square 0 "solid" "white")))
+
+;(define (chart s) (square 0 "solid" "white")) ; stub
+
+(define (chart s)
+  (cond [(false? s) (square 0 "solid" "white")]
+        [else
+         (beside/align "bottom"
+                       (overlay/align "center" "bottom"
+                                      (rotate 90 (text (school-name s) FONT-SIZE FONT-COLOR))
+                                      (rectangle BAR-WIDTH (* (school-tuition s) Y-SCALE) "outline" "black")
+                                      (rectangle BAR-WIDTH (* (school-tuition s) Y-SCALE) "solid" BAR-COLOR))
+                       (chart (school-next s)))]))
