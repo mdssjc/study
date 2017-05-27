@@ -7,20 +7,6 @@
 (require 2htdp/universe)
 
 
-; Design a fire-fighting game.
-;
-; The game is set in the western states where fires rage through vast forests.
-; It simulates an airborne fire-fighting effort.
-; Specifically, the player acts as the pilot of an airplane that drops loads
-; of water on fires on the ground. The player controls the plane’s horizontal
-; movements and the release of water loads.
-;
-; Your game software starts fires at random places on the ground.
-; You may wish to limit the number of fires, making them a function of how many
-; fires are currently burning or other factors. The purpose of the game is to
-; extinguish all fires in a limited amount of time. Hint Use an iterative design
-; approach as illustrated in this chapter to create this game.
-
 ; Constants
 (define AIRPLANE (overlay/xy (circle 10 "solid" "blue")
                              -15 -20
@@ -43,9 +29,10 @@
 (define HEIGHT WIDTH)
 (define CENTER-X (/ WIDTH 2))
 (define CENTER-Y (/ HEIGHT 2))
-(define FIRES 5)
+(define FIRES 8)
 (define WATER-LOAD 5)
-(define TIMEOUT (* 60 28)) ; tock: 28 times by second
+(define TOCK-STEP 28) ; tock: 28 times by second
+(define TIMEOUT (* 120 TOCK-STEP))
 (define CTR-Y (- HEIGHT (/ (image-height AIRPLANE) 2)))
 (define STEP-X 5)
 (define MTS
@@ -82,13 +69,13 @@
 ;   (make-water Boolean Integer)
 ; interpretation (make-water e? t) is the status of water control:
 ;  - e? is the enable of water; and
-;  - t is the timer, WATER-LOAD to 0 for drop and 120 to 0 for recharge
+;  - t is the timer, WATER-LOAD to 0 for drop and 10 to 0 for recharge
 (define W1 (make-water #true 0))
 (define W2 (make-water #true 3))
 (define W3 (make-water #true WATER-LOAD))
 (define W4 (make-water #false 0))
-(define W5 (make-water #false 60))
-(define W6 (make-water #false 120))
+(define W5 (make-water #false 5))
+(define W6 (make-water #false 10))
 
 (define-struct fire-fighting (fires water time ctr-x))
 ; A Fire-Fighting is a structure:
@@ -119,6 +106,9 @@
                      (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
                      (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
                      (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
+                     (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
+                     (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
+                     (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
                      (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE)))))
                W1 TIMEOUT CENTER-X))
 
@@ -137,34 +127,74 @@
               (make-fire-fighting (list (make-posn 10 21)) W1 (sub1 TIMEOUT) CENTER-X))
 
 (define (tock ff)
-  (check-collision (make-fire-fighting (move-fires (fire-fighting-fires ff))
-                                       (status-water (fire-fighting-water ff))
-                                       (sub1 (fire-fighting-time ff))
-                                       (fire-fighting-ctr-x ff))))
+  (check-collision
+   (make-fire-fighting
+    (move-fires (fire-fighting-fires ff))
+    (if (= (remainder (fire-fighting-time ff) TOCK-STEP) 0)
+        (status-water (fire-fighting-water ff))
+        (fire-fighting-water ff))
+    (sub1 (fire-fighting-time ff))
+    (fire-fighting-ctr-x ff))))
 
 ; Fire-Fighting -> Fire-Fighting
 ; checks the collision between fire and water
 (check-expect (check-collision (make-fire-fighting LOF2 W1 TIMEOUT CENTER-X))
               (make-fire-fighting LOF2 W1 TIMEOUT CENTER-X))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 520)) W1 TIMEOUT 10))
-              (make-fire-fighting '() W1 TIMEOUT CENTER-X))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 570)) W1 TIMEOUT 10))
-              (make-fire-fighting '() W1 TIMEOUT CENTER-X))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 11 520)) W1 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 11 520)) W1 TIMEOUT CENTER-X))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 11 570)) W1 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 11 570)) W1 TIMEOUT CENTER-X))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 519)) W1 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 10 519)) W1 TIMEOUT CENTER-X))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 571)) W1 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 10 571)) W1 TIMEOUT CENTER-X))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 520) (make-posn 20 520)) W1 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 20 520)) W1 TIMEOUT CENTER-X))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 570) (make-posn 20 570)) W1 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 20 570)) W1 TIMEOUT CENTER-X))
 
-(define (check-collision ff) ff)
-;(- CTR-Y (image-height AIRPLANE))
+(check-expect (check-collision (make-fire-fighting (list (make-posn 10 519)) W2 TIMEOUT 10))
+              (make-fire-fighting (list (make-posn 10 519)) W2 TIMEOUT 10))
+(check-expect (check-collision (make-fire-fighting (list (make-posn 10 520)) W2 TIMEOUT 10))
+              (make-fire-fighting '() W2 TIMEOUT 10))
+(check-expect (check-collision (make-fire-fighting (list (make-posn 10 520)) W2 TIMEOUT 20))
+              (make-fire-fighting (list (make-posn 10 520)) W2 TIMEOUT 20))
+(check-expect (check-collision (make-fire-fighting (list (make-posn 10 520)) W6 TIMEOUT 10))
+              (make-fire-fighting (list (make-posn 10 520)) W6 TIMEOUT 10))
+
+(check-expect (check-collision (make-fire-fighting (list (make-posn 10 570)) W2 TIMEOUT 10))
+              (make-fire-fighting '() W2 TIMEOUT 10))
+(check-expect (check-collision (make-fire-fighting (list (make-posn 10 570)) W2 TIMEOUT 20))
+              (make-fire-fighting (list (make-posn 10 570)) W2 TIMEOUT 20))
+(check-expect (check-collision (make-fire-fighting (list (make-posn 10 570)) W6 TIMEOUT 10))
+              (make-fire-fighting (list (make-posn 10 570)) W6 TIMEOUT 10))
+(check-expect (check-collision (make-fire-fighting (list (make-posn 10 571)) W2 TIMEOUT 10))
+              (make-fire-fighting (list (make-posn 10 571)) W2 TIMEOUT 10))
+
+(check-expect (check-collision (make-fire-fighting (list (make-posn 10 520) (make-posn 20 520)) W2 TIMEOUT 10))
+              (make-fire-fighting (list (make-posn 20 520)) W2 TIMEOUT 10))
+(check-expect (check-collision (make-fire-fighting (list (make-posn 10 570) (make-posn 20 570)) W2 TIMEOUT 10))
+              (make-fire-fighting (list (make-posn 20 570)) W2 TIMEOUT 10))
+
+(define (check-collision ff)
+  (make-fire-fighting
+   (cond [(and (water-enable? (fire-fighting-water ff))
+               (> (water-timer (fire-fighting-water ff)) 0))
+          (remove-in-x (fire-fighting-fires ff) (fire-fighting-ctr-x ff))]
+         [else (fire-fighting-fires ff)])
+   (fire-fighting-water ff)
+   (fire-fighting-time ff)
+   (fire-fighting-ctr-x ff)))
+
+; ListOfFire Integer -> ListOfFire
+; removes the fires at position:
+;  - y: between 520 and 570; and
+;  - x: same
+(check-expect (remove-in-x '() 0) '())
+(check-expect (remove-in-x (list (make-posn 10 520)) 10) '())
+(check-expect (remove-in-x (list (make-posn 10 520)) 11) (list (make-posn 10 520)))
+(check-expect (remove-in-x (list (make-posn 10 520) (make-posn 20 520)) 10) (list (make-posn 20 520)))
+(check-expect (remove-in-x (list (make-posn 10 570)) 10) '())
+(check-expect (remove-in-x (list (make-posn 10 570)) 11) (list (make-posn 10 570)))
+(check-expect (remove-in-x (list (make-posn 10 570) (make-posn 20 570)) 10) (list (make-posn 20 570)))
+(check-expect (remove-in-x (list (make-posn 10 519)) 10) (list (make-posn 10 519)))
+(check-expect (remove-in-x (list (make-posn 10 571)) 10) (list (make-posn 10 571)))
+
+(define (remove-in-x lof x)
+  (cond [(empty? lof) '()]
+        [(and (= (posn-x (first lof)) x)
+              (<= 520 (posn-y (first lof)) 570))
+         (remove-in-x (rest lof) x)]
+        [else (cons (first lof)
+                    (remove-in-x (rest lof) x))]))
 
 ; ListOfFire -> ListOfFire
 ; increments the height by 1 in list or reset when equal to HEIGHT
@@ -186,8 +216,23 @@
                     (move-fires (rest lof)))]))
 
 ; Water -> Water
-; !!!
-(define (status-water w) w)
+; uptades the status water
+(check-expect (status-water W1) (make-water #true 0))
+(check-expect (status-water W2) (make-water #true 2))
+(check-expect (status-water W3) (make-water #true (sub1 WATER-LOAD)))
+(check-expect (status-water W4) W1)
+(check-expect (status-water W5) (make-water #false 4))
+(check-expect (status-water W6) (make-water #false 9))
+(check-expect (status-water (make-water #true 1)) W6)
+
+(define (status-water w)
+  (cond [(and (water-enable? w)
+              (= (water-timer w) 0)) w]
+        [(and (water-enable? w)
+              (= (water-timer w) 1)) (make-water #false 10)]
+        [(and (not (water-enable? w))
+              (= (water-timer w) 0)) (make-water #true 0)]
+        [else (make-water (water-enable? w) (sub1 (water-timer w)))]))
 
 ; Fire-Fighting -> Image
 ; renders the given game state on top of MTS
@@ -197,7 +242,11 @@
    (fire-fighting-ctr-x ff) CTR-Y
    (render-water ff
                  (render-fires (fire-fighting-fires ff)
-                               (render-time (fire-fighting-time ff) MTS)))))
+                               (render-time (fire-fighting-time ff)
+                                            (place-image (rectangle WIDTH 1 "solid" "blue")
+                                                         CENTER-X 520
+                                                         (place-image (rectangle WIDTH 1 "solid" "red")
+                                                                      CENTER-X 570 MTS)))))))
 
 ; ListOfFire Image -> Image
 ; renders the fires on top of image
@@ -209,48 +258,53 @@
 ; Fire-Fighting Image -> Image
 ; renders the water on top of image
 (define (render-water ff i)
-  (if (and (water-enable? (fire-fighting-water ff))
-           (> (water-timer (fire-fighting-water ff)) 0))
-      (place-image WATER (fire-fighting-ctr-x ff) (- CTR-Y (image-height AIRPLANE)) i)
-      i))
+  (cond [(and (water-enable? (fire-fighting-water ff))
+              (> (water-timer (fire-fighting-water ff)) 0))
+         (place-image WATER (fire-fighting-ctr-x ff) (- CTR-Y (image-height AIRPLANE)) i)]
+        [(not (water-enable? (fire-fighting-water ff)))
+         (place-image (text "X" 20 "red") (fire-fighting-ctr-x ff) (- CTR-Y (image-height AIRPLANE) -30) i)]
+        [else i]))
 
 ; Integer Image -> Image
 ; renders the time on top of image
 (define (render-time t i)
-  (place-image (text (number->string (inexact->exact (floor (/ t 28.0)))) 20 "black") CENTER-X 20 i))
+  (place-image (text (number->string (inexact->exact (floor (/ t TOCK-STEP)))) 20 "black") CENTER-X 20 i))
 
 ; Fire-Fighting KeyEvent -> Fire-Fighting
 ; handles the main events:
 ;  - pressing the left arrow ensures that the airplane moves left;
-;  - pressing the right arrow ensures that the airplane moves right; and
+;  - pressing the right arrow ensures that the airplane moves right;
+;  - pressing the shift ensures that the airplane moves left with precision;
+;  - pressing the control ensures that the airplane moves right with precision; and
 ;  - pressing the space bar ensures that the airplane releases of water loads
-(check-expect (control FF "left") (make-fire-fighting LOF1 W1 TIMEOUT (- CENTER-X STEP-X)))
-(check-expect (control FF "right") (make-fire-fighting LOF1 W1 TIMEOUT (+ CENTER-X STEP-X)))
-(check-expect (control FF " ") (make-fire-fighting LOF1 W3 TIMEOUT CENTER-X))
+(check-expect (control FF "left")
+              (make-fire-fighting LOF1 W1 TIMEOUT (- CENTER-X STEP-X)))
+(check-expect (control FF "right")
+              (make-fire-fighting LOF1 W1 TIMEOUT (+ CENTER-X STEP-X)))
+(check-expect (control FF "shift")
+              (make-fire-fighting LOF1 W1 TIMEOUT (sub1 CENTER-X)))
+(check-expect (control FF "control")
+              (make-fire-fighting LOF1 W1 TIMEOUT (add1 CENTER-X)))
+(check-expect (control FF " ")
+              (make-fire-fighting LOF1 W3 TIMEOUT CENTER-X))
 (check-expect (control (make-fire-fighting LOF1 W2 TIMEOUT CENTER-X) " ")
               (make-fire-fighting LOF1 W2 TIMEOUT CENTER-X))
-(check-expect (control FF "a") (make-fire-fighting LOF1 W1 TIMEOUT CENTER-X))
+(check-expect (control FF "a")
+              (make-fire-fighting LOF1 W1 TIMEOUT CENTER-X))
 
 (define (control ff ke)
-  (cond [(key=? ke "left")
-         (make-fire-fighting (fire-fighting-fires ff)
-                             (fire-fighting-water ff)
-                             (fire-fighting-time ff)
-                             (- (fire-fighting-ctr-x ff) STEP-X))]
-        [(key=? ke "right")
-         (make-fire-fighting (fire-fighting-fires ff)
-                             (fire-fighting-water ff)
-                             (fire-fighting-time ff)
-                             (+ (fire-fighting-ctr-x ff) STEP-X))]
-        [(key=? ke " ")
-         (make-fire-fighting (fire-fighting-fires ff)
-                             (if (and (water-enable? (fire-fighting-water ff))
-                                      (= (water-timer (fire-fighting-water ff)) 0))
-                                 W3
-                                 (fire-fighting-water ff))
-                             (fire-fighting-time ff)
-                             (fire-fighting-ctr-x ff))]
-        [else ff]))
+  (make-fire-fighting
+   (fire-fighting-fires ff)
+   (cond  [(and (key=? ke " ")
+                (water-enable? (fire-fighting-water ff))
+                (= (water-timer (fire-fighting-water ff)) 0)) W3]
+          [else (fire-fighting-water ff)])
+   (fire-fighting-time ff)
+   (+ (fire-fighting-ctr-x ff) (cond [(key=? ke "left") (- STEP-X)]
+                                     [(key=? ke "right") STEP-X]
+                                     [(key=? ke "shift") -1]
+                                     [(key=? ke "control") 1]
+                                     [else 0]))))
 
 ; Fire-Fighting -> Boolean
 ; returns true when the game stop;
@@ -266,4 +320,8 @@
 ; Fire-Fighting -> Image
 ; renders the game over message on the last render
 (define (render-gamer-over ff)
-  (place-image (text "Game Over" 32 "black") CENTER-X CENTER-Y (render ff)))
+  (place-image (text (if (= (fire-fighting-time ff) 0)
+                         "Game Over!"
+                         "You Win!")
+                     32 "black")
+               CENTER-X CENTER-Y (render ff)))
