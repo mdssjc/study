@@ -2,14 +2,10 @@ package com.github.mdssjc.starbuzz;
 
 public abstract class Beverage {
 
-  private String description;
+  protected String description = "Unknown Beverage";
 
   public String getDescription() {
-    return this.description;
-  }
-
-  public void setDescription(final String description) {
-    this.description = description;
+    return description;
   }
 
   public abstract double cost();
