@@ -2,7 +2,7 @@ package com.github.mdssjc.starbuzz;
 
 public class Mocha extends CondimentDecorator {
 
-  private Beverage beverage;
+  private final Beverage beverage;
 
   public Mocha(final Beverage beverage) {
     this.beverage = beverage;
@@ -10,11 +10,11 @@ public class Mocha extends CondimentDecorator {
 
   @Override
   public String getDescription() {
-    return beverage.getDescription() + ", Mocha";
+    return this.beverage.getDescription() + ", Mocha";
   }
 
   @Override
   public double cost() {
-    return beverage.cost() + 0.20;
+    return this.beverage.cost() + 0.20;
   }
 }

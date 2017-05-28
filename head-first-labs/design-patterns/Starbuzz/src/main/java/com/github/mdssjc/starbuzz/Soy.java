@@ -2,7 +2,7 @@ package com.github.mdssjc.starbuzz;
 
 public class Soy extends CondimentDecorator {
 
-  private Beverage beverage;
+  private final Beverage beverage;
 
   public Soy(final Beverage beverage) {
     this.beverage = beverage;
@@ -10,11 +10,23 @@ public class Soy extends CondimentDecorator {
 
   @Override
   public String getDescription() {
-    return beverage.getDescription() + ", Soy";
+    return this.beverage.getDescription() + ", Soy";
   }
 
   @Override
   public double cost() {
-    return beverage.cost() + 0.15;
+    double cost = this.beverage.cost();
+    switch (getSize()) {
+      case TALL:
+        cost += .10;
+        break;
+      case GRANDE:
+        cost += .15;
+        break;
+      case VENTI:
+        cost += .20;
+        break;
+    }
+    return cost;
   }
 }

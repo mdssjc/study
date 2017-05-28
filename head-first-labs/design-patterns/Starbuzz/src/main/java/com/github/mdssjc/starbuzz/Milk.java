@@ -2,7 +2,7 @@ package com.github.mdssjc.starbuzz;
 
 public class Milk extends CondimentDecorator {
 
-  private Beverage beverage;
+  private final Beverage beverage;
 
   public Milk(final Beverage beverage) {
     this.beverage = beverage;
@@ -10,11 +10,11 @@ public class Milk extends CondimentDecorator {
 
   @Override
   public String getDescription() {
-    return beverage.getDescription() + ", Milk";
+    return this.beverage.getDescription() + ", Milk";
   }
 
   @Override
   public double cost() {
-    return beverage.cost() + 0.10;
+    return this.beverage.cost() + 0.10;
   }
 }

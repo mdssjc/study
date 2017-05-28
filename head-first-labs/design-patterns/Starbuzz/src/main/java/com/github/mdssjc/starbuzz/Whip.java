@@ -2,7 +2,7 @@ package com.github.mdssjc.starbuzz;
 
 public class Whip extends CondimentDecorator {
 
-  private Beverage beverage;
+  private final Beverage beverage;
 
   public Whip(final Beverage beverage) {
     this.beverage = beverage;
@@ -10,11 +10,11 @@ public class Whip extends CondimentDecorator {
 
   @Override
   public String getDescription() {
-    return beverage.getDescription() + ", Whip";
+    return this.beverage.getDescription() + ", Whip";
   }
 
   @Override
   public double cost() {
-    return beverage.cost() + 0.10;
+    return this.beverage.cost() + 0.10;
   }
 }

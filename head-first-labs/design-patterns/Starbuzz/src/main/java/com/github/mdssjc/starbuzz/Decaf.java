@@ -3,7 +3,7 @@ package com.github.mdssjc.starbuzz;
 public class Decaf extends Beverage {
 
   public Decaf() {
-    description = "Decaf";
+    this.description = "Decaf";
   }
 
   @Override

@@ -3,7 +3,7 @@ package com.github.mdssjc.starbuzz;
 public class HouseBlend extends Beverage {
 
   public HouseBlend() {
-    description = "House Blend Coffee";
+    this.description = "House Blend Coffee";
   }
 
   @Override
