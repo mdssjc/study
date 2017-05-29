@@ -33,3 +33,101 @@
 ;; Once this is working you should expand the program to include an arbitrary number of bears.
 ;;
 ;; Here is an image of a bear for you to use: [Bear Image]
+
+;; Constants:
+
+(define BEAR (overlay/align "middle" "top"
+                            (circle 10 "solid" "blue")
+                            (rectangle 8 30 "solid" "blue")))
+(define SPEED -2)
+(define WIDTH  320)
+(define HEIGHT 200)
+(define CENTER-X (/ WIDTH  2))
+(define CENTER-Y (/ HEIGHT 2))
+(define MTS (empty-scene WIDTH HEIGHT))
+
+
+;; Data definitions
+
+(define-struct bear (first? x y angle))
+;; Bear is (make-bear Boolean Natural[0, WIDTH] Natural[0, HEIGHT] Natural[0, 360))
+;; interp. a bear with predicate for first at position x, y and rotation angle
+(define BEAR1 (make-bear #true CENTER-X CENTER-Y 0))
+(define BEAR2 (make-bear #false CENTER-X CENTER-Y 0))
+(define BEAR3 (make-bear #false 0 0 0))
+(define BEAR4 (make-bear #false CENTER-X CENTER-Y 180))
+(define BEAR5 (make-bear #false WIDTH HEIGHT 359))
+
+#;
+(define (fn-for-bear b)
+  (... (bear-first? b)  ; Boolean
+       (bear-x b)       ; Natural[0, WIDTH]
+       (bear-y b)       ; Natural[0, HEIGHT]
+       (bear-angle b))) ; Natural[0, 360)
+
+;; Template rules used:
+;;  - compound: 4 fields
+
+;; ListOfBear is one of:
+;; - empty
+;; - (cons Bear ListOfBear)
+;; interp. a list of bears
+(define LOB1 empty)
+(define LOB2 (cons BEAR1 empty))
+(define LOB3 (cons BEAR1 (cons BEAR2 empty)))
+
+#;
+(define (fn-for-lob lob)
+  (cond [(empty? lob) (...)]                   ; Base Case
+        [else (... (first lob)                 ; Bear
+                   (fn-for-lob (rest lob)))])) ; Natural Recursion
+
+;; Template rules used:
+;;  - one of: 2 cases
+;;  - atomic distinct: empty
+;;  - compound: (cons Bear ListOfBear)
+;;  - self-reference: (rest lob) is ListOfBear
+
+
+;; Functions:
+
+;; ListOfBear -> ListOfBear
+;; start the world with (main BEAR1)
+(define (main b)
+  (big-bang b                     ; ListOfBear
+            (on-tick   tock)      ; ListOfBear -> ListOfBear
+            (to-draw   render)    ; ListOfBear -> Image
+            (on-mouse  handler))) ; ListOfBear Integer Integer MouseEvent -> ListOfBear
+
+;; ListOfBear -> ListOfBear
+;; produce the next bear
+;; !!!
+(define (tock b) ...)
+
+;; ListOfBear -> Image
+;; render the bears on MTS at x, y position
+(check-expect (render LOB1) MTS)
+(check-expect (render LOB2) (place-image BEAR CENTER-X CENTER-Y MTS))
+(check-expect (render (list BEAR4)) (place-image (rotate -180 BEAR) CENTER-X CENTER-Y MTS))
+
+;(define (render b) MTS) ; stub
+
+(define (render lob)
+  (cond [(empty? lob) MTS]          
+        [else (place-image (rotate (bear-angle (first lob)) BEAR)
+                           (bear-x (first lob))
+                           (bear-y (first lob))
+                           (render (rest lob)))]))
+
+;; ListOfBear Integer Integer MouseEvent -> ListOfBear
+;; add a new bear upright in x, y position of the mouse
+(check-expect (handler empty 10 10 "button-down") (list (make-bear #false 10 10 0)))
+(check-expect (handler LOB3 10 10 "button-down") (cons (make-bear #false 10 10 0) LOB3))
+(check-expect (handler empty 10 10 "move") empty)
+(check-expect (handler LOB3 10 10 "move") LOB3)
+
+;(define (handler lob x y me) empty) ; stub
+
+(define (handler lob x y me)
+  (cond [(mouse=? "button-down" me) (cons (make-bear #false x y 0) lob)]
+        [else lob]))
