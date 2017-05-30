@@ -5,7 +5,7 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Exercise 8.
+ * Exercise 1.1.8.
  *
  * @author Marcelo dos Santos
  *
