@@ -56,7 +56,6 @@
 (define BEAR2 (make-bear #false CENTER-X CENTER-Y 0))
 (define BEAR3 (make-bear #false 0 0 0))
 (define BEAR4 (make-bear #false CENTER-X CENTER-Y 180))
-(define BEAR5 (make-bear #false WIDTH HEIGHT 359))
 
 #;
 (define (fn-for-bear b)
@@ -74,25 +73,26 @@
 ;; interp. a list of bears
 (define LOB1 empty)
 (define LOB2 (cons BEAR1 empty))
-(define LOB3 (cons BEAR1 (cons BEAR2 empty)))
+(define LOB3 (cons BEAR2 (cons BEAR3 empty)))
 
 #;
 (define (fn-for-lob lob)
-  (cond [(empty? lob) (...)]                   ; Base Case
-        [else (... (first lob)                 ; Bear
-                   (fn-for-lob (rest lob)))])) ; Natural Recursion
+  (cond [(empty? lob) (...)]
+        [else (... (fn-for-bear (first lob))
+                   (fn-for-lob (rest lob)))]))
 
 ;; Template rules used:
 ;;  - one of: 2 cases
 ;;  - atomic distinct: empty
 ;;  - compound: (cons Bear ListOfBear)
+;;  - reference: (first lob) is Bear
 ;;  - self-reference: (rest lob) is ListOfBear
 
 
 ;; Functions:
 
 ;; ListOfBear -> ListOfBear
-;; start the world with (main BEAR1)
+;; start the world with (main LOB2)
 (define (main b)
   (big-bang b                     ; ListOfBear
             (on-tick   tock)      ; ListOfBear -> ListOfBear
@@ -100,9 +100,34 @@
             (on-mouse  handler))) ; ListOfBear Integer Integer MouseEvent -> ListOfBear
 
 ;; ListOfBear -> ListOfBear
-;; produce the next bear
-;; !!!
-(define (tock b) ...)
+;; update the status of each bear
+(check-expect (tock LOB1) empty)
+(check-expect (tock LOB2) (list (make-bear #true CENTER-X CENTER-Y 358)))
+(check-expect (tock LOB3) (list (make-bear #false CENTER-X CENTER-Y 358)
+                                (make-bear #false 0 0 358)))
+(check-expect (tock (list BEAR4)) (list (make-bear #false CENTER-X CENTER-Y (+ 180 SPEED))))
+
+;(define (tock lob) lob) ; stub
+
+(define (tock lob)
+  (cond [(empty? lob) empty]
+        [else (cons (update-angle (first lob))
+                    (tock (rest lob)))]))
+
+; Bear -> Bear
+; add angle by SPEED
+(check-expect (update-angle BEAR1) (make-bear #true CENTER-X CENTER-Y 358))
+(check-expect (update-angle BEAR4) (make-bear #false CENTER-X CENTER-Y 178))
+
+;(define (update-angle b) b) ; stub
+
+(define (update-angle b)
+  (make-bear (bear-first? b)
+             (bear-x b)
+             (bear-y b)
+             (if (negative? (+ (bear-angle b) SPEED))
+                 (+ 360 (bear-angle b) SPEED)
+                 (+ (bear-angle b) SPEED))))
 
 ;; ListOfBear -> Image
 ;; render the bears on MTS at x, y position
@@ -113,7 +138,7 @@
 ;(define (render b) MTS) ; stub
 
 (define (render lob)
-  (cond [(empty? lob) MTS]          
+  (cond [(empty? lob) MTS]
         [else (place-image (rotate (bear-angle (first lob)) BEAR)
                            (bear-x (first lob))
                            (bear-y (first lob))
@@ -121,13 +146,18 @@
 
 ;; ListOfBear Integer Integer MouseEvent -> ListOfBear
 ;; add a new bear upright in x, y position of the mouse
+;; remove when there is a first bear
 (check-expect (handler empty 10 10 "button-down") (list (make-bear #false 10 10 0)))
 (check-expect (handler LOB3 10 10 "button-down") (cons (make-bear #false 10 10 0) LOB3))
+(check-expect (handler LOB1 10 10 "button-down") (cons (make-bear #false 10 10 0) empty))
 (check-expect (handler empty 10 10 "move") empty)
 (check-expect (handler LOB3 10 10 "move") LOB3)
 
 ;(define (handler lob x y me) empty) ; stub
 
 (define (handler lob x y me)
-  (cond [(mouse=? "button-down" me) (cons (make-bear #false x y 0) lob)]
+  (cond [(and (not (empty? lob))
+              (bear-first? (first lob))
+              (mouse=? "button-down" me)) (cons (make-bear #false x y 0) empty)]
+        [(mouse=? "button-down" me) (cons (make-bear #false x y 0) lob)]
         [else lob]))
