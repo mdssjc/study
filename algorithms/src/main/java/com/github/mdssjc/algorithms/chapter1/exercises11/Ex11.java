@@ -5,7 +5,7 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Exercise 11.
+ * Exercise 1.1.11.
  *
  * @author Marcelo dos Santos
  *
@@ -35,8 +35,8 @@ public class Ex11 {
       }
 
       StdOut.print(row + " ");
-      for (int col = 0; col < length; col++) {
-        StdOut.print((matrix[row][col]) ? "*" : " ");
+      for (final boolean value : matrix[row]) {
+        StdOut.print(value ? "*" : " ");
       }
       StdOut.println();
     }
