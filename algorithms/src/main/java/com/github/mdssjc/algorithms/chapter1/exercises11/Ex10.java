@@ -5,7 +5,7 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * Exercise 10.
+ * Exercise 1.1.10.
  *
  * @author Marcelo dos Santos
  *
@@ -21,10 +21,7 @@ public class Ex10 {
 
     for (int i = 0; i < 10; i++) {
       a[i] = i * i;
-    }
-
-    for (final int value : a) {
-      StdOut.println(value);
+      StdOut.println(a[i]);
     }
   }
 }
