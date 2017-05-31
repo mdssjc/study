@@ -804,3 +804,8 @@ uremdiv:
 ** E
   The malloc with strlen(buf)+1; and
   check for NULL.
+* Practice Problem 3.47
+** A
+  2^{13} = 8192 addresses.
+** B
+  2⁶ = 64 addresses.
