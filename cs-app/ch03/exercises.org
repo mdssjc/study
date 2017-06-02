@@ -821,3 +821,15 @@ uremdiv:
   canary: 40
 ** B
   In the protected code, local variable v is positioned closer to the top of the stack than buf, and so an overrun of buf will not corrupt the value of v.
+* Practice Problem 3.49
+** A
+  s2 = s1 - ((8n + 22) and -16)
+** B
+  p = ((s2 + 7) >> 3) * 8
+** C
+  | n |   s1 |   s2 |    p | e1 | e2 |
+  |---+------+------+------+----+----|
+  | 5 | 2065 | 2017 | 2024 |  1 |  7 |
+  | 6 | 2064 | 2000 | 2000 | 16 |  0 |
+** D
+  Aligned by 8 bytes.
