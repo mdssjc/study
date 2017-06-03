@@ -31,6 +31,6 @@ public class Bark {
       return false;
     }
     final Bark other = (Bark) object;
-    return Objects.equals(this.sound, other.sound);
+    return this.sound.equalsIgnoreCase(other.getSound());
   }
 }
