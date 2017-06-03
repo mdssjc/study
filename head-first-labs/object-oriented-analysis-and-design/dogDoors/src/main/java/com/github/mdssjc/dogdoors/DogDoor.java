@@ -7,6 +7,8 @@ import java.util.TimerTask;
 
 public class DogDoor {
 
+  private static final long DELAY = 5000L;
+
   private final List<Bark> allowedBarks;
   private boolean open;
 
@@ -26,7 +28,7 @@ public class DogDoor {
         close();
         timer.cancel();
       }
-    }, 5000);
+    }, DELAY);
   }
 
   public void close() {
