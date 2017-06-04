@@ -14,7 +14,7 @@ public abstract class Pizza {
   protected final List<String> toppings;
 
   public Pizza() {
-    this.toppings = new ArrayList();
+    this.toppings = new ArrayList<>();
   }
 
   public void prepare() {
@@ -23,7 +23,7 @@ public abstract class Pizza {
     System.out.println("Adding sauce...");
     System.out.println("Adding toppings: ");
 
-    this.toppings.forEach(t -> System.out.println(" " + t));
+    this.toppings.forEach(t -> System.out.println("   " + t));
   }
 
   public void bake() {
