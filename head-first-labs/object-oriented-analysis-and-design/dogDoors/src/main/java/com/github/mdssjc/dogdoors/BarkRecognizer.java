@@ -1,5 +1,7 @@
 package com.github.mdssjc.dogdoors;
 
+import java.util.Iterator;
+
 /**
  * This class represents the bark recognizer that opens the device it
  * controls if presented with a known bark.
@@ -29,11 +31,16 @@ public class BarkRecognizer {
    */
   public void recognize(final Bark bark) {
     System.out.println("BarkRecognizer: Heard a '" + bark.getSound() + "'");
-    if (this.door.getAllowedBarks()
-                 .contains(bark)) {
-      this.door.open();
-    } else {
-      System.out.println("This dog is not allowed.");
+
+    final Iterator<Bark> barks = this.door.getAllowedBarks();
+    while (barks.hasNext()) {
+      final Bark allowedBark = barks.next();
+      if (allowedBark.equals(bark)) {
+        this.door.open();
+        return;
+      }
     }
+
+    System.out.println("This dog is not allowed.");
   }
 }

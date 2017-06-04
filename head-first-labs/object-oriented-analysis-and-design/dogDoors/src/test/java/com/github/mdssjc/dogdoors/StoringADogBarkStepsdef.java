@@ -25,12 +25,12 @@ public class StoringADogBarkStepsdef {
 
   @When("^The dog door stores the owner’s dog’s bark\\.$")
   public void the_dog_door_stores_the_owner_s_dog_s_bark() {
-    this.barks.forEach(bark -> this.door.addAllowedBark(bark));
+    this.barks.forEach(this.door::addAllowedBark);
   }
 
   @Then("^The barks\\$ are stored\\.$")
   public void the_barks$_are_stored(final List<String> barks) {
-    barks.forEach(bark -> assertTrue(this.door.getAllowedBarks()
-                                              .contains(new Bark(bark))));
+    this.door.getAllowedBarks()
+             .forEachRemaining(b -> assertTrue(barks.contains(b.getSound())));
   }
 }

@@ -1,9 +1,6 @@
 package com.github.mdssjc.dogdoors;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class DogDoor {
 
@@ -40,8 +37,8 @@ public class DogDoor {
     return this.open;
   }
 
-  public List<Bark> getAllowedBarks() {
-    return this.allowedBarks;
+  public Iterator<Bark> getAllowedBarks() {
+    return this.allowedBarks.iterator();
   }
 
   public void addAllowedBark(final Bark allowedBark) {
