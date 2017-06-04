@@ -1,15 +1,9 @@
 package com.github.mdssjc.pizza;
 
-public class PizzaStore {
-
-  private final SimplePizzaFactory factory;
-
-  public PizzaStore(final SimplePizzaFactory factory) {
-    this.factory = factory;
-  }
+public abstract class PizzaStore {
 
   public Pizza orderPizza(final String type) {
-    final Pizza pizza = this.factory.createPizza(type);
+    final Pizza pizza = createPizza(type);
 
     pizza.prepare();
     pizza.bake();
@@ -18,4 +12,6 @@ public class PizzaStore {
 
     return pizza;
   }
+
+  public abstract Pizza createPizza(String type);
 }
