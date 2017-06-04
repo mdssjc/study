@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 public class DogDoorsSystemTest {
 
-  private static final int SLEEP = 10000;
+  private static final long SLEEP = 10000L;
 
   private Remote remote;
   private DogDoor door;
