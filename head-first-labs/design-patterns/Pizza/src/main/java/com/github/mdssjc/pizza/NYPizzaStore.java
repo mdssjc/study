@@ -1,24 +1,29 @@
 package com.github.mdssjc.pizza;
 
-import com.github.mdssjc.pizza.ny.NYStyleCheesePizza;
-import com.github.mdssjc.pizza.ny.NYStyleClamPizza;
-import com.github.mdssjc.pizza.ny.NYStylePepperoniPizza;
-import com.github.mdssjc.pizza.ny.NYStyleVeggiePizza;
+import com.github.mdssjc.pizza.pizzas.CheesePizza;
+import com.github.mdssjc.pizza.pizzas.ClamPizza;
+import com.github.mdssjc.pizza.pizzas.PepperoniPizza;
+import com.github.mdssjc.pizza.pizzas.VeggiePizza;
 
 public class NYPizzaStore extends PizzaStore {
 
   @Override
-  public Pizza createPizza(final String type) {
+  public Pizza createPizza(final String item) {
     Pizza pizza = null;
+    final PizzaIngredientFactory ingredientFactory = new NYPizzaIngredientFactory();
 
-    if (type.equals("cheese")) {
-      pizza = new NYStyleCheesePizza();
-    } else if (type.equals("pepperoni")) {
-      pizza = new NYStylePepperoniPizza();
-    } else if (type.equals("clam")) {
-      pizza = new NYStyleClamPizza();
-    } else if (type.equals("veggie")) {
-      pizza = new NYStyleVeggiePizza();
+    if (item.equals("cheese")) {
+      pizza = new CheesePizza(ingredientFactory);
+      pizza.setName("New York Style Cheese Pizza");
+    } else if (item.equals("veggie")) {
+      pizza = new VeggiePizza(ingredientFactory);
+      pizza.setName("New York Style Veggie Pizza");
+    } else if (item.equals("clam")) {
+      pizza = new ClamPizza(ingredientFactory);
+      pizza.setName("New York Style Clam Pizza");
+    } else if (item.equals("pepperoni")) {
+      pizza = new PepperoniPizza(ingredientFactory);
+      pizza.setName("New York Style Pepperoni Pizza");
     }
 
     return pizza;
