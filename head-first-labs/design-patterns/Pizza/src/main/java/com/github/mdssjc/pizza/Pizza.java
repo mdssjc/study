@@ -1,30 +1,22 @@
 package com.github.mdssjc.pizza;
 
+import com.github.mdssjc.pizza.ingredients.*;
 import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Setter;
 
 public abstract class Pizza {
 
   @Getter
+  @Setter
   protected String name;
-  protected String dough;
-  protected String sauce;
-  protected final List<String> toppings;
+  protected Dough dough;
+  protected Sauce sauce;
+  protected Veggies veggies[];
+  protected Cheese cheese;
+  protected Pepperoni pepperoni;
+  protected Clams clam;
 
-  public Pizza() {
-    this.toppings = new ArrayList<>();
-  }
-
-  public void prepare() {
-    System.out.println("Preparing " + this.name);
-    System.out.println("Tossing dough...");
-    System.out.println("Adding sauce...");
-    System.out.println("Adding toppings: ");
-
-    this.toppings.forEach(t -> System.out.println("   " + t));
-  }
+  public abstract void prepare();
 
   public void bake() {
     System.out.println("Bake for 25 minutes at 350");
