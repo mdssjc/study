@@ -1,5 +1,10 @@
 package com.github.mdssjc.pizza;
 
+import com.github.mdssjc.pizza.others.CheesePizza;
+import com.github.mdssjc.pizza.others.ClamPizza;
+import com.github.mdssjc.pizza.others.PepperoniPizza;
+import com.github.mdssjc.pizza.others.VeggiePizza;
+
 public class SimplePizzaFactory {
 
   public Pizza createPizza(final String type) {
