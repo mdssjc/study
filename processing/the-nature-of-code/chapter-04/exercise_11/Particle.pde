@@ -8,7 +8,7 @@ class Particle {
   float lifespan;
 
   Particle(PVector l, PImage i) {
-    acceleration = new PVector(0, 00);
+    acceleration = new PVector(0, 0);
     float vx = randomGaussian() * 0.3;
     float vy = randomGaussian() * 0.3 - 1.0;
     velocity = new PVector(vx, vy);
