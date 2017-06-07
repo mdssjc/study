@@ -14,13 +14,20 @@
 ;;
 ;; So (decreasing-image 3) should produce [Image 3210]
 
+(define TEXT-SIZE 20)
+(define TEXT-COLOR "black")
+(define SPACING (text " " TEXT-SIZE TEXT-COLOR))
+
+
 ;; Natural -> Image
 ;; produces an image of all the numbers from n to 0 side by side
-(check-expect (decreasing-image 3) (text "3210" 14 "black"))
+(check-expect (decreasing-image 0) (text "0" TEXT-SIZE TEXT-COLOR))
+(check-expect (decreasing-image 3) (text "3 2 1 0" TEXT-SIZE TEXT-COLOR))
 
 ;(define (decreasing-image n) empty-image) ; Stub
 
 (define (decreasing-image n)
-  (cond [(zero? n) (text "0" 14 "black")]
-        [else (beside (text (number->string n) 14 "black")
+  (cond [(zero? n) (text "0" TEXT-SIZE TEXT-COLOR)]
+        [else (beside (text (number->string n) TEXT-SIZE TEXT-COLOR)
+                      SPACING
                       (decreasing-image (sub1 n)))]))
