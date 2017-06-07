@@ -4,18 +4,18 @@ class Particle {
   PVector velocity;
   PVector acceleration;
 
-  float lifespan;
   PImage img;
+  float lifespan;
 
-  Particle(PVector l) {
+  Particle(PVector l, PImage i) {
     acceleration = new PVector(0, 00);
     float vx = randomGaussian() * 0.3;
     float vy = randomGaussian() * 0.3 - 1.0;
     velocity = new PVector(vx, vy);
     location = l.copy();
 
+    img = i;
     lifespan = 255.0;
-    img = loadImage("data/fire.png");
   }
 
   void run() {

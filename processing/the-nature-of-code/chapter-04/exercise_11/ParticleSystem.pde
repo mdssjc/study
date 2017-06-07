@@ -4,14 +4,16 @@ class ParticleSystem {
 
   ArrayList<Particle> particles;
   PVector origin;
+  PImage img;
 
   ParticleSystem(PVector location) {
     origin = location.copy();
     particles = new ArrayList<Particle>();
+    img = loadImage("data/fire.png");
   }
 
   void addParticle() {
-    particles.add(new Particle(origin));
+    particles.add(new Particle(origin, img));
   }
 
   void applyForce(PVector f) {
