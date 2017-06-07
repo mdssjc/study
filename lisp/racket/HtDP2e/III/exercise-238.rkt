@@ -9,7 +9,7 @@
 
 
 ; Nelon -> Number
-; determines the smallest 
+; determines the smallest
 ; number on l
 ;(define (inf l)
 ;  (cond [(empty? (rest l)) (first l)]
@@ -24,7 +24,7 @@
                    (inf (rest l)))]))
 
 ; Nelon -> Number
-; determines the largest 
+; determines the largest
 ; number on l
 ;(define (sup l)
 ;  (cond [(empty? (rest l)) (first l)]
@@ -53,7 +53,7 @@
                  (extract2 R (rest l)))]))
 
 ; Nelon -> Number
-; determines the smallest 
+; determines the smallest
 ; number on l
 (define (inf-1 l)
   (extract < l))
@@ -62,7 +62,7 @@
   (extract2 min l))
 
 ; Nelon -> Number
-; determines the largest 
+; determines the largest
 ; number on l
 (define (sup-1 l)
   (extract > l))
