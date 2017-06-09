@@ -41,8 +41,17 @@ Campos:
 Inicialização: criação do cenário e personagens
 Teclado: left, right e space
 Encerra: quando obtém energia suficiente para ativar um portal
+
+APIs: criar um framework com o suporte para física
 ---
 
 Step 3 Exercise:
 
 Take one of your creatures and incorporate oscillation into its motion. You can use the Oscillator class from Example 3.7 as a model. The Oscillator object, however, oscillates around a single point (the middle of the window). Try oscillating around a moving point. In other words, design a creature that moves around the screen according to location, velocity, and acceleration. But that creature isn’t just a static shape, it’s an oscillating body. Consider tying the speed of oscillation to the speed of motion. Think of a butterfly’s flapping wings or the legs of an insect. Can you make it appear that the creature’s internal mechanics (oscillation) drive its locomotion? For a sample, check out the “AttractionArrayWithOscillation” example with the code download.
+
+Step 4 Exercise:
+
+Take your creature from Step 3 and build a system of creatures. How can they interact with each other? Can you use inheritance and polymorphism to create a variety of creatures, derived from the same code base? Develop a methodology for how they compete for resources (for example, food). Can you track a creature’s “health” much like we tracked a particle’s lifespan, removing creatures when appropriate? What rules can you incorporate to control how creatures are born?
+
+(Also, you might consider using a particle system itself in the design of a creature. What happens if your emitter is tied to the creature’s location?)
+Comentários: minibolas e campos podem beneficiar da solução de sistema de partículas.
