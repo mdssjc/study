@@ -38,9 +38,10 @@ public class DogDoorsSimulator {
 
   private static void sleep(final int ms) {
     try {
-      Thread.currentThread();
-      Thread.sleep(ms);
+      Thread.currentThread()
+            .sleep(ms);
     } catch (final InterruptedException e) {
+      System.err.println(e.getMessage());
     }
   }
 }
