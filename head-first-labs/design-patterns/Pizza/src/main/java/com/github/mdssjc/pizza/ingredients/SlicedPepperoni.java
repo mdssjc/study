@@ -1,5 +1,5 @@
 package com.github.mdssjc.pizza.ingredients;
 
-public class SlicedPepperoni extends Pepperoni {
+public class SlicedPepperoni implements Pepperoni {
 
 }

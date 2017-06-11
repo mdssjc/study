@@ -1,5 +1,5 @@
 package com.github.mdssjc.pizza.ingredients;
 
-public class EggPlant extends Veggies {
+public class EggPlant implements Veggies {
 
 }

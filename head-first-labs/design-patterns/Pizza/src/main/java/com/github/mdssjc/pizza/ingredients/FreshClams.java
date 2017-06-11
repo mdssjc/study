@@ -1,5 +1,5 @@
 package com.github.mdssjc.pizza.ingredients;
 
-public class FreshClams extends Clams {
+public class FreshClams implements Clams {
 
 }
