@@ -16,7 +16,7 @@ public class ChicagoPizzaIngredientFactory implements PizzaIngredientFactory {
 
   @Override
   public Cheese createCheese() {
-    return new Mozzarella();
+    return new MozzarellaCheese();
   }
 
   @Override
