@@ -48,9 +48,10 @@ public class DogDoorsSystemTest {
 
   @Test
   public void recognizerAnAllowedBark() {
-    final BarkRecognizer recognizer = new BarkRecognizer(this.door);
     final Bark allowedBark = new Bark("Woof");
-    this.door.addAllowedBark(allowedBark);
+    final BarkManager manager = new BarkManager();
+    manager.addAllowedBark(allowedBark);
+    final BarkRecognizer recognizer = new BarkRecognizer(this.door, manager);
 
     recognizer.recognize(allowedBark);
     final boolean result1 = this.door.isOpen();
@@ -68,9 +69,10 @@ public class DogDoorsSystemTest {
 
   @Test
   public void recognizerAnUnallowedBark() {
-    final BarkRecognizer recognizer = new BarkRecognizer(this.door);
     final Bark allowedBark = new Bark("Woof");
-    this.door.addAllowedBark(allowedBark);
+    final BarkManager manager = new BarkManager();
+    manager.addAllowedBark(allowedBark);
+    final BarkRecognizer recognizer = new BarkRecognizer(this.door, manager);
 
     recognizer.recognize(new Bark("yep"));
     final boolean result = this.door.isOpen();

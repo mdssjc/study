@@ -14,15 +14,17 @@ public class WhatTheDoorDoesStepsdef {
   private static final long DELAY = 100L;
   private DogDoor door;
   private Remote remote;
+  private BarkManager manager;
   private BarkRecognizer recognizer;
   private Bark heardBark;
 
   @Given("^The owner’s dog barks to be let out \\(\"([^\"]*)\"\\)\\.$")
   public void the_owner_s_dog_barks_to_be_let_out(final String bark) {
+    this.manager = new BarkManager();
+    this.manager.addAllowedBark(new Bark(bark));
     this.door = new DogDoor();
     this.remote = new Remote(this.door);
-    this.recognizer = new BarkRecognizer(this.door);
-    this.door.addAllowedBark(new Bark(bark));
+    this.recognizer = new BarkRecognizer(this.door, this.manager);
   }
 
   @When("^The owner presses the button on the remote control\\.$")
@@ -55,7 +57,7 @@ public class WhatTheDoorDoesStepsdef {
   public void if_it_s_the_owner_s_dog_barking_the_bark_recognizer_sends_a_request_to_the_door_to_open() {
     boolean hasBark = false;
 
-    final Iterator<Bark> barks = this.door.getAllowedBarks();
+    final Iterator<Bark> barks = this.manager.getAllowedBarks();
     while (barks.hasNext()) {
       final Bark allowedBark = barks.next();
       if (allowedBark.equals(this.heardBark)) {

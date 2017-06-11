@@ -4,11 +4,12 @@ public class DogDoorsSimulator {
 
   public static void main(final String[] args) {
     final DogDoor door = new DogDoor();
-    door.addAllowedBark(new Bark("rowlf"));
-    door.addAllowedBark(new Bark("rooowlf"));
-    door.addAllowedBark(new Bark("rawlf"));
-    door.addAllowedBark(new Bark("woof"));
-    final BarkRecognizer recognizer = new BarkRecognizer(door);
+    final BarkManager manager = new BarkManager();
+    manager.addAllowedBark(new Bark("rowlf"));
+    manager.addAllowedBark(new Bark("rooowlf"));
+    manager.addAllowedBark(new Bark("rawlf"));
+    manager.addAllowedBark(new Bark("woof"));
+    final BarkRecognizer recognizer = new BarkRecognizer(door, manager);
     final Remote remote = new Remote(door);
 
     // Simulate the hardware hearing a bark

@@ -2,37 +2,20 @@ package com.github.mdssjc.dogdoors;
 
 import java.util.Iterator;
 
-/**
- * This class represents the bark recognizer that opens the device it
- * controls if presented with a known bark.
- *
- * @author mdssjc
- */
 public class BarkRecognizer {
 
   private final DogDoor door;
+  private final BarkManager manager;
 
-  /**
-   * Constructor initializes this recognizer by storing the device it
-   * controls and the bark it recognizes.
-   *
-   * @param door
-   *     Door the recognizer controls
-   */
-  public BarkRecognizer(final DogDoor door) {
+  public BarkRecognizer(final DogDoor door, final BarkManager manager) {
     this.door = door;
+    this.manager = manager;
   }
 
-  /**
-   * The method enabling the recognizer to detect a bark.
-   *
-   * @param bark
-   *     A known bark
-   */
   public void recognize(final Bark bark) {
     System.out.println("BarkRecognizer: Heard a '" + bark.getSound() + "'");
 
-    final Iterator<Bark> barks = this.door.getAllowedBarks();
+    final Iterator<Bark> barks = this.manager.getAllowedBarks();
     while (barks.hasNext()) {
       final Bark allowedBark = barks.next();
       if (allowedBark.equals(bark)) {

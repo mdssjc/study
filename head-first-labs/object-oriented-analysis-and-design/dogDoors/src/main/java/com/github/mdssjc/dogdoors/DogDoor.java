@@ -1,16 +1,15 @@
 package com.github.mdssjc.dogdoors;
 
-import java.util.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DogDoor {
 
   private static final long DELAY = 5000L;
 
-  private final List<Bark> allowedBarks;
   private boolean open;
 
   public DogDoor() {
-    this.allowedBarks = new ArrayList<>();
   }
 
   public void open() {
@@ -35,13 +34,5 @@ public class DogDoor {
 
   public boolean isOpen() {
     return this.open;
-  }
-
-  public Iterator<Bark> getAllowedBarks() {
-    return this.allowedBarks.iterator();
-  }
-
-  public void addAllowedBark(final Bark allowedBark) {
-    this.allowedBarks.add(allowedBark);
   }
 }

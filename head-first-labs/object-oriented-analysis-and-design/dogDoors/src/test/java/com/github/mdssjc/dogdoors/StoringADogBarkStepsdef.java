@@ -11,13 +11,13 @@ import static org.junit.Assert.assertTrue;
 
 public class StoringADogBarkStepsdef {
 
-  private DogDoor door;
+  private BarkManager manager;
   private List<Bark> barks;
 
   @Given("^The owner’s dog barks\\$ into the dog door\\.$")
   public void the_owner_s_dog_barks$_into_the_dog_door(
       final List<String> barks) {
-    this.door = new DogDoor();
+    this.manager = new BarkManager();
     this.barks = barks.stream()
                       .map(Bark::new)
                       .collect(toList());
@@ -25,12 +25,13 @@ public class StoringADogBarkStepsdef {
 
   @When("^The dog door stores the owner’s dog’s bark\\.$")
   public void the_dog_door_stores_the_owner_s_dog_s_bark() {
-    this.barks.forEach(this.door::addAllowedBark);
+    this.barks.forEach(this.manager::addAllowedBark);
   }
 
   @Then("^The barks\\$ are stored\\.$")
   public void the_barks$_are_stored(final List<String> barks) {
-    this.door.getAllowedBarks()
-             .forEachRemaining(b -> assertTrue(barks.contains(b.getSound())));
+    this.manager.getAllowedBarks()
+                .forEachRemaining(
+                    b -> assertTrue(barks.contains(b.getSound())));
   }
 }
