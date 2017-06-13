@@ -34,6 +34,7 @@
 (define LOI2 (cons (rectangle 10 20 "solid" "blue")
                    (cons (rectangle 20 30 "solid" "red")
                          empty)))
+
 #;
 (define (fn-for-loi loi)
   (cond [(empty? loi) (...)]
