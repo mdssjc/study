@@ -100,7 +100,7 @@
 (check-expect (insert I1 empty) (cons I1 empty))
 (check-expect (insert I1 (cons I2 (cons I3 empty))) (cons I1 (cons I2 (cons I3 empty))))
 (check-expect (insert I2 (cons I1 (cons I3 empty))) (cons I1 (cons I2 (cons I3 empty))))
-(check-expect (insert I3 (cons I2 (cons I1 empty))) (cons I1 (cons I2 (cons I3 empty))))
+(check-expect (insert I3 (cons I1 (cons I2 empty))) (cons I1 (cons I2 (cons I3 empty))))
 
 ;(define (insert img loi) loi) ; Stub
 
