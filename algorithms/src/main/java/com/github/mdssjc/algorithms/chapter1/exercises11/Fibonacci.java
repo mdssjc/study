@@ -15,10 +15,10 @@ public class Fibonacci {
 
   public static long f(final int n) {
     if (n == 0) {
-      return 0;
+      return 0L;
     }
     if (n == 1) {
-      return 1;
+      return 1L;
     }
 
     if (Fibonacci.cache.containsKey(n)) {
