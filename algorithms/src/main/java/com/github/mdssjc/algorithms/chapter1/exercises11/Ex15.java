@@ -7,7 +7,7 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.Arrays;
 
 /**
- * Exercise 15.
+ * Exercise 1.1.15.
  *
  * @author Marcelo dos Santos
  *
