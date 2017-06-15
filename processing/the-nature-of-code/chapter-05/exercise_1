@@ -1,0 +1,10 @@
+CircleShape cs = new CircleShape();
+float radius = 10;
+cs.m_radius = radius;
+FixtureDef fd = new FixtureDef();
+fd.shape = cs;
+fd.density = 1;
+fd.friction = 0.1;
+fd.restitution = 0.3;
+
+body.createFixture(fd);
