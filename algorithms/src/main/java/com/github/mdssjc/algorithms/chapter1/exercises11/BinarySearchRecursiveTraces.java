@@ -21,6 +21,7 @@ class BinarySearchRecursiveTraces {
     if (lo > hi) {
       return -1;
     }
+
     final int mid = lo + (hi - lo) / 2;
     if (key < a[mid]) {
       return rank(key, a, lo, mid - 1, depth + 1);

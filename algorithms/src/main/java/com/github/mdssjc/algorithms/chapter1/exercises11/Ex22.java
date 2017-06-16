@@ -6,7 +6,7 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 import java.util.stream.IntStream;
 
 /**
- * Exercise 22.
+ * Exercise 1.1.22.
  *
  * @author Marcelo dos Santos
  *
@@ -18,7 +18,6 @@ public class Ex22 {
     Executor.execute(Ex22.class, args);
 
     final int[] inputs = IntStream.range(0, 1000)
-                                  .sorted()
                                   .toArray();
     BinarySearchRecursiveTraces.rank(5, inputs);
   }
