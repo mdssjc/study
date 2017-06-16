@@ -26,7 +26,7 @@
       (sqrt n)
       (tab-sqrt (sub1 n)))]))
 
-; [Number -> Number] Number -> [List-of Number]
+; (Number -> Number) Number -> [List-of Number]
 ; creates a list by applying each number in the range (n..0) for the function f
 (check-expect (tabulate sqr 0) (list (sqr 0)))
 (check-expect (tabulate sqr 2) (list (sqr 2) (sqr 1) (sqr 0)))
