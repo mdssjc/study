@@ -24,7 +24,7 @@
      (* (first l)
         (product (rest l)))]))
 
-; (Number -> Number) [List-of Number] Number -> Number
+; (Number Number -> Number) [List-of Number] Number -> Number
 ; summarizes the list l with the function f and identity i
 (check-expect (fold1 + '() 0) 0)
 (check-expect (fold1 + (list 1 2 3) 0) 6)
