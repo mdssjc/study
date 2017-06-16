@@ -131,14 +131,14 @@
                        (next-drops (rest lod)))]))
 
 ;; Drop -> Drop
-;; update the y position by 1
-(check-expect (uptade-drop D1) (make-drop 10 31))
+;; update the y position by SPEED
+(check-expect (uptade-drop D1) (make-drop 10 (+ (drop-y D1) SPEED)))
 
 ;(define (uptade-drop d) d) ; Stub
 
 (define (uptade-drop d)
   (make-drop (drop-x d)
-             (add1 (drop-y d))))
+             (+ (drop-y d) SPEED)))
 
 ;; Drop ListOfDrop -> ListOfDrop
 ;; filter the drop d to the list lod
