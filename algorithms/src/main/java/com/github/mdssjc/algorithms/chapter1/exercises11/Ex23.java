@@ -9,7 +9,7 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.stream.IntStream;
 
 /**
- * Exercise 23.
+ * Exercise 1.1.23.
  *
  * @author Marcelo dos Santos
  *
@@ -21,7 +21,6 @@ public class Ex23 {
     Executor.execute(Ex23.class, args);
 
     final int[] whitelist = IntStream.range(30, 60)
-                                     .sorted()
                                      .toArray();
 
     while (!StdIn.isEmpty()) {
