@@ -1,16 +1,37 @@
 package com.github.mdssjc.ricksguitars;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
-@AllArgsConstructor
-public class GuitarSpec {
+import java.util.Objects;
 
-  private Builder builder;
-  private String model;
-  private Type type;
+@Data
+public class GuitarSpec extends InstrumentSpec {
+
   private int numStrings;
-  private Wood backWood;
-  private Wood topWood;
+
+  public GuitarSpec(Builder builder, String model, Type type,
+                    int numStrings, Wood backWood, Wood topWood) {
+    super(builder, model, type, backWood, topWood);
+    this.numStrings = numStrings;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+
+    if (!(o instanceof GuitarSpec)) {
+      return false;
+    }
+
+    GuitarSpec other = (GuitarSpec) o;
+    return super.equals(other) &&
+           Objects.equals(numStrings, other.numStrings);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(super.hashCode(), numStrings);
+  }
 }

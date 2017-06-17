@@ -1,13 +1,8 @@
 package com.github.mdssjc.ricksguitars;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+public class Guitar extends Instrument {
 
-@Data
-@AllArgsConstructor
-public class Guitar {
-
-  private String serialNumber;
-  private double price;
-  private final GuitarSpec spec;
+  public Guitar(String serialNumber, double price, GuitarSpec spec) {
+    super(serialNumber, price, spec);
+  }
 }
