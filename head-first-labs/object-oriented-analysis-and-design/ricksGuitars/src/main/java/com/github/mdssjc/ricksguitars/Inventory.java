@@ -6,36 +6,33 @@ import java.util.List;
 
 public class Inventory {
 
-  private final List<Guitar> guitars;
+  private final List<Instrument> inventory;
 
   public Inventory() {
-    guitars = new LinkedList();
+    this.inventory = new LinkedList();
   }
 
-  public void addGuitar(String serialNumber, double price, GuitarSpec spec) {
-    Guitar guitar = new Guitar(serialNumber, price, spec);
-    guitars.add(guitar);
+  public void addInstrument(final Instrument instrument) {
+    this.inventory.add(instrument);
   }
 
-  public Guitar getGuitar(String serialNumber) {
-    for (Guitar guitar : guitars) {
-      if (guitar.getSerialNumber()
-                .equals(serialNumber)) {
-        return guitar;
+  public Instrument get(final String serialNumber) {
+    return this.inventory.stream()
+                         .filter(i -> i.getSerialNumber()
+                                       .equals(serialNumber))
+                         .findFirst()
+                         .orElse(null);
+  }
+
+  public Iterator<Instrument> search(final InstrumentSpec searchSpec) {
+    final List<Instrument> matching = new LinkedList<>();
+
+    for (final Instrument instrument : this.inventory) {
+      if (instrument.getSpec()
+                .equals(searchSpec)) {
+        matching.add(instrument);
       }
     }
-    return null;
-  }
-
-  public Iterator<Guitar> search(GuitarSpec searchGuitar) {
-    List<Guitar> matchingGuitars = new LinkedList<>();
-
-    for (Guitar guitar : guitars) {
-      if (guitar.getSpec()
-                .equals(searchGuitar)) {
-        matchingGuitars.add(guitar);
-      }
-    }
-    return matchingGuitars.iterator();
+    return matching.iterator();
   }
 }
