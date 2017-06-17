@@ -7,6 +7,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class BeatBox {  // implements MetaEventListener
+public class BeatBox {
 
   JPanel mainPanel;
   JList incomingList;
@@ -74,7 +75,6 @@ public class BeatBox {  // implements MetaEventListener
     start.addActionListener(new MyStartListener());
     buttonBox.add(start);
 
-
     JButton stop = new JButton("Stop");
     stop.addActionListener(new MyStopListener());
     buttonBox.add(stop);
@@ -90,6 +90,10 @@ public class BeatBox {  // implements MetaEventListener
     JButton sendIt = new JButton("sendIt");
     sendIt.addActionListener(new MySendListener());
     buttonBox.add(sendIt);
+
+    JButton sendPoke = new JButton("Send Poke");
+    sendPoke.addActionListener(new MyPokeListener());
+    buttonBox.add(sendPoke);
 
     userMessage = new JTextField();
     buttonBox.add(userMessage);
@@ -306,12 +310,38 @@ public class BeatBox {  // implements MetaEventListener
           System.out.println(obj.getClass());
           String nameToShow = (String) obj;
           checkboxState = (boolean[]) in.readObject();
+
+          if (nameToShow.equals(Messages.POKE_START_SEQUENCE.name())) {
+            playTo();
+            nameToShow = "Hey! Pay attention.";
+          }
+
           otherSeqsMap.put(nameToShow, checkboxState);
           listVector.add(nameToShow);
           incomingList.setListData(listVector);
         }
       } catch (Exception e) {
         e.printStackTrace();
+      }
+    }
+
+    private void playTo() {
+      Toolkit.getDefaultToolkit()
+             .beep();
+    }
+  }
+
+  private class MyPokeListener implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      boolean[] checkboxState = new boolean[255];
+
+      try {
+        out.writeObject(Messages.POKE_START_SEQUENCE.name());
+        out.writeObject(checkboxState);
+      } catch (IOException ex) {
+        System.out.println("Failed to poke!");
       }
     }
   }
