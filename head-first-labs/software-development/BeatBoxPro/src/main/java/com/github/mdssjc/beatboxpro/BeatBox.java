@@ -95,6 +95,10 @@ public class BeatBox {
     sendPoke.addActionListener(new MyPokeListener());
     buttonBox.add(sendPoke);
 
+    JButton sendPicture = new JButton("Send Picture");
+    sendPicture.addActionListener(new MyPictureListener());
+    buttonBox.add(sendPicture);
+
     userMessage = new JTextField();
     buttonBox.add(userMessage);
 
@@ -311,14 +315,18 @@ public class BeatBox {
           String nameToShow = (String) obj;
           checkboxState = (boolean[]) in.readObject();
 
-          if (nameToShow.equals(Messages.POKE_START_SEQUENCE.name())) {
-            playTo();
-            nameToShow = "Hey! Pay attention.";
-          }
+          if (nameToShow.equals(Messages.PICTURE_START_SEQUENCE.name())) {
+            receiveJPEG();
+          } else {
+            if (nameToShow.equals(Messages.POKE_START_SEQUENCE.name())) {
+              playTo();
+              nameToShow = "Hey! Pay attention.";
+            }
 
-          otherSeqsMap.put(nameToShow, checkboxState);
-          listVector.add(nameToShow);
-          incomingList.setListData(listVector);
+            otherSeqsMap.put(nameToShow, checkboxState);
+            listVector.add(nameToShow);
+            incomingList.setListData(listVector);
+          }
         }
       } catch (Exception e) {
         e.printStackTrace();
@@ -328,6 +336,10 @@ public class BeatBox {
     private void playTo() {
       Toolkit.getDefaultToolkit()
              .beep();
+    }
+
+    private void receiveJPEG() {
+
     }
   }
 
@@ -343,6 +355,14 @@ public class BeatBox {
       } catch (IOException ex) {
         System.out.println("Failed to poke!");
       }
+    }
+  }
+
+  private class MyPictureListener implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
   }
 }
