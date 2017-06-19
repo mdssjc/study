@@ -2,41 +2,39 @@ package com.github.mdssjc.remote;
 
 public class CeilingFan {
 
-  public static final int HIGH = 2;
-  public static final int MEDIUM = 1;
-  public static final int LOW = 0;
-  private String location = "";
-  private int level;
+  private final String location;
+  private Level speed;
 
   public CeilingFan(final String location) {
     this.location = location;
+    this.speed = Level.OFF;
   }
 
   public void high() {
-    // turns the ceiling fan on to high
-    this.level = HIGH;
+    this.speed = Level.HIGH;
     System.out.println(this.location + " ceiling fan is on high");
   }
 
   public void medium() {
-    // turns the ceiling fan on to medium
-    this.level = MEDIUM;
+    this.speed = Level.MEDIUM;
     System.out.println(this.location + " ceiling fan is on medium");
   }
 
   public void low() {
-    // turns the ceiling fan on to low
-    this.level = LOW;
+    this.speed = Level.LOW;
     System.out.println(this.location + " ceiling fan is on low");
   }
 
   public void off() {
-    // turns the ceiling fan off
-    this.level = 0;
+    this.speed = Level.OFF;
     System.out.println(this.location + " ceiling fan is off");
   }
 
-  public int getSpeed() {
-    return this.level;
+  public Level getSpeed() {
+    return this.speed;
+  }
+
+  public enum Level {
+    OFF, LOW, MEDIUM, HIGH
   }
 }
