@@ -12,4 +12,11 @@ public class StereoOffCommand implements Command {
   public void execute() {
     this.stereo.off();
   }
+
+  @Override
+  public void undo() {
+    this.stereo.on();
+    this.stereo.setCD();
+    this.stereo.setVolume(11);
+  }
 }

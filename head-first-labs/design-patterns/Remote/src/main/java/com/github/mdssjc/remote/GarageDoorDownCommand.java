@@ -12,4 +12,9 @@ public class GarageDoorDownCommand implements Command {
   public void execute() {
     this.garageDoor.down();
   }
+
+  @Override
+  public void undo() {
+    this.garageDoor.up();
+  }
 }
