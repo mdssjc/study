@@ -48,6 +48,9 @@ public class RemoteControl {
                         this.offCommands[i].getClass()
                                            .getName() + "\n");
     }
+    stringBuff.append("[undo] " +
+                      this.undoCommand.getClass()
+                                      .getName() + "\n");
     return stringBuff.toString();
   }
 }
