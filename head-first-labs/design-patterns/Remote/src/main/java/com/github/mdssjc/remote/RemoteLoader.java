@@ -3,7 +3,8 @@ package com.github.mdssjc.remote;
 public class RemoteLoader {
 
   public static void main(final String[] args) {
-    final RemoteControl remoteControl = new RemoteControl();
+    RemoteControl remoteControl = new RemoteControl();
+
     final Light livingRoomLight = new Light("Living Room");
     final Light kitchenLight = new Light("Kitchen");
     final CeilingFan ceilingFan = new CeilingFan("Living Room");
@@ -49,5 +50,26 @@ public class RemoteLoader {
     remoteControl.offButtonWasPushed(2);
     remoteControl.onButtonWasPushed(3);
     remoteControl.offButtonWasPushed(3);
+
+    System.out.println();
+    System.out.println("---");
+    System.out.println();
+
+    remoteControl = new RemoteControl();
+
+    final Light livingRoom = new Light("");
+    final LightOnCommand livingRoomOn = new LightOnCommand(livingRoom);
+    final LightOffCommand livingRoomOff = new LightOffCommand(livingRoom);
+
+    remoteControl.setCommand(0, livingRoomOn, livingRoomOff);
+
+    remoteControl.onButtonWasPushed(0);
+    remoteControl.offButtonWasPushed(0);
+    System.out.println(remoteControl);
+    remoteControl.undoButtonWasPushed();
+    remoteControl.offButtonWasPushed(0);
+    remoteControl.onButtonWasPushed(0);
+    System.out.println(remoteControl);
+    remoteControl.undoButtonWasPushed();
   }
 }
