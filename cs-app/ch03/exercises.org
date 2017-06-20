@@ -846,3 +846,28 @@ uremdiv:
   | double | float  | vcvtpd2psx %xmm0, %xmm0 |
   | long   | float  | vcvtsi2ssq %rdi, %xmm0  |
   | float  | long   | vcvttsd2siq %xmm0, %rdi |
+* Practice Problem 3.52
+** A
+  double g1(double a, long b, float c, int d);
+  a -> %xmm0
+  b -> %rdi
+  c -> %esi
+  d -> %edx
+** B
+  double g2(int a, double *b, float *c, long d);
+  a -> %edi
+  b -> %xmm0
+  c -> %esi
+  d -> %rdx
+** C
+  double g3(double *a, double b, int c, float d);
+  a -> %xmm0
+  b -> %rdi
+  c -> %esi
+  d -> %edx
+** D
+  double g4(float a, int *b, float c, double d);
+  a -> %xmm0
+  b -> %edi
+  c -> %esi
+  d -> %rdx
