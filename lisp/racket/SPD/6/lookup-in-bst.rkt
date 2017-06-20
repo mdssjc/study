@@ -92,3 +92,24 @@
                 (lookup-key (node-l t) k)]
                [(> k (node-key t)) ; should we go right?
                 (lookup-key (node-r t) k)])]))
+
+;; BST Integer -> ListOfString
+;; produce path of search for key in bst;
+;; path is list of "L"|"R", ends w/ "Succeed"|"Fail"
+(check-expect (path BST0  10) (list "Fail"))
+(check-expect (path BST42 99) (list "R" "R" "Fail"))
+(check-expect (path BST3  -1) (list "L" "L" "Fail"))
+(check-expect (path BST10 10) (list "Succeed"))
+(check-expect (path BST10  3) (list "L" "Succeed"))
+(check-expect (path BST10 42) (list "R" "Succeed"))
+(check-expect (path BST10  4) (list "L" "R" "Succeed"))
+(check-expect (path BST10 27) (list "R" "L" "Succeed"))
+(check-expect (path BST10  1) (list "L" "L" "Succeed"))
+(check-expect (path BST3   7) (list "R" "R" "Succeed"))
+
+(define (path bst key)
+  (cond [(false? bst) (list "Fail")]
+        [else
+         (cond [(= key (node-key bst)) (list "Succeed")]
+               [(< key (node-key bst)) (cons "L" (path (node-l bst) key))]
+               [(> key (node-key bst)) (cons "R" (path (node-r bst) key))])]))
