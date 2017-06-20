@@ -838,3 +838,11 @@ uremdiv:
   val2 = i
   val3 = l
   val4 = f
+* Practice Problem 3.51
+  | T_X     | T_Y     | Instruction(s)          |
+  |--------+--------+-------------------------|
+  | long   | double | vcvtsi2sdq %rdi, %xmm0  |
+  | double | int    | vcvttsd2si %xmm0, %edi  |
+  | double | float  | vcvtpd2psx %xmm0, %xmm0 |
+  | long   | float  | vcvtsi2ssq %rdi, %xmm0  |
+  | float  | long   | vcvttsd2siq %xmm0, %rdi |
