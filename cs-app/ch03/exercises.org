@@ -833,3 +833,8 @@ uremdiv:
   | 6 | 2064 | 2000 | 2000 | 16 |  0 |
 ** D
   Aligned by 8 bytes.
+* Practice Problem 3.50
+  val1 = d
+  val2 = i
+  val3 = l
+  val4 = f
