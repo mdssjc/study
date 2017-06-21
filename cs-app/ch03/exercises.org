@@ -871,3 +871,8 @@ uremdiv:
   b -> %edi
   c -> %esi
   d -> %rdx
+* Practice Problem 3.53
+  arg1_t p -> float
+  arg2_t q -> double
+  arg3_t r -> int
+  arg4_t s -> long
