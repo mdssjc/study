@@ -876,3 +876,16 @@ uremdiv:
   arg2_t q -> double
   arg3_t r -> int
   arg4_t s -> long
+* Practice Problem 3.54
+#+NAME ex54
+#+BEGIN_SRC C
+  double funct2(double w, int x, float y, long z) {
+    float t1 = (float) x;
+    y = y * t1;
+    double t2 = (double) y;
+    double t3 = (double) z;
+    w = w / t3;
+    w = t2 - w;
+    return w;
+  }
+#+END_SRC
