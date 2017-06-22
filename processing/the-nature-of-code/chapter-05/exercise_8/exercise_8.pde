@@ -12,6 +12,8 @@ Spring spring;
 ArrayList<Boundary> boundaries;
 float xoff;
 float yoff;
+boolean isMouse;
+boolean isKey;
 
 void setup() {
   size(400, 300);
@@ -31,8 +33,13 @@ void setup() {
 }
 
 void mousePressed() {
+  if (isKey) {
+    spring.destroy();
+  }
   if (box.contains(mouseX, mouseY)) {
     spring.bind(mouseX, mouseY, box);
+    isMouse = true;
+    isKey = false;
   }
 }
 
@@ -40,34 +47,29 @@ void mouseReleased() {
   spring.destroy();
 }
 
-
 void keyPressed() {
-  if (key == ' ') {
+  if (key == ' ' && !isKey) {
     Vec2 pos = box2d.getBodyPixelCoord(box.body);
     spring.bind(pos.x, pos.y, box);
+    isMouse = false;
+    isKey = true;
   }
 }
-
-void keyReleased() {
-  spring.destroy();
-} 
 
 void draw() {
   background(255);
 
   box2d.step();
-  if (mousePressed) {
+  if (isMouse) {
     spring.update(mouseX, mouseY);
   }
-  if (keyPressed) {
+  if (isKey) {
     float x = map(noise(xoff), 0, 1, width*0.1, width*0.9);
     float y = map(noise(yoff), 0, 1, width*0.1, height*0.9);
     spring.update(x, y);
   }
-
   box.display();
   spring.display();
-
   for (int i = 0; i < boundaries.size(); i++) {
     Boundary wall = boundaries.get(i);
     wall.display();
