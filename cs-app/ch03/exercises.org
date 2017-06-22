@@ -898,3 +898,10 @@ uremdiv:
   0x404 (1028)
   1028 - 1023 = 5
   1.0x2^5 = 32.0
+* Practice Problem 3.56
+** A
+  fabs(x) of <math.h>
+** B
+  literal 0.0
+** C
+  -x
