@@ -36,8 +36,8 @@
 ;;               10:why
 ;;      /                   \
 ;;    3:ilk                42:ily
-;;   /     \              /      \
-;; 1:abc   4:dcj       27:wit   50:dug
+;;   /     \              /
+;; 1:abc   4:dcj       27:wit
 ;;           \          /
 ;;           7:ruf   14:olp
 
