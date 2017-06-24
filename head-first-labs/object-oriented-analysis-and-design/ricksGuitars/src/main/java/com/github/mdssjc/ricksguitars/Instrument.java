@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public abstract class Instrument {
+public class Instrument {
 
   private final String serialNumber;
   private double price;

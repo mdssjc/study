@@ -3,17 +3,18 @@ package com.github.mdssjc.ricksguitars;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Inventory {
 
   private final List<Instrument> inventory;
 
   public Inventory() {
-    this.inventory = new LinkedList();
+    this.inventory = new LinkedList<>();
   }
 
-  public void addInstrument(final Instrument instrument) {
-    this.inventory.add(instrument);
+  public void addInstrument(final String serialNumber, final double price, final InstrumentSpec spec) {
+    this.inventory.add(new Instrument(serialNumber, price, spec));
   }
 
   public Instrument get(final String serialNumber) {
@@ -25,14 +26,10 @@ public class Inventory {
   }
 
   public Iterator<Instrument> search(final InstrumentSpec searchSpec) {
-    final List<Instrument> matching = new LinkedList<>();
-
-    for (final Instrument instrument : this.inventory) {
-      if (instrument.getSpec()
-                .equals(searchSpec)) {
-        matching.add(instrument);
-      }
-    }
-    return matching.iterator();
+    return this.inventory.stream()
+                         .filter(i -> i.getSpec()
+                                       .equals(searchSpec))
+                         .collect(Collectors.toCollection(LinkedList::new))
+                         .iterator();
   }
 }

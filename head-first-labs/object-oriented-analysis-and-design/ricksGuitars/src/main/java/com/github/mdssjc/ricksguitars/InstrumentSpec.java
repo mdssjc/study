@@ -1,22 +1,30 @@
 package com.github.mdssjc.ricksguitars;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Data
-@AllArgsConstructor
-public abstract class InstrumentSpec {
+public class InstrumentSpec {
 
-  private Builder builder;
-  private String model;
-  private Type type;
-  private Wood backWood;
-  private Wood topWood;
+  private final Map<String, Object> properties;
+
+  public InstrumentSpec(final Map properties) {
+    if (properties == null) {
+      this.properties = new HashMap<>();
+    } else {
+      this.properties = new HashMap<>(properties);
+    }
+  }
+
+  public Object getProperty(final String propertyName) {
+    return this.properties.get(propertyName);
+  }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -25,16 +33,11 @@ public abstract class InstrumentSpec {
       return false;
     }
 
-    InstrumentSpec other = (InstrumentSpec) o;
-    return Objects.equals(builder, other.builder) &&
-           Objects.equals(model, other.model) &&
-           Objects.equals(type, other.type) &&
-           Objects.equals(backWood, other.backWood) &&
-           Objects.equals(topWood, other.topWood);
+    return Objects.equals(this.properties, ((InstrumentSpec) o).properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(builder, model, type, backWood, topWood);
+    return Objects.hash(this.properties);
   }
 }
