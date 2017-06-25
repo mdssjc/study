@@ -1,5 +1,8 @@
 package com.github.mdssjc.remote;
 
+import com.github.mdssjc.remote.commands.GarageDoorOpenCommand;
+import com.github.mdssjc.remote.commands.LightOnCommand;
+
 public class SimpleRemoteControlTest {
 
   public static void main(final String[] args) {
