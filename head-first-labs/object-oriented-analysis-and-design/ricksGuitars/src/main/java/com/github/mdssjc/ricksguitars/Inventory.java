@@ -13,7 +13,8 @@ public class Inventory {
     this.inventory = new LinkedList<>();
   }
 
-  public void addInstrument(final String serialNumber, final double price, final InstrumentSpec spec) {
+  public void addInstrument(final String serialNumber, final double price,
+                            final InstrumentSpec spec) {
     this.inventory.add(new Instrument(serialNumber, price, spec));
   }
 
