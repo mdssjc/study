@@ -1,4 +1,7 @@
-package com.github.mdssjc.remote;
+package com.github.mdssjc.remote.commands;
+
+import com.github.mdssjc.remote.Command;
+import com.github.mdssjc.remote.Light;
 
 public class LightOffCommand implements Command {
 

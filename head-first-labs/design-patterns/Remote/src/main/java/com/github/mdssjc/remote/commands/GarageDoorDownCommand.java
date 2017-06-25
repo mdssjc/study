@@ -1,4 +1,4 @@
-package com.github.mdssjc.remote;
+package com.github.mdssjc.remote.commands;
 
 public class GarageDoorDownCommand implements Command {
 

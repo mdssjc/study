@@ -1,4 +1,7 @@
-package com.github.mdssjc.remote;
+package com.github.mdssjc.remote.commands;
+
+import com.github.mdssjc.remote.CeilingFan;
+import com.github.mdssjc.remote.Command;
 
 public class CeilingFanMediumCommand implements Command {
 

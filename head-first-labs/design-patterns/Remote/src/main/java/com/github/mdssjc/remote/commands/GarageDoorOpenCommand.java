@@ -1,4 +1,7 @@
-package com.github.mdssjc.remote;
+package com.github.mdssjc.remote.commands;
+
+import com.github.mdssjc.remote.Command;
+import com.github.mdssjc.remote.GarageDoor;
 
 public class GarageDoorOpenCommand implements Command {
 

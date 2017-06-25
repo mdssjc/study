@@ -1,4 +1,7 @@
-package com.github.mdssjc.remote;
+package com.github.mdssjc.remote.commands;
+
+import com.github.mdssjc.remote.Command;
+import com.github.mdssjc.remote.Stereo;
 
 public class StereoOffCommand implements Command {
 
