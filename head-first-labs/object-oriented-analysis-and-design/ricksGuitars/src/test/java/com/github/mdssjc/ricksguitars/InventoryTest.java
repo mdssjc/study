@@ -1,8 +1,5 @@
-import static org.junit.Assert.*;
+package com.github.mdssjc.ricksguitars;
 
-/**
- * Created by mdssjc on 14/05/17.
- */
 public class InventoryTest {
 
 }
