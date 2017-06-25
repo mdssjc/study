@@ -1,18 +1,18 @@
 package com.github.mdssjc.remote;
 
-public class CeilingFanOffCommand implements Command {
+public class CeilingFanHighCommand implements Command {
 
   private final CeilingFan ceilingFan;
   private CeilingFan.Level prevSpeed;
 
-  public CeilingFanOffCommand(final CeilingFan ceilingFan) {
+  public CeilingFanHighCommand(final CeilingFan ceilingFan) {
     this.ceilingFan = ceilingFan;
   }
 
   @Override
   public void execute() {
     this.prevSpeed = this.ceilingFan.getSpeed();
-    this.ceilingFan.off();
+    this.ceilingFan.high();
   }
 
   @Override
