@@ -10,9 +10,8 @@ public class SimpleRemoteControlTest {
     final Light light = new Light("Bed Room");
     final GarageDoor garageDoor = new GarageDoor("House");
 
-    final LightOnCommand lightOn = new LightOnCommand(light);
-    final GarageDoorOpenCommand garageOpen =
-        new GarageDoorOpenCommand(garageDoor);
+    final Command lightOn = new LightOnCommand(light);
+    final Command garageOpen = new GarageDoorOpenCommand(garageDoor);
 
     remote.setCommand(lightOn);
     remote.buttonWasPressed();
