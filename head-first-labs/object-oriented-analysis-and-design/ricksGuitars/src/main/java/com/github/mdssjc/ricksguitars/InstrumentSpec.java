@@ -33,7 +33,11 @@ public class InstrumentSpec {
       return false;
     }
 
-    return Objects.equals(this.properties, ((InstrumentSpec) o).properties);
+    final InstrumentSpec other = (InstrumentSpec) o;
+    return other.getProperties()
+                .keySet()
+                .stream()
+                .allMatch(k -> getProperty(k).equals(other.getProperty(k)));
   }
 
   @Override
