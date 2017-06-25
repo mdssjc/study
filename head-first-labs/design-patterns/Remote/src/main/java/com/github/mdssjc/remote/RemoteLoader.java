@@ -1,5 +1,7 @@
 package com.github.mdssjc.remote;
 
+import com.github.mdssjc.remote.commands.*;
+
 public class RemoteLoader {
 
   public static void main(final String[] args) {
