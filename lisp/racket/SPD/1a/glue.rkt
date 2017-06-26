@@ -3,6 +3,7 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname glue-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; glue.rkt
 ;; BSL P4
+;; Write expressions to operate on strings using primitives.
 
 
 ;; PROBLEM:
