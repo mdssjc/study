@@ -3,9 +3,10 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname compare-images-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; compare-images.rkt
 ;; BSL P5
-
+;; Write expressions to operate on booleans using primitives.
 
 (require 2htdp/image)
+
 
 ;; PROBLEM:
 ;;
