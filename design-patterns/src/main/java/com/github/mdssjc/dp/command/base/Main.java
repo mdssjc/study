@@ -2,6 +2,8 @@ package com.github.mdssjc.dp.command.base;
 
 import com.github.mdssjc.dp.command.Command;
 import com.github.mdssjc.dp.command.concrete.ConcreteCommand;
+import com.github.mdssjc.dp.command.concrete.MacroCommand;
+import com.github.mdssjc.dp.command.concrete.NullObjectCommand;
 import com.github.mdssjc.dp.command.concrete.SleepCommand;
 import com.github.mdssjc.dp.command.invoker.Invoker;
 import com.github.mdssjc.dp.command.receiver.Receiver;
@@ -50,5 +52,16 @@ public class Main {
     engine.add(command);
     engine.add(new SleepCommand(1000, engine, command));
     engine.run();
+
+    // Macro Command
+    System.out.println("Macro Command");
+    final Command commandM1 = new ConcreteCommand(receiver);
+    final Command commandM2 = new NullObjectCommand();
+    final Command commandM3 = new ConcreteCommand(receiver);
+
+    final Command[] commands = {commandM1, commandM2, commandM3};
+    final MacroCommand macro = new MacroCommand(commands);
+
+    macro.execute();
   }
 }
