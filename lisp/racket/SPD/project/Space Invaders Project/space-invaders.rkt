@@ -127,9 +127,46 @@
 (define (render g) ...)
 
 ;; Game -> Boolean
-;; stop when ...
-;; !!!
-(define (game-over? g) ...)
+;; produces true when the game is over
+(check-expect (game-over? G0) false)
+(check-expect (game-over? G1) false)
+(check-expect (game-over? G2) false)
+(check-expect (game-over? G3) false)
+(check-expect (game-over? (make-game (list I1 I2 I3) (list M1 M2) T1)) true)
+
+;(define (game-over? g) false) ; Stub
+
+(define (game-over? s)
+  (cond [(empty? (game-invaders s)) false]
+        [else
+         (any>landed? (game-invaders s))]))
+
+;; Listof Invader -> Boolean
+;; produces true when any invader is greater than landed
+(check-expect (any>landed? empty) false)
+(check-expect (any>landed? (list I1 I2)) false)
+(check-expect (any>landed? (list I3 I1 I2)) true)
+(check-expect (any>landed? (list I1 I3 I2)) true)
+(check-expect (any>landed? (list I1 I2 I3)) true)
+
+;(define (any>landed? invaders) false) ; Stub
+
+(define (any>landed? invaders)
+  (cond [(empty? invaders) false]
+        [else
+         (or (>landed? (first invaders))
+             (any>landed? (rest invaders)))]))
+
+;; Invader -> Boolean
+;; produces true when the invader-y is greater then HEIGHT
+(check-expect (>landed? I1) false)
+(check-expect (>landed? I2) false)
+(check-expect (>landed? I3) true)
+
+;(define (>landed? invader) false) ; Stub
+
+(define (>landed? invader)
+  (> (invader-y invader) HEIGHT))
 
 ;; Game KeyEvent -> Game
 ;; on-key ...
