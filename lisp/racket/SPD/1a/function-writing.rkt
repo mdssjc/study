@@ -3,10 +3,13 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname function-writing-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; function-writing.rkt
 ;; BSL P15
+;; Write a function that produces the larger of two given numbers.
+
 
 ;; PROBLEM:
 ;;
-;; Write a function that consumes two numbers and produces the larger of the two.
+;; Write a function that consumes two numbers and produces the larger
+;; of the two.
 
 (define (larger a b)
   (if (> a b) a b))
