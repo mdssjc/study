@@ -54,10 +54,10 @@
 ;; Game constants defined below Missile data definition
 
 #;
-(define (fn-for-game s)
-  (... (fn-for-loinvader (game-invaders s))
-       (fn-for-lom (game-missiles s))
-       (fn-for-tank (game-tank s))))
+(define (fn-for-game g)
+  (... (fn-for-loinvader (game-invaders g))
+       (fn-for-lom (game-missiles g))
+       (fn-for-tank (game-tank g))))
 
 (define-struct tank (x dir))
 ;; Tank is (make-tank Number Integer[-1, 1])
@@ -123,9 +123,47 @@
 (define (tock g) ...)
 
 ;; Game -> Image
-;; render ...
+;; render the Game in the BACKGROUND
+(check-expect (render G0)
+              (place-image TANK (/ WIDTH 2) (- HEIGHT TANK-HEIGHT/2) BACKGROUND))
+(check-expect (render G1)
+              (place-image TANK 50 (- HEIGHT TANK-HEIGHT/2) BACKGROUND))
+(check-expect (render G2)
+              (place-image INVADER 150 100
+                           (place-image MISSILE 150 300
+                                        (place-image TANK 50 (- HEIGHT TANK-HEIGHT/2) BACKGROUND))))
+(check-expect (render G3)
+              (place-image
+               INVADER 150 100
+               (place-image
+                INVADER 150 HEIGHT
+                (place-image
+                 MISSILE 150 300
+                 (place-image
+                  MISSILE 150 110
+                  (place-image TANK 50 (- HEIGHT TANK-HEIGHT/2) BACKGROUND))))))
+
+;(define (render g) BACKGROUND) ; Stub
+
+(define (render g)
+  (render-invaders (game-invaders g)
+                   (render-missiles (game-missiles g)
+                                    (render-tank (game-tank g) BACKGROUND))))
+
+;; ListofInvader Image - > Image
+;; render the invaders in the image
 ;; !!!
-(define (render g) ...)
+(define (render-invaders loi i) BACKGROUND)
+
+;; ListofMissile Image - > Image
+;; render the missiles in the image
+;; !!!
+(define (render-missiles lom i) BACKGROUND)
+
+;; Tank Image - > Image
+;; render the tank in the image
+;; !!!
+(define (render-tank t i) BACKGROUND)
 
 ;; Game -> Boolean
 ;; produce true when the game is over
