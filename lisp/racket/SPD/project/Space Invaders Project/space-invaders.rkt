@@ -129,9 +129,11 @@
 (check-expect (render G1)
               (place-image TANK 50 (- HEIGHT TANK-HEIGHT/2) BACKGROUND))
 (check-expect (render G2)
-              (place-image INVADER 150 100
-                           (place-image MISSILE 150 300
-                                        (place-image TANK 50 (- HEIGHT TANK-HEIGHT/2) BACKGROUND))))
+              (place-image
+               INVADER 150 100
+               (place-image
+                MISSILE 150 300
+                (place-image TANK 50 (- HEIGHT TANK-HEIGHT/2) BACKGROUND))))
 (check-expect (render G3)
               (place-image
                INVADER 150 100
@@ -152,18 +154,55 @@
 
 ;; ListofInvader Image - > Image
 ;; render the invaders in the image
-;; !!!
-(define (render-invaders loi i) BACKGROUND)
+(check-expect (render-invaders empty BACKGROUND) BACKGROUND)
+(check-expect (render-invaders (list I1) BACKGROUND)
+              (place-image INVADER 150 100 BACKGROUND))
+(check-expect (render-invaders (list I1 I2) BACKGROUND)
+              (place-image
+               INVADER 150 100
+               (place-image
+                INVADER 150 HEIGHT
+                BACKGROUND)))
+
+;(define (render-invaders loi i) BACKGROUND) ; Stub
+
+(define (render-invaders loi i)
+  (cond [(empty? loi) i]
+        [else (place-image INVADER
+                           (invader-x (first loi))
+                           (invader-y (first loi))
+                           (render-invaders (rest loi) i))]))
 
 ;; ListofMissile Image - > Image
 ;; render the missiles in the image
-;; !!!
-(define (render-missiles lom i) BACKGROUND)
+(check-expect (render-missiles empty BACKGROUND) BACKGROUND)
+(check-expect (render-missiles (list M1) BACKGROUND)
+              (place-image MISSILE 150 300 BACKGROUND))
+(check-expect (render-missiles (list M1 M2) BACKGROUND)
+              (place-image
+               MISSILE 150 300
+               (place-image
+                MISSILE 150 110
+                BACKGROUND)))
+
+;(define (render-missiles lom i) BACKGROUND) ; Stub
+
+(define (render-missiles lom i)
+  (cond [(empty? lom) i]
+        [else (place-image MISSILE
+                           (missile-x (first lom))
+                           (missile-y (first lom))
+                           (render-missiles (rest lom) i))]))
 
 ;; Tank Image - > Image
 ;; render the tank in the image
-;; !!!
-(define (render-tank t i) BACKGROUND)
+(check-expect (render-tank T0 BACKGROUND)
+              (place-image TANK (/ WIDTH 2) (- HEIGHT TANK-HEIGHT/2) BACKGROUND))
+
+;(define (render-tank t i) BACKGROUND) ; Stub
+
+(define (render-tank t i)
+  (place-image TANK (tank-x t) (- HEIGHT TANK-HEIGHT/2) i))
 
 ;; Game -> Boolean
 ;; produce true when the game is over
