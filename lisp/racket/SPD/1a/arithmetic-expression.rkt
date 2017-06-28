@@ -3,11 +3,14 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname arithmetic-expression-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; arithmetic-expression.rkt
 ;; BSL P13
+;; Write an arithmetic expression.
 
 
 ;; PROBLEM:
 ;;
-;; Write the BSL expression that represents the arithmetic expression (7 - 2) * 4 which equals 20.
-;; Do not just write 20! Instead write BSL expression that clearly mirrors  (7 - 2) * 4.
+;; Write the BSL expression that represents the arithmetic expression
+;; (7 - 2) * 4 which equals 20.
+;; Do not just write 20! Instead write BSL expression that clearly
+;; mirrors (7 - 2) * 4.
 
 (* (- 7 2) 4)
