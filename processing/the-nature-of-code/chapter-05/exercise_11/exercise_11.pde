@@ -63,10 +63,12 @@ void beginContact(Contact cp) {
   Body b1 = f1.getBody();
   Body b2 = f2.getBody();
 
-  Collision c1 = (Collision) b1.getUserData();
-  Collision c2 = (Collision) b2.getUserData();
+  Contactable o1 = (Contactable) b1.getUserData();
+  Contactable o2 = (Contactable) b2.getUserData();
 
-  if (!(c1 instanceof Boundary || c1 instanceof Boundary)) {
+  if (o1 instanceof Collision && o2 instanceof Collision) {
+    Collision c1 = (Collision) o1;
+    Collision c2 = (Collision) o2;
     c1.change();
     c2.change();
   }

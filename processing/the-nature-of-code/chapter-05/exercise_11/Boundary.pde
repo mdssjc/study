@@ -1,11 +1,10 @@
-class Boundary implements Collision {
+class Boundary implements Contactable {
 
+  Body b;
   float x;
   float y;
   float w;
   float h;
-
-  Body b;
 
   Boundary(float x_, float y_, float w_, float h_) {
     x = x_;

@@ -2,7 +2,6 @@ class Particle implements Collision {
 
   Body body;
   float r;
-
   color col;
 
   Particle(float x, float y, float r_) {

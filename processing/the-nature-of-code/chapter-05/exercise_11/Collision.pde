@@ -1,4 +1,4 @@
-interface Collision {
+interface Collision extends Contactable {
 
   void change();
 }
