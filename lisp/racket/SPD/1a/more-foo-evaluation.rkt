@@ -3,6 +3,8 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname more-foo-evaluation-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; more-foo-evaluation.rkt
 ;; BSL P6
+;; Step by step evaluation of a call to a function that calls a number
+;; primitive in its body.
 
 
 ;; PROBLEM:
