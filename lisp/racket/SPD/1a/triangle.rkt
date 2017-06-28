@@ -3,6 +3,7 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname triangle-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; triangle.rkt
 ;; BSL P10
+;; Write an expression that operates on images using image primitives.
 
 (require 2htdp/image)
 
@@ -12,7 +13,14 @@
 ;; Write an expression that uses triangle, overlay, and rotate to
 ;; produce an image similar to this:
 ;;
-;; [Triangles Image]
+;;  -----------
+;;  \    X    / ---> Yellow
+;;   \  / \  /
+;;    \/   \/
+;;    /     \
+;;   /       \
+;;  /         \ ---> Green
+;;  -----------
 ;;
 ;; You can consult the DrRacket help desk for information on how to
 ;; use triangle and overlay.
