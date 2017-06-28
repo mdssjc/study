@@ -3,13 +3,14 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname even-more-arithmetic-expression-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; even-more-arithmetic-expression.rkt
 ;; BSL P9
+;; Write even more arithmetic expressions.
 
 
 ;; PROBLEM:
 ;;
 ;; Write the BSL expression that represents the arithmetic expression:
 ;; (6 + 3) * (9 - 7)
-;; which equals 18.  Do not just write 18! Instead, write a BSL expression that clearly
-;; mirrors the arithmetic expression.
+;; which equals 18. Do not just write 18! Instead, write a BSL
+;; expression that clearly mirrors the arithmetic expression.
 
 (* (+ 6 3) (- 9 7))
