@@ -41,12 +41,13 @@
 (define TANK-HEIGHT/2 (/ (image-height TANK) 2))
 
 (define MISSILE (ellipse 5 15 "solid" "red"))
+(define MISSILE-STARTING-Y-POSITION (+ TANK-HEIGHT/2 20))
 
 
 ;; =================
 ;; Data definitions:
 
-(define-struct game (invaders missiles t))
+(define-struct game (invaders missiles tank))
 ;; Game is (make-game  (listof Invader) (listof Missile) Tank)
 ;; interp. the current state of a space invaders game
 ;;         with the current invaders, missiles and tank position
@@ -127,7 +128,7 @@
 (define (render g) ...)
 
 ;; Game -> Boolean
-;; produces true when the game is over
+;; produce true when the game is over
 (check-expect (game-over? G0) false)
 (check-expect (game-over? G1) false)
 (check-expect (game-over? G2) false)
@@ -141,8 +142,8 @@
         [else
          (any>landed? (game-invaders s))]))
 
-;; Listof Invader -> Boolean
-;; produces true when any invader is greater than landed
+;; ListofInvader -> Boolean
+;; produce true when any invader is greater than landed
 (check-expect (any>landed? empty) false)
 (check-expect (any>landed? (list I1 I2)) false)
 (check-expect (any>landed? (list I3 I1 I2)) true)
@@ -158,7 +159,7 @@
              (any>landed? (rest invaders)))]))
 
 ;; Invader -> Boolean
-;; produces true when the invader-y is greater then HEIGHT
+;; produce true when the invader-y is greater then HEIGHT
 (check-expect (>landed? I1) false)
 (check-expect (>landed? I2) false)
 (check-expect (>landed? I3) true)
@@ -169,6 +170,48 @@
   (> (invader-y invader) HEIGHT))
 
 ;; Game KeyEvent -> Game
-;; on-key ...
+;; handle the keyboard events:
+;;  - left and right arrows: move the tank
+;;  - space bar: launch missiles
+(check-expect (controller G0 "a") G0)
+(check-expect (controller (make-game empty empty (make-tank 50 -1)) "left")
+              (make-game empty empty (make-tank (- 50 TANK-SPEED) -1)))
+(check-expect (controller (make-game empty empty (make-tank 50 -1)) "right")
+              (make-game empty empty (make-tank (+ 50 TANK-SPEED) 1)))
+(check-expect (controller (make-game empty empty (make-tank 0 -1)) "left")
+              (make-game empty empty (make-tank 0 -1)))
+(check-expect (controller (make-game empty empty (make-tank 50 1)) "right")
+              (make-game empty empty (make-tank (+ 50 TANK-SPEED) 1)))
+(check-expect (controller (make-game empty empty (make-tank 50 1)) "left")
+              (make-game empty empty (make-tank (- 50 TANK-SPEED) -1)))
+(check-expect (controller (make-game empty empty (make-tank WIDTH 1)) "right")
+              (make-game empty empty (make-tank WIDTH 1)))
+(check-expect (controller G0 " ")
+              (make-game empty (list (make-missile (/ WIDTH 2) MISSILE-STARTING-Y-POSITION)) (game-tank G0)))
+(check-expect (controller G2 " ")
+              (make-game (list I1) (list M1 (make-missile 50 MISSILE-STARTING-Y-POSITION)) (game-tank G2)))
+(check-expect (controller G3 " ")
+              (make-game (list I1 I2) (list M1 M2 (make-missile 50 MISSILE-STARTING-Y-POSITION)) (game-tank G3)))
+
+;(define (controller g ke) ...) ; Stub
+
+(define (controller g ke)
+  (cond [(key=? ke "left")
+         (make-game (game-invaders g) (game-missiles g) (move-left (game-tank g)))]
+        [(key=? ke "right")
+         (make-game (game-invaders g) (game-missiles g) (move-right (game-tank g)))]
+        [(key=? ke " ")
+         (make-game (game-invaders g) (launch-missile (game-missiles g) (tank-x (game-tank g))) (game-tank g))]
+        [else g]))
+
+;; Tank -> Tank
 ;; !!!
-(define (controller g ke) ....)
+(define (move-left t) t) ; Stub
+
+;; Tank -> Tank
+;; !!!
+(define (move-right t) t) ; Stub)
+
+;; ListofMissile Number -> ListofMissile
+;; !!!
+(define (launch-missile m x) m) ; Stub
