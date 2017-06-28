@@ -70,7 +70,7 @@
 #;
 (define (fn-for-tank t)
   (... (tank-x t)
-       (tank-dx t)))
+       (tank-dir t)))
 
 (define-struct invader (x y dx))
 ;; Invader is (make-invader Number Number Number)
@@ -171,21 +171,17 @@
 
 ;; Game KeyEvent -> Game
 ;; handle the keyboard events:
-;;  - left and right arrows: move the tank
+;;  - left and right arrows: change the tank direction
 ;;  - space bar: launch missiles
 (check-expect (controller G0 "a") G0)
-(check-expect (controller (make-game empty empty (make-tank 50 -1)) "left")
-              (make-game empty empty (make-tank (- 50 TANK-SPEED) -1)))
-(check-expect (controller (make-game empty empty (make-tank 50 -1)) "right")
-              (make-game empty empty (make-tank (+ 50 TANK-SPEED) 1)))
-(check-expect (controller (make-game empty empty (make-tank 0 -1)) "left")
-              (make-game empty empty (make-tank 0 -1)))
-(check-expect (controller (make-game empty empty (make-tank 50 1)) "right")
-              (make-game empty empty (make-tank (+ 50 TANK-SPEED) 1)))
-(check-expect (controller (make-game empty empty (make-tank 50 1)) "left")
-              (make-game empty empty (make-tank (- 50 TANK-SPEED) -1)))
-(check-expect (controller (make-game empty empty (make-tank WIDTH 1)) "right")
-              (make-game empty empty (make-tank WIDTH 1)))
+(check-expect (controller (make-game empty empty T2) "left")
+              (make-game empty empty T2))
+(check-expect (controller (make-game empty empty T1) "left")
+              (make-game empty empty T2))
+(check-expect (controller (make-game empty empty T1) "right")
+              (make-game empty empty T1))
+(check-expect (controller (make-game empty empty T2) "right")
+              (make-game empty empty T1))
 (check-expect (controller G0 " ")
               (make-game empty (list (make-missile (/ WIDTH 2) MISSILE-STARTING-Y-POSITION)) (game-tank G0)))
 (check-expect (controller G2 " ")
@@ -196,22 +192,51 @@
 ;(define (controller g ke) ...) ; Stub
 
 (define (controller g ke)
-  (cond [(key=? ke "left")
-         (make-game (game-invaders g) (game-missiles g) (move-left (game-tank g)))]
-        [(key=? ke "right")
-         (make-game (game-invaders g) (game-missiles g) (move-right (game-tank g)))]
-        [(key=? ke " ")
-         (make-game (game-invaders g) (launch-missile (game-missiles g) (tank-x (game-tank g))) (game-tank g))]
+  (cond [(key=? ke "left") (make-game
+                            (game-invaders g)
+                            (game-missiles g)
+                            (change-tank-left (game-tank g)))]
+        [(key=? ke "right") (make-game
+                             (game-invaders g)
+                             (game-missiles g)
+                             (change-tank-right (game-tank g)))]
+        [(key=? ke " ") (make-game
+                         (game-invaders g)
+                         (launch-missile (game-missiles g) (tank-x (game-tank g)))
+                         (game-tank g))]
         [else g]))
 
 ;; Tank -> Tank
-;; !!!
-(define (move-left t) t) ; Stub
+;; change the tank direction for left (-1)
+(check-expect (change-tank-left T0) (make-tank (/ WIDTH 2) -1))
+(check-expect (change-tank-left T1) T2)
+(check-expect (change-tank-left T2) T2)
+
+;(define (change-tank-left t) t) ; Stub
+
+(define (change-tank-left t)
+  (make-tank (tank-x t) -1))
 
 ;; Tank -> Tank
-;; !!!
-(define (move-right t) t) ; Stub)
+;; change the tank direction for right (1)
+(check-expect (change-tank-right T0) T0)
+(check-expect (change-tank-right T1) T1)
+(check-expect (change-tank-right T2) T1)
+
+;(define (change-tank-right t) t) ; Stub
+
+(define (change-tank-right t)
+  (make-tank (tank-x t) 1))
 
 ;; ListofMissile Number -> ListofMissile
-;; !!!
-(define (launch-missile m x) m) ; Stub
+;; insert a new missile in List of Missile
+(check-expect (launch-missile empty 30)        (list (make-missile 30 MISSILE-STARTING-Y-POSITION)))
+(check-expect (launch-missile (list M1) 30)    (list M1 (make-missile 30 MISSILE-STARTING-Y-POSITION)))
+(check-expect (launch-missile (list M1 M2) 30) (list M1 M2 (make-missile 30 MISSILE-STARTING-Y-POSITION)))
+
+;(define (launch-missile lom x) lom) ; Stub
+
+(define (launch-missile lom x)
+  (cond [(empty? lom) (list (make-missile x MISSILE-STARTING-Y-POSITION))]
+        [else
+         (cons (first lom) (launch-missile (rest lom) x))]))
