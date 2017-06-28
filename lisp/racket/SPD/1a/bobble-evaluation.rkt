@@ -3,6 +3,7 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname bobble-evaluation-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; bobble-evaluation.rkt
 ;; BSL P11
+;; Step by step evaluation of a call to a function that has an if expression in its body.
 
 
 ;; PROBLEM:
@@ -18,8 +19,8 @@
 ;;
 ;; (bobble (substring "fungus" 0 4))
 ;;
-;; Be sure to show every intermediate evaluation step (including the original expression
-;; and the final result, our answer has 7 steps).
+;; Be sure to show every intermediate evaluation step (including the
+;; original expression and the final result, our answer has 7 steps).
 
 (define (bobble s)
   (if (<= (string-length s) 6)
