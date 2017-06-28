@@ -3,6 +3,7 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname debug-rectangle-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; debug-rectangle.rkt
 ;; BSL P12
+;; Fix the error(s) in a call to an image primitive.
 
 (require 2htdp/image)
 
