@@ -3,6 +3,8 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname foo-evaluation-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; foo-evaluation.rkt
 ;; BSL P16
+;; Step by step evaluation of a call to a function that has an if
+;; expression in its body.
 
 
 ;; PROBLEM:
@@ -30,16 +32,16 @@
 (foo "abc")
 
 (if (string=? (substring "abc" 0 1) "a")
-      (string-append "abc" "a")
-      "abc")
+    (string-append "abc" "a")
+    "abc")
 
 (if (string=? "a" "a")
-      (string-append "abc" "a")
-      "abc")
+    (string-append "abc" "a")
+    "abc")
 
 (if true
-      (string-append "abc" "a")
-      "abc")
+    (string-append "abc" "a")
+    "abc")
 
 (string-append "abc" "a")
 
