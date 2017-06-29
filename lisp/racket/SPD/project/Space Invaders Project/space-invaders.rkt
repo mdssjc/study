@@ -45,7 +45,7 @@
 ;; Data definitions:
 
 (define-struct game (invaders missiles tank))
-;; Game is (make-game  (listof Invader) (listof Missile) Tank)
+;; Game is (make-game (listof Invader) (listof Missile) Tank)
 ;; interp. the current state of a space invaders game
 ;;         with the current invaders, missiles and tank position
 ;; Game constants defined below Missile data definition
@@ -65,10 +65,10 @@
 (define I3 (make-invader 150 (+ HEIGHT 10) 10)) ;> landed, moving right
 
 #;
-(define (fn-for-invader invader)
-  (... (invader-x invader)
-       (invader-y invader)
-       (invader-dx invader)))
+(define (fn-for-invader i)
+  (... (invader-x i)
+       (invader-y i)
+       (invader-dx i)))
 
 (define-struct missile (x y))
 ;; Missile is (make-missile Number Number)
@@ -130,6 +130,11 @@
   (make-game (move-invaders (game-invaders g))
              (move-missiles (game-missiles g))
              (move-tank (game-tank g))))
+
+;; ListofInvader -> ListofInvader
+;; create a new invader by INVADE-RATE
+;; !!!
+(define (create-invader loi) empty) ; Stub
 
 ;; ListofInvader -> ListofInvader
 ;; move the invaders of list
