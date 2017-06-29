@@ -127,7 +127,21 @@
 ;(define (tock g) ...) ; Stub
 
 (define (tock g)
-  (make-game (game-invaders g) (game-missiles g) (move-tank (game-tank g))))
+  (make-game (move-invaders (game-invaders g))
+             (move-missiles (game-missiles g))
+             (move-tank (game-tank g))))
+
+;; ListofInvader -> ListofInvader
+;; move the invaders of list
+(check-expect (move-invaders empty) empty)
+(check-expect (move-invaders (list I1 I2)) (list (move-invader I1) (move-invader I2)))
+
+;(define (move-invaders loi) empty) ; Stub
+
+(define (move-invaders loi)
+  (cond [(empty? loi) empty]
+        [else (cons (move-invader (first loi))
+                    (move-invaders (rest loi)))]))
 
 ;; Invader -> Invader
 ;; move invader by INVADER-X-SPEED and INVADER-Y-SPEED
@@ -173,6 +187,18 @@
 
 (define (next-y-invader i)
   (+ (invader-y i) INVADER-Y-SPEED))
+
+;; ListofMissile -> ListofMissile
+;; move the missiles of list
+(check-expect (move-missiles empty) empty)
+(check-expect (move-missiles (list M1 M2)) (list (move-missile M1) (move-missile M2)))
+
+;(define (move-missiles lom) empty) ; Stub
+
+(define (move-missiles lom)
+  (cond [(empty? lom) empty]
+        [else (cons (move-missile (first lom))
+                    (move-missiles (rest lom)))]))
 
 ;; Missile -> Missile
 ;; move missile by MISSILE-SPEED in y-coordinate
