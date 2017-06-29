@@ -38,7 +38,9 @@
                      (rectangle 20 10 "solid" "black"))))   ;main body
 
 (define TANK-HEIGHT/2 (/ (image-height TANK) 2))
+(define INVADER-HEIGHT/2 (/ (image-height TANK) 2))
 (define MISSILE-STARTING-Y-POSITION (+ TANK-HEIGHT/2 20))
+(define INVADER-STARTING-Y-POSITION (+ INVADER-HEIGHT/2 20))
 
 
 ;; =================
@@ -127,14 +129,28 @@
 ;(define (tock g) ...) ; Stub
 
 (define (tock g)
-  (make-game (move-invaders (game-invaders g))
+  (make-game (create-invader (move-invaders (game-invaders g)))
              (move-missiles (game-missiles g))
              (move-tank (game-tank g))))
 
 ;; ListofInvader -> ListofInvader
-;; create a new invader by INVADE-RATE
-;; !!!
-(define (create-invader loi) empty) ; Stub
+;; create a new invader by INVADE-RATE of first invader of list
+(check-random (create-invader empty)
+              (list (make-invader (random WIDTH) INVADER-STARTING-Y-POSITION (- (random 50) 25))))
+(check-expect (create-invader (list I1)) (list I1))
+(check-random (create-invader (list (make-invader 10 101 10)))
+              (list (make-invader (random WIDTH) INVADER-STARTING-Y-POSITION (- (random 50) 25))
+                    (make-invader 10 101 10)))
+
+;(define (create-invader loi) empty) ; Stub
+
+(define (create-invader loi)
+  (cond [(empty? loi)
+         (list (make-invader (random WIDTH) INVADER-STARTING-Y-POSITION (- (random 50) 25)))]
+        [else
+         (if (> (invader-y (first loi)) INVADE-RATE)
+             (cons (make-invader (random WIDTH) INVADER-STARTING-Y-POSITION (- (random 50) 25)) loi)
+             loi)]))
 
 ;; ListofInvader -> ListofInvader
 ;; move the invaders of list
