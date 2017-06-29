@@ -122,17 +122,30 @@
 ;; Game -> Game
 ;; produce the next ...
 ;; !!!
-; move tank
 #;
 (check-expect (tock G0)
+              (make-game empty empty (move-tank (game-tank G0))))
+#;
+(check-expect (tock G1)
+              (make-game empty empty (move-tank (game-tank G0))))
+#;
+(check-expect (tock G2)
+              (make-game empty empty (move-tank (game-tank G0))))
+#;
+(check-expect (tock G3)
               (make-game empty empty (move-tank (game-tank G0))))
 
 ;(define (tock g) ...) ; Stub
 
 (define (tock g)
-  (make-game (create-invader (move-invaders (game-invaders g)))
-             (clear-missiles (move-missiles (game-missiles g)))
-             (move-tank (game-tank g))))
+  (do-hit (create-invader (move-invaders (game-invaders g)))
+          (clear-missiles (move-missiles (game-missiles g)))
+          (move-tank (game-tank g))))
+
+;; ListofInvader ListofMissile Tank -> Game
+;; check if any invader has been hit
+;; !!!
+(define (do-hit loi lom t) G0) ; Stub
 
 ;; ListofInvader -> ListofInvader
 ;; create a new invader by INVADE-RATE of first invader of list
