@@ -14,23 +14,22 @@
 
 (define WIDTH  300)
 (define HEIGHT 500)
+(define BACKGROUND (empty-scene WIDTH HEIGHT))
 
 (define INVADER-X-SPEED 1.5)  ;speeds (not velocities) in pixels per tick
 (define INVADER-Y-SPEED 1.5)
-(define TANK-SPEED 2)
 (define MISSILE-SPEED 10)
+(define TANK-SPEED 2)
 
 (define HIT-RANGE 10)
 
 (define INVADE-RATE 100)
 
-(define BACKGROUND (empty-scene WIDTH HEIGHT))
-
 (define INVADER
   (overlay/xy (ellipse 10 15 "outline" "blue")              ;cockpit cover
               -5 6
               (ellipse 20 10 "solid"   "blue")))            ;saucer
-
+(define MISSILE (ellipse 5 15 "solid" "red"))
 (define TANK
   (overlay/xy (overlay (ellipse 28 8 "solid" "black")       ;tread center
                        (ellipse 30 10 "solid" "green"))     ;tread outline
@@ -39,8 +38,6 @@
                      (rectangle 20 10 "solid" "black"))))   ;main body
 
 (define TANK-HEIGHT/2 (/ (image-height TANK) 2))
-
-(define MISSILE (ellipse 5 15 "solid" "red"))
 (define MISSILE-STARTING-Y-POSITION (+ TANK-HEIGHT/2 20))
 
 
@@ -58,19 +55,6 @@
   (... (fn-for-loinvader (game-invaders g))
        (fn-for-lom (game-missiles g))
        (fn-for-tank (game-tank g))))
-
-(define-struct tank (x dir))
-;; Tank is (make-tank Number Integer[-1, 1])
-;; interp. the tank location is x, HEIGHT - TANK-HEIGHT in screen coordinates
-;;         the tank moves TANK-SPEED pixels per clock tick left if dir -1, right if dir 1
-(define T0 (make-tank (/ WIDTH 2) 1))   ;center going right
-(define T1 (make-tank 50 1))            ;going right
-(define T2 (make-tank 50 -1))           ;going left
-
-#;
-(define (fn-for-tank t)
-  (... (tank-x t)
-       (tank-dir t)))
 
 (define-struct invader (x y dx))
 ;; Invader is (make-invader Number Number Number)
@@ -98,6 +82,21 @@
   (... (missile-x m)
        (missile-y m)))
 
+(define-struct tank (x dir))
+;; Tank is (make-tank Number Integer[-1, 1])
+;; interp. the tank location is x, HEIGHT - TANK-HEIGHT in screen coordinates
+;;         the tank moves TANK-SPEED pixels per clock tick left if dir -1, right if dir 1
+;; INVARIANT: for a given tank:
+;;     the x-coordinate is never less than 0 or greater than WIDTH
+(define T0 (make-tank (/ WIDTH 2) 1))   ;center going right
+(define T1 (make-tank 50 1))            ;going right
+(define T2 (make-tank 50 -1))           ;going left
+
+#;
+(define (fn-for-tank t)
+  (... (tank-x t)
+       (tank-dir t)))
+
 (define G0 (make-game empty empty T0))
 (define G1 (make-game empty empty T1))
 (define G2 (make-game (list I1) (list M1) T1))
@@ -120,7 +119,96 @@
 ;; Game -> Game
 ;; produce the next ...
 ;; !!!
-(define (tock g) ...)
+; move tank
+#;
+(check-expect (tock G0)
+              (make-game empty empty (move-tank (game-tank G0))))
+
+;(define (tock g) ...) ; Stub
+
+(define (tock g)
+  (make-game (game-invaders g) (game-missiles g) (move-tank (game-tank g))))
+
+;; Invader -> Invader
+;; move invader by INVADER-X-SPEED and INVADER-Y-SPEED
+(check-expect (move-invader I1)
+              (make-invader (next-x-invader I1) (next-y-invader I1) 12))
+(check-expect (move-invader I2)
+              (make-invader (next-x-invader I2) (next-y-invader I2) -10))
+(check-expect (move-invader (make-invader WIDTH 20 10))
+              (make-invader WIDTH (+ 20 INVADER-Y-SPEED) -10))
+(check-expect (move-invader (make-invader 0 20 -10))
+              (make-invader 0 (+ 20 INVADER-Y-SPEED) 10))
+
+;(define (move-invader i) i) ; Stub
+
+(define (move-invader i)
+  (cond [(< (next-x-invader i) 0)
+         (make-invader 0 (next-y-invader i) (* (invader-dx i) -1))]
+        [(> (next-x-invader i) WIDTH)
+         (make-invader WIDTH (next-y-invader i) (* (invader-dx i) -1))]
+        [else
+         (make-invader (next-x-invader i) (next-y-invader i) (invader-dx i))]))
+
+;; Invader -> Number
+;; next x point of invader
+(check-expect (next-x-invader I1) (+ 150 INVADER-X-SPEED 12))
+(check-expect (next-x-invader I2) (+ 150 (* INVADER-X-SPEED -1) -10))
+
+;(define (next-x-invader i) 0) ; Stub
+
+(define (next-x-invader i)
+  (+ (invader-x i)
+     (if (negative? (invader-dx i))
+         (* INVADER-X-SPEED -1)
+         INVADER-X-SPEED)
+     (invader-dx i)))
+
+;; Invader -> Number
+;; next y point of invader
+(check-expect (next-y-invader I1) (+ 100 INVADER-Y-SPEED))
+(check-expect (next-y-invader I2) (+ HEIGHT INVADER-Y-SPEED))
+
+;(define (next-y-invader i) 0) ; Stub
+
+(define (next-y-invader i)
+  (+ (invader-y i) INVADER-Y-SPEED))
+
+;; Missile -> Missile
+;; move missile by MISSILE-SPEED in y-coordinate
+(check-expect (move-missile M1) (make-missile 150 (- 300 MISSILE-SPEED)))
+
+;(define (move-missile m) m) ; Stub
+
+(define (move-missile m)
+  (make-missile (missile-x m) (- (missile-y m) MISSILE-SPEED)))
+
+;; Tank -> Tank
+;; move the tank by TANK-SPEED in x-coordinate
+(check-expect (move-tank T0) (make-tank (next-x-tank T0)  1))
+(check-expect (move-tank T1) (make-tank (next-x-tank T1)  1))
+(check-expect (move-tank T2) (make-tank (next-x-tank T2) -1))
+(check-expect (move-tank (make-tank 0 -1)) (make-tank 0 -1))
+(check-expect (move-tank (make-tank WIDTH 1)) (make-tank WIDTH 1))
+
+;(define (move-tank t) t) ; Stub
+
+(define (move-tank t)
+  (make-tank
+   (cond [(< (next-x-tank t) 0) 0]
+         [(> (next-x-tank t) WIDTH) WIDTH]
+         [else (next-x-tank t)])
+   (tank-dir t)))
+
+;; Tank -> Number
+;; next x point of tank
+(check-expect (next-x-tank T1) (+ 50 TANK-SPEED))
+(check-expect (next-x-tank T2) (- 50 TANK-SPEED))
+
+;(define (next-x-tank t) 0) ; Stub
+
+(define (next-x-tank t)
+  (+ (tank-x t) (* (tank-dir t) TANK-SPEED)))
 
 ;; Game -> Image
 ;; render the Game in the BACKGROUND
