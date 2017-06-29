@@ -348,11 +348,11 @@
 (check-expect (controller (make-game empty empty T2) "right")
               (make-game empty empty T1))
 (check-expect (controller G0 " ")
-              (make-game empty (list (make-missile (/ WIDTH 2) MISSILE-STARTING-Y-POSITION)) (game-tank G0)))
+              (make-game empty (list (make-missile (/ WIDTH 2) (- HEIGHT MISSILE-STARTING-Y-POSITION))) (game-tank G0)))
 (check-expect (controller G2 " ")
-              (make-game (list I1) (list M1 (make-missile 50 MISSILE-STARTING-Y-POSITION)) (game-tank G2)))
+              (make-game (list I1) (list M1 (make-missile 50 (- HEIGHT MISSILE-STARTING-Y-POSITION))) (game-tank G2)))
 (check-expect (controller G3 " ")
-              (make-game (list I1 I2) (list M1 M2 (make-missile 50 MISSILE-STARTING-Y-POSITION)) (game-tank G3)))
+              (make-game (list I1 I2) (list M1 M2 (make-missile 50 (- HEIGHT MISSILE-STARTING-Y-POSITION))) (game-tank G3)))
 
 ;(define (controller g ke) ...) ; Stub
 
@@ -395,13 +395,13 @@
 
 ;; ListofMissile Number -> ListofMissile
 ;; insert a new missile in List of Missile
-(check-expect (launch-missile empty 30)        (list (make-missile 30 MISSILE-STARTING-Y-POSITION)))
-(check-expect (launch-missile (list M1) 30)    (list M1 (make-missile 30 MISSILE-STARTING-Y-POSITION)))
-(check-expect (launch-missile (list M1 M2) 30) (list M1 M2 (make-missile 30 MISSILE-STARTING-Y-POSITION)))
+(check-expect (launch-missile empty 30)        (list (make-missile 30 (- HEIGHT MISSILE-STARTING-Y-POSITION))))
+(check-expect (launch-missile (list M1) 30)    (list M1 (make-missile 30 (- HEIGHT MISSILE-STARTING-Y-POSITION))))
+(check-expect (launch-missile (list M1 M2) 30) (list M1 M2 (make-missile 30 (- HEIGHT MISSILE-STARTING-Y-POSITION))))
 
 ;(define (launch-missile lom x) lom) ; Stub
 
 (define (launch-missile lom x)
-  (cond [(empty? lom) (list (make-missile x MISSILE-STARTING-Y-POSITION))]
+  (cond [(empty? lom) (list (make-missile x (- HEIGHT MISSILE-STARTING-Y-POSITION)))]
         [else
          (cons (first lom) (launch-missile (rest lom) x))]))
