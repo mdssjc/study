@@ -24,6 +24,7 @@
 (define HIT-RANGE 10)
 
 (define INVADE-RATE 100)
+(define MISSILE-RATE 100)
 
 (define INVADER
   (overlay/xy (ellipse 10 15 "outline" "blue")              ;cockpit cover
@@ -397,9 +398,9 @@
 (check-expect (controller G0 " ")
               (make-game empty (list (make-missile (/ WIDTH 2) (- HEIGHT MISSILE-STARTING-Y-POSITION))) (game-tank G0)))
 (check-expect (controller G2 " ")
-              (make-game (list I1) (list M1 (make-missile 50 (- HEIGHT MISSILE-STARTING-Y-POSITION))) (game-tank G2)))
+              (make-game (list I1) (list (make-missile 50 (- HEIGHT MISSILE-STARTING-Y-POSITION)) M1) (game-tank G2)))
 (check-expect (controller G3 " ")
-              (make-game (list I1 I2) (list M1 M2 (make-missile 50 (- HEIGHT MISSILE-STARTING-Y-POSITION))) (game-tank G3)))
+              (make-game (list I1 I2) (list (make-missile 50 (- HEIGHT MISSILE-STARTING-Y-POSITION)) M1 M2) (game-tank G3)))
 
 ;(define (controller g ke) ...) ; Stub
 
@@ -442,13 +443,19 @@
 
 ;; ListofMissile Number -> ListofMissile
 ;; insert a new missile in List of Missile
-(check-expect (launch-missile empty 30)        (list (make-missile 30 (- HEIGHT MISSILE-STARTING-Y-POSITION))))
-(check-expect (launch-missile (list M1) 30)    (list M1 (make-missile 30 (- HEIGHT MISSILE-STARTING-Y-POSITION))))
-(check-expect (launch-missile (list M1 M2) 30) (list M1 M2 (make-missile 30 (- HEIGHT MISSILE-STARTING-Y-POSITION))))
+(check-expect (launch-missile empty 30)
+              (list (make-missile 30 (- HEIGHT MISSILE-STARTING-Y-POSITION))))
+(check-expect (launch-missile (list M1) 30)
+              (list (make-missile 30 (- HEIGHT MISSILE-STARTING-Y-POSITION)) M1))
+(check-expect (launch-missile (list (make-missile 30 (- HEIGHT MISSILE-RATE)) M1) 30)
+              (list (make-missile 30 (- HEIGHT MISSILE-RATE)) M1))
 
 ;(define (launch-missile lom x) lom) ; Stub
 
 (define (launch-missile lom x)
-  (cond [(empty? lom) (list (make-missile x (- HEIGHT MISSILE-STARTING-Y-POSITION)))]
+  (cond [(empty? lom)
+         (list (make-missile x (- HEIGHT MISSILE-STARTING-Y-POSITION)))]
         [else
-         (cons (first lom) (launch-missile (rest lom) x))]))
+         (if (> (- HEIGHT (missile-y (first lom))) MISSILE-RATE)
+             (cons (make-missile x (- HEIGHT MISSILE-STARTING-Y-POSITION)) lom)
+             lom)]))
