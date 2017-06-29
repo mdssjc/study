@@ -131,7 +131,7 @@
 
 (define (tock g)
   (make-game (create-invader (move-invaders (game-invaders g)))
-             (move-missiles (game-missiles g))
+             (clear-missiles (move-missiles (game-missiles g)))
              (move-tank (game-tank g))))
 
 ;; ListofInvader -> ListofInvader
@@ -209,6 +209,21 @@
 
 (define (next-y-invader i)
   (+ (invader-y i) INVADER-Y-SPEED))
+
+;; ListofMissile -> ListofMissile
+;; remove missiles out of screen
+(check-expect (clear-missiles empty) empty)
+(check-expect (clear-missiles (list M1)) (list M1))
+(check-expect (clear-missiles (list M1 (make-missile 40 -1))) (list M1))
+
+;(define (clear-missiles lom) empty) ; Stub
+
+(define (clear-missiles lom)
+  (cond [(empty? lom) empty]
+        [else
+         (if (< (missile-y (first lom)) 0)
+             (clear-missiles (rest lom))
+             (cons (first lom) (clear-missiles (rest lom))))]))
 
 ;; ListofMissile -> ListofMissile
 ;; move the missiles of list
