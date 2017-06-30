@@ -120,32 +120,68 @@
             (on-key    controller))) ; Game KeyEvent -> Game
 
 ;; Game -> Game
-;; produce the next ...
-;; !!!
-#;
-(check-expect (tock G0)
-              (make-game empty empty (move-tank (game-tank G0))))
-#;
-(check-expect (tock G1)
-              (make-game empty empty (move-tank (game-tank G0))))
-#;
-(check-expect (tock G2)
-              (make-game empty empty (move-tank (game-tank G0))))
-#;
-(check-expect (tock G3)
-              (make-game empty empty (move-tank (game-tank G0))))
+;; produce the next update the game
+;; (check-expect (tock G0)
+;;               (make-game empty empty (move-tank (game-tank G0))))
+;; (check-expect (tock G1)
+;;               (make-game empty empty (move-tank (game-tank G0))))
+;; (check-expect (tock G2)
+;;               (make-game empty empty (move-tank (game-tank G0))))
+;; (check-expect (tock G3)
+;;               (make-game empty empty (move-tank (game-tank G0))))
 
 ;(define (tock g) ...) ; Stub
 
 (define (tock g)
-  (do-hit (create-invader (move-invaders (game-invaders g)))
-          (clear-missiles (move-missiles (game-missiles g)))
-          (move-tank (game-tank g))))
+  (make-game (create-invader (move-invaders (do-invader (game-invaders g) (game-missiles g))))
+             (clear-missiles (move-missiles (do-missile (game-missiles g) (game-invaders g))))
+             (move-tank (game-tank g))))
 
-;; ListofInvader ListofMissile Tank -> Game
-;; check if any invader has been hit
-;; !!!
-(define (do-hit loi lom t) G0) ; Stub
+;; ListofInvader ListofMissile -> ListofInvader
+;; removing invaders that have been hit
+(check-expect (do-invader empty empty) empty)
+(check-expect (do-invader (list I1) empty) (list I1))
+(check-expect (do-invader (list I1 I2) empty) (list I1 I2))
+(check-expect (do-invader (list I1 I2) (list M1)) (list I1 I2))
+(check-expect (do-invader (list I1 I2) (list M1 M2)) (list I2))
+
+;(define (do-invader loi lom) empty) ; Stub
+
+(define (do-invader loi lom)
+  (cond [(empty? loi) empty]
+        [else
+         (if (hit-invader? (first loi) lom)
+             (do-invader (rest loi) lom)
+             (cons (first loi) (do-invader (rest loi) lom)))]))
+
+;; Invader ListofMissile -> Boolean
+;; produce true if the invader was hitted by any missile
+(check-expect (hit-invader? I1 empty) false)
+(check-expect (hit-invader? I1 (list M1)) false)
+(check-expect (hit-invader? I1 (list M1 M2)) true)
+(check-expect (hit-invader? I2 (list M1 M2)) false)
+
+;(define (hit-invader? i lom) false) ; Stub
+
+(define (hit-invader? i lom)
+  (cond [(empty? lom) false]
+        [else (or (hit? i (first lom))
+                  (hit-invader? i (rest lom)))]))
+
+;; Invader Missile -> Boolean
+;; produce true if invader was hitted by missile in HIT-RANGE
+(check-expect (hit? I1 M1) false)
+(check-expect (hit? I1 M2) true)
+(check-expect (hit? I1 M3) true)
+(check-expect (hit? I2 M1) false)
+(check-expect (hit? I2 M2) false)
+(check-expect (hit? I2 M3) false)
+
+;(define (hit? i m) false) ; Stub
+
+(define (hit? i m)
+  (and (<= (abs (- (invader-x i) (missile-x m))) HIT-RANGE)
+       (<= (abs (- (invader-y i) (missile-y m))) HIT-RANGE)))
 
 ;; ListofInvader -> ListofInvader
 ;; create a new invader by INVADE-RATE of first invader of list
@@ -222,6 +258,40 @@
 
 (define (next-y-invader i)
   (+ (invader-y i) INVADER-Y-SPEED))
+
+;; ListofMissile ListofInvader -> ListofMissile
+;; removing missiles that have been hit
+(check-expect (do-missile empty empty) empty)
+(check-expect (do-missile (list M1) empty) (list M1))
+(check-expect (do-missile (list M1) (list I1)) (list M1))
+(check-expect (do-missile (list M1) (list I1 I2)) (list M1))
+(check-expect (do-missile (list M1 M2) (list I1 I2)) (list M1))
+(check-expect (do-missile (list M1 M2) (list I2)) (list M1 M2))
+
+;(define (do-missile loi lom) empty) ; Stub
+
+(define (do-missile lom loi)
+  (cond [(empty? lom) empty]
+        [else
+         (if (hit-missile? (first lom) loi)
+             (do-missile (rest lom) loi)
+             (cons (first lom) (do-missile (rest lom) loi)))]))
+
+;; Missile ListofInvader -> Boolean
+;; produce true if the missile hitted any invader
+(check-expect (hit-missile? M1 empty) false)
+(check-expect (hit-missile? M1 (list I1 I2 I3)) false)
+(check-expect (hit-missile? M2 (list I1 I2 I3)) true)
+(check-expect (hit-missile? M2 (list I2 I3)) false)
+(check-expect (hit-missile? M3 (list I1 I2 I3)) true)
+(check-expect (hit-missile? M3 (list I2 I3)) false)
+
+;(define (hit-missile? m loi) false) ; Stub
+
+(define (hit-missile? m loi)
+  (cond [(empty? loi) false]
+        [else (or (hit? (first loi) m)
+                  (hit-missile? m (rest loi)))]))
 
 ;; ListofMissile -> ListofMissile
 ;; remove missiles out of screen
