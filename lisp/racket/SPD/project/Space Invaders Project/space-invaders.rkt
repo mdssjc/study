@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-abbr-reader.ss" "lang")((modname space-invaders-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ())))
+#reader(lib "htdp-beginner-abbr-reader.ss" "lang")((modname space-invaders) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; space-invaders.rkt
 
 (require 2htdp/universe)
@@ -56,8 +56,8 @@
 #;
 (define (fn-for-game g)
   (... (fn-for-loinvader (game-invaders g))
-       (fn-for-lom (game-missiles g))
-       (fn-for-tank (game-tank g))))
+       (fn-for-lom       (game-missiles g))
+       (fn-for-tank      (game-tank     g))))
 
 (define-struct invader (x y dx))
 ;; Invader is (make-invader Number Number Number)
@@ -69,8 +69,8 @@
 
 #;
 (define (fn-for-invader i)
-  (... (invader-x i)
-       (invader-y i)
+  (... (invader-x  i)
+       (invader-y  i)
        (invader-dx i)))
 
 (define-struct missile (x y))
@@ -97,7 +97,7 @@
 
 #;
 (define (fn-for-tank t)
-  (... (tank-x t)
+  (... (tank-x   t)
        (tank-dir t)))
 
 (define G0 (make-game empty empty T0))
@@ -110,7 +110,7 @@
 ;; Functions:
 
 ;; Game -> Game
-;; start the world with ...
+;; start the world with (main G0)
 ;;
 (define (main g)
   (big-bang g                        ; Game
@@ -120,17 +120,13 @@
             (on-key    controller))) ; Game KeyEvent -> Game
 
 ;; Game -> Game
-;; produce the next update the game
-;; (check-expect (tock G0)
-;;               (make-game empty empty (move-tank (game-tank G0))))
-;; (check-expect (tock G1)
-;;               (make-game empty empty (move-tank (game-tank G0))))
-;; (check-expect (tock G2)
-;;               (make-game empty empty (move-tank (game-tank G0))))
-;; (check-expect (tock G3)
-;;               (make-game empty empty (move-tank (game-tank G0))))
+;; produce the next game update
+(check-random (tock G0)
+              (make-game (create-invader (game-invaders G0)) empty (move-tank (game-tank G0))))
+(check-random (tock G1)
+              (make-game (create-invader (game-invaders G1)) empty (move-tank (game-tank G1))))
 
-;(define (tock g) ...) ; Stub
+;(define (tock g) G0) ; Stub
 
 (define (tock g)
   (make-game (create-invader (move-invaders (do-invader (game-invaders g) (game-missiles g))))
@@ -138,7 +134,7 @@
              (move-tank (game-tank g))))
 
 ;; ListofInvader ListofMissile -> ListofInvader
-;; removing invaders that have been hit
+;; remove invaders hit by missiles
 (check-expect (do-invader empty empty) empty)
 (check-expect (do-invader (list I1) empty) (list I1))
 (check-expect (do-invader (list I1 I2) empty) (list I1 I2))
@@ -152,10 +148,11 @@
         [else
          (if (hit-invader? (first loi) lom)
              (do-invader (rest loi) lom)
-             (cons (first loi) (do-invader (rest loi) lom)))]))
+             (cons (first loi)
+                   (do-invader (rest loi) lom)))]))
 
 ;; Invader ListofMissile -> Boolean
-;; produce true if the invader was hitted by any missile
+;; produce true if the invader was hit by some missile
 (check-expect (hit-invader? I1 empty) false)
 (check-expect (hit-invader? I1 (list M1)) false)
 (check-expect (hit-invader? I1 (list M1 M2)) true)
@@ -165,11 +162,12 @@
 
 (define (hit-invader? i lom)
   (cond [(empty? lom) false]
-        [else (or (hit? i (first lom))
-                  (hit-invader? i (rest lom)))]))
+        [else
+         (or (hit? i (first lom))
+             (hit-invader? i (rest lom)))]))
 
 ;; Invader Missile -> Boolean
-;; produce true if invader was hitted by missile in HIT-RANGE
+;; produce true if invader is hit by the missile within the HIT-RANGE
 (check-expect (hit? I1 M1) false)
 (check-expect (hit? I1 M2) true)
 (check-expect (hit? I1 M3) true)
@@ -180,11 +178,15 @@
 ;(define (hit? i m) false) ; Stub
 
 (define (hit? i m)
-  (and (<= (abs (- (invader-x i) (missile-x m))) HIT-RANGE)
-       (<= (abs (- (invader-y i) (missile-y m))) HIT-RANGE)))
+  (and (<= (abs (- (invader-x i)
+                   (missile-x m)))
+           HIT-RANGE)
+       (<= (abs (- (invader-y i)
+                   (missile-y m)))
+           HIT-RANGE)))
 
 ;; ListofInvader -> ListofInvader
-;; create a new invader by INVADE-RATE of first invader of list
+;; create a new invader on INVADE-RATE from the first invader on the list
 (check-random (create-invader empty)
               (list (make-invader (random WIDTH) INVADER-STARTING-Y-POSITION (- (random 50) 25))))
 (check-expect (create-invader (list I1)) (list I1))
@@ -203,7 +205,7 @@
              loi)]))
 
 ;; ListofInvader -> ListofInvader
-;; move the invaders of list
+;; move the invaders from the list
 (check-expect (move-invaders empty) empty)
 (check-expect (move-invaders (list I1 I2)) (list (move-invader I1) (move-invader I2)))
 
@@ -211,11 +213,12 @@
 
 (define (move-invaders loi)
   (cond [(empty? loi) empty]
-        [else (cons (move-invader (first loi))
-                    (move-invaders (rest loi)))]))
+        [else
+         (cons (move-invader (first loi))
+               (move-invaders (rest loi)))]))
 
 ;; Invader -> Invader
-;; move invader by INVADER-X-SPEED and INVADER-Y-SPEED
+;; move the invader in INVADER-X-SPEED and INVADER-Y-SPEED
 (check-expect (move-invader I1)
               (make-invader (next-x-invader I1) (next-y-invader I1) 12))
 (check-expect (move-invader I2)
@@ -236,7 +239,7 @@
          (make-invader (next-x-invader i) (next-y-invader i) (invader-dx i))]))
 
 ;; Invader -> Number
-;; next x point of invader
+;; produce the next point of invader in x
 (check-expect (next-x-invader I1) (+ 150 INVADER-X-SPEED 12))
 (check-expect (next-x-invader I2) (+ 150 (* INVADER-X-SPEED -1) -10))
 
@@ -250,7 +253,7 @@
      (invader-dx i)))
 
 ;; Invader -> Number
-;; next y point of invader
+;; produce the next point of invader in y
 (check-expect (next-y-invader I1) (+ 100 INVADER-Y-SPEED))
 (check-expect (next-y-invader I2) (+ HEIGHT INVADER-Y-SPEED))
 
@@ -260,7 +263,7 @@
   (+ (invader-y i) INVADER-Y-SPEED))
 
 ;; ListofMissile ListofInvader -> ListofMissile
-;; removing missiles that have been hit
+;; remove the missiles that hit the invaders
 (check-expect (do-missile empty empty) empty)
 (check-expect (do-missile (list M1) empty) (list M1))
 (check-expect (do-missile (list M1) (list I1)) (list M1))
@@ -275,10 +278,11 @@
         [else
          (if (hit-missile? (first lom) loi)
              (do-missile (rest lom) loi)
-             (cons (first lom) (do-missile (rest lom) loi)))]))
+             (cons (first lom)
+                   (do-missile (rest lom) loi)))]))
 
 ;; Missile ListofInvader -> Boolean
-;; produce true if the missile hitted any invader
+;; produce true if the missile hit some invader
 (check-expect (hit-missile? M1 empty) false)
 (check-expect (hit-missile? M1 (list I1 I2 I3)) false)
 (check-expect (hit-missile? M2 (list I1 I2 I3)) true)
@@ -290,11 +294,12 @@
 
 (define (hit-missile? m loi)
   (cond [(empty? loi) false]
-        [else (or (hit? (first loi) m)
-                  (hit-missile? m (rest loi)))]))
+        [else
+         (or (hit? (first loi) m)
+             (hit-missile? m (rest loi)))]))
 
 ;; ListofMissile -> ListofMissile
-;; remove missiles out of screen
+;; remove missiles that have left the screen
 (check-expect (clear-missiles empty) empty)
 (check-expect (clear-missiles (list M1)) (list M1))
 (check-expect (clear-missiles (list M1 (make-missile 40 -1))) (list M1))
@@ -306,10 +311,11 @@
         [else
          (if (< (missile-y (first lom)) 0)
              (clear-missiles (rest lom))
-             (cons (first lom) (clear-missiles (rest lom))))]))
+             (cons (first lom)
+                   (clear-missiles (rest lom))))]))
 
 ;; ListofMissile -> ListofMissile
-;; move the missiles of list
+;; move the missiles from the list
 (check-expect (move-missiles empty) empty)
 (check-expect (move-missiles (list M1 M2)) (list (move-missile M1) (move-missile M2)))
 
@@ -317,11 +323,12 @@
 
 (define (move-missiles lom)
   (cond [(empty? lom) empty]
-        [else (cons (move-missile (first lom))
-                    (move-missiles (rest lom)))]))
+        [else
+         (cons (move-missile (first lom))
+               (move-missiles (rest lom)))]))
 
 ;; Missile -> Missile
-;; move missile by MISSILE-SPEED in y-coordinate
+;; move the missile by MISSILE-SPEED in the y coordinate
 (check-expect (move-missile M1) (make-missile 150 (- 300 MISSILE-SPEED)))
 
 ;(define (move-missile m) m) ; Stub
@@ -330,7 +337,7 @@
   (make-missile (missile-x m) (- (missile-y m) MISSILE-SPEED)))
 
 ;; Tank -> Tank
-;; move the tank by TANK-SPEED in x-coordinate
+;; move the tank by TANK-SPEED in the x coordinate
 (check-expect (move-tank T0) (make-tank (next-x-tank T0)  1))
 (check-expect (move-tank T1) (make-tank (next-x-tank T1)  1))
 (check-expect (move-tank T2) (make-tank (next-x-tank T2) -1))
@@ -347,7 +354,7 @@
    (tank-dir t)))
 
 ;; Tank -> Number
-;; next x point of tank
+;; produce the next point of tank in x
 (check-expect (next-x-tank T1) (+ 50 TANK-SPEED))
 (check-expect (next-x-tank T2) (- 50 TANK-SPEED))
 
@@ -357,7 +364,7 @@
   (+ (tank-x t) (* (tank-dir t) TANK-SPEED)))
 
 ;; Game -> Image
-;; render the Game in the BACKGROUND
+;; render the Game in BACKGROUND
 (check-expect (render G0)
               (place-image TANK (/ WIDTH 2) (- HEIGHT TANK-HEIGHT/2) BACKGROUND))
 (check-expect (render G1)
@@ -402,10 +409,11 @@
 
 (define (render-invaders loi i)
   (cond [(empty? loi) i]
-        [else (place-image INVADER
-                           (invader-x (first loi))
-                           (invader-y (first loi))
-                           (render-invaders (rest loi) i))]))
+        [else
+         (place-image INVADER
+                      (invader-x (first loi))
+                      (invader-y (first loi))
+                      (render-invaders (rest loi) i))]))
 
 ;; ListofMissile Image - > Image
 ;; render the missiles in the image
@@ -423,10 +431,11 @@
 
 (define (render-missiles lom i)
   (cond [(empty? lom) i]
-        [else (place-image MISSILE
-                           (missile-x (first lom))
-                           (missile-y (first lom))
-                           (render-missiles (rest lom) i))]))
+        [else
+         (place-image MISSILE
+                      (missile-x (first lom))
+                      (missile-y (first lom))
+                      (render-missiles (rest lom) i))]))
 
 ;; Tank Image - > Image
 ;; render the tank in the image
@@ -500,25 +509,25 @@
 (check-expect (controller G3 " ")
               (make-game (list I1 I2) (list (make-missile 50 (- HEIGHT MISSILE-STARTING-Y-POSITION)) M1 M2) (game-tank G3)))
 
-;(define (controller g ke) ...) ; Stub
+;(define (controller g ke) G0) ; Stub
 
 (define (controller g ke)
-  (cond [(key=? ke "left") (make-game
-                            (game-invaders g)
-                            (game-missiles g)
-                            (change-tank-left (game-tank g)))]
-        [(key=? ke "right") (make-game
-                             (game-invaders g)
-                             (game-missiles g)
-                             (change-tank-right (game-tank g)))]
-        [(key=? ke " ") (make-game
-                         (game-invaders g)
-                         (launch-missile (game-missiles g) (tank-x (game-tank g)))
-                         (game-tank g))]
+  (cond [(key=? ke "left")
+         (make-game (game-invaders g)
+                    (game-missiles g)
+                    (change-tank-left (game-tank g)))]
+        [(key=? ke "right")
+         (make-game (game-invaders g)
+                    (game-missiles g)
+                    (change-tank-right (game-tank g)))]
+        [(key=? ke " ")
+         (make-game (game-invaders g)
+                    (launch-missile (game-missiles g) (tank-x (game-tank g)))
+                    (game-tank g))]
         [else g]))
 
 ;; Tank -> Tank
-;; change the tank direction for left (-1)
+;; change the tank direction to the left (-1)
 (check-expect (change-tank-left T0) (make-tank (/ WIDTH 2) -1))
 (check-expect (change-tank-left T1) T2)
 (check-expect (change-tank-left T2) T2)
@@ -529,7 +538,7 @@
   (make-tank (tank-x t) -1))
 
 ;; Tank -> Tank
-;; change the tank direction for right (1)
+;; change the tank direction to the right (1)
 (check-expect (change-tank-right T0) T0)
 (check-expect (change-tank-right T1) T1)
 (check-expect (change-tank-right T2) T1)
@@ -540,7 +549,7 @@
   (make-tank (tank-x t) 1))
 
 ;; ListofMissile Number -> ListofMissile
-;; insert a new missile in List of Missile
+;; insert a new missile into the list
 (check-expect (launch-missile empty 30)
               (list (make-missile 30 (- HEIGHT MISSILE-STARTING-Y-POSITION))))
 (check-expect (launch-missile (list M1) 30)
