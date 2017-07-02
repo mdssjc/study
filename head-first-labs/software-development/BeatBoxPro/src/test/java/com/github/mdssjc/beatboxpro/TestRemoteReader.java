@@ -5,32 +5,22 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 
 public class TestRemoteReader {
 
-  public static final boolean[] EMPTY_CHECKBOXES = new boolean[256];
-  private Socket mTestSocket;
-  private ObjectOutputStream mOutStream;
-  private ObjectInputStream mInStream;
+  private static final boolean[] EMPTY_CHECKBOXES = new boolean[256];
+  private static final String TEST_JPEG_FILENAME = "";
+
+  private BeatBox beatBox;
 
   @Before
   public void setUp() throws IOException {
-    this.mTestSocket = new Socket("127.0.0.1", 4242);
-    this.mOutStream =
-        new ObjectOutputStream(this.mTestSocket.getOutputStream());
-    this.mInStream =
-        new ObjectInputStream(this.mTestSocket.getInputStream());
+    this.beatBox = new BeatBox();
+    this.beatBox.startUp("");
   }
 
   @After
   public void tearDown() throws IOException {
-    this.mTestSocket.close();
-    this.mOutStream = null;
-    this.mInStream = null;
-    this.mTestSocket = null;
   }
 
   @Test
@@ -39,7 +29,24 @@ public class TestRemoteReader {
     checkboxState[0] = true;
     checkboxState[5] = true;
     checkboxState[19] = true;
-    this.mOutStream.writeObject("This is a test message!");
-    this.mOutStream.writeObject(checkboxState);
+
+    this.beatBox.out.writeObject("This is a test message!");
+    this.beatBox.out.writeObject(checkboxState);
+  }
+
+  @Test
+  public void testPictureMessage() throws IOException {
+    this.beatBox.out.writeObject(Messages.PICTURE_START_SEQUENCE.name());
+    this.beatBox.out.writeObject(EMPTY_CHECKBOXES);
+    sendJPEG(TEST_JPEG_FILENAME);
+  }
+
+  @Test
+  public void testPoke() throws IOException {
+    this.beatBox.out.writeObject(Messages.POKE_START_SEQUENCE.name());
+    this.beatBox.out.writeObject(EMPTY_CHECKBOXES);
+  }
+
+  private void sendJPEG(final String filename) {
   }
 }
