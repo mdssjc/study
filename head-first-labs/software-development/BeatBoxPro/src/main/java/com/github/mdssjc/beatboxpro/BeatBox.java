@@ -347,7 +347,7 @@ public class BeatBox {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-      boolean[] checkboxState = new boolean[255];
+      boolean[] checkboxState = new boolean[256];
 
       try {
         out.writeObject(Messages.POKE_START_SEQUENCE.name());
