@@ -2,6 +2,7 @@
     <property name="version" value="1.1"/>
     <property name="src" location="src/main/java"/>
     <property name="xerces-src" location="${src}/xerces"/>
+    <property name="tst-dir" value="src/test/java"/>
 
     <target name="init"
             description="Creates the needed directories.">
@@ -24,4 +25,16 @@
             description="Packages up BeatBox into BeatBox.jar">
         <jar destfile="dist/BeatBox.jar" basedir="bin"/>
     </target>
+
+    <!--<target name="test" depends="compile">-->
+        <!--<junit>-->
+            <!--<classpath refid="classpath.test"/>-->
+            <!--<formatter type="brief" usefile="false"/>-->
+            <!--<batchtest>-->
+                <!--<fileset dir="${tst-dir}" includes="**/Test*.class"/>-->
+            <!--</batchtest>-->
+        <!--</junit>-->
+    <!--</target>-->
+
+    <!--<target name="all" depends="test"/>-->
 </project>
