@@ -52,4 +52,38 @@ public class HomeTheaterFacade {
     this.dvd.eject();
     this.dvd.off();
   }
+
+  public void listenToCd(final String cdTitle) {
+    System.out.println("Get ready for an audiopile experence...");
+    this.lights.on();
+    this.amp.on();
+    this.amp.setVolume(5);
+    this.amp.setCd(this.cd);
+    this.amp.setStereoSound();
+    this.cd.on();
+    this.cd.play(cdTitle);
+  }
+
+  public void endCd() {
+    System.out.println("Shutting down CD...");
+    this.amp.off();
+    this.amp.setCd(this.cd);
+    this.cd.eject();
+    this.cd.off();
+  }
+
+  public void listenToRadio(final double frequency) {
+    System.out.println("Tuning in the airwaves...");
+    this.tuner.on();
+    this.tuner.setFrequency(frequency);
+    this.amp.on();
+    this.amp.setVolume(5);
+    this.amp.setTuner(this.tuner);
+  }
+
+  public void endRadio() {
+    System.out.println("Shutting down the tuner...");
+    this.tuner.off();
+    this.amp.off();
+  }
 }
