@@ -53,7 +53,28 @@
 ;;
 ;; Design a function that consumes Element and produces the sum of all
 ;; the file data in the tree.
+;; Element -> Integer
+;; ListOfElement -> Integer
+;; produce the sum of all data in element (and its subs)
+(check-expect (sum-data--element F1) 1)
+(check-expect (sum-data--loe empty)  0)
+(check-expect (sum-data--element D5) 3)
+(check-expect (sum-data--element D4) (+ 1 2))
+(check-expect (sum-data--element D6) (+ 1 2 3))
 
+;(define (sum-data--element e) 0) ; Stubs
+;(define (sum-data--loe loe) 0)
+
+(define (sum-data--element e)
+  (if (zero? (elt-data e))
+      (sum-data--loe (elt-subs e))
+      (elt-data e)))
+
+(define (sum-data--loe loe)
+  (cond [(empty? loe) 0]
+        [else
+         (+ (sum-data--element (first loe))
+            (sum-data--loe (rest loe)))]))
 
 ;; PROBLEM
 ;;
