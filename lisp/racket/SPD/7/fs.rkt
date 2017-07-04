@@ -80,7 +80,28 @@
 ;;
 ;; Design a function that consumes Element and produces a list of the
 ;; names of all the elements in the tree.
+;; Element -> ListOfString
+;; ListOfElement -> ListOfString
+;; produce a list of the names of all the elements in the tree
+(check-expect (concat-data--element F1) (list "F1"))
+(check-expect (concat-data--loe empty) empty)
+(check-expect (concat-data--element D4) (list "D4" "F1" "F2"))
+(check-expect (concat-data--element D5) (list "D5" "F3"))
+(check-expect (concat-data--element D6) (cons "D6" (append (concat-data--element D4)
+                                                           (concat-data--element D5))))
 
+;(define (concat-data--element e) empty) ; Stubs
+;(define (concat-data--loe loe) empty)
+
+(define (concat-data--element e)
+  (cons (elt-name e)
+        (concat-data--loe (elt-subs e))))
+
+(define (concat-data--loe loe)
+  (cond [(empty? loe) empty]
+        [else
+         (append (concat-data--element (first loe))
+                 (concat-data--loe (rest loe)))]))
 
 ;; PROBLEM
 ;;
