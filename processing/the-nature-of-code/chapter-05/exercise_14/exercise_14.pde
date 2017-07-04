@@ -44,10 +44,14 @@ void mouseDragged() {
 void keyPressed() {
   if (key == 'c') {
     showPhysics = !showPhysics;
-    if (!showPhysics) showParticles = true;
+    if (!showPhysics) {
+      showParticles = true;
+    }
   } else if (key == 'p') {
     showParticles = !showParticles;
-    if (!showParticles) showPhysics = true;
+    if (!showParticles) {
+      showPhysics = true;
+    }
   } else if (key == 'n') {
     physics.clear();
     cluster = new Cluster(int(random(2, 20)), random(10, width/2), new Vec2D(width/2, height/2));

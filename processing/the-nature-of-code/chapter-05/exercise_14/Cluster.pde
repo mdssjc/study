@@ -30,16 +30,16 @@ class Cluster {
     stroke(0, 150);
     strokeWeight(2);
     for (int i = 0; i < nodes.size()-1; i++) {
-      VerletParticle2D pi = (VerletParticle2D) nodes.get(i);
+      VerletParticle2D pi = nodes.get(i);
       for (int j = i+1; j < nodes.size(); j++) {
-        VerletParticle2D pj = (VerletParticle2D) nodes.get(j);
+        VerletParticle2D pj = nodes.get(j);
         line(pi.x, pi.y, pj.x, pj.y);
       }
     }
   }
 
   void move(int x, int y) {
-    VerletParticle2D pi = (VerletParticle2D) nodes.get(0);
+    VerletParticle2D pi = nodes.get(0);
     pi.lock();
     pi.setX(x);
     pi.setY(y);
