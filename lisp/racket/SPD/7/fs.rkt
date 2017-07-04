@@ -1,7 +1,8 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-beginner-abbr-reader.ss" "lang")((modname fs-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ())))
-;; fs.rkt (type comments and examples)
+;; fs.rkt    (type comments and examples)
+;; fs-v1.rkt (complete data-definition plus function problems)
 
 (require 2htdp/image)
 
@@ -18,6 +19,13 @@
 ;;  - empty
 ;;  - (cons Element ListOfElement)
 ;; interp. A list of file system Elements
+;;         D6
+;;        /  \
+;;       /    \
+;;     D4      D5
+;;    /  \     |
+;;   /    \    |
+;; F1      F2  F3
 (define F1 (make-elt "F1" 1 empty))
 (define F2 (make-elt "F2" 2 empty))
 (define F3 (make-elt "F3" 3 empty))
@@ -25,17 +33,50 @@
 (define D5 (make-elt "D5" 0 (list F3)))
 (define D6 (make-elt "D6" 0 (list D4 D5)))
 
+#;
 (define (fn-for-element e)
   (... (elt-name e)
        (elt-data e)
        (fn-for-loe (elt-subs e))))
 
+#;
 (define (fn-for-loe loe)
   (cond [(empty? loe) (...)]
         [else
          (... (fn-for-element (first loe))
               (fn-for-loe (rest loe)))]))
 
-;; Functions:
 
 ;; Functions:
+
+;; PROBLEM
+;;
+;; Design a function that consumes Element and produces the sum of all
+;; the file data in the tree.
+
+
+;; PROBLEM
+;;
+;; Design a function that consumes Element and produces a list of the
+;; names of all the elements in the tree.
+
+
+;; PROBLEM
+;;
+;; Design a function that consumes String and Element and produces
+;; true if there is an element in the tree with the given name.
+
+
+;; PROBLEM
+;;
+;; Design a function that consumes Element and produces a rendering of the tree. For example:
+;;
+;; (render-tree D6) should produce something like the following.
+;;
+;;
+;; HINTS:
+;;   - This function is not very different than the first two functions above.
+;;   - Keep it simple! Start with a not very fancy rendering like the one above.
+;;     Once that works you can make it more elaborate if you want to.
+;;   - And... be sure to USE the recipe. Not just follow it, but let it help you.
+;;     For example, work out a number of examples BEFORE you try to code the function.
