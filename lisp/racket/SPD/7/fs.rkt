@@ -3,6 +3,7 @@
 #reader(lib "htdp-beginner-abbr-reader.ss" "lang")((modname fs-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ())))
 ;; fs.rkt    (type comments and examples)
 ;; fs-v1.rkt (complete data-definition plus function problems)
+;; fs-v2.rkt (complete data-definition and sum-data function)
 
 (require 2htdp/image)
 
@@ -83,25 +84,26 @@
 ;; Element -> ListOfString
 ;; ListOfElement -> ListOfString
 ;; produce a list of the names of all the elements in the tree
-(check-expect (concat-data--element F1) (list "F1"))
-(check-expect (concat-data--loe empty) empty)
-(check-expect (concat-data--element D4) (list "D4" "F1" "F2"))
-(check-expect (concat-data--element D5) (list "D5" "F3"))
-(check-expect (concat-data--element D6) (cons "D6" (append (concat-data--element D4)
-                                                           (concat-data--element D5))))
+(check-expect (all-names--loe empty) empty)
+(check-expect (all-names--element F1) (list "F1"))
+(check-expect (all-names--element D5) (list "D5" "F3"))
+(check-expect (all-names--element D4) (list "D4" "F1" "F2"))
+(check-expect (all-names--loe (list D4 D5)) (append (list "D4" "F1" "F2") (list "D5" "F3")))
+(check-expect (all-names--element D6) (cons "D6" (append (all-names--element D4)
+                                                         (all-names--element D5))))
 
-;(define (concat-data--element e) empty) ; Stubs
-;(define (concat-data--loe loe) empty)
+;(define (all-names--element e) empty) ; Stubs
+;(define (all-names--loe loe) empty)
 
-(define (concat-data--element e)
+(define (all-names--element e)
   (cons (elt-name e)
-        (concat-data--loe (elt-subs e))))
+        (all-names--loe (elt-subs e))))
 
-(define (concat-data--loe loe)
+(define (all-names--loe loe)
   (cond [(empty? loe) empty]
         [else
-         (append (concat-data--element (first loe))
-                 (concat-data--loe (rest loe)))]))
+         (append (all-names--element (first loe))
+                 (all-names--loe (rest loe)))]))
 
 ;; PROBLEM
 ;;
