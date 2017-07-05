@@ -4,6 +4,7 @@
 ;; fs.rkt    (type comments and examples)
 ;; fs-v1.rkt (complete data-definition plus function problems)
 ;; fs-v2.rkt (complete data-definition and sum-data function)
+;; fs-v3.rkt (complete data-definition, sum-data function and all-names function)
 
 (require 2htdp/image)
 
@@ -54,6 +55,7 @@
 ;;
 ;; Design a function that consumes Element and produces the sum of all
 ;; the file data in the tree.
+
 ;; Element -> Integer
 ;; ListOfElement -> Integer
 ;; produce the sum of all data in element (and its subs)
@@ -81,6 +83,7 @@
 ;;
 ;; Design a function that consumes Element and produces a list of the
 ;; names of all the elements in the tree.
+
 ;; Element -> ListOfString
 ;; ListOfElement -> ListOfString
 ;; produce a list of the names of all the elements in the tree
@@ -110,6 +113,11 @@
 ;; Design a function that consumes String and Element and produces
 ;; true if there is an element in the tree with the given name.
 
+;; String Element -> Integer or false
+;; String ListOfElement -> Integer or false
+;; search the given tree for an element with the given name, produce data if found; false otherwise
+(define (find--element n e) false) ; Stubs
+(define (find--loe n loe) false)
 
 ;; PROBLEM
 ;;
