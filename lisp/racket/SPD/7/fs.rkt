@@ -116,8 +116,28 @@
 ;; String Element -> Integer or false
 ;; String ListOfElement -> Integer or false
 ;; search the given tree for an element with the given name, produce data if found; false otherwise
-(define (find--element n e) false) ; Stubs
-(define (find--loe n loe) false)
+(check-expect (find--loe "F3" empty) false)
+(check-expect (find--element "F3" F1) false)
+(check-expect (find--element "F3" F3) 3)
+(check-expect (find--element "F3" D4) false)
+(check-expect (find--element "F1" D4) 1)
+(check-expect (find--element "F2" D4) 2)
+(check-expect (find--element "D4" D4) 0)
+(check-expect (find--element "F3" D6) 3)
+
+;(define (find--element n e) false) ; Stubs
+;(define (find--loe n loe) false)
+
+(define (find--element n e)
+  (... (elt-name e)
+       (elt-data e)
+       (find--loe n (elt-subs e))))
+
+(define (find--loe n loe)
+  (cond [(empty? loe) (...)]
+        [else
+         (... (find--element n (first loe))
+              (find--loe n (rest loe)))]))
 
 ;; PROBLEM
 ;;
