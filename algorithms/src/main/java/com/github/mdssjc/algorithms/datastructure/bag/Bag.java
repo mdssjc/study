@@ -8,38 +8,40 @@ import java.util.Iterator;
  * Interface da estrutura de dado.
  *
  * @author Marcelo dos Santos
- * @param <T>
- *          Tipo de Dado
+ *
+ * @param <Item>
+ *     o tipo genérico de um item neste bag
  */
-public interface Bag<T> extends Iterable<T> {
+public interface Bag<Item> extends Iterable<Item> {
 
   /**
-   * Adiciona um item.
+   * Adiciona o item para este bag.
    *
    * @param item
-   *          Item a ser adicionado
+   *     O item para para adicionar para este bag
    */
-  void add(T item);
+  void add(Item item);
 
   /**
-   * Predicado para Bag vazio.
-   * 
-   * @return boolean Resultado do predicato
+   * Predicado: retorna true se este bag está vazio.
+   *
+   * @return {@code true} se este bag está vazio;
+   *         {@code false} caso contrário
    */
   boolean isEmpty();
 
   /**
-   * Retorna a quantidade de itens no Bag.
+   * Retorna o número de itens neste bag.
    *
-   * @return int Quantidade de itens
+   * @return o número de itens neste bag
    */
   int size();
 
   /**
-   * Retorna o iterador do Bag.
+   * Retorna um iterator que itera sobre os itens neste bag em ordem arbitrária.
    *
-   * @return Iterador do Bag
+   * @return um iterator que itera sobre os itens neste bag em ordem arbitrária
    */
   @Override
-  Iterator<T> iterator();
+  Iterator<Item> iterator();
 }

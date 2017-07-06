@@ -1,29 +1,27 @@
 package com.github.mdssjc.algorithms.datastructure.bag.concrete;
 
-import java.util.Iterator;
-
 import com.github.mdssjc.algorithms.datastructure.bag.Bag;
 import com.github.mdssjc.algorithms.datastructure.iterators.LinkedListIterator;
 import com.github.mdssjc.algorithms.datastructure.linkedlist.Node;
 
+import java.util.Iterator;
+
 /**
- * Implementação do Bag com Linked List (Lista Linkada).
- * <p>
- * Interface da estrutura de dado.
+ * Implementação do Bag com Linked List.
  *
  * @author Marcelo dos Santos
- * 
- * @param <T>
- *          Tipo de Dado
+ *
+ * @param <Item>
+ *     Tipo de Dado
  */
-public class BagLinkedList<T> implements Bag<T> {
+public class BagLinkedList<Item> implements Bag<Item> {
 
-  private Node<T> first;
-  private int     size;
+  private Node<Item> first;
+  private int size;
 
   @Override
-  public void add(final T item) {
-    final Node<T> oldfirst = this.first;
+  public void add(final Item item) {
+    final Node<Item> oldfirst = this.first;
 
     this.first = new Node<>();
     this.first.item = item;
@@ -43,7 +41,7 @@ public class BagLinkedList<T> implements Bag<T> {
   }
 
   @Override
-  public Iterator<T> iterator() {
+  public Iterator<Item> iterator() {
     return new LinkedListIterator<>(this.first);
   }
 }
