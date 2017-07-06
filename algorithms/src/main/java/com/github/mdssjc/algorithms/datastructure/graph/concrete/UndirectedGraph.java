@@ -6,7 +6,7 @@ import com.github.mdssjc.algorithms.datastructure.graph.Graph;
 import edu.princeton.cs.algs4.In;
 
 /**
- * Implementação de Undirected Graph.
+ * Implementação do Undirected Graph.
  *
  * @author Marcelo dos Santos
  *
