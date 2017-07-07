@@ -24,9 +24,9 @@
 ;; Harry Potter wiki, which contains all necessary information for the
 ;; other problems. You will use this data definition throughout the
 ;; rest of the homework.
-(define-struct family (name wand descendant))
-;; Family is (make-family String String ListofFamily)
-;; interp. a family is represented by name, wand and yours descendants
+(define-struct family (name patronus wand descendant))
+;; Family is (make-family String String String ListofFamily)
+;; interp. a family is represented by name, patronus, wand and yours descendants
 ;; ListofFamily is one of:
 ;; - empty
 ;; - (cons Family ListofFamily)
@@ -35,6 +35,7 @@
 #;
 (define (fn-for-f f)
   (... (family-name f)
+       (family-patronus f)
        (family-wand f)
        (fn-for-lof (family-descendant f))))
 
@@ -59,20 +60,20 @@
 ;; people some of the information may be missing. Enter that information with a
 ;; special value of "" (the empty string) meaning it is not present. Don't forget
 ;; this special value when writing your interp.
-(define F1 (make-family "Victoire" "" empty))
-(define F2 (make-family "Bill" "Unknown" (list F1)))
-(define F3 (make-family "Charlie" "Unknown" empty))
-(define F4 (make-family "Percy" "Unknown" empty))
-(define F5 (make-family "Fred" "Unknown" empty))
-(define F6 (make-family "George" "Unknown" empty))
-(define F7 (make-family "Ron" "AWC" empty))
-(define F8 (make-family "James" "" empty))
-(define F9 (make-family "Albus" "Unknown" empty))
-(define F10 (make-family "Lily" "" empty))
+(define F1 (make-family "Victoire" "Bill" "" empty))
+(define F2 (make-family "Bill" "Arthur" "Unknown" (list F1)))
+(define F3 (make-family "Charlie" "Arthur" "Unknown" empty))
+(define F4 (make-family "Percy" "Arthur" "Unknown" empty))
+(define F5 (make-family "Fred" "Arthur" "Unknown" empty))
+(define F6 (make-family "George" "Arthur" "Unknown" empty))
+(define F7 (make-family "Ron" "Arthur" "AWC" empty))
+(define F8 (make-family "James" "Ginny" "" empty))
+(define F9 (make-family "Albus" "Ginny" "Unknown" empty))
+(define F10 (make-family "Lily" "Ginny" "" empty))
 (define LOF1 (list F8 F9 F10))
-(define F11 (make-family "Ginny" "Unknown" LOF1))
+(define F11 (make-family "Ginny" "Arthur" "Unknown" LOF1))
 (define LOF2 (list F2 F3 F4 F5 F6 F7 F11))
-(define ARTHUR (make-family "Arthur" "Unknown" LOF2))
+(define ARTHUR (make-family "Arthur" "Stag" "Unknown" LOF2))
 
 ;; PROBLEM 3:
 ;;
@@ -85,39 +86,31 @@
 ;; Family -> Listof Listof String
 ;; ListofFamily -> Listof Listof String
 ;; produces a pair list (i.e. list of two-element lists) of every person in the tree and his or her patronus
-(check-expect (pair--family F1) (list (list "Victoire" "Stag")))
+(check-expect (pair--family F1) (list (list "Victoire" "Bill")))
 (check-expect (pair--lof empty) empty)
-(check-expect (pair--family F11) (list (list "Ginny" "James")
-                                       (list "James" "Stag")
-                                       (list "Ginny" "Albus")
-                                       (list "Albus" "Stag")
-                                       (list "Ginny" "Lily")
-                                       (list "Lily" "Stag")))
-(check-expect (pair--lof LOF1) (list (list "James" "Stag")
-                                     (list "Albus" "Stag")
-                                     (list "Lily" "Stag")))
-(check-expect (pair--family ARTHUR) (append (list (list "Arthur" "Bill")
-                                                  (list "Bill" "Stag")
-                                                  (list "Arthur" "Charlie")
-                                                  (list "Charlie" "Stag")
-                                                  (list "Arthur" "Percy")
-                                                  (list "Percy" "Stag")
-                                                  (list "Arthur" "Fred")
-                                                  (list "Fred" "Stag")
-                                                  (list "Arthur" "George")
-                                                  (list "George" "Stag")
-                                                  (list "Arthur" "Ron")
-                                                  (list "Ron" "Stag")
-                                                  (list "Arthur" "Ginny"))
+(check-expect (pair--family F11) (list (list "Ginny" "Arthur")
+                                       (list "James" "Ginny")
+                                       (list "Albus" "Ginny")
+                                       (list "Lily" "Ginny")))
+(check-expect (pair--lof LOF1) (list (list "James" "Ginny")
+                                     (list "Albus" "Ginny")
+                                     (list "Lily" "Ginny")))
+(check-expect (pair--family ARTHUR) (append (list (list "Arthur" "Stag")
+                                                  (list "Bill" "Arthur")
+                                                  (list "Victoire" "Bill")
+                                                  (list "Charlie" "Arthur")
+                                                  (list "Percy" "Arthur")
+                                                  (list "Fred" "Arthur")
+                                                  (list "George" "Arthur")
+                                                  (list "Ron" "Arthur"))
                                             (pair--family F11)))
 
 ;(define (pair--family f) empty) ; Stubs
 ;(define (pair--lof lof) empty)
 
 (define (pair--family f)
-  (list (if (empty? (family-descendant f))
-            (list (family-name f) "Stag")
-            (pair--lof (family-descendant f)))))
+  (cons (list (family-name f) (family-patronus f))
+        (pair--lof (family-descendant f))))
 
 (define (pair--lof lof)
   (cond [(empty? lof) empty]
