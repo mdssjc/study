@@ -32,30 +32,7 @@
 (check-expect (sort-loi LOI3) (list I2 I1 I3))
 
 (define (sort-loi loi)
-  (cond [(empty? loi) empty]
-        [else
-         (insert (first loi) (sort-loi (rest loi)))]))
-
-; Inventory [List-of Inventory] -> [List-of Inventory]
-;; inserts inventory in proper place in loi
-;; ASSUME: loi is already sorted
-(check-expect (insert I1 empty) (list I1))
-(check-expect (insert I1 (list I2)) (list I2 I1))
-(check-expect (insert I1 (list I2 I3)) (list I2 I1 I3))
-
-(define (insert i loi)
-  (cond [(empty? loi) (cons i empty)]
-        [else
-         (if (smaller? i (first loi))
-             (cons (first loi) (insert i (rest loi)))
-             (cons i loi))]))
-
-; Inventory Inventory -> Boolean
-; produces true if inventory 1 is smaller than inventory 2
-(check-expect (smaller? I1 I2) #true)
-(check-expect (smaller? I2 I1) #false)
-(check-expect (smaller? I1 I3) #false)
-
-(define (smaller? i1 i2)
-  (< (- (inventory-acq-price i1) (inventory-sales-price i1))
-     (- (inventory-acq-price i2) (inventory-sales-price i2))))
+  (local ((define (smaller? i1 i2)
+            (< (abs (- (inventory-acq-price i1) (inventory-sales-price i1)))
+               (abs (- (inventory-acq-price i2) (inventory-sales-price i2))))))
+    (sort loi smaller?)))
