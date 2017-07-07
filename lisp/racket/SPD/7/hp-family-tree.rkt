@@ -124,3 +124,30 @@
 ;; whose wands are made of a given material.
 ;;
 ;; You must use ARTHUR as one of your examples.
+;;
+;; Family String  -> ListofString
+;; ListofFamily String  -> ListofString
+;; produces the names of all descendants of a given person whose wands are made of a given material
+(check-expect (names--family F1 "") (list "Victoire"))
+(check-expect (names--family F1 "Ore") empty)
+(check-expect (names--lof empty "") empty)
+(check-expect (names--lof LOF1 "Unknown") (list "Albus"))
+(check-expect (names--lof LOF1 "") (list "James" "Lily"))
+(check-expect (names--lof LOF1 "Ore") empty)
+(check-expect (names--family ARTHUR "Ore") empty)
+(check-expect (names--family ARTHUR "Unknown")
+              (list "Arthur" "Bill" "Charlie" "Percy" "Fred" "George" "Ginny" "Albus"))
+
+;(define (names--family f s) empty) ; Stubs
+;(define (names--lof lof s) empty)
+
+(define (names--family f s)
+  (if (string=? (family-wand f) s)
+      (cons (family-name f) (names--lof (family-descendant f) s))
+      (names--lof (family-descendant f) s)))
+
+(define (names--lof lof s)
+  (cond [(empty? lof) empty]
+        [else
+         (append (names--family (first lof) s)
+                 (names--lof (rest lof) s))]))
