@@ -1,20 +1,20 @@
 package com.github.mdssjc.gsf.board;
 
+import com.github.mdssjc.gsf.unit.Unit;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.mdssjc.gsf.unit.Unit;
-
 /**
  * Representa o Board do sistema.
- * 
+ *
  * @author Marcelo dos Santos
  *
  */
 public class Board {
 
-  private final int        width;
-  private final int        height;
+  private final int width;
+  private final int height;
   private List<List<Tile>> tiles;
 
   public Board(final int width, final int height) {
@@ -29,14 +29,14 @@ public class Board {
       this.tiles.add(i, new ArrayList<>(this.height));
       for (int j = 0; j < this.height; j++) {
         this.tiles.get(i)
-          .add(j, new Tile());
+                  .add(j, new Tile());
       }
     }
   }
 
   public Tile getTile(final int posX, final int posY) {
     return this.tiles.get(posX - 1)
-      .get(posY - 1);
+                     .get(posY - 1);
   }
 
   public void addUnit(final Unit unit, final int posX, final int posY) {
