@@ -23,7 +23,7 @@ public abstract class CaffeineBeverage {
     System.out.println("Pouring into cup");
   }
 
-  private boolean customerWantsCondiments() {
+  public boolean customerWantsCondiments() {
     return true;
   }
 }
