@@ -11,4 +11,13 @@ public class Tea extends CaffeineBeverage {
   public void addCondiments() {
     System.out.println("Adding Lemon");
   }
+
+  @Override
+  public boolean customerWantsCondiments() {
+    final String answer = UserInput.getUserInput(
+        "Would you like lemon with your tea");
+
+    return answer.toLowerCase()
+                 .startsWith("y");
+  }
 }
