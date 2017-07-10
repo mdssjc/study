@@ -6,6 +6,7 @@
 ;; Design a data definition to represent the current state of a New
 ;; Year's Eve countdown.
 
+
 ;; PROBLEM:
 ;;
 ;; Consider designing the system for controlling a New Year's Eve
