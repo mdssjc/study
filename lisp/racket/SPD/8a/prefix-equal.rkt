@@ -47,4 +47,12 @@
 (check-expect (prefix=? (list "x") (list "x" "y")) true)
 (check-expect (prefix=? (list "x" "y" "z") (list "x" "y")) false)
 
-(define (prefix=? lsta lstb) false) ; Stub
+;(define (prefix=? lsta lstb) false) ; Stub
+
+(define (prefix=? lsta lstb)
+  (cond [(empty? lsta) true]
+        [(empty? lstb) false]
+        [else
+         (and (string=? (first lsta)
+                        (first lstb))
+              (prefix=? (rest lsta) (rest lstb)))]))
