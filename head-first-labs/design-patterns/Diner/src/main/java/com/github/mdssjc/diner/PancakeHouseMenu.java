@@ -31,7 +31,8 @@ public class PancakeHouseMenu {
             3.59);
   }
 
-  public void addItem(final String name, final String description, final boolean vegetarian, final double price) {
+  public void addItem(final String name, final String description,
+                      final boolean vegetarian, final double price) {
     this.menuItems.add(new MenuItem(name, description,
                                     vegetarian, price));
   }
