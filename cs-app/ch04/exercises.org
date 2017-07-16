@@ -6,3 +6,52 @@
   0x10C: 40 13 FDFFFFFFFFFFFFFF
   0x116: 60 31
   0x118: 70    0C01000000000000
+* Practice Problem 4.2
+** A
+  Ox100: 30 F3 FCFFFFFFFFFFFFFF
+         40 63 0008000000000000
+         00
+
+  0x100: irmovq $-4, %rbx
+  0x10A: rmmovq %rsi, 0x800(%rbx)
+  0x114: halt
+** B
+  Ox200: A0 6F
+         80 0C02000000000000
+         00
+         30 F3 0A00000000000000
+         90
+
+  0x200: pushq %rsi
+  0x202: call proc
+  0x20B: halt
+  0x20C: proc:
+  0x20C: irmovq $10, %rbx
+  0x216: ret
+** C
+  Ox300: 50 54 0700000000000000
+         10
+         F0
+         B0 1F
+
+  0x300: mrmovq 7(%rbp), %rsp
+  0x30A: nop
+  0x30B: .byte 0xF0 # Invalid instruction code
+  0x30C: popq %rcx
+** D
+  Ox400: 61 13
+         73 0004000000000000
+         00
+
+  0x400: loop:
+  0x400: subq %rcx, %rbx
+  0x402: je loop
+  0x40B: halt
+** E
+  Ox500: 63 62
+         A0
+         F0
+
+  0x500: xorg %rsi, %rdx
+  0x502: .byte 0xA0 # pushq instruction
+  0x503: .byte 0xF0 # Invalid register
