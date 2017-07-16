@@ -42,7 +42,7 @@ public class DinerMenu {
     }
   }
 
-  public MenuItem[] getMenuItems() {
-    return this.menuItems;
+  public Iterator<MenuItem> createIterator() {
+    return new DinerMenuIterator<>(this.menuItems);
   }
 }
