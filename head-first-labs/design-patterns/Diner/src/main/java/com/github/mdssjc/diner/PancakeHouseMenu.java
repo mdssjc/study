@@ -37,7 +37,7 @@ public class PancakeHouseMenu {
                                     vegetarian, price));
   }
 
-  public List<MenuItem> getMenuItems() {
-    return this.menuItems;
+  public Iterator createIterator() {
+    return new PancakeHouseIterator(this.menuItems);
   }
 }
