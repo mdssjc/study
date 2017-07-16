@@ -1,6 +1,6 @@
 package com.github.mdssjc.diner;
 
-public class DinerMenuIterator<T> implements Iterator<MenuItem> {
+public class DinerMenuIterator implements Iterator<MenuItem> {
 
   private final MenuItem[] items;
   private int position = 0;
