@@ -28,6 +28,14 @@ public class DinerMenu {
             "A hot dog, with saurkraut, relish, onions, topped with cheese",
             false,
             3.05);
+    addItem("Steamed Veggies and Brown Rice",
+            "Steamed vegetables over brown rice",
+            true,
+            3.99);
+    addItem("Pasta",
+            "Spaghetti with Marinara Sauce, and a slice of sourdough bread",
+            false,
+            3.89);
   }
 
   public void addItem(final String name, final String description,
@@ -43,6 +51,6 @@ public class DinerMenu {
   }
 
   public Iterator<MenuItem> createIterator() {
-    return new DinerMenuIterator<>(this.menuItems);
+    return new DinerMenuIterator(this.menuItems);
   }
 }
