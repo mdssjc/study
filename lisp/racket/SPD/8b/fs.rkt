@@ -1,11 +1,12 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-intermediate-reader.ss" "lang")((modname fs-v4) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+#reader(lib "htdp-intermediate-reader.ss" "lang")((modname fs) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; fs.rkt    (type comments and examples)
 ;; fs-v1.rkt (complete data-definition plus function problems)
 ;; fs-v2.rkt (complete data-definition and sum-data function)
 ;; fs-v3.rkt (complete data-definition, sum-data function and all-names function)
 ;; fs-v4.rkt (complete data-definition, sum-data, all-names and find functions)
+;; fs-v5.rkt (data-definition, encapsulated template, encapsulated functions)
 
 (require 2htdp/image)
 
@@ -141,9 +142,10 @@
           (define (find--loe n loe)
             (cond [(empty? loe) false]
                   [else
-                   (if (not (false? (find--element n (first loe))))
-                       (find--element n (first loe))
-                       (find--loe n (rest loe)))])))
+                   (local ((define try (find--element n (first loe))))
+                     (if (not (false? try))
+                         try
+                         (find--loe n (rest loe))))])))
     (find--element n e)))
 
 ;; PROBLEM
@@ -159,3 +161,23 @@
 ;;     Once that works you can make it more elaborate if you want to.
 ;;   - And... be sure to USE the recipe. Not just follow it, but let it help you.
 ;;     For example, work out a number of examples BEFORE you try to code the function.
+
+;; Natural -> Element
+;; produce a skinny tree n+1 deep, leaf has name "Y" data 1
+(check-expect (make-skinny 0) (make-elt "Y" 1 empty))
+(check-expect (make-skinny 2) (make-elt "X" 0 (list (make-elt "X" 0 (list (make-elt "Y" 1 empty))))))
+
+(define (make-skinny n)
+  (cond [(zero? n) (make-elt "Y" 1 empty)]
+        [else
+         (make-elt "X" 0 (list (make-skinny (sub1 n))))]))
+
+
+(time (find "Y" (make-skinny 10)))
+(time (find "Y" (make-skinny 11)))
+(time (find "Y" (make-skinny 12)))
+(time (find "Y" (make-skinny 13)))
+(time (find "Y" (make-skinny 14)))
+(time (find "Y" (make-skinny 15)))
+(time (find "Y" (make-skinny 16)))
+(time (find "Y" (make-skinny 17)))
