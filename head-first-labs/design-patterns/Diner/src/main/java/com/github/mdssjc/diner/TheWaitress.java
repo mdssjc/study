@@ -4,11 +4,11 @@ import java.util.Iterator;
 
 public class TheWaitress implements Waitress {
 
-  private final PancakeHouseMenu pancakeHouseMenu;
-  private final DinerMenu dinerMenu;
+  private final Menu pancakeHouseMenu;
+  private final Menu dinerMenu;
 
-  public TheWaitress(final PancakeHouseMenu pancakeHouseMenu,
-                     final DinerMenu dinerMenu) {
+  public TheWaitress(final Menu pancakeHouseMenu,
+                     final Menu dinerMenu) {
     this.pancakeHouseMenu = pancakeHouseMenu;
     this.dinerMenu = dinerMenu;
   }

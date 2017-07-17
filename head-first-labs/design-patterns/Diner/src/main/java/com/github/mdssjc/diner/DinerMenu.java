@@ -2,7 +2,7 @@ package com.github.mdssjc.diner;
 
 import java.util.Iterator;
 
-public class DinerMenu {
+public class DinerMenu implements Menu {
 
   private static final int MAX_ITEMS = 6;
   private final MenuItem[] menuItems;
@@ -52,6 +52,7 @@ public class DinerMenu {
     }
   }
 
+  @Override
   public Iterator<MenuItem> createIterator() {
     return new DinerMenuIterator(this.menuItems);
   }
