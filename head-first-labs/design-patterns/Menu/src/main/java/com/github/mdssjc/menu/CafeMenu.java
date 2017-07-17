@@ -1,12 +1,15 @@
 package com.github.mdssjc.menu;
 
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
 
-public class CafeMenu {
+public class CafeMenu implements Menu {
 
-  private final Hashtable menuItems = new Hashtable();
+  private final Map<String, MenuItem> menuItems;
 
   public CafeMenu() {
+    this.menuItems = new Hashtable<>();
     initialize();
   }
 
@@ -29,7 +32,9 @@ public class CafeMenu {
     this.menuItems.put(menuItem.getName(), menuItem);
   }
 
-  public Hashtable getItems() {
-    return this.menuItems;
+  @Override
+  public Iterator<MenuItem> createIterator() {
+    return this.menuItems.values()
+                         .iterator();
   }
 }
