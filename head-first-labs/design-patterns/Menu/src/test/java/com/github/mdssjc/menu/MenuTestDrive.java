@@ -1,4 +1,4 @@
-package com.github.mdssjc.diner;
+package com.github.mdssjc.menu;
 
 public class MenuTestDrive {
 

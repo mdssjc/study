@@ -1,4 +1,4 @@
-package com.github.mdssjc.diner;
+package com.github.mdssjc.menu;
 
 import java.util.ArrayList;
 import java.util.Iterator;
