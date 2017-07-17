@@ -1,6 +1,7 @@
 package com.github.mdssjc.diner;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class PancakeHouseMenu {
@@ -37,7 +38,7 @@ public class PancakeHouseMenu {
                                     vegetarian, price));
   }
 
-  public Iterator createIterator() {
-    return new PancakeHouseIterator(this.menuItems);
+  public Iterator<MenuItem> createIterator() {
+    return menuItems.iterator();
   }
 }

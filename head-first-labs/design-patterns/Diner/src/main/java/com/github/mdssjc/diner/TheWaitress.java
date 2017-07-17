@@ -1,5 +1,7 @@
 package com.github.mdssjc.diner;
 
+import java.util.Iterator;
+
 public class TheWaitress implements Waitress {
 
   private final PancakeHouseMenu pancakeHouseMenu;

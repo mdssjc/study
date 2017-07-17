@@ -1,5 +1,7 @@
 package com.github.mdssjc.diner;
 
+import java.util.Iterator;
+
 public class DinerMenu {
 
   private static final int MAX_ITEMS = 6;
