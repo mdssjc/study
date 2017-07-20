@@ -104,10 +104,10 @@
   (filter2 negative? lon))
 
 
-(define (filter2 fn lon)
+(define (filter2 pred lon)
   (cond [(empty? lon) empty]
         [else
-         (if (fn (first lon))
+         (if (pred (first lon))
              (cons (first lon)
-                   (filter2 fn (rest lon)))
-             (filter2 fn (rest lon)))]))
+                   (filter2 pred (rest lon)))
+             (filter2 pred (rest lon)))]))
