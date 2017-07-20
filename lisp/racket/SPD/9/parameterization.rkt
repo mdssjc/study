@@ -38,6 +38,7 @@
   (contains? "McGill" los))
 
 
+;; String (listof String) -> Boolean
 ;; produce true if los includes s
 (check-expect (contains? "UBC" empty) false)
 (check-expect (contains? "UBC" (cons "McGill" empty)) false)
@@ -77,11 +78,13 @@
   (map2 sqrt lon))
 
 
+;; (X -> Y) (listof X) -> (listof Y)
 ;; given fn and (list n0 n1 ...) produce (list (fn n0) (fn n1) ...)
 (check-expect (map2 sqr empty) empty)
 (check-expect (map2 sqr (list 2 4)) (list 4 16))
 (check-expect (map2 sqrt (list 16 9)) (list 4 3))
 (check-expect (map2 abs (list 2 -3 4)) (list 2 3 4))
+(check-expect (map2 string-length (list "Racket" "test")) (list 6 4))
 
 (define (map2 fn lon)
   (cond [(empty? lon) empty]
