@@ -116,7 +116,8 @@
   (filter2 negative? lon))
 
 
-;; given a list, produce a list of only the elements that satisfy the predicate pred
+;; (X -> Boolean) (listof X) -> (listof X)
+;; filter list to contain only those elements for which pred produces true
 (check-expect (filter2 positive? empty) empty)
 (check-expect (filter2 positive? (list 1 -2 3 -4)) (list 1 3))
 (check-expect (filter2 negative? (list 1 -2 3 -4)) (list -2 -4))
