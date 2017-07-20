@@ -55,24 +55,17 @@
 (check-expect (select-albums LT3) (list (list T4 T3) (list T2 T1)))
 
 (define (select-albums lt)
-  (cond [(empty? lt) empty]
-        [else
-         (local ((define a (track-album (first lt)))
-                 (define (track-album=? lt)
-                   (string=? (track-album (first lt)) a))
-                 (define (predta? lt)
-                   (string=? (track-album lt) a))
-                 (define (duplicate lt lts)
-                   (if (member? lt lts)
-                       lts
-                       (append lts (list lt))))
-                 (define (remove-first lt)
-                   (remove (first lt) (rest lt)))
-                 (define (delete-album lt)
-                   (cond [(empty? lt) empty]
-                         [else
-                          (if (track-album=? lt)
-                              (delete-album (remove-first lt))
-                              (cons (first lt) (delete-album (rest lt))))])))
-           (cons (foldl duplicate empty (filter predta? lt))
-                 (select-albums (delete-album (rest lt)))))]))
+  (local ((define (duplicates t lst)
+            (if (member? t lst) lst (cons t lst)))
+          (define lts (reverse (foldl duplicates empty lt)))
+          (define (member-t? t lts)
+            (local ((define (member-t? lt)
+                      (member? t lt)))
+              (ormap member-t? lts)))
+          (define (separate t result)
+            (if (member-t? t result)
+                result
+                (cons (local ((define (predicate-ta? pt)
+                                (string=? (track-album t) (track-album pt))))
+                        (filter predicate-ta? lts)) result))))
+    (foldr separate empty lts)))
