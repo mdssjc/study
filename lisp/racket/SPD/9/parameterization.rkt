@@ -38,6 +38,14 @@
   (contains? "McGill" los))
 
 
+;; produce true if los includes s
+(check-expect (contains? "UBC" empty) false)
+(check-expect (contains? "UBC" (cons "McGill" empty)) false)
+(check-expect (contains? "UBC" (cons "UBC" empty)) true)
+(check-expect (contains? "UBC" (cons "McGill" (cons "UBC" empty))) true)
+(check-expect (contains? "UBC" (cons "UBC" (cons "McGill" empty))) true)
+(check-expect (contains? "Toronto" (cons "UBC" (cons "McGill" empty))) false)
+
 (define (contains? s los)
   (cond [(empty? los) false]
         [else
@@ -69,6 +77,12 @@
   (map2 sqrt lon))
 
 
+;; given fn and (list n0 n1 ...) produce (list (fn n0) (fn n1) ...)
+(check-expect (map2 sqr empty) empty)
+(check-expect (map2 sqr (list 2 4)) (list 4 16))
+(check-expect (map2 sqrt (list 16 9)) (list 4 3))
+(check-expect (map2 abs (list 2 -3 4)) (list 2 3 4))
+
 (define (map2 fn lon)
   (cond [(empty? lon) empty]
         [else
@@ -85,11 +99,8 @@
 
 ;(define (positive-only lon) empty) ;stub
 
-;<template from ListOfNumber>
-
 (define (positive-only lon)
   (filter2 positive? lon))
-
 
 ;; ListOfNumber -> ListOfNumber
 ;; produce list with only negative? elements of lon
@@ -98,11 +109,14 @@
 
 ;(define (negative-only lon) empty) ;stub
 
-;<template from ListOfNumber>
-
 (define (negative-only lon)
   (filter2 negative? lon))
 
+
+;; produce list with only pred elements of lon
+(check-expect (filter2 positive? empty) empty)
+(check-expect (filter2 positive? (list 1 -2 3 -4)) (list 1 3))
+(check-expect (filter2 negative? (list 1 -2 3 -4)) (list -2 -4))
 
 (define (filter2 pred lon)
   (cond [(empty? lon) empty]
