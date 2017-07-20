@@ -113,10 +113,11 @@
   (filter2 negative? lon))
 
 
-;; produce list with only pred elements of lon
+;; given a list, produce a list of only the elements that satisfy the predicate pred
 (check-expect (filter2 positive? empty) empty)
 (check-expect (filter2 positive? (list 1 -2 3 -4)) (list 1 3))
 (check-expect (filter2 negative? (list 1 -2 3 -4)) (list -2 -4))
+(check-expect (filter2 false? (list false true false false true)) (list false false false))
 
 (define (filter2 pred lon)
   (cond [(empty? lon) empty]
