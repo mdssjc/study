@@ -96,7 +96,8 @@
 
 #;
 (define (sum lon)     ; template
-  (foldr ... ... lon))
+;        (Number Number -> Number) Number
+  (foldr  ...                      ...    lon))
 
 (define (sum lon)
   (foldr + 0 lon))
@@ -105,4 +106,11 @@
 ;; produce the sum of the first n natural numbers
 (check-expect (sum-to 3) (+ 0 1 2))
 
-(define (sum-to n) 0) ;stub
+;(define (sum-to n) 0) ; stub
+
+#;
+(define (sum-to n)     ; template
+  (foldr ... ... (build-list n ...)))
+
+(define (sum-to n)
+  (foldr + 0 (build-list n identity)))
