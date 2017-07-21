@@ -92,7 +92,14 @@
 ;; sum the elements of a list
 (check-expect (sum (list 1 2 3 4)) 10)
 
-(define (sum lon) 0) ;stub
+;(define (sum lon) 0) ; stub
+
+#;
+(define (sum lon)     ; template
+  (foldr ... ... lon))
+
+(define (sum lon)
+  (foldr + 0 lon))
 
 ;; Natural -> Natural
 ;; produce the sum of the first n natural numbers
