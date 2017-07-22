@@ -3,326 +3,201 @@
 #reader(lib "htdp-intermediate-reader.ss" "lang")((modname exercise-277) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; Exercise 277
 
-
 (require 2htdp/image)
 (require 2htdp/universe)
 
 
 ; Constants:
 
-(define AIRPLANE (overlay/xy (circle 10 "solid" "blue")
-                             -15 -20
-                             (overlay (ellipse 10 80 "solid" "blue")
-                                      (rectangle 50 10 "solid" "blue"))))
-(define TREE (overlay (above (circle 5 "solid" "forestgreen")
-                             (beside (circle 5 "solid" "forestgreen")
-                                     (circle 5 "solid" "forestgreen")))
-                      (circle 14 "outline" "black")))
-(define FOREST (beside TREE (above TREE TREE)))
-(define FIRE (overlay (circle 4 75 "red")
-                      (overlay (circle 8 75 "orange")
-                               (circle 12 75 "yellow"))))
-(define WATER (above (ellipse 8 10 "solid" "blue")
-                     (ellipse 8 10 "solid" "blue")
-                     (ellipse 8 10 "solid" "blue")
-                     (ellipse 8 10 "solid" "blue")
-                     (ellipse 8 10 "solid" "blue")))
-(define WIDTH  640)
-(define HEIGHT WIDTH)
-(define CENTER-X (/ WIDTH 2))
-(define CENTER-Y (/ HEIGHT 2))
-(define FIRES 8)
-(define WATER-LOAD 5)
-(define TOCK-STEP 28) ; tock: 28 times by second
-(define TIMEOUT (* 120 TOCK-STEP))
-(define CTR-Y (- HEIGHT (/ (image-height AIRPLANE) 2)))
-(define STEP-X 5)
-(define MTS
-  (place-image FOREST (* WIDTH 0.2) (* HEIGHT 0.2)
-               (place-image FOREST (* WIDTH 0.2) (* HEIGHT 0.5)
-                            (place-image FOREST (* WIDTH 0.2) (* HEIGHT 0.8)
-                                         (place-image FOREST (* WIDTH 0.5) (* HEIGHT 0.2)
-                                                      (place-image FOREST (* WIDTH 0.5) (* HEIGHT 0.5)
-                                                                   (place-image FOREST (* WIDTH 0.5) (* HEIGHT 0.8)
-                                                                                (place-image FOREST (* WIDTH 0.8) (* HEIGHT 0.2)
-                                                                                             (place-image FOREST (* WIDTH 0.8) (* HEIGHT 0.5)
-                                                                                                          (place-image FOREST (* WIDTH 0.8) (* HEIGHT 0.8)
-                                                                                                                       (empty-scene WIDTH HEIGHT "mediumgoldenrod")))))))))))
+(define UFO      (overlay (rectangle 70 10 "solid" "green")
+                          (circle 20 "solid" "green")))
+(define UFO-X (/ (image-width  UFO) 2))
+(define UFO-Y (/ (image-height UFO) 2))
+(define TANK-HEIGHT 20)
+(define TANK     (rectangle 50 TANK-HEIGHT "solid" "blue"))
+(define MISSILE (triangle 10 "solid" "red"))
+(define WIDTH  400)
+(define HEIGHT 300)
+(define CLOSE (/ HEIGHT 3))
+(define BACKGROUND (empty-scene WIDTH HEIGHT))
 
 
 ; Data definitions:
 
-; A Fire is a Posn:
+; An UFO is a Posn:
 ;   (make-posn Natural Natural)
-; interpretation (make-posn x y) is the Fire location
+; interpretation (make-posn x y) is the UFO's location
 ; (using the top-down, left-to-right convention)
-(define F1 (make-posn 10 20))
-(define F2 (make-posn 50 50))
+(define U1 (make-posn 10 20))
 
-; A ListOfFire is one of:
-;   '()
-;   (cons Fire ListOfFire)
-; interpretation represents all fires in the game
-(define LOF1 '())
-(define LOF2 (cons F1 '()))
-(define LOF3 (cons F1 (cons F2 '())))
+(define-struct tank [loc vel])
+; A Tank is a structure:
+;   (make-tank Number Number)
+; interpretation (make-tank x dx) specifies the position:
+; (x, HEIGHT) and the tank's speed: dx pixels/tick
+(define T-0L (make-tank 0 -1))           ; Tank 0 Left
+(define T-0R (make-tank 0 1))            ; Tank 0 Right
+(define T-ML (make-tank (/ WIDTH 2) -1)) ; Tank Middle Left
+(define T-MR (make-tank (/ WIDTH 2)  1)) ; Tank Middle Right
+(define T-WL (make-tank WIDTH -1))       ; Tank Width Left
+(define T-WR (make-tank WIDTH  1))       ; Tank Width Right
 
-(define-struct water (enable? timer))
-; A Water is a structure:
-;   (make-water Boolean Integer)
-; interpretation (make-water e? t) is the status of water control:
-;  - e? is the enable of water; and
-;  - t is the timer, WATER-LOAD to 0 for drop and 10 to 0 for recharge
-(define W1 (make-water #true 0))
-(define W2 (make-water #true 3))
-(define W3 (make-water #true WATER-LOAD))
-(define W4 (make-water #false 0))
-(define W5 (make-water #false 5))
-(define W6 (make-water #false 10))
+; A Missile is a Posn:
+;   (make-posn Natural Natural)
+; interpretation (make-posn x y) is the Missile's location
+; (using the top-down, left-to-right convention)
+(define M1 (make-posn 10 50))
+(define M2 (make-posn 50 20))
 
-(define-struct fire-fighting (fires water time ctr-x))
-; A Fire-Fighting is a structure:
-;   (make-fire-fighting ListOfFire Water Integer[0, TIMEOUT) Integer[0, WIDTH))
-; interpretation (make-fire-fighting lof w t cx) is an instance of the game where:
-;  - lof is the references to fires;
-;  - w is a Water reference;
-;  - t is the time counter, between 0 and TIMEOUT; and
-;  - cx is the current x position, between 0 and WIDTH
-(define FF (make-fire-fighting LOF1 W1 TIMEOUT CENTER-X))
+; A [List-of Missile] is one of:
+; empty
+; (cons Missile [List-of Missile])
+; interpretation represents the missiles launched
+(define LOM1 empty)
+(define LOM2 (list M1 M2))
+
+(define-struct sigs [ufo tank missiles])
+; A SIGS is a structure:
+;   (make-sigs UFO Tank [List-of Missile])
+; interpretation represents the complete state of a space invader game
+(define S1 (make-sigs U1 T-MR LOM1))
+(define S2 (make-sigs U1 T-MR LOM2))
+(define S3 (make-sigs (make-posn 10 20)
+                      (make-tank 28 -3)
+                      (list (make-posn 32 (- HEIGHT TANK-HEIGHT 10)))))
+(define S4 (make-sigs (make-posn 20 100)
+                      (make-tank 100 3)
+                      (list (make-posn 22 120))))
+(define S5 (make-sigs (make-posn 10 (- HEIGHT CLOSE))
+                      (make-tank 28 -3)
+                      empty))
 
 
 ; Functions:
 
-; Environment
-; Fire-Fighting -> World
-; starts a world with (main FIRES)
-(define (main n)
-  (big-bang (make-fire-fighting (create-fires n) W1 TIMEOUT CENTER-X)
-            (on-tick   tock)
-            (on-draw   render)
-            (on-key    control)
-            (stop-when game-over? render-gamer-over)))
+; SIGS -> World
+; starts a world with (main S1)
+(define (main s)
+  (big-bang s
+            (on-tick   si-move)
+            (on-draw   si-render)
+            (on-key    si-control)
+            (stop-when si-game-over?)))
 
-; Integer -> [List-of Fire]
-; creates n fires on the game
-(check-random (create-fires FIRES)
-              (list (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
-                    (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
-                    (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
-                    (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
-                    (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
-                    (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
-                    (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))
-                    (make-posn (random WIDTH) (random (- HEIGHT (image-height AIRPLANE))))))
+; SIGS -> SIGS
+; updates the position of objects
+(define (si-move s)
+  (local (;; UFO Number -> UFO
+          ;; updates the position of UFO
+          (define (update-ufo u)
+            (make-posn (random (+ (posn-x u) (image-width UFO)))
+                       (add1 (posn-y u))))
+          ;; Tank -> Tank
+          ;; updates the position of Tank
+          (define (update-tank t)
+            (local ((define sum-loc-vel (+ (tank-loc t) (tank-vel t))))
+              (make-tank (cond [(<   sum-loc-vel 0) 0]
+                               [(>   sum-loc-vel WIDTH) WIDTH]
+                               [else sum-loc-vel])
+                         (tank-vel t))))
+          ;; Missile -> Missile
+          ;; updates the position of missile
+          (define (update-missile m)
+            (make-posn (posn-x m) (sub1 (posn-y m)))))
+    (make-sigs (update-ufo         (sigs-ufo s))
+               (update-tank        (sigs-tank s))
+               (map update-missile (sigs-missiles s)))))
 
-(define (create-fires n)
-  (local ((define offset-y (- HEIGHT (image-height AIRPLANE)))
-          (define (new-fire x)
-            (make-posn (random WIDTH) (random offset-y))))
-    (build-list n new-fire)))
+; SIGS -> Image
+; renders the given game state on top of BACKGROUND
+(check-expect (si-render S1) (place-image UFO (posn-x (sigs-ufo S1)) (posn-y (sigs-ufo S1))
+                                          (place-image TANK (tank-loc (sigs-tank S1)) HEIGHT BACKGROUND)))
+(check-expect (si-render S2) (place-image UFO (posn-x (sigs-ufo S2)) (posn-y (sigs-ufo S2))
+                                          (place-image TANK (tank-loc (sigs-tank S2)) HEIGHT
+                                                       (place-image MISSILE (posn-x (first (sigs-missiles S2))) (posn-y (first (sigs-missiles S2)))
+                                                                    (place-image MISSILE (posn-x (second (sigs-missiles S2))) (posn-y (second (sigs-missiles S2))) BACKGROUND)))))
 
-; Fire-Fighting -> Fire-Fighting
-; updates the status of the game
-(check-expect (tock FF) (make-fire-fighting LOF1 W1 (sub1 TIMEOUT) CENTER-X))
-(check-expect (tock (make-fire-fighting LOF2 W1 TIMEOUT CENTER-X))
-              (make-fire-fighting (list (make-posn 10 21)) W1 (sub1 TIMEOUT) CENTER-X))
+(define (si-render s)
+  (local (;; UFO Image -> Image
+          ;; adds u to the given image im
+          (define (ufo-render u im)
+            (place-image UFO (posn-x u) (posn-y u) im))
+          ; Tank Image -> Image
+          ; adds t to the given image im
+          (define (tank-render t im)
+            (place-image TANK (tank-loc t) HEIGHT im))
+          ; Missile Image -> Image
+          ; adds m to the given image im
+          (define (missile-render m im)
+            (place-image MISSILE (posn-x m) (posn-y m) im)))
+    (ufo-render (sigs-ufo s)
+                (tank-render (sigs-tank s)
+                             (foldr missile-render BACKGROUND (sigs-missiles s))))))
 
-(define (tock ff)
-  (check-collision
-   (make-fire-fighting
-    (move-fires (fire-fighting-fires ff))
-    (if (= (remainder (fire-fighting-time ff) TOCK-STEP) 0)
-        (status-water (fire-fighting-water ff))
-        (fire-fighting-water ff))
-    (sub1 (fire-fighting-time ff))
-    (fire-fighting-ctr-x ff))))
-
-; Fire-Fighting -> Fire-Fighting
-; checks the collision between fire and water
-(check-expect (check-collision (make-fire-fighting LOF2 W1 TIMEOUT CENTER-X))
-              (make-fire-fighting LOF2 W1 TIMEOUT CENTER-X))
-
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 519)) W2 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 10 519)) W2 TIMEOUT 10))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 520)) W2 TIMEOUT 10))
-              (make-fire-fighting '() W2 TIMEOUT 10))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 520)) W2 TIMEOUT 20))
-              (make-fire-fighting (list (make-posn 10 520)) W2 TIMEOUT 20))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 520)) W6 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 10 520)) W6 TIMEOUT 10))
-
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 570)) W2 TIMEOUT 10))
-              (make-fire-fighting '() W2 TIMEOUT 10))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 570)) W2 TIMEOUT 20))
-              (make-fire-fighting (list (make-posn 10 570)) W2 TIMEOUT 20))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 570)) W6 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 10 570)) W6 TIMEOUT 10))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 571)) W2 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 10 571)) W2 TIMEOUT 10))
-
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 520) (make-posn 20 520)) W2 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 20 520)) W2 TIMEOUT 10))
-(check-expect (check-collision (make-fire-fighting (list (make-posn 10 570) (make-posn 20 570)) W2 TIMEOUT 10))
-              (make-fire-fighting (list (make-posn 20 570)) W2 TIMEOUT 10))
-
-(define (check-collision ff)
-  (make-fire-fighting
-   (cond [(and (water-enable? (fire-fighting-water ff))
-               (> (water-timer (fire-fighting-water ff)) 0))
-          (remove-in-x (fire-fighting-fires ff) (fire-fighting-ctr-x ff))]
-         [else (fire-fighting-fires ff)])
-   (fire-fighting-water ff)
-   (fire-fighting-time ff)
-   (fire-fighting-ctr-x ff)))
-
-; ListOfFire Integer -> ListOfFire
-; removes the fires at position:
-;  - y: between 520 and 570; and
-;  - x: same
-(check-expect (remove-in-x '() 0) '())
-(check-expect (remove-in-x (list (make-posn 10 520)) 10) '())
-(check-expect (remove-in-x (list (make-posn 10 520)) 11) (list (make-posn 10 520)))
-(check-expect (remove-in-x (list (make-posn 10 520) (make-posn 20 520)) 10) (list (make-posn 20 520)))
-(check-expect (remove-in-x (list (make-posn 10 570)) 10) '())
-(check-expect (remove-in-x (list (make-posn 10 570)) 11) (list (make-posn 10 570)))
-(check-expect (remove-in-x (list (make-posn 10 570) (make-posn 20 570)) 10) (list (make-posn 20 570)))
-(check-expect (remove-in-x (list (make-posn 10 519)) 10) (list (make-posn 10 519)))
-(check-expect (remove-in-x (list (make-posn 10 571)) 10) (list (make-posn 10 571)))
-
-(define (remove-in-x lof x)
-  (cond [(empty? lof) '()]
-        [(and (= (posn-x (first lof)) x)
-              (<= 520 (posn-y (first lof)) 570))
-         (remove-in-x (rest lof) x)]
-        [else (cons (first lof)
-                    (remove-in-x (rest lof) x))]))
-
-; ListOfFire -> ListOfFire
-; increments the height by 1 in list or reset when equal to HEIGHT
-(check-expect (move-fires LOF1) LOF1)
-(check-expect (move-fires LOF2) (list (make-posn 10 21)))
-(check-expect (move-fires LOF3) (list (make-posn 10 21) (make-posn 50 51)))
-(check-expect (move-fires (list (make-posn 10 HEIGHT)))
-              (list (make-posn 10 0)))
-(check-expect (move-fires (list (make-posn 10 HEIGHT) (make-posn 10 21)))
-              (list (make-posn 10 0) (make-posn 10 22)))
-
-(define (move-fires lof)
-  (cond [(empty? lof) '()]
-        [(= (posn-y (first lof)) HEIGHT)
-         (cons (make-posn (posn-x (first lof)) 0)
-               (move-fires (rest lof)))]
-        [else (cons (make-posn (posn-x (first lof))
-                               (add1 (posn-y (first lof))))
-                    (move-fires (rest lof)))]))
-
-; Water -> Water
-; uptades the status water
-(check-expect (status-water W1) (make-water #true 0))
-(check-expect (status-water W2) (make-water #true 2))
-(check-expect (status-water W3) (make-water #true (sub1 WATER-LOAD)))
-(check-expect (status-water W4) W1)
-(check-expect (status-water W5) (make-water #false 4))
-(check-expect (status-water W6) (make-water #false 9))
-(check-expect (status-water (make-water #true 1)) W6)
-
-(define (status-water w)
-  (cond [(and (water-enable? w)
-              (= (water-timer w) 0)) w]
-        [(and (water-enable? w)
-              (= (water-timer w) 1)) (make-water #false 10)]
-        [(and (not (water-enable? w))
-              (= (water-timer w) 0)) (make-water #true 0)]
-        [else (make-water (water-enable? w) (sub1 (water-timer w)))]))
-
-; Fire-Fighting -> Image
-; renders the given game state on top of MTS
-(define (render ff)
-  (place-image
-   AIRPLANE
-   (fire-fighting-ctr-x ff) CTR-Y
-   (render-water ff
-                 (render-fires (fire-fighting-fires ff)
-                               (render-time (fire-fighting-time ff)
-                                            (place-image (rectangle WIDTH 1 "solid" "blue")
-                                                         CENTER-X 520
-                                                         (place-image (rectangle WIDTH 1 "solid" "red")
-                                                                      CENTER-X 570 MTS)))))))
-
-; ListOfFire Image -> Image
-; renders the fires on top of image
-(define (render-fires lof i)
-  (cond [(empty? lof) i]
-        [else (place-image FIRE (posn-x (first lof)) (posn-y (first lof))
-                           (render-fires (rest lof) i))]))
-
-; Fire-Fighting Image -> Image
-; renders the water on top of image
-(define (render-water ff i)
-  (cond [(and (water-enable? (fire-fighting-water ff))
-              (> (water-timer (fire-fighting-water ff)) 0))
-         (place-image WATER (fire-fighting-ctr-x ff) (- CTR-Y (image-height AIRPLANE)) i)]
-        [(not (water-enable? (fire-fighting-water ff)))
-         (place-image (text "X" 20 "red") (fire-fighting-ctr-x ff) (- CTR-Y (image-height AIRPLANE) -30) i)]
-        [else i]))
-
-; Integer Image -> Image
-; renders the time on top of image
-(define (render-time t i)
-  (place-image (text (number->string (inexact->exact (floor (/ t TOCK-STEP)))) 20 "black") CENTER-X 20 i))
-
-; Fire-Fighting KeyEvent -> Fire-Fighting
+; SIGS KeyEvent -> SIGS
 ; handles the main events:
-;  - pressing the left arrow ensures that the airplane moves left;
-;  - pressing the right arrow ensures that the airplane moves right;
-;  - pressing the shift ensures that the airplane moves left with precision;
-;  - pressing the control ensures that the airplane moves right with precision; and
-;  - pressing the space bar ensures that the airplane releases of water loads
-(check-expect (control FF "left")
-              (make-fire-fighting LOF1 W1 TIMEOUT (- CENTER-X STEP-X)))
-(check-expect (control FF "right")
-              (make-fire-fighting LOF1 W1 TIMEOUT (+ CENTER-X STEP-X)))
-(check-expect (control FF "shift")
-              (make-fire-fighting LOF1 W1 TIMEOUT (sub1 CENTER-X)))
-(check-expect (control FF "control")
-              (make-fire-fighting LOF1 W1 TIMEOUT (add1 CENTER-X)))
-(check-expect (control FF " ")
-              (make-fire-fighting LOF1 W3 TIMEOUT CENTER-X))
-(check-expect (control (make-fire-fighting LOF1 W2 TIMEOUT CENTER-X) " ")
-              (make-fire-fighting LOF1 W2 TIMEOUT CENTER-X))
-(check-expect (control FF "a")
-              (make-fire-fighting LOF1 W1 TIMEOUT CENTER-X))
+; - pressing the left arrow ensures that the tank moves left;
+; - pressing the right arrow ensures that the tank moves right; and
+; - pressing the space bar fires a new missile.
+(check-expect (si-control S1 "up") S1)
+(check-expect (si-control S1 "left") (make-sigs (sigs-ufo S1)
+                                                (make-tank (tank-loc (sigs-tank S1))
+                                                           (* -1 (tank-vel (sigs-tank S1))))
+                                                (sigs-missiles S1)))
+(check-expect (si-control S1 "right") (make-sigs (sigs-ufo S1)
+                                                 (make-tank (tank-loc (sigs-tank S1))
+                                                            (tank-vel (sigs-tank S1)))
+                                                 (sigs-missiles S1)))
+(check-expect (si-control S1 " ") (make-sigs (sigs-ufo S1)
+                                             (sigs-tank S1)
+                                             (list (make-posn (tank-loc (sigs-tank S1))
+                                                              (- HEIGHT TANK-HEIGHT)))))
 
-(define (control ff ke)
-  (make-fire-fighting
-   (fire-fighting-fires ff)
-   (cond  [(and (key=? ke " ")
-                (water-enable? (fire-fighting-water ff))
-                (= (water-timer (fire-fighting-water ff)) 0)) W3]
-          [else (fire-fighting-water ff)])
-   (fire-fighting-time ff)
-   (+ (fire-fighting-ctr-x ff) (cond [(key=? ke "left") (- STEP-X)]
-                                     [(key=? ke "right") STEP-X]
-                                     [(key=? ke "shift") -1]
-                                     [(key=? ke "control") 1]
-                                     [else 0]))))
+(define (si-control s ke)
+  (local (;; Tank String -> Tank
+          ;; changes the speed direction of tank
+          (define (tank-direction t s)
+            (make-tank (tank-loc t)
+                       (cond [(string=? s "left")  (* -1 (abs (tank-vel t)))]
+                             [(string=? s "right") (abs (tank-vel t))]
+                             [else t])))
+          ;; [List-of Missile] -> [List-of Missile]
+          ;; fires a missile at the coordinate: x and (- HEIGHT TANK-HEIGHT)
+          (define (missiles-fire x lom)
+            (append lom (cons (make-posn x (- HEIGHT TANK-HEIGHT)) empty))))
+    (make-sigs (sigs-ufo s)
+               (cond [(or (key=? ke "left")
+                          (key=? ke "right"))
+                      (tank-direction (sigs-tank s) ke)]
+                     [else
+                      (sigs-tank s)])
+               (cond [(key=? ke " ")
+                      (missiles-fire (tank-loc (sigs-tank s)) (sigs-missiles s))]
+                     [else
+                      (sigs-missiles s)]))))
 
-; Fire-Fighting -> Boolean
+; SIGS -> Boolean
 ; returns true when the game stop;
-; the game stops if extinguish all FIRES before the TIMEOUT
-(check-expect (game-over? (make-fire-fighting LOF2 W1 TIMEOUT CENTER-X)) #false)
-(check-expect (game-over? FF) #true)
-(check-expect (game-over? (make-fire-fighting LOF1 W1 0 CENTER-X)) #true)
+; the game stops if the UFO lands or if the missile hits the UFO
+(check-expect (si-game-over? S1) #false)
+(check-expect (si-game-over? S2) #false)
+(check-expect (si-game-over? S3) #false)
+(check-expect (si-game-over? S4) #true)
+(check-expect (si-game-over? S5) #true)
 
-(define (game-over? ff)
-  (or (= (length (fire-fighting-fires ff)) 0)
-      (= (fire-fighting-time ff) 0)))
-
-; Fire-Fighting -> Image
-; renders the game over message on the last render
-(define (render-gamer-over ff)
-  (place-image (text (if (= (fire-fighting-time ff) 0)
-                         "Game Over!"
-                         "You Win!")
-                     32 "black")
-               CENTER-X CENTER-Y (render ff)))
+(define (si-game-over? s)
+  (local (;; [List-of Missile] UFO -> Boolean
+          ;; checks if any missiles hit the UFO
+          (define (hit-missile? lom u)
+            (cond [(empty? lom) #false]
+                  [(and (<= (- (posn-x u) UFO-X)
+                            (posn-x (first lom))
+                            (+ (posn-x u) UFO-X))
+                        (<= (- (posn-y u) UFO-Y)
+                            (posn-y (first lom))
+                            (+ (posn-y u) UFO-Y))) #true]
+                  [else (hit-missile? (rest lom) u)])))
+    (cond [(>= (posn-y (sigs-ufo s))
+               (- HEIGHT CLOSE)) #true]
+          [else
+           (hit-missile? (sigs-missiles s) (sigs-ufo s))])))
