@@ -204,7 +204,7 @@
                    [(string=? s "right") (abs (tank-vel t))]
                    [else t])))
 
-; List-of-Missiles -> List-of-Missiles
+; List-of-Missile -> List-of-Missile
 ; fires a missile at the coordinate: x and (- HEIGHT TANK-HEIGHT)
 (check-expect (missiles-fire 10 LOM1) (list (make-posn 10 (- HEIGHT TANK-HEIGHT))))
 (check-expect (missiles-fire 30 LOM2) (list M1 M2 (make-posn 30 (- HEIGHT TANK-HEIGHT))))
@@ -226,7 +226,7 @@
              (- HEIGHT CLOSE)) #true]
         [else (hit-missile? (sigs-missiles s) (sigs-ufo s))]))
 
-; List-of-Missiles UFO -> Boolean
+; List-of-Missile UFO -> Boolean
 ; checks if any missiles hit the UFO
 (define (hit-missile? lom u)
   (cond [(empty? lom) #false]
