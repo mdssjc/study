@@ -1,6 +1,6 @@
 package com.github.mdssjc.orionsorbits;
 
-//Follows the Singleton design pattern
+// Follows the Singleton design pattern
 public class MercuryMeals {
 
   private static MercuryMeals instance;
