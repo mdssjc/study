@@ -1,36 +1,14 @@
 package com.github.mdssjc.menu;
 
-public interface Waitress {
+public class Waitress {
 
-  /**
-   * Prints every item on the menu.
-   */
-  void printMenu();
+  private final MenuComponent allMenus;
 
-  /**
-   * Prints just breakfast items.
-   */
-  void printBreakfastMenu();
+  public Waitress(final MenuComponent allMenus) {
+    this.allMenus = allMenus;
+  }
 
-  /**
-   * Prints just lunch items.
-   */
-  void printLunchMenu();
-
-  /**
-   * Prints all vegetarian menu items.
-   */
-  void printVegetarianMenu();
-
-  /**
-   * Given the name of an item, returns true
-   * if the items is vegetarian, otherwise,
-   * returns false.
-   *
-   * @param name
-   *     Name of an item
-   *
-   * @return true if is vegetarian, otherwise false
-   */
-  boolean isItemVegetarian(String name);
+  public void printMenu() {
+    this.allMenus.print();
+  }
 }
