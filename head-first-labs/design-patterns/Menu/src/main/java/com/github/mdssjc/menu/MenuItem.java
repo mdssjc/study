@@ -1,5 +1,7 @@
 package com.github.mdssjc.menu;
 
+import java.util.Iterator;
+
 public class MenuItem extends MenuComponent {
 
   private final String name;
@@ -43,5 +45,10 @@ public class MenuItem extends MenuComponent {
     }
     System.out.println(", " + getPrice());
     System.out.println(" -- " + getDescription());
+  }
+
+  @Override
+  public Iterator createIterator() {
+    return new NullIterator();
   }
 }

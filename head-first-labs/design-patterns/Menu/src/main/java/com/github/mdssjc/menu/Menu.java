@@ -9,6 +9,7 @@ public class Menu extends MenuComponent {
   private final List<MenuComponent> menuComponents;
   private final String name;
   private final String description;
+  private Iterator iterator;
 
   public Menu(final String name, final String description) {
     this.name = name;
@@ -46,5 +47,13 @@ public class Menu extends MenuComponent {
       final MenuComponent menuComponent = iterator.next();
       menuComponent.print();
     }
+  }
+
+  @Override
+  public Iterator createIterator() {
+    if (this.iterator == null) {
+      this.iterator = new CompositeIterator(this.menuComponents.iterator());
+    }
+    return this.iterator;
   }
 }

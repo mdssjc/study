@@ -1,5 +1,7 @@
 package com.github.mdssjc.menu;
 
+import java.util.Iterator;
+
 public abstract class MenuComponent {
 
   public void add(final MenuComponent menuComponent) {
@@ -33,4 +35,6 @@ public abstract class MenuComponent {
   public void print() {
     throw new UnsupportedOperationException();
   }
+
+  public abstract Iterator createIterator();
 }
