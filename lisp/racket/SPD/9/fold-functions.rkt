@@ -15,6 +15,7 @@
 
 ;; and the template for (listof X) is:
 
+#;
 (define (fn-for-lox lox)
   (cond [(empty? lox) (...)]
         [else
@@ -42,13 +43,15 @@
 ;;
 ;; Complete the function definition for sum using fold.
 
-
 ;; (listof Number) -> Number
 ;; add up all numbers in list
 (check-expect (sum empty) 0)
 (check-expect (sum (list 2 3 4)) 9)
 
-(define (sum lon) 0) ;stub
+;(define (sum lon) 0) ; Stub
+
+(define (sum lon)
+  (fold + 0 lon))
 
 ;; PROBLEM:
 ;;
@@ -63,7 +66,10 @@
                       (square 10 "solid" "blue")
                       (square 0 "solid" "white")))
 
-(define (juxtapose loi) (square 0 "solid" "white")) ;stub
+;(define (juxtapose loi) (square 0 "solid" "white")) ; Stub
+
+(define (juxtapose loi)
+  (fold beside (square 0 "solid" "white") loi))
 
 ;; PROBLEM:
 ;;
