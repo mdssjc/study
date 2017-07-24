@@ -41,7 +41,7 @@
 ;; produce list of only those images in loi with width >= w
 (check-expect (wider-than-only 40 LOI1) (list I4 I5))
 
-;(define (wider-than-only w loi) empty) ;stub
+;(define (wider-than-only w loi) empty) ; Stub
 
 (define (wider-than-only w loi)
   (local ((define (wider-than? i)
@@ -52,18 +52,21 @@
 ;; produce list of each number in lon cubed
 (check-expect (cube-all (list 1 2 3)) (list (* 1 1 1) (* 2  2 2) (* 3 3 3)))
 
-(define (cube-all lon) empty) ;stub
-#;
-(define (cube-all lon)
-  (map ... lon))
+;(define (cube-all lon) empty) ; Stub
 
+(define (cube-all lon)
+  (local ((define (cube n)
+            (* n n n)))
+    (map cube lon)))
 
 ;; String (listof String) -> (listof String)
 ;; produce list of all elements of los prefixed by p
 (check-expect (prefix-all "accio " (list "portkey" "broom"))
               (list "accio portkey" "accio broom"))
 
-(define (prefix-all p los) empty) ;stub
-#;
+;(define (prefix-all p los) empty) ; Stub
+
 (define (prefix-all p los)
-  (map ... los))
+  (local ((define (prefix s)
+            (string-append p s)))
+    (map prefix los)))
