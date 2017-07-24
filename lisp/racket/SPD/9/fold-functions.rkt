@@ -80,7 +80,10 @@
 (check-expect (copy-list empty) empty)
 (check-expect (copy-list (list 1 2 3)) (list 1 2 3))
 
-(define (copy-list lox) empty) ;stub
+;(define (copy-list lox) empty) ; Stub
+
+(define (copy-list lox)
+  (fold cons empty lox))
 
 ;; ======================
 
@@ -105,13 +108,13 @@
 ;;    /  \     |
 ;;   /    \    |
 ;; F1      F2  F3
-
 (define F1 (make-elt "F1" 1 empty))
 (define F2 (make-elt "F2" 2 empty))
 (define F3 (make-elt "F3" 3 empty))
 (define D4 (make-elt "D4" 0 (list F1 F2)))
 (define D5 (make-elt "D5" 0 (list F3)))
 (define D6 (make-elt "D6" 0 (list D4 D5)))
+
 #;
 (define (fn-for-element e)
   (local [(define (fn-for-element e)
@@ -124,6 +127,24 @@
                   [else
                    (... (fn-for-element (first loe))
                         (fn-for-loe (rest loe)))]))]
+    (fn-for-element e)))
+
+;; (String Integer Y -> X) (X Y -> Y) Y Element -> X
+;; the abstract fold function for Element
+(check-expect (local ((define (c1 n d los) (cons n los)))
+                (fold-element c1 append empty D6))
+              (list "D6" "D4" "F1" "F2" "D5" "F3"))
+
+(define (fold-element c1 c2 b e)
+  (local [(define (fn-for-element e)
+            (c1 (elt-name e)
+                (elt-data e)
+                (fn-for-loe (elt-subs e))))
+          (define (fn-for-loe loe)
+            (cond [(empty? loe) b]
+                  [else
+                   (c2 (fn-for-element (first loe))
+                       (fn-for-loe (rest loe)))]))]
     (fn-for-element e)))
 
 ;; PROBLEM
