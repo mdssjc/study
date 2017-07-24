@@ -159,7 +159,12 @@
 (check-expect (sum-data D4) (+ 1 2))
 (check-expect (sum-data D6) (+ 1 2 3))
 
-(define (sum-data e) 0) ;stub
+;(define (sum-data e) 0) ; Stub
+
+(define (sum-data e)
+  (local ((define (c1 name data loe)
+            (+ data loe)))
+    (fold-element c1 + 0 e)))
 
 ;; PROBLEM
 ;;
