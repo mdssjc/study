@@ -13,17 +13,17 @@ public class DepthFirstSearch {
   private final boolean[] marked;
   private int count;
 
-  public DepthFirstSearch(final Graph G, final int s) {
-    this.marked = new boolean[G.v()];
-    dfs(G, s);
+  public DepthFirstSearch(final Graph g, final int s) {
+    this.marked = new boolean[g.v()];
+    dfs(g, s);
   }
 
-  private void dfs(final Graph G, final int v) {
+  private void dfs(final Graph g, final int v) {
     this.marked[v] = true;
     this.count++;
-    for (final int w : G.adj(v)) {
+    for (final int w : g.adj(v)) {
       if (!this.marked[w]) {
-        dfs(G, w);
+        dfs(g, w);
       }
     }
   }
