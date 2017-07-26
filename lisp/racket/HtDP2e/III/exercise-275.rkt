@@ -37,13 +37,21 @@
 (check-expect (most-frequent DICTIONARY-AS-LIST) (list "e" 2))
 
 (define (most-frequent d)
-  (local ((define (count-by-letter w)
+  (local (;; LoD -> Letter-Count
+          ;; counts the number of words in the list
+          (define (count-by-letter w)
             (list (string-ith (first w) 0) (length w)))
+          ;; Letter-Count Letter-Count -> Letter-Count
+          ;; picks the pair with the maximum count
           (define (most it last)
-            (cond [(empty? last) it]
-                  [else
-                   (if (> (second it) (second last)) it last)])))
-    (foldr most empty (map count-by-letter (words-by-first-letter d)))))
+            (if (or (empty? last)
+                    (> (second it) (second last)))
+                it
+                last))
+          ;; Trampoline
+          (define (most-frequent d)
+            (foldr most empty (map count-by-letter (words-by-first-letter d)))))
+    (most-frequent d)))
 
 ; Dictionary -> LoD
 ; produces a list of Dictionarys, one per Letter
