@@ -154,27 +154,29 @@
                                                               (- HEIGHT TANK-HEIGHT)))))
 
 (define (si-control s ke)
-  (local (;; Tank String -> Tank
+  (local ((define tank (sigs-tank s))
+          (define tank-location (tank-loc tank))
+          (define tank-velocity (tank-vel tank))
+          ;; Number -> Tank
           ;; changes the speed direction of tank
-          (define (tank-direction t s)
-            (make-tank (tank-loc t)
-                       (cond [(string=? s "left")  (* -1 (abs (tank-vel t)))]
-                             [(string=? s "right") (abs (tank-vel t))]
-                             [else t])))
+          (define (tank-direction d)
+            (make-tank tank-location (* d (abs tank-velocity))))
           ;; [List-of Missile] -> [List-of Missile]
           ;; fires a missile at the coordinate: x and (- HEIGHT TANK-HEIGHT)
           (define (missiles-fire x lom)
-            (append lom (cons (make-posn x (- HEIGHT TANK-HEIGHT)) empty))))
-    (make-sigs (sigs-ufo s)
-               (cond [(or (key=? ke "left")
-                          (key=? ke "right"))
-                      (tank-direction (sigs-tank s) ke)]
-                     [else
-                      (sigs-tank s)])
-               (cond [(key=? ke " ")
-                      (missiles-fire (tank-loc (sigs-tank s)) (sigs-missiles s))]
-                     [else
-                      (sigs-missiles s)]))))
+            (append lom (cons (make-posn x (- HEIGHT TANK-HEIGHT)) empty)))
+          ;; Trampoline
+          (define (si-control s ke)
+            (make-sigs (sigs-ufo s)
+                       (cond [(key=? ke "left")  (tank-direction -1)]
+                             [(key=? ke "right") (tank-direction  1)]
+                             [else
+                              (sigs-tank s)])
+                       (cond [(key=? ke " ")
+                              (missiles-fire tank-location (sigs-missiles s))]
+                             [else
+                              (sigs-missiles s)]))))
+    (si-control s ke)))
 
 ; SIGS -> Boolean
 ; returns true when the game stop;
@@ -196,7 +198,8 @@
                         (<= (- (posn-y u) UFO-Y)
                             (posn-y (first lom))
                             (+ (posn-y u) UFO-Y))) #true]
-                  [else (hit-missile? (rest lom) u)])))
+                  [else
+                   (hit-missile? (rest lom) u)])))
     (cond [(>= (posn-y (sigs-ufo s))
                (- HEIGHT CLOSE)) #true]
           [else
