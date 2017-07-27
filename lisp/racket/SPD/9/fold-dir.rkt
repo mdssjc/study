@@ -40,6 +40,7 @@
 (define D5 (make-dir "D5" empty (list I3)))
 (define D6 (make-dir "D6" (list D4 D5) empty))
 
+#;
 (define (fn-for-dir d)
   (local ((define (fn-for-dir d)
             (... (dir-name d)
@@ -65,6 +66,31 @@
 ;;
 ;; Design an abstract fold function for Dir called fold-dir.
 
+;; (String Y Z -> X) (X Y -> Y) (Image Z -> Z) Y Z Dir -> X
+;; the abstract fold function for Dir
+(check-expect (fold-dir make-dir cons cons empty empty D6) D6)
+(check-expect  (local [(define (c1 n rlod rloi) (+ rlod rloi))
+                       (define (c2 rdir rlod)   (+ 1 rdir))
+                       (define (c3 img rloi)    (+ 1 rloi))]
+                 (fold-dir c1 c2 c3 0 0 D6))
+               3)
+
+(define (fold-dir c1 c2 c3 b1 b2 d)
+  (local ((define (fold-dir d)
+            (c1 (dir-name d)
+                (fn-for-lod (dir-sub-dirs d))
+                (fn-for-loi (dir-images d))))
+          (define (fn-for-lod lod)
+            (cond [(empty? lod) b1]
+                  [else
+                   (c2 (fold-dir (first lod))
+                       (fn-for-lod (rest lod)))]))
+          (define (fn-for-loi loi)
+            (cond [(empty? loi) b2]
+                  [else
+                   (c3 (first loi)
+                       (fn-for-loi (rest loi)))])))
+    (fold-dir d)))
 
 ;; PROBLEM B:
 ;;
