@@ -19,11 +19,20 @@ public class TestPaths {
   public static void main(final String[] args) {
     Executor.execute(TestPaths.class, args);
 
-    final Graph G = new UndirectedGraph(new In(args[0]));
+    final Graph g = new UndirectedGraph(new In(args[0]));
     final int s = Integer.parseInt(args[1]);
-    final Paths search = new DepthFirstPaths(G, s);
 
-    for (int v = 0; v < G.v(); v++) {
+    System.out.println("Depth First Paths:");
+    Paths search = new DepthFirstPaths(g, s);
+    test(g, s, search);
+
+    System.out.println("Breadth First Paths:");
+    search = new BreadthFirstPaths(g, s);
+    test(g, s, search);
+  }
+
+  private static void test(final Graph g, final int s, final Paths search) {
+    for (int v = 0; v < g.v(); v++) {
       StdOut.print(s + " to " + v + ": ");
       if (search.hasPathTo(v)) {
         for (final int x : search.pathTo(v)) {
