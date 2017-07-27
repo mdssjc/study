@@ -122,6 +122,25 @@
 ;; given name. If it finds such a directory it should produce true, if
 ;; not it should produce false. Use the fold-dir abstract function.
 
+;; Dir String -> Boolean
+;; looks in dir and all its sub-directories for a directory with the given name
+(check-expect (find-dir D4 "D4") true)
+(check-expect (find-dir D4 "D5") false)
+(check-expect (find-dir D6 "D4") true)
+(check-expect (find-dir D6 "D5") true)
+(check-expect (find-dir D6 "D6") true)
+(check-expect (find-dir D6 "D3") false)
+
+;(define (find-dir d s) false) ; Stub
+
+(define (find-dir d s)
+  (local ((define (c1 n rlod rloi)
+            (or (string=? n s) rlod))
+          (define (c2 rdir rlod)
+            (or rdir rlod))
+          (define (c3 img rloi)
+            false))
+    (fold-dir c1 c2 c3 false false d)))
 
 ;; PROBLEM D:
 ;;
