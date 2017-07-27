@@ -7,15 +7,17 @@ import com.github.mdssjc.algorithms.datastructure.union_find.concrete.WeightedQu
 /**
  * Search Class.
  *
+ * Em edição.
+ *
  * @author Marcelo dos Santos
  *
  */
-public class Search {
+public class SearchOld {
 
   private final UF union;
   private final int s;
 
-  public Search(final Graph g, final int s) {
+  public SearchOld(final Graph g, final int s) {
     this.union = new WeightedQuickUnion(g.e());
     this.s = s;
 
