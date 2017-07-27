@@ -98,6 +98,22 @@
 ;; images in the directory and its sub-directories. Use the fold-dir
 ;; abstract function.
 
+;; Dir -> Number
+;; produces the number of images in the directory and its sub-directories
+(check-expect (count-images D4) 2)
+(check-expect (count-images D5) 1)
+(check-expect (count-images D6) 3)
+
+;(define (count-images d) 0) ; Stub
+
+(define (count-images d)
+  (local [(define (c1 n rlod rloi)
+            (+ rlod rloi))
+          (define (c2 rdir rlod)
+            (+ rdir rlod))
+          (define (c3 img rloi)
+            (+ 1 rloi))]
+    (fold-dir c1 c2 c3 0 0 d)))
 
 ;; PROBLEM C:
 ;;
