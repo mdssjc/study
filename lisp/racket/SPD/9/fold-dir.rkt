@@ -146,3 +146,5 @@
 ;;
 ;; Is fold-dir really the best way to code the function from part C?
 ;; Why or why not?
+
+;; No, because the function c3 is useless and add complexity.
