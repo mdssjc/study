@@ -4,13 +4,15 @@
 ;; Exercise 273
 
 
-; [List-of Number] -> [List-of Number]
-; doubles each number in the list
-(check-expect (doubles empty) empty)
-(check-expect (doubles (list 1)) (list 2))
-(check-expect (doubles (list 1 2 3)) (list 2 4 6))
+(define (doubles n) (* n 2))
 
-(define (doubles lon)
-  (local ((define (double n lst)
-            (cons (* n 2) lst)))
-    (foldr double empty lon)))
+; [X Y] (X -> Y) [List-of X] -> [List-of Y]
+; maps fn for each item in the list
+(check-expect (map2 doubles empty) empty)
+(check-expect (map2 doubles (list 1)) (list 2))
+(check-expect (map2 doubles (list 1 2 3)) (list 2 4 6))
+
+(define (map2 fn lox)
+  (local ((define (func x lst)
+            (cons (fn x) lst)))
+    (foldr func empty lox)))
