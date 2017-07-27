@@ -25,18 +25,19 @@ public class BreadthFirstPaths implements Paths {
     bfs(g, s);
   }
 
-  private void bfs(final Graph G, final int s) {
+  private void bfs(final Graph g, final int s) {
     final Queue<Integer> queue = new ResizingArrayQueue<>();
     this.marked[s] = true;
     queue.enqueue(s);
     while (!queue.isEmpty()) {
       final int v = queue.dequeue();
-      for (final int w : G.adj(v))
+      for (final int w : g.adj(v)) {
         if (!this.marked[w]) {
           this.edgeTo[w] = v;
           this.marked[w] = true;
           queue.enqueue(w);
         }
+      }
     }
   }
 
