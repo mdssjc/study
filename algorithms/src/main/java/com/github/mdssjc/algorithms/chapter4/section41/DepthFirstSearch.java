@@ -8,7 +8,7 @@ import com.github.mdssjc.algorithms.datastructure.graph.Graph;
  * @author Marcelo dos Santos
  *
  */
-public class DepthFirstSearch {
+public class DepthFirstSearch implements Search {
 
   private final boolean[] marked;
   private int count;
@@ -28,10 +28,12 @@ public class DepthFirstSearch {
     }
   }
 
-  public boolean marked(final int w) {
-    return this.marked[w];
+  @Override
+  public boolean marked(final int v) {
+    return this.marked[v];
   }
 
+  @Override
   public int count() {
     return this.count;
   }
