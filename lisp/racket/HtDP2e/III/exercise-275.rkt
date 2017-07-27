@@ -63,13 +63,15 @@
                                                                (list "zulu")))
 
 (define (words-by-first-letter d)
-  (local ((define (merge-by-words l)
-            (cond [(empty? l) empty]
-                  [else
-                   (local ((define (start-with? s)
-                             (string=? (first l) (string-ith s 0)))
-                           (define words (filter start-with? d)))
-                     (if (empty? words)
-                         (merge-by-words (rest l))
-                         (cons words (merge-by-words (rest l)))))])))
-    (merge-by-words LETTERS)))
+  (local (;; Letter LoD -> LoD
+          ;; merges all words by letter
+          (define (merge l lst)
+            (local ((define (start-with? s) (string=? l (string-ith s 0)))
+                    (define words (filter start-with? d)))
+              (if (empty? words) lst (cons words lst))))
+          ;; Trampoline
+          (define (words-by-first-letter d)
+            (if (empty? d)
+                empty
+                (foldr merge empty LETTERS))))
+    (words-by-first-letter d)))
