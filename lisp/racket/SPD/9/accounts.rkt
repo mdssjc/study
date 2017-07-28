@@ -195,6 +195,43 @@
 ;; the balance of every account in a given collection by the monthly
 ;; fee of 3 CAD.
 
+;; (Natural String Integer X X -> X) Accounts Accounts -> X
+;; the abstract fold function for Accounts
+(define (fold-act c1 b act)
+  (cond [(false? act) b]
+        [else
+         (c1 (node-id act)
+             (node-name act)
+             (node-bal act)
+             (fold-act c1 b (node-l act))
+             (fold-act c1 b (node-r act)))]))
+
+;; Accounts -> Accounts
+;; decrements the balance of every account in a given collection by the monthly fee of 3 CAD
+(check-expect (charge-fee ACT0) false)
+(check-expect (charge-fee ACT1) (make-node 1 "Mr. Rogers" 19 false false))
+(check-expect (charge-fee ACT4) (make-node 4 "Mrs. Doubtfire" -6
+                                           false
+                                           (make-node 7 "Mr. Natural" 10 false false)))
+(check-expect (charge-fee ACT3) (make-node 3 "Miss Marple" 597
+                                           (charge-fee ACT1)
+                                           (charge-fee ACT4)))
+(check-expect (charge-fee ACT42) (make-node 42 "Mr. Mom" -82
+                                            (make-node 27 "Mr. Selatcia" 37
+                                                       (make-node 14 "Mr. Impossible" -12 false false)
+                                                       false)
+                                            (make-node 50 "Miss 604" 13 false false)))
+(check-expect (charge-fee ACT10) (make-node 10 "Dr. No" 81
+                                            (charge-fee ACT3)
+                                            (charge-fee ACT42)))
+
+;(define (charge-fee acc) false) ; Stub
+
+(define (charge-fee acc)
+  (local ((define (c1 n s i actl actr)
+            (make-node n s (- i 3) actl actr)))
+    (fold-act c1 false acc)))
+
 ;; PROBLEM 4:
 ;;
 ;; Suppose you needed to design a function to look up an account based
