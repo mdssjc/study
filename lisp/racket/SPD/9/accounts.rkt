@@ -161,6 +161,32 @@
 ;; from a given BST any account where the name of the account holder
 ;; has an odd number of characters. Call it remove-odd-characters.
 
+;; Accounts -> Accounts
+;; removes from act any account where the name of the account holder has an odd number of characters
+(check-expect (remove-odd-characters ACT0) false)
+(check-expect (remove-odd-characters ACT1) ACT1)
+(check-expect (remove-odd-characters ACT4) (make-node 4 "Mrs. Doubtfire" -3 false false))
+(check-expect (remove-odd-characters ACT3) (make-node 4 "Mrs. Doubtfire" -3
+                                                      (make-node 1 "Mr. Rogers" 22 false false)
+                                                      false))
+(check-expect (remove-odd-characters ACT42)
+              (make-node 50 "Miss 604" 16
+                         (make-node 27 "Mr. Selatcia" 40
+                                    (make-node 14 "Mr. Impossible" -9 false false)
+                                    false)
+                         false))
+(check-expect (remove-odd-characters ACT10)
+              (make-node 10 "Dr. No" 84
+                         (remove-odd-characters ACT3)
+                         (remove-odd-characters ACT42)))
+
+;(define (remove-odd-characters act) false) ; Stub
+
+(define (remove-odd-characters act)
+  (local ((define (p act)
+            (odd? (string-length (node-name act)))))
+    (remove-accounts p act)))
+
 ;; Problem 3:
 ;;
 ;; Design an abstract fold function for Accounts called fold-act.
