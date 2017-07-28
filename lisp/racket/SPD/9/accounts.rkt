@@ -238,3 +238,5 @@
 ;; on its ID. Would it be better to design the function using
 ;; fold-act, or to design the function using the fn-for-acts template?
 ;; Briefly justify your answer.
+
+;; Use fn-for-acts to build a filter function.
