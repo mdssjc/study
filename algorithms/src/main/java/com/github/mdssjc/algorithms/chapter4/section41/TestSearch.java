@@ -20,18 +20,18 @@ public class TestSearch {
   public static void main(final String[] args) {
     Executor.execute(TestSearch.class, args);
 
-    final Graph G = new UndirectedGraph(new In(args[0]));
+    final Graph g = new UndirectedGraph(new In(args[0]));
     final int s = Integer.parseInt(args[1]);
-    final Search search = new Search(G, s);
+    final Search search = new DepthFirstSearch(g, s);
 
-    for (int v = 0; v < G.v(); v++) {
+    for (int v = 0; v < g.v(); v++) {
       if (search.marked(v)) {
         StdOut.print(v + " ");
       }
     }
     StdOut.println();
 
-    if (search.count() != G.v()) {
+    if (search.count() != g.v()) {
       StdOut.print("NOT ");
     }
     StdOut.println("connected");
