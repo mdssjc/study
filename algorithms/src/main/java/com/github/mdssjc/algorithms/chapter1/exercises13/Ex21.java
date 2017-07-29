@@ -1,7 +1,7 @@
 package com.github.mdssjc.algorithms.chapter1.exercises13;
 
 import com.github.mdssjc.algorithms.datastructure.queue.Queue;
-import com.github.mdssjc.algorithms.datastructure.queue.concrete.QueueLinkedList;
+import com.github.mdssjc.algorithms.datastructure.queue.concrete.LinkedQueue;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;
@@ -18,7 +18,7 @@ public class Ex21 {
   public static void main(final String[] args) {
     Executor.execute(Ex21.class, args);
 
-    final Queue<String> list = new QueueLinkedList<>();
+    final Queue<String> list = new LinkedQueue<>();
     list.enqueue("um");
     list.enqueue("dois");
     list.enqueue("três");

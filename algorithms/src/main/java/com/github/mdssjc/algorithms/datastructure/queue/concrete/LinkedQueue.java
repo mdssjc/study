@@ -9,6 +9,9 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.Iterator;
 
 /**
+ * The {@code LinkedQueue} class represents a first-in-first-out (FIFO)
+ * queue of generic items.
+ * <p>
  * This implementation uses a singly-linked list with reference for
  * linked-list nodes.
  *
@@ -17,7 +20,7 @@ import java.util.Iterator;
  * @param <Item>
  *     the generic type of an item in this queue
  */
-public class QueueLinkedList<Item> implements Queue<Item> {
+public class LinkedQueue<Item> implements Queue<Item> {
 
   private Node<Item> first;
   private Node<Item> last;
@@ -71,7 +74,7 @@ public class QueueLinkedList<Item> implements Queue<Item> {
   }
 
   public static void main(final String[] args) {
-    final Queue<String> q = new QueueLinkedList<>();
+    final Queue<String> q = new LinkedQueue<>();
 
     while (!StdIn.isEmpty()) {
       final String item = StdIn.readString();

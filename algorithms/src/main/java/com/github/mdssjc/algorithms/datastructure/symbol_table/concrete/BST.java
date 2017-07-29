@@ -1,6 +1,6 @@
 package com.github.mdssjc.algorithms.datastructure.symbol_table.concrete;
 
-import com.github.mdssjc.algorithms.datastructure.queue.concrete.QueueLinkedList;
+import com.github.mdssjc.algorithms.datastructure.queue.concrete.LinkedQueue;
 import com.github.mdssjc.algorithms.datastructure.symbol_table.OrderedST;
 import lombok.Data;
 
@@ -259,12 +259,12 @@ public class BST<Key extends Comparable<Key>, Value> implements OrderedST<Key, V
 
   @Override
   public Iterable<Key> keys(final Key lo, final Key hi) {
-    final QueueLinkedList<Key> queue = new QueueLinkedList<>();
+    final LinkedQueue<Key> queue = new LinkedQueue<>();
     keys(this.root, queue, lo, hi);
     return queue;
   }
 
-  private void keys(final Node<Key, Value> x, final QueueLinkedList<Key> queue, final Key lo, final Key hi) {
+  private void keys(final Node<Key, Value> x, final LinkedQueue<Key> queue, final Key lo, final Key hi) {
     if (x == null) {
       return;
     }
