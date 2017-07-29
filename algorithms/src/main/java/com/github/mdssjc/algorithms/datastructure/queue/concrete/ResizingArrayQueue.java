@@ -8,26 +8,30 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.Iterator;
 
 /**
- * Implementação de Queue (Fila) com capacidade redimensionável.
+ * The {@code ResizingArrayQueue} class represents a first-in-first-out (FIFO)
+ * queue of generic items.
+ * <p>
+ * This implementation uses a resizing array, which double the underlying array
+ * when it is full and halves the underlying array when it is one-quarter full.
  *
  * @author Marcelo dos Santos
  *
- * @param <T>
- *     Tipo de Dado
+ * @param <Item>
+ *     the generic type of an item in this queue
  */
-public class ResizingArrayQueue<T> implements Queue<T> {
+public class ResizingArrayQueue<Item> implements Queue<Item> {
 
-  private T[] a;
+  private Item[] a;
   private int n;
   private int head;
   private int tail;
 
   public ResizingArrayQueue() {
-    this.a = (T[]) new Object[1];
+    this.a = (Item[]) new Object[2];
   }
 
   private void resize(final int max) {
-    final T[] temp = (T[]) new Object[max];
+    final Item[] temp = (Item[]) new Object[max];
     for (int i = 0; i < this.n; i++) {
       temp[i] = this.a[(this.head + i) % this.a.length];
     }
@@ -37,7 +41,7 @@ public class ResizingArrayQueue<T> implements Queue<T> {
   }
 
   @Override
-  public void enqueue(final T item) {
+  public void enqueue(final Item item) {
     if (this.n == this.a.length) {
       resize(2 * this.a.length);
     }
@@ -49,8 +53,8 @@ public class ResizingArrayQueue<T> implements Queue<T> {
   }
 
   @Override
-  public T dequeue() {
-    final T item = this.a[this.head];
+  public Item dequeue() {
+    final Item item = this.a[this.head];
     this.a[this.head++] = null;
     this.n--;
     if (this.head == this.a.length) {
@@ -73,7 +77,7 @@ public class ResizingArrayQueue<T> implements Queue<T> {
   }
 
   @Override
-  public Iterator<T> iterator() {
+  public Iterator<Item> iterator() {
     return new ArrayIterator<>(this.a, this.size());
   }
 
