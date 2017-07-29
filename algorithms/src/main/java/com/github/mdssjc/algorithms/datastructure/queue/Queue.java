@@ -3,51 +3,62 @@ package com.github.mdssjc.algorithms.datastructure.queue;
 import java.util.Iterator;
 
 /**
- * FIFO Queue.
+ * The {@code Queue} interface represents a first-in-first-out (FIFO)
+ * queue of generic items.
  * <p>
- * Interface da estrutura de dado.
- * Examina o item menos recentemente adicionado.
+ * It supports the usual <em>enqueue</em> and <em>dequeue</em>
+ * operations, along with methods for testing if the queue is empty,
+ * and iterating through the items in FIFO order.
+ * <p>
+ * For additional documentation, see
+ * <a href="http://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  * @author Marcelo dos Santos
- * @param <T>
- *          Tipo de Dado
+ *
+ * @param <Item>
+ *     the generic type of an item in this queue
  */
-public interface Queue<T> extends Iterable<T> {
+public interface Queue<Item> extends Iterable<Item> {
 
   /**
-   * Enfileira um item.
+   * Adds the item to this queue.
    *
    * @param item
-   *          Item a ser inserido
+   *     the item to add
    */
-  void enqueue(T item);
+  void enqueue(Item item);
 
   /**
-   * Desenfileira um item.
+   * Removes and returns the item on this queue that was least recently added.
    *
-   * @return Primeiro item
+   * @return the item on this queue that was least recently added
    */
-  T dequeue();
+  Item dequeue();
 
   /**
-   * Predicado para Queue vazio.
-   * 
-   * @return boolean Resultado do predicato
+   * Returns true if this queue is empty.
+   *
+   * @return {@code true} if this queue is empty; {@code false} otherwise
    */
   boolean isEmpty();
 
   /**
-   * Retorna a quantidade de itens na Queue.
+   * Returns the number of items in this queue.
    *
-   * @return int Quantidade de itens
+   * @return the number of items in this queue
    */
   int size();
 
   /**
-   * Retorna o iterador da Queue.
+   * Returns an iterator that iterates over the items in this queue in FIFO
+   * order.
    *
-   * @return Iterador da Queue
+   * @return an iterator that iterates over the items in this queue in FIFO
+   * order
    */
   @Override
-  Iterator<T> iterator();
+  Iterator<Item> iterator();
 }
