@@ -9,22 +9,23 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.Iterator;
 
 /**
- * Implementação de FIFO Queue (Fila) com Linked List (Lista Linkada).
+ * This implementation uses a singly-linked list with reference for
+ * linked-list nodes.
  *
  * @author Marcelo dos Santos
  *
- * @param <T>
- *          Tipo de Dado
+ * @param <Item>
+ *     the generic type of an item in this queue
  */
-public class QueueLinkedList<T> implements Queue<T> {
+public class QueueLinkedList<Item> implements Queue<Item> {
 
-  private Node<T> first;
-  private Node<T> last;
-  private int     size;
+  private Node<Item> first;
+  private Node<Item> last;
+  private int size;
 
   @Override
-  public void enqueue(final T item) {
-    final Node<T> oldlast = this.last;
+  public void enqueue(final Item item) {
+    final Node<Item> oldlast = this.last;
 
     this.last = new Node<>();
     this.last.item = item;
@@ -40,8 +41,8 @@ public class QueueLinkedList<T> implements Queue<T> {
   }
 
   @Override
-  public T dequeue() {
-    final T item = this.first.item;
+  public Item dequeue() {
+    final Item item = this.first.item;
 
     this.first = this.first.next;
 
@@ -65,7 +66,7 @@ public class QueueLinkedList<T> implements Queue<T> {
   }
 
   @Override
-  public Iterator<T> iterator() {
+  public Iterator<Item> iterator() {
     return new LinkedListIterator<>(this.first);
   }
 
