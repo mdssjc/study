@@ -75,4 +75,32 @@ public class GumballMachine {
       System.out.println("No gumball dispensed");
     }
   }
+
+  public void refill(final int numGumBalls) {
+    this.count = numGumBalls;
+    this.state = NO_QUARTER;
+  }
+
+  @Override
+  public String toString() {
+    final StringBuffer result = new StringBuffer();
+    result.append("\nMighty Gumball, Inc.");
+    result.append("\nJava-enabled Standing Gumball Model #2004\n");
+    result.append("Inventory: " + this.count + " gumball");
+    if (this.count != 1) {
+      result.append("s");
+    }
+    result.append("\nMachine is ");
+    if (this.state == SOLD_OUT) {
+      result.append("sold out");
+    } else if (this.state == NO_QUARTER) {
+      result.append("waiting for quarter");
+    } else if (this.state == HAS_QUARTER) {
+      result.append("waiting for turn of crank");
+    } else if (this.state == SOLD) {
+      result.append("delivering a gumball");
+    }
+    result.append("\n");
+    return result.toString();
+  }
 }
