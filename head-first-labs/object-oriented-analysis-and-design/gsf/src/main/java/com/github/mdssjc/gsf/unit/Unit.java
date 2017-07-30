@@ -1,22 +1,17 @@
 package com.github.mdssjc.gsf.unit;
 
+import lombok.Data;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Getter;
-import lombok.Setter;
-
+@Data
 public class Unit {
 
-  @Getter
-  @Setter
   private String              type;
-  @Getter
   private final int           id;
-  @Getter
-  @Setter
   private String              name;
   private List<Weapon>        weapons;
   private Map<String, Object> properties;
@@ -47,7 +42,7 @@ public class Unit {
     if (this.properties == null) {
       throw new IllegalArgumentException("No properties for this Unit.");
     }
-    Object value = properties.get(property);
+    final Object value = this.properties.get(property);
     if (value == null) {
       throw new IllegalArgumentException("Request for non-existent property.");
     }
