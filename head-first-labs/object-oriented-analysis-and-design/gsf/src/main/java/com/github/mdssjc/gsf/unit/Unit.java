@@ -10,10 +10,10 @@ import java.util.Map;
 @Data
 public class Unit {
 
-  private String              type;
-  private final int           id;
-  private String              name;
-  private List<Weapon>        weapons;
+  private final int id;
+  private String type;
+  private String name;
+  private List<Weapon> weapons;
   private Map<String, Object> properties;
 
   public Unit(final int id) {
