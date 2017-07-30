@@ -5,12 +5,6 @@ import com.github.mdssjc.gsf.unit.Unit;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Representa o Board do sistema.
- *
- * @author Marcelo dos Santos
- *
- */
 public class Board {
 
   private final int width;
