@@ -70,3 +70,33 @@
 ;; Here is an example of a larger Sierpinski carpet.
 ;;
 ;;  [Sierpinski carpet]
+
+;; Number -> Image
+;; produce Sierpinski carpet of given size
+(check-expect (scarpet CUTOFF) (square CUTOFF "outline" "red"))
+(check-expect (scarpet (* CUTOFF 3))
+              (overlay (square (* CUTOFF 3) "outline" "red")
+                       (local ((define sub (square CUTOFF "outline" "red"))
+                               (define blk (square CUTOFF "solid" "white")))
+                         (above (beside sub sub sub)
+                                (beside sub blk sub)
+                                (beside sub sub sub)))))
+
+;(define (scarpet s) (square 0 "solid" "white")) ; Stub
+
+#;
+(define (genrec-fn d)
+  (cond [(trivial? d) (trivial-answer d)]
+        [else
+         (... d
+              (genrec-fn (next-problem d)))]))
+
+(define (scarpet s)
+  (cond [(<= s CUTOFF) (square s "outline" "red")]
+        [else
+         (overlay (square s "outline" "red")
+                  (local ((define sub (scarpet (/ s 3)))
+                          (define blk (square (/ s 3) "solid" "white")))
+                    (above (beside sub sub sub)
+                           (beside sub blk sub)
+                           (beside sub sub sub))))]))
