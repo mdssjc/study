@@ -26,7 +26,8 @@
                      (cond [(and (false? res)
                                  (equal? i x)) 0]
                            [(number? res) (add1 res)]
-                           [else res])) #false l)
+                           [else res]))
+                   #false l)
             l0)))
 
 (check-satisfied (index     4 LST)
