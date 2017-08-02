@@ -121,8 +121,9 @@
 (define (scantor w)
   (cond [(<= w CUTOFF) (rectangle CUTOFF 3 "solid" "blue")]
         [else
-         (local ((define sub (scantor (/ w 3)))
-                 (define blk (rectangle (/ w 3) 3 "solid" "white")))
+         (local ((define wc (/ w 3))
+                 (define sub (scantor (/ (- w wc) 2)))
+                 (define blk (rectangle wc 3 "solid" "white")))
            (above (rectangle w 3 "solid" "blue")
                   blk
                   (beside sub blk sub)))]))
