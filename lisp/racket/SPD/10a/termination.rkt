@@ -17,7 +17,7 @@
 ;; The Collatz conjecture is: This process will eventually reach the
 ;; number 1, regardless of which positive integer is chosen initially.
 ;;
-;; Image Collatz
+;; [Image Collatz]
 ;;
 ;; [Image and part of text from: https://en.wikipedia.org/wiki/Collatz_conjecture]
 
@@ -36,6 +36,7 @@
                 (hailstones (/ n 2))
                 (hailstones (add1 (* n 3)))))))
 
+
 ;; PROBLEM:
 ;;
 ;; The stri, scarpet and hailstones functions use generative
@@ -45,35 +46,44 @@
 ;;
 ;; Construct a three part termination argument for stri.
 ;;
-;; Base case:
+;; Base case: (<= s CUTOFF)
 ;;
-;; Reduction step:
+;; Reduction step: (/ s 2)
 ;;
 ;; Argument that repeated application of reduction step will
 ;; eventually reach the base case:
+;;
+;; As long as the cutoff is > 0 and s starts >= 0 repeated division by
+;; 2 will eventually be less than cutoff.
 
 
 ;; PROBLEM:
 ;;
 ;; Construct a three part termination argument for scarpet.
 ;;
-;; Base case:
+;; Base case: (<= s CUTOFF)
 ;;
-;; Reduction step (next problem):
-;;
+;; Reduction step (next problem): (/ s 3)
 ;;
 ;; Argument that repeated application of reduction step will
 ;; eventually reach the base case:
+;;
+;; As long as cutoff is > 0 and s starts >= 0, repeated division by 3
+;; will eventually reach base case.
 
 
 ;; PROBLEM:
 ;;
 ;; Construct a three part termination argument for hailstones:
 ;;
-;; Base case:
+;; Base case: (= n 1)
 ;;
 ;; Reduction step (next problem):
 ;;
+;;   if n is even  (/ n 2)
+;;   if n is odd   (/ 1 (* n 3))
 ;;
 ;; Argument that repeated application of reduction step will
 ;; eventually reach the base case:
+;;
+;; THIS IS A TRICK PROBLEM!
