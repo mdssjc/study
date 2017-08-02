@@ -106,23 +106,23 @@
 ;; !!!
 (define (render ws) ...)
 
-;; Number -> Image
-;; consumes a width and produces a cantor set of the given width
-(check-expect (scantor CUTOFF) (rectangle CUTOFF 3 "solid" "blue"))
-(check-expect (scantor (* CUTOFF 3))
+;; Number Number -> Image
+;; produces a cantor set of the given width and percentage of white width
+(check-expect (scantor CUTOFF 1/3) (rectangle CUTOFF 3 "solid" "blue"))
+(check-expect (scantor (* CUTOFF 3) 1/3)
               (local ((define sub (rectangle CUTOFF 3 "solid" "blue"))
                       (define blk (rectangle CUTOFF 3 "solid" "white")))
                 (above (rectangle (* CUTOFF 3) 3 "solid" "blue")
                        blk
                        (beside sub blk sub))))
 
-;(define (scantor w) empty-image) ; Stub
+;(define (scantor w p) empty-image) ; Stub
 
-(define (scantor w)
+(define (scantor w p)
   (cond [(<= w CUTOFF) (rectangle CUTOFF 3 "solid" "blue")]
         [else
-         (local ((define wc (/ w 3))
-                 (define sub (scantor (/ (- w wc) 2)))
+         (local ((define wc (* w p))
+                 (define sub (scantor (/ (- w wc) 2) p))
                  (define blk (rectangle wc 3 "solid" "white")))
            (above (rectangle w 3 "solid" "blue")
                   blk
