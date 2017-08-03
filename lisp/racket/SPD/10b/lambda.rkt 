@@ -25,12 +25,9 @@
               (list 6 100))
 
 (define (all-areas loi)
-  (local [(define (area i)
-            (* (image-width i)
-               (image-height i)))]
-    (map area loi)))
-
-
+  (map (lambda (i) (* (image-width i)
+                    (image-height i)))
+     loi))
 
 ;; (listof Number)  ->  (listof Number)
 ;; produce list of numbers sorted in ASCENDING order
@@ -44,9 +41,7 @@
 (define (qsort lon)
   (if (empty? lon)
       empty
-      (local [(define p (first lon))
-              (define (<p? n) (< n p))
-              (define (>p? n) (> n p))]
-        (append (qsort (filter <p? lon))
+      (local [(define p (first lon))]
+        (append (qsort (filter (lambda (n) (< n p)) lon))
                 (list p)
-                (qsort (filter >p? lon))))))
+                (qsort (filter (lambda (n) (> n p)) lon))))))
