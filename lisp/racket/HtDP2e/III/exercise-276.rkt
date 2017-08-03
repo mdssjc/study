@@ -3,7 +3,6 @@
 #reader(lib "htdp-intermediate-reader.ss" "lang")((modname exercise-276) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; Exercise 276
 
-
 (require 2htdp/itunes)
 
 
@@ -34,13 +33,17 @@
 (check-expect (select-album-date "title AB" "three" (create-date 1 2 3 4 5 5) LT1) empty)
 
 (define (select-album-date t a d lt)
-  (local ((define (date>? d1 d2)
+  (local (;; Date Date -> Boolean
+          ;; compares if d1 is greater than d2
+          (define (date>? d1 d2)
             (or (> (date-year   d1) (date-year   d2))
                 (> (date-month  d1) (date-month  d2))
                 (> (date-day    d1) (date-day    d2))
                 (> (date-hour   d1) (date-hour   d2))
                 (> (date-minute d1) (date-minute d2))
                 (> (date-second d1) (date-second d2))))
+          ;; LTracks -> Boolean
+          ;; predicates for track selection
           (define (predicate? lt)
             (and (string=? (track-name   lt) t)
                  (string=? (track-album  lt) a)
