@@ -12,7 +12,7 @@
 (define NEL2 (list (make-posn 2 4) (make-posn 3 1) (make-posn 1 5)))
 
 
-; [X] (X -> Number) [NEList-of X] -> X
+; [X] [X -> Number] [NEList-of X] -> X
 ; finds the (first) item in lx that maximizes f
 ; if (argmax f (list x-1 ... x-n)) == x-i,
 ; then (>= (f x-i) (f x-1)), (>= (f x-i) (f x-2)), ...

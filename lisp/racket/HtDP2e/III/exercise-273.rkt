@@ -6,7 +6,7 @@
 
 (define (doubles n) (* n 2))
 
-; [X Y] (X -> Y) [List-of X] -> [List-of Y]
+; [X Y] [X -> Y] [List-of X] -> [List-of Y]
 ; maps fn for each item in the list
 (check-expect (map2 doubles empty) empty)
 (check-expect (map2 doubles (list 1)) (list 2))

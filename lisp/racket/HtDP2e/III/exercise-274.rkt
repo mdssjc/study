@@ -4,7 +4,7 @@
 ;; Exercise 274
 
 
-; ([List-of X] -> [List-of X]) [List-of X] -> [List-of [List-of X]]
+; [[List-of X] -> [List-of X]] [List-of X] -> [List-of [List-of X]]
 ; produces the list of all fixes
 (check-expect (fixes pre empty) empty)
 (check-expect (fixes pre (list "a")) (list (list "a")))

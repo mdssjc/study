@@ -4,7 +4,7 @@
 ;; Exercise 291
 
 
-; [X Y] (X -> Y) [List-of X] -> [List-of Y]
+; [X Y] [X -> Y] [List-of X] -> [List-of Y]
 ; maps fn for each item in the list
 (check-expect (map2 (lambda (n) (* n 2)) empty) empty)
 (check-expect (map2 (lambda (n) (* n 2)) (list 1)) (list 2))

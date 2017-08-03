@@ -4,15 +4,15 @@
 ;; Exercise 255
 
 
-; [List-of Number] (Number -> Number) -> [List-of Number]
+; [List-of Number] [Number -> Number] -> [List-of Number]
 ; !!!
 (define (map-n lon f) empty)
 
-; [List-of String] (String -> String) -> [List-of String]
+; [List-of String] [String -> String] -> [List-of String]
 ; !!!
 (define (map-s lon f) empty)
 
 
-; [X] [List-of X] (X -> X) -> [List-of X]
+; [X] [List-of X] [X -> X] -> [List-of X]
 ; !!!
 (define (map-x lst f) empty)

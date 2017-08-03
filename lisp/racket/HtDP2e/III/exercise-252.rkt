@@ -31,7 +31,7 @@
 (define dot (circle 3 "solid" "red"))
 
 
-; [A B] (A B -> B) [List-of A] B -> B
+; [A B] [A B -> B] [List-of A] B -> B
 ; summarizes the list l with the function f and identity i
 (check-expect (fold2 * (list 1 2 3) 1) 6)
 (check-expect (fold2 place-dot (list (make-posn 3 5) (make-posn 7 2)) emt)

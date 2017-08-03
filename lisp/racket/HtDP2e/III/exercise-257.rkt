@@ -4,7 +4,7 @@
 ;; Exercise 257
 
 
-; [X Y] (X Y -> Y) Y [List-of X] -> Y
+; [X Y] [X Y -> Y] Y [List-of X] -> Y
 ; f*oldl works just like foldl
 (check-expect (f*oldl cons '() '(a b c)) (foldl cons '() '(a b c)))
 (check-expect (f*oldl / 1 '(6 3 2)) (foldl / 1 '(6 3 2)))
@@ -12,7 +12,7 @@
 (define (f*oldl f e l)
   (foldr f e (reverse l)))
 
-; Natural (Natural -> X) -> [List-of X]
+; Natural [Natural -> X] -> [List-of X]
 ; build-l*st works just like build-list
 (check-expect (build-list 0 add1) empty)
 (check-expect (build-list 5 add1) (list 1 2 3 4 5))

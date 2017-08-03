@@ -4,15 +4,15 @@
 ;; Exercise 254
 
 
-; [List-of Number] (Number Number -> Boolean) -> [List-of Number]
+; [List-of Number] [Number Number -> Boolean] -> [List-of Number]
 ; !!!
 (define (sort-n lon f) empty)
 
-; [List-of String] (String String -> Boolean) -> [List-of String]
+; [List-of String] [String String -> Boolean] -> [List-of String]
 ; !!!
 (define (sort-s los f) empty)
 
 
-; [X] [List-of X] (X X -> Boolean) -> [List-of X]
+; [X] [List-of X] [X X -> Boolean] -> [List-of X]
 ; !!!
 (define (sort-x lst f) empty)
