@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-  EmployeeDAO edao = new EmployeeListDAO();
+  private final EmployeeDAO edao = new EmployeeListDAO();
 
   // Get all employees
   @RequestMapping(method = RequestMethod.GET)
@@ -58,7 +58,7 @@ public class EmployeeController {
   }
 
   // Get employee by dept (Week 2)
-  @RequestMapping(method = RequestMethod.GET,value = "/department/{dept}")
+  @RequestMapping(method = RequestMethod.GET, value = "/department/{dept}")
   public ResponseEntity getByDept(@PathVariable final String dept) {
     final List<Employee> matches = this.edao.getByDept(dept);
 
@@ -89,4 +89,13 @@ public class EmployeeController {
   }
 
   // Delete a employee (Week 3)
+  @RequestMapping(method = RequestMethod.DELETE, value = "{id}")
+  public ResponseEntity delete(@PathVariable final long id) {
+    final boolean isDelete = this.edao.delete(id);
+    if (isDelete) {
+      return new ResponseEntity<>(null, HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+  }
 }
