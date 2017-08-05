@@ -1,20 +1,20 @@
 package com.github.mdssjc.gsf.unit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class UnitGroupTest {
 
   @Test
   public void CreatingANewUnitGroupFromAListOfUnits() {
-    UnitGroup unitGroup;
+    final UnitGroup unitGroup;
     final List<Unit> units = Arrays.asList(new Unit(0), new Unit(1),
-        new Unit(2));
+                                           new Unit(2));
 
     unitGroup = new UnitGroup(units);
     final List<Unit> unitsOutput = unitGroup.getUnits();
@@ -48,7 +48,7 @@ public class UnitGroupTest {
   @Test
   public void GettingAllTheUnitsInAGroup() {
     final List<Unit> units = Arrays.asList(new Unit(0), new Unit(1),
-        new Unit(2));
+                                           new Unit(2));
     final UnitGroup unitGroup = new UnitGroup(units);
 
     final List<Unit> unitsOutput = unitGroup.getUnits();
@@ -65,7 +65,7 @@ public class UnitGroupTest {
     unitGroup.removeUnit(id);
 
     assertTrue(unitGroup.getUnits()
-      .isEmpty());
+                        .isEmpty());
   }
 
   @Test
@@ -77,6 +77,6 @@ public class UnitGroupTest {
     unitGroup.removeUnit(unit);
 
     assertTrue(unitGroup.getUnits()
-      .isEmpty());
+                        .isEmpty());
   }
 }

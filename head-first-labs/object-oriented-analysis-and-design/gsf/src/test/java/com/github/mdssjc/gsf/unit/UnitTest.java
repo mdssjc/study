@@ -1,22 +1,21 @@
 package com.github.mdssjc.gsf.unit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
 public class UnitTest {
 
   private static final int ID = 1000;
-  private Unit             unit;
-
   @Rule
   public ExpectedException thrown = ExpectedException.none();
+  private Unit unit;
 
   @Before
   public void initialize() {
