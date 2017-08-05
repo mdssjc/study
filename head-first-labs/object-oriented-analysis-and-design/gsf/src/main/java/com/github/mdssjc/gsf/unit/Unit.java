@@ -16,10 +16,6 @@ public class Unit {
   private List<Weapon> weapons;
   private Map<String, Object> properties;
 
-  public Unit(final int id) {
-    this.id = id;
-  }
-
   public void addWeapon(final Weapon weapon) {
     if (this.weapons == null) {
       this.weapons = new LinkedList<>();
