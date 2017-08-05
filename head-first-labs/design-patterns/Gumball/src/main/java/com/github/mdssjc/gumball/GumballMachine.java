@@ -13,6 +13,8 @@ public class GumballMachine {
   private final State hasQuarterState;
   @Getter
   private final State soldState;
+  @Getter
+  private final State winnerState;
 
   @Setter
   private State state;
@@ -24,6 +26,7 @@ public class GumballMachine {
     this.noQuarterState = new NoQuarterState(this);
     this.hasQuarterState = new HasQuarterState(this);
     this.soldState = new SoldState(this);
+    this.winnerState = new WinnerState(this);
 
     this.count = numberGumballs;
     this.state = this.soldOutState;
