@@ -23,7 +23,8 @@ public class MoveUnitScenario {
     System.out.println(
         "Moved 1st Infantry Division from (3,3) to (5, 2)");
     assertEquals(0, b.getTileAt(new Coordinate(3, 3))
-                     .getUnits().size());
+                     .getUnits()
+                     .size());
     System.out.println("Where is 1st Infantry Division at? " + b.whereIs(u));
   }
 
