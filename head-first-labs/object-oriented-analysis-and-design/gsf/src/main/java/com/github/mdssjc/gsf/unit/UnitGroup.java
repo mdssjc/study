@@ -11,8 +11,7 @@ public class UnitGroup {
 
   public UnitGroup(final List<Unit> unitList) {
     this.units = new HashMap<>();
-    for (final Unit name : unitList) {
-      final Unit unit = name;
+    for (final Unit unit : unitList) {
       this.units.put(unit.getId(), unit);
     }
   }
