@@ -1,9 +1,9 @@
 package com.github.mdssjc.gsf.board;
 
+import com.github.mdssjc.gsf.unit.Unit;
+
 import java.util.LinkedList;
 import java.util.List;
-
-import com.github.mdssjc.gsf.unit.Unit;
 
 public class Tile {
 
@@ -27,5 +27,9 @@ public class Tile {
 
   public void removeUnits() {
     this.units.clear();
+  }
+
+  public boolean containsUnit(final Unit unit) {
+    return this.units.contains(unit);
   }
 }
