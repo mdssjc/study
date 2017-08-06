@@ -10,17 +10,17 @@ public class WinnerState implements State {
 
   @Override
   public void insertQuarter() {
-    System.out.println("You can’t insert another quarter");
+    System.out.println("Please wait, we’re already giving you a gumball");
   }
 
   @Override
   public void ejectQuarter() {
-    System.out.println("You haven’t inserted a quarter");
+    System.out.println("Sorry, you already turned the crank");
   }
 
   @Override
   public void turnCrank() {
-    System.out.println("You turned but there’s no quarter");
+    System.out.println("Turning twice doesn’t get you another gumball");
   }
 
   @Override
