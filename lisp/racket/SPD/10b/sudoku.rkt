@@ -250,18 +250,62 @@
 ;; Board -> Pos
 ;; produces the position of the first blank square
 ;; Assume: the board has at least one blank square
-;; !!!
-(define (find-blank bd) 0) ; Stub
+(check-expect (find-blank BD1) 0)
+(check-expect (find-blank (cons 2 (rest BD1))) 1)
+(check-expect (find-blank (cons 2 (cons 4 (rest BD1)))) 2)
+
+;(define (find-blank bd) 0) ; Stub
+
+(define (find-blank bd)
+  (cond [(empty? bd) (error "The board didn't have a blank space.")]
+        [else
+         (if (false? (first bd))
+             0
+             (+ 1 (find-blank (rest bd))))]))
 
 ;; Pos Board -> (listof Board)
 ;; produce 9 boards, with blank filled with Natural[1, 9]
-;; !!!
-(define (fill-with-1-9 p bd) empty?) ; Stub
+(check-expect (fill-with-1-9 0 BD1)
+              (list (cons 1 (rest BD1))
+                    (cons 2 (rest BD1))
+                    (cons 3 (rest BD1))
+                    (cons 4 (rest BD1))
+                    (cons 5 (rest BD1))
+                    (cons 6 (rest BD1))
+                    (cons 7 (rest BD1))
+                    (cons 8 (rest BD1))
+                    (cons 9 (rest BD1))))
+
+;(define (fill-with-1-9 p bd) empty?) ; Stub
+
+(define (fill-with-1-9 p bd)
+  (local ((define (build-one n)
+            (fill-square bd p (+ n 1))))
+    (build-list 9 build-one)))
 
 ;; (listof Board) -> (listof Board)
 ;; produce list containing only valid boards
+(check-expect (keep-only-valid (list (cons 1 (cons 1 (rest (rest BD1))))))
+              empty)
+
+;(define (keep-only-valid lobd) empty) ; Stub
+
+(define (keep-only-valid lobd)
+  (filter valid-board? lobd))
+
+;; Board -> Boolean
+;; produce true no unit on the board has the same value twice; false otherwise
 ;; !!!
-(define (keep-only-valid lobd) empty) ; Stub
+(check-expect (valid-board? BD1) true)
+(check-expect (valid-board? BD2) true)
+(check-expect (valid-board? BD3) true)
+(check-expect (valid-board? BD4) true)
+(check-expect (valid-board? BD5) true)
+(check-expect (valid-board? (cons 2 (rest BD2))) false)
+(check-expect (valid-board? (cons 2 (rest BD3))) false)
+(check-expect (valid-board? (fill-square BD4 1 6)) false)
+
+(define (valid-board? bd) false) ; Stub
 
 ;; Board Pos -> Val or false
 ;; Produce value at given position on board.
