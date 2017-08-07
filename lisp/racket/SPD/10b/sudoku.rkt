@@ -217,6 +217,18 @@
                          (solve--lobd (rest lobd))))])))
     (solve--bd bd)))
 
+;; Board -> Boolean
+;; produce true if board is solved
+;; Assume: board is valid, so it is solved if it is full
+;; !!!
+(define (solved? bd) false) ; Stub
+
+;; Board -> (listof Board)
+;; produce list of valid next boards from board
+;; finds first empty square, fills it with Natural[1, 9], keeps only valid boards
+;; !!!
+(define (next-boards bd) empty) ; Stub
+
 ;; Board Pos -> Val or false
 ;; Produce value at given position on board.
 (check-expect (read-square BD2 (r-c->pos 0 5)) 6)
