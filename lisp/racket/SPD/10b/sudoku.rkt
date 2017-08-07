@@ -195,7 +195,7 @@
 
 ;; Board -> Board or false
 ;; produce a solution for bd; or false if bd is unsolvable
-;; Assume: bd is valid
+;; ASSUME: bd is valid
 (check-expect (solve BD4) BD4s)
 (check-expect (solve BD5) BD5s)
 (check-expect (solve BD7) false)
@@ -219,7 +219,7 @@
 
 ;; Board -> Boolean
 ;; produce true if board is solved
-;; Assume: board is valid, so it is solved if it is full
+;; ASSUME: board is valid, so it is solved if it is full
 (check-expect (solved? BD1) false)
 (check-expect (solved? BD2) false)
 (check-expect (solved? BD4s) true)
@@ -249,7 +249,7 @@
 
 ;; Board -> Pos
 ;; produces the position of the first blank square
-;; Assume: the board has at least one blank square
+;; ASSUME: the board has at least one blank square
 (check-expect (find-blank BD1) 0)
 (check-expect (find-blank (cons 2 (rest BD1))) 1)
 (check-expect (find-blank (cons 2 (cons 4 (rest BD1)))) 2)
