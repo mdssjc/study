@@ -16,12 +16,16 @@ public class GumballMachine {
   @Getter
   private final State winnerState;
 
+  @Getter
   @Setter
   private State state;
   @Getter
   private int count;
+  @Getter
+  private final String location;
 
-  public GumballMachine(final int numberGumballs) {
+  public GumballMachine(final String location, final int numberGumballs) {
+    this.location = location;
     this.soldOutState = new SoldOutState(this);
     this.noQuarterState = new NoQuarterState(this);
     this.hasQuarterState = new HasQuarterState(this);
