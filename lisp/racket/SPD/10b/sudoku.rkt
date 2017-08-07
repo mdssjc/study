@@ -220,8 +220,14 @@
 ;; Board -> Boolean
 ;; produce true if board is solved
 ;; Assume: board is valid, so it is solved if it is full
-;; !!!
-(define (solved? bd) false) ; Stub
+(check-expect (solved? BD1) false)
+(check-expect (solved? BD2) false)
+(check-expect (solved? BD4s) true)
+
+;(define (solved? bd) false) ; Stub
+
+(define (solved? bd)
+  (andmap number? bd))
 
 ;; Board -> (listof Board)
 ;; produce list of valid next boards from board
