@@ -232,8 +232,36 @@
 ;; Board -> (listof Board)
 ;; produce list of valid next boards from board
 ;; finds first empty square, fills it with Natural[1, 9], keeps only valid boards
+(check-expect (next-boards (cons 1 (rest BD1)))
+              (list (cons 1 (cons 2 (rest (rest BD1))))
+                    (cons 1 (cons 3 (rest (rest BD1))))
+                    (cons 1 (cons 4 (rest (rest BD1))))
+                    (cons 1 (cons 5 (rest (rest BD1))))
+                    (cons 1 (cons 6 (rest (rest BD1))))
+                    (cons 1 (cons 7 (rest (rest BD1))))
+                    (cons 1 (cons 8 (rest (rest BD1))))
+                    (cons 1 (cons 9 (rest (rest BD1))))))
+
+;(define (next-boards bd) empty) ; Stub
+
+(define (next-boards bd)
+  (keep-only-valid (fill-with-1-9 (find-blank bd) bd)))
+
+;; Board -> Pos
+;; produces the position of the first blank square
+;; Assume: the board has at least one blank square
 ;; !!!
-(define (next-boards bd) empty) ; Stub
+(define (find-blank bd) 0) ; Stub
+
+;; Pos Board -> (listof Board)
+;; produce 9 boards, with blank filled with Natural[1, 9]
+;; !!!
+(define (fill-with-1-9 p bd) empty?) ; Stub
+
+;; (listof Board) -> (listof Board)
+;; produce list containing only valid boards
+;; !!!
+(define (keep-only-valid lobd) empty) ; Stub
 
 ;; Board Pos -> Val or false
 ;; Produce value at given position on board.
