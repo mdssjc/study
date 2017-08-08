@@ -305,7 +305,33 @@
 (check-expect (valid-board? (cons 2 (rest BD3))) false)
 (check-expect (valid-board? (fill-square BD4 1 6)) false)
 
-(define (valid-board? bd) false) ; Stub
+;(define (valid-board? bd) false) ; Stub
+
+(define (valid-board? bd)
+  (local ((define (valid-units? lou)      ; (listof Unit) -> Boolean
+            (andmap valid-unit? lou))
+
+          (define (valid-unit? u)         ; Unit -> Boolean
+            (no-duplicates?
+             (keep-only-values
+              (read-unit u))))
+
+          (define (read-unit u)           ; Unit -> (listof Val|false)
+            (map read-pos u))
+
+          (define (read-pos p)            ; Pos -> Val|false
+            (read-square bd p))           ; produce contents of bd at p
+
+          (define (keep-only-values lovf) ; (listof Val|false) -> (listof Val)
+            (filter number? lovf))
+
+          (define (no-duplicates? lov)    ; (listof Val) -> Boolean
+            (cond [(empty? lov) true]     ; produce true if no value in lov appears twice
+                  [else
+                   (if (member? (first lov) (rest lov))
+                       false
+                       (no-duplicates? (rest lov)))])))
+    (valid-units? UNITS)))
 
 ;; Board Pos -> Val or false
 ;; Produce value at given position on board.
