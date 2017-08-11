@@ -4,6 +4,7 @@
 ;; genrec-quiz.rkt
 
 (require 2htdp/image)
+(require racket/list)
 
 
 ;; PROBLEM 1:
@@ -93,7 +94,116 @@
 ;; Board -> Board or false
 ;; produce a solution for b; or false if b is unsolvable
 ;; ASSUME: b is valid
-(define (solver b) false) ; Stub
+(check-expect (solve (list "X" "O"   "O"
+                           "O" "X"   "X"
+                           "X" false "O")) false)
+(check-expect (solve B2) (list "X" "X"   "O"
+                               "O" "X"   "O"
+                               "X" false "X"))
+(check-expect (solve B3) (list "X" "O" "X"
+                               "O" "O" "O"
+                               "X" "X" false))
+
+;(define (solve b) false) ; Stub
+
+(define (solve b)
+  (local ((define (solve--bd b)
+            (if (solved? b)
+                b
+                (solve--lob (next-boards b))))
+
+          (define (solve--lob lob)
+            (cond [(empty? lob) false]
+                  [else
+                   (local ((define try (solve--bd (first lob))))
+                     (if (not (false? try))
+                         try
+                         (solve--lob (rest lob))))])))
+    (solve--bd b)))
+
+;; Board -> Boolean
+;; produce true if board is solved
+;; ASSUME: board is valid, so it is solved if it is full
+(check-expect (solved? B1) false)
+(check-expect (solved? B2) true)
+(check-expect (solved? B3) false)
+(check-expect (solved? (list "X" "X" "O"
+                             "O" "O" "X"
+                             "X" "X" "X")) true)
+
+;(define (solved? b) false) ; Stub
+
+(define (solved? b)
+  (local ((define (pass? p1 p2 p3)
+            (local ((define st (first (drop b p1)))
+                    (define nd (first (drop b p2)))
+                    (define rd (first (drop b p3))))
+              (cond [(or (false? st)
+                         (false? nd)
+                         (false? rd)) false]
+                    [else
+                     (string=? st nd rd)]))))
+    (or (pass? 0 1 2)
+        (pass? 3 4 5)
+        (pass? 6 7 8)
+        (pass? 0 3 6)
+        (pass? 1 4 7)
+        (pass? 2 5 8)
+        (pass? 0 4 8)
+        (pass? 2 4 6))))
+
+;; Board -> (listof Board)
+;; produce list of valid next boards from board
+;; finds first empty slot, fills it with Value
+(check-expect (next-boards B2) (list (list "X" "X" "O"
+                                           "O" "X" "O"
+                                           "X" "X" "X")
+                                     (list "X" "X" "O"
+                                           "O" "X" "O"
+                                           "X" "O" "X")))
+
+;(define (next-boards b) empty) ; Stub
+
+(define (next-boards b)
+  (fill-with-value (find-slot b) b))
+
+;; Board -> Pos
+;; produces the position of the first slot square
+;; ASSUME: the board has at least one slot square
+(check-expect (find-slot B0) 0)
+(check-expect (find-slot B1) 0)
+(check-expect (find-slot B2) 7)
+(check-expect (find-slot B3) 5)
+
+;(define (find-slot b) 0) ; Stub
+
+(define (find-slot b)
+  (cond [(empty? b) (error "The board didn't have a slot space.")]
+        [else
+         (if (false? (first b))
+             0
+             (+ 1 (find-slot (rest b))))]))
+
+;; Pos Board -> (listof Board)
+;; produce 2 boards, with slot filled with Value
+(check-expect (fill-with-value 7 B2) (list (list "X" "X" "O"
+                                                 "O" "X" "O"
+                                                 "X" "X" "X")
+                                           (list "X" "X" "O"
+                                                 "O" "X" "O"
+                                                 "X" "O" "X")))
+
+;(define (fill-with-value p b) empty) ; Stub
+
+(define (fill-with-value p b)
+  (local ((define (build-one n)
+            (fill-slot b p (if (zero? n) "X" "O")))
+
+          (define (fill-slot b p v)
+            (append (take b p)
+                    (list v)
+                    (drop b (add1 p)))))
+    (build-list 2 build-one)))
 
 ;; PROBLEM 3:
 ;;
