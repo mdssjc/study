@@ -276,7 +276,7 @@
                     (cons 8 (rest BD1))
                     (cons 9 (rest BD1))))
 
-;(define (fill-with-1-9 p bd) empty?) ; Stub
+;(define (fill-with-1-9 p bd) empty) ; Stub
 
 (define (fill-with-1-9 p bd)
   (local ((define (build-one n)
