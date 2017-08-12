@@ -1,12 +1,12 @@
 package com.github.mdssjc.routefinder;
 
-import java.io.File;
-import java.util.List;
-
 import com.github.mdssjc.routefinder.loader.SubwayLoader;
 import com.github.mdssjc.routefinder.printer.SubwayPrinter;
 import com.github.mdssjc.routefinder.subway.Connection;
 import com.github.mdssjc.routefinder.subway.Subway;
+
+import java.io.File;
+import java.util.List;
 
 public class SubwayTester {
 
@@ -19,9 +19,9 @@ public class SubwayTester {
     try {
       final SubwayLoader loader = new SubwayLoader();
       final String file = ClassLoader.getSystemResource("ObjectvilleSubway.txt")
-        .getPath();
+                                     .getPath();
       final Subway objectville = loader
-        .loadFromFile(new File(file));
+          .loadFromFile(new File(file));
 
       if (!objectville.hasStation(args[0])) {
         System.err.println(args[0] + " is not a station in Objectville.");
@@ -32,7 +32,7 @@ public class SubwayTester {
       }
 
       final List<Connection> route = objectville.getDirections(args[0],
-          args[1]);
+                                                               args[1]);
       final SubwayPrinter printer = new SubwayPrinter(System.out);
       printer.printDirections(route);
     } catch (final Exception e) {
