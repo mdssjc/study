@@ -2,7 +2,7 @@ Ajax Rapids
 Algebra Avenue
 Boards 'R' Us
 Break Neck Pizza
-Choc-O-Holic, Inc
+Choc-O-Holic, Inc.
 CSS Center
 Design Patterns Plaza
 DRY Drive
@@ -28,7 +28,7 @@ SimUDuck Lake
 The Tikibean Lounge
 UML Walk
 Weather-O-Rama, inc.
-WebDesignWay
+Web Design Way
 XHTML Expressway
 
 Booch Line
@@ -63,7 +63,7 @@ JSP Junction
 
 Meyer Line
 SimUDuck Lake
-WebDesignWay
+Web Design Way
 DRY Drive
 Head First Theater
 CSS Center
@@ -74,7 +74,7 @@ Rumbaugh Line
 XHTML Expressway
 Infinite Circle
 Head First Theater
-Choc-O-Holic, Inc
+Choc-O-Holic, Inc.
 XHTML Expressway
 
 Wirfs-Brock Line
@@ -89,6 +89,7 @@ SRP Square
 Break Neck Pizza
 EJB Estates
 Boards 'R' Us
+Web Design Way
 PMP Place
 DRY Drive
 Algebra Avenue
