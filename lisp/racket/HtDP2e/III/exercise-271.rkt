@@ -10,10 +10,12 @@
 (check-expect (find-name? "john" (list "marie")) false)
 (check-expect (find-name? "john" (list "john")) true)
 (check-expect (find-name? "john" (list "marie" "john")) true)
+(check-expect (find-name? "jo"   (list "marie" "john")) true)
+(check-expect (find-name? "john" (list "marie" "johnson")) true)
 
 (define (find-name? s los)
   (local ((define (name=? x)
-            (string=? s x)))
+            (string-contains? s x)))
     (ormap name=? los)))
 
 ; [List-of String] -> Boolean
