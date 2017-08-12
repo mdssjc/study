@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Subway {
 
-  private final List<Station>               stations;
-  private final List<Connection>            connections;
+  private final List<Station> stations;
+  private final List<Connection> connections;
   private final Map<Station, List<Station>> network;
 
   public Subway() {
@@ -29,15 +29,16 @@ public class Subway {
   }
 
   public Connection addConnection(final String station1Name,
-      final String station2Name, final String lineName) {
+                                  final String station2Name,
+                                  final String lineName) {
     if ((this.hasStation(station1Name)) && (this.hasStation(station2Name))) {
       final Station station1 = new Station(station1Name);
       final Station station2 = new Station(station2Name);
       final Connection connection = new Connection(station1, station2,
-          lineName);
+                                                   lineName);
       this.connections.add(connection);
       this.connections
-        .add(new Connection(station2, station1, connection.getLineName()));
+          .add(new Connection(station2, station1, connection.getLineName()));
       addToNetwork(station1, station2);
       addToNetwork(station2, station1);
       return connection;
@@ -47,7 +48,7 @@ public class Subway {
 
   private void addToNetwork(final Station station2, final Station station1) {
     if (this.network.keySet()
-      .contains(station1)) {
+                    .contains(station1)) {
       final List<Station> connectingStations = this.network.get(station1);
       if (!connectingStations.contains(station2)) {
         connectingStations.add(station2);
@@ -60,16 +61,16 @@ public class Subway {
   }
 
   public boolean hasConnection(final String station1Name,
-      final String station2Name, final String lineName) {
+                               final String station2Name, final String lineName) {
     final Station station1 = new Station(station1Name);
     final Station station2 = new Station(station2Name);
     for (final Connection connection : this.connections) {
       if (connection.getLineName()
-        .equalsIgnoreCase(lineName)
+                    .equalsIgnoreCase(lineName)
           && connection.getStation1()
-            .equals(station1)
+                       .equals(station1)
           && connection.getStation2()
-            .equals(station2)) {
+                       .equals(station2)) {
         return true;
       }
     }
@@ -77,7 +78,7 @@ public class Subway {
   }
 
   public List<Connection> getDirections(final String startStationName,
-      final String endStationName) {
+                                        final String endStationName) {
     if (!this.hasStation(startStationName)
         || !this.hasStation(endStationName)) {
       throw new RuntimeException(
@@ -104,7 +105,8 @@ public class Subway {
     nextStations.addAll(neighbors);
     Station currentStation = start;
 
-    searchLoop: for (int i = 1; i < this.stations.size(); i++) {
+    searchLoop:
+    for (int i = 1; i < this.stations.size(); i++) {
       final List<Station> tmpNextStations = new LinkedList<>();
       for (final Station station : nextStations) {
         reachableStations.add(station);
@@ -141,7 +143,7 @@ public class Subway {
   }
 
   private Connection getConnection(final Station station1,
-      final Station station2) {
+                                   final Station station2) {
     for (final Connection connection : this.connections) {
       final Station one = connection.getStation1();
       final Station two = connection.getStation2();
