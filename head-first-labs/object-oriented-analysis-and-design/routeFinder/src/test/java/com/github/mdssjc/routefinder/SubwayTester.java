@@ -20,8 +20,7 @@ public class SubwayTester {
       final SubwayLoader loader = new SubwayLoader();
       final String file = ClassLoader.getSystemResource("ObjectvilleSubway.txt")
                                      .getPath();
-      final Subway objectville = loader
-          .loadFromFile(new File(file));
+      final Subway objectville = loader.loadFromFile(new File(file));
 
       if (!objectville.hasStation(args[0])) {
         System.err.println(args[0] + " is not a station in Objectville.");
