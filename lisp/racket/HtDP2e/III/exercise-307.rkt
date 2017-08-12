@@ -8,10 +8,10 @@
 
 ; String [List-of String] -> String or false
 ; retrieves the first name on the latter that is equal to, or an extension of, the former
-(check-expect (find-name "John" empty) false)
-(check-expect (find-name "John" (list "Marie" "Paul")) false)
+(check-expect (find-name "John" empty) #false)
+(check-expect (find-name "John" (list "Marie" "Paul")) #false)
 (check-expect (find-name "John" (list "Marie" "Paul" "John")) "John")
-(check-expect (find-name "John" (list "Marie" "Paul" "Jones")) false)
+(check-expect (find-name "John" (list "Marie" "Paul" "Jones")) #false)
 (check-expect (find-name "John" (list "Marie" "Paul" "Jones" "Johnson")) "Johnson")
 (check-expect (find-name "Jo" (list "Marie" "Paul" "Jones")) "Jones")
 
@@ -19,14 +19,14 @@
   (for/or ([name lon])
     (if (string-contains? n name)
         name
-        false)))
+        #false)))
 
 ; Number [List-of String] -> Boolean
 ; ensures that no name on some list exceeds some given width
-(check-expect (exceed-width? 5 empty) false)
-(check-expect (exceed-width? 5 (list "alf")) false)
-(check-expect (exceed-width? 5 (list "alf" "marie")) false)
-(check-expect (exceed-width? 5 (list "alf" "marie" "johnson")) true)
+(check-expect (exceed-width? 5 empty) #false)
+(check-expect (exceed-width? 5 (list "alf")) #false)
+(check-expect (exceed-width? 5 (list "alf" "marie"))  #false)
+(check-expect (exceed-width? 5 (list "alf" "marie" "johnson")) #true)
 
 (define (exceed-width? n lon)
   (for/or ([name lon])
