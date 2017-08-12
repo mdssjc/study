@@ -46,15 +46,14 @@ public class Subway {
     throw new RuntimeException("Invalid connection!");
   }
 
-  private void addToNetwork(final Station station2, final Station station1) {
-    if (this.network.keySet()
-                    .contains(station1)) {
+  private void addToNetwork(final Station station1, final Station station2) {
+    if (this.network.containsKey(station1)) {
       final List<Station> connectingStations = this.network.get(station1);
       if (!connectingStations.contains(station2)) {
         connectingStations.add(station2);
       }
     } else {
-      final LinkedList<Station> connectingStations = new LinkedList<>();
+      final List<Station> connectingStations = new LinkedList<>();
       connectingStations.add(station2);
       this.network.put(station1, connectingStations);
     }
@@ -77,8 +76,8 @@ public class Subway {
 
   public List<Connection> getDirections(final String startStationName,
                                         final String endStationName) {
-    if (!this.hasStation(startStationName)
-        || !this.hasStation(endStationName)) {
+    if (!this.hasStation(startStationName) ||
+        !this.hasStation(endStationName)) {
       throw new RuntimeException(
           "Stations entered do not exist on this subway.");
     }
@@ -101,7 +100,7 @@ public class Subway {
 
     List<Station> nextStations = new LinkedList<>();
     nextStations.addAll(neighbors);
-    Station currentStation = start;
+    Station currentStation;
 
     searchLoop:
     for (int i = 1; i < this.stations.size(); i++) {
@@ -129,6 +128,7 @@ public class Subway {
     boolean keepLooping = true;
     Station keyStation = end;
     Station station;
+
     while (keepLooping) {
       station = previousStations.get(keyStation);
       route.add(0, getConnection(station, keyStation));
