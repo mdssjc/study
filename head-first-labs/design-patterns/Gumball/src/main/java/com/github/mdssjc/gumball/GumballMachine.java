@@ -3,7 +3,10 @@ package com.github.mdssjc.gumball;
 import lombok.Getter;
 import lombok.Setter;
 
-public class GumballMachine {
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class GumballMachine extends UnicastRemoteObject implements GumballMachineRemote {
 
   @Getter
   private final State soldOutState;
@@ -15,16 +18,15 @@ public class GumballMachine {
   private final State soldState;
   @Getter
   private final State winnerState;
-
+  @Getter
+  private final String location;
   @Getter
   @Setter
   private State state;
   @Getter
   private int count;
-  @Getter
-  private final String location;
 
-  public GumballMachine(final String location, final int numberGumballs) {
+  public GumballMachine(final String location, final int numberGumballs) throws RemoteException {
     this.location = location;
     this.soldOutState = new SoldOutState(this);
     this.noQuarterState = new NoQuarterState(this);
