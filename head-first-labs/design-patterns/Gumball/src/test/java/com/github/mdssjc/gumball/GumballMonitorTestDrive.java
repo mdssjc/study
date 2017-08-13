@@ -6,11 +6,11 @@ import java.util.logging.Logger;
 public class GumballMonitorTestDrive {
 
   public static void main(final String[] args) {
-//    final String[] location = {
-//        "rmi://127.0.0.1/gumballmachine",
-//        "rmi://santafe.mightygumball.com/gumballmachine",
-//        "rmi://boulder.mightygumball.com/gumballmachine",
-//        "rmi://seattle.mightygumball.com/gumballmachine"};
+    // final String[] location = {
+    //     "rmi://127.0.0.1/gumballmachine",
+    //     "rmi://santafe.mightygumball.com/gumballmachine",
+    //     "rmi://boulder.mightygumball.com/gumballmachine",
+    //     "rmi://seattle.mightygumball.com/gumballmachine"};
 
     final String[] location = {"rmi://127.0.0.1/gumballmachine"};
 
