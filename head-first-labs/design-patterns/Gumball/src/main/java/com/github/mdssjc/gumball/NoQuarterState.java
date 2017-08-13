@@ -2,7 +2,7 @@ package com.github.mdssjc.gumball;
 
 public class NoQuarterState implements State {
 
-  private final GumballMachine gumballMachine;
+  private final transient GumballMachine gumballMachine;
 
   public NoQuarterState(final GumballMachine gumballMachine) {
     this.gumballMachine = gumballMachine;

@@ -1,6 +1,8 @@
 package com.github.mdssjc.gumball;
 
-public interface State {
+import java.io.Serializable;
+
+public interface State extends Serializable {
 
   void insertQuarter();
 

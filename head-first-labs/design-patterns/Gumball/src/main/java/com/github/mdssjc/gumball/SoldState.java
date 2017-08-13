@@ -2,7 +2,7 @@ package com.github.mdssjc.gumball;
 
 public class SoldState implements State {
 
-  private final GumballMachine gumballMachine;
+  private final transient GumballMachine gumballMachine;
 
   public SoldState(final GumballMachine gumballMachine) {
     this.gumballMachine = gumballMachine;
