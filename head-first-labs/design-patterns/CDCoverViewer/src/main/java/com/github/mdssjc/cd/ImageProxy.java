@@ -1,4 +1,4 @@
-package com.github.mdssjc;
+package com.github.mdssjc.cd;
 
 import javax.swing.*;
 import java.awt.*;
