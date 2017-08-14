@@ -19,6 +19,24 @@
 
 ;(define (skip1 lox) empty) ; Stub
 
+(define (skip1 lox0)
+  ;; acc: Natural; 1-based position of (first lox) in lox0
+  ;; (skip1 (list "a" "b" "c") 1)
+  ;; (skip1 (list     "b" "c") 2)
+  ;; (skip1 (list         "c") 3)
+  (local ((define (skip1 lox acc)
+            (cond [(empty? lox) empty]
+                  [else
+                   (if (odd? acc)
+                       (cons (first lox)
+                             (skip1 (rest lox)
+                                    (add1 acc)))
+                       (skip1 (rest lox)
+                              (add1 acc)))])))
+
+    (skip1 lox0 1)))
+
+#;
 (define (skip1 lox)
   (cond [(empty? lox) empty]
         [else
