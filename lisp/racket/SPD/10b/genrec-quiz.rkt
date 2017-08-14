@@ -80,7 +80,7 @@
                  "O"  "X"  "O"
                  "X" false "X"))
 
-(define B3 (list "X" "O" "X"       ; a board where Y will win
+(define B3 (list "X" "O" "X"       ; a board where O will win
                  "O" "O" false
                  "X" "X" false))
 
@@ -130,31 +130,19 @@
 (check-expect (solved? (list "X" "X" "O"
                              "O" "O" "X"
                              "X" "X" "X")) true)
+(check-expect (solved? (list "X" "X" "O"
+                             "O" "O" "X"
+                             "X" "O" "X")) true)
 
 ;(define (solved? b) false) ; Stub
 
 (define (solved? b)
-  (local ((define (pass? p1 p2 p3)
-            (local ((define st (first (drop b p1)))
-                    (define nd (first (drop b p2)))
-                    (define rd (first (drop b p3))))
-              (cond [(or (false? st)
-                         (false? nd)
-                         (false? rd)) false]
-                    [else
-                     (string=? st nd rd)]))))
-    (or (pass? 0 1 2)
-        (pass? 3 4 5)
-        (pass? 6 7 8)
-        (pass? 0 3 6)
-        (pass? 1 4 7)
-        (pass? 2 5 8)
-        (pass? 0 4 8)
-        (pass? 2 4 6))))
+  (or (not (ormap false? b))
+      (finished? b)))
 
 ;; Board -> (listof Board)
 ;; produce list of valid next boards from board
-;; finds first empty slot, fills it with Value
+;; finds first empty slot, fills it with Value, keeps only valid boards
 (check-expect (next-boards B2) (list (list "X" "X" "O"
                                            "O" "X" "O"
                                            "X" "X" "X")
@@ -165,7 +153,7 @@
 ;(define (next-boards b) empty) ; Stub
 
 (define (next-boards b)
-  (fill-with-value (find-slot b) b))
+  (keep-only-valid (fill-with-value (find-slot b) b)))
 
 ;; Board -> Pos
 ;; produces the position of the first slot square
@@ -205,6 +193,62 @@
                     (drop b (add1 p)))))
     (build-list 2 build-one)))
 
+;; (listof Board) -> (listof Board)
+;; produce list containing only valid boards
+(check-expect (keep-only-valid (list (list "X" "O" "O"
+                                           "O" "X" "X"
+                                           "X" "X" "O")
+                                     (list "X" "O" "O"
+                                           "O" "X" "X"
+                                           "X" "O" "O")))
+              empty)
+(check-expect (keep-only-valid (list (list "X" "O" "O"
+                                           "O" "X" "X"
+                                           "X" "O" false)))
+              (list (list "X" "O" "O"
+                          "O" "X" "X"
+                          "X" "O" false)))
+
+;(define (keep-only-valid lob) empty) ; Stub
+
+(define (keep-only-valid lob)
+  (local ((define result (filter finished? lob))
+          (define (next? b)
+            (ormap false? b)))
+    (if (empty? result)
+        (filter next? lob)
+        result)))
+
+;; Board -> Boolean
+;; produce true if board is finished
+(check-expect (finished? (list "X" "O" "O"
+                               "O" "X" "X"
+                               "X" "X" "O")) false)
+(check-expect (finished? (list "X" "O" "O"
+                               "O" "X" "X"
+                               "X" "X" "X")) true)
+
+;(define (finished? b)) ; Stub
+
+(define (finished? b)
+  (local ((define (pass? p1 p2 p3)
+            (local ((define st (first (drop b p1)))
+                    (define nd (first (drop b p2)))
+                    (define rd (first (drop b p3))))
+              (cond [(or (false? st)
+                         (false? nd)
+                         (false? rd)) false]
+                    [else
+                     (string=? st nd rd)]))))
+    (or (pass? 0 1 2)
+        (pass? 3 4 5)
+        (pass? 6 7 8)
+        (pass? 0 3 6)
+        (pass? 1 4 7)
+        (pass? 2 5 8)
+        (pass? 0 4 8)
+        (pass? 2 4 6))))
+
 ;; PROBLEM 3:
 ;;
 ;; Now adapt your solution to filter out the boards that are impossible if
@@ -215,3 +259,36 @@
 ;;
 ;; NOTE: make sure you keep a copy of your solution from problem 2 to answer
 ;; the questions on edX.
+
+;; Pos Board -> (listof Board)
+;; produce a board, with slot filled with Value
+(check-expect (fill-with-value2 0 B1) (list "X"   "X"   "O"   
+                                            "O"   "X"   "O"
+                                            false false "X"))
+(check-expect (fill-with-value2 7 B2) (list "X" "X" "O"
+                                            "O" "X" "O"
+                                            "X" "O" "X"))
+
+;(define (fill-with-value2 p b) empty) ; Stub
+
+(define (fill-with-value2 p b)
+  (local ((define (build-list b)
+            (fill-slot b p (next-value b)))
+
+          (define (next-value b)
+            (if (= (count-value b "X") (count-value b "O")) "X" "O"))
+
+          (define (count-value b v)
+            (cond [(empty? b) 0]
+                  [else
+                   (local ((define slot (first b)))
+                     (+ (cond [(false? slot) 0]
+                              [(string=? slot v) 1]
+                              [else 0])
+                        (count-value (rest b) v)))]))
+          
+          (define (fill-slot b p v)
+            (append (take b p)
+                    (list v)
+                    (drop b (add1 p)))))
+    (build-list b)))
