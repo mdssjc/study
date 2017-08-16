@@ -1,7 +1,7 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-intermediate-reader.ss" "lang")((modname exercise-310) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
-;; Exercise 310
+#reader(lib "htdp-intermediate-reader.ss" "lang")((modname exercise-311) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+;; Exercise 311
 
 
 ;; ====================
@@ -47,3 +47,18 @@
          (+ 1
             (count-child (child-father ft))
             (count-child (child-mother ft)))]))
+
+; FT Number -> Number
+; produces the average age of all child structures in the family tree
+(check-expect (average-age Carl 2000) 74)
+(check-expect (average-age Adam 2000) (- 2000 (/ (+ 1950 1926 1926) 3)))
+(check-expect (average-age Gustav 2000) (- 2000 (/ (+ 1988 1966 1965 1926 1926) 5)))
+
+(define (average-age ft year)
+  (local ((define (sum-dates ft)
+            (cond [(no-parent? ft) 0]
+                  [else
+                   (+ (child-date ft)
+                      (sum-dates (child-father ft))
+                      (sum-dates (child-mother ft)))])))
+    (- year (/ (sum-dates ft) (count-child ft)))))
