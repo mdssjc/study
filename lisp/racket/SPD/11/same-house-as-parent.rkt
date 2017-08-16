@@ -105,6 +105,23 @@
 ;; wizards in that tree (including the root). Your function should be
 ;; tail recursive.
 
+;; Wizard -> Natural
+;; produces the number of wizards in that tree (including the root)
+(check-expect (count Wa)  1)
+(check-expect (count Wk) 11)
+
+;template from Wizard, add an accumulator for tail recursion
+(define (count w)
+  (local ((define (fn-for-wiz w rsf)
+            (fn-for-low (wiz-kids w)
+                        (add1 rsf)))
+          (define (fn-for-low low rsf)
+            (cond [(empty? low) rsf]
+                  [else
+                   (+ (fn-for-wiz (first low) rsf)
+                      (fn-for-low (rest low) rsf))])))
+    (fn-for-wiz w 0)))
+
 ;; PROBLEM:
 ;;
 ;; Design a new function definition for same-house-as-parent that is
