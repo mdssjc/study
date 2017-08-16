@@ -112,15 +112,20 @@
 
 ;template from Wizard, add an accumulator for tail recursion
 (define (count w)
-  (local ((define (fn-for-wiz w rsf)
-            (fn-for-low (wiz-kids w)
+  ;; rsf is Natural; the number of wizards seen so far
+  ;; todo is (listof Wizard); wizards we still need to visit with fn-for-wiz
+  ;; (count Wk)
+  ;; (fn-for-wiz Wk 0)
+  ;; (fn-for-wiz Wh 1)
+  ;; (fn-for-wiz Wc 2)
+  (local ((define (fn-for-wiz w todo rsf)
+            (fn-for-low (append (wiz-kids w) todo)
                         (add1 rsf)))
-          (define (fn-for-low low rsf)
-            (cond [(empty? low) rsf]
+          (define (fn-for-low todo rsf)
+            (cond [(empty? todo) rsf]
                   [else
-                   (+ (fn-for-wiz (first low) rsf)
-                      (fn-for-low (rest low) rsf))])))
-    (fn-for-wiz w 0)))
+                   (fn-for-wiz (first todo) (rest todo) rsf)])))
+    (fn-for-wiz w empty 0)))
 
 ;; PROBLEM:
 ;;
