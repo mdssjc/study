@@ -131,3 +131,33 @@
 ;;
 ;; Design a new function definition for same-house-as-parent that is
 ;; tail recursive. You will need a worklist accumulator.
+
+;; Wizard -> (listof String)
+;; Produce the names of every descendant in the same house as their parent.
+(check-expect (same-house-as-parent-v2 Wa) empty)
+(check-expect (same-house-as-parent-v2 Wh) empty)
+(check-expect (same-house-as-parent-v2 Wg) (list "A"))
+(check-expect (same-house-as-parent-v2 Wk) (list "E" "F" "A"))
+
+; template from Wizard plus lost context accumulator
+(define (same-house-as-parent-v2 w)
+  ;; parent-house is String; the house of this wizard's immediate parent ("" for root of tree)
+  ;; (same-house-as-parent-v2 Wk)
+  ;; (fn-for-wiz Wk "")
+  ;; (fn-for-wiz Wh "G")
+  ;; (fn-for-wiz Wc "S")
+  ;; (fn-for-wiz Wd "S")
+  ;; (fn-for-wiz Wi "G")
+  (local [(define (fn-for-wiz w parent-house)
+            (if (string=? (wiz-house w) parent-house)
+                (cons (wiz-name w)
+                      (fn-for-low (wiz-kids w)
+                                  (wiz-house w)))
+                (fn-for-low (wiz-kids w)
+                            (wiz-house w))))
+          (define (fn-for-low low parent-house)
+            (cond [(empty? low) empty]
+                  [else
+                   (append (fn-for-wiz (first low) parent-house)
+                           (fn-for-low (rest low) parent-house))]))]
+    (fn-for-wiz w "")))
