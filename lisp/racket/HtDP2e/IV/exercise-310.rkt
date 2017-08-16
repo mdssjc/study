@@ -37,13 +37,15 @@
 
 ; FT -> Natural
 ; counts the child structures in the tree
-(check-expect (count-child Carl)   1)
-(check-expect (count-child Gustav) 5)
+(check-expect (count-child Carl)   0)
+(check-expect (count-child Gustav) 4)
 
 (define (count-child ft)
-  (cond
-    [(no-parent? ft) 0]
-    [else
-     (+ (count-child (child-father ft))
-        (count-child (child-mother ft))
-        1)]))
+  (cond [(no-parent? ft) 0]
+        [else
+         (local ((define father (child-father ft))
+                 (define mother (child-mother ft)))
+         (+ (count-child father)
+            (count-child mother)
+            (if (no-parent? father) 0 1)
+            (if (no-parent? mother) 0 1)))]))
