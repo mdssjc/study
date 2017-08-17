@@ -137,27 +137,34 @@
 (check-expect (same-house-as-parent-v2 Wa) empty)
 (check-expect (same-house-as-parent-v2 Wh) empty)
 (check-expect (same-house-as-parent-v2 Wg) (list "A"))
-(check-expect (same-house-as-parent-v2 Wk) (list "E" "F" "A"))
+(check-expect (same-house-as-parent-v2 Wk) (list "A" "F" "E"))
 
-; template from Wizard plus lost context accumulator
+; template: from Wizard plus lost context accumulator
+;           added worklist accumulator for tail recursion
+;           added result so far accumulator for tail recursion
+;           added compound data definition for wish list entries
+
 (define (same-house-as-parent-v2 w)
-  ;; parent-house is String; the house of this wizard's immediate parent ("" for root of tree)
-  ;; (same-house-as-parent-v2 Wk)
-  ;; (fn-for-wiz Wk "")
-  ;; (fn-for-wiz Wh "G")
-  ;; (fn-for-wiz Wc "S")
-  ;; (fn-for-wiz Wd "S")
-  ;; (fn-for-wiz Wi "G")
-  (local [(define (fn-for-wiz w parent-house)
-            (if (string=? (wiz-house w) parent-house)
-                (cons (wiz-name w)
-                      (fn-for-low (wiz-kids w)
-                                  (wiz-house w)))
-                (fn-for-low (wiz-kids w)
-                            (wiz-house w))))
-          (define (fn-for-low low parent-house)
-            (cond [(empty? low) empty]
+  ;; todo is (listof ...); a worklist accumulator
+  ;; rsf  is (listof String); a result so far accumulator
+  (local [(define-struct wle (w ph))
+          ;; WLE (worklist entry) is (make-wle Wizard String)
+          ;; interp. a worklist entry with the wizard to pass to fn-for-wiz,
+          ;;         and that wizard's parent house
+
+          (define (fn-for-wiz todo w ph rsf)
+            (fn-for-low (append (map (lambda (k)
+                                   (make-wle k (wiz-house w)))
+                                (wiz-kids w))
+                        todo)
+            (if (string=? (wiz-house w) ph)
+                (cons (wiz-name w) rsf)
+                rsf)))
+          (define (fn-for-low todo rsf)
+            (cond [(empty? todo) rsf]
                   [else
-                   (append (fn-for-wiz (first low) parent-house)
-                           (fn-for-low (rest low) parent-house))]))]
-    (fn-for-wiz w "")))
+                   (fn-for-wiz (rest todo)
+                               (wle-w  (first todo))
+                               (wle-ph (first todo))
+                               rsf)]))]
+    (fn-for-wiz empty w "" empty)))
