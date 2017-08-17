@@ -1,6 +1,51 @@
-*.gz
+############
+### JAVA ###
+############
 
+*.class
+.meghanada/
+
+# Gradle
+.gradle/
+build/
+
+# Maven
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Eclipse
+.settings/
+.classpath
+.project
+
+# NetBeans
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+build.xml
+manifest.mf
+# ---
+
+##############
+### Racket ###
+##############
+
+lisp/racket/**/*.rkt~
+lisp/racket/**/*~
+lisp/racket/**/*.bak
+# ---
+
+#########
 ### C ###
+#########
+
 # Object files
 *.o
 
@@ -16,37 +61,11 @@
 *.[sS]
 # ---
 
-### IntelliJ IDEA ###
-.idea/
-*.iml
-out/
-# ---
-
-### NetBeans ###
-nbproject/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-build.xml
-manifest.mf
-# ---
-
-### Maven ###
-target/
-# ---
-
-### Java ###
-*.class
-# ---
-
-### Racket ###
-*.rkt~
-*~
-*.bak
-# ---
-
+##############
 ### Others ###
+##############
+
+*.gz
 *.log
 hs_err_pid*
+# ---
