@@ -50,6 +50,7 @@
 
 ; FT Number -> Number
 ; produces the average age of all child structures in the family tree
+(check-expect (average-age NP 2000) 0)
 (check-expect (average-age Carl 2000) 74)
 (check-expect (average-age Adam 2000) (- 2000 (/ (+ 1950 1926 1926) 3)))
 (check-expect (average-age Gustav 2000) (- 2000 (/ (+ 1988 1966 1965 1926 1926) 5)))
@@ -61,4 +62,6 @@
                    (+ (child-date ft)
                       (sum-dates (child-father ft))
                       (sum-dates (child-mother ft)))])))
-    (- year (/ (sum-dates ft) (count-child ft)))))
+    (cond [(no-parent? ft) 0]
+          [else
+           (- year (/ (sum-dates ft) (count-child ft)))])))
