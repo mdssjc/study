@@ -4,17 +4,18 @@ public class DuckSimulator {
 
   public static void main(final String[] args) {
     final DuckSimulator simulator = new DuckSimulator();
-    simulator.simulate();
+    final AbstractDuckFactory duckFactory = new CountingDuckFactory();
+    simulator.simulate(duckFactory);
   }
 
-  private void simulate() {
-    final Quackable mallardDuck = new QuackCounter(new MallardDuck());
-    final Quackable redheadDuck = new QuackCounter(new RedheadDuck());
-    final Quackable duckCall = new QuackCounter(new DuckCall());
-    final Quackable rubberDuck = new QuackCounter(new RubberDuck());
+  private void simulate(final AbstractDuckFactory duckFactory) {
+    final Quackable mallardDuck = duckFactory.createMallardDuck();
+    final Quackable redheadDuck = duckFactory.createRedheadDuck();
+    final Quackable duckCall = duckFactory.createDuckCall();
+    final Quackable rubberDuck = duckFactory.createRubberDuck();
     final GooseAdapter gooseDuck = new GooseAdapter(new Goose());
 
-    System.out.println("\nDuck Simulator: With Decorator");
+    System.out.println("\nDuck Simulator:");
 
     simulate(mallardDuck);
     simulate(redheadDuck);
@@ -22,8 +23,9 @@ public class DuckSimulator {
     simulate(rubberDuck);
     simulate(gooseDuck);
 
-    System.out.println(
-        "The ducks quacked " + QuackCounter.getQuacks() + " times");
+    System.out.println("The ducks quacked " +
+                       QuackCounter.getQuacks() +
+                       " times");
   }
 
   private void simulate(final Quackable duck) {
