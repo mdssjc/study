@@ -14,19 +14,16 @@
 
 ;; (listof Number) -> Number
 ;; produces the average of the numbers in the list
-(check-expect (average empty) 0)
 (check-expect (average (list 2)) 2)
 (check-expect (average (list 1 2 3)) 2)
 (check-expect (average (list 4 8 2)) (/ (+ 4 8 2) 3))
 
 ;(define (average lon) 0) ; Stub
 
-(define (average lon0)
-  (local ((define len (length lon0))
-          (define (average lon sum acc)
-            (cond [(empty? lon) 0]
+(define (average lon)
+  (local ((define (average lon cnt sum)
+            (cond [(empty? lon) (/ sum cnt)]
                   [else
-                   (if (= len acc)
-                       (/ (+ (first lon) sum) acc)
-                       (average (rest lon) (+ (first lon) sum) (add1 acc)))])))
-    (average lon0 0 1)))
+                   (average (rest lon) (add1 cnt)
+                            (+ (first lon) sum))])))
+    (average lon 0 0)))
