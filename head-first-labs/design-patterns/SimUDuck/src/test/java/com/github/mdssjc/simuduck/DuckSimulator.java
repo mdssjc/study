@@ -2,17 +2,17 @@ package com.github.mdssjc.simuduck;
 
 public class DuckSimulator {
 
-  public static void main(String[] args) {
-    DuckSimulator simulator = new DuckSimulator();
+  public static void main(final String[] args) {
+    final DuckSimulator simulator = new DuckSimulator();
     simulator.simulate();
   }
 
   private void simulate() {
-    Quackable mallardDuck = new MallardDuck();
-    Quackable redheadDuck = new RedheadDuck();
-    Quackable duckCall = new DuckCall();
-    Quackable rubberDuck = new RubberDuck();
-    GooseAdapter gooseDuck = new GooseAdapter(new Goose());
+    final Quackable mallardDuck = new MallardDuck();
+    final Quackable redheadDuck = new RedheadDuck();
+    final Quackable duckCall = new DuckCall();
+    final Quackable rubberDuck = new RubberDuck();
+    final GooseAdapter gooseDuck = new GooseAdapter(new Goose());
 
     System.out.println("\nDuck Simulator");
 
@@ -23,7 +23,7 @@ public class DuckSimulator {
     simulate(gooseDuck);
   }
 
-  private void simulate(Quackable duck) {
+  private void simulate(final Quackable duck) {
     duck.quack();
   }
 }
