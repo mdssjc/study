@@ -17,13 +17,34 @@ public class DuckSimulator {
 
     System.out.println("\nDuck Simulator:");
 
-    simulate(mallardDuck);
-    simulate(redheadDuck);
-    simulate(duckCall);
-    simulate(rubberDuck);
-    simulate(gooseDuck);
+    final Flock flockOfDucks = new Flock();
 
-    System.out.println("The ducks quacked " +
+    flockOfDucks.add(redheadDuck);
+    flockOfDucks.add(duckCall);
+    flockOfDucks.add(rubberDuck);
+    flockOfDucks.add(gooseDuck);
+
+    final Flock flockOfMallards = new Flock();
+
+    final Quackable mallardOne = duckFactory.createMallardDuck();
+    final Quackable mallardTwo = duckFactory.createMallardDuck();
+    final Quackable mallardThree = duckFactory.createMallardDuck();
+    final Quackable mallardFour = duckFactory.createMallardDuck();
+
+    flockOfMallards.add(mallardOne);
+    flockOfMallards.add(mallardTwo);
+    flockOfMallards.add(mallardThree);
+    flockOfMallards.add(mallardFour);
+
+    flockOfDucks.add(flockOfMallards);
+
+    System.out.println("\nDuck Simulator: Whole Flock Simulation");
+    simulate(flockOfDucks);
+
+    System.out.println("\nDuck Simulator: Mallard Flock Simulation");
+    simulate(flockOfMallards);
+
+    System.out.println("\nThe ducks quacked " +
                        QuackCounter.getQuacks() +
                        " times");
   }
