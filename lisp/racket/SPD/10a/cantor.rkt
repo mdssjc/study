@@ -68,62 +68,106 @@
 ;;   coordinate of the mouse divided by that width as its second
 ;;   argument.
 
-;; My world program  (make this more specific)
+;; A world program for running a cantor set
+;; The mouse position controls parameters of the fractal.
 
 ;; =================
 ;; Constants:
-(define CUTOFF 3)
+(define CUTOFF 4)
+(define BAR-HEIGHT 20)
+(define SPACING-HEIGHT (/ BAR-HEIGHT 2))
+
+(define WIDTH  640)
+(define HEIGHT 320)
+
 
 ;; =================
 ;; Data definitions:
 
-;; WS is ... (give WS a better name)
+;; WorldState is (make-posn Number Number)
+;; interp. the last x-coordinate of the mouse 
+(define WS1 (make-posn   0 10))
+(define WS2 (make-posn 100 10))
+(define WS3 (make-posn 300 10))
 
+#;
+(define (fn-for-ws ws)
+  (... (posn-x ws)
+       (posn-y ws)))
 
 
 ;; =================
 ;; Functions:
 
-;; WS -> WS
-;; start the world with ...
-;;
+;; WorldState -> WorldState
+;; start the world with (main WS1)
 (define (main ws)
-  (big-bang ws                   ; WS
-            (on-tick   tock)     ; WS -> WS
-            (to-draw   render)   ; WS -> Image
-            (stop-when ...)      ; WS -> Boolean
-            (on-mouse  ...)      ; WS Integer Integer MouseEvent -> WS
-            (on-key    ...)))    ; WS KeyEvent -> WS
+  (big-bang ws
+            (to-draw  render)
+            (on-mouse handler)))
 
-;; WS -> WS
-;; produce the next ...
-;; !!!
-(define (tock ws) ...)
+;; WorldState -> Image
+;; render cantor set based on current mouse position
+(check-expect (render WS1) (scantor WIDTH (/ (posn-x WS1) WIDTH)))
+(check-expect (render WS2) (scantor WIDTH (/ (posn-x WS2) WIDTH)))
+(check-expect (render WS3) (scantor WIDTH (/ (posn-x WS3) WIDTH)))
 
+(define (render ws)
+  (scantor WIDTH (/ (posn-x ws) WIDTH)))
 
-;; WS -> Image
-;; render ...
-;; !!!
-(define (render ws) ...)
+;; WorldState Integer Integer MouseEvent -> WorldState
+;; update the current ws according to mouse position
+(check-expect (handler WS1  0 10 "move") (make-posn  0 10))
+(check-expect (handler WS2  0 10 "move") (make-posn  0 10))
+(check-expect (handler WS3 10 10 "move") (make-posn 10 10))
+(check-expect (handler WS1  0 10 "button-down") WS1)
 
-;; Number Number -> Image
+(define (handler ws x y mv)
+  (cond [(string=? mv "move") (make-posn x y)]
+        [else ws]))
+
+;; Natural Number -> Image 
 ;; produces a cantor set of the given width and percentage of white width
-(check-expect (scantor CUTOFF 1/3) (rectangle CUTOFF 3 "solid" "blue"))
-(check-expect (scantor (* CUTOFF 3) 1/3)
-              (local ((define sub (rectangle CUTOFF 3 "solid" "blue"))
-                      (define blk (rectangle CUTOFF 3 "solid" "white")))
-                (above (rectangle (* CUTOFF 3) 3 "solid" "blue")
-                       blk
-                       (beside sub blk sub))))
+(check-expect (scantor 0 .5)
+              (rectangle 0 BAR-HEIGHT "solid" "blue"))
+
+(check-expect (scantor 32 0)
+              (above (rectangle 32 BAR-HEIGHT "solid" "blue")
+                     (rectangle 32 SPACING-HEIGHT "solid" "white")
+                     (rectangle 32 BAR-HEIGHT "solid" "blue")
+                     (rectangle 32 SPACING-HEIGHT "solid" "white")
+                     (rectangle 32 BAR-HEIGHT "solid" "blue")
+                     (rectangle 32 SPACING-HEIGHT "solid" "white")
+                     (rectangle 32 BAR-HEIGHT "solid" "blue")))
+
+(check-expect (scantor 32 1)
+              (above (rectangle 32 BAR-HEIGHT "solid" "blue")
+                     (rectangle 32 SPACING-HEIGHT "solid" "white")
+                     (rectangle 32 BAR-HEIGHT "solid" "white")))
+
+(check-expect (scantor 32 .5)
+              (above (rectangle 32 BAR-HEIGHT "solid" "blue")
+                     (rectangle 32 SPACING-HEIGHT "solid" "white")
+                     (beside (above (rectangle 8 BAR-HEIGHT "solid" "blue")
+                                    (rectangle 8 SPACING-HEIGHT "solid" "white")
+                                    (beside (rectangle 2 BAR-HEIGHT "solid" "blue")
+                                            (rectangle 4 BAR-HEIGHT "solid" "white")
+                                            (rectangle 2 BAR-HEIGHT "solid" "blue")))
+                             (rectangle 16 BAR-HEIGHT "solid" "white")
+                             (above (rectangle 8 BAR-HEIGHT "solid" "blue")
+                                    (rectangle 8 SPACING-HEIGHT "solid" "white")
+                                    (beside (rectangle 2 BAR-HEIGHT "solid" "blue")
+                                            (rectangle 4 BAR-HEIGHT "solid" "white")
+                                            (rectangle 2 BAR-HEIGHT "solid" "blue"))))))
 
 ;(define (scantor w p) empty-image) ; Stub
 
 (define (scantor w p)
-  (cond [(<= w CUTOFF) (rectangle CUTOFF 3 "solid" "blue")]
+  (cond [(<= w CUTOFF) (rectangle w BAR-HEIGHT "solid" "blue")]
         [else
          (local ((define wc (* w p))
                  (define sub (scantor (/ (- w wc) 2) p))
-                 (define blk (rectangle wc 3 "solid" "white")))
-           (above (rectangle w 3 "solid" "blue")
-                  blk
+                 (define blk (rectangle wc BAR-HEIGHT "solid" "white")))
+           (above (rectangle w BAR-HEIGHT     "solid" "blue")
+                  (rectangle w SPACING-HEIGHT "solid" "white")
                   (beside sub blk sub)))]))
