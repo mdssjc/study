@@ -45,6 +45,22 @@
   (shared ((-0- (make-room "A" (list (make-room "B" (list -0-))))))
     -0-))
 
+#;
 (define H3
   (shared ((-0- (make-room "A" (list (make-room "B" (list (make-room "C" (list -0-))))))))
     -0-))
+
+(define H3
+  (shared ((-A- (make-room "A" (list -B-)))
+           (-B- (make-room "B" (list -C-)))
+           (-C- (make-room "C" (list -A-))))
+    -A-))
+
+(define H4
+  (shared ((-A- (make-room "A" (list -B- -D-)))
+           (-B- (make-room "B" (list -C- -E-)))
+           (-C- (make-room "C" (list -B-)))
+           (-D- (make-room "D" (list -E-)))
+           (-E- (make-room "E" (list -F- -A-)))
+           (-F- (make-room "F" (list))))
+    -A-))
