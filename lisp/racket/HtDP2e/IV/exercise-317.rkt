@@ -47,11 +47,10 @@
                    (count-sl sexp)]))
           
           (define (count-sl sl)
-            (cond
-              [(empty? sl) 0]
-              [else
-               (+ (count (first sl))
-                  (count-sl (rest sl)))]))
+            (cond [(empty? sl) 0]
+                  [else
+                   (+ (count (first sl))
+                      (count-sl (rest sl)))]))
           
           (define (count-atom at)
             (cond [(number? at) 0]
