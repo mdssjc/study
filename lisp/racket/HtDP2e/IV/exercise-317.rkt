@@ -34,7 +34,7 @@
 (define (atom? a)
   (or (number? a) (string? a) (symbol? a)))
 
-; S-expr Symbol -> N 
+; S-expr Symbol -> N
 ; counts all occurrences of sy in sexp
 (check-expect (count 'world 'hello) 0)
 (check-expect (count '(world hello) 'hello) 1)
