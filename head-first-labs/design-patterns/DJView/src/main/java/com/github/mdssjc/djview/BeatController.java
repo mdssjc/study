@@ -11,7 +11,7 @@ public class BeatController implements ControllerInterface {
     this.view.createView();
     this.view.createControls();
     this.view.disableStopMenuItem();
-    this.view.disableStartMenuItem();
+    this.view.enableStartMenuItem();
     model.initialize();
   }
 
