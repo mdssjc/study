@@ -3,19 +3,20 @@ package com.github.mdssjc.djview;
 import javax.sound.midi.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class BeatModel implements BeatModelInterface, MetaEventListener {
 
+  private final List<BeatObserver> beatObservers;
+  private final List<BPMObserver> bpmObservers;
   private Sequence sequence;
   private Track track;
   private Sequencer sequencer;
-  private final List beatObservers;
-  private final List bpmObservers;
   private int bpm;
 
   public BeatModel() {
-    this.beatObservers = new ArrayList();
-    this.bpmObservers = new ArrayList();
+    this.beatObservers = new ArrayList<>();
+    this.bpmObservers = new ArrayList<>();
     this.bpm = 90;
   }
 
@@ -55,22 +56,40 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
 
   @Override
   public void registerObserver(final BeatObserver o) {
+    this.beatObservers.add(o);
+  }
 
+  public void notifyBeatObservers() {
+    for (final BeatObserver observer : this.beatObservers) {
+      observer.updateBeat();
+    }
   }
 
   @Override
   public void removeObserver(final BeatObserver o) {
-
+    final int i = this.beatObservers.indexOf(o);
+    if (i >= 0) {
+      this.beatObservers.remove(i);
+    }
   }
 
   @Override
   public void registerObserver(final BPMObserver o) {
+    this.bpmObservers.add(o);
+  }
 
+  public void notifyBPMObservers() {
+    for (final BPMObserver observer : this.bpmObservers) {
+      observer.updateBPM();
+    }
   }
 
   @Override
   public void removeObserver(final BPMObserver o) {
-
+    final int i = this.bpmObservers.indexOf(o);
+    if (i >= 0) {
+      this.bpmObservers.remove(i);
+    }
   }
 
   @Override
@@ -91,7 +110,8 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
       this.track = this.sequence.createTrack();
       this.sequencer.setTempoInBPM(getBPM());
     } catch (final Exception e) {
-      e.printStackTrace();
+      Logger.getGlobal()
+            .info(e.getMessage());
     }
   }
 
@@ -106,12 +126,12 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
     try {
       this.sequencer.setSequence(this.sequence);
     } catch (final Exception e) {
-      e.printStackTrace();
+      Logger.getGlobal()
+            .info(e.getMessage());
     }
   }
 
   public void makeTracks(final int[] list) {
-
     for (int i = 0; i < list.length; i++) {
       final int key = list[i];
 
@@ -129,7 +149,8 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
       a.setMessage(comd, chan, one, two);
       event = new MidiEvent(a, tick);
     } catch (final Exception e) {
-      e.printStackTrace();
+      Logger.getGlobal()
+            .info(e.getMessage());
     }
     return event;
   }
