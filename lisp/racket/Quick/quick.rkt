@@ -65,5 +65,4 @@
 ;(series (rgb-maker square))
 ;(rainbow (square 5))
 ;(apply vc-append (rainbow (square 5)))
-
-(filled-flash 40 30)
+;(filled-flash 40 30)
