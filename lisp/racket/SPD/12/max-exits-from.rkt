@@ -72,16 +72,16 @@
 
 ;; Room -> String
 ;; produces the room with the most exits
-(check-expect (most-exits H1) H1)
-(check-expect (most-exits H2) H2)
-(check-expect (most-exits H3) H3)
-(check-expect (most-exits H4) H4)
-(check-expect (most-exits (first (room-exits H4)))
+(check-expect (max-exits-from H1) H1)
+(check-expect (max-exits-from H2) H2)
+(check-expect (max-exits-from H3) H3)
+(check-expect (max-exits-from H4) H4)
+(check-expect (max-exits-from (first (room-exits H4)))
               (first (room-exits H4)))
-(check-expect (most-exits (first (rest (room-exits H4))))
+(check-expect (max-exits-from (first (rest (room-exits H4))))
               (first (room-exits (first (rest (room-exits H4))))))
 
-(define (most-exits r0)
+(define (max-exits-from r0)
   ;; todo is (listof Room); a worklist accumulator
   ;; visited is (listof String); context preserving accumulator, names of rooms already visited
   ;; rsf is Room; the room with the most exits of rooms seen so far
