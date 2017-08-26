@@ -21,7 +21,7 @@ public class DJView extends HttpServlet {
 
   @Override
   protected void doPost(final HttpServletRequest request,
-                       final HttpServletResponse response)
+                        final HttpServletResponse response)
       throws ServletException, IOException {
     final BeatModel beatModel = (BeatModel) getServletContext().getAttribute(
         "beatModel");
