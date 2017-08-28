@@ -1,5 +1,8 @@
 package com.github.mdssjc.beatbox;
 
+import com.github.mdssjc.beatbox.io.MyReadInListener;
+import com.github.mdssjc.beatbox.io.MySendListener;
+
 import javax.sound.midi.*;
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +36,29 @@ public class BeatBox {
     new BeatBox().buildGUI();
   }
 
+  public boolean[] readInstruments() {
+    final boolean[] checkboxState = new boolean[256];
+
+    for (int i = 0; i < 256; i++) {
+      final JCheckBox check = checkboxList.get(i);
+      if (check.isSelected()) {
+        checkboxState[i] = true;
+      }
+    }
+
+    return checkboxState;
+  }
+
+  public void setInstruments(final boolean[] checkboxState) {
+    for (int i = 0; i < 256; i++) {
+      JCheckBox check = checkboxList.get(i);
+      check.setSelected(checkboxState[i]);
+    }
+
+    sequencer.stop();
+    buildTrackAndStart();
+  }
+
   private void buildGUI() {
     this.theFrame = new JFrame("Cyber BeatBox");
     this.theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,6 +89,14 @@ public class BeatBox {
     final JButton downTempo = new JButton("Tempo Down");
     downTempo.addActionListener(tempo.apply(0.97F));
     buttonBox.add(downTempo);
+
+    JButton serializeIt = new JButton("Serialize It");
+    serializeIt.addActionListener(new MySendListener(this));
+    buttonBox.add(serializeIt);
+
+    JButton restore = new JButton("Restore");
+    restore.addActionListener(new MyReadInListener(this));
+    buttonBox.add(restore);
 
     final Box nameBox = new Box(BoxLayout.Y_AXIS);
     for (int i = 0; i < 16; i++) {
