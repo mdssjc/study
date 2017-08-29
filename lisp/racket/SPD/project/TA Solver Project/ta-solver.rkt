@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-advanced-reader.ss" "lang")((modname ta-solver-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname ta-solver) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
 ;; ta-solver.rkt
 
 
@@ -26,21 +26,65 @@
 (define C1 (make-user "Joseph" #true  empty))
 (define C2 (make-user "Marie"  #false empty))
 (define C3 (make-user "Paul"   #true (list C1 C2)))
+(define C4 (make-user "Jones"  #true (list C1 C3)))
 
 #;
 (define (fn-for-user u0)
-  (local ((define (fn-for-user u todo)
-            (cond [(empty? (user-following u)) (fn-for-lou todo)]
-                  [else
-                   (... (user-name u)
-                        (user-verified u)
-                        (fn-for-lou (append (user-following u) todo)))]))
+  (local ((define (fn-for-user u todo visited)
+            (if (member u visited)
+                (fn-for-lou todo visited)
+                (fn-for-lou (append (user-following u) todo)
+                            (cons u visited))))
 
-          (define (fn-for-lou todo)
+          (define (fn-for-lou todo visited)
             (cond [(empty? todo) ...]
                   [else
-                   (fn-for-user (first todo) (rest todo))])))
-    (fn-for-user u0 ...)))
+                   (fn-for-user (first todo)
+                                (rest todo)
+                                visited)])))
+    (fn-for-user u0 ... ...)))
+
+
+;; Functions:
+
+;; User -> User
+;; determines which user in a Chirper Network is followed by the most people
+(check-expect (most-followers C1) empty)
+(check-expect (most-followers C3) C1)
+(check-expect (most-followers C4) C1)
+
+;(define (most-followers u) u) ; Stub
+
+(define (most-followers u0)
+  (local ((define (fn-for-user u todo visited rsf)
+            (if (member u visited)
+                (fn-for-lou todo visited rsf)
+                (fn-for-lou (append (user-following u) todo)
+                            (cons u visited)
+                            (append (user-following u) rsf))))
+
+          (define (fn-for-lou todo visited rsf)
+            (cond [(empty? todo) (max-user rsf)]
+                  [else
+                   (fn-for-user (first todo)
+                                (rest todo)
+                                visited
+                                rsf)]))
+
+          (define (count-user r rsf)
+            (length (filter (lambda (r)
+                              (string=? (user-name r) (user-name r)))
+                            rsf)))
+
+          (define (max-user r)
+            (cond [(empty? r) empty]
+                  [else
+                   (local ((define try (max-user (rest r))))
+                     (if (>= (count-user (first r) r)
+                             (count-user try r))
+                         (first r)
+                         try))])))
+    (fn-for-user u0 empty empty empty)))
 
 
 ;; PROBLEM 2:
