@@ -146,13 +146,23 @@
 
 ;(define (schedule-tas tas slots) empty) ; Stub
 
-(define (schedule-tas tas slots)   
-  (cond [(empty? slots) empty]
-        [(empty? tas) false]
-        [else
-         (local ((define slot (first slots))
-                 (define ta ((filter (lambda (ta) ...) tas) slot)))
-           (if (not (empty? ta))
-               (cons (make-assignment (first ta) slot)
-                     (schedule-tas (update-ta (first ta) tas slot) (rest slots)))
-               false))]))
+(define (schedule-tas tas slots)
+  (local ((define (schedule-tas tas slots rsf)   
+            (cond [(empty? slots) rsf]
+                  [(empty? tas) false]
+                  [else
+                   (local ((define slot (first slots))
+                           (define (count ta rsf)
+                             (length (filter (lambda (x)
+                                               (equal? x ta))
+                                             rsf)))
+                           (define try (filter (lambda (ta)
+                                                 (and (<= (count ta rsf) (ta-max ta))
+                                                      (member slot (ta-avail ta))))
+                                               tas)))
+                     (if (not (empty? try))
+                         (schedule-tas tas
+                                       (rest slots)
+                                       (cons (make-assignment (first try) slot) rsf))
+                         false))])))
+    (schedule-tas tas slots empty)))
