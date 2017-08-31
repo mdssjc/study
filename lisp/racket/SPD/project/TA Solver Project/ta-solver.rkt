@@ -118,8 +118,6 @@
 
 (define NOODLE-TAs (list SOBA UDON RAMEN))
 
-
-
 (define-struct assignment (ta slot))
 ;; Assignment is (make-assignment TA Slot)
 ;; interp. the TA is assigned to work the slot
@@ -129,27 +127,32 @@
 
 ;; ============================= FUNCTIONS
 
-
 ;; (listof TA) (listof Slot) -> Schedule or false
 ;; produce valid schedule given TAs and Slots; false if impossible
-
 (check-expect (schedule-tas empty empty) empty)
 (check-expect (schedule-tas empty (list 1 2)) false)
 (check-expect (schedule-tas (list SOBA) empty) empty)
-
 (check-expect (schedule-tas (list SOBA) (list 1)) (list (make-assignment SOBA 1)))
 (check-expect (schedule-tas (list SOBA) (list 2)) false)
 (check-expect (schedule-tas (list SOBA) (list 1 3)) (list (make-assignment SOBA 3)
                                                           (make-assignment SOBA 1)))
-
 (check-expect (schedule-tas NOODLE-TAs (list 1 2 3 4)) 
               (list
                (make-assignment UDON 4)
                (make-assignment SOBA 3)
                (make-assignment RAMEN 2)
                (make-assignment SOBA 1)))
-
 (check-expect (schedule-tas NOODLE-TAs (list 1 2 3 4 5)) false)
 
+;(define (schedule-tas tas slots) empty) ; Stub
 
-(define (schedule-tas tas slots) empty) ;stub
+(define (schedule-tas tas slots)   
+  (cond [(empty? slots) empty]
+        [(empty? tas) false]
+        [else
+         (local ((define slot (first slots))
+                 (define ta ((filter (lambda (ta) ...) tas) slot)))
+           (if (not (empty? ta))
+               (cons (make-assignment (first ta) slot)
+                     (schedule-tas (update-ta (first ta) tas slot) (rest slots)))
+               false))]))
