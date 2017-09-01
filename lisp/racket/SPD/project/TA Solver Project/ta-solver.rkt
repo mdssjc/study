@@ -5,16 +5,16 @@
 
 
 ;; PROBLEM 1:
-;; 
+;;
 ;; Consider a social network similar to Twitter called Chirper. Each user has a name, a note about
-;; whether or not they are a verified user, and follows some number of people. 
-;; 
-;; Design a data definition for Chirper, including a template that is tail recursive and avoids 
-;; cycles. 
-;; 
-;; Then design a function called most-followers which determines which user in a Chirper Network is 
+;; whether or not they are a verified user, and follows some number of people.
+;;
+;; Design a data definition for Chirper, including a template that is tail recursive and avoids
+;; cycles.
+;;
+;; Then design a function called most-followers which determines which user in a Chirper Network is
 ;; followed by the most people.
- 
+
 ;; Data definitions:
 
 (define-struct user (name verified following))
@@ -88,20 +88,20 @@
 
 
 ;; PROBLEM 2:
-;; 
-;; In UBC's version of How to Code, there are often more than 800 students taking 
-;; the course in any given semester, meaning there are often over 40 Teaching Assistants. 
-;; 
-;; Designing a schedule for them by hand is hard work - luckily we've learned enough now to write 
-;; a program to do it for us! 
-;; 
-;; Below are some data definitions for a simplified version of a TA schedule. There are some 
-;; number of slots that must be filled, each represented by a natural number. Each TA is 
-;; available for some of these slots, and has a maximum number of shifts they can work. 
-;; 
+;;
+;; In UBC's version of How to Code, there are often more than 800 students taking
+;; the course in any given semester, meaning there are often over 40 Teaching Assistants.
+;;
+;; Designing a schedule for them by hand is hard work - luckily we've learned enough now to write
+;; a program to do it for us!
+;;
+;; Below are some data definitions for a simplified version of a TA schedule. There are some
+;; number of slots that must be filled, each represented by a natural number. Each TA is
+;; available for some of these slots, and has a maximum number of shifts they can work.
+;;
 ;; Design a search program that consumes a list of TAs and a list of Slots, and produces one
-;; valid schedule where each Slot is assigned to a TA, and no TA is working more than their 
-;; maximum shifts. If no such schedules exist, produce false. 
+;; valid schedule where each Slot is assigned to a TA, and no TA is working more than their
+;; maximum shifts. If no such schedules exist, produce false.
 ;;
 ;; You should supplement the given check-expects and remember to follow the recipe!
 
@@ -116,7 +116,23 @@
 (define UDON (make-ta "Udon" 1 (list 3 4)))
 (define RAMEN (make-ta "Ramen" 1 (list 2)))
 
+(define ERIKA (make-ta "Erika" 1 (list 1 3 7 9)))
+(define RYAN (make-ta "Ryan" 1 (list 1 8 10)))
+(define REECE (make-ta "Reece" 1 (list 5 6)))
+(define GORDON (make-ta "Gordon" 2 (list 2 3 9)))
+(define DAVID (make-ta "David" 2 (list 2 8 9)))
+(define KATIE (make-ta "Katie" 1 (list 4 6)))
+(define AASHISH (make-ta "Aashish" 2 (list 1 10)))
+(define GRANT (make-ta "Grant" 2 (list 1 11)))
+(define RAEANNE (make-ta "Raeanne" 2 (list 1 11 12)))
+
+(define ALEX (make-ta "Alex" 1 (list 7)))
+(define ERIN (make-ta "Erin" 1 (list 4)))
+
 (define NOODLE-TAs (list SOBA UDON RAMEN))
+(define NOODLE-TA2s (list ERIKA RYAN REECE GORDON DAVID KATIE AASHISH GRANT RAEANNE))
+(define NOODLE-TA3s (list ERIKA RYAN REECE GORDON DAVID KATIE AASHISH GRANT RAEANNE ALEX))
+(define NOODLE-TA4s (list ERIKA RYAN REECE GORDON DAVID KATIE AASHISH GRANT RAEANNE ERIN))
 
 (define-struct assignment (ta slot))
 ;; Assignment is (make-assignment TA Slot)
@@ -136,7 +152,7 @@
 (check-expect (schedule-tas (list SOBA) (list 2)) false)
 (check-expect (schedule-tas (list SOBA) (list 1 3)) (list (make-assignment SOBA 3)
                                                           (make-assignment SOBA 1)))
-(check-expect (schedule-tas NOODLE-TAs (list 1 2 3 4)) 
+(check-expect (schedule-tas NOODLE-TAs (list 1 2 3 4))
               (list
                (make-assignment UDON 4)
                (make-assignment SOBA 3)
@@ -147,17 +163,17 @@
 ;(define (schedule-tas tas slots) empty) ; Stub
 
 (define (schedule-tas tas slots)
-  (local ((define (schedule-tas tas slots rsf)   
+  (local ((define (schedule-tas tas slots rsf)
             (cond [(empty? slots) rsf]
                   [(empty? tas) false]
                   [else
                    (local ((define slot (first slots))
                            (define (count ta rsf)
                              (length (filter (lambda (x)
-                                               (equal? x ta))
+                                               (equal? (assignment-ta x) ta))
                                              rsf)))
                            (define try (filter (lambda (ta)
-                                                 (and (<= (count ta rsf) (ta-max ta))
+                                                 (and (< (count ta rsf) (ta-max ta))
                                                       (member slot (ta-avail ta))))
                                                tas)))
                      (if (not (empty? try))
@@ -166,3 +182,7 @@
                                        (cons (make-assignment (first try) slot) rsf))
                          false))])))
     (schedule-tas tas slots empty)))
+
+(schedule-tas NOODLE-TA2s (build-list 12 add1))
+(schedule-tas NOODLE-TA3s (build-list 12 add1))
+(schedule-tas NOODLE-TA4s (build-list 12 add1))
