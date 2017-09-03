@@ -19,3 +19,11 @@ qsortReverse (x:xs) = qsortReverse larger ++ [x] ++ qsortReverse smaller
   where
     smaller = [a | a <- xs, a <= x]
     larger  = [b | b <- xs, b > x]
+
+-- 1.5
+qsortBugged :: Ord a => [a] -> [a]
+qsortBugged [] = []
+qsortBugged (x:xs) = qsortBugged smaller ++ [x] ++ qsortBugged larger
+  where
+    smaller = [a | a <- xs, a < x]
+    larger  = [b | b <- xs, b > x]
