@@ -19,7 +19,7 @@ public class MyReadInListener implements ActionListener {
 
   @Override
   public void actionPerformed(final ActionEvent e) {
-    boolean[] checkboxState;
+    boolean[] checkboxState = new boolean[0];
 
     try {
       final FileInputStream fileIn = new FileInputStream(new File("Checkbox.ser"));
