@@ -2,4 +2,5 @@
 
 (require "quick.rkt")
 
+
 (rainbow (square 5))
