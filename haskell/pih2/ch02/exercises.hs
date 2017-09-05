@@ -16,3 +16,9 @@ n = a `div` (length xs)
 
 -- 2.4
 x4 = head (reverse [1,2,3,4,5])
+
+-- 2.5
+x5 = reverse (tail (reverse [1,2,3,4,5]))
+x6 = take (length xs - 1) xs
+  where
+    xs = [1,2,3,4,5]
