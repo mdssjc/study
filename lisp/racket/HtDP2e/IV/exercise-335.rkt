@@ -23,10 +23,10 @@
 ; A File.v3 is a structure: 
 ;   (make-file String N String)
 (define F7 (make-file "read!" 19 ""))
-(define D-CODE (make-dir "Docs" empty (list F7)))
+(define D-DOCS (make-dir "Docs" empty (list F7)))
 (define F5 (make-file "hang" 8 ""))
 (define F6 (make-file "draw" 2 ""))
-(define D-DOCS (make-dir "Code" empty (list F5 F6)))
+(define D-CODE (make-dir "Code" empty (list F5 F6)))
 (define D-LIBS (make-dir "Libs" (list D-CODE D-DOCS) empty))
 (define F2 (make-file "part1" 99 ""))
 (define F3 (make-file "part2" 52 ""))
