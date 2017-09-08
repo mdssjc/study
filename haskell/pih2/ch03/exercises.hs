@@ -42,3 +42,6 @@ twice f x = f(f x)
 
 -- 3.4
 -- Validation in GHCi.
+
+-- 3.5
+-- Because it interferes in the function abstraction, being feasible for applications with comparisons of values.
