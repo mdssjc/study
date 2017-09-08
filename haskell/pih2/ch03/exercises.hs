@@ -39,3 +39,6 @@ palindrome xs = reverse xs == xs
 
 twice :: (a -> a) -> a -> a
 twice f x = f(f x)
+
+-- 3.4
+-- Validation in GHCi.
