@@ -113,7 +113,7 @@ public class BeatBox {
     restore.addActionListener(new MyReadInListenerLocal(this));
     buttonBox.add(restore);
 
-    final JButton sendIt = new JButton("sendIt");
+    final JButton sendIt = new JButton("Send It");
     sendIt.addActionListener(new MySendListenerChat(this));
     buttonBox.add(sendIt);
 

@@ -29,7 +29,7 @@ public class ClientHandler implements Runnable {
     try {
       while ((o1 = this.in.readObject()) != null) {
         o2 = this.in.readObject();
-        System.out.println("read two objects");
+        System.out.println("Read two objects");
         this.server.tellEveryone(o1, o2);
       }
     } catch (final Exception ex) {

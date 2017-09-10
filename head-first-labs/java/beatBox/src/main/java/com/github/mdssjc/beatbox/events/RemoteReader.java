@@ -18,7 +18,7 @@ public class RemoteReader implements Runnable {
     try {
       while ((this.obj = this.beatBox.getIn()
                                      .readObject()) != null) {
-        System.out.println("got an object from server");
+        System.out.println("Got an object from server");
         System.out.println(this.obj.getClass());
         final String nameToShow = (String) this.obj;
         this.checkboxState = (boolean[]) this.beatBox.getIn()

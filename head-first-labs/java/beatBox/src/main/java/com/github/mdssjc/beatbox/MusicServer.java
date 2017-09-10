@@ -29,7 +29,7 @@ public class MusicServer {
         this.clientOutputStreams.add(out);
         final Thread t = new Thread(new ClientHandler(this, clientSocket));
         t.start();
-        System.out.println("got a connection");
+        System.out.println("Got a connection");
       }
     } catch (final Exception ex) {
       Logger.getGlobal()
