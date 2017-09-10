@@ -1,29 +1,53 @@
 package com.github.mdssjc.beatbox;
 
-import com.github.mdssjc.beatbox.io.MyReadInListener;
-import com.github.mdssjc.beatbox.io.MySendListener;
+import com.github.mdssjc.beatbox.events.*;
+import lombok.Getter;
 
 import javax.sound.midi.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.*;
 import java.util.List;
-import java.util.function.Function;
 import java.util.logging.Logger;
 
 public class BeatBox {
 
-  private final String[] instrumentNames;
-  private final int[] instruments;
+  private JFrame theFrame;
   private JPanel mainPanel;
+  @Getter
+  private JList incomingList;
+  @Getter
+  private JTextField userMessage;
+  @Getter
   private List<JCheckBox> checkboxList;
+  @Getter
+  private int nextNum;
+  @Getter
+  private final Vector<String> listVector;
+  @Getter
+  private String userName;
+  @Getter
+  private ObjectOutputStream out;
+  @Getter
+  private ObjectInputStream in;
+  @Getter
+  private final Map<String, boolean[]> otherSeqsMap;
+
+  @Getter
   private Sequencer sequencer;
   private Sequence sequence;
   private Track track;
-  private JFrame theFrame;
+
+  private final String[] instrumentNames;
+  private final int[] instruments;
 
   public BeatBox() {
+    this.listVector = new Vector<>();
+    this.otherSeqsMap = new HashMap<>();
     this.instrumentNames = new String[]{"Bass Drum", "Closed Hi-Hat",
         "Open Hi-Hat", "Acoustic Snare", "Crash Cymbal", "Hand Clap",
         "High Tom", "Hi Bongo", "Maracas", "Whistle", "Low Conga",
@@ -33,30 +57,25 @@ public class BeatBox {
   }
 
   public static void main(final String[] args) {
-    new BeatBox().buildGUI();
+    new BeatBox().startUp(args[0]);
   }
 
-  public boolean[] readInstruments() {
-    final boolean[] checkboxState = new boolean[256];
+  private void startUp(final String name) {
+    this.userName = name;
 
-    for (int i = 0; i < 256; i++) {
-      final JCheckBox check = checkboxList.get(i);
-      if (check.isSelected()) {
-        checkboxState[i] = true;
-      }
+    try {
+      final Socket sock = new Socket("127.0.0.1", 4242);
+      this.out = new ObjectOutputStream(sock.getOutputStream());
+      this.in = new ObjectInputStream(sock.getInputStream());
+      final Thread remote = new Thread(new RemoteReader(this));
+      remote.start();
+    } catch (final IOException ex) {
+      Logger.getGlobal()
+            .severe("Couldn’t connect - you’ll have to play alone.");
     }
 
-    return checkboxState;
-  }
-
-  public void setInstruments(final boolean[] checkboxState) {
-    for (int i = 0; i < 256; i++) {
-      JCheckBox check = checkboxList.get(i);
-      check.setSelected(checkboxState[i]);
-    }
-
-    sequencer.stop();
-    buildTrackAndStart();
+    setUpMidi();
+    buildGUI();
   }
 
   private void buildGUI() {
@@ -67,36 +86,46 @@ public class BeatBox {
     background.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
     this.checkboxList = new ArrayList<>();
+
     final Box buttonBox = new Box(BoxLayout.Y_AXIS);
 
     final JButton start = new JButton("Start");
-    start.addActionListener(a -> buildTrackAndStart());
+    start.addActionListener(new MyStartListener(this));
     buttonBox.add(start);
 
     final JButton stop = new JButton("Stop");
-    stop.addActionListener(a -> this.sequencer.stop());
+    stop.addActionListener(new MyStopListener(this));
     buttonBox.add(stop);
 
-    final Function<Float, ActionListener> tempo = p -> ev -> {
-      final float tempoFactor = this.sequencer.getTempoFactor();
-      this.sequencer.setTempoFactor(tempoFactor * p);
-    };
-
     final JButton upTempo = new JButton("Tempo Up");
-    upTempo.addActionListener(tempo.apply(1.03F));
+    upTempo.addActionListener(new MyUpTempoListener(this));
     buttonBox.add(upTempo);
 
     final JButton downTempo = new JButton("Tempo Down");
-    downTempo.addActionListener(tempo.apply(0.97F));
+    downTempo.addActionListener(new MyDownTempoListener(this));
     buttonBox.add(downTempo);
 
-    JButton serializeIt = new JButton("Serialize It");
-    serializeIt.addActionListener(new MySendListener(this));
+    final JButton serializeIt = new JButton("Serialize It");
+    serializeIt.addActionListener(new MySendListenerLocal(this));
     buttonBox.add(serializeIt);
 
-    JButton restore = new JButton("Restore");
-    restore.addActionListener(new MyReadInListener(this));
+    final JButton restore = new JButton("Restore");
+    restore.addActionListener(new MyReadInListenerLocal(this));
     buttonBox.add(restore);
+
+    final JButton sendIt = new JButton("sendIt");
+    sendIt.addActionListener(new MySendListenerChat(this));
+    buttonBox.add(sendIt);
+
+    this.userMessage = new JTextField();
+    buttonBox.add(this.userMessage);
+
+    this.incomingList = new JList();
+    this.incomingList.addListSelectionListener(new MyListSelectionListener(this));
+    this.incomingList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    final JScrollPane theList = new JScrollPane(this.incomingList);
+    buttonBox.add(theList);
+    this.incomingList.setListData(this.listVector);
 
     final Box nameBox = new Box(BoxLayout.Y_AXIS);
     for (int i = 0; i < 16; i++) {
@@ -122,8 +151,6 @@ public class BeatBox {
       this.mainPanel.add(c);
     }
 
-    setUpMidi();
-
     this.theFrame.setBounds(50, 50, 300, 300);
     this.theFrame.pack();
     this.theFrame.setVisible(true);
@@ -136,55 +163,59 @@ public class BeatBox {
       this.sequence = new Sequence(Sequence.PPQ, 4);
       this.track = this.sequence.createTrack();
       this.sequencer.setTempoInBPM(120.0F);
-    } catch (final Exception e) {
+    } catch (final Exception ex) {
       Logger.getGlobal()
-            .info(e.getMessage());
+            .severe(ex.getMessage());
     }
   }
 
-  private void buildTrackAndStart() {
-    int[] trackList;
-
+  public void buildTrackAndStart() {
+    List<Integer> trackList;
     this.sequence.deleteTrack(this.track);
     this.track = this.sequence.createTrack();
 
     for (int i = 0; i < 16; i++) {
-      trackList = new int[16];
-
-      final int key = this.instruments[i];
-
+      trackList = new ArrayList<>();
       for (int j = 0; j < 16; j++) {
         final JCheckBox jc = this.checkboxList.get(j + (16 * i));
         if (jc.isSelected()) {
-          trackList[j] = key;
+          final int key = this.instruments[i];
+          trackList.add(new Integer(key));
         } else {
-          trackList[j] = 0;
+          trackList.add(null);
         }
       }
-
       makeTracks(trackList);
-      this.track.add(makeEvent(176, 1, 127, 0, 16));
     }
 
     this.track.add(makeEvent(192, 9, 1, 0, 15));
+
     try {
       this.sequencer.setSequence(this.sequence);
       this.sequencer.setLoopCount(this.sequencer.LOOP_CONTINUOUSLY);
       this.sequencer.start();
       this.sequencer.setTempoInBPM(120.0F);
-    } catch (final Exception e) {
+    } catch (final Exception ex) {
       Logger.getGlobal()
-            .info(e.getMessage());
+            .severe(ex.getMessage());
     }
   }
 
-  private void makeTracks(final int[] list) {
-    for (int i = 0; i < 16; i++) {
-      final int key = list[i];
+  public void changeSequence(final boolean[] checkboxState) {
+    for (int i = 0; i < 256; i++) {
+      final JCheckBox check = this.checkboxList.get(i);
+      check.setSelected(checkboxState[i]);
+    }
+  }
 
-      if (key != 0) {
-        this.track.add(makeEvent(144, 9, key, 100, i));
-        this.track.add(makeEvent(128, 9, key, 100, i + 1));
+  private void makeTracks(final List<Integer> list) {
+    final Iterator<Integer> it = list.iterator();
+    for (int i = 0; i < 16; i++) {
+      final Integer num = it.next();
+      if (num != null) {
+        final int numKey = num.intValue();
+        this.track.add(makeEvent(144, 9, numKey, 100, i));
+        this.track.add(makeEvent(128, 9, numKey, 100, i + 1));
       }
     }
   }
@@ -195,10 +226,14 @@ public class BeatBox {
       final ShortMessage a = new ShortMessage();
       a.setMessage(comd, chan, one, two);
       event = new MidiEvent(a, tick);
-    } catch (final Exception e) {
+    } catch (final Exception ex) {
       Logger.getGlobal()
-            .info(e.getMessage());
+            .severe(ex.getMessage());
     }
     return event;
+  }
+
+  public int incNextNum() {
+    return this.nextNum++;
   }
 }
