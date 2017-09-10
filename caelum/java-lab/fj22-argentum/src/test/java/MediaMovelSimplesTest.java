@@ -2,12 +2,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import argentum.indicadores.Indicador;
-import argentum.indicadores.IndicadorAbertura;
-import argentum.indicadores.IndicadorFechamento;
-import argentum.indicadores.MediaMovelSimples;
-import argentum.modelo.SerieTemporal;
-import argentum.testes.GeradorDeSerie;
+import com.github.mdssjc.argentum.indicadores.Indicador;
+import com.github.mdssjc.argentum.indicadores.IndicadorAbertura;
+import com.github.mdssjc.argentum.indicadores.IndicadorFechamento;
+import com.github.mdssjc.argentum.indicadores.MediaMovelSimples;
+import com.github.mdssjc.argentum.modelo.SerieTemporal;
+import com.github.mdssjc.argentum.testes.GeradorDeSerie;
 
 public class MediaMovelSimplesTest {
 

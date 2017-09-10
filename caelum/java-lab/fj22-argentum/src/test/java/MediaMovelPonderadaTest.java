@@ -2,10 +2,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import argentum.indicadores.IndicadorFechamento;
-import argentum.indicadores.MediaMovelPonderada;
-import argentum.modelo.SerieTemporal;
-import argentum.testes.GeradorDeSerie;
+import com.github.mdssjc.argentum.indicadores.IndicadorFechamento;
+import com.github.mdssjc.argentum.indicadores.MediaMovelPonderada;
+import com.github.mdssjc.argentum.modelo.SerieTemporal;
+import com.github.mdssjc.argentum.testes.GeradorDeSerie;
 
 public class MediaMovelPonderadaTest {
 

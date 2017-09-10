@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-import argentum.modelo.SerieTemporal;
+import com.github.mdssjc.argentum.modelo.SerieTemporal;
 
 public class SerieTemporalTest {
 

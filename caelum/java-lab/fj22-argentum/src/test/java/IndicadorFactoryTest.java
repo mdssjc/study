@@ -1,9 +1,8 @@
-import static org.junit.Assert.assertEquals;
-
+import com.github.mdssjc.argentum.indicadores.Indicador;
+import com.github.mdssjc.argentum.indicadores.factory.IndicadorFactory;
 import org.junit.Test;
 
-import argentum.indicadores.Indicador;
-import argentum.indicadores.factory.IndicadorFactory;
+import static org.junit.Assert.assertEquals;
 
 public class IndicadorFactoryTest {
 

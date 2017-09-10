@@ -1,13 +1,12 @@
-import static org.junit.Assert.assertEquals;
+import com.github.mdssjc.argentum.modelo.Negociacao;
+import com.github.mdssjc.argentum.reader.LeitorXML;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
 
-import org.junit.Test;
-
-import argentum.modelo.Negociacao;
-import argentum.reader.LeitorXML;
+import static org.junit.Assert.assertEquals;
 
 public class LeitorXMLTest {
 

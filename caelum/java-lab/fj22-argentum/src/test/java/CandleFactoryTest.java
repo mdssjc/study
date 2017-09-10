@@ -1,14 +1,13 @@
-import static org.junit.Assert.assertEquals;
+import com.github.mdssjc.argentum.modelo.Candle;
+import com.github.mdssjc.argentum.modelo.CandleFactory;
+import com.github.mdssjc.argentum.modelo.Negociacao;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import org.junit.Test;
-
-import argentum.modelo.Candle;
-import argentum.modelo.CandleFactory;
-import argentum.modelo.Negociacao;
+import static org.junit.Assert.assertEquals;
 
 public class CandleFactoryTest {
 

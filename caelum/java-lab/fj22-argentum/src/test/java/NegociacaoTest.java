@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
-import argentum.modelo.Negociacao;
+import com.github.mdssjc.argentum.modelo.Negociacao;
 
 public class NegociacaoTest {
 

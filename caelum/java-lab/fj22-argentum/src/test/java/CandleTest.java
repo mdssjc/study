@@ -1,10 +1,9 @@
-import static org.junit.Assert.assertEquals;
+import com.github.mdssjc.argentum.modelo.Candle;
+import org.junit.Test;
 
 import java.util.Calendar;
 
-import org.junit.Test;
-
-import argentum.modelo.Candle;
+import static org.junit.Assert.assertEquals;
 
 public class CandleTest {
 
