@@ -3,8 +3,11 @@ package com.github.mdssjc.argentum.modelo;
 import lombok.Getter;
 import lombok.NonNull;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Locale;
 
 final public class Candlestick {
 
@@ -19,7 +22,7 @@ final public class Candlestick {
   @Getter
   private final double volume;
   @Getter
-  private final Calendar data;
+  private final LocalDateTime data;
 
   public Candlestick(final double abertura, final double fechamento,
                      final double minimo, final double maximo,
@@ -39,7 +42,8 @@ final public class Candlestick {
     this.minimo = minimo;
     this.maximo = maximo;
     this.volume = volume;
-    this.data = data;
+    this.data = LocalDateTime.ofInstant(data.toInstant(),
+                                        ZoneId.systemDefault());
   }
 
   public boolean isAlta() {
@@ -53,8 +57,9 @@ final public class Candlestick {
   @Override
   public String toString() {
     return String.format(
+        Locale.US,
         "[Abertura %.1f, Fechamento %.1f, Mínima %.1f, Máxima %.1f, Volume %.2f, Data %s]",
         getAbertura(), getFechamento(), getMinimo(), getMaximo(), getVolume(),
-        new SimpleDateFormat("dd/MM/yyyy").format(getData().getTime()));
+        data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
   }
 }
