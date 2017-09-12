@@ -8,10 +8,14 @@ import java.util.List;
 public class CandlestickFactory {
 
   public Candlestick constroiCandleParaData(final Calendar data, final List<Negociacao> negociacoes) {
-    double maximo = negociacoes.get(0)
-                               .getPreco();
-    double minimo = negociacoes.get(0)
-                               .getPreco();
+    if (negociacoes == null || negociacoes.isEmpty()) {
+      return new Candlestick(0, 0, 0, 0, 0, Calendar.getInstance());
+    }
+
+    double preco = negociacoes.get(0)
+                              .getPreco();
+    double maximo = preco;
+    double minimo = preco;
     double volume = 0;
 
     for (final Negociacao negociacao : negociacoes) {
@@ -25,8 +29,7 @@ public class CandlestickFactory {
       }
     }
 
-    final double abertura = negociacoes.get(0)
-                                       .getPreco();
+    final double abertura = preco;
     final double fechamento = negociacoes.get(negociacoes.size() - 1)
                                          .getPreco();
 
