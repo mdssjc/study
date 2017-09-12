@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class CandlestickTest {
 
   @Test
-  public void formatacaoDoDados() {
+  public void formatacaoDosDados() {
     Calendar data = Calendar.getInstance();
     data.set(2008, Calendar.JULY, 12);
 
