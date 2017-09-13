@@ -13,6 +13,19 @@
 (define L (create-dir "/var/log/")) ; on Linux
 ;(define W (create-dir "C:\\Users\\...")) ; on Windows 
 
+(define F7 (make-file "read!" 19 ""))
+(define D-DOCS (make-dir "Docs" empty (list F7)))
+(define F5 (make-file "hang" 8 ""))
+(define F6 (make-file "draw" 2 ""))
+(define D-CODE (make-dir "Code" empty (list F5 F6)))
+(define D-LIBS (make-dir "Libs" (list D-CODE D-DOCS) empty))
+(define F2 (make-file "part1" 99 ""))
+(define F3 (make-file "part2" 52 ""))
+(define F4 (make-file "part3" 17 ""))
+(define D-TEXT (make-dir "Text" empty (list F2 F3 F4)))
+(define F1 (make-file "read!" 10 ""))
+(define D-TS (make-dir "TS" (list D-TEXT D-LIBS) (list F1)))
+
 
 ;; ====================
 ;; Functions:
@@ -20,20 +33,11 @@
 ; Dir -> [List-of String]
 ; lists the names of all files and directories in a given Dir
 (check-expect (ls (make-dir "root" empty empty)) empty)
-(check-satisfied (ls L)
-                 (lambda (result)
-                   (local ((define (ok? l count)
-                             (cond [(or (empty? l)
-                                        (zero? count)) #true]
-                                   [else
-                                    (and (member? (first l)
-                                                  (list "user-1000@f7e498fc2d7342298246e14066beb6fd-000000000000021f-00054c0e15c92f52.journal"
-                                                        "user-1000@f34b467b51394441962018f2b047cef3-00000000000001fd-00055788e364614d.journal"
-                                                        "user-1000@ba0521e63c5e41c893ab55bff49876db-0000000000000214-000542d3bb66aed4.journal"
-                                                        "user-1000@00055788e3647d7d-48a165f7930d75e9.journal~"
-                                                        "user-1000@0005574344263612-354112e20df69f19.journal~"))
-                                         (ok? (rest l) (sub1 count)))])))
-                     (ok? result 5)))) ; check on your system
+(check-expect (ls D-DOCS) (list "read!"))
+(check-expect (ls D-CODE) (list "draw" "hang"))
+(check-expect (ls D-LIBS) (list "read!" "draw" "hang"))
+(check-expect (ls D-TEXT) (list "part3" "part2" "part1"))
+(check-expect (ls D-TS) (list "read!" "draw" "hang" "part3" "part2" "part1" "read!"))
 
 (define (ls d)
   (append (foldl (lambda (d acc)
