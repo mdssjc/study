@@ -39,6 +39,18 @@ public class CandlestickFactoryTest {
   }
 
   @Test
+  public void semNegociacoesGeraCandleComZeros() {
+    List<Negociacao> negociacoes = Arrays.asList();
+    Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
+
+    assertEquals(0.0, candle.getAbertura(), 0.00001);
+    assertEquals(0.0, candle.getFechamento(), 0.00001);
+    assertEquals(0.0, candle.getMinimo(), 0.00001);
+    assertEquals(0.0, candle.getMaximo(), 0.00001);
+    assertEquals(0.0, candle.getVolume(), 0.00001);
+  }
+
+  @Test
   public void apenasUmaNegociacaoGeraCandleComValoresIguais() {
     Negociacao negociacao = new Negociacao(40.5, 100, hoje);
 
@@ -50,18 +62,6 @@ public class CandlestickFactoryTest {
     assertEquals(40.5, candle.getMinimo(), 0.00001);
     assertEquals(40.5, candle.getMaximo(), 0.00001);
     assertEquals(4050.0, candle.getVolume(), 0.00001);
-  }
-
-  @Test
-  public void semNegociacoesGeraCandleComZeros() {
-    List<Negociacao> negociacoes = Arrays.asList();
-    Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
-
-    assertEquals(0.0, candle.getAbertura(), 0.00001);
-    assertEquals(0.0, candle.getFechamento(), 0.00001);
-    assertEquals(0.0, candle.getMinimo(), 0.00001);
-    assertEquals(0.0, candle.getMaximo(), 0.00001);
-    assertEquals(0.0, candle.getVolume(), 0.00001);
   }
 
   @Test
