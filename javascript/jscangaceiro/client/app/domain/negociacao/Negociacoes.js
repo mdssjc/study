@@ -11,6 +11,6 @@ class Negociacoes {
   }
 
   paraArray() {
-    return this._negociacoes;
+    return [].concat(this._negociacoes);
   }
 }
