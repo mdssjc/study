@@ -19,3 +19,19 @@ safetail :: [a] -> [a]
 --   | otherwise = tail xs
 safetail [] = []                   -- c. pattern matching
 safetail xs = tail xs
+
+-- 4.4
+-- (||) :: Bool -> Bool -> Bool
+-- True || True = True
+-- True || False = True
+-- False || True = True
+-- False || False = False
+
+-- False || False = False
+-- _ || _ = True
+
+-- True || _ = True
+-- False || b = b
+
+-- b || False = b
+-- _ || _ = True
