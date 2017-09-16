@@ -35,3 +35,11 @@ safetail xs = tail xs
 
 -- b || False = b
 -- _ || _ = True
+
+-- 4.5
+and' :: Bool -> Bool -> Bool
+and' x y = if x == True
+           then if y == True
+                then True
+                else False
+           else False
