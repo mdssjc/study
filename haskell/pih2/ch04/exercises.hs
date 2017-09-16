@@ -33,8 +33,8 @@ safetail xs = tail xs
 -- True || _ = True
 -- False || b = b
 
--- b || False = b
--- _ || _ = True
+-- b || c | b == c = b
+--        | otherwise = True
 
 -- 4.5
 and1 :: Bool -> Bool -> Bool
