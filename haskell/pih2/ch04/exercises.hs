@@ -53,3 +53,13 @@ and2 a b = if a == True
 -- 4.7
 mult :: Int -> Int -> Int -> Int
 mult = \x -> \y -> \z -> x * y * z
+
+-- 4.8
+luhnDouble :: Int -> Int
+luhnDouble d
+  | v > 9 = v - 9
+  | otherwise = v
+  where v = 2 * d
+
+luhn :: Int -> Int -> Int -> Int -> Bool
+luhn = \d1 -> \d2 -> \d3 -> \d4 -> (luhnDouble d1 + d2 + luhnDouble d3 + d4) `mod` 10 == 0
