@@ -49,3 +49,7 @@ and2 :: Bool -> Bool -> Bool
 and2 a b = if a == True
            then b
            else False
+
+-- 4.7
+mult :: Int -> Int -> Int -> Int
+mult = \x -> \y -> \z -> x * y * z
