@@ -1,0 +1,35 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname exercise-346) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+;; Exercise 346
+
+
+;; ====================
+;; Data definitions:
+
+(define-struct add [left right])
+; An Add is a structure:
+;   (make-add Number Number)
+; interpretation (make-add l r) specifies an addition expression
+;  l: is the left operand; and
+;  r: is the right operand
+
+(define-struct mul [left right])
+; An Mul is a structure:
+;   (make-mul Number Number)
+; interpretation (make-mul l r) specifies an multiplication expression
+;  l: is the left operand; and
+;  r: is the right operand
+
+; A Value is one of:
+;  - Number
+;  - (make-add Value Value)
+;  - (make-mul Value Value)
+; interpretation class of values to which a representation of a BSL expression can evaluate
+
+(define E1 (make-add 10 -10))
+(define E2 (make-add (make-mul 20 3) 33))
+(define E3 (make-add (make-mul (make-mul 2 3)) (make-mul 3.14 (make-mul -1 -9))))
+; (+ -1 2)
+; (+ (* -2 -3) 33)
+; (* (+ 1 (* 2 3)) 3.14)
