@@ -1,6 +1,6 @@
 // client/app/app.js
 
-let controller = new NegociacaoController();
+const controller = new NegociacaoController();
 
 document
   .querySelector('.form')
