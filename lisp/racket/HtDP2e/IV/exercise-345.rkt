@@ -23,7 +23,7 @@
 
 (define E1 (make-add 10 -10))
 (define E2 (make-add (make-mul 20 3) 33))
-(define E3 (make-add (make-mul (make-mul 2 3)) (make-mul 3.14 (make-mul -1 -9))))
+(define E3 (make-add (make-mul 3.14 (make-mul 2 3)) (make-mul 3.14 (make-mul -1 -9))))
 ; (+ -1 2)
 ; (+ (* -2 -3) 33)
 ; (* (+ 1 (* 2 3)) 3.14)
