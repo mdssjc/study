@@ -21,15 +21,15 @@
 ;  l: is the left operand; and
 ;  r: is the right operand
 
-; A Value is one of:
+; A BSL-Exp is one of:
 ;  - Number
-;  - (make-add Value Value)
-;  - (make-mul Value Value)
+;  - (make-add BSL-Exp BSL-Exp)
+;  - (make-mul BSL-Exp BSL-Exp)
 ; interpretation class of values to which a representation of a BSL expression can evaluate
 
 (define E1 (make-add 10 -10))
 (define E2 (make-add (make-mul 20 3) 33))
-(define E3 (make-add (make-mul (make-mul 2 3)) (make-mul 3.14 (make-mul -1 -9))))
+(define E3 (make-add (make-mul 3.14 (make-mul 2 3)) (make-mul 3.14 (make-mul -1 -9))))
 ; (+ -1 2)
 ; (+ (* -2 -3) 33)
 ; (* (+ 1 (* 2 3)) 3.14)
