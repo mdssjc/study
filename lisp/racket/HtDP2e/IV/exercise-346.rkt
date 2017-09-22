@@ -21,10 +21,10 @@
 ;  l: is the left operand; and
 ;  r: is the right operand
 
-; A BSL-Exp is one of:
+; A BSL-expr is one of:
 ;  - Number
-;  - (make-add BSL-Exp BSL-Exp)
-;  - (make-mul BSL-Exp BSL-Exp)
+;  - (make-add BSL-expr BSL-expr)
+;  - (make-mul BSL-expr BSL-expr)
 ; interpretation class of values to which a representation of a BSL expression can evaluate
 
 (define E1 (make-add 10 -10))
