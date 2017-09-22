@@ -12,3 +12,7 @@ square x = [(a, b) | a <- [0..x], b <- [0..x], a /= b]
 -- 5.4
 replicate' :: Int -> a -> [a]
 replicate' n t = [t | _ <- [1..n]]
+
+-- 5.5
+pyths :: Int -> [(Int, Int, Int)]
+pyths n = [(a, b, c) | a <- [1..n], b <- [1..n], c <- [1..n], a*a + b*b == c*c]
