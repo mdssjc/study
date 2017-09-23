@@ -23,3 +23,7 @@ factors n = [x | x <- [1..n], n `mod` x == 0]
 
 perfects :: Int -> [Int]
 perfects n = [last f | f <- [factors x | x <- [1..n]], (sum . init $ f) == (last f)]
+
+-- 5.7
+x1 = [(x,y) | x <- [1,2], y <- [3,4]]
+x2 = concat [[(x,y) | y <- [3,4]] | x <- [1,2]]
