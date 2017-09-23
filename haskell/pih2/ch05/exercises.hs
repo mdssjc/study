@@ -16,3 +16,10 @@ replicate' n t = [t | _ <- [1..n]]
 -- 5.5
 pyths :: Int -> [(Int, Int, Int)]
 pyths n = [(a, b, c) | a <- [1..n], b <- [1..n], c <- [1..n], a*a + b*b == c*c]
+
+-- 5.6
+factors :: Int -> [Int]
+factors n = [x | x <- [1..n], n `mod` x == 0]
+
+perfects :: Int -> [Int]
+perfects n = [last f | f <- [factors x | x <- [1..n]], (sum . init $ f) == (last f)]
