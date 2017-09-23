@@ -27,3 +27,10 @@ perfects n = [last f | f <- [factors x | x <- [1..n]], (sum . init $ f) == (last
 -- 5.7
 x1 = [(x,y) | x <- [1,2], y <- [3,4]]
 x2 = concat [[(x,y) | y <- [3,4]] | x <- [1,2]]
+
+-- 5.8
+find :: Eq a => a -> [(a,b)] -> [b]
+find k t = [v | (k',v) <- t, k == k']
+
+positions :: Eq a => a -> [a] -> [Int]
+positions x xs = find x $ zip xs [0..]
