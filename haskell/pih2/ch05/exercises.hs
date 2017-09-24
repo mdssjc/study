@@ -1,3 +1,5 @@
+import Data.Char
+
 -- 5.1
 res = [x | x <- [12,22..1002]]
 
@@ -38,3 +40,19 @@ positions x xs = find x $ zip xs [0..]
 -- 5.9
 scalarproduct :: [Int] -> [Int] -> Int
 scalarproduct xs ys = sum [x * y | (x,y) <- zip xs ys]
+
+-- 5.10
+let2int :: Char -> Char -> Int
+let2int c x = ord c - ord x
+
+int2let :: Int -> Char -> Char
+int2let n x = chr(ord x + n)
+
+shift :: Int -> Char -> Char
+shift n c
+  | isLower c = int2let ((let2int c 'a' + n) `mod` 26) 'a'
+  | isUpper c = int2let ((let2int c 'A' + n) `mod` 26) 'A'
+  | otherwise = c
+
+encode :: Int -> String -> String
+encode n xs = [shift n x | x <- xs]
