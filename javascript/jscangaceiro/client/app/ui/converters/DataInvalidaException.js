@@ -1,0 +1,1 @@
+// client/app/ui/converters/DataInvalidaException.js
