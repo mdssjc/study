@@ -23,7 +23,7 @@
 
 ; A BSL-var-expr is one of: 
 ;  - Number
-;  - Symbol 
+;  - Symbol
 ;  - (make-add BSL-var-expr BSL-var-expr)
 ;  - (make-mul BSL-var-expr BSL-var-expr)
 
