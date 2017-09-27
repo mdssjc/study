@@ -7,11 +7,11 @@
 ;; ====================
 ;; Data definitions:
 
-; An S-expr is one of:
+; A S-expr is one of:
 ; - Atom
 ; - SL
  
-; An SL is one of:
+; A SL is one of:
 ; - '()
 ; - (cons S-expr SL)
 	

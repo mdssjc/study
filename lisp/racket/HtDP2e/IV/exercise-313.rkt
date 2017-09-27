@@ -9,12 +9,12 @@
 
 (define-struct no-parent [])
 (define-struct child [father mother name date eyes])
-; An FT (short for family tree) is one of: 
+; A FT (short for family tree) is one of: 
 ; - (make-no-parent)
 ; - (make-child FT FT String N String)
 
 (define NP (make-no-parent))
-; An FT is one of: 
+; A FT is one of: 
 ; - NP
 ; - (make-child FT FT String N String)
 

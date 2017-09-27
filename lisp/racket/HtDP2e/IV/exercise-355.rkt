@@ -15,9 +15,9 @@
 ;  r: is the right operand
 
 (define-struct mul [left right])
-; An Mul is a structure:
+; A Mul is a structure:
 ;   (make-mul Number Number)
-; interpretation (make-mul l r) specifies an multiplication expression
+; interpretation (make-mul l r) specifies a multiplication expression
 ;  l: is the left operand; and
 ;  r: is the right operand
 

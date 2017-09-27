@@ -15,14 +15,14 @@
 ;  r: is the right operand
 
 (define-struct mul [left right])
-; An Mul is a structure:
+; A Mul is a structure:
 ;   (make-mul Number Number)
-; interpretation (make-mul l r) specifies an multiplication expression
+; interpretation (make-mul l r) specifies a multiplication expression
 ;  l: is the left operand; and
 ;  r: is the right operand
 
 (define-struct fun [name expr])
-; An Fun is a structure:
+; A Fun is a structure:
 ;   (make-fun String BSL-fun-expr)
 ; interpretation (make-fun n e) specifies an function application
 ;  n: is the name of the function; and

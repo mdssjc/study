@@ -7,7 +7,7 @@
 ;; ====================
 ;; Data definitions:
 
-; An S-expr is one of:
+; A S-expr is one of:
 ; - X
 ; - [List-of S-expr]
 

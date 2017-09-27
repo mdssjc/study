@@ -11,7 +11,7 @@
 ; A Dir.v2 is a structure:
 ;   (make-dir String N Boolean LOFD)
  
-; An LOFD (short for list of files and directories) is one of:
+; A LOFD (short for list of files and directories) is one of:
 ; - '()
 ; - (cons File.v2 LOFD)
 ; - (cons Dir.v2 LOFD)
