@@ -11,7 +11,7 @@ class NegociacaoService {
       .get('negociacoes/semana')
       .then(dados => {
         const negociacoes = dados.map(objeto =>
-          new NegociacaoService(new Date(objeto.data), objeto.quantidade, objeto.valor));
+          new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor));
         return negociacoes;
       }, err => {
         throw new Error('Não foi possível obter as negociações');
