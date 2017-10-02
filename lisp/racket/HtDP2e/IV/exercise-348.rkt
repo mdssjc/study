@@ -9,37 +9,37 @@
 
 (define-struct and2 [left right])
 ; An And is a structure:
-;   (make-and Boolean Boolean)
+;   (make-and BSL-boolean BSL-boolean)
 ; interpretation (make-and2 l r) specifies an AND operation
 ;  l: is the left operand; and
 ;  r: is the right operand
 
 (define-struct or2 [left right])
 ; An Or is a structure:
-;   (make-or Boolean Boolean)
+;   (make-or BSL-boolean BSL-boolean)
 ; interpretation (make-or2 l r) specifies an OR operation
 ;  l: is the left operand; and
 ;  r: is the right operand
 
 (define-struct not2 [operand])
 ; A Not is a structure:
-;   (make-not Boolean)
+;   (make-not BSL-boolean)
 ; interpretation (make-not2 o) specifies a NOT operation
 ;  o: is an operand
 
-; A BSL-Boolean is one of:
+; A BSL-boolean is one of:
 ;  - #false
 ;  - #true
-;  - (make-and2 BSL-Boolean BSL-Boolean)
-;  - (make-or2  BSL-Boolean BSL-Boolean)
-;  - (make-not2 BSL-Boolean)
+;  - (make-and2 BSL-boolean BSL-boolean)
+;  - (make-or2  BSL-boolean BSL-boolean)
+;  - (make-not2 BSL-boolean)
 ; interpretation class of values to which a representation of a BSL boolean expression can evaluate
 
 
 ;; ====================
 ;; Functions:
 
-; BSL-Boolean -> Boolean
+; BSL-boolean -> Boolean
 ; computes their values
 (check-expect (eval-bool-expression #false) #false)
 (check-expect (eval-bool-expression #true) #true)
