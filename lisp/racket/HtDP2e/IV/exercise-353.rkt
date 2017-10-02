@@ -9,23 +9,24 @@
 
 (define-struct add [left right])
 ; An Add is a structure:
-;   (make-add Number Number)
+;   (make-add BSL-var-expr BSL-var-expr)
 ; interpretation (make-add l r) specifies an addition expression
 ;  l: is the left operand; and
 ;  r: is the right operand
 
 (define-struct mul [left right])
 ; A Mul is a structure:
-;   (make-mul Number Number)
+;   (make-mul BSL-var-expr BSL-var-expr)
 ; interpretation (make-mul l r) specifies a multiplication expression
 ;  l: is the left operand; and
 ;  r: is the right operand
 
-; A BSL-var-expr is one of: 
+; A BSL-var-expr is one of:
 ;  - Number
 ;  - Symbol
 ;  - (make-add BSL-var-expr BSL-var-expr)
 ;  - (make-mul BSL-var-expr BSL-var-expr)
+; interpretation class of values and variables to which a representation of a BSL expression can evaluate
 
 
 ;; ====================
