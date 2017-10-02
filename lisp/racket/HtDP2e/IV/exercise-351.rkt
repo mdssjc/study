@@ -16,11 +16,11 @@
 ; A S-expr is one of:
 ; - Atom
 ; - SL
- 
+
 ; A SL is one of:
 ; - '()
 ; - (cons S-expr SL)
-	
+
 ; An Atom is one of:
 ; - Number
 ; - String
@@ -28,14 +28,14 @@
 
 (define-struct add [left right])
 ; An Add is a structure:
-;   (make-add Number Number)
+;   (make-add BSL-expr BSL-expr)
 ; interpretation (make-add l r) specifies an addition expression
 ;  l: is the left operand; and
 ;  r: is the right operand
 
 (define-struct mul [left right])
 ; A Mul is a structure:
-;   (make-mul Number Number)
+;   (make-mul BSL-expr BSL-expr)
 ; interpretation (make-mul l r) specifies a multiplication expression
 ;  l: is the left operand; and
 ;  r: is the right operand
@@ -45,6 +45,13 @@
 ;  - (make-add BSL-expr BSL-expr)
 ;  - (make-mul BSL-expr BSL-expr)
 ; interpretation class of values to which a representation of a BSL expression can evaluate
+
+(define E1 (make-add 10 -10))
+(define E2 (make-add (make-mul 20 3) 33))
+(define E3 (make-add (make-mul 3.14 (make-mul 2 3)) (make-mul 3.14 (make-mul -1 -9))))
+; (+ -1 2)
+; (+ (* -2 -3) 33)
+; (* (+ 1 (* 2 3)) 3.14)
 
 
 ;; ====================
@@ -63,9 +70,9 @@
 ; BSL-expr -> Number
 ; computes its value
 (check-expect (eval-expression 3) 3)
-(check-expect (eval-expression (make-add 1 1)) 2)
-(check-expect (eval-expression (make-mul 3 10)) 30)
-(check-expect (eval-expression (make-add (make-mul 1 1) 10)) 11)
+(check-expect (eval-expression E1) 0)
+(check-expect (eval-expression E2) 93)
+(check-expect (eval-expression E3) 47.1)
 
 (define (eval-expression exp)
   (cond [(number? exp) exp]
@@ -77,6 +84,7 @@
             (eval-expression (mul-right exp)))]))
 
 ; S-expr -> BSL-expr
+; produces a BSL-expr
 (check-expect (parse 1) 1)
 (check-error (parse "1") "Invalid datatype")
 (check-expect (parse '1) 1)
@@ -88,33 +96,20 @@
 (check-error (parse '(/ 1 1)) "Invalid datatype")
 
 (define (parse s)
-  (cond [(atom? s) (parse-atom s)]
-        [else (parse-sl s)]))
- 
-; SL -> BSL-expr
-(define (parse-sl s)
-  (local ((define L (length s)))
-    (cond [(< L 3) (error WRONG)]
-          [(and (= L 3) (symbol? (first s)))
-           (cond [(symbol=? (first s) '+)
-                  (make-add (parse (second s)) (parse (third s)))]
-                 [(symbol=? (first s) '*)
-                  (make-mul (parse (second s)) (parse (third s)))]
-                 [else (error WRONG)])]
-          [else (error WRONG)])))
- 
-; Atom -> BSL-expr
-(define (parse-atom s)
-  (cond [(number? s) s]
-        [(string? s) (error WRONG)]
-        [(symbol? s) (error WRONG)]))
-
-; Atom -> Boolean
-; predicates if it's an atom
-(check-expect (atom? #true) #false)
-(check-expect (atom? 1) #true)
-(check-expect (atom? "abc") #true)
-(check-expect (atom? 'sb) #true)
-
-(define (atom? a)
-  (or (number? a) (string? a) (symbol? a)))
+  (local ((define (atom? a)
+            (or (number? a) (string? a) (symbol? a)))
+          (define (parse-atom s)
+            (cond [(number? s) s]
+                  [(string? s) (error WRONG)]
+                  [(symbol? s) (error WRONG)]))
+          (define (parse-sl s)
+            (cond [(and (= (length s) 3)
+                        (symbol? (first s)))
+                   (cond [(symbol=? (first s) '+)
+                          (make-add (parse (second s)) (parse (third s)))]
+                         [(symbol=? (first s) '*)
+                          (make-mul (parse (second s)) (parse (third s)))]
+                         [else (error WRONG)])]
+                  [else (error WRONG)])))
+    (cond [(atom? s) (parse-atom s)]
+          [else (parse-sl s)])))
