@@ -41,4 +41,18 @@ class NegociacaoService {
         throw new Error('Não foi possível obter as negociações da semana retrasada');
       });
   }
+
+  obtemNegociacoesDoPeriodo() {
+    return Promise.all([
+      this.obtemNegociacoesDaSemana(),
+      this.obtemNegociacoesDaSemanaAnterior(),
+      this.obtemNegociacoesDaSemanaRetrasada()
+    ]).then(periodo => {
+      periodo = periodo
+        .reduce((novoArray, item) => novoArray.concat(item), [])
+    }).catch(err => {
+      console.log(err);
+      throw new Error('Não foi possível obter as negociações do período');
+    });
+  }
 }
