@@ -9,14 +9,14 @@
 
 (define-struct add [left right])
 ; An Add is a structure:
-;   (make-add Number Number)
+;   (make-add BSL-expr BSL-expr)
 ; interpretation (make-add l r) specifies an addition expression
 ;  l: is the left operand; and
 ;  r: is the right operand
 
 (define-struct mul [left right])
 ; A Mul is a structure:
-;   (make-mul Number Number)
+;   (make-mul BSL-expr BSL-expr)
 ; interpretation (make-mul l r) specifies a multiplication expression
 ;  l: is the left operand; and
 ;  r: is the right operand
@@ -41,9 +41,9 @@
 ; BSL-expr -> Number
 ; computes its value
 (check-expect (eval-expression 3) 3)
-(check-expect (eval-expression (make-add 1 1)) 2)
-(check-expect (eval-expression (make-mul 3 10)) 30)
-(check-expect (eval-expression (make-add (make-mul 1 1) 10)) 11)
+(check-expect (eval-expression E1) 0)
+(check-expect (eval-expression E2) 93)
+(check-expect (eval-expression E3) 47.1)
 
 (define (eval-expression exp)
   (cond [(number? exp) exp]
