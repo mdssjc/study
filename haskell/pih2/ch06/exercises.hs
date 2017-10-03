@@ -14,3 +14,9 @@ sumdown n = n + sumdown (n - 1)
 (<^>) :: Int -> Int -> Int
 b <^> 0 = 1
 b <^> e = b * (b <^> (e - 1))
+
+-- 6.4
+euclid :: Int -> Int -> Int
+euclid a b
+  | a == b = a
+  | otherwise = if (a < b) then euclid a (b - a) else euclid (a - b) b
