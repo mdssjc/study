@@ -34,3 +34,25 @@ drop' n (_:xs) = drop (n - 1) xs
 init' :: [a] -> [a]
 init' [_] = []
 init' (x:xs) = x : init' xs
+
+-- 6.6
+and' :: [Bool] -> Bool
+and' [] = True
+and' (x:xs) = x && and' xs
+
+concat' :: [[a]] -> [a]
+concat' [] = []
+concat' (xs:xss) = xs ++ concat' xss
+
+replicate' :: Int -> a -> [a]
+replicate' 0 e = []
+replicate' n e = e : replicate' (n - 1) e
+
+(<!!>) :: [a] -> Int -> a
+[] <!!> _ = error "index too large"
+(x:_) <!!> 0 = x
+(x:xs) <!!> n = xs <!!> (n - 1)
+
+elem' :: Eq a => a -> [a] -> Bool
+elem' _ [] = False
+elem' e (x:xs) = if e == x then True else elem' e xs
