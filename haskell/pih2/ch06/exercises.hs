@@ -9,3 +9,8 @@ fac n
 sumdown :: Int -> Int
 sumdown 0 = 0
 sumdown n = n + sumdown (n - 1)
+
+-- 6.3
+(<^>) :: Int -> Int -> Int
+b <^> 0 = 1
+b <^> e = b * (b <^> (e - 1))
