@@ -65,3 +65,17 @@ merge xs_@(x:xs) ys_@(y:ys) =
   if x < y
   then x : merge xs ys_
   else y : merge xs_ ys
+
+-- 6.8
+msort :: Ord a => [a] -> [a]
+msort [] = []
+msort [a] = [a]
+msort xs = merge (msort l) (msort r)
+  where
+    halves = halve xs
+    l = fst halves
+    r = snd halves
+
+halve :: [a] -> ([a], [a])
+halve xs = (take n xs, drop n xs)
+  where n = length xs `div` 2
