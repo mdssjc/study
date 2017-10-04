@@ -28,6 +28,15 @@
 ;  - (make-mul BSL-var-expr BSL-var-expr)
 ; interpretation class of values and variables to which a representation of a BSL expression can evaluate
 
+; A BSL-expr is one of:
+;  - Number
+;  - (make-add BSL-expr BSL-expr)
+;  - (make-mul BSL-expr BSL-expr)
+
+(define E1 (make-add 10 -10))
+(define E2 (make-add (make-mul 20 3) 33))
+(define E3 (make-add (make-mul 3.14 (make-mul 2 3)) (make-mul 3.14 (make-mul -1 -9))))
+
 
 ;; ====================
 ;; Functions:
@@ -36,10 +45,9 @@
 ; determines whether a BSL-var-expr is also a BSL-expr
 (check-expect (numeric? 1) #true)
 (check-expect (numeric? 'a) #false)
-(check-expect (numeric? (make-add 1 2)) #true)
-(check-expect (numeric? (make-add 1 'a)) #false)
-(check-expect (numeric? (make-add (make-mul 1 2) 3)) #true)
-(check-expect (numeric? (make-add (make-mul 1 2) 'a)) #false)
+(check-expect (numeric? E1) #true)
+(check-expect (numeric? E2) #true)
+(check-expect (numeric? E3) #true)
 
 (define (numeric? ex)
   (cond [(number? ex) #true]
