@@ -79,3 +79,18 @@ msort xs = merge (msort l) (msort r)
 halve :: [a] -> ([a], [a])
 halve xs = (take n xs, drop n xs)
   where n = length xs `div` 2
+
+-- 6.9
+sum' :: Num a => [a] -> a
+sum' [] = 0
+sum' (x:xs) = x + sum' xs
+
+take' :: Num a => Int -> [a] -> [a]
+take' _ [] = []
+take' 0 _ = []
+take' n (x:xs) = x : take' (n-1) xs
+
+last' :: [a] -> a
+last' [] = error "empty list"
+last' [x] = x
+last' (x:xs) = last' xs
