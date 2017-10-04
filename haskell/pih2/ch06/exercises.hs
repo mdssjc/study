@@ -56,3 +56,12 @@ replicate' n e = e : replicate' (n - 1) e
 elem' :: Eq a => a -> [a] -> Bool
 elem' _ [] = False
 elem' e (x:xs) = if e == x then True else elem' e xs
+
+-- 6.7
+merge :: Ord a => [a] -> [a] -> [a]
+merge xs [] = xs
+merge [] ys = ys
+merge xs_@(x:xs) ys_@(y:ys) =
+  if x < y
+  then x : merge xs ys_
+  else y : merge xs_ ys
