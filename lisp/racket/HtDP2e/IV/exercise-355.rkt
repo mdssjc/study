@@ -9,23 +9,24 @@
 
 (define-struct add [left right])
 ; An Add is a structure:
-;   (make-add Number Number)
+;   (make-add BSL-var-expr BSL-var-expr)
 ; interpretation (make-add l r) specifies an addition expression
 ;  l: is the left operand; and
 ;  r: is the right operand
 
 (define-struct mul [left right])
 ; A Mul is a structure:
-;   (make-mul Number Number)
+;   (make-mul BSL-var-expr BSL-var-expr)
 ; interpretation (make-mul l r) specifies a multiplication expression
 ;  l: is the left operand; and
 ;  r: is the right operand
 
-; A BSL-var-expr is one of: 
+; A BSL-var-expr is one of:
 ;  - Number
 ;  - Symbol
 ;  - (make-add BSL-var-expr BSL-var-expr)
 ;  - (make-mul BSL-var-expr BSL-var-expr)
+; interpretation class of values and variables to which a representation of a BSL expression can evaluate
 
 ; An AL (short for association list) is [List-of Association]
 ; An Association is a list of two items:
@@ -38,30 +39,25 @@
 ;; Functions:
 
 ; BSL-var-expr AL -> Number
-(check-error (eval-var-lookup 1 AL1) "an error found")
-(check-expect (eval-var-lookup 'a AL1) 2)
-(check-error (eval-var-lookup 'b AL1) "an error found")
-(check-expect (eval-var-lookup 'a AL1) 2)
-(check-error (eval-var-lookup (make-add 1 2) AL1) "an error found")
-(check-expect (eval-var-lookup (make-add 1 'b) AL2) 3)
-(check-error (eval-var-lookup (make-add (make-mul 1 2) 3) AL2) "an error found")
-(check-expect (eval-var-lookup (make-add (make-mul 1 2) 'a) AL2) 2)
+; determines its value; otherwise it signals an error
+(check-expect (eval-var-lookup 1 AL1) 1)
+(check-expect (eval-var-lookup (make-add 'a 1) AL1) 3)
+(check-expect (eval-var-lookup (make-add (make-mul 'c 'b) 'a) AL2) 5)
+(check-error  (eval-var-lookup (make-add 'b 1) AL1) "an error found")
+(check-error  (eval-var-lookup (make-add (make-mul 'c 'b) (make-mul 'a 'd)) AL2) "an error found")
 
 (define (eval-var-lookup e da)
-  (local ((define (eval-var-lookup e da)
-            (cond [(number? e) empty]
-                  [(symbol? e) (cons e empty)]
+  (local ((define (eval-var-lookup e)
+            (cond [(number? e) e]
+                  [(symbol? e)
+                   (local ((define result (assq e da)))
+                     (if (false? result)
+                         (error "an error found")
+                         (second result)))]
                   [(add? e)
-                   (append (eval-var-lookup (add-left e) da)
-                           (eval-var-lookup (add-right e) da))]
+                   (+ (eval-var-lookup (add-left e))
+                      (eval-var-lookup (add-right e)))]
                   [(mul? e)
-                   (append (eval-var-lookup (mul-left e) da)
-                           (eval-var-lookup (mul-right e) da))]))
-          (define result (foldr (lambda (element acc)
-                                  (local ((define value (assq element da)))
-                                    (if (false? value)
-                                        acc
-                                        value))) #false (eval-var-lookup e da))))
-    (if (false? result)
-        (error "an error found")
-        (second result))))
+                   (* (eval-var-lookup (mul-left e))
+                      (eval-var-lookup (mul-right e)))])))
+    (eval-var-lookup e)))
