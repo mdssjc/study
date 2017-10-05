@@ -38,24 +38,33 @@
 ;; ====================
 ;; Functions:
 
-; BSL-var-expr AL -> BSL-var-expr
+; BSL-var-expr AL -> Number
 ; determines its value; otherwise it signals an error
 (check-expect (eval-variable* 1 AL1) 1)
-(check-expect (eval-variable* (make-add 'a 1) AL1) (make-add 2 1))
-(check-expect (eval-variable* (make-add (make-mul 'c 'b) 'a) AL2) (make-add (make-mul 1 3) 2))
+(check-expect (eval-variable* (make-add 'a 1) AL1) 3)
+(check-expect (eval-variable* (make-add (make-mul 'c 'b) 'a) AL2) 5)
 (check-error (eval-variable* (make-add 'b 1) AL1) "an error found")
 (check-error (eval-variable* (make-add (make-mul 'c 'b) (make-mul 'a 'd)) AL2) "an error found")
 
 (define (eval-variable* ex da)
-  (local ((define (eval-variable* ex da)
-            (cond [(empty? da) ex]
+  (local ((define (eval-variable* ex)
+            (cond [(number? ex) ex]
+                  [(symbol? ex)
+                   (local ((define result (lookup ex da)))
+                     (if (numeric? result)
+                         result
+                         (error "an error found")))]
+                  [(add? ex)
+                   (+ (eval-variable* (add-left ex))
+                      (eval-variable* (add-right ex)))]
+                  [(mul? ex)
+                   (* (eval-variable* (mul-left ex))
+                      (eval-variable* (mul-right ex)))]))
+          (define (lookup s da)
+            (cond [(empty? da) s]
                   [else
-                   (eval-variable* (subst ex (first (first da)) (second (first da)))
-                                   (rest da))]))
-          (define result (eval-variable* ex da)))
-    (if (numeric? result)
-        result
-        (error "an error found"))))
+                   (lookup (subst s (first (first da)) (second (first da))) (rest da))])))
+    (eval-variable* ex)))
 
 ; BSL-var-expr -> True or Error
 ; determines its value if numeric? yields true for the input; otherwise it signals an error
