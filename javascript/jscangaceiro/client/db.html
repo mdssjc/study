@@ -11,7 +11,7 @@
 <body>
   <script>
     let connection = null;
-    const openRequest = indexedDB.open('jscangaceiro', 1);
+    const openRequest = indexedDB.open('jscangaceiro', 2);
 
     openRequest.onupgradeneeded = e => {
       console.log('Cria ou altera um banco já existente');
