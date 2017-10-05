@@ -10,6 +10,7 @@
 
 <body>
   <script>
+    let connection = null;
     const openRequest = indexedDB.open('jscangaceiro', 1);
 
     openRequest.onupgradeneeded = e => {
@@ -18,6 +19,7 @@
 
     openRequest.onsuccess = e => {
       console.log('Conexão obtida com sucesso!');
+      connection = e.target.result;
     }
 
     openRequest.onerror = e => {
