@@ -22,10 +22,16 @@ const ConnectionFactory = (() => {
         openRequest.onupgradeneeded = e => {
           ConnectionFactory._createStores(e.target.result);
         };
+
         openRequest.onsuccess = e => {
           connection = e.target.result;
-          resolve(e.target.result);
+          close = connection.close.bind(connection);
+          connection.close = () => {
+            throw new Error('Você não pode fechar diretamente a conexão');
+          };
+          resolve(connection);
         };
+
         openRequest.onerror = e => {
           console.log(e.target.error);
           reject(e.target.error.name);
@@ -40,6 +46,12 @@ const ConnectionFactory = (() => {
         }
         connection.createObjectStore(store, { autoIncrement: true });
       });
+    }
+
+    static closeConnection() {
+      if (connection) {
+        close();
+      }
     }
   }
 })();
