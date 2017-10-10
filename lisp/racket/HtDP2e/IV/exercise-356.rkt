@@ -21,10 +21,10 @@
 ;  l: is the left operand; and
 ;  r: is the right operand
 
-(define-struct fun [name expr])
-; A Fun is a structure:
-;   (make-fun Symbol BSL-fun-expr)
-; interpretation (make-fun n e) specifies an function application
+(define-struct fun-app [name expr])
+; A Fun-App is a structure:
+;   (make-fun-app Symbol BSL-fun-expr)
+; interpretation (make-fun-app n e) specifies an function application
 ;  n: is the name of the function; and
 ;  e: is the an expression of the function
 
@@ -33,12 +33,9 @@
 ;  - Symbol
 ;  - (make-add BSL-fun-expr BSL-fun-expr)
 ;  - (make-mul BSL-fun-expr BSL-fun-expr)
-;  - (make-fun Symbol BSL-fun-expr)
-(define EX1 (make-fun 'k (make-add 1 1)))
-(define EX2 (make-mul 5 EX1))
-(define EX3 (make-fun 'i 5))
-(define EX4 (make-mul EX3 EX1))
-
-; An AL (short for association list) is [List-of Association]
-; An Association is a list of two items:
-;   (cons Symbol (cons Number '()))
+;  - (make-fun-app Symbol BSL-fun-expr)
+; interpretation class of values, variables and function application to which a representation of a BSL expression can evaluate
+(define k (make-fun-app 'k (make-add 1 1)))
+(define EX1 (make-mul 5 k))
+(define i (make-fun-app 'i 5))
+(define EX2 (make-mul i k))

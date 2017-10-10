@@ -21,10 +21,10 @@
 ;  l: is the left operand; and
 ;  r: is the right operand
 
-(define-struct fun [name expr])
-; A Fun is a structure:
-;   (make-fun Symbol BSL-fun-expr)
-; interpretation (make-fun n e) specifies an function application
+(define-struct fun-app [name expr])
+; A Fun-App is a structure:
+;   (make-fun-app Symbol BSL-fun-expr)
+; interpretation (make-fun-app n e) specifies an function application
 ;  n: is the name of the function; and
 ;  e: is the an expression of the function
 
@@ -39,11 +39,12 @@
 ;  - Symbol
 ;  - (make-add BSL-fun-expr BSL-fun-expr)
 ;  - (make-mul BSL-fun-expr BSL-fun-expr)
-;  - (make-fun Symbol BSL-fun-expr)
-(define EX1 (make-fun 'k (make-add 1 1)))
-(define EX2 (make-mul 5 EX1))
-(define EX3 (make-fun 'i 5))
-(define EX4 (make-mul EX3 EX1))
+;  - (make-fun-app Symbol BSL-fun-expr)
+; interpretation class of values, variables and function application to which a representation of a BSL expression can evaluate
+(define k (make-fun-app 'k (make-add 1 1)))
+(define EX1 (make-mul 5 k))
+(define i (make-fun-app 'i 5))
+(define EX2 (make-mul i k))
 
 ; An AL (short for association list) is [List-of Association]
 ; An Association is a list of two items:
@@ -55,10 +56,10 @@
 
 ; BSL-fun-expr Symbol Symbol BSL-fun-expr -> Number
 ; determines the value of ex
-(check-error (eval-definition1 (make-add (make-fun 'f 'x) 'a) 'f 'x (make-add 1 1)) "an error found")
-(check-error (eval-definition1 (make-add (make-fun 'f 'x) 'a) 'g 'x (make-add 1 1)) "an error found")
-(check-expect (eval-definition1 (make-add (make-fun 'f 1) 1) 'f 'x (make-add 'x 1)) 3)
-(check-expect (eval-definition1 (make-add (make-fun 'f 2) 1) 'f 'x (make-mul 'x 3)) 7)
+(check-error (eval-definition1 (make-add (make-fun-app 'f 'x) 'a) 'f 'x (make-add 1 1)) "an error found")
+(check-error (eval-definition1 (make-add (make-fun-app 'f 'x) 'a) 'g 'x (make-add 1 1)) "an error found")
+(check-expect (eval-definition1 (make-add (make-fun-app 'f 1) 1) 'f 'x (make-add 'x 1)) 3)
+(check-expect (eval-definition1 (make-add (make-fun-app 'f 2) 1) 'f 'x (make-mul 'x 3)) 7)
 
 (define (eval-definition1 ex f x b)
   (cond [(number? ex) ex]
@@ -69,9 +70,9 @@
         [(mul? ex)
          (* (eval-definition1 (mul-left ex) f x b)
             (eval-definition1 (mul-right ex) f x b))]
-        [(fun? ex)
-         (if (symbol=? (fun-name ex) f)
-             (local ((define value (eval-definition1 (fun-expr ex) f x b))
+        [(fun-app? ex)
+         (if (symbol=? (fun-app-name ex) f)
+             (local ((define value (eval-definition1 (fun-app-expr ex) f x b))
                      (define plugd (subst b x value)))
                (eval-definition1 plugd f x b))
              (error "an error found"))]))
