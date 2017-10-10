@@ -9,14 +9,14 @@
 
 (define-struct add [left right])
 ; An Add is a structure:
-;   (make-add Number Number)
+;   (make-add BSL-fun-expr BSL-fun-expr)
 ; interpretation (make-add l r) specifies an addition expression
 ;  l: is the left operand; and
 ;  r: is the right operand
 
 (define-struct mul [left right])
 ; A Mul is a structure:
-;   (make-mul Number Number)
+;   (make-mul BSL-fun-expr BSL-fun-expr)
 ; interpretation (make-mul l r) specifies a multiplication expression
 ;  l: is the left operand; and
 ;  r: is the right operand
@@ -28,13 +28,13 @@
 ;  n: is the name of the function; and
 ;  e: is the an expression of the function
 
-; A BSL-var-expr is one of: 
+; A BSL-var-expr is one of:
 ;  - Number
 ;  - Symbol
 ;  - (make-add BSL-var-expr BSL-var-expr)
 ;  - (make-mul BSL-var-expr BSL-var-expr)
 
-; A BSL-fun-expr is one of: 
+; A BSL-fun-expr is one of:
 ;  - Number
 ;  - Symbol
 ;  - (make-add BSL-fun-expr BSL-fun-expr)
@@ -92,6 +92,8 @@
         [(symbol? ex)
          (if (symbol=? ex x) v ex)]
         [(add? ex)
-         (make-add (subst (add-left ex) x v) (subst (add-right ex) x v))]
+         (make-add (subst (add-left ex) x v)
+                   (subst (add-right ex) x v))]
         [(mul? ex)
-         (make-mul (subst (mul-left ex) x v) (subst (mul-right ex) x v))]))
+         (make-mul (subst (mul-left ex) x v)
+                   (subst (mul-right ex) x v))]))
