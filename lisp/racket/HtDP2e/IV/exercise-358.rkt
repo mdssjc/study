@@ -29,12 +29,15 @@
 ;  e: is the an expression of the function
 
 (define-struct fun-def [name parameter body])
-; A Fun-Def is a structure:
+; A Fun-Def (BSL-fun-def) is a structure:
 ;   (make-fun-def Symbol Symbol BSL-fun-expr)
 ; interpretation (make-fun-def n p b) specifies an function definition
 ;  n: is the name of the function
 ;  p: is the parameter of the function; and
 ;  b: is the body expression of the function
+(define f (make-fun-def 'f 'x (make-add 3 'x)))
+(define g (make-fun-def 'g 'y (make-fun-app 'f (make-mul 2 'y))))
+(define h (make-fun-def 'h 'v (make-add (make-fun-app 'f 'v) (make-fun-app 'g 'v))))
 
 ; A BSL-fun-expr is one of:
 ;  - Number
@@ -47,14 +50,6 @@
 (define EX1 (make-mul 5 k))
 (define i (make-fun-app 'i 5))
 (define EX2 (make-mul i k))
-
-; A BSL-fun-def is one of:
-;  - BSL-fun-expr
-;  - (make-fun-def Symbol Symbol BSL-fun-expr)
-; interpretation class of function definitions to which a representation of a BSL expression can evaluate
-(define f (make-fun-def 'f 'x (make-add 3 'x)))
-(define g (make-fun-def 'g 'y (make-fun-app 'f (make-mul 2 'y))))
-(define h (make-fun-def 'h 'v (make-add (make-fun-app 'f 'v) (make-fun-app 'g 'v))))
 
 ; A BSL-fun-def* is a [List-of BSL-fun-def]:
 ; interpretation represent a definitions area that consists of a number of one-argument function definitions
