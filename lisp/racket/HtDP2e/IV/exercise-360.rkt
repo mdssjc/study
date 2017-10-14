@@ -44,17 +44,20 @@
 ;  - (make-fun-app Symbol BSL-fun-expr)
 ; interpretation class of values, variables and function application to which a representation of a BSL expression can evaluate
 
+; An Association is a list of two items:
+;   (cons Symbol (cons Number '()))
+
 ; A BSL-da is one of:
-; - Fun-App
+; - Association
 ; - Fun-Def
 ; interpretation data definition for the representation of DrRacket’s definition area
 ; A BSL-da-all is a [List-of BSL-da]:
 ; interpretation a sequence that freely mixes constant definitions and one-argument function definitions
-(define close-to-pi (make-fun-app 'close-to-pi 3.14))
-(define area-of-circle (make-fun-def 'area-of-circle 'r (make-mul close-to-pi (make-mul 'r 'r))))
+(define close-to-pi '(close-to-pi 3.14))
+(define area-of-circle (make-fun-def 'area-of-circle 'r (make-mul 'close-to-pi (make-mul 'r 'r))))
 (define volume-of-10-cylinder (make-fun-def 'volume-of-10-cylinder 'r (make-mul 10 (make-fun-app 'area-of-circle 'r))))
 
-(define da-fgh (list close-to-pi area-of-circle volume-of-10-cylinder))
+(define da-list (list close-to-pi area-of-circle volume-of-10-cylinder))
 
 
 ;; ====================
@@ -62,29 +65,27 @@
 
 ; BSL-da-all Symbol -> Number
 ; produces the representation of a constant definition whose name is x
-(check-expect (lookup-con-def da-fgh 'close-to-pi) 3.14)
-(check-error (lookup-con-def da-fgh 'closed-to-pi) "an error found")
+(check-expect (lookup-con-def da-list 'close-to-pi) 3.14)
+(check-error (lookup-con-def da-list 'closed-to-pi) "an error found")
 
 (define (lookup-con-def da x)
   (cond [(empty? da) (error "an error found")]
-        [(fun-app? (first da))
-         (if (symbol=? (fun-app-name (first da)) x)
-             (fun-app-expr (first da))
-             (lookup-con-def (rest da) x))]
         [else
-         (lookup-con-def (rest da) x)]))
+         (if (and (list? (first da))
+                  (symbol=? (first (first da)) x))
+             (second (first da))
+             (lookup-con-def (rest da) x))]))
 
 ; BSL-da-all Symbol -> Fun-Def
 ; produces the representation of a function definition whose name is f
-(check-error (lookup-fun-def da-fgh 'close-to-pi) "an error found")
-(check-expect (lookup-fun-def da-fgh 'area-of-circle) area-of-circle)
-(check-expect (lookup-fun-def da-fgh 'volume-of-10-cylinder) volume-of-10-cylinder)
+(check-error (lookup-fun-def da-list 'close-to-pi) "an error found")
+(check-expect (lookup-fun-def da-list 'area-of-circle) area-of-circle)
+(check-expect (lookup-fun-def da-list 'volume-of-10-cylinder) volume-of-10-cylinder)
 
 (define (lookup-fun-def da f)
   (cond [(empty? da) (error "an error found")]
-        [(fun-def? (first da))
-         (if (symbol=? (fun-def-name (first da)) f)
-             (first da)
-             (lookup-fun-def (rest da) f))]
         [else
-         (lookup-fun-def (rest da) f)]))
+         (if (and (fun-def? (first da))
+                  (symbol=? (fun-def-name (first da)) f))
+             (first da)
+             (lookup-fun-def (rest da) f))]))
