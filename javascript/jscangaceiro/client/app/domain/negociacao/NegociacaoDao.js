@@ -52,7 +52,7 @@ class NegociacaoDao {
       cursor.onerror = e => {
         console.log(e.target.error);
         reject('Não foi possível listar nas negociações');
-      }
+      };
     });
   }
 }
