@@ -1,6 +1,8 @@
 // client/app/domain/negociacao/NegociacaoDao.js
 
-class NegociacaoDao {
+import { Negociacao } from './Negociacao.js';
+
+export class NegociacaoDao {
 
   constructor(connection) {
     this._connection = connection;

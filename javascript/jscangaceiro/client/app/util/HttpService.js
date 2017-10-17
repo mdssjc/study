@@ -1,6 +1,6 @@
 // client/app/util/HttpService.js
 
-class HttpService {
+export class HttpService {
 
   get(url) {
     return new Promise((resolve, reject) => {

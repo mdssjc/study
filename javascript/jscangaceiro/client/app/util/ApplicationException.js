@@ -1,6 +1,6 @@
 // client/app/util/ApplicationException.js
 
-class ApplicationException extends Error {
+export class ApplicationException extends Error {
 
     constructor(msg = '') {
          super(msg);

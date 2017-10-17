@@ -1,6 +1,6 @@
 // client/app/util/ProxyFactory.js
 
-class ProxyFactory {
+export class ProxyFactory {
 
   static create(objeto, props, armadilha) {
     return new Proxy(objeto, {
@@ -10,7 +10,7 @@ class ProxyFactory {
             console.log(`"${prop}" disparou a armadilha`);
             target[prop].apply(target, arguments);
             armadilha(target);
-          }
+          };
         } else {
           return target[prop];
         }
@@ -25,7 +25,7 @@ class ProxyFactory {
 
         return updated;
       }
-    })
+    });
   }
 
   static _ehFuncao(fn) {

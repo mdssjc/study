@@ -1,6 +1,6 @@
 // client/app/domain/negociacao/Negociacao.js
 
-class Negociacao {
+export class Negociacao {
 
   constructor(_data, _quantidade, _valor) {
     Object.assign(this, {_quantidade, _valor});

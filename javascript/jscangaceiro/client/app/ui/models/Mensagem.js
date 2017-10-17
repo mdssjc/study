@@ -1,6 +1,6 @@
 // client/app/ui/models/Mensagem.js
 
-class Mensagem {
+export class Mensagem {
 
   constructor(texto = '') {
     this._texto = texto;

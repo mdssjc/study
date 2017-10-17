@@ -1,6 +1,6 @@
 // client/app/domain/negociacao/Negociacoes.js
 
-class Negociacoes {
+export class Negociacoes {
 
   constructor() {
     this._negociacoes = [];

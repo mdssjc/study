@@ -1,6 +1,6 @@
 // client/app/ui/views/View.js
 
-class View {
+export class View {
 
   constructor(seletor) {
     this._elemento = document.querySelector(seletor);

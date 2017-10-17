@@ -1,6 +1,9 @@
 // client/app/ui/views/NegociacoesView.js
 
-class NegociacoesView extends View {
+import { View } from './View.js';
+import { DateConverter } from '../converters/DateConverter.js';
+
+export class NegociacoesView extends View {
 
   template(model) {
     return `

@@ -1,5 +1,7 @@
 // client/app/app.js
 
+import { NegociacaoController } from './controllers/NegociacaoController.js';
+
 const controller = new NegociacaoController();
 const $ = document.querySelector.bind(document);
 
