@@ -1,4 +1,4 @@
-// client/app/ui/views/MensagemView.js
+// client/app-src/ui/views/MensagemView.js
 
 import { View } from './View.js';
 

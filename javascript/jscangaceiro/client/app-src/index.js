@@ -1,4 +1,4 @@
-// client/app/index.js
+// client/app-src/index.js
 
 var campos = [
   document.querySelector('#data'),

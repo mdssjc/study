@@ -1,4 +1,4 @@
-// client/app/util/ApplicationException.js
+// client/app-src/util/ApplicationException.js
 
 export class ApplicationException extends Error {
 

@@ -1,4 +1,4 @@
-// client/app/ui/converters/DataInvalidaException.js
+// client/app-src/ui/converters/DataInvalidaException.js
 
 import { ApplicationException } from '../../util/ApplicationException.js';
 

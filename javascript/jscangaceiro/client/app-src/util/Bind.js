@@ -1,4 +1,4 @@
-// client/app/util/Bind.js
+// client/app-src/util/Bind.js
 
 import { ProxyFactory } from './ProxyFactory.js';
 

@@ -1,4 +1,4 @@
-// client/app/ui/models/Mensagem.js
+// client/app-src/ui/models/Mensagem.js
 
 export class Mensagem {
 

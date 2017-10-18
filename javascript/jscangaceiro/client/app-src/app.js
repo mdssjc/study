@@ -1,4 +1,4 @@
-// client/app/app.js
+// client/app-src/app.js
 
 import { NegociacaoController } from './controllers/NegociacaoController.js';
 

@@ -1,4 +1,4 @@
-// client/app/ui/views/NegociacoesView.js
+// client/app-src/ui/views/NegociacoesView.js
 
 import { View } from './View.js';
 import { DateConverter } from '../converters/DateConverter.js';

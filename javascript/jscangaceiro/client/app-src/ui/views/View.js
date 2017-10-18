@@ -1,4 +1,4 @@
-// client/app/ui/views/View.js
+// client/app-src/ui/views/View.js
 
 export class View {
 

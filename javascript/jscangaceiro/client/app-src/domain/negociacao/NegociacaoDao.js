@@ -1,4 +1,4 @@
-// client/app/domain/negociacao/NegociacaoDao.js
+// client/app-src/domain/negociacao/NegociacaoDao.js
 
 import { Negociacao } from './Negociacao.js';
 

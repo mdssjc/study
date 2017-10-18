@@ -1,4 +1,4 @@
-// client/app/domain/negociacao/Negociacao.js
+// client/app-src/domain/negociacao/Negociacao.js
 
 export class Negociacao {
 

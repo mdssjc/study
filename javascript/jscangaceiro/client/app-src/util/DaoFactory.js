@@ -1,4 +1,4 @@
-// client/app/util/DaoFactory.js
+// client/app-src/util/DaoFactory.js
 
 import { ConnectionFactory } from './ConnectionFactory.js';
 import { NegociacaoDao } from '../domain/negociacao/NegociacaoDao.js';

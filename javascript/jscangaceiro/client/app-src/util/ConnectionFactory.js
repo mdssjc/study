@@ -1,4 +1,4 @@
-// client/app/util/ConnectionFactory.js
+// client/app-src/util/ConnectionFactory.js
 
 const stores = ['negociacoes'];
 let connection = null;

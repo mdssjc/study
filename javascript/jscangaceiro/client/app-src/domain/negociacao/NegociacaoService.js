@@ -1,4 +1,4 @@
-// client/app/domain/negociacao/NegociacaoService.js
+// client/app-src/domain/negociacao/NegociacaoService.js
 
 import { HttpService } from '../../util/HttpService.js';
 import { Negociacao } from './Negociacao.js';
