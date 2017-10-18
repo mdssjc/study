@@ -27,3 +27,7 @@ map2 f xs = foldr (\x acc -> f x:acc) [] xs
 
 filter2 :: (a -> Bool) -> [a] -> [a]
 filter2 p xs = foldr (\x acc -> if p x then x:acc else acc) [] xs
+
+-- 7.4
+dec2int :: [Int] -> Int
+dec2int (x:xs) = foldl (\acc x -> x + acc * 10) x xs
