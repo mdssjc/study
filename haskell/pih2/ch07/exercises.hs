@@ -20,3 +20,10 @@ dropWhile' _ [] = []
 dropWhile' p (x:xs)
   | p x = dropWhile' p xs
   | otherwise = x:xs
+
+-- 7.3
+map2 :: (a -> b) -> [a] -> [b]
+map2 f xs = foldr (\x acc -> f x:acc) [] xs
+
+filter2 :: (a -> Bool) -> [a] -> [a]
+filter2 p xs = foldr (\x acc -> if p x then x:acc else acc) [] xs
