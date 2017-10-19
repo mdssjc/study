@@ -25,16 +25,27 @@ void add_history(char* unused) {}
 #define LASSERT(args, cond, err) \
   if (!(cond)) { lval_del(args); return lval_err(err); }
 
-enum { LVAL_ERR, LVAL_NUM, LVAL_SYM, LVAL_SEXPR, LVAL_QEXPR };
+struct lval;
+struct lenv;
+typedef struct lval lval;
+typedef struct lenv lenv;
 
-typedef struct lval {
+enum { LVAL_ERR, LVAL_NUM, LVAL_SYM,
+       LVAL_FUN, LVAL_SEXPR, LVAL_QEXPR };
+
+typedef lval*(*lbuiltin)(lenv*, lval*);
+
+struct lval {
   int type;
+
   long num;
   char* err;
   char* sym;
+  lbuiltin fun;
+
   int count;
-  struct lval** cell;
-} lval;
+  lval** cell;
+};
 
 lval* lval_num(long x) {
   lval* v = malloc(sizeof(lval));
@@ -59,6 +70,13 @@ lval* lval_sym(char* s) {
   return v;
 }
 
+lval* lval_fun(lbuiltin func) {
+  lval* v = malloc(sizeof(lval));
+  v->type = LVAL_FUN;
+  v->fun = func;
+  return v;
+}
+
 lval* lval_sexpr(void) {
   lval* v = malloc(sizeof(lval));
   v->type = LVAL_SEXPR;
@@ -80,6 +98,7 @@ void lval_del(lval* v) {
     case LVAL_NUM: break;
     case LVAL_ERR: free(v->err); break;
     case LVAL_SYM: free(v->sym); break;
+    case LVAL_FUN: break;
     case LVAL_SEXPR:
     case LVAL_QEXPR:
       for (int i = 0; i < v->count; i++) {
@@ -115,6 +134,32 @@ lval* lval_take(lval* v, int i) {
   return x;
 }
 
+lval* lval_copy(lval* v) {
+  lval* x = malloc(sizeof(lval));
+  x->type = v->type;
+
+  switch (v->type) {
+    case LVAL_FUN: x->fun = v->fun; break;
+    case LVAL_NUM: x->num = v->num; break;
+    case LVAL_ERR:
+      x->err = malloc(strlen(v->err) + 1);
+      strcpy(x->err, v->err); break;
+    case LVAL_SYM:
+      x->sym = malloc(strlen(v->sym) + 1);
+      strcpy(x->sym, v->sym); break;
+    case LVAL_SEXPR:
+    case LVAL_QEXPR:
+      x->count = v->count;
+      x->cell = malloc(sizeof(lval*) * x->count);
+      for (int i = 0; i < x->count; i++) {
+        x->cell[i] = lval_copy(v->cell[i]);
+      }
+    break;
+  }
+
+  return x;
+}
+
 void lval_print(lval* v);
 
 void lval_expr_print(lval* v, char open, char close) {
@@ -134,6 +179,7 @@ void lval_print(lval* v) {
     case LVAL_NUM:   printf("%li", v->num); break;
     case LVAL_ERR:   printf("Error: %s", v->err); break;
     case LVAL_SYM:   printf("%s", v->sym); break;
+    case LVAL_FUN:   printf("<function>"); break;
     case LVAL_SEXPR: lval_expr_print(v, '(', ')'); break;
     case LVAL_QEXPR: lval_expr_print(v, '{', '}'); break;
   }
@@ -323,14 +369,13 @@ int main(int argc, char *argv[argc]) {
   mpc_parser_t* Lispy  = mpc_new("lispy");
 
   mpca_lang(MPCA_LANG_DEFAULT,
-  "                                                        \
-    number : /-?[0-9]+/ ;                                  \
-    symbol : \"list\" | \"head\" | \"tail\"                \
-           | \"join\" | \"eval\" | '+' | '-' | '*' | '/' ; \
-    sexpr  : '(' <expr>* ')' ;                             \
-    qexpr  : '{' <expr>* '}' ;                             \
-    expr   : <number> | <symbol> | <sexpr> | <qexpr> ;     \
-    lispy  : /^/ <expr>* /$/ ;                             \
+  "                                                    \
+    number : /-?[0-9]+/ ;                              \
+    symbol : /[a-zA-Z0-9_+\\-*\\/\\\\=<>!&]+/ ;        \
+    sexpr  : '(' <expr>* ')' ;                         \
+    qexpr  : '{' <expr>* '}' ;                         \
+    expr   : <number> | <symbol> | <sexpr> | <qexpr> ; \
+    lispy  : /^/ <expr>* /$/ ;                         \
   ", Number, Symbol, Sexpr, Qexpr, Expr, Lispy);
 
   puts("Lispy Version 0.0.0.0.1");
