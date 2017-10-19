@@ -4,34 +4,42 @@
 ;; =================
 ;; Data definitions:
 
+; A blog is a (listof post)
+; and a post is a (post title body)
 (struct post (title body))
-(define P1 (post "New release" "The new version..."))
-(define P2 (post "Summary #3" "02/05 - all tests are ok."))
-(define P3 (post "Courses" "HTDP - new course in..."))
-(define BLOG (list (post "First Post!"
-                         "Hey, this is my first post!")))
+
+; BLOG: blog
+; The static blog.
+(define BLOG
+  (list (post "Second Post" "This is another post")
+        (post "First Post"  "This is my first post")))
 
 
 ;; ==========
 ;; Functions:
 
-; render-greeting: string -> response
-; consumes a name, and produces a dynamic response
-(define (render-greeting a-name)
-  (response/xexpr
-   `(html (head (title "Welcome"))
-          (body (p ,(string-append "Hello " a-name))))))
-
-; render-post: post -> xexpr/c
-; consumes a post and produces an X-expression representing that content
-(define (render-post p)
-  `(div ((class "post"))
-        ,(post-title p)
-        (p ,(post-body p))))
-
+; start: request -> response
+; produces a page that displays all of the web content
 (define (start request)
+  (render-blog-page BLOG request))
+
+; render-blog-page: blog request -> response
+; produces an HTML page of the content of the blog
+(define (render-blog-page a-blog request)
   (response/xexpr
-   `(html
-     (head (title "My Blog"))
-     (body (h1 "Under construction")
-           ,(render-post (post "First post!" "This is a first post."))))))
+   `(html (head (title "My Blog"))
+          (body (h1 "My Blog")
+                ,(render-posts a-blog)))))
+
+; render-post: post -> xexpr
+; produces an xexpr fragment of the post
+(define (render-post a-post)
+  `(div ((class "post"))
+        ,(post-title a-post)
+        (p ,(post-body a-post))))
+
+; render-posts: blog -> xexpr
+; produces an xexpr fragment of all its posts
+(define (render-posts a-blog)
+  `(div ((class "posts"))
+        ,@(map render-post a-blog)))
