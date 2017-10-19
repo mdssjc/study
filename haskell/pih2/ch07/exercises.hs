@@ -31,3 +31,10 @@ filter2 p xs = foldr (\x acc -> if p x then x:acc else acc) [] xs
 -- 7.4
 dec2int :: [Int] -> Int
 dec2int (x:xs) = foldl (\acc x -> x + acc * 10) x xs
+
+-- 7.5
+curry' :: ((a, b) -> c) -> a -> b -> c
+curry' fn = \x -> \y -> fn(x, y)
+
+uncurry' :: (a -> b -> c) -> ((a, b) -> c)
+uncurry' fn = \(x, y) -> fn x y
