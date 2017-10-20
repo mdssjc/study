@@ -38,3 +38,20 @@ curry' fn = \x -> \y -> fn(x, y)
 
 uncurry' :: (a -> b -> c) -> ((a, b) -> c)
 uncurry' fn = \(x, y) -> fn x y
+
+-- 7.6
+type Bit = Int
+
+unfold :: (a -> Bool) -> (a -> b) -> (a -> a) -> a -> [b]
+unfold p h t x
+  | p x = []
+  | otherwise = h x : unfold p h t (t x)
+
+chop8 :: [Bit] -> [[Bit]]
+chop8 = unfold (\x -> (length x) == 0) (take 8) (drop 8)
+
+map3 :: (a -> b) -> [a] -> [b]
+map3 f = unfold (null) (f . head) (tail)
+
+iterate2 :: (a -> a) -> a -> [a]
+iterate2 f = unfold (\_ -> False) (\x -> x) (f)
