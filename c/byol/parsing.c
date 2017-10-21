@@ -269,7 +269,8 @@ lval* builtin_tail(lval* a) {
   return v;
 }
 
-lval* lval_eval(lval* v);
+lval* lval_eval(lenv* e, lval* v);
+/* lval* lval_eval(lval* v); */
 lval* builtin_eval(lval* a) {
   LASSERT(a, a->count == 1,
     "Function 'eval' passed too many arguments!");
@@ -351,9 +352,9 @@ lval* builtin(lval* a, char* func) {
   return lval_err("Unknown Function!");
 }
 
-lval* lval_eval_sexpr(lval* v) {
+lval* lval_eval_sexpr(lenv* e, lval* v) {
   for (int i = 0; i < v->count; i++) {
-    v->cell[i] = lval_eval(v->cell[i]);
+    v->cell[i] = lval_eval(e, v->cell[i]);
   }
 
   for (int i = 0; i < v->count; i++) {
@@ -361,22 +362,27 @@ lval* lval_eval_sexpr(lval* v) {
   }
 
   if (v->count == 0) { return v; }
-
   if (v->count == 1) { return lval_take(v, 0); }
 
   lval* f = lval_pop(v, 0);
-  if (f->type != LVAL_SYM) {
-    lval_del(f); lval_del(v);
-    return lval_err("S-expression Does not start with symbol!");
+  if (f->type != LVAL_FUN) {
+    lval_del(v);
+    lval_del(f);
+    return lval_err("first element is not a function");
   }
 
-  lval* result = builtin(v, f->sym);
+  lval* result = f->fun(e, v);
   lval_del(f);
   return result;
 }
 
-lval* lval_eval(lval* v) {
-  if (v->type == LVAL_SEXPR) { return lval_eval_sexpr(v); }
+lval* lval_eval(lenv* e, lval* v) {
+  if (v->type == LVAL_SYM) {
+    lval* x = lenv_get(e, v);
+    lval_del(v);
+    return x;
+  }
+  if (v->type == LVAL_SEXPR) { return lval_eval_sexpr(e, v); }
   return v;
 }
 
