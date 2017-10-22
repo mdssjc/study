@@ -24,8 +24,7 @@ public class MediaMovelSimplesTest {
 
   @Test
   public void sequenciaComIndicadorAbertura() throws Exception {
-    SerieTemporal serie = GeradorDeSerie.criaSerie(1, 2, 3, 4, 3, 4, 5, 4,
-                                                   3);
+    SerieTemporal serie = GeradorDeSerie.criaSerie(1, 2, 3, 4, 3, 4, 5, 4, 3);
     Indicador mms = new MediaMovelSimples(new IndicadorAbertura(), 3);
 
     assertEquals(2.0, mms.calcula(2, serie), 0.00001);
