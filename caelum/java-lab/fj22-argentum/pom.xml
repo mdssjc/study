@@ -45,19 +45,16 @@
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <version>2.2.12</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>2.2.12</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>5.3</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
