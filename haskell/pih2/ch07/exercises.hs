@@ -1,3 +1,5 @@
+import Data.Char
+
 -- 7.1
 hofmf :: (a -> b) -> (a -> Bool) -> [a] -> [b]
 hofmf f p xs = map f $ filter p xs
@@ -55,3 +57,36 @@ map3 f = unfold (null) (f . head) (tail)
 
 iterate2 :: (a -> a) -> a -> [a]
 iterate2 f = unfold (\_ -> False) (\x -> x) (f)
+
+-- 7.7
+int2bin :: Int -> [Bit]
+int2bin 0 = []
+int2bin n = n `mod` 2 : int2bin(n `div` 2)
+
+bin2int :: [Bit] -> Int
+bin2int bits = sum[w*b | (w,b) <- zip weights bits]
+  where weights = iterate(*2) 1
+
+parity :: [Int] -> Int
+parity xs = if (odd . length $ filter (==1) xs) then 1 else 0
+
+make8 :: [Bit] -> [Bit]
+make8 bits = take 8 (bits ++ repeat 0)
+
+encode :: String -> [Int]
+encode = addParity . concat . map(make8 . int2bin . ord)
+  where
+    addParity xs =  xs ++ [parity xs]
+
+decode :: [Bit] -> String
+decode = map(chr . bin2int) . chop8 . checkParity
+  where
+    checkParity xs = if (parity . init $ xs) == last xs
+                     then init xs
+                     else error "Parity Error"
+
+channel :: [Bit] -> [Bit]
+channel = id
+
+transmit :: String -> String
+transmit = decode . channel . encode
