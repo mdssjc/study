@@ -69,7 +69,8 @@ public class ArgentumBean implements Serializable {
         this.negociacoes);
     final SerieTemporal serie = new SerieTemporal(candles);
 
-    final GeradorModeloGrafico geradorGrafico = new GeradorModeloGrafico(serie, 2,
+    final GeradorModeloGrafico geradorGrafico = new GeradorModeloGrafico(serie,
+                                                                         2,
                                                                          serie.getUltimaPosicao(),
                                                                          this.titulo);
     final IndicadorFactory factory = new IndicadorFactory(this.nomeMedia,
