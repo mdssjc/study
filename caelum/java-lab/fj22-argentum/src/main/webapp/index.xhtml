@@ -1,60 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Argentum Web</title>
 </h:head>
 <h:body>
     <h:form id="dadosGrafico">
-        <p:messages autoUpdate="true" />
+        <p:messages autoUpdate="true"/>
         <h:panelGrid columns="6">
-            <h:outputLabel value="Título Gráfico:" />
+            <h:outputLabel value="Título Gráfico:"/>
             <p:inputText id="titulo" value="#{argentumBean.titulo}"
-                required="true" requiredMessage="Erro de validação" />
+                         required="true" requiredMessage="Erro de validação"/>
 
-            <h:outputLabel value="Media Móvel: " />
+            <h:outputLabel value="Media Móvel: "/>
             <p:selectOneButton value="#{argentumBean.nomeMedia}">
                 <f:selectItem itemLabel="Simples"
-                    itemValue="MediaMovelSimples" />
+                              itemValue="MediaMovelSimples"/>
                 <f:selectItem itemLabel="Ponderada"
-                    itemValue="MediaMovelPonderada" />
+                              itemValue="MediaMovelPonderada"/>
             </p:selectOneButton>
 
-            <h:outputLabel value="Indicador base: " />
+            <h:outputLabel value="Indicador base: "/>
             <p:selectOneButton value="#{argentumBean.nomeIndicadorBase}">
                 <f:selectItem itemLabel="Abertura"
-                    itemValue="IndicadorAbertura" />
+                              itemValue="IndicadorAbertura"/>
                 <f:selectItem itemLabel="Fechamento"
-                    itemValue="IndicadorFechamento" />
+                              itemValue="IndicadorFechamento"/>
             </p:selectOneButton>
 
             <p:commandButton value="Gerar gráfico" update=":grafico"
-                action="#{argentumBean.geraGrafico}" />
+                             action="#{argentumBean.geraGrafico}"/>
         </h:panelGrid>
     </h:form>
 
     <p:chart id="grafico" type="line"
-        model="#{argentumBean.modeloGrafico}" />
+             model="#{argentumBean.modeloGrafico}"/>
 
     <h:form id="listaNegociacao">
         <p:dataTable var="negociacao"
-            value="#{argentumBean.negociacoes}" paginator="true"
-            rows="15">
+                     value="#{argentumBean.negociacoes}" paginator="true"
+                     rows="15">
             <p:column headerText="Preço" sortBy="#{negociacao.preco}">
-                <h:outputText value="#{negociacao.preco}" />
+                <h:outputText value="#{negociacao.preco}"/>
             </p:column>
             <p:column headerText="Quantidade">
-                <h:outputText value="#{negociacao.quantidade}" />
+                <h:outputText value="#{negociacao.quantidade}"/>
             </p:column>
             <p:column headerText="Volume">
-                <h:outputText value="#{negociacao.volume}" />
+                <h:outputText value="#{negociacao.volume}"/>
             </p:column>
             <p:column headerText="Data">
                 <h:outputText value="#{negociacao.data.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:outputText>
             </p:column>
         </p:dataTable>

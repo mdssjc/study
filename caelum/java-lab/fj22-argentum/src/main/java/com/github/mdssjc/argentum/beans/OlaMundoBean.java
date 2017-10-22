@@ -5,25 +5,25 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 public class OlaMundoBean {
 
-    private String nome;
-    private String mensagem = "Quem é você?";
+  private String nome;
+  private final String mensagem = "Quem é você?";
 
-    public OlaMundoBean() {
-    }
+  public OlaMundoBean() {
+  }
 
-    public String getNome() {
-        return nome;
-    }
+  public String getNome() {
+    return this.nome;
+  }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+  public void setNome(final String nome) {
+    this.nome = nome;
+  }
 
-    public String getMensagem() {
-        return mensagem;
-    }
+  public String getMensagem() {
+    return this.mensagem;
+  }
 
-    public void nomeFoiDigitado() {
-        System.out.println("\nChamou o botão");
-    }
+  public void nomeFoiDigitado() {
+    System.out.println("\nChamou o botão");
+  }
 }
