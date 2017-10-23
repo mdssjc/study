@@ -81,7 +81,7 @@ encode = addParity . concat . map(make8 . int2bin . ord)
 decode :: [Bit] -> String
 decode = map(chr . bin2int) . chop8 . checkParity
   where
-    checkParity xs = if (parity . init $ xs) == last xs
+    checkParity xs = if (parity . init $ xs) == last xs && length xs == 9
                      then init xs
                      else error "Parity Error"
 
@@ -90,3 +90,10 @@ channel = id
 
 transmit :: String -> String
 transmit = decode . channel . encode
+
+-- 7.8
+channelFaulty :: [Bit] -> [Bit]
+channelFaulty = tail
+
+transmitFaulty :: String -> String
+transmitFaulty = decode . channelFaulty . encode
