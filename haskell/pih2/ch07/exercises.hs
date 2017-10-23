@@ -104,3 +104,13 @@ altMap f1 f2 []       = []
 altMap f1 f2 (x:[])   = [f1 x]
 altMap f1 f2 (x:y:[]) = [f1 x, f2 y]
 altMap f1 f2 (x:y:xs) = [f1 x, f2 y] ++ altMap f1 f2 xs
+
+-- 7.10
+luhnDouble :: Int -> Int
+luhnDouble d
+  | v > 9 = v - 9
+  | otherwise = v
+  where v = 2 * d
+
+luhn :: [Int] -> Bool
+luhn xs = sum(altMap (luhnDouble) (\x -> x) xs) `mod` 10 == 0
