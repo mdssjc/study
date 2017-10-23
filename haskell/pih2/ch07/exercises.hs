@@ -97,3 +97,10 @@ channelFaulty = tail
 
 transmitFaulty :: String -> String
 transmitFaulty = decode . channelFaulty . encode
+
+-- 7.9
+altMap :: (a -> b) -> (a -> b) -> [a] -> [b]
+altMap f1 f2 []       = []
+altMap f1 f2 (x:[])   = [f1 x]
+altMap f1 f2 (x:y:[]) = [f1 x, f2 y]
+altMap f1 f2 (x:y:xs) = [f1 x, f2 y] ++ altMap f1 f2 xs
