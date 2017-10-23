@@ -38,10 +38,16 @@ typedef lval*(*lbuiltin)(lenv*, lval*);
 
 struct lval {
   int type;
+
   long num;
   char* err;
   char* sym;
-  lbuiltin fun;
+
+  lbuiltin builtin;
+  lenv* env;
+  lval* formals;
+  lval* body;
+
   int count;
   lval** cell;
 };
@@ -79,10 +85,20 @@ lval* lval_sym(char* s) {
   return v;
 }
 
+lval* lval_lambda(lval* formals, lval* body) {
+  lval* v = malloc(sizeof(lval));
+  v->type = LVAL_FUN;
+  v->builtin = NULL;
+  v->env = lenv_new();
+  v->formals = formals;
+  v->body = body;
+  return v;
+}
+
 lval* lval_fun(lbuiltin func) {
   lval* v = malloc(sizeof(lval));
   v->type = LVAL_FUN;
-  v->fun = func;
+  v->builtin = func;
   return v;
 }
 
@@ -105,7 +121,13 @@ lval* lval_qexpr(void) {
 void lval_del(lval* v) {
   switch (v->type) {
     case LVAL_NUM: break;
-    case LVAL_FUN: break;
+    case LVAL_FUN:
+      if (!v->builtin) {
+        lenv_del(v->env);
+        lenv_del(v->formals);
+        lenv_del(v->body);
+      }
+      break;
     case LVAL_ERR: free(v->err); break;
     case LVAL_SYM: free(v->sym); break;
     case LVAL_QEXPR:
@@ -125,7 +147,16 @@ lval* lval_copy(lval* v) {
   x->type = v->type;
 
   switch (v->type) {
-    case LVAL_FUN: x->fun = v->fun; break;
+    case LVAL_FUN:
+      if (v->builtin) {
+        x->builtin = v->builtin;
+      } else {
+        x->builtin = NULL;
+        x->env = lenv_copy(v->env);
+        x->formals = lenv_copy(v->formals);
+        x->body = lenv_copy(v->body);
+      }
+      break;
     case LVAL_NUM: x->num = v->num; break;
     case LVAL_ERR:
       x->err = malloc(strlen(v->err) + 1);
@@ -191,7 +222,17 @@ void lval_print_expr(lval* v, char open, char close) {
 
 void lval_print(lval* v) {
   switch (v->type) {
-    case LVAL_FUN:   printf("<function>"); break;
+    case LVAL_FUN:
+      if (v->builtin) {
+        printf("<builtin>");
+      } else {
+        printf("(\\ ");
+        lval_print(v->formals);
+        putchar(' ');
+        lval_print(v->body);
+        putchar(')');
+      }
+      break;
     case LVAL_NUM:   printf("%li", v->num); break;
     case LVAL_ERR:   printf("Error: %s", v->err); break;
     case LVAL_SYM:   printf("%s", v->sym); break;
@@ -437,6 +478,24 @@ void lenv_add_builtins(lenv* e) {
   lenv_add_builtin(e, "/", builtin_div);
 }
 
+lval* builtin_lambda(lenv* e, lval* a) {
+  LASSERT_NUM("\\", a, 2);
+  LASSERT_TYPE("\\", a, 0, LVAL_QEXPR);
+  LASSERT_TYPE("\\", a, 1, LVAL_QEXPR);
+
+  for (int i = 0; i < a->cell[0]->count; i++) {
+    LASSERT(a, (a->cell[0]->cell[i]->type == LVAL_SYM),
+            "Cannot define non-symbol. Got %s, Expected %s.",
+            ltype_name(a->cell[0]->cell[i]->type), ltype_name(LVAL_SYM));
+  }
+
+  lval* formals = lval_pop(a, 0);
+  lval* body = lval_pop(a, 0);
+  lval_del(a);
+
+  return lval_lambda(formals, body);
+}
+
 /* Evaluation */
 
 lval* lval_eval_sexpr(lenv* e, lval* v) {
@@ -461,7 +520,7 @@ lval* lval_eval_sexpr(lenv* e, lval* v) {
     return err;
   }
 
-  lval* result = f->fun(e, v);
+  lval* result = f->builtin(e, v);
   lval_del(f);
   return result;
 }
