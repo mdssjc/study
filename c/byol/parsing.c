@@ -258,6 +258,7 @@ char* ltype_name(int t) {
 /* Lisp Environment */
 
 struct lenv {
+  lenv* par;
   int count;
   char** syms;
   lval** vals;
@@ -265,6 +266,7 @@ struct lenv {
 
 lenv* lenv_new(void) {
   lenv* e = malloc(sizeof(lenv));
+  e->par = NULL;
   e->count = 0;
   e->syms = NULL;
   e->vals = NULL;
@@ -283,13 +285,39 @@ void lenv_del(lenv* e) {
   free(e);
 }
 
+lenv* lenv_copy(lenv* e) {
+  lenv* n = malloc(sizeof(lenv));
+  n->par = e->par;
+  n->count = e->count;
+  n->syms = malloc(sizeof(char*) * n->count);
+  n->vals = malloc(sizeof(lval*) * n->count);
+  for (int i = 0; i < e->count; i++) {
+    n->syms[i] = malloc(strlen(e->syms[i]) + 1);
+    strcpy(n->syms[i], e->syms[i]);
+    n->vals[i] = lval_copy(e->vals[i]);
+  }
+  return n;
+}
+
 lval* lenv_get(lenv* e, lval* k) {
   for (int i = 0; i < e->count; i++) {
     if (strcmp(e->syms[i], k->sym) == 0) {
       return lval_copy(e->vals[i]);
     }
   }
-  return lval_err("Unbound Symbol '%s'", k->sym);
+
+  if (e->par) {
+    return lenv_get(e->par, k);
+  } else {
+    return lval_err("Unbound Symbol '%s'", k->sym);
+  }
+}
+
+void lenv_def(lenv* e, lval* k, lval* v) {
+  while (e->par) {
+    e = e->par;
+  }
+  lenv_put(e, k, v);
 }
 
 void lenv_put(lenv* e, lval* k, lval* v) {
@@ -431,29 +459,42 @@ lval* builtin_div(lenv* e, lval* a) {
   return builtin_op(e, a, "/");
 }
 
-lval* builtin_def(lenv* e, lval* a) {
-  LASSERT_TYPE("def", a, 0, LVAL_QEXPR);
+lval* builtin_var(lenv* e, lval* a, char* func) {
+  LASSERT_TYPE(func, a, 0, LVAL_QEXPR);
 
   lval* syms = a->cell[0];
-
   for (int i = 0; i < syms->count; i++) {
     LASSERT(a, (syms->cell[i]->type == LVAL_SYM),
-      "Function 'def' cannot define non-symbol. "
-      "Got %s, Expected %s.",
-      ltype_name(syms->cell[i]->type), ltype_name(LVAL_SYM));
+      "Function '%s' cannot define non-symbol. "
+      "Got %s, Expected %s.", func,
+      ltype_name(syms->cell[i]->type),
+      ltype_name(LVAL_SYM));
   }
 
   LASSERT(a, (syms->count == a->count-1),
-    "Function 'def' passed too many arguments for symbols. "
-    "Got %i, Expected %i.",
-    syms->count, a->count-1);
+    "Function '%s' passed too many arguments for symbols. "
+    "Got %i, Expected %i.", func, syms->count, a->count-1);
 
   for (int i = 0; i < syms->count; i++) {
-    lenv_put(e, syms->cell[i], a->cell[i+1]);
+    if (strcmp(func, "def") == 0) {
+      lenv_def(e, syms->cell[i], a->cell[i+1]);
+    }
+
+    if (strcmp(func, "=")   == 0) {
+      lenv_put(e, syms->cell[i], a->cell[i+1]);
+    }
   }
 
   lval_del(a);
   return lval_sexpr();
+}
+
+lval* builtin_def(lenv* e, lval* a) {
+  return builtin_var(e, a, "def");
+}
+
+lval* builtin_put(lenv* e, lval* a) {
+  return builtin_var(e, a, "=");
 }
 
 void lenv_add_builtin(lenv* e, char* name, lbuiltin func) {
@@ -476,6 +517,9 @@ void lenv_add_builtins(lenv* e) {
   lenv_add_builtin(e, "-", builtin_sub);
   lenv_add_builtin(e, "*", builtin_mul);
   lenv_add_builtin(e, "/", builtin_div);
+
+  lenv_add_builtin(e, "def", builtin_def);
+  lenv_add_builtin(e, "=",   builtin_put);
 }
 
 lval* builtin_lambda(lenv* e, lval* a) {
