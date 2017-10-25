@@ -8,3 +8,4 @@ export * from './HttpService.js';
 export * from './ProxyFactory.js';
 export * from './decorators/Debouce.js';
 export * from './decorators/Controller.js';
+export * from './Obrigatorio.js';
