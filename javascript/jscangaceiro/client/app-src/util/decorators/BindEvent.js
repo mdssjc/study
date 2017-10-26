@@ -8,7 +8,7 @@ export function bindEvent(
   prevent = true) {
   return function(target, propertyKey, descriptor) {
 
-    Reflect.defineMetada(
+    Reflect.defineMetadata(
       'bindEvent',
       { event, selector, prevent, propertyKey },
       Object.getPrototypeOf(target), propertyKey);
