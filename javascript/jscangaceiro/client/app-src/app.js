@@ -2,6 +2,8 @@
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
+import 'jquery/dist/jquery.js';
+import 'bootstrap/js/modal.js';
 import '../css/meucss.css';
 
 import { NegociacaoController } from './controllers/NegociacaoController.js';
