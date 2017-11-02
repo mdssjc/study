@@ -2,12 +2,15 @@
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import 'jquery/dist/jquery.js';
 import 'bootstrap/js/modal.js';
 import '../css/meucss.css';
 
 import { NegociacaoController } from './controllers/NegociacaoController.js';
 import { Negociacao } from './domain/index.js';
+
+$('h1').on('click', () => alert('Foi clicado!'));
+console.log('Função adicionada pelo bootstrap:');
+console.log($('h1').modal);
 
 const controller = new NegociacaoController();
 const negociacao = new Negociacao(new Date(), 1, 200);
