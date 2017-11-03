@@ -29,6 +29,15 @@ struct lenv;
 typedef struct lval lval;
 typedef struct lenv lenv;
 
+mpc_parser_t* Number;
+mpc_parser_t* Symbol;
+mpc_parser_t* String;
+mpc_parser_t* Comment;
+mpc_parser_t* Sexpr;
+mpc_parser_t* Qexpr;
+mpc_parser_t* Expr;
+mpc_parser_t* Lispy;
+
 /* Lisp Value */
 
 enum { LVAL_ERR, LVAL_NUM, LVAL_SYM, LVAL_STR,
@@ -643,6 +652,40 @@ lval* builtin_if(lenv* e, lval* a) {
   return x;
 }
 
+lval* lval_read(mpc_ast_t* t);
+
+lval* builtin_load(lenv* e, lval* a) {
+  LASSERT_NUM("load", a, 1);
+  LASSERT_TYPE("load", a, 0, LVAL_STR);
+
+  mpc_result_t r;
+  if (mpc_parse_contents(a->cell[0]->str, Lispy, &r)) {
+    lval* expr = lval_read(r.output);
+    mpc_ast_delete(r.output);
+
+    while (expr->count) {
+      lval* x = lval_eval(e, lval_pop(expr, 0));
+      if (x->type == LVAL_ERR) { lval_println(x); }
+      lval_del(x);
+    }
+
+    lval_del(expr);
+    lval_del(a);
+
+    return lval_sexpr();
+
+  } else {
+    char* err_msg = mpc_err_string(r.error);
+    mpc_err_delete(r.error);
+
+    lval* err = lval_err("Could not load Library %s", err_msg);
+    free(err_msg);
+    lval_del(a);
+
+    return err;
+  }
+}
+
 void lenv_add_builtin(lenv* e, char* name, lbuiltin func) {
   lval* k = lval_sym(name);
   lval* v = lval_builtin(func);
@@ -846,14 +889,14 @@ lval* lval_read(mpc_ast_t* t) {
 /* Main */
 
 int main(int argc, char** argv) {
-  mpc_parser_t* Number  = mpc_new("number");
-  mpc_parser_t* Symbol  = mpc_new("symbol");
-  mpc_parser_t* String  = mpc_new("string");
-  mpc_parser_t* Comment = mpc_new("comment");
-  mpc_parser_t* Sexpr   = mpc_new("sexpr");
-  mpc_parser_t* Qexpr   = mpc_new("qexpr");
-  mpc_parser_t* Expr    = mpc_new("expr");
-  mpc_parser_t* Lispy   = mpc_new("lispy");
+  Number  = mpc_new("number");
+  Symbol  = mpc_new("symbol");
+  String  = mpc_new("string");
+  Comment = mpc_new("comment");
+  Sexpr   = mpc_new("sexpr");
+  Qexpr   = mpc_new("qexpr");
+  Expr    = mpc_new("expr");
+  Lispy   = mpc_new("lispy");
 
   mpca_lang(MPCA_LANG_DEFAULT,
     "                                             \
