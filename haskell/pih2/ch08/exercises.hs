@@ -23,3 +23,14 @@ occurs x (Node l y r) = case compare x y of
                           EQ -> True
                           LT -> occurs x l
                           GT -> occurs x r
+
+-- 8.3
+data Tree2 a = Leaf2 a | Node2 (Tree2 a) (Tree2 a)
+
+balanced :: Tree2 a -> Bool
+balanced (Leaf2 _) = True
+balanced (Node2 l r) = (abs $ leafs l - leafs r) <= 1
+
+leafs :: Tree2 a -> Int
+leafs (Leaf2 a) = 1
+leafs (Node2 l r) = leafs l + leafs r
