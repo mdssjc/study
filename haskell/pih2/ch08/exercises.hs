@@ -34,3 +34,16 @@ balanced (Node2 l r) = (abs $ leafs l - leafs r) <= 1
 leafs :: Tree2 a -> Int
 leafs (Leaf2 a) = 1
 leafs (Node2 l r) = leafs l + leafs r
+
+-- 8.4
+data Tree3 a = Leaf3 a | Node3 (Tree3 a) (Tree3 a)
+  deriving (Show)
+
+balance :: [a] -> Tree3 a
+balance [a] = Leaf3 a
+balance xs  = Node3 (balance h1) (balance h2)
+  where (h1, h2) = halve xs
+
+halve :: [a] -> ([a], [a])
+halve xs = (take n xs, drop n xs)
+  where n = length xs `div` 2
