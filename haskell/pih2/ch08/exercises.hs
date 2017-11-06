@@ -57,8 +57,7 @@ folde f g (Add e1 e2) = g (folde f g e1) (folde f g e2)
 
 -- 8.6
 eval :: Expr -> Int
-eval expr = folde id (\a b -> a + b) expr
+eval = folde id (+)
 
 size :: Expr -> Int
-size (Val a) = 1
-size (Add e1 e2) = size e1 + size e2
+size = folde (\_ -> 1) (+)
