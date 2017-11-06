@@ -54,3 +54,11 @@ data Expr = Val Int | Add Expr Expr
 folde :: (Int -> a) -> (a -> a -> a) -> Expr -> a
 folde f _ (Val a) = f $ a
 folde f g (Add e1 e2) = g (folde f g e1) (folde f g e2)
+
+-- 8.6
+eval :: Expr -> Int
+eval expr = folde id (\a b -> a + b) expr
+
+size :: Expr -> Int
+size (Val a) = 1
+size (Add e1 e2) = size e1 + size e2
