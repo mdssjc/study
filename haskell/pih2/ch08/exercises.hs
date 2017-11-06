@@ -47,3 +47,10 @@ balance xs  = Node3 (balance h1) (balance h2)
 halve :: [a] -> ([a], [a])
 halve xs = (take n xs, drop n xs)
   where n = length xs `div` 2
+
+-- 8.5
+data Expr = Val Int | Add Expr Expr
+
+folde :: (Int -> a) -> (a -> a -> a) -> Expr -> a
+folde f _ (Val a) = f $ a
+folde f g (Add e1 e2) = g (folde f g e1) (folde f g e2)
