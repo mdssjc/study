@@ -142,3 +142,20 @@ substs p = map (zip vs) (bools $ length vs)
 
 isTaut :: Prop -> Bool
 isTaut p = and[eval' s p | s <- substs p]
+
+-- 8.9
+data Expr' = Val' Int | Add' Expr' Expr' | Mult' Expr' Expr'
+data Op = ADD Expr' | MULT Expr' | PLUS Int | TIMES Int
+type Cont = [Op]
+
+eval'' :: Expr' -> Cont -> Int
+eval'' (Val' n) c    = exec c n
+eval'' (Add' x y) c  = eval'' x (ADD y : c)
+eval'' (Mult' x y) c = eval'' x (MULT y : c)
+
+exec :: Cont -> Int -> Int
+exec [] n            = n
+exec (ADD y : c) n   = eval'' y (PLUS n : c)
+exec (MULT y : c) n  = eval'' y (TIMES n : c)
+exec (PLUS n : c)  m = exec c (n + m)
+exec (TIMES n : c) m = exec c (n * m)
