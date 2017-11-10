@@ -185,6 +185,8 @@ isChoice [] ys = True
 isChoice (x:xs) ys = (elem x ys) && (isChoice xs ys)
 
 -- 9.3
+-- It would never terminate.
+
 split' :: [a] -> [([a], [a])]
 split' xs = [(take n xs, drop n xs) | n <- [0..length xs]]
 
