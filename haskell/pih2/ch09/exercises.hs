@@ -202,3 +202,10 @@ totalPossible = length . possibleExprs
 
 totalSuccessful :: [Int] -> Int
 totalSuccessful = length . successfulExprs
+
+-- 9.5
+-- valid :: Op -> Int -> Int -> Bool
+-- valid Add _ _ = True
+-- valid Sub x y = True
+-- valid Mul _ _ = True
+-- valid Div x y = y /= 0 && x `mod` y == 0
