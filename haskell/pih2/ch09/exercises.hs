@@ -22,3 +22,7 @@ choices' xs = [xs | xss <- subs xs, xs <- perms xss]
 isChoice :: Eq a => [a] -> [a] -> Bool
 isChoice [] ys = True
 isChoice (x:xs) ys = (elem x ys) && (isChoice xs ys)
+
+-- 9.3
+split :: [a] -> [([a], [a])]
+split xs = [(take n xs, drop n xs) | n <- [0..length xs]]
