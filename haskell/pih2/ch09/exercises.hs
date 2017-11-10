@@ -17,3 +17,8 @@ choices = concat . map perms . subs
 -- 9.1
 choices' :: [a] -> [[a]]
 choices' xs = [xs | xss <- subs xs, xs <- perms xss]
+
+-- 9.2
+isChoice :: Eq a => [a] -> [a] -> Bool
+isChoice [] ys = True
+isChoice (x:xs) ys = (elem x ys) && (isChoice xs ys)
