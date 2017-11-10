@@ -4,25 +4,28 @@ import Numeric
 
 -- Arithmetic operators
 
-data Op = Add | Sub | Mul | Div
+data Op = Add | Sub | Mul | Div | Pow
 
 instance Show Op where
    show Add = "+"
    show Sub = "-"
    show Mul = "*"
    show Div = "/"
+   show Pow = "^"
 
 valid :: Op -> Int -> Int -> Bool
 valid Add _ _ = True
 valid Sub x y = x > y
 valid Mul _ _ = True
 valid Div x y = x `mod` y == 0
+valid Pow _ _ = True
 
 apply :: Op -> Int -> Int -> Int
 apply Add x y = x + y
 apply Sub x y = x - y
 apply Mul x y = x * y
 apply Div x y = x `div` y
+apply Pow x y = x ^ y
 
 -- Numeric expressions
 
@@ -87,7 +90,7 @@ combine :: Expr -> Expr -> [Expr]
 combine l r = [App o l r | o <- ops]
 
 ops :: [Op]
-ops = [Add,Sub,Mul,Div]
+ops = [Add,Sub,Mul,Div,Pow]
 
 solutions :: [Int] -> Int -> [Expr]
 solutions ns n = [e | ns' <- choices ns, e <- exprs ns', eval e == [n]]
@@ -117,6 +120,7 @@ valid' Add x y = x <= y
 valid' Sub x y = x > y
 valid' Mul x y = x /= 1 && y /= 1 && x <= y
 valid' Div x y = y /= 1 && x `mod` y == 0
+valid' Pow x y = x <= y && y >= 0
 
 results' :: [Int] -> [Result]
 results' []  = []
@@ -209,3 +213,6 @@ totalSuccessful = length . successfulExprs
 -- valid Sub x y = True
 -- valid Mul _ _ = True
 -- valid Div x y = y /= 0 && x `mod` y == 0
+
+-- 9.6
+-- Implemented above.
