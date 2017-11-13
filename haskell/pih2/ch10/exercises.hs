@@ -87,3 +87,7 @@ putBoardAux :: Int -> Board -> IO ()
 putBoardAux _ [] = return ()
 putBoardAux i (x:xs) = do putRow i x
                           putBoardAux (i+1) xs
+
+-- 10.3
+putBoard'' :: Board -> IO ()
+putBoard'' xs = sequence_ [putRow i x | (i,x) <- zip xs [1..(length xs)]]
