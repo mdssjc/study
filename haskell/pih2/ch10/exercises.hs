@@ -106,3 +106,12 @@ adderAux t n = do if n == 0
                     then return t
                     else do x <- getDigit ""
                             adderAux (t+x) (n-1)
+
+-- 10.5
+adder' :: IO ()
+adder' = do n <- getDigit "How many numbers? "
+            if n <= 0
+              then putStr "n > 0!"
+              else do addList <- sequence [getDigit "" | _ <- [1..n]]
+                      putStr "total: "
+                      putStrLn $ show $ sum addList
