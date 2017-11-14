@@ -91,3 +91,18 @@ putBoardAux i (x:xs) = do putRow i x
 -- 10.3
 putBoard'' :: Board -> IO ()
 putBoard'' xs = sequence_ [putRow i x | (i,x) <- zip xs [1..(length xs)]]
+
+-- 10.4
+adder :: IO ()
+adder = do n <- getDigit "How many numbers? "
+           if n <= 0
+             then putStr "n > 0!"
+             else do total <- adderAux 0 n
+                     putStr "total: "
+                     putStrLn $ show total
+
+adderAux :: Int -> Int -> IO Int
+adderAux t n = do if n == 0
+                    then return t
+                    else do x <- getDigit ""
+                            adderAux (t+x) (n-1)
