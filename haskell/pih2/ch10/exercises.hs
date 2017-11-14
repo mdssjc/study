@@ -1,4 +1,5 @@
 import Data.Char
+import System.IO
 
 -- Game utilities
 
@@ -115,3 +116,23 @@ adder' = do n <- getDigit "How many numbers? "
               else do addList <- sequence [getDigit "" | _ <- [1..n]]
                       putStr "total: "
                       putStrLn $ show $ sum addList
+
+-- 10.6
+getCh :: IO Char
+getCh = do hSetEcho stdin False
+           x <- getChar
+           hSetEcho stdin True
+           return x
+
+readLine :: IO String
+readLine = readLine' ""
+
+readLine' :: String -> IO String
+readLine' xs = do x <- getCh
+                  case x of '\n' -> return xs
+                            '\DEL' -> if null xs
+                                      then readLine' ""
+                                      else do putStr "\b \b"
+                                              readLine' $ init xs
+                            _ -> do putChar x
+                                    readLine' $ xs ++ [x]
