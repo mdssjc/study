@@ -3,6 +3,7 @@
 import Data.Char
 import Data.List
 import System.IO
+import System.Random hiding (next)
 
 size :: Int
 size = 3
@@ -203,3 +204,31 @@ count = do putStrLn $ show ns ++ " nodes and " ++ show d ++ " depth"
   where tree = gametree empty O
         ns   = nodes tree
         d    = mydepth tree
+
+-- 11.2
+bestmoves :: Grid -> Player -> [Grid]
+bestmoves g p = [g' | Node (g',p') _ <- ts, p' == best]
+  where
+    tree = prune depth (gametree g p)
+    Node (_,best) ts = minimax tree
+
+play2 :: Grid -> Player -> IO ()
+play2 g p = do cls
+               goto (1,1)
+               putGrid g
+               play'2 g p
+
+play'2 :: Grid -> Player -> IO ()
+play'2 g p
+  | wins O g = putStrLn "Player O wins!\n"
+  | wins X g = putStrLn "Player X wins!\n"
+  | full g   = putStrLn "It's a draw!\n"
+  | p == O   = do i <- getNat (prompt p)
+                  case move g i p of
+                    []   -> do putStrLn "ERROR: Invalid move"
+                               play'2 g p
+                    [g'] -> play2 g' (next p)
+  | p == X   = do putStr "Player X is thinking... "
+                  let gs = bestmoves g p
+                  n <- randomRIO (0, length gs - 1)
+                  play2 (gs !! n) (next p)
