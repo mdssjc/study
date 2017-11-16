@@ -232,3 +232,32 @@ play'2 g p
                   let gs = bestmoves g p
                   n <- randomRIO (0, length gs - 1)
                   play2 (gs !! n) (next p)
+
+-- 11.3
+fastestMove :: Grid -> Player -> Grid
+fastestMove g p = head [g' | Node (g', p') _ <- sortOn treeDepth ts, p' == best]
+  where tree = prune depth (gametree g p)
+        Node (_, best) ts = minimax tree
+
+treeDepth :: Tree a -> Int
+treeDepth (Node _ []) = 0
+treeDepth (Node _ ts) = 1 + minimum (map treeDepth ts)
+
+play3 :: Grid -> Player -> IO ()
+play3 g p = do cls
+               goto (1,1)
+               putGrid g
+               play'3 g p
+
+play'3 :: Grid -> Player -> IO ()
+play'3 g p
+  | wins O g = putStrLn "Player O wins!\n"
+  | wins X g = putStrLn "Player X wins!\n"
+  | full g   = putStrLn "It's a draw!\n"
+  | p == O   = do i <- getNat (prompt p)
+                  case move g i p of
+                    []   -> do putStrLn "ERROR: Invalid move"
+                               play'3 g p
+                    [g'] -> play3 g' (next p)
+  | p == X   = do putStr "Player X is thinking... "
+                  play3 (fastestMove g p) (next p)
