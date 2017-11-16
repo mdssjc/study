@@ -261,3 +261,9 @@ play'3 g p
                     [g'] -> play3 g' (next p)
   | p == X   = do putStr "Player X is thinking... "
                   play3 (fastestMove g p) (next p)
+
+-- 11.4
+-- a. select player
+-- b. change size
+-- c. change move
+-- d. apply alpha-beta pruning
