@@ -10,3 +10,8 @@ instance Functor Tree where
 -- instance Functor ((->) a) where
 -- fmap :: (b -> c) -> (a -> b) -> (a -> c)
 --   fmap = (.)
+
+-- 12.3
+-- instance Applicative ((->) a) where
+--   pure = const
+--   g <*> h = \x -> g x (h x)
