@@ -33,3 +33,19 @@ instance Applicative ZipList where
 --   pure (g x)      = pure g <*> pure x
 --   x <*> pure y    = pure (\g -> g y) <*> x
 --   x <*> (y <*> z) = (pure (.) <*> x <*> y) <*> z
+
+-- 12.6
+newtype Fun a b = F (a -> b)
+
+instance Functor (Fun a) where
+  fmap g (F h) = F (g . h)
+
+instance Applicative (Fun a) where
+  pure x = F (\_ -> x)
+  F g <*> F h = F (\x -> (g x) (h x))
+
+instance Monad (Fun a) where
+  return = pure
+  F f >>= g = F h
+    where h x = h' x
+            where (F h') = g (f x)
