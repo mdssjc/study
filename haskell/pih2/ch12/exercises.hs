@@ -26,3 +26,10 @@ instance Functor ZipList where
 instance Applicative ZipList where
   pure x = Z(repeat x)
   (Z gs) <*> (Z xs) = Z[g x | (g,x) <- zip gs xs]
+
+-- 12.5
+-- instance Applicative Type where
+--   pure id <*> x   = x
+--   pure (g x)      = pure g <*> pure x
+--   x <*> pure y    = pure (\g -> g y) <*> x
+--   x <*> (y <*> z) = (pure (.) <*> x <*> y) <*> z
