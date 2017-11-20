@@ -37,7 +37,7 @@
                    (cons a-post (blog-posts a-blog))))
 
 ; post-insert-comment!: post string -> void
-; consumes a post and a comment string. As a side-efect, 
+; consumes a post and a comment string. As a side-efect,
 ; adds the comment to the bottom of the post's list of comments.
 (define (post-insert-comment! a-post a-comment)
   (set-post-comments!
@@ -65,14 +65,14 @@
                    (input ((name "title")))
                    (input ((name "body")))
                    (input ((type "submit"))))))))
- 
+
   ; parse-post: bindings -> post
   ; extracts a post out of the bindings.
   (define (parse-post bindings)
     (post (extract-binding/single 'title bindings)
           (extract-binding/single 'body bindings)
           (list)))
- 
+
   (define (insert-post-handler request)
     (blog-insert-post!
      BLOG (parse-post (request-bindings request)))
@@ -96,10 +96,10 @@
                      ,(embed/url insert-comment-handler)))
                    (input ((name "comment")))
                    (input ((type "submit"))))))))
- 
+
   (define (parse-comment bindings)
     (extract-binding/single 'comment bindings))
- 
+
   (define (insert-comment-handler a-request)
     (post-insert-comment!
      a-post (parse-comment (request-bindings a-request)))
@@ -133,7 +133,7 @@
 ; an unorderered list.
 (define (render-as-itemized-list fragments)
   `(ul ,@(map render-as-item fragments)))
- 
+
 ; render-as-item: xexpr -> xexpr
 ; consumes an xexpr, and produces a rendering
 ; as a list item.
