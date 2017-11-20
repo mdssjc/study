@@ -4,15 +4,20 @@
 ;; =================
 ;; Data definitions:
 
-; A blog is a (listof post)
-; and a post is a (post title body)
+; A blog is a (blog posts)
+; where posts is a (listof post)
+(struct blog (posts) #:mutable)
+
+; A post is a (post title body)
+; where title is a string, and body is a string
 (struct post (title body))
 
 ; BLOG: blog
-; The static blog.
+; The initial BLOG.
 (define BLOG
-  (list (post "Second Post" "This is another post")
-        (post "First Post"  "This is my first post")))
+  (blog
+   (list (post "Second Post" "This is another post")
+         (post "First Post"  "This is my first post"))))
 
 
 ;; ==========
@@ -22,7 +27,13 @@
 ; consumes a request and produces a page that displays all of the
 ; web content.
 (define (start request)
-  (render-blog-page BLOG request))
+  (render-blog-page request))
+
+; blog-insert-post!: blog post -> void
+; consumes a blog and a post, adds the post at the top of the blog.
+(define (blog-insert-post! a-blog a-post)
+  (set-blog-posts! a-blog
+                   (cons a-post (blog-posts a-blog))))
 
 ; parse-post: bindings -> post
 ; extracts a post out of the bindings.
@@ -30,16 +41,15 @@
   (post (extract-binding/single 'title bindings)
         (extract-binding/single 'body bindings)))
 
-; render-blog-page: blog request -> doesn't return
-; consumes a blog and a request, and produces an HTML page
-; of the content of the blog.
-(define (render-blog-page a-blog request)
+; render-blog-page: request -> doesn't return
+; produces an HTML page of the content of the BLOG.
+(define (render-blog-page request)
   (define (response-generator embed/url)
     (response/xexpr
      `(html (head (title "My Blog"))
             (body
              (h1 "My Blog")
-             ,(render-posts a-blog)
+             ,(render-posts)
              (form ((action
                      ,(embed/url insert-post-handler)))
                    (input ((name "title")))
@@ -47,10 +57,10 @@
                    (input ((type "submit"))))))))
  
   (define (insert-post-handler request)
-    (render-blog-page
-     (cons (parse-post (request-bindings request))
-           a-blog)
-     request))
+    (blog-insert-post!
+     BLOG (parse-post (request-bindings request)))
+    (render-blog-page request))
+ 
   (send/suspend/dispatch response-generator))
 
 ; render-post: post -> xexpr
@@ -63,6 +73,6 @@
 ; render-posts: blog -> xexpr
 ; consumes a blog, produces an xexpr fragment
 ; of all its posts.
-(define (render-posts a-blog)
+(define (render-posts)
   `(div ((class "posts"))
-        ,@(map render-post a-blog)))
+        ,@(map render-post (blog-posts BLOG))))
