@@ -124,3 +124,14 @@ comment = do string "--"
              many (sat (/= '\n'))
              char '\n'
              return ()
+
+-- 13.2
+-- 2+3+4
+-- expr
+-- expr   + expr
+-- term   + term
+-- factor + expr   + expr
+-- nat    + term   + term
+-- 2      + factor + factor
+-- 2      + nat    + nat
+-- 2      + 3      + 4
