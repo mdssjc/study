@@ -167,3 +167,20 @@ comment = do string "--"
 
 -- 13.4
 -- The final simplification evaluates to the primitives faster by decreasing the execution stack.
+
+-- 13.5
+data Expr = Val Int | Add Expr Expr
+  deriving Show
+
+expr :: Parser Expr
+expr = do addition <|> value
+
+addition :: Parser Expr
+addition = do a <- value
+              string "+"
+              b <- value
+              return (Add a b)
+
+value :: Parser Expr
+value = do n <- natural
+           return (Val n)
