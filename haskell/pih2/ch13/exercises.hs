@@ -164,3 +164,6 @@ comment = do string "--"
 -- (nat    + factor) + 4
 -- (2      + nat)    + 4
 -- (2      + 3)      + 4
+
+-- 13.4
+-- The final simplification evaluates to the primitives faster by decreasing the execution stack.
