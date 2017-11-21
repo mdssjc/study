@@ -135,3 +135,32 @@ comment = do string "--"
 -- 2      + factor + factor
 -- 2      + nat    + nat
 -- 2      + 3      + 4
+
+-- 13.3
+-- 2+3
+-- expr
+-- term   + expr
+-- factor + term
+-- nat    + factor
+-- 2      + nat
+-- 2      + 3
+
+-- 2*3*4
+-- expr
+-- term
+-- factor * term
+-- nat    * factor * term
+-- 2      * nat    * factor
+-- 2      * 3      * nat
+-- 2      * 3      * 4
+
+-- (2+3)+4
+-- expr
+-- term              + expr
+-- factor            + term
+-- (expr)            + factor
+-- (term   + expr)   + nat
+-- (factor + term)   + 4
+-- (nat    + factor) + 4
+-- (2      + nat)    + 4
+-- (2      + 3)      + 4
