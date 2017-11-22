@@ -236,3 +236,6 @@ expr'' :: Parser Int
 expr'' = do n  <- natural
             xs <- many (symbol "-" >>= \_ -> natural)
             return (foldl (-) n xs)
+
+-- 13.9
+-- warn function with the x, y and message parameters.
