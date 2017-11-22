@@ -29,6 +29,7 @@
 ; all of the web content.
 (define (start request)
   (render-blog-page request))
+(static-files-path "htdocs")
 
 ; blog-insert-post!: blog post -> void
 ; consumes a blog and a post, adds the post at the top of the blog.
@@ -44,19 +45,16 @@
    a-post
    (append (post-comments a-post) (list a-comment))))
 
-; parse-post: bindings -> post
-; extracts a post out of the bindings.
-(define (parse-post bindings)
-  (post (extract-binding/single 'title bindings)
-        (extract-binding/single 'body bindings)))
-
 ; render-blog-page: request -> doesn't return
 ; produces an HTML page of the content of the
 ; BLOG.
 (define (render-blog-page request)
   (define (response-generator embed/url)
     (response/xexpr
-     `(html (head (title "My Blog"))
+     `(html (head (title "My Blog")
+                  (link ((rel "stylesheet")
+                         (href "/test-static.css")
+                         (type "text/css"))))
             (body
              (h1 "My Blog")
              ,(render-posts embed/url)
@@ -71,12 +69,12 @@
   (define (parse-post bindings)
     (post (extract-binding/single 'title bindings)
           (extract-binding/single 'body bindings)
-          (list)))
+          '()))
 
   (define (insert-post-handler request)
     (blog-insert-post!
      BLOG (parse-post (request-bindings request)))
-    (render-blog-page request))
+    (render-blog-page (redirect/get)))
   (send/suspend/dispatch response-generator))
 
 ; render-post-detail-page: post request -> doesn't return
@@ -86,7 +84,10 @@
 (define (render-post-detail-page a-post request)
   (define (response-generator embed/url)
     (response/xexpr
-     `(html (head (title "Post Details"))
+     `(html (head (title "Post Details")
+                  (link ((rel "stylesheet")
+                         (href "/test-static.css")
+                         (type "text/css"))))
             (body
              (h1 "Post Details")
              (h2 ,(post-title a-post))
@@ -121,7 +122,10 @@
 (define (render-confirm-add-comment-page a-comment a-post request)
   (define (response-generator embed/url)
     (response/xexpr
-     `(html (head (title "Add a Comment"))
+     `(html (head (title "Add a Comment")
+                  (link ((rel "stylesheet")
+                         (href "/test-static.css")
+                         (type "text/css"))))
             (body
              (h1 "Add a Comment")
              "The comment: " (div (p ,a-comment))
@@ -135,7 +139,7 @@
 
   (define (yes-handler request)
     (post-insert-comment! a-post a-comment)
-    (render-post-detail-page a-post request))
+    (render-post-detail-page a-post (redirect/get)))
 
   (define (cancel-handler request)
     (render-post-detail-page a-post request))
