@@ -230,3 +230,9 @@ expo = do f <- factor
              e <- expo
              return (f ^ e)
              <|> return f
+
+-- 13.8
+expr'' :: Parser Int
+expr'' = do n  <- natural
+            xs <- many (symbol "-" >>= \_ -> natural)
+            return (foldl (-) n xs)
