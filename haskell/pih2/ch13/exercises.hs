@@ -177,10 +177,38 @@ expr = do addition <|> value
 
 addition :: Parser Expr
 addition = do a <- value
-              string "+"
+              symbol "+"
               b <- value
               return (Add a b)
 
 value :: Parser Expr
 value = do n <- natural
            return (Val n)
+
+-- 13.6
+expr' :: Parser Int
+expr' = do t <- term
+           do symbol "+"
+              e <- expr'
+              return (t + e)
+              <|> do symbol "-"
+                     e <- expr'
+                     return (t - e)
+                     <|> return t
+
+term :: Parser Int
+term = do ep <- factor
+          do symbol "*"
+             t <- term
+             return (ep * t)
+             <|> do symbol "/"
+                    t <- term
+                    return (ep `div` t)
+                    <|> return ep
+
+factor :: Parser Int
+factor = do symbol "("
+            e <- expr'
+            symbol ")"
+            return e
+            <|> integer
