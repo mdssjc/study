@@ -212,3 +212,21 @@ factor = do symbol "("
             symbol ")"
             return e
             <|> integer
+
+-- 13.7
+term' :: Parser Int
+term' = do ep <- expo
+           do symbol "*"
+              t <- term'
+              return (ep * t)
+                <|> do symbol "/"
+                       t <- term'
+                       return (ep `div` t)
+                       <|> return ep
+
+expo :: Parser Int
+expo = do f <- factor
+          do symbol "^"
+             e <- expo
+             return (f ^ e)
+             <|> return f
