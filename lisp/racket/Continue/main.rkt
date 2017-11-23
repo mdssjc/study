@@ -3,19 +3,24 @@
 (require "model.rkt")
 (static-files-path "htdocs")
 
+
 ;; ==========
 ;; Functions:
 
 ; start: request -> doesn't return
-; consumes a request, and produces a page that displays
+; consumes a request and produces a page that displays
 ; all of the web content.
 (define (start request)
-  (render-blog-page request))
+  (render-blog-page
+   (initialize-blog!
+    (build-path (current-directory)
+                "the-blog-data.db"))
+   request))
 
-; render-blog-page: request -> doesn't return
+; render-blog-page: blog request -> doesn't return
 ; produces an HTML page of the content of the
-; BLOG.
-(define (render-blog-page request)
+; blog.
+(define (render-blog-page a-blog request)
   (define (response-generator embed/url)
     (response/xexpr
      `(html (head (title "My Blog")
@@ -24,31 +29,27 @@
                          (type "text/css"))))
             (body
              (h1 "My Blog")
-             ,(render-posts embed/url)
+             ,(render-posts a-blog embed/url)
              (form ((action
                      ,(embed/url insert-post-handler)))
                    (input ((name "title")))
                    (input ((name "body")))
                    (input ((type "submit"))))))))
 
-  ; parse-post: bindings -> post
-  ; extracts a post out of the bindings.
-  (define (parse-post bindings)
-    (post (extract-binding/single 'title bindings)
-          (extract-binding/single 'body bindings)
-          '()))
-
   (define (insert-post-handler request)
+    (define bindings (request-bindings request))
     (blog-insert-post!
-     BLOG (parse-post (request-bindings request)))
-    (render-blog-page (redirect/get)))
+     a-blog
+     (extract-binding/single 'title bindings)
+     (extract-binding/single 'body bindings))
+    (render-blog-page a-blog (redirect/get)))
   (send/suspend/dispatch response-generator))
 
 ; render-post-detail-page: post request -> doesn't return
 ; consumes a post and produces a detail page of the post.
-; The user will be able to either insert new comments
+; the user will be able to either insert new comments
 ; or go back to render-blog-page.
-(define (render-post-detail-page a-post request)
+(define (render-post-detail-page a-blog a-post request)
   (define (response-generator embed/url)
     (response/xexpr
      `(html (head (title "Post Details")
@@ -73,20 +74,21 @@
 
   (define (insert-comment-handler request)
     (render-confirm-add-comment-page
+     a-blog
      (parse-comment (request-bindings request))
      a-post
      request))
 
   (define (back-handler request)
-    (render-blog-page request))
+    (render-blog-page a-blog request))
   (send/suspend/dispatch response-generator))
 
-; render-confirm-add-comment-page: comment post request -> doesn't return
+; render-confirm-add-comment-page : blog comment post request -> doesn't return
 ; consumes a comment that we intend to add to a post, as well
 ; as the request. If the user follows through, adds a comment
-; and goes back to the display page. Otherwise, goes back to
+; and goes back to the display page. otherwise, goes back to
 ; the detail page of the post.
-(define (render-confirm-add-comment-page a-comment a-post request)
+(define (render-confirm-add-comment-page a-blog a-comment a-post request)
   (define (response-generator embed/url)
     (response/xexpr
      `(html (head (title "Add a Comment")
@@ -105,19 +107,19 @@
                    "No, I changed my mind!"))))))
 
   (define (yes-handler request)
-    (post-insert-comment! a-post a-comment)
-    (render-post-detail-page a-post (redirect/get)))
+    (post-insert-comment! a-blog a-post a-comment)
+    (render-post-detail-page a-blog a-post (redirect/get)))
 
   (define (cancel-handler request)
-    (render-post-detail-page a-post request))
+    (render-post-detail-page a-blog a-post request))
   (send/suspend/dispatch response-generator))
 
 ; render-post: post (handler -> string) -> xexpr
 ; consumes a post, produces an xexpr fragment of the post.
 ; the fragment contains a link to show a detailed view of the post.
-(define (render-post a-post embed/url)
+(define (render-post a-blog a-post embed/url)
   (define (view-post-handler request)
-    (render-post-detail-page a-post request))
+    (render-post-detail-page a-blog a-post request))
   `(div ((class "post"))
         (a ((href ,(embed/url view-post-handler)))
            ,(post-title a-post))
@@ -125,14 +127,14 @@
         (div ,(number->string (length (post-comments a-post)))
              " comment(s)")))
 
-; render-posts: (handler -> string) -> xexpr
-; consumes a embed/url, and produces an xexpr fragment
+; render-posts: blog (handler -> string) -> xexpr
+; consumes a embed/url, produces an xexpr fragment
 ; of all its posts.
-(define (render-posts embed/url)
+(define (render-posts a-blog embed/url)
   (define (render-post/embed/url a-post)
-    (render-post a-post embed/url))
+    (render-post a-blog a-post embed/url))
   `(div ((class "posts"))
-        ,@(map render-post/embed/url (blog-posts BLOG))))
+        ,@(map render-post/embed/url (blog-posts a-blog))))
 
 ; render-as-itemized-list: (listof xexpr) -> xexpr
 ; consumes a list of items, and produces a rendering as
