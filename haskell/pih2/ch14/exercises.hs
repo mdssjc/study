@@ -13,3 +13,17 @@
 
 --   -- mappend :: (a -> b) -> (a -> b) -> (a -> b)
 --   f `mappend` g = \x -> f x `mappend` g x
+
+-- 14.3
+-- instance Foldable Maybe where
+--   --foldMap :: Monoid b => (a -> b) -> Maybe a -> b
+--   foldMap _ Nothing = mempty
+--   foldMap g (Just x) = g x
+
+--   --foldr   :: (a -> b -> b) -> b -> Maybe a -> b
+--   foldr _ v _ Nothing = v
+--   foldr g v (Just x) = g x v
+
+--   --foldl   :: (a -> b -> a) -> a -> Maybe b -> a
+--   foldl _ v Nothing = v
+--   foldl g v (Just x) = g v x
