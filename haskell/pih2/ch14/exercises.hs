@@ -62,3 +62,7 @@
 --   -- traverse :: Applicative f => (a -> f b) -> Tree a -> f (Tree b)
 --   traverse _ Leaf         = pure Leaf
 --   traverse g (Node l v r) = fmap Node (traverse g l) (g x) (traverse g r)
+
+-- 14.5
+filterF :: Foldable t => (a -> Bool) -> t a -> [a]
+filterF f = foldl (\xs x -> (if f x then [x] else []) ++ xs) []
