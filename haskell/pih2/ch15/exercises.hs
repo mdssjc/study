@@ -27,3 +27,7 @@ mult = \x -> (\y -> x * y)
 -- (\y -> 3 * y) 4
 -- 3 * 4
 -- 12
+
+-- 15.4
+fibs :: [Integer]
+fibs = 0 : 1 : [a+b | (a,b) <- zip fibs (tail fibs)]
