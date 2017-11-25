@@ -17,3 +17,13 @@
 -- 3
 
 -- Outermost is preferable.
+
+-- 15.3
+mult :: Int -> Int -> Int
+mult = \x -> (\y -> x * y)
+
+-- mult 3 4
+-- (\x -> (\y -> x * y)) 3 4
+-- (\y -> 3 * y) 4
+-- 3 * 4
+-- 12
