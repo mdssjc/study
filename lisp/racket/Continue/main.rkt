@@ -1,6 +1,7 @@
 #lang web-server/insta
 
-(require "model.rkt")
+(require web-server/formlets
+         "model.rkt")
 (static-files-path "htdocs")
 
 
@@ -14,8 +15,16 @@
   (render-blog-page
    (initialize-blog!
     (build-path (current-directory)
-                "the-blog-data.db"))
+                "the-blog-data.sqlite"))
    request))
+
+; new-post-formlet : formlet (values string? string?)
+; a formlet for requesting a title and body of a post
+(define new-post-formlet
+  (formlet
+   (#%# ,{input-string . => . title}
+        ,{input-string . => . body})
+   (values title body)))
 
 ; render-blog-page: blog request -> doesn't return
 ; produces an HTML page of the content of the
@@ -30,20 +39,22 @@
             (body
              (h1 "My Blog")
              ,(render-posts a-blog embed/url)
-             (form ((action
-                     ,(embed/url insert-post-handler)))
-                   (input ((name "title")))
-                   (input ((name "body")))
-                   (input ((type "submit"))))))))
+             (form ([action
+                     ,(embed/url insert-post-handler)])
+                   ,@(formlet-display new-post-formlet)
+                   (input ([type "submit"])))))))
 
   (define (insert-post-handler request)
-    (define bindings (request-bindings request))
-    (blog-insert-post!
-     a-blog
-     (extract-binding/single 'title bindings)
-     (extract-binding/single 'body bindings))
+    (define-values (title body)
+      (formlet-process new-post-formlet request))
+    (blog-insert-post! a-blog title body)
     (render-blog-page a-blog (redirect/get)))
   (send/suspend/dispatch response-generator))
+
+; new-comment-formlet : formlet string
+; a formlet for requesting a comment
+(define new-comment-formlet
+  input-string)
 
 ; render-post-detail-page: post request -> doesn't return
 ; consumes a post and produces a detail page of the post.
@@ -62,20 +73,17 @@
              (p ,(post-body a-post))
              ,(render-as-itemized-list
                (post-comments a-post))
-             (form ((action
-                     ,(embed/url insert-comment-handler)))
-                   (input ((name "comment")))
-                   (input ((type "submit"))))
-             (a ((href ,(embed/url back-handler)))
+             (form ([action
+                     ,(embed/url insert-comment-handler)])
+                   ,@(formlet-display new-comment-formlet)
+                   (input ([type "submit"])))
+             (a ([href ,(embed/url back-handler)])
                 "Back to the blog")))))
-
-  (define (parse-comment bindings)
-    (extract-binding/single 'comment bindings))
 
   (define (insert-comment-handler request)
     (render-confirm-add-comment-page
      a-blog
-     (parse-comment (request-bindings request))
+     (formlet-process new-comment-formlet request)
      a-post
      request))
 
@@ -101,9 +109,9 @@
              "will be added to "
              (div ,(post-title a-post))
 
-             (p (a ((href ,(embed/url yes-handler)))
+             (p (a ([href ,(embed/url yes-handler)])
                    "Yes, add the comment."))
-             (p (a ((href ,(embed/url cancel-handler)))
+             (p (a ([href ,(embed/url cancel-handler)])
                    "No, I changed my mind!"))))))
 
   (define (yes-handler request)
@@ -120,8 +128,8 @@
 (define (render-post a-blog a-post embed/url)
   (define (view-post-handler request)
     (render-post-detail-page a-blog a-post request))
-  `(div ((class "post"))
-        (a ((href ,(embed/url view-post-handler)))
+  `(div ([class "post"])
+        (a ([href ,(embed/url view-post-handler)])
            ,(post-title a-post))
         (p ,(post-body a-post))
         (div ,(number->string (length (post-comments a-post)))
@@ -133,7 +141,7 @@
 (define (render-posts a-blog embed/url)
   (define (render-post/embed/url a-post)
     (render-post a-blog a-post embed/url))
-  `(div ((class "posts"))
+  `(div ([class "posts"])
         ,@(map render-post/embed/url (blog-posts a-blog))))
 
 ; render-as-itemized-list: (listof xexpr) -> xexpr
