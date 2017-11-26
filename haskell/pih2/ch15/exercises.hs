@@ -31,3 +31,17 @@ mult = \x -> (\y -> x * y)
 -- 15.4
 fibs :: [Integer]
 fibs = 0 : 1 : [a+b | (a,b) <- zip fibs (tail fibs)]
+
+-- 15.5
+data Tree a = Leaf | Node (Tree a) a (Tree a)
+            deriving Show
+
+repeat' :: a -> Tree a
+repeat' x = Node (repeat' x) x (repeat' x)
+
+take' :: Int -> Tree a -> Tree a
+take' 0 _            = Leaf
+take' n (Node l v r) = Node (take' (n-1) l) v (take' (n-1) r)
+
+replicate' :: Int -> a -> Tree a
+replicate' n = take' n . repeat'
