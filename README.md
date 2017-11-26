@@ -10,6 +10,10 @@ Repositório com materiais de estudos sobre Sistemas da Computação para Arquit
 
 **caelum**: resolução das apostilas livres.
 
+**haskell**: estudo da acadêmico sobre a linguagem _Haskell_.
+
+* **pih2**: estudo do livro _Programming in Haskell, 2nd Edition_ do autor _Graham Hutton_ - [http://www.cs.nott.ac.uk/~pszgmh/pih.html](http://www.cs.nott.ac.uk/~pszgmh/pih.html "Book site").
+
 **headfirstlabs**: exercícios dos livros.
 
 **k19** resolução das apostilas livres.
