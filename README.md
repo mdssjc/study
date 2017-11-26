@@ -14,7 +14,13 @@ Repositório com materiais de estudos sobre Sistemas da Computação para Arquit
 
 * **pih2**: estudo do livro _Programming in Haskell, 2nd Edition_ do autor _Graham Hutton_ - [http://www.cs.nott.ac.uk/~pszgmh/pih.html](http://www.cs.nott.ac.uk/~pszgmh/pih.html "Book site").
 
-**headfirstlabs**: exercícios dos livros.
+**headfirstlabs**:
+
+* **c**: estudo do livro _Head First C_ do autores _Dawn Griffiths_ e _David Griffiths_ - [http://shop.oreilly.com/product/0636920015482.do](http://shop.oreilly.com/product/0636920015482.do "Book site").
+* **design-patterns**: estudo do livro _Head First Design Patterns_ do autores _Bert Bates_, _Kathy Sierra_, _Eric Freeman_ e _Elisabeth Robson_ - [http://www.headfirstlabs.com/books/hfdp](http://www.headfirstlabs.com/books/hfdp "Book site").
+* **java**: estudo do livro _Head First Java_ do autores _Bert Bates_ e _Kathy Sierra_ - [http://www.headfirstlabs.com/books/hfjava](http://www.headfirstlabs.com/books/hfjava "Book site").
+* **object-oriented-analysis-and-design**: estudo do livro _Head First Object-Oriented Analysis and Design_ do autores _Brett McLaughlin_, _Gary Pollice_ e _David West_ - [http://www.headfirstlabs.com/books/hfooad](http://www.headfirstlabs.com/books/hfooad "Book site").
+* **software-development**: estudo do livro _Head First Software Development_ do autores _Dan Pilone_ e _Russ Miles_ - [http://www.headfirstlabs.com/books/hfsd](http://www.headfirstlabs.com/books/hfsd "Book site").
 
 **k19** resolução das apostilas livres.
 
