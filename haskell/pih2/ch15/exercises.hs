@@ -45,3 +45,10 @@ take' n (Node l v r) = Node (take' (n-1) l) v (take' (n-1) r)
 
 replicate' :: Int -> a -> Tree a
 replicate' n = take' n . repeat'
+
+-- 15.6
+sqroot :: Double -> Double
+sqroot n = head . filter (\x -> abs (x * x - n) < delta) $ iterate next approx
+  where next a = (a + n / a) / 2
+        delta  = 0.00001
+        approx = 1.0
