@@ -185,8 +185,14 @@ choices' xs = [xs | xss <- subs xs, xs <- perms xss]
 
 -- 9.2
 isChoice :: Eq a => [a] -> [a] -> Bool
-isChoice [] ys = True
-isChoice (x:xs) ys = (elem x ys) && (isChoice xs ys)
+isChoice [] _      = True
+isChoice (x:xs) [] = False
+isChoice (x:xs) ys = elem x ys && isChoice xs (removeone x ys)
+
+removeone :: Eq a => a -> [a] -> [a]
+removeone x [] = []
+removeone x (y:ys) | x == y    = ys
+                   | otherwise = y : removeone x ys
 
 -- 9.3
 -- It would never terminate.

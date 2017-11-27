@@ -3,17 +3,20 @@ data Tree a = Leaf | Node (Tree a) a (Tree a)
   deriving Show
 
 instance Functor Tree where
+  -- fmap :: (a -> b) -> Tree a -> Tree b
   fmap f Leaf = Leaf
   fmap f (Node l x r) = Node (fmap f l) (f x) (fmap f r)
 
 -- 12.2
 -- instance Functor ((->) a) where
--- fmap :: (b -> c) -> (a -> b) -> (a -> c)
+--   -- fmap :: (b -> c) -> (a -> b) -> (a -> c)
 --   fmap = (.)
 
 -- 12.3
 -- instance Applicative ((->) a) where
+--   -- pure :: b -> (a -> b)
 --   pure = const
+--   -- (<*>) :: (a -> b -> c) -> (a -> b) -> (a -> c)
 --   g <*> h = \x -> g x (h x)
 
 -- 12.4
@@ -21,10 +24,13 @@ newtype ZipList a = Z[a]
   deriving Show
 
 instance Functor ZipList where
+  -- fmap :: (a -> b) -> ZipList a -> ZipList b
   fmap f (Z xs) = Z(fmap f xs)
 
 instance Applicative ZipList where
+  -- pure :: a -> ZipList a
   pure x = Z(repeat x)
+  -- (<*>) :: ZipList (a -> b) -> ZipList a -> ZipList b
   (Z gs) <*> (Z xs) = Z[g x | (g,x) <- zip gs xs]
 
 -- 12.5

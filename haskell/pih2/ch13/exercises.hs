@@ -122,7 +122,6 @@ symbol xs = token (string xs)
 comment :: Parser ()
 comment = do string "--"
              many (sat (/= '\n'))
-             char '\n'
              return ()
 
 -- 13.2

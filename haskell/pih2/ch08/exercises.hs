@@ -3,13 +3,15 @@ data Nat = Zero | Succ Nat
   deriving (Show, Eq)
 
 add :: Nat -> Nat -> Nat
-add Zero n = n
+add Zero n     = n
 add (Succ m) n = Succ(add m n)
 
 mult :: Nat -> Nat -> Nat
-mult Zero n = Zero
-mult m Zero = Zero
-mult m (Succ n) = if n == Zero then m else mult (add m m) n
+mult Zero n     = Zero
+mult m Zero     = Zero
+mult m (Succ n) = if n == Zero
+                  then m
+                  else mult (add m m) n
 
 -- 8.2
 data Tree a = Leaf a | Node (Tree a) a (Tree a)
@@ -18,21 +20,22 @@ t :: Tree Int
 t = Node (Node (Leaf 1) 3 (Leaf 4)) 5 (Node (Leaf 6) 7 (Leaf 9))
 
 occurs :: Ord a => a -> Tree a -> Bool
-occurs x (Leaf y) = x == y
+occurs x (Leaf y)     = x == y
 occurs x (Node l y r) = case compare x y of
-                          EQ -> True
                           LT -> occurs x l
+                          EQ -> True
                           GT -> occurs x r
 
 -- 8.3
 data Tree2 a = Leaf2 a | Node2 (Tree2 a) (Tree2 a)
 
 balanced :: Tree2 a -> Bool
-balanced (Leaf2 _) = True
+balanced (Leaf2 _)   = True
 balanced (Node2 l r) = (abs $ leafs l - leafs r) <= 1
+                       && balanced l && balanced r
 
 leafs :: Tree2 a -> Int
-leafs (Leaf2 a) = 1
+leafs (Leaf2 _)   = 1
 leafs (Node2 l r) = leafs l + leafs r
 
 -- 8.4
@@ -52,7 +55,7 @@ halve xs = (take n xs, drop n xs)
 data Expr = Val Int | Add Expr Expr
 
 folde :: (Int -> a) -> (a -> a -> a) -> Expr -> a
-folde f _ (Val a) = f $ a
+folde f _ (Val a)     = f $ a
 folde f g (Add e1 e2) = g (folde f g e1) (folde f g e2)
 
 -- 8.6
@@ -110,7 +113,7 @@ find :: Eq k => k -> Assoc k v -> v
 find k t = head [v | (k', v) <- t, k == k']
 
 rmdups :: Eq a => [a] -> [a]
-rmdups [] = []
+rmdups []     = []
 rmdups (x:xs) = x:filter (/=x) (rmdups xs)
 
 eval' :: Subst -> Prop -> Bool
@@ -145,8 +148,8 @@ isTaut p = and[eval' s p | s <- substs p]
 
 -- 8.9
 data Expr' = Val' Int | Add' Expr' Expr' | Mult' Expr' Expr'
-data Op = ADD Expr' | MULT Expr' | PLUS Int | TIMES Int
-type Cont = [Op]
+data Op    = ADD Expr' | MULT Expr' | PLUS Int | TIMES Int
+type Cont  = [Op]
 
 eval'' :: Expr' -> Cont -> Int
 eval'' (Val' n) c    = exec c n

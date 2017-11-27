@@ -6,29 +6,29 @@ hofmf f p xs = map f $ filter p xs
 
 -- 7.2
 all' :: (a -> Bool) -> [a] -> Bool
-all' p xs = and $ map p xs
+all' p = and . map p
 
 any' :: (a -> Bool) -> [a] -> Bool
-any' p xs = or $ map p xs
+any' p = or . map p
 
 takeWhile' :: (a -> Bool) -> [a] -> [a]
 takeWhile' _ [] = []
-takeWhile' p (x:xs)
-  | p x = x : takeWhile' p xs
-  | otherwise = []
+takeWhile' p (x:xs) | p x       = x : takeWhile' p xs
+                    | otherwise = []
 
 dropWhile' :: (a -> Bool) -> [a] -> [a]
 dropWhile' _ [] = []
-dropWhile' p (x:xs)
-  | p x = dropWhile' p xs
-  | otherwise = x:xs
+dropWhile' p (x:xs) | p x       = dropWhile' p xs
+                    | otherwise = x:xs
 
 -- 7.3
 map2 :: (a -> b) -> [a] -> [b]
-map2 f xs = foldr (\x acc -> f x:acc) [] xs
+map2 f = foldr (\x acc -> f x:acc) []
 
 filter2 :: (a -> Bool) -> [a] -> [a]
-filter2 p xs = foldr (\x acc -> if p x then x:acc else acc) [] xs
+filter2 p = foldr (\x acc -> if p x
+                             then x:acc
+                             else acc) []
 
 -- 7.4
 dec2int :: [Int] -> Int
@@ -45,9 +45,8 @@ uncurry' fn = \(x, y) -> fn x y
 type Bit = Int
 
 unfold :: (a -> Bool) -> (a -> b) -> (a -> a) -> a -> [b]
-unfold p h t x
-  | p x = []
-  | otherwise = h x : unfold p h t (t x)
+unfold p h t x | p x       = []
+               | otherwise = h x : unfold p h t (t x)
 
 chop8 :: [Bit] -> [[Bit]]
 chop8 = unfold (\x -> (length x) == 0) (take 8) (drop 8)
@@ -68,7 +67,9 @@ bin2int bits = sum[w*b | (w,b) <- zip weights bits]
   where weights = iterate(*2) 1
 
 parity :: [Int] -> Int
-parity xs = if (odd . length $ filter (==1) xs) then 1 else 0
+parity xs = if (odd . length $ filter (==1) xs)
+            then 1
+            else 0
 
 make8 :: [Bit] -> [Bit]
 make8 bits = take 8 (bits ++ repeat 0)
@@ -107,9 +108,8 @@ altMap f1 f2 (x:y:xs) = [f1 x, f2 y] ++ altMap f1 f2 xs
 
 -- 7.10
 luhnDouble :: Int -> Int
-luhnDouble d
-  | v > 9 = v - 9
-  | otherwise = v
+luhnDouble d | v > 9     = v - 9
+             | otherwise = v
   where v = 2 * d
 
 luhn :: [Int] -> Bool

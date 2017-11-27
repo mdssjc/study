@@ -14,7 +14,7 @@ product' (x:xs) = x * product' xs
 
 -- 1.4
 qsortReverse :: Ord a => [a] -> [a]
-qsortReverse [] = []
+qsortReverse []     = []
 qsortReverse (x:xs) = qsortReverse larger ++ [x] ++ qsortReverse smaller
   where
     smaller = [a | a <- xs, a <= x]
@@ -22,7 +22,7 @@ qsortReverse (x:xs) = qsortReverse larger ++ [x] ++ qsortReverse smaller
 
 -- 1.5
 qsortBugged :: Ord a => [a] -> [a]
-qsortBugged [] = []
+qsortBugged []     = []
 qsortBugged (x:xs) = qsortBugged smaller ++ [x] ++ qsortBugged larger
   where
     smaller = [a | a <- xs, a < x]

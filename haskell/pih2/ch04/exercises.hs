@@ -15,25 +15,25 @@ safetail :: [a] -> [a]
 --               then []
 --               else tail xs
 -- safetail xs                     -- b. guarded expression
---   | null xs = []
+--   | null xs   = []
 --   | otherwise = tail xs
-safetail [] = []                   -- c. pattern matching
-safetail xs = tail xs
+safetail []     = []               -- c. pattern matching
+safetail (_:xs) = xs
 
 -- 4.4
 -- (||) :: Bool -> Bool -> Bool
--- True || True = True
--- True || False = True
--- False || True = True
+-- True  || True  = True
+-- True  || False = True
+-- False || True  = True
 -- False || False = False
 
 -- False || False = False
--- _ || _ = True
+-- _     || _     = True
 
--- True || _ = True
+-- True  || _ = True
 -- False || b = b
 
--- b || c | b == c = b
+-- b || c | b == c    = b
 --        | otherwise = True
 
 -- 4.5
@@ -57,7 +57,7 @@ mult = \x -> \y -> \z -> x * y * z
 -- 4.8
 luhnDouble :: Int -> Int
 luhnDouble d
-  | v > 9 = v - 9
+  | v > 9     = v - 9
   | otherwise = v
   where v = 2 * d
 
