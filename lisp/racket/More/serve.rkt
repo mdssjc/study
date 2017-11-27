@@ -1,5 +1,7 @@
 #lang racket
 
+(require xml net/url)
+
 
 ;; ==========
 ;; Functions:
@@ -33,12 +35,43 @@
 (define stop (serve 8081))
 
 (define (handle in out)
-  ; Discard the request header (up to blank line):
-  (regexp-match #rx"(\r\n|^)\r\n" in)
-  ; Send reply:
-  (display "HTTP/1.0 200 Okay\r\n" out)
-  (display "Server: k\r\nContent-Type: text/html\r\n\r\n" out)
-  (display "<html><body>Hello, world!</body></html>" out))
+  (define req
+    ; Match the first line to extract the request:
+    (regexp-match #rx"^GET (.+) HTTP/[0-9]+\\.[0-9]+"
+                  (read-line in)))
+  (when req
+    ; Discard the rest of the header (up to blank line):
+    (regexp-match #rx"(\r\n|^)\r\n" in)
+    ; Dispatch:
+    (let ([xexpr (dispatch (list-ref req 1))])
+      ; Send reply:
+      (display "HTTP/1.0 200 Okay\r\n" out)
+      (display "Server: k\r\nContent-Type: text/html\r\n\r\n" out)
+      (display (xexpr->string xexpr) out))))
+
+(define (dispatch str-path)
+  ; Parse the request as a URL:
+  (define url (string->url str-path))
+  ; Extract the path part:
+  (define path (map path/param-path (url-path url)))
+  ; Find a handler based on the path's first element:
+  (define h (hash-ref dispatch-table (car path) #f))
+  (if h
+      ; Call a handler:
+      (h (url-query url))
+      ; No handler found:
+      `(html (head (title "Error"))
+             (body
+              (font ((color "red"))
+                    "Unknown page: "
+                    ,str-path)))))
+
+(define dispatch-table (make-hash))
+
+
+(hash-set! dispatch-table "hello"
+           (lambda (query)
+             `(html (body "Hello, World!"))))
 
 ;(enter! "serve.rkt")
 (go)
