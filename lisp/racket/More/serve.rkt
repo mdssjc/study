@@ -1,12 +1,12 @@
 #lang racket
 
-(require xml net/url)
+(require xml
+         net/url)
 
 
 ;; ==========
 ;; Functions:
-(define (go)
-  'yep-it-works)
+(define (go) 'yep-it-works)
 
 (define (serve port-no)
   (define main-cust (make-custodian))
@@ -68,10 +68,26 @@
 
 (define dispatch-table (make-hash))
 
+(define (build-request-page label next-url hidden)
+  `(html
+    (head (title "Enter a Number to Add"))
+    (body ([bgcolor "white"])
+          (form ([action ,next-url] [method "get"])
+                ,label
+                (input ([type "text"]   [name "number"] [value ""]))
+                (input ([type "hidden"] [name "hidden"] [value ,hidden]))
+                (input ([type "submit"] [name "enter"]  [value "Enter"]))))))
 
-(hash-set! dispatch-table "hello"
-           (lambda (query)
-             `(html (body "Hello, World!"))))
+(define (many query) (build-request-page "Number of greetings:" "/reply" ""))
+
+(define (reply query)
+  (define n (string->number (cdr (assq 'number query))))
+  `(html (body ,@(for/list ([i (in-range n)]) " hello"))))
+
+
+(hash-set! dispatch-table "hello" (lambda (query) `(html (body "Hello, World!"))))
+(hash-set! dispatch-table "many"  many)
+(hash-set! dispatch-table "reply" reply)
 
 ;(enter! "serve.rkt")
 (go)
