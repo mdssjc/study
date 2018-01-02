@@ -4,3 +4,8 @@
 /algorithms.iml
 /codes.csv
 /src/main/resources/
+/.gradle
+/gradle
+/out
+/gradlew
+/gradlew.bat
