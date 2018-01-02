@@ -4,3 +4,8 @@
 /.project
 /design-patterns.iml
 /.idea/
+/.gradle
+/gradle
+/out
+/gradlew
+/gradlew.bat
