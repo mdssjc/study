@@ -13,7 +13,7 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 @TestDrive("Bob")
 public class UseArgument {
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     Executor.execute(UseArgument.class, args);
 
     System.out.print("Hi, ");

@@ -12,5 +12,6 @@ public class Simulator {
 
   public static void main(final String[] args) {
     Executor.execute(HelloWorld.class, "Program 1.1.1 Hello, World");
+    Executor.execute(UseArgument.class, "Program 1.1.2 Using a command-line argument");
   }
 }
