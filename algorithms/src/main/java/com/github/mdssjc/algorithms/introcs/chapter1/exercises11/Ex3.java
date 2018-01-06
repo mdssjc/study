@@ -15,9 +15,9 @@ public class Ex3 {
   public static void main(final String[] args) {
     Executor.execute(Ex3.class, args);
 
-    System.out.println("a. error: <identifier> expected");
-    System.out.println("b. error: <identifier> expected; error: invalid method declaration; return type required");
-    System.out.println("c. error: cannot find symbol");
-    System.out.println("d. compile");
+    System.out.println("a. Error: <identifier> expected");
+    System.out.println("b. Error: <identifier> expected; Error: invalid method declaration; return type required");
+    System.out.println("c. Error: cannot find symbol");
+    System.out.println("d. Compile; Print Hello, World");
   }
 }
