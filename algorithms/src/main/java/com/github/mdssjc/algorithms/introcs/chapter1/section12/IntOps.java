@@ -1,6 +1,5 @@
 package com.github.mdssjc.algorithms.introcs.chapter1.section12;
 
-
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 
