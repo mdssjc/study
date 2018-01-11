@@ -6,7 +6,7 @@ package com.github.mdssjc.design_patterns.abstract_factory;
  * @author Marcelo dos Santos
  *
  */
-public class ConcreteFactory1 extends AbstractFactory {
+public class ConcreteFactory1 implements AbstractFactory {
 
   @Override
   public AbstractProductA createProdutA() {

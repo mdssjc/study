@@ -6,9 +6,9 @@ package com.github.mdssjc.design_patterns.abstract_factory;
  * @author Marcelo dos Santos
  *
  */
-public abstract class AbstractFactory {
+public interface AbstractFactory {
 
-  public abstract AbstractProductA createProdutA();
+  AbstractProductA createProdutA();
 
-  public abstract AbstractProductB createProdutB();
+  AbstractProductB createProdutB();
 }
