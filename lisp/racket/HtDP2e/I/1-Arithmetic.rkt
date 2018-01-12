@@ -4,6 +4,7 @@
 ;; I - Fixed-Size Data
 ;; 1 - Arithmetic
 
+
 ;; 1.1 - The Arithmetic of Numbers
 
 ;; Exercise 1
@@ -16,3 +17,17 @@
 
 (check-expect (distance x y)   5)
 (check-expect (distance 12 5) 13)
+
+
+
+;; 1.2 - The Arithmetic of Strings
+
+;; Exercise 2
+
+(define prefix "hello")
+(define suffix "world")
+
+(define (glue prefix suffix)
+  (string-append prefix "_" suffix))
+
+(check-expect (glue prefix suffix) "hello_world")
