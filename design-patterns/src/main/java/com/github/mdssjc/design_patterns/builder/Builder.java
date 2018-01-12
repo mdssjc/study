@@ -6,13 +6,17 @@ package com.github.mdssjc.design_patterns.builder;
  * @author Marcelo dos Santos
  *
  */
-public interface Builder {
+public abstract class Builder {
 
-  void buildPartA();
+  protected String message = "";
 
-  void buildPartB();
+  public abstract void buildPartA();
 
-  void buildPartC();
+  public abstract void buildPartB();
 
-  Product getResult();
+  public abstract void buildPartC();
+
+  public Product getResult() {
+    return new Product(this.message);
+  }
 }

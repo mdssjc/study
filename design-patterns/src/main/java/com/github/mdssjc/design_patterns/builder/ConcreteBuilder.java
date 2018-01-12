@@ -6,9 +6,11 @@ package com.github.mdssjc.design_patterns.builder;
  * @author Marcelo dos Santos
  *
  */
-public class ConcreteBuilder implements Builder {
+public class ConcreteBuilder extends Builder {
 
-  private String message = "";
+  public ConcreteBuilder() {
+    this.message = "Partes: ";
+  }
 
   @Override
   public void buildPartA() {
@@ -23,10 +25,5 @@ public class ConcreteBuilder implements Builder {
   @Override
   public void buildPartC() {
     this.message += " C";
-  }
-
-  @Override
-  public Product getResult() {
-    return new Product("Parts: " + this.message);
   }
 }
