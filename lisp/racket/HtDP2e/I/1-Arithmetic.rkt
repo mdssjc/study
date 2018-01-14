@@ -5,6 +5,8 @@
 ;; I - Fixed-Size Data
 ;; 1 - Arithmetic
 
+(require 2htdp/image)
+
 
 ;; 1.1 - The Arithmetic of Numbers
 
@@ -57,3 +59,26 @@
 (check-expect (delete str i) "helloorld")
 (check-expect (delete str 0) "elloworld")
 ;;(check-expect (delete str 10) "helloorld")
+
+
+
+;; 1.4 - The Arithmetic of Images
+
+;; Exercise 5
+;; Tree
+(define (my-scale value)
+  (* value 1))
+(define leaf (circle (my-scale 10) "solid" "green"))
+(define trunk (rectangle (my-scale 10) (my-scale 20) "solid" "brown"))
+(define sheets (overlay/offset leaf 0 (my-scale 5) (overlay/offset leaf (my-scale 10) 0 leaf)))
+
+(define tree (overlay/offset sheets 0 (my-scale 15) trunk))
+
+;; Print
+tree
+
+;; Exercise 6
+(define cat (circle 11 "solid" "brown"))
+(define pixels (* (image-width cat) (image-height cat)))
+
+(check-expect 484 pixels)
