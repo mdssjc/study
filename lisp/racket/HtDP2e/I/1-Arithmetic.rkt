@@ -83,7 +83,7 @@ tree
 (define cat (circle 11 "solid" "brown"))
 (define pixels (* (image-width cat) (image-height cat)))
 
-(check-expect (* (* 11 2) (* 11 2)) pixels)
+(check-expect pixels (* (* 11 2) (* 11 2)))
 
 
 
