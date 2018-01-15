@@ -65,6 +65,7 @@
 ;; 1.4 - The Arithmetic of Images
 
 ;; Exercise 5
+
 ;; Tree
 (define (my-scale value)
   (* value 1))
@@ -78,7 +79,19 @@
 tree
 
 ;; Exercise 6
+
 (define cat (circle 11 "solid" "brown"))
 (define pixels (* (image-width cat) (image-height cat)))
 
 (check-expect (* (* 11 2) (* 11 2)) pixels)
+
+
+
+;; 1.5 - The Arithmetic of Booleans
+
+;; Exercise 7
+
+(define sunny  #true)
+(define friday #false)
+
+(check-expect (or (not sunny) friday) #false)
