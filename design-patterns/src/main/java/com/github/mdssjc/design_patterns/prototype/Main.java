@@ -8,6 +8,8 @@ package com.github.mdssjc.design_patterns.prototype;
  * <p>
  * O padrão Prototype especifica os tipos de objetos a serem criados usando uma
  * instância-protótipo e cria novos objetos pela cópia desse protótipo.
+ * <p>
+ * Cria através de delegação.
  *
  * @author Marcelo dos Santos
  *

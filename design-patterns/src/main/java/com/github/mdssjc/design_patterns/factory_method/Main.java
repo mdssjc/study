@@ -9,6 +9,8 @@ package com.github.mdssjc.design_patterns.factory_method;
  * O padrão Factory Method define uma interface para criar um objeto, mas deixa
  * as subclasses decidirem que classe instanciar. O Factory Method permite adiar
  * a instanciação para subclasse.
+ * <p>
+ * Cria através de herança.
  *
  * @author Marcelo dos Santos
  *
