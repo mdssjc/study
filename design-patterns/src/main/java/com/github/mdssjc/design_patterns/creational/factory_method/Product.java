@@ -1,4 +1,4 @@
-package com.github.mdssjc.design_patterns.factory_method;
+package com.github.mdssjc.design_patterns.creational.factory_method;
 
 /**
  * Product.

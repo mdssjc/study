@@ -1,4 +1,4 @@
-package com.github.mdssjc.design_patterns.abstract_factory;
+package com.github.mdssjc.design_patterns.creational.abstract_factory;
 
 /**
  * Abstract Product.

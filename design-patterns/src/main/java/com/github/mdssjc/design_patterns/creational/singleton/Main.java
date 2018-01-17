@@ -1,4 +1,4 @@
-package com.github.mdssjc.design_patterns.singleton;
+package com.github.mdssjc.design_patterns.creational.singleton;
 
 /**
  * Padrão de projeto: Singleton.

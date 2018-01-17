@@ -1,4 +1,4 @@
-package com.github.mdssjc.design_patterns.prototype;
+package com.github.mdssjc.design_patterns.creational.prototype;
 
 /**
  * Concrete Prototype.

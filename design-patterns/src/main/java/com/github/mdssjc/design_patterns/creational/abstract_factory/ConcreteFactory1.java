@@ -1,4 +1,4 @@
-package com.github.mdssjc.design_patterns.abstract_factory;
+package com.github.mdssjc.design_patterns.creational.abstract_factory;
 
 /**
  * Concrete Factory.
@@ -6,15 +6,15 @@ package com.github.mdssjc.design_patterns.abstract_factory;
  * @author Marcelo dos Santos
  *
  */
-public class ConcreteFactory2 implements AbstractFactory {
+public class ConcreteFactory1 implements AbstractFactory {
 
   @Override
   public AbstractProductA createProdutA() {
-    return new ProductA2();
+    return new ProductA1();
   }
 
   @Override
   public AbstractProductB createProdutB() {
-    return new ProductB2();
+    return new ProductB1();
   }
 }

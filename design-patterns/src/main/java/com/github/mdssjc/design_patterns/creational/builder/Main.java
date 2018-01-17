@@ -1,4 +1,4 @@
-package com.github.mdssjc.design_patterns.builder;
+package com.github.mdssjc.design_patterns.creational.builder;
 
 /**
  * Padrão de projeto: Builder.
