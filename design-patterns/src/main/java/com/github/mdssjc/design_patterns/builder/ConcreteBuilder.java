@@ -9,7 +9,7 @@ package com.github.mdssjc.design_patterns.builder;
 public class ConcreteBuilder extends Builder {
 
   public ConcreteBuilder() {
-    this.message = "Partes: ";
+    this.message = "Parts:";
   }
 
   @Override

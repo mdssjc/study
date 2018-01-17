@@ -10,6 +10,6 @@ public class ProductB1 implements AbstractProductB {
 
   @Override
   public void message() {
-    System.out.println("Produto B1");
+    System.out.println("Concrete Product B1");
   }
 }
