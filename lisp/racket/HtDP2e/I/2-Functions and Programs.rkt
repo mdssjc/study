@@ -29,3 +29,86 @@
 (check-expect (cvolume  3) (* 3 3 3))
 (check-expect (csurface 3) (* 6 3 3))
 
+;; Exercise 13
+
+(define (string-first s)
+  (substring s 0 1))
+
+(check-expect (string-first "abc") "a")
+
+;; Exercise 14
+
+(define (string-last s)
+  (substring s (- (string-length s) 1)))
+
+(check-expect (string-last "abc") "c")
+
+;; Exercise 15
+
+(define sunny  #false)
+(define friday #true)
+
+(define (==> b1 b2)
+  (or (not b1) b2))
+
+(check-expect (==> #false #false) #true)
+(check-expect (==> #false #true)  #true)
+(check-expect (==> #true  #false) #false)
+(check-expect (==> #true  #true)  #true)
+(check-expect (==> sunny friday)  #true)
+
+;; Exercise 16
+
+(define r (rectangle 10 10 "solid" "black"))
+
+(define (image-area img)
+  (* (image-width img) (image-height img)))
+
+(check-expect (image-area r) 100)
+
+;; Exercise 17
+
+(define rh (rectangle 10 20 "solid" "black"))
+(define rw (rectangle 20 10 "solid" "black"))
+(define rs (rectangle 20 20 "solid" "black"))
+
+(define (image-classify img)
+  (cond [(> (image-height img) (image-width  img)) "tall"]
+        [(> (image-width  img) (image-height img)) "wide"]
+        [else "square"]))
+
+(check-expect (image-classify rh) "tall")
+(check-expect (image-classify rw) "wide")
+(check-expect (image-classify rs) "square")
+
+;; Exercise 18
+
+(define prefix "hello")
+(define suffix "world")
+
+(define (string-join s1 s2)
+  (string-append s1 "_" s2))
+
+(check-expect (string-join prefix suffix) "hello_world")
+
+;; Exercise 19
+
+(define str "helloworld")
+(define i 5)
+
+(define (string-insert str i)
+  (string-append
+   (substring str 0 i)
+   "_"
+   (substring str i)))
+
+(check-expect (string-insert str i) "hello_world")
+
+;; Exercise 20
+
+(define (string-delete str i)
+  (string-append
+   (substring str 0 i)
+   (substring str (add1 i))))
+
+(check-expect (string-delete str i) "helloorld")
