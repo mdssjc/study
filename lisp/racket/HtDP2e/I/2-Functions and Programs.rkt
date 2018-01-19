@@ -112,3 +112,40 @@
    (substring str (add1 i))))
 
 (check-expect (string-delete str i) "helloorld")
+
+
+
+;; 2.2 - Computing
+
+;; Exercise 21
+
+(define (ff a)
+  (* 10 a))
+
+(check-expect (ff (ff 1))       100)
+(check-expect (+ (ff 1) (ff 1))  20)
+
+;; Exercise 22
+
+(define (distance-to-origin x y)
+  (sqrt (+ (sqr x) (sqr y))))
+
+(check-expect (distance-to-origin 3 4) (sqrt (+ (* 3 3) (* 4 4))))
+
+;; Exercise 23
+
+(check-expect (string-first "hello world") "h")
+
+;; Exercise 24
+
+(check-expect (==> #true #false) #false)
+
+;; Exercise 25
+
+(check-expect (image-classify rh) "tall")
+(check-expect (image-classify rw) "wide")
+(check-expect (image-classify rs) "square")
+
+;; Exercise 26
+
+(check-expect (string-insert "helloworld" 6) "helloorld")
