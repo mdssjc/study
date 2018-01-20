@@ -149,3 +149,53 @@
 ;; Exercise 26
 
 (check-expect (string-insert "helloworld" 6) "helloorld")
+
+
+
+;; 2.3 - Composing Functions
+
+;; Exercise 27
+
+(define PEOPLE          120)
+(define TICKET-PRICE    5.0)
+(define AVERAGE-CHANGES 15)
+(define PERCENT         0.1)
+(define FIXED-COST      180)
+(define VARIABLE-COST   0.04)
+
+(define (attendees ticket-price)
+  (- PEOPLE (* (- ticket-price TICKET-PRICE) (/ AVERAGE-CHANGES PERCENT))))
+
+(define (revenue ticket-price)
+  (* ticket-price (attendees ticket-price)))
+
+(define (cost ticket-price)
+  (+ FIXED-COST (* VARIABLE-COST (attendees ticket-price))))
+
+(define (profit ticket-price)
+  (- (revenue ticket-price)
+     (cost ticket-price)))
+
+;; Exercise 28
+
+(profit 1)
+(profit 2)
+(profit 3) ; <--
+(profit 4)
+(profit 5)
+
+;; Exercise 29
+
+(define FIXED-COST-2    0)
+(define VARIABLE-COST-2 1.5)
+
+(define (cost-v2 ticket-price)
+  (+ FIXED-COST-2 (* VARIABLE-COST-2 (attendees ticket-price))))
+
+(define (profit-v2 ticket-price)
+  (- (revenue ticket-price)
+     (cost-v2 ticket-price)))
+
+(profit-v2 3)
+(profit-v2 4) ; <--
+(profit-v2 5)
