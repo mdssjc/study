@@ -25,7 +25,7 @@ public class Ex2 {
       System.out.println("Division by zero");
     } else {
       final double discriminant = b * b - 4.0 * a * c;
-      if (discriminant < 0) {
+      if (discriminant < 0.0) {
         System.out.println("Neither of the solutions are real numbers.");
       } else {
         final double d = Math.sqrt(discriminant);
