@@ -4,7 +4,7 @@ package com.github.mdssjc.design_patterns.creational.bridge;
  * Padrão de projeto: Bridge.
  * <p>
  * Design Pattern
- * Object Structural / Interfaces - Builder (Handle, Body)
+ * Object Structural / Interfaces - Builder (Handle/Body)
  * <p>
  * O padrão Bridge desacopla uma abstração da sua implementação, de modo que as
  * duas possam variar independentemente.
