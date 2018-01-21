@@ -199,3 +199,30 @@
 (profit-v2 3)
 (profit-v2 4) ; <--
 (profit-v2 5)
+
+
+
+;; 2.4 - Global Constants
+
+;; Exercise 30
+
+(define ATTENDEES-PRICE (/ AVERAGE-CHANGES PERCENT))
+
+(define (attendees-v3 ticket-price)
+  (- PEOPLE (* (- ticket-price TICKET-PRICE) ATTENDEES-PRICE)))
+
+(define (revenue-v3 ticket-price)
+  (* ticket-price (attendees-v3 ticket-price)))
+
+(define (cost-v3 ticket-price)
+  (+ FIXED-COST (* VARIABLE-COST (attendees-v3 ticket-price))))
+
+(define (profit-v3 ticket-price)
+  (- (revenue-v3 ticket-price)
+     (cost-v3 ticket-price)))
+
+(profit-v3 1)
+(profit-v3 2)
+(profit-v3 3)
+(profit-v3 4)
+(profit-v3 5)
