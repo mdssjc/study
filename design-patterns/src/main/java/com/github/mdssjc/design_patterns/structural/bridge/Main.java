@@ -1,4 +1,4 @@
-package com.github.mdssjc.design_patterns.creational.bridge;
+package com.github.mdssjc.design_patterns.structural.bridge;
 
 /**
  * Padrão de projeto: Bridge.
