@@ -8,9 +8,14 @@ package com.github.mdssjc.design_patterns.structural.decorator;
  */
 public abstract class Decorator implements Component {
 
-  protected Component component;
+  private final Component component;
 
   protected Decorator(final Component component) {
     this.component = component;
+  }
+
+  @Override
+  public String operation() {
+    return this.component.operation();
   }
 }

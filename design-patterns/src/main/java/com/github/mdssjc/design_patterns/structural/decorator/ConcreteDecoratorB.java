@@ -14,6 +14,6 @@ public class ConcreteDecoratorB extends Decorator {
 
   @Override
   public String operation() {
-    return this.component.operation() + " Concrete Decorator B";
+    return super.operation() + " Concrete Decorator B";
   }
 }
