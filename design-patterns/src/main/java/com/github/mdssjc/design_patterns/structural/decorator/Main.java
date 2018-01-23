@@ -17,8 +17,8 @@ public class Main {
 
   public static void main(final String[] args) {
     final Component concreteComponent = new ConcreteComponent();
-    final Component concreteDecoratorA = new ConcreteDecoratorA(concreteComponent);
-    final Component concreteDecoratorB = new ConcreteDecoratorB(concreteDecoratorA);
+    final Component concreteDecoratorA = new ConcreteDecoratorA(concreteComponent, " : ");
+    final Component concreteDecoratorB = new ConcreteDecoratorB(concreteDecoratorA, 5);
 
     final String message = concreteDecoratorB.operation();
 

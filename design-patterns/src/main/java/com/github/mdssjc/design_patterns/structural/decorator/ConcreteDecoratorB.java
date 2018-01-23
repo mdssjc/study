@@ -8,12 +8,20 @@ package com.github.mdssjc.design_patterns.structural.decorator;
  */
 public class ConcreteDecoratorB extends Decorator {
 
-  public ConcreteDecoratorB(final Component component) {
+  private final String separator;
+
+  public ConcreteDecoratorB(final Component component, final int spaces) {
     super(component);
+
+    final StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < spaces; i++) {
+      sb.append(" ");
+    }
+    this.separator = sb.toString();
   }
 
   @Override
   public String operation() {
-    return super.operation() + " Concrete Decorator B";
+    return super.operation() + this.separator + "Concrete Decorator B";
   }
 }
