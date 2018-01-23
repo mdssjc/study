@@ -6,6 +6,7 @@
 ;; 2 - Functions and Programs
 
 (require 2htdp/image)
+(require 2htdp/batch-io)
 
 
 ;; 2.1 - Functions
@@ -226,3 +227,60 @@
 (profit-v3 3)
 (profit-v3 4)
 (profit-v3 5)
+
+
+
+;; 2.5 - Programs
+
+;; Exercise 31
+
+(define (letter fst lst signature-name)
+  (string-append
+   (opening fst)
+   "\n\n"
+   (body fst lst)
+   "\n\n"
+   (closing signature-name)))
+
+(define (opening fst)
+  (string-append "Dear " fst ","))
+
+(define (body fst lst)
+  (string-append
+   "We have discovered that all people with the" "\n"
+   "last name " lst " have won our lottery. So, " "\n"
+   fst ", " "hurry and pick up your prize."))
+
+(define (closing signature-name)
+  (string-append
+   "Sincerely,"
+   "\n\n"
+   signature-name
+   "\n"))
+
+(define (main in-fst in-lst in-signature out)
+  (write-file out
+              (letter (read-file in-fst)
+                      (read-file in-lst)
+                      (read-file in-signature))))
+
+(write-file "f1.dat" "Matthew")
+(write-file "f2.dat" "Fisler")
+(write-file "f3.dat" "Felleisen")
+
+(main "f1.dat" "f2.dat" "f3.dat" "out.dat")
+
+(write-file 'stdout (read-file "out.dat"))
+
+;; Exercise 32
+
+;; 1 . Network
+;; 2 . Keyboard
+;; 3 . Mouse
+;; 4 . Touch
+;; 5 . Audio
+;; 6 . USB
+;; 7 . Bluetooth
+;; 8 . Infra Red
+;; 9 . NFC
+;; 10. Alarm
