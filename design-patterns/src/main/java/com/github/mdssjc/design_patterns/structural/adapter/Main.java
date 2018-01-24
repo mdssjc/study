@@ -1,10 +1,10 @@
-package com.github.mdssjc.design_patterns.creational.adapter;
+package com.github.mdssjc.design_patterns.structural.adapter;
 
 /**
  * Padrão de projeto: Adapter.
  * <p>
  * Design Pattern
- * Class, Object Structural / Interfaces - Builder (Wrapper)
+ * Class, Object Structural / Interfaces - Adapter (Wrapper)
  * <p>
  * O padrão Adapter converte a interface de uma classe em outra interface,
  * esperada pelos clientes. O Adapter permite que classes com interfaces

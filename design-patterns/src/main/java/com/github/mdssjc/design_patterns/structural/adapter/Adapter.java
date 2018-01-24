@@ -1,4 +1,4 @@
-package com.github.mdssjc.design_patterns.creational.adapter;
+package com.github.mdssjc.design_patterns.structural.adapter;
 
 /**
  * Adapter.
