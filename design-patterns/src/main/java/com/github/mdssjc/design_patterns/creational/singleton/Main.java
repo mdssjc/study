@@ -4,7 +4,7 @@ package com.github.mdssjc.design_patterns.creational.singleton;
  * Padrão de projeto: Singleton.
  * <p>
  * Design Pattern
- * Object Creational / Construction - Singleton
+ * Object Creational / Responsibility - Singleton
  * <p>
  * O padrão Singleton garante que uma classe tenha somente uma instância e
  * forneça um ponto global de acesso para a mesma.
