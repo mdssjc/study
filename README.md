@@ -33,7 +33,8 @@ Repositório com materiais de estudos sobre Sistemas da Computação para Arquit
 
 **oracle**:
 
-*   **lambdas-streams**: material de estudo do curso _JDK 8 Massive Open and Online Course: Lambdas and Streams Introduction_.
-*   **java-puzzle-ball**: material de estudo do curso _Oracle Developer MOOC: Java Coding & Concepts with a Game_.
 *   **java-microservices**: material de estudo do curso _Oracle MOOC: Java Microservices_.
+*   **java-puzzle-ball**: material de estudo do curso _Oracle Developer MOOC: Java Coding & Concepts with a Game_.
+*   **java-virtual-machine-troubleshooting**: material de estudo do curso _Oracle MOOC: Java Virtual Machine Troubleshooting_.
+*   **lambdas-streams**: material de estudo do curso _JDK 8 Massive Open and Online Course: Lambdas and Streams Introduction_.
 *   **jni**: interface nativa.
