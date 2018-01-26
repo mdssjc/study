@@ -2,7 +2,7 @@
 
 Repositório com materiais de estudos sobre Sistemas da Computação para Arquitetura de _Software_ e Testes, Algoritmos e Mineração de Dados.
 
-**algorithms**: estudo do livro _Algorithms, 4th Edition_ dos autores _Robert Sedgewick_ e _Kevin Wayne_ - [http://algs4.cs.princeton.edu/](http://algs4.cs.princeton.edu/home/ "Book site").
+**algorithms**: estudo dos livros _Algorithms, 4th Edition_ e _Computer Science: An Interdisciplinary Approach_ dos autores _Robert Sedgewick_ e _Kevin Wayne_ - [http://algs4.cs.princeton.edu/](http://algs4.cs.princeton.edu/home/ "Book site").
 
 **cs-app**: estudo do livro _Computer Systems: A Programmer's Perspective, 3rd Edition_ dos autores _Randal E. Bryant_ e _David R. O'Hallaron_ - [http://csapp.cs.cmu.edu/3e/](http://csapp.cs.cmu.edu/3e/home.html "Book site").
 
