@@ -4,9 +4,9 @@ Repositório com materiais de estudos sobre Sistemas da Computação para Arquit
 
 **algorithms**: estudo dos livros _Algorithms, 4th Edition_ e _Computer Science: An Interdisciplinary Approach_ dos autores _Robert Sedgewick_ e _Kevin Wayne_ - [http://algs4.cs.princeton.edu/](http://algs4.cs.princeton.edu/home/ "Book site").
 
-**cs-app**: estudo do livro _Computer Systems: A Programmer's Perspective, 3rd Edition_ dos autores _Randal E. Bryant_ e _David R. O'Hallaron_ - [http://csapp.cs.cmu.edu/3e/](http://csapp.cs.cmu.edu/3e/home.html "Book site").
-
 **design-patterns**: estudo sobre os _Design Patterns_ do GoF, _Java_ e outros. Referência: _Design Patterns: Elements of Reusable Object-Oriented Software_ dos autores _Erich Gamma_, _Richard Helm_, _Ralph Johnson_ e _John Vlissides_.
+
+**cs-app**: estudo do livro _Computer Systems: A Programmer's Perspective, 3rd Edition_ dos autores _Randal E. Bryant_ e _David R. O'Hallaron_ - [http://csapp.cs.cmu.edu/3e/](http://csapp.cs.cmu.edu/3e/home.html "Book site").
 
 **caelum**: resolução das apostilas livres.
 
