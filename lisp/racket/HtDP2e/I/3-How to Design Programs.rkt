@@ -15,6 +15,10 @@
 
 
 
+;; 3.1 - Designing Functions
+
+
+
 ;; 3.2 - Finger Exercises: Functions
 
 ;; Exercise 34
@@ -66,3 +70,14 @@
 (define (string-remove-last s)
   (substring s 0 (sub1 (string-length s))))
 
+
+
+;; 3.3 - Domain Knowledge
+
+
+
+;; 3.4 - From Functions to Programs
+
+
+
+;; 3.5 - On Testing
