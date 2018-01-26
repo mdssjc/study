@@ -40,7 +40,7 @@
 ;; Exercise 14
 
 (define (string-last s)
-  (substring s (- (string-length s) 1)))
+  (substring s (sub1 (string-length s))))
 
 (check-expect (string-last "abc") "c")
 
