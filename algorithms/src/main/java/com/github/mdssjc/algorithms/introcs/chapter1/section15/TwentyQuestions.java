@@ -2,8 +2,8 @@ package com.github.mdssjc.algorithms.introcs.chapter1.section15;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.introcs.StdIn;
+import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 1.5.2 Interactive user input.
