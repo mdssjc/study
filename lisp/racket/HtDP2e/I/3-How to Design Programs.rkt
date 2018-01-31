@@ -6,6 +6,7 @@
 ;; 3 - How to Design Programs
 
 (require 2htdp/image)
+(require 2htdp/universe)
 (require 2htdp/batch-io)
 
 
@@ -87,6 +88,9 @@
 ;; 3.6 - Designing World Programs
 
 ;; Exercise 39
+;; Exercise 40
+;; Exercise 41
+;; Exercise 42
 
 (define WHEEL-RADIUS 5)
 (define WHEEL-DISTANCE (* WHEEL-RADIUS 2))
@@ -101,10 +105,35 @@
 
 (define CAR (overlay/offset BOTH-WHEELS 0 (* (/ (image-height CHASSIS) 2) -1) CHASSIS))
 
-;; Exercise 40
+(define TREE (underlay/xy (circle 10 "solid" "green")
+                          9 15
+                          (rectangle 2 20 "solid" "brown")))
+
+(define WIDTH  (* (image-width CAR) 10))
+(define HEIGHT (image-height CAR))
+
+(define BACKGROUND (overlay/align
+                    "right" "bottom"
+                    TREE
+                    (rectangle WIDTH HEIGHT "solid" "white")))
+(define Y-CAR (/ HEIGHT 2))
+
+
+; A WorldState is a Number.
+; interpretation the number of pixels between
+; the left border of the scene and the right-most edge of the car
+
 
 ; WorldState -> WorldState
-; moves the car by 3 pixels for every clock  tick
+; launches the program from some initial state
+(define (main ws)
+  (big-bang ws
+            [on-tick   tock]
+            [to-draw   render]
+            [stop-when stop?]))
+
+; WorldState -> WorldState
+; moves the car by 3 pixels for every clock tick
 ; examples:
 ;   given: 20, expect 23
 ;   given: 78, expect 81
@@ -113,3 +142,22 @@
 
 (define (tock ws)
   (+ ws 3))
+
+; WorldState -> Image
+; places the car into the BACKGROUND scene,
+; according to the given world state
+(check-expect (render  50) (place-image CAR (+  50 (image-width CAR)) Y-CAR BACKGROUND))
+(check-expect (render 100) (place-image CAR (+ 100 (image-width CAR)) Y-CAR BACKGROUND))
+(check-expect (render 150) (place-image CAR (+ 150 (image-width CAR)) Y-CAR BACKGROUND))
+(check-expect (render 200) (place-image CAR (+ 200 (image-width CAR)) Y-CAR BACKGROUND))
+
+(define (render ws)
+  (place-image CAR (+ ws (image-width CAR)) Y-CAR BACKGROUND))
+
+; WorldState -> Boolean
+; stops the animation when the car has disappeared on the right side
+(check-expect (stop? WIDTH)        #false)
+(check-expect (stop? (add1 WIDTH)) #true)
+
+(define (stop? ws)
+  (> ws WIDTH))
