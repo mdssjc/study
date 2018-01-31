@@ -21,6 +21,7 @@ public class PlotFilter {
     final double y0 = StdIn.readDouble();
     final double x1 = StdIn.readDouble();
     final double y1 = StdIn.readDouble();
+
     StdDraw.setXscale(x0, x1);
     StdDraw.setYscale(y0, y1);
 
