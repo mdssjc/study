@@ -161,3 +161,82 @@
 
 (define (stop? ws)
   (> ws WIDTH))
+
+;; Exercise 43
+
+; An AnimationState is a Number
+; interpretation the number of clock ticks
+; since the animation started
+(define AS1 10)
+
+
+; AnimationState -> AnimationState
+; launches the program from some initial state
+(define (main-v2 as)
+  (big-bang as
+            [on-tick   tock-v2]
+            [to-draw   render-v2]
+            [stop-when stop-v2?]))
+
+; AnimationState -> AnimationState
+; moves the car by 3 pixels for every clock tick
+(check-expect (tock-v2 20) 23)
+(check-expect (tock-v2 78) 81)
+
+(define (tock-v2 as)
+  (+ as 3))
+
+; AnimationState -> Image
+; places the car into the BACKGROUND scene,
+; according to the given world state
+(check-expect (render-v2  50) (place-image CAR (+  50 (image-width CAR)) (jump  50) BACKGROUND))
+(check-expect (render-v2 100) (place-image CAR (+ 100 (image-width CAR)) (jump 100) BACKGROUND))
+(check-expect (render-v2 150) (place-image CAR (+ 150 (image-width CAR)) (jump 150) BACKGROUND))
+(check-expect (render-v2 200) (place-image CAR (+ 200 (image-width CAR)) (jump 200) BACKGROUND))
+
+(define (render-v2 as)
+  (place-image CAR (+ as (image-width CAR)) (jump as) BACKGROUND))
+
+;; AnimationState -> Number
+;; produce the Y position of the car given an AnimationState
+(check-within (jump 10)  9.55 0.01)
+(check-within (jump 22) 14.91 0.01)
+
+(define (jump as)
+  (+ (/ HEIGHT 2) (* 10 (sin as))))
+
+; AnimationState -> Boolean
+; stops the animation when the car has disappeared on the right side
+(check-expect (stop-v2? WIDTH)        #false)
+(check-expect (stop-v2? (add1 WIDTH)) #true)
+
+(define (stop-v2? as)
+  (> as WIDTH))
+
+;; Exercise 44
+
+; AnimationState -> AnimationState
+; launches the program from some initial state
+(define (main-v3 as)
+  (big-bang as
+            [on-tick  tock-v2]
+            [on-mouse hyper]
+            [to-draw  render-v2]))
+
+; WorldState Number Number String -> WorldState
+; places the car at x-mouse
+; if the given me is "button-down"
+; given: 21 10 20 "enter"
+; wanted: 21
+; given: 42 10 20 "button-down"
+; wanted: 10
+; given: 42 10 20 "move"
+; wanted: 42
+(check-expect (hyper 21 10 20 "enter") 21)
+(check-expect (hyper 42 10 20 "button-down") (- 10 (image-width CAR)))
+(check-expect (hyper 42 10 20 "move") 42)
+
+(define (hyper x-position-of-car x-mouse y-mouse me)
+  (cond
+    [(string=? "button-down" me) (- x-mouse (image-width CAR))]
+    [else x-position-of-car]))
