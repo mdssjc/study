@@ -23,7 +23,7 @@ public class Caretaker {
     this.mementos.push(this.originator.createMemento());
   }
 
-  public void undo() {
+  public void restore() {
     if (!this.mementos.isEmpty()) {
       this.originator.setMemento(this.mementos.pop());
     }
