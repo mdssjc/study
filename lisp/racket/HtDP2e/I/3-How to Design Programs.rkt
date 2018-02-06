@@ -240,3 +240,120 @@
   (cond
     [(string=? "button-down" me) (- x-mouse (image-width CAR))]
     [else x-position-of-car]))
+
+
+
+;; 3.7 - Virtual Pet Worlds
+
+;; Exercise 45
+
+(define VP/CAT1 (circle 10 "solid" "brown"))
+(define VP/SPEED  3)
+(define VP/WIDTH  400)
+(define VP/HEIGHT 400)
+(define VP/Y-CAT  (/ VP/HEIGHT 2))
+(define VP/BACKGROUND (empty-scene VP/WIDTH VP/HEIGHT))
+
+
+; VirtualCat -> VirtualCat
+; launches the program from some initial state (cat-prog 0)
+(define (cat-prog vc)
+  (big-bang vc
+            [on-tick vp/tock]
+            [to-draw vp/render]))
+
+; VirtualCat -> VirtualCat
+; moves the CAT by SPEED for every clock tick,
+; reset when the cat disappears on the WIDTH
+(check-expect (vp/tock 0) VP/SPEED)
+(check-expect (vp/tock 5) 8)
+(check-expect (vp/tock VP/WIDTH) 3)
+(check-expect (vp/tock (- VP/WIDTH VP/SPEED)) VP/WIDTH)
+
+(define (vp/tock vc)
+  (+ (modulo vc VP/WIDTH) VP/SPEED))
+
+; VirtualCat -> Image
+; places the CAT into the BACKGROUND scene,
+; according to the given world state
+(define (vp/render vc)
+  (place-image VP/CAT1 vc VP/Y-CAT VP/BACKGROUND))
+
+;; Exercise 46
+
+(define VP/CAT2 (circle 10 "solid" "olive"))
+
+
+; VirtualCat -> VirtualCat
+; launches the program from some initial state (cat-prog-v2 0)
+(define (cat-prog-v2 vc)
+  (big-bang vc
+            [on-tick vp/tock]
+            [to-draw vp/render-v2]))
+
+; VirtualCat -> Image
+; places the CAT into the BACKGROUND scene,
+; according to the given world state
+; when odd is CAT1, else CAT2
+(define (vp/render-v2 vc)
+  (place-image (cond [(odd? vc) VP/CAT1]
+                     [else      VP/CAT2]) vc VP/Y-CAT VP/BACKGROUND))
+
+;; Exercise 47
+
+(define VP/INC-DOWN-KEY 1/5)
+(define VP/INC-UP-KEY   1/3)
+(define VP/DEC  -0.1)
+(define VP/MAXIMUM   100)
+(define VP/MINIMUM   0)
+(define VP/WIDTH-V3  400)
+(define VP/HEIGHT-V3 200)
+(define VP/BACKGROUND-V3 (rectangle WIDTH HEIGHT "solid" "black"))
+
+
+; VirtualCat -> VirtualCat
+; launches the program from some initial state (gauge-prog 100)
+(define (gauge-prog vc)
+  (big-bang vc
+            [on-tick vp/tock-v3]
+            [to-draw vp/render-v3]
+            [on-key  vp/increase]))
+
+; VirtualCat -> VirtualCat
+; decreases by DEC for every clock tick
+(check-expect (vp/tock-v3 0)   VP/MINIMUM)
+(check-expect (vp/tock-v3 0.1) VP/MINIMUM)
+(check-expect (vp/tock-v3 0.3) (+ 0.3 VP/DEC))
+
+(define (vp/tock-v3 vc)
+  (cond [(<=  (+ vc VP/DEC) VP/MINIMUM) VP/MINIMUM]
+        [else (+ vc VP/DEC)]))
+
+; VirtualCat -> Image
+; places the gauge into the scene, according to the given world state
+(define (vp/render-v3 vc)
+  (place-image/align (rectangle (/ (* vc VP/WIDTH-V3) 100) VP/HEIGHT-V3 "solid" "red")
+                     0 (/ VP/HEIGHT-V3 2)
+                     "left" "center"
+                     VP/BACKGROUND-V3))
+
+; VirtualCat KeyEvent -> VirtualCat
+; produces a increase for: up is 1/3 and down is 1/5
+(check-expect (vp/increase 10 "up")   (+ 10 (* 10 1/3)))
+(check-expect (vp/increase 10 "left") 10)
+(check-expect (vp/increase 10 "down") (+ 10 (* 10 1/5)))
+(check-expect (vp/increase 99 "up")   100)
+(check-expect (vp/increase VP/MINIMUM "up")   1)
+(check-expect (vp/increase VP/MINIMUM "down") 1)
+
+(define (vp/increase vc ke)
+  (cond [(and (or (key=? ke "up")
+                  (key=? ke "down"))
+              (= vc VP/MINIMUM)) 1]
+        [(key=? ke "up")   (if (> (+ vc (* vc 1/3)) VP/MAXIMUM)
+                               VP/MAXIMUM
+                               (+ vc (* vc 1/3)))]
+        [(key=? ke "down") (if (> (+ vc (* vc 1/5)) VP/MAXIMUM)
+                               VP/MAXIMUM
+                               (+ vc (* vc 1/5)))]
+        [else vc]))
