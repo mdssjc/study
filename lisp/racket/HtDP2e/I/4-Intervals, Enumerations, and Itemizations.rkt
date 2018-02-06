@@ -7,3 +7,10 @@
 
 (require 2htdp/image)
 (require 2htdp/universe)
+
+
+;; 4.1 - Programming with Conditionals
+
+
+
+;; 4.2 - Computing Conditionally
