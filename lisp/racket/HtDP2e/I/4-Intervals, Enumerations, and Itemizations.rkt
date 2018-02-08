@@ -141,3 +141,14 @@
                (/ EX51_WIDTH  2)
                (/ EX51_HEIGHT 2)
                EX51_MTS))
+
+
+
+;; 4.4 - Intervals
+
+;; Exercise 52
+
+"1: 3 4 5"
+"2: 4 5"
+"3: 3 4"
+"4: 4"
