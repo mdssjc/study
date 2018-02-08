@@ -1,6 +1,5 @@
 package com.github.mdssjc.algorithms.introcs.chapter1.section16;
 
-import com.github.mdssjc.algorithms.introcs.chapter1.section15.RandomSeq;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.introcs.StdIn;
@@ -12,12 +11,26 @@ import edu.princeton.cs.introcs.StdOut;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive("100")
-@TestDrive("1000000")
+@TestDrive(value = "100", input = {
+    "5", "5",
+    "0.02000", "0.92000", "0.02000", "0.02000", "0.02000",
+    "0.02000", "0.02000", "0.38000", "0.38000", "0.20000",
+    "0.02000", "0.02000", "0.02000", "0.92000", "0.02000",
+    "0.92000", "0.02000", "0.02000", "0.02000", "0.02000",
+    "0.47000", "0.02000", "0.47000", "0.02000", "0.02000"
+})
+@TestDrive(value = "1000000", input = {
+    "5", "5",
+    "0.02000", "0.92000", "0.02000", "0.02000", "0.02000",
+    "0.02000", "0.02000", "0.38000", "0.38000", "0.20000",
+    "0.02000", "0.02000", "0.02000", "0.92000", "0.02000",
+    "0.92000", "0.02000", "0.02000", "0.02000", "0.02000",
+    "0.47000", "0.02000", "0.47000", "0.02000", "0.02000"
+})
 public class RandomSurfer {
 
   public static void main(final String[] args) {
-    Executor.execute(RandomSeq.class, args);
+    Executor.execute(RandomSurfer.class, args);
 
     final int trials = Integer.parseInt(args[0]);
     final int n = StdIn.readInt();
