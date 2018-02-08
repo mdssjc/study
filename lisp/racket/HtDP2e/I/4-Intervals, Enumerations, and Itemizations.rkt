@@ -75,21 +75,69 @@
 
 ; --
 
-(define WIDTH  100)
-(define HEIGHT 60)
-(define MTSCN  (empty-scene WIDTH HEIGHT))
+(define EX49_WIDTH  100)
+(define EX49_HEIGHT 60)
+(define EX49_MTSCN  (empty-scene EX49_WIDTH EX49_HEIGHT))
 (define ROCKET (rectangle 10 20 "solid" "blue"))
-(define ROCKET-CENTER-TO-TOP (- HEIGHT (/ (image-height ROCKET) 2)))
+(define ROCKET-CENTER-TO-TOP (- EX49_HEIGHT (/ (image-height ROCKET) 2)))
 
 (define (create-rocket-scene.v5a h)
   (cond
     [(<= h ROCKET-CENTER-TO-TOP)
-     (place-image ROCKET 50 h MTSCN)]
+     (place-image ROCKET 50 h EX49_MTSCN)]
     [(> h ROCKET-CENTER-TO-TOP)
-     (place-image ROCKET 50 ROCKET-CENTER-TO-TOP MTSCN)]))
+     (place-image ROCKET 50 ROCKET-CENTER-TO-TOP EX49_MTSCN)]))
 
 (define (create-rocket-scene.v5b h)
   (place-image ROCKET
                50 (cond [(<= h ROCKET-CENTER-TO-TOP) h]
                         [(>  h ROCKET-CENTER-TO-TOP) ROCKET-CENTER-TO-TOP])
-               MTSCN))
+               EX49_MTSCN))
+
+
+
+;; 4.3 - Enumerations
+
+;; Exercise 50
+
+;; Exercise 51
+
+(define EX51_WIDTH  400)
+(define EX51_HEIGHT 200)
+(define EX51_MTS (empty-scene EX51_WIDTH EX51_HEIGHT))
+
+
+; A TrafficLight is one of the following Strings:
+; - "red"
+; - "green"
+; - "yellow"
+; interpretation the three strings represent the three
+; possible states that a traffic light may assume
+
+
+; TrafficLight -> TrafficLight
+; start the world with (main "red")
+(define (main tl)
+  (big-bang tl
+            (on-tick traffic-light-next 3)
+            (on-draw render)))
+
+; TrafficLight -> TrafficLight
+; yields the next state given current state s
+(check-expect (traffic-light-next "red")    "green")
+(check-expect (traffic-light-next "green")  "yellow")
+(check-expect (traffic-light-next "yellow") "red")
+
+(define (traffic-light-next s)
+  (cond
+    [(string=? "red"    s) "green"]
+    [(string=? "green"  s) "yellow"]
+    [(string=? "yellow" s) "red"]))
+
+; TrafficLight -> Image
+; produces the traffic light image with world state
+(define (render tl)
+  (place-image (circle (/ EX51_HEIGHT 3) "solid" tl)
+               (/ EX51_WIDTH  2)
+               (/ EX51_HEIGHT 2)
+               EX51_MTS))
