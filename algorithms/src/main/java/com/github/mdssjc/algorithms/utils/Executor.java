@@ -37,7 +37,7 @@ public class Executor {
         final String[] value = td.value();
         if (td.valueFile()) {
           for (int i = 0; i < value.length; i++) {
-            boolean exists = Files.exists(Paths.get(RESOURCES_PATH + value[i]));
+            final boolean exists = Files.exists(Paths.get(RESOURCES_PATH + value[i]));
             if (exists && value[i].length() > 1) {
               value[i] = RESOURCES_PATH + value[i];
             }
@@ -53,20 +53,23 @@ public class Executor {
           final Method resync = StdIn.class.getDeclaredMethod("resync");
           resync.setAccessible(true);
           resync.invoke(null);
+          final Method resync2 = edu.princeton.cs.introcs.StdIn.class.getDeclaredMethod("resync");
+          resync2.setAccessible(true);
+          resync2.invoke(null);
         }
 
-        int threads = Thread.activeCount();
+        final int threads = Thread.activeCount();
         method.invoke(null, (Object) value);
         try {
           while (Thread.activeCount() != threads) {
             Thread.sleep(50);
           }
-        } catch (InterruptedException exception) {
+        } catch (final InterruptedException exception) {
           StdOut.println(exception.getMessage());
           StdOut.println(exception);
         }
       }
-    } catch (IllegalArgumentException | NoSuchMethodException
+    } catch (final IllegalArgumentException | NoSuchMethodException
         | SecurityException | IllegalAccessException exception) {
       StdOut.println(exception.getMessage());
       StdOut.println(exception);
