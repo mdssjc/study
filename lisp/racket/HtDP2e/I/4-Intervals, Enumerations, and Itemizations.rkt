@@ -152,3 +152,193 @@
 "2: 4 5"
 "3: 3 4"
 "4: 4"
+
+
+
+;; 4.5 - Itemizations
+
+(define T45_HEIGHT 300) ; distances in pixels
+(define T45_WIDTH  100)
+(define T45_YDELTA 3)
+
+(define T45_BACKG  (empty-scene T45_WIDTH T45_HEIGHT))
+(define T45_ROCKET (rectangle 5 30 "solid" "red"))
+
+(define T45_CENTER (/ (image-height T45_ROCKET) 2))
+
+
+; An LRCD (for launching rocket countdown) is one of:
+; - "resting"
+; - a Number between -3 and -1
+; - a NonnegativeNumber
+; interpretation a grounded rocket, in countdown mode,
+; a number denotes the number of pixels between the
+; top of the canvas and the rocket (its height)
+
+;; Exercise 53
+
+; A LR (short for launching rocket) is one of:
+; - "resting"
+; - NonnegativeNumber
+; interpretation "resting" represents a grounded rocket
+; a number denotes the height of a rocket in flight
+(define LR1 "resting")
+(define LR2 T45_HEIGHT)
+(define LR3 0)
+
+; LR -> LR
+; produces the next action in sequence of launching rocket
+(check-expect (next LR1) T45_HEIGHT)
+(check-expect (next LR2) (- T45_HEIGHT T45_YDELTA))
+(check-expect (next LR3) 0)
+
+(define (next lr)
+  (cond [(string? lr) T45_HEIGHT]
+        [(= lr T45_HEIGHT) (- lr T45_YDELTA)]
+        [else 0]))
+
+;; Exercise 54
+
+(check-expect (show-ex54 "resting") "resting")
+(check-expect (show-ex54 -2) -2)
+(check-expect (show-ex54 10) 10)
+
+(define (show-ex54 x)
+  (cond
+    [(string? x)  x]
+    [(<= -3 x -1) x]
+    [(>= x 0)     x]))
+
+; (string=? "resting" x) Error when x is a number
+
+;; Exercise 55
+
+; LRCD -> Image
+; produces a rocket at height h
+(define (draw h)
+  (place-image T45_ROCKET 10 (- h T45_CENTER) T45_BACKG))
+
+;; Exercise 56
+
+; LRCD -> LRCD
+; launches the program from some initial state (main2 "resting")
+(define (main2 s)
+  (big-bang s
+            [on-tick   fly]
+            [to-draw   show]
+            [on-key    launch]
+            [stop-when end?]))
+
+; LRCD -> Image
+; renders the state as a resting or flying rocket
+(check-expect (show "resting") (draw T45_HEIGHT))
+(check-expect (show -2) (place-image (text "-2" 20 "red")
+                                     10 (* 3/4 T45_WIDTH)
+                                     (draw T45_HEIGHT)))
+(check-expect (show T45_HEIGHT) (draw T45_HEIGHT))
+(check-expect (show 53) (draw 53))
+
+(define (show x)
+  (cond
+    [(string? x)  (draw T45_HEIGHT)]
+    [(<= -3 x -1) (place-image (text (number->string x) 20 "red")
+                               10 (* 3/4 T45_WIDTH)
+                               (draw T45_HEIGHT))]
+    [(>= x 0) (draw x)]))
+
+; LRCD KeyEvent -> LRCD
+; starts the count-down when space bar is pressed,
+; if the rocket is still resting
+(check-expect (launch "resting" " ") -3)
+(check-expect (launch "resting" "a") "resting")
+(check-expect (launch -3 " ") -3)
+(check-expect (launch -1 " ") -1)
+(check-expect (launch 33 " ") 33)
+(check-expect (launch 33 "a") 33)
+
+(define (launch x ke)
+  (cond
+    [(string? x) (if (string=? " " ke) -3 x)]
+    [(<= -3 x -1) x]
+    [(>= x 0) x]))
+
+; LRCD -> LRCD
+; raises the rocket by YDELTA if it is moving already
+(check-expect (fly "resting") "resting")
+(check-expect (fly -3) -2)
+(check-expect (fly -2) -1)
+(check-expect (fly -1) T45_HEIGHT)
+(check-expect (fly 10) (- 10 T45_YDELTA))
+(check-expect (fly 22) (- 22 T45_YDELTA))
+
+(define (fly x)
+  (cond
+    [(string? x) x]
+    [(<= -3 x -1) (if (= x -1) T45_HEIGHT (+ x 1))]
+    [(>= x 0) (- x T45_YDELTA)]))
+
+; LRCD -> Boolean
+; produces true if the rocket is out of sight
+(check-expect (end? "resting") #false)
+(check-expect (end? -3) #false)
+(check-expect (end? -2) #false)
+(check-expect (end? -1) #false)
+(check-expect (end? 33) #false)
+(check-expect (end? 0)  #true)
+
+(define (end? x)
+  (cond
+    [(string? x)  #false]
+    [(<= -3 x -1) #false]
+    [(> x 0)      #false]
+    [else         #true]))
+
+;; Exercise 57
+
+; A LRCD (for launching rocket count down) is one of:
+; - "resting"
+; - a Number between -3 and -1
+; - a NonnegativeNumber
+; interpretation a grounded rocket, in count-down mode,
+; a number denotes the height in pixels of rocket at canvas
+
+
+; LRCD -> LRCD
+; launches the program from some initial state (main3 "resting")
+(define (main3 s)
+  (big-bang s
+            [on-tick   fly-ex57]
+            [to-draw   show]
+            [on-key    launch]
+            [stop-when end?-ex57]))
+
+; LRCD -> LRCD
+; raises the rocket by YDELTA if it is moving already
+(check-expect (fly-ex57 "resting") "resting")
+(check-expect (fly-ex57 -3) -2)
+(check-expect (fly-ex57 -2) -1)
+(check-expect (fly-ex57 -1) 0)
+(check-expect (fly-ex57 10) (+ 10 T45_YDELTA))
+(check-expect (fly-ex57 22) (+ 22 T45_YDELTA))
+
+(define (fly-ex57 x)
+  (cond
+    [(string? x) x]
+    [(<= -3 x -1) (if (= x -1) 0 (+ x 1))]
+    [(>= x 0) (+ x T45_YDELTA)]))
+
+; LRCD -> Boolean
+; produces true if the rocket is out of sight
+(check-expect (end?-ex57 "resting") #false)
+(check-expect (end?-ex57 -3) #false)
+(check-expect (end?-ex57 -2) #false)
+(check-expect (end?-ex57 -1) #false)
+(check-expect (end?-ex57 33) #false)
+(check-expect (end?-ex57 T45_HEIGHT) #true)
+
+(define (end?-ex57 x)
+  (cond
+    [(string? x)      #false]
+    [(<= -3 x -1)     #false]
+    [(= x T45_HEIGHT) #true]
+    [else             #false]))
