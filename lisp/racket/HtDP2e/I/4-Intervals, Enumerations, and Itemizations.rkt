@@ -75,24 +75,24 @@
 
 ; --
 
-(define EX49_WIDTH  100)
-(define EX49_HEIGHT 60)
-(define EX49_MTSCN  (empty-scene EX49_WIDTH EX49_HEIGHT))
-(define ROCKET (rectangle 10 20 "solid" "blue"))
-(define ROCKET-CENTER-TO-TOP (- EX49_HEIGHT (/ (image-height ROCKET) 2)))
+(define WIDTH_V1  100)
+(define HEIGHT_V1 60)
+(define MTSCN  (empty-scene WIDTH_V1 HEIGHT_V1))
+(define ROCKET_V1 (rectangle 10 20 "solid" "blue"))
+(define ROCKET-CENTER-TO-TOP (- HEIGHT_V1 (/ (image-height ROCKET_V1) 2)))
 
 (define (create-rocket-scene.v5a h)
   (cond
     [(<= h ROCKET-CENTER-TO-TOP)
-     (place-image ROCKET 50 h EX49_MTSCN)]
+     (place-image ROCKET_V1 50 h MTSCN)]
     [(> h ROCKET-CENTER-TO-TOP)
-     (place-image ROCKET 50 ROCKET-CENTER-TO-TOP EX49_MTSCN)]))
+     (place-image ROCKET_V1 50 ROCKET-CENTER-TO-TOP MTSCN)]))
 
 (define (create-rocket-scene.v5b h)
-  (place-image ROCKET
+  (place-image ROCKET_V1
                50 (cond [(<= h ROCKET-CENTER-TO-TOP) h]
                         [(>  h ROCKET-CENTER-TO-TOP) ROCKET-CENTER-TO-TOP])
-               EX49_MTSCN))
+               MTSCN))
 
 
 
@@ -102,9 +102,9 @@
 
 ;; Exercise 51
 
-(define EX51_WIDTH  400)
-(define EX51_HEIGHT 200)
-(define EX51_MTS (empty-scene EX51_WIDTH EX51_HEIGHT))
+(define WIDTH_V2  400)
+(define HEIGHT_V2 200)
+(define MTS (empty-scene WIDTH_V2 HEIGHT_V2))
 
 
 ; A TrafficLight is one of the following Strings:
@@ -137,10 +137,10 @@
 ; TrafficLight -> Image
 ; produces the traffic light image with world state
 (define (render tl)
-  (place-image (circle (/ EX51_HEIGHT 3) "solid" tl)
-               (/ EX51_WIDTH  2)
-               (/ EX51_HEIGHT 2)
-               EX51_MTS))
+  (place-image (circle (/ HEIGHT_V2 3) "solid" tl)
+               (/ WIDTH_V2  2)
+               (/ HEIGHT_V2 2)
+               MTS))
 
 
 
@@ -157,14 +157,14 @@
 
 ;; 4.5 - Itemizations
 
-(define T45_HEIGHT 300) ; distances in pixels
-(define T45_WIDTH  100)
-(define T45_YDELTA 3)
+(define HEIGHT_V3 300) ; distances in pixels
+(define WIDTH_V3  100)
+(define YDELTA 3)
 
-(define T45_BACKG  (empty-scene T45_WIDTH T45_HEIGHT))
-(define T45_ROCKET (rectangle 5 30 "solid" "red"))
+(define BACKG  (empty-scene WIDTH_V3 HEIGHT_V3))
+(define ROCKET_V2 (rectangle 5 30 "solid" "red"))
 
-(define T45_CENTER (/ (image-height T45_ROCKET) 2))
+(define CENTER (/ (image-height ROCKET_V2) 2))
 
 
 ; An LRCD (for launching rocket countdown) is one of:
@@ -183,27 +183,27 @@
 ; interpretation "resting" represents a grounded rocket
 ; a number denotes the height of a rocket in flight
 (define LR1 "resting")
-(define LR2 T45_HEIGHT)
+(define LR2 HEIGHT_V3)
 (define LR3 0)
 
 ; LR -> LR
 ; produces the next action in sequence of launching rocket
-(check-expect (next LR1) T45_HEIGHT)
-(check-expect (next LR2) (- T45_HEIGHT T45_YDELTA))
+(check-expect (next LR1) HEIGHT_V3)
+(check-expect (next LR2) (- HEIGHT_V3 YDELTA))
 (check-expect (next LR3) 0)
 
 (define (next lr)
-  (cond [(string? lr) T45_HEIGHT]
-        [(= lr T45_HEIGHT) (- lr T45_YDELTA)]
+  (cond [(string? lr) HEIGHT_V3]
+        [(= lr HEIGHT_V3) (- lr YDELTA)]
         [else 0]))
 
 ;; Exercise 54
 
-(check-expect (show-ex54 "resting") "resting")
-(check-expect (show-ex54 -2) -2)
-(check-expect (show-ex54 10) 10)
+(check-expect (show-v1 "resting") "resting")
+(check-expect (show-v1 -2) -2)
+(check-expect (show-v1 10) 10)
 
-(define (show-ex54 x)
+(define (show-v1 x)
   (cond
     [(string? x)  x]
     [(<= -3 x -1) x]
@@ -216,7 +216,7 @@
 ; LRCD -> Image
 ; produces a rocket at height h
 (define (draw h)
-  (place-image T45_ROCKET 10 (- h T45_CENTER) T45_BACKG))
+  (place-image ROCKET_V2 10 (- h CENTER) BACKG))
 
 ;; Exercise 56
 
@@ -231,19 +231,19 @@
 
 ; LRCD -> Image
 ; renders the state as a resting or flying rocket
-(check-expect (show "resting") (draw T45_HEIGHT))
+(check-expect (show "resting") (draw HEIGHT_V3))
 (check-expect (show -2) (place-image (text "-2" 20 "red")
-                                     10 (* 3/4 T45_WIDTH)
-                                     (draw T45_HEIGHT)))
-(check-expect (show T45_HEIGHT) (draw T45_HEIGHT))
+                                     10 (* 3/4 WIDTH_V3)
+                                     (draw HEIGHT_V3)))
+(check-expect (show HEIGHT_V3) (draw HEIGHT_V3))
 (check-expect (show 53) (draw 53))
 
 (define (show x)
   (cond
-    [(string? x)  (draw T45_HEIGHT)]
+    [(string? x)  (draw HEIGHT_V3)]
     [(<= -3 x -1) (place-image (text (number->string x) 20 "red")
-                               10 (* 3/4 T45_WIDTH)
-                               (draw T45_HEIGHT))]
+                               10 (* 3/4 WIDTH_V3)
+                               (draw HEIGHT_V3))]
     [(>= x 0) (draw x)]))
 
 ; LRCD KeyEvent -> LRCD
@@ -267,15 +267,15 @@
 (check-expect (fly "resting") "resting")
 (check-expect (fly -3) -2)
 (check-expect (fly -2) -1)
-(check-expect (fly -1) T45_HEIGHT)
-(check-expect (fly 10) (- 10 T45_YDELTA))
-(check-expect (fly 22) (- 22 T45_YDELTA))
+(check-expect (fly -1) HEIGHT_V3)
+(check-expect (fly 10) (- 10 YDELTA))
+(check-expect (fly 22) (- 22 YDELTA))
 
 (define (fly x)
   (cond
     [(string? x) x]
-    [(<= -3 x -1) (if (= x -1) T45_HEIGHT (+ x 1))]
-    [(>= x 0) (- x T45_YDELTA)]))
+    [(<= -3 x -1) (if (= x -1) HEIGHT_V3 (+ x 1))]
+    [(>= x 0) (- x YDELTA)]))
 
 ; LRCD -> Boolean
 ; produces true if the rocket is out of sight
@@ -307,41 +307,41 @@
 ; launches the program from some initial state (main3 "resting")
 (define (main3 s)
   (big-bang s
-            [on-tick   fly-ex57]
+            [on-tick   fly-v2]
             [to-draw   show]
             [on-key    launch]
-            [stop-when end?-ex57]))
+            [stop-when end?-v2]))
 
 ; LRCD -> LRCD
 ; raises the rocket by YDELTA if it is moving already
-(check-expect (fly-ex57 "resting") "resting")
-(check-expect (fly-ex57 -3) -2)
-(check-expect (fly-ex57 -2) -1)
-(check-expect (fly-ex57 -1) 0)
-(check-expect (fly-ex57 10) (+ 10 T45_YDELTA))
-(check-expect (fly-ex57 22) (+ 22 T45_YDELTA))
+(check-expect (fly-v2 "resting") "resting")
+(check-expect (fly-v2 -3) -2)
+(check-expect (fly-v2 -2) -1)
+(check-expect (fly-v2 -1) 0)
+(check-expect (fly-v2 10) (+ 10 YDELTA))
+(check-expect (fly-v2 22) (+ 22 YDELTA))
 
-(define (fly-ex57 x)
+(define (fly-v2 x)
   (cond
     [(string? x) x]
     [(<= -3 x -1) (if (= x -1) 0 (+ x 1))]
-    [(>= x 0) (+ x T45_YDELTA)]))
+    [(>= x 0) (+ x YDELTA)]))
 
 ; LRCD -> Boolean
 ; produces true if the rocket is out of sight
-(check-expect (end?-ex57 "resting") #false)
-(check-expect (end?-ex57 -3) #false)
-(check-expect (end?-ex57 -2) #false)
-(check-expect (end?-ex57 -1) #false)
-(check-expect (end?-ex57 33) #false)
-(check-expect (end?-ex57 T45_HEIGHT) #true)
+(check-expect (end?-v2 "resting") #false)
+(check-expect (end?-v2 -3) #false)
+(check-expect (end?-v2 -2) #false)
+(check-expect (end?-v2 -1) #false)
+(check-expect (end?-v2 33) #false)
+(check-expect (end?-v2 HEIGHT_V3) #true)
 
-(define (end?-ex57 x)
+(define (end?-v2 x)
   (cond
-    [(string? x)      #false]
-    [(<= -3 x -1)     #false]
-    [(= x T45_HEIGHT) #true]
-    [else             #false]))
+    [(string? x)     #false]
+    [(<= -3 x -1)    #false]
+    [(= x HEIGHT_V3) #true]
+    [else            #false]))
 
 
 
