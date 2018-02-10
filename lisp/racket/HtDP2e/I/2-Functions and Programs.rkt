@@ -16,7 +16,7 @@
 (define (distance x y)
   (sqrt (+ (sqr x) (sqr y))))
 
-(check-expect (distance 3 4)   5)
+(check-expect (distance 3  4) 5)
 (check-expect (distance 12 5) 13)
 
 ;; Exercise 12
@@ -98,19 +98,14 @@
 (define i 5)
 
 (define (string-insert str i)
-  (string-append
-   (substring str 0 i)
-   "_"
-   (substring str i)))
+  (string-append (substring str 0 i) "_" (substring str i)))
 
 (check-expect (string-insert str i) "hello_world")
 
 ;; Exercise 20
 
 (define (string-delete str i)
-  (string-append
-   (substring str 0 i)
-   (substring str (add1 i))))
+  (string-append (substring str 0 i) (substring str (add1 i))))
 
 (check-expect (string-delete str i) "helloorld")
 
@@ -124,7 +119,7 @@
   (* 10 a))
 
 (check-expect (ff (ff 1))       100)
-(check-expect (+ (ff 1) (ff 1))  20)
+(check-expect (+ (ff 1) (ff 1)) 20)
 
 ;; Exercise 22
 
@@ -187,11 +182,11 @@
 
 ;; Exercise 29
 
-(define FIXED-COST-2    0)
-(define VARIABLE-COST-2 1.5)
+(define FIXED-COST-V2    0)
+(define VARIABLE-COST-V2 1.5)
 
 (define (cost-v2 ticket-price)
-  (+ FIXED-COST-2 (* VARIABLE-COST-2 (attendees ticket-price))))
+  (+ FIXED-COST-V2 (* VARIABLE-COST-V2 (attendees ticket-price))))
 
 (define (profit-v2 ticket-price)
   (- (revenue ticket-price)
