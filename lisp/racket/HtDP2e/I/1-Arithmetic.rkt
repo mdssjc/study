@@ -18,7 +18,7 @@
 (define (distance x y)
   (sqrt (+ (sqr x) (sqr y))))
 
-(check-expect (distance x y)   5)
+(check-expect (distance x y)  5)
 (check-expect (distance 12 5) 13)
 
 
@@ -67,10 +67,9 @@
 ;; Exercise 5
 
 ;; Tree
-(define (my-scale value)
-  (* value 1))
-(define leaf (circle (my-scale 10) "solid" "green"))
-(define trunk (rectangle (my-scale 10) (my-scale 20) "solid" "brown"))
+(define (my-scale value) (* value 1))
+(define leaf   (circle (my-scale 10) "solid" "green"))
+(define trunk  (rectangle (my-scale 10) (my-scale 20) "solid" "brown"))
 (define sheets (overlay/offset leaf 0 (my-scale 5) (overlay/offset leaf (my-scale 10) 0 leaf)))
 
 (define tree (overlay/offset sheets 0 (my-scale 15) trunk))
