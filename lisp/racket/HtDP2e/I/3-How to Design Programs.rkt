@@ -92,6 +92,11 @@
 ;; Exercise 41
 ;; Exercise 42
 
+;; =================
+;; Constants:
+
+(define WIDTH-OF-WORLD 200)
+
 (define WHEEL-RADIUS 5)
 (define WHEEL-DISTANCE (* WHEEL-RADIUS 2))
 
@@ -109,20 +114,25 @@
                           9 15
                           (rectangle 2 20 "solid" "brown")))
 
-(define WIDTH  (* (image-width CAR) 10))
 (define HEIGHT (image-height CAR))
 
 (define BACKGROUND (overlay/align
                     "right" "bottom"
                     TREE
-                    (rectangle WIDTH HEIGHT "solid" "white")))
+                    (rectangle WIDTH-OF-WORLD HEIGHT "solid" "white")))
 (define Y-CAR (/ HEIGHT 2))
 
+
+;; =================
+;; Data definitions:
 
 ; A WorldState is a Number.
 ; interpretation the number of pixels between
 ; the left border of the scene and the right-most edge of the car
 
+
+;; =================
+;; Functions:
 
 ; WorldState -> WorldState
 ; launches the program from some initial state
@@ -134,9 +144,6 @@
 
 ; WorldState -> WorldState
 ; moves the car by 3 pixels for every clock tick
-; examples:
-;   given: 20, expect 23
-;   given: 78, expect 81
 (check-expect (tock 20) 23)
 (check-expect (tock 78) 81)
 
@@ -146,7 +153,7 @@
 ; WorldState -> Image
 ; places the car into the BACKGROUND scene,
 ; according to the given world state
-(check-expect (render  50) (place-image CAR (+  50 (image-width CAR)) Y-CAR BACKGROUND))
+(check-expect (render 50)  (place-image CAR (+ 50  (image-width CAR)) Y-CAR BACKGROUND))
 (check-expect (render 100) (place-image CAR (+ 100 (image-width CAR)) Y-CAR BACKGROUND))
 (check-expect (render 150) (place-image CAR (+ 150 (image-width CAR)) Y-CAR BACKGROUND))
 (check-expect (render 200) (place-image CAR (+ 200 (image-width CAR)) Y-CAR BACKGROUND))
@@ -156,19 +163,25 @@
 
 ; WorldState -> Boolean
 ; stops the animation when the car has disappeared on the right side
-(check-expect (stop? WIDTH)        #false)
-(check-expect (stop? (add1 WIDTH)) #true)
+(check-expect (stop? WIDTH-OF-WORLD)        #false)
+(check-expect (stop? (add1 WIDTH-OF-WORLD)) #true)
 
 (define (stop? ws)
-  (> ws WIDTH))
+  (> ws WIDTH-OF-WORLD))
 
 ;; Exercise 43
+
+;; =================
+;; Data definitions:
 
 ; An AnimationState is a Number
 ; interpretation the number of clock ticks
 ; since the animation started
 (define AS1 10)
 
+
+;; =================
+;; Functions:
 
 ; AnimationState -> AnimationState
 ; launches the program from some initial state
@@ -189,7 +202,7 @@
 ; AnimationState -> Image
 ; places the car into the BACKGROUND scene,
 ; according to the given world state
-(check-expect (render-v2  50) (place-image CAR (+  50 (image-width CAR)) (jump  50) BACKGROUND))
+(check-expect (render-v2 50)  (place-image CAR (+ 50  (image-width CAR)) (jump 50)  BACKGROUND))
 (check-expect (render-v2 100) (place-image CAR (+ 100 (image-width CAR)) (jump 100) BACKGROUND))
 (check-expect (render-v2 150) (place-image CAR (+ 150 (image-width CAR)) (jump 150) BACKGROUND))
 (check-expect (render-v2 200) (place-image CAR (+ 200 (image-width CAR)) (jump 200) BACKGROUND))
@@ -199,7 +212,7 @@
 
 ;; AnimationState -> Number
 ;; produce the Y position of the car given an AnimationState
-(check-within (jump 10)  9.55 0.01)
+(check-within (jump 10) 9.55  0.01)
 (check-within (jump 22) 14.91 0.01)
 
 (define (jump as)
@@ -207,13 +220,16 @@
 
 ; AnimationState -> Boolean
 ; stops the animation when the car has disappeared on the right side
-(check-expect (stop-v2? WIDTH)        #false)
-(check-expect (stop-v2? (add1 WIDTH)) #true)
+(check-expect (stop-v2? WIDTH-OF-WORLD)        #false)
+(check-expect (stop-v2? (add1 WIDTH-OF-WORLD)) #true)
 
 (define (stop-v2? as)
-  (> as WIDTH))
+  (> as WIDTH-OF-WORLD))
 
 ;; Exercise 44
+
+;; =================
+;; Functions:
 
 ; AnimationState -> AnimationState
 ; launches the program from some initial state
@@ -223,15 +239,9 @@
             [on-mouse hyper]
             [to-draw  render-v2]))
 
-; WorldState Number Number String -> WorldState
+; AnimationState Number Number String -> AnimationState
 ; places the car at x-mouse
 ; if the given me is "button-down"
-; given: 21 10 20 "enter"
-; wanted: 21
-; given: 42 10 20 "button-down"
-; wanted: 10
-; given: 42 10 20 "move"
-; wanted: 42
 (check-expect (hyper 21 10 20 "enter") 21)
 (check-expect (hyper 42 10 20 "button-down") (- 10 (image-width CAR)))
 (check-expect (hyper 42 10 20 "move") 42)
@@ -308,7 +318,7 @@
 (define VP/MINIMUM   0)
 (define VP/WIDTH-V3  400)
 (define VP/HEIGHT-V3 200)
-(define VP/BACKGROUND-V3 (rectangle WIDTH HEIGHT "solid" "black"))
+(define VP/BACKGROUND-V3 (rectangle VP/WIDTH-V3 VP/HEIGHT-V3 "solid" "black"))
 
 
 ; VirtualCat -> VirtualCat
