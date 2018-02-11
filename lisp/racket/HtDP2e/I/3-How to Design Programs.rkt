@@ -257,113 +257,131 @@
 
 ;; Exercise 45
 
-(define VP/CAT1 (circle 10 "solid" "brown"))
-(define VP/SPEED  3)
-(define VP/WIDTH  400)
-(define VP/HEIGHT 400)
-(define VP/Y-CAT  (/ VP/HEIGHT 2))
-(define VP/BACKGROUND (empty-scene VP/WIDTH VP/HEIGHT))
+;; =================
+;; Constants:
 
+(define CAT1 (circle 10 "solid" "brown"))
+(define SPEED 3)
+(define WIDTH-V3  400)
+(define HEIGHT-V3 400)
+(define Y-CAT (/ HEIGHT-V3 2))
+(define BACKGROUND-V3 (empty-scene WIDTH-V3 HEIGHT-V3))
+
+
+;; =================
+;; Functions:
 
 ; VirtualCat -> VirtualCat
 ; launches the program from some initial state (cat-prog 0)
 (define (cat-prog vc)
   (big-bang vc
-            [on-tick vp/tock]
-            [to-draw vp/render]))
+            [on-tick tock-v3]
+            [to-draw render-v3]))
 
 ; VirtualCat -> VirtualCat
 ; moves the CAT by SPEED for every clock tick,
 ; reset when the cat disappears on the WIDTH
-(check-expect (vp/tock 0) VP/SPEED)
-(check-expect (vp/tock 5) 8)
-(check-expect (vp/tock VP/WIDTH) 3)
-(check-expect (vp/tock (- VP/WIDTH VP/SPEED)) VP/WIDTH)
+(check-expect (tock-v3 0) SPEED)
+(check-expect (tock-v3 5) 8)
+(check-expect (tock-v3 WIDTH-V3) 3)
+(check-expect (tock-v3 (- WIDTH-V3 SPEED)) WIDTH-V3)
 
-(define (vp/tock vc)
-  (+ (modulo vc VP/WIDTH) VP/SPEED))
+(define (tock-v3 vc)
+  (+ (modulo vc WIDTH-V3) SPEED))
 
 ; VirtualCat -> Image
 ; places the CAT into the BACKGROUND scene,
 ; according to the given world state
-(define (vp/render vc)
-  (place-image VP/CAT1 vc VP/Y-CAT VP/BACKGROUND))
+(define (render-v3 vc)
+  (place-image CAT1 vc Y-CAT BACKGROUND-V3))
 
 ;; Exercise 46
 
-(define VP/CAT2 (circle 10 "solid" "olive"))
+;; =================
+;; Constants:
 
+(define CAT2 (circle 10 "solid" "olive"))
+
+
+;; =================
+;; Functions:
 
 ; VirtualCat -> VirtualCat
 ; launches the program from some initial state (cat-prog-v2 0)
 (define (cat-prog-v2 vc)
   (big-bang vc
-            [on-tick vp/tock]
-            [to-draw vp/render-v2]))
+            [on-tick tock-v3]
+            [to-draw render-v4]))
 
 ; VirtualCat -> Image
 ; places the CAT into the BACKGROUND scene,
 ; according to the given world state
 ; when odd is CAT1, else CAT2
-(define (vp/render-v2 vc)
-  (place-image (cond [(odd? vc) VP/CAT1]
-                     [else      VP/CAT2]) vc VP/Y-CAT VP/BACKGROUND))
+(define (render-v4 vc)
+  (place-image (cond [(odd? vc) CAT1]
+                     [else      CAT2]) vc Y-CAT BACKGROUND-V3))
 
 ;; Exercise 47
 
-(define VP/INC-DOWN-KEY 1/5)
-(define VP/INC-UP-KEY   1/3)
-(define VP/DEC  -0.1)
-(define VP/MAXIMUM   100)
-(define VP/MINIMUM   0)
-(define VP/WIDTH-V3  400)
-(define VP/HEIGHT-V3 200)
-(define VP/BACKGROUND-V3 (rectangle VP/WIDTH-V3 VP/HEIGHT-V3 "solid" "black"))
+;; =================
+;; Constants:
 
+(define INC-DOWN-KEY 1/5)
+(define INC-UP-KEY   1/3)
+(define DEC -0.1)
+(define MAXIMUM   100)
+(define MINIMUM   0)
+(define WIDTH-V5  400)
+(define HEIGHT-V5 200)
+(define BACKGROUND-V5 (rectangle WIDTH-V5 HEIGHT-V5 "solid" "black"))
+
+
+;; =================
+;; Functions:
 
 ; VirtualCat -> VirtualCat
 ; launches the program from some initial state (gauge-prog 100)
 (define (gauge-prog vc)
   (big-bang vc
-            [on-tick vp/tock-v3]
-            [to-draw vp/render-v3]
-            [on-key  vp/increase]))
+            [on-tick tock-v5]
+            [to-draw render-v5]
+            [on-key  increase]))
 
 ; VirtualCat -> VirtualCat
 ; decreases by DEC for every clock tick
-(check-expect (vp/tock-v3 0)   VP/MINIMUM)
-(check-expect (vp/tock-v3 0.1) VP/MINIMUM)
-(check-expect (vp/tock-v3 0.3) (+ 0.3 VP/DEC))
+(check-expect (tock-v5 0)   MINIMUM)
+(check-expect (tock-v5 0.1) MINIMUM)
+(check-expect (tock-v5 0.3) (+ 0.3 DEC))
 
-(define (vp/tock-v3 vc)
-  (cond [(<=  (+ vc VP/DEC) VP/MINIMUM) VP/MINIMUM]
-        [else (+ vc VP/DEC)]))
+(define (tock-v5 vc)
+  (cond [(<=  (+ vc DEC) MINIMUM) MINIMUM]
+        [else (+ vc DEC)]))
 
 ; VirtualCat -> Image
 ; places the gauge into the scene, according to the given world state
-(define (vp/render-v3 vc)
-  (place-image/align (rectangle (/ (* vc VP/WIDTH-V3) 100) VP/HEIGHT-V3 "solid" "red")
-                     0 (/ VP/HEIGHT-V3 2)
+(define (render-v5 vc)
+  (place-image/align (rectangle (/ (* vc WIDTH-V5) 100) HEIGHT-V5 "solid" "red")
+                     0 (/ HEIGHT-V5 2)
                      "left" "center"
-                     VP/BACKGROUND-V3))
+                     BACKGROUND-V5))
 
 ; VirtualCat KeyEvent -> VirtualCat
 ; produces a increase for: up is 1/3 and down is 1/5
-(check-expect (vp/increase 10 "up")   (+ 10 (* 10 1/3)))
-(check-expect (vp/increase 10 "left") 10)
-(check-expect (vp/increase 10 "down") (+ 10 (* 10 1/5)))
-(check-expect (vp/increase 99 "up")   100)
-(check-expect (vp/increase VP/MINIMUM "up")   1)
-(check-expect (vp/increase VP/MINIMUM "down") 1)
+(check-expect (increase 10 "up")   (+ 10 (* 10 1/3)))
+(check-expect (increase 10 "left") 10)
+(check-expect (increase 10 "down") (+ 10 (* 10 1/5)))
+(check-expect (increase 99 "up")   100)
+(check-expect (increase MINIMUM "up")   1)
+(check-expect (increase MINIMUM "down") 1)
 
-(define (vp/increase vc ke)
+(define (increase vc ke)
   (cond [(and (or (key=? ke "up")
                   (key=? ke "down"))
-              (= vc VP/MINIMUM)) 1]
-        [(key=? ke "up")   (if (> (+ vc (* vc 1/3)) VP/MAXIMUM)
-                               VP/MAXIMUM
+              (= vc MINIMUM)) 1]
+        [(key=? ke "up")   (if (> (+ vc (* vc 1/3)) MAXIMUM)
+                               MAXIMUM
                                (+ vc (* vc 1/3)))]
-        [(key=? ke "down") (if (> (+ vc (* vc 1/5)) VP/MAXIMUM)
-                               VP/MAXIMUM
+        [(key=? ke "down") (if (> (+ vc (* vc 1/5)) MAXIMUM)
+                               MAXIMUM
                                (+ vc (* vc 1/5)))]
         [else vc]))
