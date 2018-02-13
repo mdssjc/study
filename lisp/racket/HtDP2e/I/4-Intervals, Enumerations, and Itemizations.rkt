@@ -17,11 +17,23 @@
 
 ;; Exercise 48
 
+;; =================
+;; Data definitions:
+
+; A PositiveNumber is a Number greater than/equal to 0.
+
+
+;; =================
+;; Functions:
+
+; PositiveNumber -> String
+; computes the reward level from the given score s
 (define (reward s)
   (cond
     [(<= 0 s 10) "bronze"]
     [(and (< 10 s) (<= s 20)) "silver"]
     [else "gold"]))
+
 
 (reward 18)
 
@@ -75,11 +87,18 @@
 
 ; --
 
+;; =================
+;; Constants:
+
 (define WIDTH_V1  100)
 (define HEIGHT_V1 60)
 (define MTSCN  (empty-scene WIDTH_V1 HEIGHT_V1))
 (define ROCKET_V1 (rectangle 10 20 "solid" "blue"))
 (define ROCKET-CENTER-TO-TOP (- HEIGHT_V1 (/ (image-height ROCKET_V1) 2)))
+
+
+;; =================
+;; Functions:
 
 (define (create-rocket-scene.v5a h)
   (cond
@@ -102,10 +121,16 @@
 
 ;; Exercise 51
 
+;; =================
+;; Constants:
+
 (define WIDTH_V2  400)
 (define HEIGHT_V2 200)
 (define MTS (empty-scene WIDTH_V2 HEIGHT_V2))
 
+
+;; =================
+;; Data definitions:
 
 ; A TrafficLight is one of the following Strings:
 ; - "red"
@@ -114,6 +139,9 @@
 ; interpretation the three strings represent the three
 ; possible states that a traffic light may assume
 
+
+;; =================
+;; Functions:
 
 ; TrafficLight -> TrafficLight
 ; start the world with (main "red")
@@ -157,6 +185,9 @@
 
 ;; 4.5 - Itemizations
 
+;; =================
+;; Constants:
+
 (define HEIGHT_V3 300) ; distances in pixels
 (define WIDTH_V3  100)
 (define YDELTA 3)
@@ -167,13 +198,8 @@
 (define CENTER (/ (image-height ROCKET_V2) 2))
 
 
-; An LRCD (for launching rocket countdown) is one of:
-; - "resting"
-; - a Number between -3 and -1
-; - a NonnegativeNumber
-; interpretation a grounded rocket, in countdown mode,
-; a number denotes the number of pixels between the
-; top of the canvas and the rocket (its height)
+;; =================
+;; Data definitions:
 
 ;; Exercise 53
 
@@ -186,30 +212,25 @@
 (define LR2 HEIGHT_V3)
 (define LR3 0)
 
-; LR -> LR
-; produces the next action in sequence of launching rocket
-(check-expect (next LR1) HEIGHT_V3)
-(check-expect (next LR2) (- HEIGHT_V3 YDELTA))
-(check-expect (next LR3) 0)
+; An LRCD (for launching rocket countdown) is one of:
+; - "resting"
+; - a Number between -3 and -1
+; - a NonnegativeNumber
+; interpretation a grounded rocket, in countdown mode,
+; a number denotes the number of pixels between the
+; top of the canvas and the rocket (its height)
 
-(define (next lr)
-  (cond [(string? lr) HEIGHT_V3]
-        [(= lr HEIGHT_V3) (- lr YDELTA)]
-        [else 0]))
+
+;; =================
+;; Functions:
 
 ;; Exercise 54
 
-(check-expect (show-v1 "resting") "resting")
-(check-expect (show-v1 -2) -2)
-(check-expect (show-v1 10) 10)
-
-(define (show-v1 x)
-  (cond
-    [(string? x)  x]
-    [(<= -3 x -1) x]
-    [(>= x 0)     x]))
-
 ; (string=? "resting" x) Error when x is a number
+
+(check-expect (string? "resting") #true)
+(check-expect (string? -2) #false)
+(check-expect (string? 10) #false)
 
 ;; Exercise 55
 
