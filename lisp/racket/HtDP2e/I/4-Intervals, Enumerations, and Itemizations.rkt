@@ -382,3 +382,197 @@
     [(and (<= LOW-PRICE p)
           (< p LUXURY-PRICE)) (* 0.05 p)]
     [(>= p LUXURY-PRICE) (* 0.08 p)]))
+
+
+
+;; 4.7 - Finite State Worlds
+
+;; Exercise 59
+
+(define BULB-SIZE 8)
+(define SPACE (rectangle 5  2  "solid"   "white"))
+(define BOARD (rectangle 80 30 "outline" "black"))
+(define RED-STATE (overlay (beside SPACE
+                                   (circle BULB-SIZE "solid"   "red")
+                                   SPACE
+                                   (circle BULB-SIZE "outline" "yellow")
+                                   SPACE
+                                   (circle BULB-SIZE "outline" "green")
+                                   SPACE)
+                           BOARD))
+(define GREEN-STATE (overlay (beside SPACE
+                                     (circle BULB-SIZE "outline" "red")
+                                     SPACE
+                                     (circle BULB-SIZE "outline" "yellow")
+                                     SPACE
+                                     (circle BULB-SIZE "solid"   "green")
+                                     SPACE)
+                             BOARD))
+(define YELLOW-STATE (overlay (beside SPACE
+                                      (circle BULB-SIZE "outline" "red")
+                                      SPACE
+                                      (circle BULB-SIZE "solid"   "yellow")
+                                      SPACE
+                                      (circle BULB-SIZE "outline" "green")
+                                      SPACE)
+                              BOARD))
+
+
+; A TrafficLight is one of the following Strings:
+; - "red"
+; - "green"
+; - "yellow"
+; interpretation the three strings represent the three
+; possible states that a traffic light may assume
+
+
+; TrafficLight -> TrafficLight
+; simulates a clock-based American traffic light
+(define (traffic-light-simulation initial-state)
+  (big-bang initial-state
+            [to-draw tl-render]
+            [on-tick tl-next 1]))
+
+; TrafficLight -> TrafficLight
+; yields the next state given current state cs
+(check-expect (tl-next "red")    "green")
+(check-expect (tl-next "green")  "yellow")
+(check-expect (tl-next "yellow") "red")
+
+(define (tl-next cs)
+  (cond [(string=? cs "red")    "green"]
+        [(string=? cs "green")  "yellow"]
+        [(string=? cs "yellow") "red"]))
+
+; TrafficLight -> Image
+; renders the current state cs as an image
+(check-expect (tl-render "red")    RED-STATE)
+(check-expect (tl-render "green")  GREEN-STATE)
+(check-expect (tl-render "yellow") YELLOW-STATE)
+
+(define (tl-render current-state)
+  (cond [(string=? current-state "red")    RED-STATE]
+        [(string=? current-state "green")  GREEN-STATE]
+        [(string=? current-state "yellow") YELLOW-STATE]))
+
+;; Exercise 60
+
+; A N-TrafficLight is one of:
+; - 0 interpretation the traffic light shows red
+; - 1 interpretation the traffic light shows green
+; - 2 interpretation the traffic light shows yellow
+
+
+; N-TrafficLight -> N-TrafficLight
+; simulates a clock-based American traffic light
+(define (n-traffic-light-simulation initial-state)
+  (big-bang initial-state
+            [to-draw tl-render-numeric]
+            [on-tick tl-next-numeric 1]))
+
+; N-TrafficLight -> N-TrafficLight
+; yields the next state given current state cs
+(check-expect (tl-next-numeric 0) 1)
+(check-expect (tl-next-numeric 1) 2)
+(check-expect (tl-next-numeric 2) 0)
+
+(define (tl-next-numeric cs) (modulo (+ cs 1) 3))
+
+; N-TrafficLight -> Image
+; renders the current state cs as an image
+(check-expect (tl-render-numeric 0) RED-STATE)
+(check-expect (tl-render-numeric 1) GREEN-STATE)
+(check-expect (tl-render-numeric 2) YELLOW-STATE)
+
+(define (tl-render-numeric current-state)
+  (cond [(= current-state 0) RED-STATE]
+        [(= current-state 1) GREEN-STATE]
+        [(= current-state 2) YELLOW-STATE]))
+
+;; Exercise 61
+
+; A S-TrafficLight is one of:
+; - RED
+; - GREEN
+; - YELLOW
+;(define RED    0)
+;(define GREEN  1)
+;(define YELLOW 2)
+(define RED    "red")
+(define GREEN  "green")
+(define YELLOW "yellow")
+
+
+; S-TrafficLight -> S-TrafficLight
+; yields the next state given current state cs
+(check-expect (tl-next-symbolic RED) GREEN)
+(check-expect (tl-next-symbolic YELLOW) RED)
+
+;(define (tl-next-numeric cs)
+;  (modulo (+ cs 1) 3))
+
+(define (tl-next-symbolic cs)
+  (cond
+    [(equal? cs RED) GREEN]
+    [(equal? cs GREEN) YELLOW]
+    [(equal? cs YELLOW) RED]))
+
+;; Exercise 62
+
+; A DoorState is one of:
+; - LOCKED
+; -CLOSED
+; -OPEN
+(define LOCKED "locked")
+(define CLOSED "closed")
+(define OPEN   "open")
+
+
+; DoorState -> DoorState
+; simulates a door with an automatic door closer
+(define (door-simulation initial-state)
+  (big-bang initial-state
+            [on-tick door-closer 3]
+            [on-key  door-actions]
+            [to-draw door-render]))
+
+; DoorState -> DoorState
+; closes an open door over the period of one tick
+(check-expect (door-closer LOCKED) LOCKED)
+(check-expect (door-closer CLOSED) CLOSED)
+(check-expect (door-closer OPEN)   CLOSED)
+
+(define (door-closer state-of-door)
+  (cond
+    [(string=? LOCKED state-of-door) LOCKED]
+    [(string=? CLOSED state-of-door) CLOSED]
+    [(string=? OPEN   state-of-door) CLOSED]))
+
+; DoorState KeyEvent -> DoorState
+; turn key event k into an action on state s
+(check-expect (door-actions LOCKED "u") CLOSED)
+(check-expect (door-actions CLOSED "u") CLOSED)
+(check-expect (door-actions OPEN   "u") OPEN)
+(check-expect (door-actions LOCKED "l") LOCKED)
+(check-expect (door-actions CLOSED "l") LOCKED)
+(check-expect (door-actions OPEN   "l") OPEN)
+(check-expect (door-actions LOCKED " ") LOCKED)
+(check-expect (door-actions CLOSED " ") OPEN)
+(check-expect (door-actions OPEN   " ") OPEN)
+(check-expect (door-actions LOCKED "a") LOCKED)
+(check-expect (door-actions OPEN   "a") OPEN)
+(check-expect (door-actions CLOSED "a") CLOSED)
+
+(define (door-actions s k)
+  (cond
+    [(and (string=? LOCKED s) (string=? "u" k)) CLOSED]
+    [(and (string=? CLOSED s) (string=? "l" k)) LOCKED]
+    [(and (string=? CLOSED s) (string=? " " k)) OPEN]
+    [else s]))
+
+; DoorState -> Image
+; translates the state s into a large text image
+(check-expect (door-render CLOSED) (text CLOSED 40 "red"))
+
+(define (door-render s)
+  (text s 40 "red"))
