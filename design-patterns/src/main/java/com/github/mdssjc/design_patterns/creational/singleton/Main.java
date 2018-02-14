@@ -11,6 +11,20 @@ import java.lang.reflect.Method;
  * <p>
  * O padrão Singleton garante que uma classe tenha somente uma instância e
  * forneça um ponto global de acesso para a mesma.
+ * <p>
+ * Pode ser substituído pelo Dependency Injection.
+ * DoubleCheckSingleton é um anti-pattern.
+ * <p>
+ * Benefícios:
+ * - cross platform;
+ * - applicable to any class;
+ * - can be created through derivation; and
+ * - lazy evaluation.
+ * Custos:
+ * - destruction is undefined;
+ * - not inherited;
+ * - efficiency; and
+ * - nontransparent.
  *
  * @author Marcelo dos Santos
  *
@@ -37,7 +51,8 @@ public class Main {
 
   private static void display(final Object singleton) {
     try {
-      System.out.println(singleton.getClass().getSimpleName());
+      System.out.println(singleton.getClass()
+                                  .getSimpleName());
 
       final Method getData = singleton.getClass()
                                       .getMethod("getData");
