@@ -9,7 +9,7 @@ package com.github.mdssjc.design_patterns.structural.composite;
 public class Leaf implements Component {
 
   @Override
-  public void operation() {
-    System.out.println("Leaf");
+  public String operation() {
+    return "Leaf";
   }
 }

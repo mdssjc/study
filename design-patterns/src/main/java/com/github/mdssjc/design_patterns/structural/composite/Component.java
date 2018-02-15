@@ -8,7 +8,7 @@ package com.github.mdssjc.design_patterns.structural.composite;
  */
 public interface Component {
 
-  void operation();
+  String operation();
 
   default void add(final Component component) {
 

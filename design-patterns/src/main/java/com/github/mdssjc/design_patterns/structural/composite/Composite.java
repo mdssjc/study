@@ -2,6 +2,7 @@ package com.github.mdssjc.design_patterns.structural.composite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Composite.
@@ -9,7 +10,7 @@ import java.util.List;
  * @author Marcelo dos Santos
  *
  */
-public class Composite implements Component{
+public class Composite implements Component {
 
   private final List<Component> childs;
 
@@ -18,9 +19,11 @@ public class Composite implements Component{
   }
 
   @Override
-  public void operation() {
-    System.out.println("Composite");
-    this.childs.forEach(Component::operation);
+  public String operation() {
+    return "Composite " +
+           this.childs.stream()
+                      .map(Component::operation)
+                      .collect(Collectors.joining(" "));
   }
 
   @Override

@@ -25,6 +25,6 @@ public class Main {
 
     composite.add(new Leaf());
 
-    component.operation();
+    System.out.println(component.operation());
   }
 }
