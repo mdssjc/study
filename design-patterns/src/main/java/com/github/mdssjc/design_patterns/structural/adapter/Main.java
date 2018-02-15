@@ -9,6 +9,8 @@ package com.github.mdssjc.design_patterns.structural.adapter;
  * O padrão Adapter converte a interface de uma classe em outra interface,
  * esperada pelos clientes. O Adapter permite que classes com interfaces
  * incompatíveis trabalhem em conjunto - o que de outra foram seria impossível.
+ * <p>
+ * Fornece uma diferente interface.
  *
  * @author Marcelo dos Santos
  *

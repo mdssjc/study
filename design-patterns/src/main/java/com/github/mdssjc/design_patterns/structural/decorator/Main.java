@@ -9,6 +9,8 @@ package com.github.mdssjc.design_patterns.structural.decorator;
  * O padrão Decorator anexa dinamicamente responsabilidades adicionais a um
  * objeto. Os Decorators fornecem uma alternativa flexível ao uso de subclasses
  * para extensão de funcionalidades.
+ * <p>
+ * Fornece uma interface melhorada.
  *
  * @author Marcelo dos Santos
  *

@@ -11,6 +11,8 @@ package com.github.mdssjc.design_patterns.structural.proxy;
  * <p>
  * Tipos: Remote, Virtual, Protection, Smart Reference, Firewall, Caching,
  * Synchronization, Complexity Hiding e Copy-On-Write.
+ * <p>
+ * Fornece uma mesma interface.
  *
  * @author Marcelo dos Santos
  *
