@@ -20,8 +20,6 @@ public class Main {
     final Component concreteDecoratorA = new ConcreteDecoratorA(concreteComponent, " : ");
     final Component concreteDecoratorB = new ConcreteDecoratorB(concreteDecoratorA, 5);
 
-    final String message = concreteDecoratorB.operation();
-
-    System.out.println(message);
+    System.out.println(concreteDecoratorB.operation());
   }
 }
