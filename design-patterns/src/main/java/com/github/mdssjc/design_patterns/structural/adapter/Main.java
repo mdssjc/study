@@ -18,7 +18,6 @@ public class Main {
   public static void main(final String[] args) {
     final Target adapter = new Adapter(new Adaptee());
 
-    final String message = adapter.request();
-    System.out.println(message);
+    System.out.println(adapter.request());
   }
 }
