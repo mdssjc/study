@@ -14,6 +14,7 @@ import java.lang.reflect.Method;
  * <p>
  * Pode ser substituído pelo Dependency Injection.
  * DoubleCheckSingleton é um anti-pattern.
+ * Objetos podem ser mutáveis.
  * <p>
  * Benefícios:
  * - cross platform;

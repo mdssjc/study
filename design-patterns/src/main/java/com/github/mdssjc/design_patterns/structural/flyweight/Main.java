@@ -8,6 +8,12 @@ package com.github.mdssjc.design_patterns.structural.flyweight;
  * <p>
  * O padrão Flyweight usa compartilhamento para suportar eficientemente grandes
  * quantidades de objetos de granularidade fina.
+ * <p>
+ * Estado intrínseco: campos que contêm dados invariáveis, duplicados através de
+ * vários objetos;
+ * Estado extrínseco: campos que contêm dados contextuais, únicos para todos os
+ * objetos.
+ * Objetos são imutáveis.
  *
  * @author Marcelo dos Santos
  *
