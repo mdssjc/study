@@ -11,6 +11,7 @@ package com.github.mdssjc.design_patterns.structural.adapter;
  * incompatíveis trabalhem em conjunto - o que de outra foram seria impossível.
  * <p>
  * Fornece uma diferente interface.
+ * Reutiliza uma interface antiga.
  *
  * @author Marcelo dos Santos
  *

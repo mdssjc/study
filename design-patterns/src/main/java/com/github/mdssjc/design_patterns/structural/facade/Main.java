@@ -11,6 +11,7 @@ package com.github.mdssjc.design_patterns.structural.facade;
  * que torna o subsistema mais fácil de ser usado.
  * <p>
  * Ao cliente: impõe a política de cima, visível e restringido
+ * Define uma nova interface.
  *
  * @author Marcelo dos Santos
  *
@@ -19,6 +20,7 @@ public class Main {
 
   public static void main(final String[] args) {
     final Facade facade = new Facade();
+
     System.out.println(facade.message1());
     System.out.println(facade.message2());
     System.out.println(facade.message3());
