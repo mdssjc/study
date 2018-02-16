@@ -105,3 +105,75 @@
 
 (define (manhattan-distance p)
   (distance-to-0 p))
+
+
+
+;; 5.4 - Defining Structure Types
+
+;; Exercise 65
+
+(define-struct movie [title producer year])
+(define-struct person [name hair eyes phone])
+(define-struct pet [name number])
+(define-struct CD [artist title price])
+(define-struct sweater [material size producer])
+
+;; Exercise 66
+
+; constructors
+(define M  (make-movie "Title" "Producer" 2017))
+(define P1 (make-person "Name" "Hair" "Eyes" "Phone"))
+(define P2 (make-pet "Name" 123))
+(define C  (make-CD "Artist" "Title" 1.99))
+(define S  (make-sweater "Material" 4 "Producer"))
+
+; selectors
+(movie-title    M)
+(movie-producer M)
+(movie-year     M)
+
+(person-name  P1)
+(person-hair  P1)
+(person-eyes  P1)
+(person-phone P1)
+
+(pet-name   P2)
+(pet-number P2)
+
+(CD-artist C)
+(CD-title  C)
+(CD-price  C)
+
+(sweater-material S)
+(sweater-size     S)
+(sweater-producer S)
+
+; predicates
+(movie?   M)
+(person?  P1)
+(pet?     P2)
+(CD?      C)
+(sweater? S)
+
+;; Exercise 67
+
+(define SPEED 3)
+(define-struct balld [location direction])
+(make-balld 10 "up")
+
+(make-balld 5 "left")
+(make-balld 2 "right")
+(make-balld 8 "down")
+
+
+(define-struct ball [location velocity])
+(define-struct vel [deltax deltay])
+
+(define ball1
+  (make-ball (make-posn 30 40) (make-vel -10 5)))
+
+;; Exercise 68
+
+(define-struct ballf [x y deltax deltay])
+
+(define ball2 (make-ballf 30 40 -10 5))
