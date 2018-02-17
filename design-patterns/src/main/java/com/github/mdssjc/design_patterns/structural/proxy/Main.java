@@ -10,8 +10,7 @@ package com.github.mdssjc.design_patterns.structural.proxy;
  * objeto para controlar o acesso a esse objeto.
  * <p>
  * Tipos: Remote, Virtual, Protection, Smart Reference, Firewall, Caching,
- * Synchronization, Complexity Hiding e Copy-On-Write.
- * <p>
+ * Synchronization, Complexity Hiding, Copy-On-Write e Logging.
  * Fornece uma mesma interface.
  *
  * @author Marcelo dos Santos
@@ -21,6 +20,7 @@ public class Main {
 
   public static void main(final String[] args) {
     final Subject subject = new Proxy(new RealSubject());
+
     System.out.println(subject.request());
   }
 }
