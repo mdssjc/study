@@ -177,3 +177,102 @@
 (define-struct ballf [x y deltax deltay])
 
 (define ball2 (make-ballf 30 40 -10 5))
+
+
+
+;; 5.5 - Computing with Structures
+
+;; Exercise 69
+
+; (define-struct movie [title producer year])
+; (make-movie "Title" "Producer" 2017)
+;                  +-----+
+;                  |movie|
+;+-------+---------++----+
+;|title  |producer  |year|
+;| ----- | -------- | -- |
+;|"Title"|"Producer"|2017|
+;+-------+----------+----+
+
+; (define-struct person [name hair eyes phone])
+; (make-person "Name" "Hair" "Eyes" "Phone")
+;                      +------+
+;                      |person|
+;+------+------+------++------+
+;|name  |hair  |eyes  |phone  |
+;| ---- | ---- | ---- | ----- |
+;|"Name"|"Hair"|"Eyes"|"Phone"|
+;+------+------+------+-------+
+
+; (define-struct pet [name number])
+; (make-pet "Name" 123)
+;          +---+
+;          |pet|
+;+------+--+---+
+;|name  |number|
+;| ---- | ---- |
+;|"Name"|123   |
+;+------+------+
+
+; (define-struct CD [artist title price])
+; (make-CD "Artist" "Title" 1.99)
+;                    +--+
+;                    |CD|
+;+--------+-------+--+--+
+;|artist  |title  |price|
+;| ------ | ----- | --- |
+;|"Artist"|"Title"|1.99 |
+;+--------+-------+-----+
+
+; (define-struct sweater [material size producer])
+; (make-sweater "Material" 4 "Producer")
+;                   +-------+
+;                   |sweater|
+;+----------+----+--+-------+
+;|material  |size|producer  |
+;| -------- | -- | -------- |
+;|"Material"|4   |"Producer"|
+;+----------+----+----------+
+
+;; Exercise 70
+
+(define-struct centry [name home office cell])
+(define-struct phone [area number])
+
+(phone-area
+ (centry-office
+  (make-centry
+   "Shriram Fisler"
+   (make-phone 207 "363-2421")
+   (make-phone 101 "776-1099")
+   (make-phone 208 "112-9981"))))
+(phone-area
+ (make-phone 101 "776-1099"))
+101
+
+;; Exercise 71
+
+; distances in terms of pixels:
+(define HEIGHT 200)
+(define MIDDLE (quotient HEIGHT 2))
+(define WIDTH  400)
+(define CENTER (quotient WIDTH 2))
+
+(define-struct game [left-player right-player ball])
+
+(define game0
+  (make-game MIDDLE MIDDLE (make-posn CENTER CENTER)))
+
+
+(game-ball game0)
+(game-ball (make-game 100 100 (make-posn 200 200)))
+(make-posn 200 200)
+
+(posn? (game-ball game0))
+(posn? (game-ball (make-game 100 100 (make-posn 200 200))))
+(posn? (make-posn 200 200))
+#true
+
+(game-left-player game0)
+(game-left-player (make-game 100 100 (make-posn 200 200)))
+100
