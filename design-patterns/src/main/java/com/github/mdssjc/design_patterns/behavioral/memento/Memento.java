@@ -8,7 +8,7 @@ package com.github.mdssjc.design_patterns.behavioral.memento;
  */
 public class Memento {
 
-  private String state;
+  private final String state;
 
   public Memento(final String state) {
     this.state = state;
@@ -16,9 +16,5 @@ public class Memento {
 
   public String getState() {
     return this.state;
-  }
-
-  public void setState(final String state) {
-    this.state = state;
   }
 }
