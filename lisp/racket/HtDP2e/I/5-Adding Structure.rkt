@@ -167,7 +167,17 @@
 
 
 (define-struct ball [location velocity])
+; A Ball-1d is a structure:
+;   (make-ball Number Number)
+; interpretation 1 distance to top and velocity
+; interpretation 2 distance to left and velocity
+
 (define-struct vel [deltax deltay])
+; A Vel is a structure:
+;   (make-vel Number Number)
+; interpretation (make-vel dx dy) means a velocity of
+; dx pixels [per tick] along the horizontal and
+; dy pixels [per tick] along the vertical direction
 
 (define ball1
   (make-ball (make-posn 30 40) (make-vel -10 5)))
@@ -276,3 +286,129 @@
 (game-left-player game0)
 (game-left-player (make-game 100 100 (make-posn 200 200)))
 100
+
+
+
+;; 5.6 - Programming with Structures
+
+;; Exercise 72
+
+; (define-struct phone [area number])
+; A Phone is a structure:
+;   (make-phone Number[1..999] Number[1..9999])
+; interpretation area means first three digits of phone, between 1 and 999
+;                number means last four number of phone, between 1 and 9999
+
+(define-struct phone# [area switch num])
+; A Phone# is a structure:
+;   (make-phone# Number[1..999] Number[1..999] Number[1..9999])
+; interpretation area means first three digits of phone, between 1 and 999
+;                switch means next three code of phone,  between 1 and 999
+;                number means last four number of phone, between 1 and 9999
+
+;; Exercise 73
+
+;; Exercise 74
+
+;; =================
+;; Constants:
+
+(define MTS (empty-scene 100 100))
+(define DOT (circle 3 "solid" "red"))
+
+
+;; =================
+;; Data definitions:
+
+; A Posn represents the state of the world.
+
+
+;; =================
+;; Functions:
+
+; Posn -> Posn
+; starts the world with (main (make-posn 0 0))
+(define (main p0)
+  (big-bang p0
+            [on-tick  x+]
+            [on-mouse reset-dot]
+            [to-draw  scene+dot]))
+
+; Posn -> Posn
+; increases the x-coordinate of p by 3
+(check-expect (x+ (make-posn 10 0)) (make-posn 13 0))
+
+(define (x+ p)
+  (posn-up-x p (+ (posn-x p) 3)))
+
+; Posn Number -> Posn
+; produces a posn like p with n in the x field
+(check-expect (posn-up-x (make-posn 2 3) 4) (make-posn 4 3))
+
+(define (posn-up-x p n)
+  (make-posn n (posn-y p)))
+
+; Posn Number Number MouseEvt -> Posn
+; for mouse clicks, (make-posn x y); otherwise p
+(check-expect (reset-dot (make-posn 10 20) 29 31 "button-down") (make-posn 29 31))
+(check-expect (reset-dot (make-posn 10 20) 29 31 "button-up")   (make-posn 10 20))
+
+(define (reset-dot p x y me)
+  (cond
+    [(mouse=? me "button-down") (make-posn x y)]
+    [else p]))
+
+; Posn -> Image
+; adds a red spot to MTS at p
+(check-expect (scene+dot (make-posn 10 20))
+              (place-image DOT 10 20 MTS))
+(check-expect (scene+dot (make-posn 88 73))
+              (place-image DOT 88 73 MTS))
+
+(define (scene+dot p)
+  (place-image DOT (posn-x p) (posn-y p) MTS))
+
+;; Exercise 75
+
+;; =================
+;; Data definitions:
+
+(define-struct ufo [loc vel])
+; A UFO is a structure:
+;   (make-ufo Posn Vel)
+; interpretation (make-ufo p v) is at location
+; p moving at velocity v.
+(define v1 (make-vel 8  -3))
+(define v2 (make-vel -5 -3))
+
+(define p1 (make-posn 22 80))
+(define p2 (make-posn 30 77))
+
+(define u1 (make-ufo p1 v1))
+(define u2 (make-ufo p1 v2))
+(define u3 (make-ufo p2 v1))
+(define u4 (make-ufo p2 v2))
+
+
+;; =================
+;; Functions:
+
+; UFO -> UFO
+; determines where u moves in one clock tick;
+; leaves the velocity as is
+(check-expect (ufo-move-1 u1) u3)
+(check-expect (ufo-move-1 u2)
+              (make-ufo (make-posn 17 77) v2))
+
+(define (ufo-move-1 u)
+  (make-ufo (posn+ (ufo-loc u) (ufo-vel u))
+            (ufo-vel u)))
+
+; Posn Vel -> Posn
+; adds v to p
+(check-expect (posn+ p1 v1) p2)
+(check-expect (posn+ p1 v2) (make-posn 17 77))
+
+(define (posn+ p v)
+  (make-posn (+ (posn-x p) (vel-deltax v))
+             (+ (posn-y p) (vel-deltay v))))
