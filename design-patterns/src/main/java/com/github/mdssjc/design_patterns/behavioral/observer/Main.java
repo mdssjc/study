@@ -10,8 +10,8 @@ package com.github.mdssjc.design_patterns.behavioral.observer;
  * maneira que quando um objeto muda de estado, todos os seus dependentes são
  * notificados e atualizados automaticamente.
  * <p>
- * Pull-model: modelo simples, os observadores requisitam os dados ao assunto
- * Push-model: modelo completo, o assunto envia os dados para os observadores
+ * Pull-model: modelo simples, os observadores requisitam os dados ao assunto.
+ * Push-model: modelo completo, o assunto envia os dados para os observadores.
  *
  * @author Marcelo dos Santos
  *
