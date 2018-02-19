@@ -10,8 +10,8 @@ import java.util.Random;
  */
 public class Originator {
 
-  private final Random random;
   private String state;
+  private final Random random;
 
   public Originator() {
     this.random = new Random();
