@@ -77,11 +77,11 @@ public class StdRandom {
 
     final double[] probabilities = {0.5, 0.3, 0.1, 0.1};
     for (int i = 0; i < n; i++) {
-      StdOut.printf("%2d ", uniform(100));
+      StdOut.printf(" %2d ", uniform(100));
       StdOut.printf("%8.5f ", uniform(10.0, 99.0));
       StdOut.printf("%5b ", bernoulli(0.5));
-      StdOut.printf("%8.5f ", gaussian());
-      StdOut.printf("%1d ", discrete(probabilities));
+      StdOut.printf("%7.5f ", gaussian(9.0, 0.2));
+      StdOut.printf("%2d ", discrete(probabilities));
       StdOut.println();
     }
   }
