@@ -412,3 +412,104 @@
 (define (posn+ p v)
   (make-posn (+ (posn-x p) (vel-deltax v))
              (+ (posn-y p) (vel-deltay v))))
+
+
+
+;; 5.7 - The Universe of Data
+
+;; Exercise 76
+
+; (define-struct movie [title producer year])
+; Movie is (make-movie String String Number[0..9999])
+; interpretation title is a string
+;                producer is a string
+;                year is a number, between 0 and 9999
+
+; (define-struct person [name hair eyes phone])
+; Person is (make-person String String String String)
+; interpretation name is a string
+;                hair is a string
+;                eyes is a string
+;                phone is a string in format ###-####
+
+; (define-struct pet [name number])
+; Pet is (make-pet String Number)
+; interpretation name is a string
+;                number is a identification number
+
+; (define-struct CD [artist title price])
+; CD is (make-CD String String Number[0..])
+; interpretation artist is a string
+;                title is a string
+;                price is a positive number
+
+; (define-struct sweater [material size producer])
+; Sweater is (make-sweater String Number[0..] String)
+; interpretation material is a string
+;                size is a positive number
+;                producer is a string
+
+;; Exercise 77
+
+(define-struct point-time (hours minutes seconds))
+; Point-Time is a structure:
+;  (make-point-time Number[0..23] Number[0..59] Number[0..59])
+; interpretation hours means a number between 0 and 23
+;                minutes means a number between 0 and 59
+;                seconds means a number between 0 and 59
+
+;; Exercise 78
+
+(define-struct word-3 (l1 l2 l3))
+; Word-3 is a structure:
+;  (make-word-3 String String String)
+; interpretation l1 is a lower-case letter
+;                l2 is a lower-case letter
+;                l3 is a lower-case letter
+; Each letter is represented by "a" through "z" plus #false
+
+;; Exercise 79
+
+; A Color is one of:
+; - "white"
+; - "yellow"
+; - "orange"
+; - "green"
+; - "red"
+; - "blue"
+; - "black"
+(define C1 "white")
+(define C2 "yellow")
+(define C3 "orange")
+(define C4 "green")
+(define C5 "red")
+(define C6 "blue")
+(define C7 "black")
+
+; H is a Number between 0 and 100.
+; interpretation represents a “happiness value”
+(define H1 0)
+(define H2 50)
+(define H3 100)
+
+(define-struct person [fstname lstname male?])
+; A Person is a structure:
+;   (make-person String String Boolean)
+(define P1 (make-person "Joseph" "WGW" #true))
+
+(define-struct dog [owner name age happiness])
+; A Dog is a structure:
+;   (make-dog Person String PositiveInteger H)
+; interpretation owner means a Person
+;                name means a string
+;                age means a positive number
+;                happiness means a H
+(define D1 (make-dog P1 "Totó" 2 H3))
+
+; A Weapon is one of:
+; - #false
+; - Posn
+; interpretation #false means the missile hasn't
+; been fired yet; a Posn means it is in flight
+(define W1 #false)
+(define W2 (make-posn 20 20))
