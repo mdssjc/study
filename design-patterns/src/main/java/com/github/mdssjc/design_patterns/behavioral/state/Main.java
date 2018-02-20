@@ -8,6 +8,8 @@ package com.github.mdssjc.design_patterns.behavioral.state;
  * <p>
  * O padrão State permite a um objeto alterar seu comportamento quando o seu
  * estado interno muda. O objeto parecerá ter mudado sua classe.
+ * <p>
+ * Uso do dialeto 'handle/body'.
  *
  * @author Marcelo dos Santos
  *

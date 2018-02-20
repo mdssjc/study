@@ -11,6 +11,7 @@ package com.github.mdssjc.design_patterns.structural.bridge;
  * <p>
  * Abstração (Abstraction)        -> Interface.
  * Implementação (Implementation) -> Plataforma (Platform).
+ * Uso do dialeto 'handle/body'.
  * <p>
  * Conceitos: abstração/plataforma (abstraction/platform);
  *            domínio/infraestrutura (domain/infrastructure);

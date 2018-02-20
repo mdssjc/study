@@ -9,6 +9,8 @@ package com.github.mdssjc.design_patterns.behavioral.strategy;
  * O padrão Strategy define uma família de algoritmos, encapsula cada uma delas
  * e torná-las intercambiáveis. Strategy permite que o algoritmo varie
  * independentemente dos clientes que o utilizam.
+ * <p>
+ * Uso do dialeto 'handle/body'.
  *
  * @author Marcelo dos Santos
  *
