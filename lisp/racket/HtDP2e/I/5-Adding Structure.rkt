@@ -492,19 +492,19 @@
 (define H2 50)
 (define H3 100)
 
-(define-struct person [fstname lstname male?])
-; A Person is a structure:
-;   (make-person String String Boolean)
-(define P1 (make-person "Joseph" "WGW" #true))
+(define-struct person-v2 [fstname lstname male?])
+; A Person-v2 is a structure:
+;   (make-person-v2 String String Boolean)
+(define P1V2 (make-person-v2 "Joseph" "WGW" #true))
 
 (define-struct dog [owner name age happiness])
 ; A Dog is a structure:
-;   (make-dog Person String PositiveInteger H)
-; interpretation owner means a Person
+;   (make-dog Person-v2 String PositiveInteger H)
+; interpretation owner means a Person-v2
 ;                name means a string
 ;                age means a positive number
 ;                happiness means a H
-(define D1 (make-dog P1 "Totó" 2 H3))
+(define D1 (make-dog P1V2 "Totó" 2 H3))
 
 ; A Weapon is one of:
 ; - #false
