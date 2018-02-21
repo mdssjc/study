@@ -10,7 +10,7 @@ public class ConcreteElementA implements Element {
 
   @Override
   public void accept(final Visitor visitor) {
-    visitor.VisitConcreteElementA(this);
+    visitor.visitConcreteElementA(this);
   }
 
   public String operationA() {

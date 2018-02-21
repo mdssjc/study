@@ -9,12 +9,12 @@ package com.github.mdssjc.design_patterns.behavioral.visitor;
 public class ConcreteVisitor1 implements Visitor {
 
   @Override
-  public void VisitConcreteElementA(final ConcreteElementA element) {
+  public void visitConcreteElementA(final ConcreteElementA element) {
     System.out.println("Visitor 1: " + element.operationA());
   }
 
   @Override
-  public void VisitConcreteElementB(final ConcreteElementB element) {
+  public void visitConcreteElementB(final ConcreteElementB element) {
     System.out.println("Visitor 1: " + element.operationB());
   }
 }

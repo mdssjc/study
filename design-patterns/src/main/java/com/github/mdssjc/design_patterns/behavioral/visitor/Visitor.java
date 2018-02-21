@@ -8,7 +8,7 @@ package com.github.mdssjc.design_patterns.behavioral.visitor;
  */
 public interface Visitor {
 
-  void VisitConcreteElementA(ConcreteElementA element);
+  void visitConcreteElementA(ConcreteElementA element);
 
-  void VisitConcreteElementB(ConcreteElementB element);
+  void visitConcreteElementB(ConcreteElementB element);
 }
