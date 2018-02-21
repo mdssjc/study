@@ -513,3 +513,85 @@
 ; been fired yet; a Posn means it is in flight
 (define W1 #false)
 (define W2 (make-posn 20 20))
+
+
+
+;; 5.8 - Designing with Structures
+
+;; Exercise 80
+
+; (define-struct movie [title director year])
+
+; Movie -> String
+; format movie information for a string
+(define (format-movie m)
+  (... (movie-title m) ... (movie-director m) ... (movie-year m) ...))
+
+
+; (define-struct person [name hair eyes phone])
+
+; Person -> String
+; produces the information of a person
+(define (do-person p)
+  (... (person-name p) ... (person-hair p) ... (person-eyes p) ... (person-phone p) ...))
+
+
+; (define-struct pet [name number])
+
+; Pet -> String
+; produces the identification of pet
+(define (pet-id p)
+  (... (pet-name p) ... (pet-number p) ...))
+
+
+; (define-struct CD [artist title price])
+
+; CD -> String
+; produces the information of a CD
+(define (do-price c)
+  (... (CD-artist c) ... (CD-title c) ... (CD-price c) ...))
+
+
+; (define-struct sweater [material size color])
+
+; Sweater -> String
+; produces the information of a Sweater
+(define (do-sweater s)
+  (... (sweater-material s) ... (sweater-size s) ... (sweater-color s) ...))
+
+;; Exercise 81
+
+; Point-Time -> Number
+; produces the number of seconds that have passed since midnight
+(check-expect (time->seconds (make-point-time 12 30 2)) 45002)
+
+(define (time->seconds r)
+  (+ (* (point-time-hours   r) 60 60)
+     (* (point-time-minutes r) 60)
+     (point-time-seconds    r)))
+
+;; Exercise 82
+
+; Word-3 Word-3 -> Word-3
+; produces a word that indicates where the given ones agree and disagree
+(check-expect (compare-word (make-word-3 "a" "b" "c")
+                            (make-word-3 "a" "b" "d"))
+              (make-word-3 "a" "b" #false))
+
+(define (compare-word w1 w2)
+  (make-word-3 (res (word-3-l1 w1) (word-3-l1 w2))
+               (res (word-3-l2 w1) (word-3-l2 w2))
+               (res (word-3-l3 w1) (word-3-l3 w2))))
+
+; String String -> String/Boolean
+; helper function to compare-word
+(check-expect (res "a" "a")    "a")
+(check-expect (res "a" "b")    #false)
+(check-expect (res "a" #false) #false)
+(check-expect (res #false "a") #false)
+
+(define (res w1 w2)
+  (cond [(and (string? w1)
+              (string? w2)
+              (string=? w1 w2)) w1]
+        [else #false]))
