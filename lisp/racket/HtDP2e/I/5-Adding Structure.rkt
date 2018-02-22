@@ -595,3 +595,7 @@
               (string? w2)
               (string=? w1 w2)) w1]
         [else #false]))
+
+
+
+;; 5.9 - Structure in the World
