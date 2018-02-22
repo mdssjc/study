@@ -19,6 +19,10 @@ public class Gaussian {
     return Math.exp(-x * x / 2) / Math.sqrt(2 * Math.PI);
   }
 
+  public static double pdf(final double x, final double mu, final double sigma) {
+    return pdf((x - mu) / sigma) / sigma;
+  }
+
   public static double cdf(final double z) {
     if (z < -8.0) {
       return 0.0;
