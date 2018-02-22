@@ -95,9 +95,9 @@ public class StdStats {
     a = new double[n];
     for (int i = 0; i < n; i++) {
       a[i] = 1.0 / (i + 1);
-      plotPoints(a);
-      plotLines(a);
-      plotBars(a);
     }
+    plotPoints(a);
+    plotLines(a);
+    plotBars(a);
   }
 }
