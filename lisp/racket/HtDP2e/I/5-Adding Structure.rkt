@@ -709,3 +709,159 @@
   (if (= (string-length s) 0)
       ""
       (substring s 0 (- (string-length s) 1))))
+
+;; Exercise 85
+
+;; =================
+;; Functions:
+
+; String -> Image
+; starts a world with (run "abc")
+(define (run pre)
+  (big-bang (make-editor pre "")
+            (to-draw render)
+            (on-key  edit)))
+
+;; Exercise 86
+
+; Editor KeyEvent -> Editor
+; produces a new editor with base in key event
+(check-expect (edit-v2 (make-editor "abc" "def") "a")     (make-editor "abca" "def"))
+(check-expect (edit-v2 (make-editor "abc" "def") "\b")    (make-editor "ab" "def"))
+(check-expect (edit-v2 (make-editor "" "def")    "\b")    (make-editor "" "def"))
+(check-expect (edit-v2 (make-editor "abc" "def") "\t")    (make-editor "abc" "def"))
+(check-expect (edit-v2 (make-editor "abc" "def") "\r")    (make-editor "abc" "def"))
+(check-expect (edit-v2 (make-editor "abc" "def") "left")  (make-editor "ab" "cdef"))
+(check-expect (edit-v2 (make-editor "" "abcdef") "left")  (make-editor "" "abcdef"))
+(check-expect (edit-v2 (make-editor "abc" "def") "right") (make-editor "abcd" "ef"))
+(check-expect (edit-v2 (make-editor "abcdef" "") "right") (make-editor "abcdef" ""))
+(check-expect (edit-v2 (make-editor "abcdefghij" "") "k") (make-editor "abcdefghij" ""))
+
+(define (edit-v2 e ke)
+  (cond
+    [(key=? ke  "left")
+     (make-editor (string-remove-last (editor-pre e))
+                  (string-append (string-last (editor-pre e))
+                                 (editor-post e)))]
+    [(key=? ke "right")
+     (make-editor (string-append (editor-pre e)
+                                 (string-first (editor-post e)))
+                  (string-rest (editor-post e)))]
+    [(or (key=? ke "\t") (key=? ke "\r")) e]
+    [(= (string-length ke) 1)
+     (make-editor
+      (cond
+        [(key=? ke "\b") (string-remove-last (editor-pre e))]
+        [(and (= (string-length ke) 1)
+              (< (string-length (editor-pre e)) 10))
+         (string-append (editor-pre e) ke)]
+        [else (editor-pre e)])
+      (editor-post e))]
+    [else e]))
+
+;; Exercise 87
+
+;; =================
+;; Data definitions:
+
+(define-struct editor-v3 [post index])
+; An Editor is a structure:
+;   (make-editor-v3 String Number)
+; interpretation (make-editor-v3 s i) describes an editor
+; whose visible text is s with the cursor displayed in t position
+
+
+;; =================
+;; Functions:
+
+; String -> Image
+; starts a world with (run-v3 "abc")
+(define (run-v3 pre)
+  (big-bang (make-editor-v3 pre (string-length pre))
+            (to-draw render-v3)
+            (on-key  edit-v3)))
+
+; Editor -> Image
+; produces an image with the editor
+(check-expect (render-v3 (make-editor-v3 "Hello World" 6))
+              (overlay/align "left" "center"
+                             (beside
+                              (text "Hello " 16 "black")
+                              (rectangle 1 20 "solid" "red")
+                              (text "World" 16 "black"))
+                             (empty-scene 200 20)))
+
+(define (render-v3 e)
+  (overlay/align "left" "center"
+                 (beside
+                  (text (substring (editor-v3-post e) 0 (editor-v3-index e)) 16 "black")
+                  (rectangle 1 20 "solid" "red")
+                  (text (substring (editor-v3-post e)   (editor-v3-index e)) 16 "black"))
+                 (empty-scene 200 20)))
+
+
+; Editor KeyEvent -> Editor
+; produces a new editor with base in key event
+(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "a")      (make-editor-v3 "abcadef" 4))
+(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "\b")     (make-editor-v3 "abdef" 2))
+(check-expect (edit-v3 (make-editor-v3 "def" 0)    "\b")     (make-editor-v3 "def" 0))
+(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "\t")     (make-editor-v3 "abcdef" 3))
+(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "\r")     (make-editor-v3 "abcdef" 3))
+(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "left")   (make-editor-v3 "abcdef" 2))
+(check-expect (edit-v3 (make-editor-v3 "abcdef" 0) "left")   (make-editor-v3 "abcdef" 0))
+(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "right")  (make-editor-v3 "abcdef" 4))
+(check-expect (edit-v3 (make-editor-v3 "abcdef" 6) "right")  (make-editor-v3 "abcdef" 6))
+(check-expect (edit-v3 (make-editor-v3 "abcdefghij" 10) "k") (make-editor-v3 "abcdefghij" 10))
+
+(define (edit-v3 e ke)
+  (cond
+    [(key=? ke "left")
+     (make-editor-v3
+      (editor-v3-post e)
+      (if (> (editor-v3-index e) 0)
+          (sub1 (editor-v3-index e))
+          0))]
+    [(key=? ke "right")
+     (make-editor-v3
+      (editor-v3-post e)
+      (if (< (editor-v3-index e) (string-length (editor-v3-post e)))
+          (add1 (editor-v3-index e))
+          (string-length (editor-v3-post e))))]
+    [(or (key=? ke "\t") (key=? ke "\r")) e]
+    [(= (string-length ke) 1)
+     (make-editor-v3
+      (cond
+        [(key=? ke "\b") (if (> (editor-v3-index e) 0)
+                             (string-delete (editor-v3-post e) (editor-v3-index e))
+                             (editor-v3-post e))]
+        [(and (= (string-length ke) 1)
+              (< (string-length (editor-v3-post e)) 10))
+         (string-insert ke (editor-v3-post e) (editor-v3-index e))]
+        [else (editor-v3-post e)])
+      (cond
+        [(key=? ke "\b") (if (> (editor-v3-index e) 0)
+                             (sub1 (editor-v3-index e))
+                             (editor-v3-index e))]
+        [(and (= (string-length ke) 1)
+              (< (editor-v3-index e) 10)) (add1 (editor-v3-index e))]
+        [else (editor-v3-index e)]))]
+    [else e]))
+
+;; String -> String
+;; inserts character c into string s in position i
+(check-expect (string-insert "_" "helloworld" 5) "hello_world")
+
+(define (string-insert c s i)
+  (string-append (substring s 0 i) c (substring s i)))
+
+;; String -> String
+;; deletes the character at position i of string str
+(check-expect (string-delete "helloworld" 6) "helloorld")
+(check-expect (string-delete "abcdef" 3)     "abdef")
+
+(define (string-delete str i)
+  (if (= i 0)
+      str
+      (string-append
+       (substring str 0 (sub1 i))
+       (substring str i))))
