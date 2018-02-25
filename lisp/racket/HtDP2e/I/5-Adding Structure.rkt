@@ -326,7 +326,7 @@
 ;; =================
 ;; Functions:
 
-; Posn -> Posn
+; Posn -> World
 ; starts the world with (main (make-posn 0 0))
 (define (main p0)
   (big-bang p0
@@ -715,7 +715,7 @@
 ;; =================
 ;; Functions:
 
-; String -> Image
+; String -> World
 ; starts a world with (run "abc")
 (define (run pre)
   (big-bang (make-editor pre "")
@@ -774,7 +774,7 @@
 ;; =================
 ;; Functions:
 
-; String -> Image
+; String -> World
 ; starts a world with (run-v3 "abc")
 (define (run-v3 pre)
   (big-bang (make-editor-v3 pre (string-length pre))
@@ -865,3 +865,249 @@
       (string-append
        (substring str 0 (sub1 i))
        (substring str i))))
+
+
+
+;; 5.11 - More Virtual Pets
+
+;; Exercise 88
+;; Exercise 89
+;; Exercise 90
+;; Exercise 91
+
+;; =================
+;; Constants:
+
+(define WIDTH_V4  400)
+(define HEIGHT_V4 400)
+
+(define CAT (circle 6 "solid" "brown"))
+(define SPEED_V4 3)
+(define OFFSET      (/ (image-width CAT) 2))
+(define LIMIT-X-POS (+ WIDTH_V4 OFFSET))
+(define Y-CAT       (/ HEIGHT_V4 2))
+
+(define GAUGE-WIDTH  (/ WIDTH_V4  3))
+(define GAUGE-HEIGHT (/ HEIGHT_V4 40))
+(define MIN  0)
+(define MAX  100)
+(define DEC -0.1)
+(define INC-DOWN 1/5)
+(define INC-UP   1/3)
+
+(define BACKGROUND (empty-scene WIDTH_V4 HEIGHT_V4))
+
+
+;; =================
+;; Data definitions:
+
+(define-struct vcat (x h d))
+; A VCat is a structure:
+;   (make-vcat Number Number Number)
+; interpretation (make-vcat x h) describes a virtual cat
+;   where x means x-coordinate
+;   and   h means your happiness
+;   and   d means your direction, 0 left and 1 right
+(define VC1 (make-vcat 10 100 1))
+(define VC2 (make-vcat WIDTH_V4 100 1))
+(define VC3 (make-vcat 0 MIN 1))
+(define VC4 (make-vcat 0 0.1 1))
+(define VC5 (make-vcat 0 0.3 1))
+(define VC6 (make-vcat 0 10  1))
+(define VC7 (make-vcat 0 (sub1 MAX) 1))
+(define VC8 (make-vcat 0  100 0))
+(define VC9 (make-vcat 10 100 0))
+
+
+;; =================
+;; Functions:
+
+; VCat -> World
+; starts a world with (happy-cat (make-vcat 0 100 0))
+(define (happy-cat vcat)
+  (big-bang vcat
+            [on-tick   tock]
+            [to-draw   render-v4]
+            [on-key    increase]
+            [stop-when sad?]))
+
+; VCat -> VCat
+; moves the virtual cat by SPEED pixels and
+; decreases the happiness by DEC for every clock tick,
+; turn the virtual cat around when it reaches either end of the scene
+(check-expect (tock VC1) (make-vcat (+ (vcat-x VC1) SPEED_V4) (+ (vcat-h VC1) DEC) 1))
+(check-expect (tock VC2) (make-vcat (- (vcat-x VC2) SPEED_V4) (+ (vcat-h VC2) DEC) 0))
+(check-expect (tock VC3) (make-vcat (+ (vcat-x VC3) SPEED_V4) MIN 1))
+(check-expect (tock VC4) (make-vcat (+ (vcat-x VC4) SPEED_V4) MIN 1))
+(check-expect (tock VC5) (make-vcat (+ (vcat-x VC5) SPEED_V4) (+ (vcat-h VC5) DEC) 1))
+(check-expect (tock VC8) (make-vcat (+ (vcat-x VC8) SPEED_V4) (+ (vcat-h VC8) DEC) 1))
+(check-expect (tock VC9) (make-vcat (- (vcat-x VC9) SPEED_V4) (+ (vcat-h VC9) DEC) 0))
+
+(define (tock vc)
+  (make-vcat
+   (cond [(>= (vcat-x vc) WIDTH_V4) (- (vcat-x vc) SPEED_V4)]
+         [(<= (vcat-x vc) 0)        (+ (vcat-x vc) SPEED_V4)]
+         [else (if (= (vcat-d vc) 1)
+                   (+ (vcat-x vc) SPEED_V4)
+                   (- (vcat-x vc) SPEED_V4))])
+   (if (<= (+ (vcat-h vc) DEC) MIN)
+       MIN
+       (+ (vcat-h vc) DEC))
+   (cond [(>= (vcat-x vc) WIDTH_V4) 0]
+         [(<= (vcat-x vc) 0)        1]
+         [else (vcat-d vc)])))
+
+; VCat -> Image
+; places the virtual cat into the BACKGROUND scene
+(define (render-v4 vc)
+  (place-image CAT (vcat-x vc) Y-CAT
+               (overlay/align "middle" "top"
+                              (rectangle (* (vcat-h vc) GAUGE-WIDTH .01)
+                                         GAUGE-HEIGHT
+                                         "solid" "red")
+                              BACKGROUND)))
+
+; VCat KeyEvent -> VCat
+; produces a increase in happiness for:
+; up is 1/3 and down is 1/5
+(check-expect (increase VC6 "up")   (make-vcat (vcat-x VC6) (calculate (vcat-h VC6) INC-UP) (vcat-d VC6)))
+(check-expect (increase VC6 "left") VC6)
+(check-expect (increase VC6 "down") (make-vcat (vcat-x VC6) (calculate (vcat-h VC6) INC-DOWN) (vcat-d VC6)))
+(check-expect (increase VC7 "up")   (make-vcat (vcat-x VC7) MAX (vcat-d VC7)))
+(check-expect (increase VC7 "down") (make-vcat (vcat-x VC7) MAX (vcat-d VC7)))
+(check-expect (increase VC3 "up")   (make-vcat (vcat-x VC3) 1 (vcat-d VC3)))
+(check-expect (increase VC3 "down") (make-vcat (vcat-x VC3) 1 (vcat-d VC3)))
+
+(define (increase vc ke)
+  (make-vcat (vcat-x vc)
+             (cond [(key=? ke "up")   (calculate (vcat-h vc) INC-UP)]
+                   [(key=? ke "down") (calculate (vcat-h vc) INC-DOWN)]
+                   [else (vcat-h vc)])
+             (vcat-d vc)))
+
+; Number -> Number
+; help function for increase x by n, limited by MAX
+(define (calculate x n)
+  (cond [(= x MIN) 1]
+        [(> (+ x (* x n)) MAX) MAX]
+        [else (+ x (* x n))]))
+
+; VCat -> Boolean
+; stops when the virtual cat is sad
+(check-expect (sad? VC3) #true)
+(check-expect (sad? VC1) #false)
+
+(define (sad? vc)
+  (= (vcat-h vc) MIN))
+
+;; Exercise 92
+;; Exercise 93
+
+;; =================
+;; Constants:
+
+(define CHAM (circle 6 "solid" "red"))
+(define OFFSET_V5 (/ (image-width CHAM) 2))
+(define Y-CHAM    (/ HEIGHT_V4 2))
+
+(define BACKGROUND_V5
+  (beside (empty-scene (/ WIDTH_V4 3) HEIGHT_V4 "green")
+          (empty-scene (/ WIDTH_V4 3) HEIGHT_V4 "white")
+          (empty-scene (/ WIDTH_V4 3) HEIGHT_V4 "red")))
+
+
+;; =================
+;; Data definitions:
+
+(define-struct vcham (x h c))
+; A VCham is a structure:
+;   (make-vcham Number Number String)
+; interpretation (make-vcham x h c) describes a virtual cham
+;   where x means x-coordinate
+;   and   h means your happiness
+;   and   c means your color
+(define VCH1 (make-vcham 0 100 "red"))
+(define VCH2 (make-vcham LIMIT-X-POS 100 "red"))
+(define VCH3 (make-vcham 0 MIN "red"))
+(define VCH4 (make-vcham 0 0.1 "red"))
+(define VCH5 (make-vcham 0 0.3 "red"))
+(define VCH6 (make-vcham 0 10  "red"))
+(define VCH7 (make-vcham 0 (sub1 MAX) "red"))
+(define VCH8 (make-vcham 0 10 "green"))
+(define VCH9 (make-vcham 0 10 "blue"))
+
+
+;; =================
+;; Functions:
+
+; VCham -> World
+; starts a world with (cham (make-vcham 0 100 "red"))
+(define (cham vcham)
+  (big-bang vcham
+            [on-tick   tock-v5]
+            [to-draw   render-v5]
+            [on-key    interact]
+            [stop-when sad?-v5]))
+
+; VCham -> VCham
+; moves the virtual cham by SPEED pixels and
+; decreases the happiness by DEC for every clock tick,
+; reset when the virtual cham disappears on the right
+(check-expect (tock-v5 VCH1) (make-vcham   (+ (vcham-x VCH1) SPEED_V4) (+ (vcham-h VCH1) DEC) "red"))
+(check-expect (tock-v5 VCH2) (make-vcham 0 (+ (vcham-h VCH2) DEC) "red"))
+(check-expect (tock-v5 VCH3) (make-vcham   (+ (vcham-x VCH3) SPEED_V4) MIN "red"))
+(check-expect (tock-v5 VCH4) (make-vcham   (+ (vcham-x VCH4) SPEED_V4) MIN "red"))
+(check-expect (tock-v5 VCH5) (make-vcham   (+ (vcham-x VCH5) SPEED_V4) (+ (vcham-h VCH5) DEC) "red"))
+
+(define (tock-v5 vc)
+  (make-vcham
+   (if (>= (+ (vcham-x vc) SPEED_V4) LIMIT-X-POS)
+       0
+       (+ (vcham-x vc) SPEED_V4))
+   (if (<= (+ (vcham-h vc) DEC) MIN)
+       MIN
+       (+ (vcham-h vc) DEC))
+   (vcham-c vc)))
+
+; VCham -> Image
+; places the virtual cham into the BACKGROUND scene
+(define (render-v5 vc)
+  (place-image (circle 6 "solid" (vcham-c vc)) (vcham-x vc) Y-CHAM
+               (overlay/align "middle" "top"
+                              (rectangle (* (vcham-h vc) GAUGE-WIDTH .01)
+                                         GAUGE-HEIGHT
+                                         "solid" "red")
+                              BACKGROUND_V5)))
+
+; VCham KeyEvent -> VCham
+; interacts with the cham:
+;  happiness: up is 1/3 and down is 1/5
+;  color: r is "red", g is "green" and b is "blue"
+(check-expect (interact VCH6 "up")   (make-vcham (vcham-x VCH6) (calculate (vcham-h VCH6) INC-UP) "red"))
+(check-expect (interact VCH6 "left") VCH6)
+(check-expect (interact VCH6 "down") (make-vcham (vcham-x VCH6) (calculate (vcham-h VCH6) INC-DOWN) "red"))
+(check-expect (interact VCH7 "up")   (make-vcham (vcham-x VCH7) MAX "red"))
+(check-expect (interact VCH7 "down") (make-vcham (vcham-x VCH7) MAX "red"))
+(check-expect (interact VCH3 "up")   (make-vcham (vcham-x VCH3) 1 "red"))
+(check-expect (interact VCH3 "down") (make-vcham (vcham-x VCH3) 1 "red"))
+(check-expect (interact VCH9 "r") VCH6)
+(check-expect (interact VCH6 "g") VCH8)
+(check-expect (interact VCH8 "b") VCH9)
+
+(define (interact vc ke)
+  (make-vcham (vcham-x vc)
+              (cond [(key=? ke "up")   (calculate (vcham-h vc) INC-UP)]
+                    [(key=? ke "down") (calculate (vcham-h vc) INC-DOWN)]
+                    [else (vcham-h vc)])
+              (cond [(key=? ke "r") "red"]
+                    [(key=? ke "g") "green"]
+                    [(key=? ke "b") "blue"]
+                    [else (vcham-c vc)])))
+
+; VCham -> Boolean
+; stops when the virtual cham is sad
+(check-expect (sad?-v5 VCH3) #true)
+(check-expect (sad?-v5 VCH1) #false)
+
+(define (sad?-v5 vc)
+  (= (vcham-h vc) MIN))
