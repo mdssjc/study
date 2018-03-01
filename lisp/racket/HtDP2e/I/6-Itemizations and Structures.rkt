@@ -228,40 +228,67 @@
 ; - pressing the left arrow ensures that the tank moves left;
 ; - pressing the right arrow ensures that the tank moves right; and
 ; - pressing the space bar fires the missile if it hasn’t been launched yet.
+(check-expect (si-control S1 "left")
+              (make-aim (aim-ufo S1)
+                        (create-tank (aim-tank S1) "left")))
+(check-expect (si-control S1 "right")
+              (make-aim (aim-ufo S1)
+                        (create-tank (aim-tank S1) "right")))
+(check-expect (si-control S1 " ")
+              (make-fired (aim-ufo S1)
+                          (aim-tank S1)
+                          (make-posn (tank-loc (aim-tank S1))
+                                     (- HEIGHT TANK-HEIGHT))))
+(check-expect (si-control S1 "a") S1)
+(check-expect (si-control S2 "left")
+              (make-fired (fired-ufo S2)
+                          (create-tank (fired-tank S2) "left")
+                          (fired-missile S2)))
+(check-expect (si-control S2 "right")
+              (make-fired (fired-ufo S2)
+                          (create-tank (fired-tank S2) "right")
+                          (fired-missile S2)))
+(check-expect (si-control S2 " ")
+              (make-fired (fired-ufo  S2)
+                          (fired-tank S2)
+                          (make-posn (tank-loc (fired-tank S2))
+                                     (- HEIGHT TANK-HEIGHT))))
+(check-expect (si-control S2 "a") S2)
+
 (define (si-control s ke)
   (cond [(or (key=? ke "left")
              (key=? ke "right"))
          (cond [(aim? s)
                 (make-aim (aim-ufo s)
-                          (create-tank (aim-tank s) (if (string=? ke "left") "l" "r")))]
+                          (create-tank (aim-tank s) ke))]
                [(fired? s)
                 (make-fired (fired-ufo s)
-                            (create-tank (fired-tank s) (if (string=? ke "left") "l" "r"))
+                            (create-tank (fired-tank s) ke)
                             (fired-missile s))])]
         [(key=? ke " ")
          (cond [(aim? s)
-                (make-fired (aim-ufo s)
+                (make-fired (aim-ufo  s)
                             (aim-tank s)
                             (make-posn (tank-loc (aim-tank s))
                                        (- HEIGHT TANK-HEIGHT)))]
                [(fired? s)
-                (make-fired (fired-ufo s)
+                (make-fired (fired-ufo  s)
                             (fired-tank s)
                             (make-posn (tank-loc (fired-tank s))
                                        (- HEIGHT TANK-HEIGHT)))])]
         [else s]))
 
 ; Tank -> Tank
-; produces a tank from t with the speed direction dir, "l" to left and "r" to right
-(check-expect (create-tank (make-tank 100 3)  "l") (make-tank 100 -3))
-(check-expect (create-tank (make-tank 100 -3) "l") (make-tank 100 -3))
-(check-expect (create-tank (make-tank 100 3)  "r") (make-tank 100 3))
-(check-expect (create-tank (make-tank 100 -3) "r") (make-tank 100 3))
+; produces a tank from t with the speed direction dir
+(check-expect (create-tank (make-tank 100 3)  "left")  (make-tank 100 -3))
+(check-expect (create-tank (make-tank 100 -3) "left")  (make-tank 100 -3))
+(check-expect (create-tank (make-tank 100 3)  "right") (make-tank 100 3))
+(check-expect (create-tank (make-tank 100 -3) "right") (make-tank 100 3))
 
 (define (create-tank t dir)
   (make-tank (tank-loc t)
              (* (tank-vel t)
-                (cond [(string=? dir "l")
+                (cond [(string=? dir "left")
                        (if (negative? (tank-vel t)) 1 -1)]
-                      [(string=? dir "r")
+                      [(string=? dir "right")
                        (if (negative? (tank-vel t)) -1 1)]))))
