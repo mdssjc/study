@@ -233,16 +233,10 @@
              (key=? ke "right"))
          (cond [(aim? s)
                 (make-aim (aim-ufo s)
-                          (make-tank (tank-loc (aim-tank s))
-                                     (tank-direction (if (string=? ke "left")
-                                                         "l" "r")
-                                                     (tank-vel (aim-tank s)))))]
+                          (create-tank (aim-tank s) (if (string=? ke "left") "l" "r")))]
                [(fired? s)
                 (make-fired (fired-ufo s)
-                            (make-tank (tank-loc (fired-tank s))
-                                       (tank-direction (if (string=? ke "left")
-                                                           "l" "r")
-                                                       (tank-vel (fired-tank s))))
+                            (create-tank (fired-tank s) (if (string=? ke "left") "l" "r"))
                             (fired-missile s))])]
         [(key=? ke " ")
          (cond [(aim? s)
@@ -257,15 +251,17 @@
                                        (- HEIGHT TANK-HEIGHT)))])]
         [else s]))
 
-; String Number -> Number
-; updates the speed direction, "l" to left and "r" to right
-(check-expect (tank-direction "l"  10) -10)
-(check-expect (tank-direction "l" -10) -10)
-(check-expect (tank-direction "r"  10)  10)
-(check-expect (tank-direction "r" -10)  10)
+; Tank -> Tank
+; produces a tank from t with the speed direction dir, "l" to left and "r" to right
+(check-expect (create-tank (make-tank 100 3)  "l") (make-tank 100 -3))
+(check-expect (create-tank (make-tank 100 -3) "l") (make-tank 100 -3))
+(check-expect (create-tank (make-tank 100 3)  "r") (make-tank 100 3))
+(check-expect (create-tank (make-tank 100 -3) "r") (make-tank 100 3))
 
-(define (tank-direction d v)
-  (cond [(string=? d "l")
-         (if (negative? v) v (* v -1))]
-        [(string=? d "r")
-         (if (negative? v) (* v -1) v)]))
+(define (create-tank t dir)
+  (make-tank (tank-loc t)
+             (* (tank-vel t)
+                (cond [(string=? dir "l")
+                       (if (negative? (tank-vel t)) 1 -1)]
+                      [(string=? dir "r")
+                       (if (negative? (tank-vel t)) -1 1)]))))
