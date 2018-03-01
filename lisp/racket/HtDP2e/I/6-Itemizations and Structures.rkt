@@ -10,9 +10,25 @@
 
 
 ;; 6.1 - Designing with Itemizations, Again
-;; FIXME: reordenar as funções para todos os exercícios.
 
 ;; Exercise 94
+;; Exercise 95
+
+;; The examples represent three states, being the movement of the Tank with its
+;; aim, the firing of the missile and the collision with the UFO.
+
+;; Exercise 96
+
+;; Paper sketch of the three examples:
+;; - aim: render the UFO and Tank;
+;; - fired 1: render the UFO, Tank and Missile; and
+;; - fired 2: render the Tank and collision between the UFO and the Missile.
+
+;; Exercise 97
+;; Exercise 98
+;; Exercise 99
+;; Exercise 100
+
 
 ;; =================
 ;; Constants:
@@ -30,8 +46,6 @@
 (define BACKGROUND (empty-scene WIDTH HEIGHT))
 
 
-;; Exercise 95
-
 ;; =================
 ;; Data definitions:
 
@@ -48,7 +62,7 @@
 ; A Missile is a Posn.
 ; interpretation (make-posn x y) is the missile's place
 
-(define-struct aim [ufo tank])
+(define-struct aim   [ufo tank])
 (define-struct fired [ufo tank missile])
 ; A SIGS is one of:
 ; - (make-aim UFO Tank)
@@ -65,18 +79,6 @@
 (define S4 (make-aim   (make-posn 10 (- HEIGHT CLOSE))
                        (make-tank 28 -3)))
 
-;; The examples represent three states, being the movement of the Tank with its
-;; aim, the firing of the missile and the collision with the UFO.
-
-;; Exercise 96
-
-;; Paper sketch of the three examples:
-;; - aim: render the UFO and Tank;
-;; - fired 1: render the UFO, Tank and Missile; and
-;; - fired 2: render the Tank and collision between the UFO and the Missile.
-
-
-;; Exercise 97
 
 ;; =================
 ;; Functions:
@@ -132,8 +134,6 @@
                                          BACKGROUND))))
 (check-expect T1 T2)
 
-;; Exercise 98
-
 ; SIGS -> Boolean
 ; returns true when the game stop;
 ; the game stops if the UFO lands or if the missile hits the UFO
@@ -164,8 +164,6 @@
 ; renders the final state of the game
 (define (si-render-final s)
   (si-render s))
-
-;; Exercise 99
 
 ; SIGS -> SIGS
 ; updates the position of objects
@@ -224,8 +222,6 @@
 
 (define (update-missile m)
   (make-posn (posn-x m) (sub1 (posn-y m))))
-
-;; Exercise 100
 
 ; SIGS KeyEvent -> SIGS
 ; handles the main events:
