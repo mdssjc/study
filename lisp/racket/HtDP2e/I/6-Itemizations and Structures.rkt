@@ -292,3 +292,170 @@
                        (if (negative? (tank-vel t)) 1 -1)]
                       [(string=? dir "right")
                        (if (negative? (tank-vel t)) -1 1)]))))
+
+
+;; Exercise 101
+;; Exercise 102
+
+
+;; =================
+;; Data definitions:
+
+; A MissileOrNot is one of:
+; - #false
+; - Posn
+; interpretation#false means the missile is in the tank;
+; Posn says the missile is at that location
+
+(define-struct sigs [ufo tank missile])
+; A SIGS.v2 (short for SIGS version 2) is a structure:
+;   (make-sigs UFO Tank MissileOrNot)
+; interpretation represents the complete state of a
+; space invader game
+(define S5 (make-sigs (make-posn 20 10)
+                      (make-tank 28 -3)
+                      #false))
+(define S6 (make-sigs (make-posn 20 10)
+                      (make-tank 28 -3)
+                      (make-posn 32 (- HEIGHT TANK-HEIGHT 10))))
+(define S7 (make-sigs (make-posn 20 100)
+                      (make-tank 100 3)
+                      (make-posn 22 103)))
+(define S8 (make-sigs (make-posn 10 (- HEIGHT CLOSE))
+                      (make-tank 28 -3)
+                      #false))
+
+
+;; =================
+;; Functions:
+
+; SIGS.v2 -> World
+; starts a world with (main S1)
+(define (main.v2 s)
+  (big-bang s
+            (on-tick   si-move.v2)
+            (on-draw   si-render.v2)
+            (on-key    si-control.v2)
+            (stop-when si-game-over?.v2)))
+
+; SIGS.v2 -> SIGS.v2
+; updates the position of objects
+(check-random (si-move.v2 S5)
+              (make-sigs
+               (make-posn (random (+ (posn-x (sigs-ufo S5)) (image-width UFO))) 11)
+               (make-tank 25 -3)
+               #false))
+(check-random (si-move.v2 S6)
+              (make-sigs
+               (make-posn (random (+ (posn-x (sigs-ufo S6)) (image-width UFO))) 11)
+               (make-tank 25 -3)
+               (make-posn 32 (sub1 (- HEIGHT TANK-HEIGHT 10)))))
+
+(define (si-move.v2 s)
+  (si-move-proper.v2 s (random (+ (posn-x (sigs-ufo s))
+                               (image-width  UFO)))))
+
+; SIGS.v2 Number -> SIGS.v2
+; moves the space-invader objects predictably by delta
+(define (si-move-proper.v2 s delta)
+  (make-sigs (update-ufo  (sigs-ufo  s) delta)
+             (update-tank (sigs-tank s))
+             (update-missile.v2 (sigs-missile s))))
+
+; Missile -> Missile
+; updates the missile
+(define (update-missile.v2 m)
+  (cond [(boolean? m) m]
+        [(posn?    m) (make-posn (posn-x m) (sub1 (posn-y m)))]))
+
+; SIGS.v2 -> Image
+; renders the given game state on top of BACKGROUND
+(check-expect (si-render.v2 S5)
+              (place-image UFO 20 10
+                           (place-image TANK 28 HEIGHT
+                                        BACKGROUND)))
+(check-expect (si-render.v2 S6)
+              (place-image UFO 20 10
+                           (place-image TANK 28 HEIGHT
+                                        (place-image MISSILE 32 (- HEIGHT TANK-HEIGHT 10)
+                                                     BACKGROUND))))
+
+(define (si-render.v2 s)
+  (tank-render
+   (sigs-tank s)
+   (ufo-render (sigs-ufo s)
+               (missile-render.v2 (sigs-missile s)
+                                  BACKGROUND))))
+
+; MissileOrNot Image -> Image
+; adds an image of missile m to scene s
+(define (missile-render.v2 m s)
+  (cond [(boolean? m) s]
+        [(posn?    m) (place-image MISSILE (posn-x m) (posn-y m) s)]))
+
+; SIGS.v2 KeyEvent -> SIGS.v2
+; handles the main events:
+; - pressing the left arrow ensures that the tank moves left;
+; - pressing the right arrow ensures that the tank moves right; and
+; - pressing the space bar fires the missile if it hasn’t been launched yet.
+(check-expect (si-control.v2 S5 "left")
+              (make-sigs (sigs-ufo S5)
+                         (create-tank (sigs-tank S5) "left")
+                         (sigs-missile S5)))
+(check-expect (si-control.v2 S5 "right")
+              (make-sigs (sigs-ufo S5)
+                         (create-tank (sigs-tank S5) "right")
+                         (sigs-missile S5)))
+(check-expect (si-control.v2 S5 " ")
+              (make-sigs (sigs-ufo S5)
+                         (sigs-tank S5)
+                         (make-posn (tank-loc (sigs-tank S5))
+                                    (- HEIGHT TANK-HEIGHT))))
+(check-expect (si-control.v2 S5 "a") S5)
+(check-expect (si-control.v2 S6 "left")
+              (make-sigs (sigs-ufo S6)
+                         (create-tank (sigs-tank S6) "left")
+                         (sigs-missile S6)))
+(check-expect (si-control.v2 S6 "right")
+              (make-sigs (sigs-ufo S6)
+                         (create-tank (sigs-tank S6) "right")
+                         (sigs-missile S6)))
+(check-expect (si-control.v2 S6 " ")
+              (make-sigs (sigs-ufo  S6)
+                         (sigs-tank S6)
+                         (make-posn (tank-loc (sigs-tank S6))
+                                    (- HEIGHT TANK-HEIGHT))))
+(check-expect (si-control.v2 S6 "a") S6)
+
+(define (si-control.v2 s ke)
+  (cond [(or (key=? ke "left")
+             (key=? ke "right"))
+         (make-sigs (sigs-ufo s)
+                    (create-tank (sigs-tank s) ke)
+                    (sigs-missile s))]
+        [(key=? ke " ")
+         (make-sigs (sigs-ufo s)
+                    (sigs-tank s)
+                    (make-posn (tank-loc (sigs-tank s))
+                               (- HEIGHT TANK-HEIGHT)))]
+        [else s]))
+
+; SIGS.v2 -> Boolean
+; returns true when the game stop;
+; the game stops if the UFO lands or if the missile hits the UFO
+(check-expect (si-game-over?.v2 S5) #false)
+(check-expect (si-game-over?.v2 S6) #false)
+(check-expect (si-game-over?.v2 S7) #true)
+(check-expect (si-game-over?.v2 S8) #true)
+
+(define (si-game-over?.v2 s)
+  (cond
+    [(>= (posn-y (sigs-ufo s)) (- HEIGHT CLOSE)) #true]
+    [(and (posn? (sigs-missile s))
+          (<= (- (posn-x (sigs-ufo s)) UFO-X)
+              (posn-x (sigs-missile s))
+              (+ (posn-x (sigs-ufo s)) UFO-X))
+          (<= (- (posn-y (sigs-ufo s)) UFO-Y)
+              (posn-y (sigs-missile s))
+              (+ (posn-y (sigs-ufo s)) UFO-Y))) #true]
+    [else #false]))
