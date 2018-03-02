@@ -459,3 +459,105 @@
               (posn-y (sigs-missile s))
               (+ (posn-y (sigs-ufo s)) UFO-Y))) #true]
     [else #false]))
+
+
+;; Exercise 103
+
+(define-struct spider (legs space))
+; Spider is a structure:
+; interpretation (make-spider Number Number)
+;  legs means the total of legs remaining
+;  space means the amount of space to transport
+(define SP1 (make-spider 4 10))
+(define SP2 (make-spider 8 20))
+
+(define-struct elephant (space))
+; Elephante is a structure:
+; interpretation (make-elephant Number)
+;  space means the amount of space to transport
+(define E1 (make-elephant 10))
+(define E2 (make-elephant 20))
+
+(define-struct boa-constrictor (length girth))
+; Boa-constrictor is a structure:
+; interpretation (make-boa-constrictor Number(0..N] Number(0..N])
+;  length means its horizontal size, between 0 and N
+;  girth means its vertical size, between 0 and N
+(define B1 (make-boa-constrictor 5 2))
+(define B2 (make-boa-constrictor 5 4))
+
+(define-struct armadillo (claws space))
+; Armadillo is a structure:
+; interpretation (make-armadillo Number[0..100] Number)
+;  claws means the percentage of durability
+;  space means the amount of space to transport
+(define A1 (make-armadillo 100 10))
+(define A2 (make-armadillo 100 20))
+
+(define-struct zoo (spider elephant boa-constrictor armadillo))
+; A Zoo is a structure:
+; interpretation (make-spider Spider Elephant Boa-constrictor Armadillo)
+;  represents four kinds of zoo animals
+(define Z1 (make-zoo SP1 E1 B1 A1))
+(define Z2 (make-zoo SP2 E2 B2 A2))
+
+#;
+(define (fn-for-zoo z)
+  (... (zoo-spider z)
+       (zoo-elephant z)
+       (zoo-boa-constrictor z)
+       (zoo-armadillo z)))
+
+; Zoo Number -> Boolean
+; determines whether the cage is large enough for the animal
+(check-expect (fits? Z1 50) #true)
+(check-expect (fits? Z2 50) #false)
+
+(define (fits? z v)
+  (<= (+ (spider-space   (zoo-spider z))
+         (elephant-space (zoo-elephant z))
+         (* (boa-constrictor-length (zoo-boa-constrictor z))
+            (boa-constrictor-girth  (zoo-boa-constrictor z)))
+         (armadillo-space (zoo-armadillo z)))
+      v))
+
+
+;; Exercise 104
+
+; Vehicle is one of:
+; - "automobile"
+; - "van"
+; - "bus"
+; - "SUV"
+; - "truck"
+; interpretation a vehicle of fleet
+
+(define-struct fleet (vehicle passenger license fuel))
+; Fleet is a structure:
+; interpretation (make-fleet Vehicle Number Number Number)
+;  vehicle means a vehicle type
+;  passenger means the total number that it can carry
+;  license means the value of plate number
+;  fuel means the current value in miles per gallon
+(define (fn-to-fleet f)
+  (... (fleet-vehicle f)
+       (fleet-passenger f)
+       (fleet-license f)
+       (fleet-fuel f)))
+
+
+;; Exercise 105
+
+; A Coordinate is one of:
+; - a NegativeNumber
+; interpretation on the y axis, distance from top
+; - a PositiveNumber
+; interpretation on the x axis, distance from left
+; - a Posn
+; interpretation an ordinary Cartesian point
+(define C1 -10)
+(define C2 -20)
+(define C3  10)
+(define C4  20)
+(define C5 (make-posn 10 10))
+(define C6 (make-posn  0 50))
