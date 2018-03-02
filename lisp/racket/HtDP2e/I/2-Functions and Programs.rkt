@@ -185,16 +185,16 @@
 (define FIXED-COST-V2    0)
 (define VARIABLE-COST-V2 1.5)
 
-(define (cost-v2 ticket-price)
+(define (cost.v2 ticket-price)
   (+ FIXED-COST-V2 (* VARIABLE-COST-V2 (attendees ticket-price))))
 
-(define (profit-v2 ticket-price)
+(define (profit.v2 ticket-price)
   (- (revenue ticket-price)
-     (cost-v2 ticket-price)))
+     (cost.v2 ticket-price)))
 
-(profit-v2 3)
-(profit-v2 4) ; <--
-(profit-v2 5)
+(profit.v2 3)
+(profit.v2 4) ; <--
+(profit.v2 5)
 
 
 
@@ -204,24 +204,24 @@
 
 (define ATTENDEES-PRICE (/ AVERAGE-CHANGES PERCENT))
 
-(define (attendees-v3 ticket-price)
+(define (attendees.v3 ticket-price)
   (- PEOPLE (* (- ticket-price TICKET-PRICE) ATTENDEES-PRICE)))
 
-(define (revenue-v3 ticket-price)
-  (* ticket-price (attendees-v3 ticket-price)))
+(define (revenue.v3 ticket-price)
+  (* ticket-price (attendees.v3 ticket-price)))
 
-(define (cost-v3 ticket-price)
-  (+ FIXED-COST (* VARIABLE-COST (attendees-v3 ticket-price))))
+(define (cost.v3 ticket-price)
+  (+ FIXED-COST (* VARIABLE-COST (attendees.v3 ticket-price))))
 
-(define (profit-v3 ticket-price)
-  (- (revenue-v3 ticket-price)
-     (cost-v3 ticket-price)))
+(define (profit.v3 ticket-price)
+  (- (revenue.v3 ticket-price)
+     (cost.v3 ticket-price)))
 
-(profit-v3 1)
-(profit-v3 2)
-(profit-v3 3)
-(profit-v3 4)
-(profit-v3 5)
+(profit.v3 1)
+(profit.v3 2)
+(profit.v3 3)
+(profit.v3 4)
+(profit.v3 5)
 
 
 
