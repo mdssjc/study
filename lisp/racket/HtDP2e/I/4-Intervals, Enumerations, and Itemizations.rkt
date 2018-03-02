@@ -17,6 +17,7 @@
 
 ;; Exercise 48
 
+
 ;; =================
 ;; Data definitions:
 
@@ -90,11 +91,11 @@
 ;; =================
 ;; Constants:
 
-(define WIDTH_V1  100)
-(define HEIGHT_V1 60)
-(define MTSCN  (empty-scene WIDTH_V1 HEIGHT_V1))
-(define ROCKET_V1 (rectangle 10 20 "solid" "blue"))
-(define ROCKET-CENTER-TO-TOP (- HEIGHT_V1 (/ (image-height ROCKET_V1) 2)))
+(define WIDTH-V1  100)
+(define HEIGHT-V1 60)
+(define MTSCN  (empty-scene WIDTH-V1 HEIGHT-V1))
+(define ROCKET-V1 (rectangle 10 20 "solid" "blue"))
+(define ROCKET-CENTER-TO-TOP (- HEIGHT-V1 (/ (image-height ROCKET-V1) 2)))
 
 
 ;; =================
@@ -103,12 +104,12 @@
 (define (create-rocket-scene.v5a h)
   (cond
     [(<= h ROCKET-CENTER-TO-TOP)
-     (place-image ROCKET_V1 50 h MTSCN)]
+     (place-image ROCKET-V1 50 h MTSCN)]
     [(> h ROCKET-CENTER-TO-TOP)
-     (place-image ROCKET_V1 50 ROCKET-CENTER-TO-TOP MTSCN)]))
+     (place-image ROCKET-V1 50 ROCKET-CENTER-TO-TOP MTSCN)]))
 
 (define (create-rocket-scene.v5b h)
-  (place-image ROCKET_V1
+  (place-image ROCKET-V1
                50 (cond [(<= h ROCKET-CENTER-TO-TOP) h]
                         [(>  h ROCKET-CENTER-TO-TOP) ROCKET-CENTER-TO-TOP])
                MTSCN))
@@ -118,15 +119,15 @@
 ;; 4.3 - Enumerations
 
 ;; Exercise 50
-
 ;; Exercise 51
+
 
 ;; =================
 ;; Constants:
 
-(define WIDTH_V2  400)
-(define HEIGHT_V2 200)
-(define MTS (empty-scene WIDTH_V2 HEIGHT_V2))
+(define WIDTH-V2  400)
+(define HEIGHT-V2 200)
+(define MTS (empty-scene WIDTH-V2 HEIGHT-V2))
 
 
 ;; =================
@@ -165,9 +166,9 @@
 ; TrafficLight -> Image
 ; produces the traffic light image with world state
 (define (render tl)
-  (place-image (circle (/ HEIGHT_V2 3) "solid" tl)
-               (/ WIDTH_V2  2)
-               (/ HEIGHT_V2 2)
+  (place-image (circle (/ HEIGHT-V2 3) "solid" tl)
+               (/ WIDTH-V2  2)
+               (/ HEIGHT-V2 2)
                MTS))
 
 
@@ -185,17 +186,18 @@
 
 ;; 4.5 - Itemizations
 
+
 ;; =================
 ;; Constants:
 
-(define HEIGHT_V3 300) ; distances in pixels
-(define WIDTH_V3  100)
+(define HEIGHT-V3 300) ; distances in pixels
+(define WIDTH-V3  100)
 (define YDELTA 3)
 
-(define BACKG  (empty-scene WIDTH_V3 HEIGHT_V3))
-(define ROCKET_V2 (rectangle 5 30 "solid" "red"))
+(define BACKG  (empty-scene WIDTH-V3 HEIGHT-V3))
+(define ROCKET-V3 (rectangle 5 30 "solid" "red"))
 
-(define CENTER (/ (image-height ROCKET_V2) 2))
+(define CENTER (/ (image-height ROCKET-V3) 2))
 
 
 ;; =================
@@ -209,7 +211,7 @@
 ; interpretation "resting" represents a grounded rocket
 ; a number denotes the height of a rocket in flight
 (define LR1 "resting")
-(define LR2 HEIGHT_V3)
+(define LR2 HEIGHT-V3)
 (define LR3 0)
 
 ; An LRCD (for launching rocket countdown) is one of:
@@ -237,13 +239,13 @@
 ; LRCD -> Image
 ; produces a rocket at height h
 (define (draw h)
-  (place-image ROCKET_V2 10 (- h CENTER) BACKG))
+  (place-image ROCKET-V3 10 (- h CENTER) BACKG))
 
 ;; Exercise 56
 
 ; LRCD -> LRCD
-; launches the program from some initial state (main2 "resting")
-(define (main2 s)
+; launches the program from some initial state (main.v3 "resting")
+(define (main.v3 s)
   (big-bang s
             [on-tick   fly]
             [to-draw   show]
@@ -252,19 +254,19 @@
 
 ; LRCD -> Image
 ; renders the state as a resting or flying rocket
-(check-expect (show "resting") (draw HEIGHT_V3))
+(check-expect (show "resting") (draw HEIGHT-V3))
 (check-expect (show -2) (place-image (text "-2" 20 "red")
-                                     10 (* 3/4 WIDTH_V3)
-                                     (draw HEIGHT_V3)))
-(check-expect (show HEIGHT_V3) (draw HEIGHT_V3))
+                                     10 (* 3/4 WIDTH-V3)
+                                     (draw HEIGHT-V3)))
+(check-expect (show HEIGHT-V3) (draw HEIGHT-V3))
 (check-expect (show 53) (draw 53))
 
 (define (show x)
   (cond
-    [(string? x)  (draw HEIGHT_V3)]
+    [(string? x)  (draw HEIGHT-V3)]
     [(<= -3 x -1) (place-image (text (number->string x) 20 "red")
-                               10 (* 3/4 WIDTH_V3)
-                               (draw HEIGHT_V3))]
+                               10 (* 3/4 WIDTH-V3)
+                               (draw HEIGHT-V3))]
     [(>= x 0) (draw x)]))
 
 ; LRCD KeyEvent -> LRCD
@@ -288,14 +290,14 @@
 (check-expect (fly "resting") "resting")
 (check-expect (fly -3) -2)
 (check-expect (fly -2) -1)
-(check-expect (fly -1) HEIGHT_V3)
+(check-expect (fly -1) HEIGHT-V3)
 (check-expect (fly 10) (- 10 YDELTA))
 (check-expect (fly 22) (- 22 YDELTA))
 
 (define (fly x)
   (cond
     [(string? x) x]
-    [(<= -3 x -1) (if (= x -1) HEIGHT_V3 (+ x 1))]
+    [(<= -3 x -1) (if (= x -1) HEIGHT-V3 (+ x 1))]
     [(>= x 0) (- x YDELTA)]))
 
 ; LRCD -> Boolean
@@ -316,6 +318,10 @@
 
 ;; Exercise 57
 
+
+;; =================
+;; Data definitions:
+
 ; A LRCD (for launching rocket count down) is one of:
 ; - "resting"
 ; - a Number between -3 and -1
@@ -324,25 +330,28 @@
 ; a number denotes the height in pixels of rocket at canvas
 
 
+;; =================
+;; Functions:
+
 ; LRCD -> LRCD
-; launches the program from some initial state (main3 "resting")
-(define (main3 s)
+; launches the program from some initial state (main.v4 "resting")
+(define (main.v4 s)
   (big-bang s
-            [on-tick   fly-v2]
+            [on-tick   fly-v4]
             [to-draw   show]
             [on-key    launch]
-            [stop-when end?-v2]))
+            [stop-when end?-v4]))
 
 ; LRCD -> LRCD
 ; raises the rocket by YDELTA if it is moving already
-(check-expect (fly-v2 "resting") "resting")
-(check-expect (fly-v2 -3) -2)
-(check-expect (fly-v2 -2) -1)
-(check-expect (fly-v2 -1) 0)
-(check-expect (fly-v2 10) (+ 10 YDELTA))
-(check-expect (fly-v2 22) (+ 22 YDELTA))
+(check-expect (fly-v4 "resting") "resting")
+(check-expect (fly-v4 -3) -2)
+(check-expect (fly-v4 -2) -1)
+(check-expect (fly-v4 -1) 0)
+(check-expect (fly-v4 10) (+ 10 YDELTA))
+(check-expect (fly-v4 22) (+ 22 YDELTA))
 
-(define (fly-v2 x)
+(define (fly-v4 x)
   (cond
     [(string? x) x]
     [(<= -3 x -1) (if (= x -1) 0 (+ x 1))]
@@ -350,18 +359,18 @@
 
 ; LRCD -> Boolean
 ; produces true if the rocket is out of sight
-(check-expect (end?-v2 "resting") #false)
-(check-expect (end?-v2 -3) #false)
-(check-expect (end?-v2 -2) #false)
-(check-expect (end?-v2 -1) #false)
-(check-expect (end?-v2 33) #false)
-(check-expect (end?-v2 HEIGHT_V3) #true)
+(check-expect (end?-v4 "resting") #false)
+(check-expect (end?-v4 -3) #false)
+(check-expect (end?-v4 -2) #false)
+(check-expect (end?-v4 -1) #false)
+(check-expect (end?-v4 33) #false)
+(check-expect (end?-v4 HEIGHT-V3) #true)
 
-(define (end?-v2 x)
+(define (end?-v4 x)
   (cond
     [(string? x)     #false]
     [(<= -3 x -1)    #false]
-    [(= x HEIGHT_V3) #true]
+    [(= x HEIGHT-V3) #true]
     [else            #false]))
 
 
@@ -410,6 +419,10 @@
 
 ;; Exercise 59
 
+
+;; =================
+;; Constants:
+
 (define BULB-SIZE 8)
 (define SPACE (rectangle 5  2  "solid"   "white"))
 (define BOARD (rectangle 80 30 "outline" "black"))
@@ -439,6 +452,9 @@
                               BOARD))
 
 
+;; =================
+;; Data definitions:
+
 ; A TrafficLight is one of the following Strings:
 ; - "red"
 ; - "green"
@@ -446,6 +462,9 @@
 ; interpretation the three strings represent the three
 ; possible states that a traffic light may assume
 
+
+;; =================
+;; Functions:
 
 ; TrafficLight -> TrafficLight
 ; simulates a clock-based American traffic light
@@ -478,18 +497,25 @@
 
 ;; Exercise 60
 
+
+;; =================
+;; Data definitions:
+
 ; A N-TrafficLight is one of:
 ; - 0 interpretation the traffic light shows red
 ; - 1 interpretation the traffic light shows green
 ; - 2 interpretation the traffic light shows yellow
 
 
+;; =================
+;; Functions:
+
 ; N-TrafficLight -> N-TrafficLight
 ; simulates a clock-based American traffic light
 (define (n-traffic-light-simulation initial-state)
   (big-bang initial-state
-            [to-draw tl-render-numeric]
-            [on-tick tl-next-numeric 1]))
+            [on-tick tl-next-numeric 1]
+            [to-draw tl-render-numeric]))
 
 ; N-TrafficLight -> N-TrafficLight
 ; yields the next state given current state cs
@@ -512,6 +538,10 @@
 
 ;; Exercise 61
 
+
+;; =================
+;; Data definitions:
+
 ; A S-TrafficLight is one of:
 ; - RED
 ; - GREEN
@@ -523,6 +553,9 @@
 (define GREEN  "green")
 (define YELLOW "yellow")
 
+
+;; =================
+;; Functions:
 
 ; S-TrafficLight -> S-TrafficLight
 ; yields the next state given current state cs
@@ -540,6 +573,10 @@
 
 ;; Exercise 62
 
+
+;; =================
+;; Data definitions:
+
 ; A DoorState is one of:
 ; - LOCKED
 ; -CLOSED
@@ -548,6 +585,9 @@
 (define CLOSED "closed")
 (define OPEN   "open")
 
+
+;; =================
+;; Functions:
 
 ; DoorState -> DoorState
 ; simulates a door with an automatic door closer
