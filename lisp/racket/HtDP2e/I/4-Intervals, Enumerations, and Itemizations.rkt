@@ -337,21 +337,21 @@
 ; launches the program from some initial state (main.v4 "resting")
 (define (main.v4 s)
   (big-bang s
-            [on-tick   fly-v4]
+            [on-tick   fly.v4]
             [to-draw   show]
             [on-key    launch]
-            [stop-when end?-v4]))
+            [stop-when end?.v4]))
 
 ; LRCD -> LRCD
 ; raises the rocket by YDELTA if it is moving already
-(check-expect (fly-v4 "resting") "resting")
-(check-expect (fly-v4 -3) -2)
-(check-expect (fly-v4 -2) -1)
-(check-expect (fly-v4 -1) 0)
-(check-expect (fly-v4 10) (+ 10 YDELTA))
-(check-expect (fly-v4 22) (+ 22 YDELTA))
+(check-expect (fly.v4 "resting") "resting")
+(check-expect (fly.v4 -3) -2)
+(check-expect (fly.v4 -2) -1)
+(check-expect (fly.v4 -1) 0)
+(check-expect (fly.v4 10) (+ 10 YDELTA))
+(check-expect (fly.v4 22) (+ 22 YDELTA))
 
-(define (fly-v4 x)
+(define (fly.v4 x)
   (cond
     [(string? x) x]
     [(<= -3 x -1) (if (= x -1) 0 (+ x 1))]
@@ -359,14 +359,14 @@
 
 ; LRCD -> Boolean
 ; produces true if the rocket is out of sight
-(check-expect (end?-v4 "resting") #false)
-(check-expect (end?-v4 -3) #false)
-(check-expect (end?-v4 -2) #false)
-(check-expect (end?-v4 -1) #false)
-(check-expect (end?-v4 33) #false)
-(check-expect (end?-v4 HEIGHT-V3) #true)
+(check-expect (end?.v4 "resting") #false)
+(check-expect (end?.v4 -3) #false)
+(check-expect (end?.v4 -2) #false)
+(check-expect (end?.v4 -1) #false)
+(check-expect (end?.v4 33) #false)
+(check-expect (end?.v4 HEIGHT-V3) #true)
 
-(define (end?-v4 x)
+(define (end?.v4 x)
   (cond
     [(string? x)     #false]
     [(<= -3 x -1)    #false]
