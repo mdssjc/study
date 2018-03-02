@@ -92,6 +92,7 @@
 ;; Exercise 41
 ;; Exercise 42
 
+
 ;; =================
 ;; Constants:
 
@@ -171,6 +172,7 @@
 
 ;; Exercise 43
 
+
 ;; =================
 ;; Data definitions:
 
@@ -185,29 +187,29 @@
 
 ; AnimationState -> AnimationState
 ; launches the program from some initial state
-(define (main-v2 as)
+(define (main.v2 as)
   (big-bang as
-            [on-tick   tock-v2]
-            [to-draw   render-v2]
-            [stop-when stop-v2?]))
+            [on-tick   tock.v2]
+            [to-draw   render.v2]
+            [stop-when stop.v2?]))
 
 ; AnimationState -> AnimationState
 ; moves the car by 3 pixels for every clock tick
-(check-expect (tock-v2 20) 23)
-(check-expect (tock-v2 78) 81)
+(check-expect (tock.v2 20) 23)
+(check-expect (tock.v2 78) 81)
 
-(define (tock-v2 as)
+(define (tock.v2 as)
   (+ as 3))
 
 ; AnimationState -> Image
 ; places the car into the BACKGROUND scene,
 ; according to the given world state
-(check-expect (render-v2 50)  (place-image CAR (+ 50  (image-width CAR)) (jump 50)  BACKGROUND))
-(check-expect (render-v2 100) (place-image CAR (+ 100 (image-width CAR)) (jump 100) BACKGROUND))
-(check-expect (render-v2 150) (place-image CAR (+ 150 (image-width CAR)) (jump 150) BACKGROUND))
-(check-expect (render-v2 200) (place-image CAR (+ 200 (image-width CAR)) (jump 200) BACKGROUND))
+(check-expect (render.v2 50)  (place-image CAR (+ 50  (image-width CAR)) (jump 50)  BACKGROUND))
+(check-expect (render.v2 100) (place-image CAR (+ 100 (image-width CAR)) (jump 100) BACKGROUND))
+(check-expect (render.v2 150) (place-image CAR (+ 150 (image-width CAR)) (jump 150) BACKGROUND))
+(check-expect (render.v2 200) (place-image CAR (+ 200 (image-width CAR)) (jump 200) BACKGROUND))
 
-(define (render-v2 as)
+(define (render.v2 as)
   (place-image CAR (+ as (image-width CAR)) (jump as) BACKGROUND))
 
 ;; AnimationState -> Number
@@ -220,24 +222,25 @@
 
 ; AnimationState -> Boolean
 ; stops the animation when the car has disappeared on the right side
-(check-expect (stop-v2? WIDTH-OF-WORLD)        #false)
-(check-expect (stop-v2? (add1 WIDTH-OF-WORLD)) #true)
+(check-expect (stop.v2? WIDTH-OF-WORLD)        #false)
+(check-expect (stop.v2? (add1 WIDTH-OF-WORLD)) #true)
 
-(define (stop-v2? as)
+(define (stop.v2? as)
   (> as WIDTH-OF-WORLD))
 
 ;; Exercise 44
+
 
 ;; =================
 ;; Functions:
 
 ; AnimationState -> AnimationState
 ; launches the program from some initial state
-(define (main-v3 as)
+(define (main.v3 as)
   (big-bang as
-            [on-tick  tock-v2]
+            [on-tick  tock.v2]
             [on-mouse hyper]
-            [to-draw  render-v2]))
+            [to-draw  render.v2]))
 
 ; AnimationState Number Number String -> AnimationState
 ; places the car at x-mouse
@@ -257,15 +260,16 @@
 
 ;; Exercise 45
 
+
 ;; =================
 ;; Constants:
 
 (define CAT1 (circle 10 "solid" "brown"))
 (define SPEED 3)
-(define WIDTH-V3  400)
-(define HEIGHT-V3 400)
-(define Y-CAT (/ HEIGHT-V3 2))
-(define BACKGROUND-V3 (empty-scene WIDTH-V3 HEIGHT-V3))
+(define WIDTH-V4  400)
+(define HEIGHT-V4 400)
+(define Y-CAT (/ HEIGHT-V4 2))
+(define BACKGROUND-V4 (empty-scene WIDTH-V4 HEIGHT-V4))
 
 
 ;; =================
@@ -275,27 +279,28 @@
 ; launches the program from some initial state (cat-prog 0)
 (define (cat-prog vc)
   (big-bang vc
-            [on-tick tock-v3]
-            [to-draw render-v3]))
+            [on-tick tock.v4]
+            [to-draw render.v4]))
 
 ; VirtualCat -> VirtualCat
 ; moves the CAT by SPEED for every clock tick,
 ; reset when the cat disappears on the WIDTH
-(check-expect (tock-v3 0) SPEED)
-(check-expect (tock-v3 5) 8)
-(check-expect (tock-v3 WIDTH-V3) 3)
-(check-expect (tock-v3 (- WIDTH-V3 SPEED)) WIDTH-V3)
+(check-expect (tock.v4 0) SPEED)
+(check-expect (tock.v4 5) 8)
+(check-expect (tock.v4 WIDTH-V4) 3)
+(check-expect (tock.v4 (- WIDTH-V4 SPEED)) WIDTH-V4)
 
-(define (tock-v3 vc)
-  (+ (modulo vc WIDTH-V3) SPEED))
+(define (tock.v4 vc)
+  (+ (modulo vc WIDTH-V4) SPEED))
 
 ; VirtualCat -> Image
 ; places the CAT into the BACKGROUND scene,
 ; according to the given world state
-(define (render-v3 vc)
-  (place-image CAT1 vc Y-CAT BACKGROUND-V3))
+(define (render.v4 vc)
+  (place-image CAT1 vc Y-CAT BACKGROUND-V4))
 
 ;; Exercise 46
+
 
 ;; =================
 ;; Constants:
@@ -307,21 +312,22 @@
 ;; Functions:
 
 ; VirtualCat -> VirtualCat
-; launches the program from some initial state (cat-prog-v2 0)
-(define (cat-prog-v2 vc)
+; launches the program from some initial state (cat-prog.v5 0)
+(define (cat-prog.v5 vc)
   (big-bang vc
-            [on-tick tock-v3]
-            [to-draw render-v4]))
+            [on-tick tock.v4]
+            [to-draw render.v5]))
 
 ; VirtualCat -> Image
 ; places the CAT into the BACKGROUND scene,
 ; according to the given world state
 ; when odd is CAT1, else CAT2
-(define (render-v4 vc)
+(define (render.v5 vc)
   (place-image (cond [(odd? vc) CAT1]
-                     [else      CAT2]) vc Y-CAT BACKGROUND-V3))
+                     [else      CAT2]) vc Y-CAT BACKGROUND-V4))
 
 ;; Exercise 47
+
 
 ;; =================
 ;; Constants:
@@ -331,9 +337,9 @@
 (define DEC -0.1)
 (define MAXIMUM   100)
 (define MINIMUM   0)
-(define WIDTH-V5  400)
-(define HEIGHT-V5 200)
-(define BACKGROUND-V5 (rectangle WIDTH-V5 HEIGHT-V5 "solid" "black"))
+(define WIDTH-V6  400)
+(define HEIGHT-V6 200)
+(define BACKGROUND-V6 (rectangle WIDTH-V6 HEIGHT-V6 "solid" "black"))
 
 
 ;; =================
@@ -343,27 +349,27 @@
 ; launches the program from some initial state (gauge-prog 100)
 (define (gauge-prog vc)
   (big-bang vc
-            [on-tick tock-v5]
-            [to-draw render-v5]
+            [on-tick tock.v6]
+            [to-draw render.v6]
             [on-key  increase]))
 
 ; VirtualCat -> VirtualCat
 ; decreases by DEC for every clock tick
-(check-expect (tock-v5 0)   MINIMUM)
-(check-expect (tock-v5 0.1) MINIMUM)
-(check-expect (tock-v5 0.3) (+ 0.3 DEC))
+(check-expect (tock.v6 0)   MINIMUM)
+(check-expect (tock.v6 0.1) MINIMUM)
+(check-expect (tock.v6 0.3) (+ 0.3 DEC))
 
-(define (tock-v5 vc)
+(define (tock.v6 vc)
   (cond [(<=  (+ vc DEC) MINIMUM) MINIMUM]
         [else (+ vc DEC)]))
 
 ; VirtualCat -> Image
 ; places the gauge into the scene, according to the given world state
-(define (render-v5 vc)
-  (place-image/align (rectangle (/ (* vc WIDTH-V5) 100) HEIGHT-V5 "solid" "red")
-                     0 (/ HEIGHT-V5 2)
+(define (render.v6 vc)
+  (place-image/align (rectangle (/ (* vc WIDTH-V6) 100) HEIGHT-V6 "solid" "red")
+                     0 (/ HEIGHT-V6 2)
                      "left" "center"
-                     BACKGROUND-V5))
+                     BACKGROUND-V6))
 
 ; VirtualCat KeyEvent -> VirtualCat
 ; produces a increase for: up is 1/3 and down is 1/5
