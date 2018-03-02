@@ -19,6 +19,7 @@
 
 ;; 5.3 - Programming with posn
 
+
 ;; =================
 ;; Functions:
 
@@ -96,6 +97,7 @@
 23
 
 ;; Exercise 64
+
 
 ;; =================
 ;; Functions:
@@ -307,8 +309,8 @@
 ;                number means last four number of phone, between 1 and 9999
 
 ;; Exercise 73
-
 ;; Exercise 74
+
 
 ;; =================
 ;; Constants:
@@ -369,6 +371,7 @@
   (place-image DOT (posn-x p) (posn-y p) MTS))
 
 ;; Exercise 75
+
 
 ;; =================
 ;; Data definitions:
@@ -712,6 +715,7 @@
 
 ;; Exercise 85
 
+
 ;; =================
 ;; Functions:
 
@@ -726,18 +730,18 @@
 
 ; Editor KeyEvent -> Editor
 ; produces a new editor with base in key event
-(check-expect (edit-v2 (make-editor "abc" "def") "a")     (make-editor "abca" "def"))
-(check-expect (edit-v2 (make-editor "abc" "def") "\b")    (make-editor "ab" "def"))
-(check-expect (edit-v2 (make-editor "" "def")    "\b")    (make-editor "" "def"))
-(check-expect (edit-v2 (make-editor "abc" "def") "\t")    (make-editor "abc" "def"))
-(check-expect (edit-v2 (make-editor "abc" "def") "\r")    (make-editor "abc" "def"))
-(check-expect (edit-v2 (make-editor "abc" "def") "left")  (make-editor "ab" "cdef"))
-(check-expect (edit-v2 (make-editor "" "abcdef") "left")  (make-editor "" "abcdef"))
-(check-expect (edit-v2 (make-editor "abc" "def") "right") (make-editor "abcd" "ef"))
-(check-expect (edit-v2 (make-editor "abcdef" "") "right") (make-editor "abcdef" ""))
-(check-expect (edit-v2 (make-editor "abcdefghij" "") "k") (make-editor "abcdefghij" ""))
+(check-expect (edit.v2 (make-editor "abc" "def") "a")     (make-editor "abca" "def"))
+(check-expect (edit.v2 (make-editor "abc" "def") "\b")    (make-editor "ab" "def"))
+(check-expect (edit.v2 (make-editor "" "def")    "\b")    (make-editor "" "def"))
+(check-expect (edit.v2 (make-editor "abc" "def") "\t")    (make-editor "abc" "def"))
+(check-expect (edit.v2 (make-editor "abc" "def") "\r")    (make-editor "abc" "def"))
+(check-expect (edit.v2 (make-editor "abc" "def") "left")  (make-editor "ab" "cdef"))
+(check-expect (edit.v2 (make-editor "" "abcdef") "left")  (make-editor "" "abcdef"))
+(check-expect (edit.v2 (make-editor "abc" "def") "right") (make-editor "abcd" "ef"))
+(check-expect (edit.v2 (make-editor "abcdef" "") "right") (make-editor "abcdef" ""))
+(check-expect (edit.v2 (make-editor "abcdefghij" "") "k") (make-editor "abcdefghij" ""))
 
-(define (edit-v2 e ke)
+(define (edit.v2 e ke)
   (cond
     [(key=? ke  "left")
      (make-editor (string-remove-last (editor-pre e))
@@ -775,15 +779,15 @@
 ;; Functions:
 
 ; String -> World
-; starts a world with (run-v3 "abc")
-(define (run-v3 pre)
+; starts a world with (run.v3 "abc")
+(define (run.v3 pre)
   (big-bang (make-editor-v3 pre (string-length pre))
-            (to-draw render-v3)
-            (on-key  edit-v3)))
+            (to-draw render.v3)
+            (on-key  edit.v3)))
 
 ; Editor -> Image
 ; produces an image with the editor
-(check-expect (render-v3 (make-editor-v3 "Hello World" 6))
+(check-expect (render.v3 (make-editor-v3 "Hello World" 6))
               (overlay/align "left" "center"
                              (beside
                               (text "Hello " 16 "black")
@@ -791,7 +795,7 @@
                               (text "World" 16 "black"))
                              (empty-scene 200 20)))
 
-(define (render-v3 e)
+(define (render.v3 e)
   (overlay/align "left" "center"
                  (beside
                   (text (substring (editor-v3-post e) 0 (editor-v3-index e)) 16 "black")
@@ -802,18 +806,18 @@
 
 ; Editor KeyEvent -> Editor
 ; produces a new editor with base in key event
-(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "a")      (make-editor-v3 "abcadef" 4))
-(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "\b")     (make-editor-v3 "abdef" 2))
-(check-expect (edit-v3 (make-editor-v3 "def" 0)    "\b")     (make-editor-v3 "def" 0))
-(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "\t")     (make-editor-v3 "abcdef" 3))
-(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "\r")     (make-editor-v3 "abcdef" 3))
-(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "left")   (make-editor-v3 "abcdef" 2))
-(check-expect (edit-v3 (make-editor-v3 "abcdef" 0) "left")   (make-editor-v3 "abcdef" 0))
-(check-expect (edit-v3 (make-editor-v3 "abcdef" 3) "right")  (make-editor-v3 "abcdef" 4))
-(check-expect (edit-v3 (make-editor-v3 "abcdef" 6) "right")  (make-editor-v3 "abcdef" 6))
-(check-expect (edit-v3 (make-editor-v3 "abcdefghij" 10) "k") (make-editor-v3 "abcdefghij" 10))
+(check-expect (edit.v3 (make-editor-v3 "abcdef" 3) "a")      (make-editor-v3 "abcadef" 4))
+(check-expect (edit.v3 (make-editor-v3 "abcdef" 3) "\b")     (make-editor-v3 "abdef" 2))
+(check-expect (edit.v3 (make-editor-v3 "def" 0)    "\b")     (make-editor-v3 "def" 0))
+(check-expect (edit.v3 (make-editor-v3 "abcdef" 3) "\t")     (make-editor-v3 "abcdef" 3))
+(check-expect (edit.v3 (make-editor-v3 "abcdef" 3) "\r")     (make-editor-v3 "abcdef" 3))
+(check-expect (edit.v3 (make-editor-v3 "abcdef" 3) "left")   (make-editor-v3 "abcdef" 2))
+(check-expect (edit.v3 (make-editor-v3 "abcdef" 0) "left")   (make-editor-v3 "abcdef" 0))
+(check-expect (edit.v3 (make-editor-v3 "abcdef" 3) "right")  (make-editor-v3 "abcdef" 4))
+(check-expect (edit.v3 (make-editor-v3 "abcdef" 6) "right")  (make-editor-v3 "abcdef" 6))
+(check-expect (edit.v3 (make-editor-v3 "abcdefghij" 10) "k") (make-editor-v3 "abcdefghij" 10))
 
-(define (edit-v3 e ke)
+(define (edit.v3 e ke)
   (cond
     [(key=? ke "left")
      (make-editor-v3
@@ -875,27 +879,28 @@
 ;; Exercise 90
 ;; Exercise 91
 
+
 ;; =================
 ;; Constants:
 
-(define WIDTH_V4  400)
-(define HEIGHT_V4 400)
+(define WIDTH-V4  400)
+(define HEIGHT-V4 400)
 
 (define CAT (circle 6 "solid" "brown"))
-(define SPEED_V4 3)
+(define SPEED-V4 3)
 (define OFFSET      (/ (image-width CAT) 2))
-(define LIMIT-X-POS (+ WIDTH_V4 OFFSET))
-(define Y-CAT       (/ HEIGHT_V4 2))
+(define LIMIT-X-POS (+ WIDTH-V4 OFFSET))
+(define Y-CAT       (/ HEIGHT-V4 2))
 
-(define GAUGE-WIDTH  (/ WIDTH_V4  3))
-(define GAUGE-HEIGHT (/ HEIGHT_V4 40))
+(define GAUGE-WIDTH  (/ WIDTH-V4  3))
+(define GAUGE-HEIGHT (/ HEIGHT-V4 40))
 (define MIN  0)
 (define MAX  100)
 (define DEC -0.1)
 (define INC-DOWN 1/5)
 (define INC-UP   1/3)
 
-(define BACKGROUND (empty-scene WIDTH_V4 HEIGHT_V4))
+(define BACKGROUND (empty-scene WIDTH-V4 HEIGHT-V4))
 
 
 ;; =================
@@ -909,7 +914,7 @@
 ;   and   h means your happiness
 ;   and   d means your direction, 0 left and 1 right
 (define VC1 (make-vcat 10 100 1))
-(define VC2 (make-vcat WIDTH_V4 100 1))
+(define VC2 (make-vcat WIDTH-V4 100 1))
 (define VC3 (make-vcat 0 MIN 1))
 (define VC4 (make-vcat 0 0.1 1))
 (define VC5 (make-vcat 0 0.3 1))
@@ -927,7 +932,7 @@
 (define (happy-cat vcat)
   (big-bang vcat
             [on-tick   tock]
-            [to-draw   render-v4]
+            [to-draw   render.v4]
             [on-key    increase]
             [stop-when sad?]))
 
@@ -935,31 +940,31 @@
 ; moves the virtual cat by SPEED pixels and
 ; decreases the happiness by DEC for every clock tick,
 ; turn the virtual cat around when it reaches either end of the scene
-(check-expect (tock VC1) (make-vcat (+ (vcat-x VC1) SPEED_V4) (+ (vcat-h VC1) DEC) 1))
-(check-expect (tock VC2) (make-vcat (- (vcat-x VC2) SPEED_V4) (+ (vcat-h VC2) DEC) 0))
-(check-expect (tock VC3) (make-vcat (+ (vcat-x VC3) SPEED_V4) MIN 1))
-(check-expect (tock VC4) (make-vcat (+ (vcat-x VC4) SPEED_V4) MIN 1))
-(check-expect (tock VC5) (make-vcat (+ (vcat-x VC5) SPEED_V4) (+ (vcat-h VC5) DEC) 1))
-(check-expect (tock VC8) (make-vcat (+ (vcat-x VC8) SPEED_V4) (+ (vcat-h VC8) DEC) 1))
-(check-expect (tock VC9) (make-vcat (- (vcat-x VC9) SPEED_V4) (+ (vcat-h VC9) DEC) 0))
+(check-expect (tock VC1) (make-vcat (+ (vcat-x VC1) SPEED-V4) (+ (vcat-h VC1) DEC) 1))
+(check-expect (tock VC2) (make-vcat (- (vcat-x VC2) SPEED-V4) (+ (vcat-h VC2) DEC) 0))
+(check-expect (tock VC3) (make-vcat (+ (vcat-x VC3) SPEED-V4) MIN 1))
+(check-expect (tock VC4) (make-vcat (+ (vcat-x VC4) SPEED-V4) MIN 1))
+(check-expect (tock VC5) (make-vcat (+ (vcat-x VC5) SPEED-V4) (+ (vcat-h VC5) DEC) 1))
+(check-expect (tock VC8) (make-vcat (+ (vcat-x VC8) SPEED-V4) (+ (vcat-h VC8) DEC) 1))
+(check-expect (tock VC9) (make-vcat (- (vcat-x VC9) SPEED-V4) (+ (vcat-h VC9) DEC) 0))
 
 (define (tock vc)
   (make-vcat
-   (cond [(>= (vcat-x vc) WIDTH_V4) (- (vcat-x vc) SPEED_V4)]
-         [(<= (vcat-x vc) 0)        (+ (vcat-x vc) SPEED_V4)]
+   (cond [(>= (vcat-x vc) WIDTH-V4) (- (vcat-x vc) SPEED-V4)]
+         [(<= (vcat-x vc) 0)        (+ (vcat-x vc) SPEED-V4)]
          [else (if (= (vcat-d vc) 1)
-                   (+ (vcat-x vc) SPEED_V4)
-                   (- (vcat-x vc) SPEED_V4))])
+                   (+ (vcat-x vc) SPEED-V4)
+                   (- (vcat-x vc) SPEED-V4))])
    (if (<= (+ (vcat-h vc) DEC) MIN)
        MIN
        (+ (vcat-h vc) DEC))
-   (cond [(>= (vcat-x vc) WIDTH_V4) 0]
+   (cond [(>= (vcat-x vc) WIDTH-V4) 0]
          [(<= (vcat-x vc) 0)        1]
          [else (vcat-d vc)])))
 
 ; VCat -> Image
 ; places the virtual cat into the BACKGROUND scene
-(define (render-v4 vc)
+(define (render.v4 vc)
   (place-image CAT (vcat-x vc) Y-CAT
                (overlay/align "middle" "top"
                               (rectangle (* (vcat-h vc) GAUGE-WIDTH .01)
@@ -1003,17 +1008,18 @@
 ;; Exercise 92
 ;; Exercise 93
 
+
 ;; =================
 ;; Constants:
 
 (define CHAM (circle 6 "solid" "red"))
-(define OFFSET_V5 (/ (image-width CHAM) 2))
-(define Y-CHAM    (/ HEIGHT_V4 2))
+(define OFFSET-V5 (/ (image-width CHAM) 2))
+(define Y-CHAM    (/ HEIGHT-V4 2))
 
-(define BACKGROUND_V5
-  (beside (empty-scene (/ WIDTH_V4 3) HEIGHT_V4 "green")
-          (empty-scene (/ WIDTH_V4 3) HEIGHT_V4 "white")
-          (empty-scene (/ WIDTH_V4 3) HEIGHT_V4 "red")))
+(define BACKGROUND-V5
+  (beside (empty-scene (/ WIDTH-V4 3) HEIGHT-V4 "green")
+          (empty-scene (/ WIDTH-V4 3) HEIGHT-V4 "white")
+          (empty-scene (/ WIDTH-V4 3) HEIGHT-V4 "red")))
 
 
 ;; =================
@@ -1044,26 +1050,26 @@
 ; starts a world with (cham (make-vcham 0 100 "red"))
 (define (cham vcham)
   (big-bang vcham
-            [on-tick   tock-v5]
-            [to-draw   render-v5]
+            [on-tick   tock.v5]
+            [to-draw   render.v5]
             [on-key    interact]
-            [stop-when sad?-v5]))
+            [stop-when sad?.v5]))
 
 ; VCham -> VCham
 ; moves the virtual cham by SPEED pixels and
 ; decreases the happiness by DEC for every clock tick,
 ; reset when the virtual cham disappears on the right
-(check-expect (tock-v5 VCH1) (make-vcham   (+ (vcham-x VCH1) SPEED_V4) (+ (vcham-h VCH1) DEC) "red"))
-(check-expect (tock-v5 VCH2) (make-vcham 0 (+ (vcham-h VCH2) DEC) "red"))
-(check-expect (tock-v5 VCH3) (make-vcham   (+ (vcham-x VCH3) SPEED_V4) MIN "red"))
-(check-expect (tock-v5 VCH4) (make-vcham   (+ (vcham-x VCH4) SPEED_V4) MIN "red"))
-(check-expect (tock-v5 VCH5) (make-vcham   (+ (vcham-x VCH5) SPEED_V4) (+ (vcham-h VCH5) DEC) "red"))
+(check-expect (tock.v5 VCH1) (make-vcham   (+ (vcham-x VCH1) SPEED-V4) (+ (vcham-h VCH1) DEC) "red"))
+(check-expect (tock.v5 VCH2) (make-vcham 0 (+ (vcham-h VCH2) DEC) "red"))
+(check-expect (tock.v5 VCH3) (make-vcham   (+ (vcham-x VCH3) SPEED-V4) MIN "red"))
+(check-expect (tock.v5 VCH4) (make-vcham   (+ (vcham-x VCH4) SPEED-V4) MIN "red"))
+(check-expect (tock.v5 VCH5) (make-vcham   (+ (vcham-x VCH5) SPEED-V4) (+ (vcham-h VCH5) DEC) "red"))
 
-(define (tock-v5 vc)
+(define (tock.v5 vc)
   (make-vcham
-   (if (>= (+ (vcham-x vc) SPEED_V4) LIMIT-X-POS)
+   (if (>= (+ (vcham-x vc) SPEED-V4) LIMIT-X-POS)
        0
-       (+ (vcham-x vc) SPEED_V4))
+       (+ (vcham-x vc) SPEED-V4))
    (if (<= (+ (vcham-h vc) DEC) MIN)
        MIN
        (+ (vcham-h vc) DEC))
@@ -1071,13 +1077,13 @@
 
 ; VCham -> Image
 ; places the virtual cham into the BACKGROUND scene
-(define (render-v5 vc)
+(define (render.v5 vc)
   (place-image (circle 6 "solid" (vcham-c vc)) (vcham-x vc) Y-CHAM
                (overlay/align "middle" "top"
                               (rectangle (* (vcham-h vc) GAUGE-WIDTH .01)
                                          GAUGE-HEIGHT
                                          "solid" "red")
-                              BACKGROUND_V5)))
+                              BACKGROUND-V5)))
 
 ; VCham KeyEvent -> VCham
 ; interacts with the cham:
@@ -1106,8 +1112,8 @@
 
 ; VCham -> Boolean
 ; stops when the virtual cham is sad
-(check-expect (sad?-v5 VCH3) #true)
-(check-expect (sad?-v5 VCH1) #false)
+(check-expect (sad?.v5 VCH3) #true)
+(check-expect (sad?.v5 VCH1) #false)
 
-(define (sad?-v5 vc)
+(define (sad?.v5 vc)
   (= (vcham-h vc) MIN))
