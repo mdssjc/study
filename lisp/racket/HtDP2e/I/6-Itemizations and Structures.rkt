@@ -494,19 +494,19 @@
 (define A1 (make-armadillo 100 10))
 (define A2 (make-armadillo 100 20))
 
-(define-struct zoo (spider elephant boa-constrictor armadillo))
+(define-struct my-zoo (spider elephant boa-constrictor armadillo))
 ; A Zoo is a structure:
-; interpretation (make-spider Spider Elephant Boa-constrictor Armadillo)
+; interpretation (make-my-zoo Spider Elephant Boa-constrictor Armadillo)
 ;  represents four kinds of zoo animals
-(define Z1 (make-zoo SP1 E1 B1 A1))
-(define Z2 (make-zoo SP2 E2 B2 A2))
+(define Z1 (make-my-zoo SP1 E1 B1 A1))
+(define Z2 (make-my-zoo SP2 E2 B2 A2))
 
 #;
-(define (fn-for-zoo z)
-  (... (zoo-spider z)
-       (zoo-elephant z)
-       (zoo-boa-constrictor z)
-       (zoo-armadillo z)))
+(define (fn-for-my-zoo z)
+  (... (my-zoo-spider z)
+       (my-zoo-elephant z)
+       (my-zoo-boa-constrictor z)
+       (my-zoo-armadillo z)))
 
 ; Zoo Number -> Boolean
 ; determines whether the cage is large enough for the animal
@@ -514,11 +514,11 @@
 (check-expect (fits? Z2 50) #false)
 
 (define (fits? z v)
-  (<= (+ (spider-space   (zoo-spider z))
-         (elephant-space (zoo-elephant z))
-         (* (boa-constrictor-length (zoo-boa-constrictor z))
-            (boa-constrictor-girth  (zoo-boa-constrictor z)))
-         (armadillo-space (zoo-armadillo z)))
+  (<= (+ (spider-space   (my-zoo-spider z))
+         (elephant-space (my-zoo-elephant z))
+         (* (boa-constrictor-length (my-zoo-boa-constrictor z))
+            (boa-constrictor-girth  (my-zoo-boa-constrictor z)))
+         (armadillo-space (my-zoo-armadillo z)))
       v))
 
 
@@ -561,3 +561,409 @@
 (define C4  20)
 (define C5 (make-posn 10 10))
 (define C6 (make-posn  0 50))
+
+
+
+;; 6.2 - Mixing Up Worlds
+
+;; Exercise 106
+
+
+;; =================
+;; Constants:
+
+(define WIDTH-V6  400)
+(define HEIGHT-V6 400)
+
+(define CAT (circle 6 "solid" "brown"))
+(define OFFSET-CAT (/ (image-width CAT) 2))
+
+(define CHAM (circle 6 "solid" "red"))
+(define OFFSET-CHAM  (/ (image-width CHAM) 2))
+
+(define Y-VA (/ HEIGHT-V6 2))
+(define SPEED 3)
+
+(define GAUGE-WIDTH  (/ WIDTH-V6  3))
+(define GAUGE-HEIGHT (/ HEIGHT-V6 40))
+(define MIN 0)
+(define MAX 100)
+(define DEC -0.1)
+(define INC-DOWN 1/5)
+(define INC-UP   1/3)
+
+(define BACKGROUND-V6 (empty-scene WIDTH-V6 HEIGHT-V6))
+
+
+;; =================
+;; Data definitions:
+
+(define-struct vcat (x h))
+; A VCat is a structure:
+;   (make-vcat Number Number)
+; interpretation (make-vcat x h) describes a virtual cat
+; where x means x-coordinate
+; and   h means your happiness
+
+(define-struct vcham (x h c))
+; A VCham is a structure:
+;   (make-vcham Number Number String)
+; interpretation (make-vcham x h c) describes a virtual cham
+;   where x means x-coordinate
+;   and   h means your happiness
+;   and   c means your color
+
+; A VAnimal is either
+; - a VCat
+; - a VCham
+
+
+;; =================
+;; Functions:
+
+; VAnimal -> World
+; starts a world with (cat-cham (make-vcat 0 100)) or (cat-cham (make-vcham 0 100 "red"))
+(define (cat-cham va)
+  (big-bang va
+            [on-tick tock]
+            [to-draw render]
+            [on-key  interact]))
+
+; VAnimal -> VAnimal
+; moves the virtual animal by SPEED pixels and
+; decreases the happiness by DEC for every clock tick,
+; reset when the virtual animal disappears on the right
+(define (tock va)
+  (cond [(vcat? va)
+         (make-vcat (do-x-coordinate va OFFSET-CAT)
+                    (do-happiness va))]
+        [(vcham? va)
+         (make-vcham (do-x-coordinate va OFFSET-CHAM)
+                     (do-happiness va)
+                     (vcham-c va))]))
+
+; VAnimal Number -> Number
+; updates the x-coordinate
+(define (do-x-coordinate x offset)
+  (if (>= (+ (va-x-coordinate x) SPEED)
+          (+ WIDTH-V6 offset))
+      0
+      (+ (va-x-coordinate x) SPEED)))
+
+; VAnimal Number -> Number
+; updates the happiness
+(define (do-happiness h)
+  (if (<= (+ (va-happiness h) DEC) MIN)
+      MIN
+      (+ (va-happiness h) DEC)))
+
+; VAnimal -> Image
+; places the virtual animal into the BACKGROUND scene
+(define (render va)
+  (place-image (cond [(vcat?  va) CAT]
+                     [(vcham? va) (circle 6 "solid" (vcham-c va))])
+               (va-x-coordinate va) Y-VA
+               (overlay/align "middle" "top"
+                              (rectangle (* (va-happiness va) GAUGE-WIDTH .01)
+                                         GAUGE-HEIGHT
+                                         "solid" "red")
+                              BACKGROUND-V6)))
+
+; VAnimal KeyEvent -> VAnimal
+; interacts with the virtual animal:
+;  happiness: up is 1/3 and down is 1/5
+;  color: r is "red", g is "green" and b is "blue"
+(define (interact va ke)
+  (cond [(vcat? va)
+         (make-vcat (vcat-x va)
+                    (cond [(key=? ke "up")   (calculate (vcat-h va) INC-UP)]
+                          [(key=? ke "down") (calculate (vcat-h va) INC-DOWN)]
+                          [else (vcat-h va)]))]
+        [(vcham? va)
+         (make-vcham (vcham-x va)
+                     (cond [(key=? ke "up")   (calculate (vcham-h va) INC-UP)]
+                           [(key=? ke "down") (calculate (vcham-h va) INC-DOWN)]
+                           [else (vcham-h va)])
+                     (cond [(key=? ke "r") "red"]
+                           [(key=? ke "g") "green"]
+                           [(key=? ke "b") "blue"]
+                           [else (vcham-c va)]))]))
+
+; Number -> Number
+; help function for increase x by n, limited by MAX
+(define (calculate x n)
+  (cond [(= x MIN) 1]
+        [(> (+ x (* x n)) MAX) MAX]
+        [else (+ x (* x n))]))
+
+; VAnimal -> Number
+; returns the x-coordinate
+(define (va-x-coordinate va)
+  (cond [(vcat?  va) (vcat-x  va)]
+        [(vcham? va) (vcham-x va)]))
+
+; VAnimal -> Number
+; returns the happiness
+(define (va-happiness va)
+  (cond [(vcat?  va) (vcat-h  va)]
+        [(vcham? va) (vcham-h va)]))
+
+;; Exercise 107
+
+
+;; =================
+;; Data definitions:
+
+(define-struct zoo (cat cham focus))
+; A Zoo is a structure:
+; interpretation (make-zoo VCat VCham String)
+;  cat means a VCat type
+;  cham means a VCham type
+;  focus means the selected animal, "k" for the Cat and "l" for the Cham
+(define ZOO1 (make-zoo (make-vcat  50 100)
+                       (make-vcham 10 100 "red")
+                       "k"))
+
+
+;; =================
+;; Functions:
+
+; Zoo -> World
+; starts a world with (cham-and-cat Z1)
+(define (cham-and-cat z)
+  (big-bang z
+            [on-tick tock.v7]
+            [to-draw render.v7]
+            [on-key  interact.v7]))
+
+; Zoo -> Zoo
+; moves the virtual animals by SPEED pixels and
+; decreases the happiness by DEC for every clock tick,
+; reset when the virtual animals disappears on the right
+(define (tock.v7 z)
+  (make-zoo (make-vcat
+             (do-x-coordinate (zoo-cat z) OFFSET-CAT)
+             (do-happiness (zoo-cat z)))
+            (make-vcham
+             (do-x-coordinate (zoo-cham z) OFFSET-CHAM)
+             (do-happiness (zoo-cham z))
+             (vcham-c (zoo-cham z)))
+            (zoo-focus z)))
+
+; Zoo -> Image
+; places the virtual animals into the BACKGROUND scene
+(define (render.v7 z)
+  (place-image CAT
+               (va-x-coordinate (zoo-cat z)) Y-VA
+               (place-image (circle 6 "solid" (vcham-c (zoo-cham z)))
+                            (va-x-coordinate (zoo-cham z)) Y-VA
+                            (overlay/align "left" "top"
+                                           (rectangle (* (va-happiness (zoo-cat z)) GAUGE-WIDTH .01)
+                                                      GAUGE-HEIGHT
+                                                      "solid" "red")
+                                           (overlay/align "right" "top"
+                                                          (rectangle (* (va-happiness (zoo-cham z)) GAUGE-WIDTH .01)
+                                                                     GAUGE-HEIGHT
+                                                                     "solid" "red")
+                                                          BACKGROUND-V6)))))
+
+; Zoo KeyEvent -> Zoo
+; interacts with virtual animals:
+;  happiness: up is 1/3 and down is 1/5
+;  color: r is "red", g is "green" and b is "blue"
+;  focus: k is "Cat" and l is "Cham"
+(define (interact.v7 z ke)
+  (cond
+    [(key=? ke "k") (make-zoo (zoo-cat z) (zoo-cham z) "k")]
+    [(key=? ke "l") (make-zoo (zoo-cat z) (zoo-cham z) "l")]
+    [(string=? (zoo-focus z) "k")
+     (make-zoo
+      (make-vcat (vcat-x (zoo-cat z))
+                 (cond [(key=? ke "up")   (calculate (vcat-h (zoo-cat z)) INC-UP)]
+                       [(key=? ke "down") (calculate (vcat-h (zoo-cat z)) INC-DOWN)]
+                       [else (vcat-h (zoo-cat z))]))
+      (zoo-cham z)
+      (zoo-focus z))]
+    [(string=? (zoo-focus z) "l")
+     (make-zoo
+      (zoo-cat z)
+      (make-vcham (vcham-x (zoo-cham z))
+                  (cond [(key=? ke "up")   (calculate (vcham-h (zoo-cham z)) INC-UP)]
+                        [(key=? ke "down") (calculate (vcham-h (zoo-cham z)) INC-DOWN)]
+                        [else (vcham-h (zoo-cham z))])
+                  (cond [(key=? ke "r") "red"]
+                        [(key=? ke "g") "green"]
+                        [(key=? ke "b") "blue"]
+                        [else (vcham-c (zoo-cham z))]))
+      (zoo-focus z))]))
+
+;; Exercise 108
+
+
+;; =================
+;; Constants:
+
+(define SIZE 10)
+(define RED   (circle SIZE "solid" "red"))
+(define GREEN (circle SIZE "solid" "green"))
+
+(define COUNT-RED   40)
+(define COUNT-GREEN 20)
+
+(define WIDTH-V8  40)
+(define HEIGHT-V8 WIDTH-V8)
+(define CENTER (/ WIDTH-V8 2))
+(define BACKGROUND-V8 (rectangle WIDTH-V8 HEIGHT-V8 "solid" "black"))
+
+
+;; =================
+;; Data definitions:
+
+(define-struct traffic-light (state count-down))
+; Traffic-Light is a structure:
+; interpretation (make-traffic-light s c)
+;  - s means the current state: standing or walking
+;  - c means the count-down
+(define TL1 (make-traffic-light "standing" COUNT-RED))
+(define TL2 (make-traffic-light "standing" 20))
+(define TL3 (make-traffic-light "standing" 0))
+(define TL4 (make-traffic-light "walking"  COUNT-GREEN))
+(define TL5 (make-traffic-light "walking"  10))
+(define TL6 (make-traffic-light "walking"  9))
+(define TL7 (make-traffic-light "walking"  0))
+
+
+;; =================
+;; Functions:
+
+; Traffic-Light -> World
+; starts the world with (main.v8 TL1)
+(define (main.v8 tl)
+  (big-bang tl
+            (on-tick tock.v8 1)
+            (on-draw render.v8)
+            (on-key  reset)))
+
+; Traffic-Light -> Traffic-Light
+; updates the states and count-down values
+(check-expect (tock.v8 TL1) (make-traffic-light "standing" (sub1 COUNT-RED)))
+(check-expect (tock.v8 TL2) (make-traffic-light "standing" 19))
+(check-expect (tock.v8 TL3) (make-traffic-light "walking"  COUNT-GREEN))
+(check-expect (tock.v8 TL4) (make-traffic-light "walking"  (sub1 COUNT-GREEN)))
+(check-expect (tock.v8 TL5) (make-traffic-light "walking"  9))
+(check-expect (tock.v8 TL6) (make-traffic-light "walking"  8))
+(check-expect (tock.v8 TL7) (make-traffic-light "standing" COUNT-RED))
+
+(define (tock.v8 tl)
+  (cond [(string=? (traffic-light-state tl) "standing")
+         (if (> (traffic-light-count-down tl) 0)
+             (make-traffic-light "standing" (sub1 (traffic-light-count-down tl)))
+             (make-traffic-light "walking" COUNT-GREEN))]
+        [(string=? (traffic-light-state tl) "walking")
+         (if (> (traffic-light-count-down tl) 0)
+             (make-traffic-light "walking" (sub1 (traffic-light-count-down tl)))
+             (make-traffic-light "standing" COUNT-RED))]))
+
+; Traffic-Light -> Image
+; renders the image of Traffic Light into the BACKGROUND scene
+(check-expect (render.v8 TL1) (place-image RED   CENTER CENTER BACKGROUND-V8))
+(check-expect (render.v8 TL4) (place-image GREEN CENTER CENTER BACKGROUND-V8))
+(check-expect (render.v8 TL5) (overlay/align "middle" "middle"
+                                          (text "10" SIZE "red")
+                                          GREEN BACKGROUND-V8))
+(check-expect (render.v8 TL6) (overlay/align "middle" "middle"
+                                          (text "9" SIZE "darkgreen")
+                                          GREEN BACKGROUND-V8))
+(check-expect (render.v8 TL7) (place-image GREEN CENTER CENTER BACKGROUND-V8))
+
+(define (render.v8 tl)
+  (cond [(string=? (traffic-light-state tl) "standing")
+         (place-image RED CENTER CENTER BACKGROUND-V8)]
+        [(string=? (traffic-light-state tl) "walking")
+         (if (< 0 (traffic-light-count-down tl) 11)
+             (overlay/align "middle" "middle"
+                            (text (number->string (traffic-light-count-down tl)) SIZE
+                                  (if (even? (traffic-light-count-down tl))
+                                      "red"
+                                      "darkgreen"))
+                                  GREEN BACKGROUND-V8)
+             (place-image GREEN CENTER CENTER BACKGROUND-V8))]))
+
+; Traffic-Light KeyEvent -> Traffic-Light
+; resets the default state
+(check-expect (reset TL2 " ")    TL1)
+(check-expect (reset TL2 "left") TL2)
+
+(define (reset tl ke)
+  (if (key=? ke " ") TL1 tl))
+
+;; Exercise 109
+
+;; =================
+;; Constants:
+
+(define WIDTH-V9  100)
+(define HEIGHT-V9 WIDTH-V9)
+(define BACKGROUND-V9 (rectangle WIDTH-V9 HEIGHT-V9 "solid" "white"))
+
+
+;; =================
+;; Data definitions:
+
+; ExpectsToSee is one of:
+; - "start, expect an 'a'"
+; - "expect 'b', 'c', or 'd'"
+; - "finished"
+; - "error, illegal key"
+
+
+;; =================
+;; Functions:
+
+; ExpectsToSee -> World
+; starts the world with (main.v9 "start")
+(define (main.v9 ets)
+  (big-bang ets
+            (on-draw render.v9)
+            (on-key  event)))
+
+; ExpectsToSee -> Image
+; renders the current event into the BACKGROUND scene
+(check-expect (render.v9 "start")    (rectangle WIDTH-V9 HEIGHT-V9 "solid" "white"))
+(check-expect (render.v9 "expect")   (rectangle WIDTH-V9 HEIGHT-V9 "solid" "yellow"))
+(check-expect (render.v9 "finished") (rectangle WIDTH-V9 HEIGHT-V9 "solid" "green"))
+(check-expect (render.v9 "error")    (rectangle WIDTH-V9 HEIGHT-V9 "solid" "red"))
+
+(define (render.v9 ets)
+  (overlay (rectangle WIDTH-V9 HEIGHT-V9 "solid"
+                      (cond [(string=? "start"    ets) "white"]
+                            [(string=? "expect"   ets) "yellow"]
+                            [(string=? "finished" ets) "green"]
+                            [(string=? "error"    ets) "red"]))
+           BACKGROUND-V9))
+
+; ExpectsToSee KeyEvent -> ExpectsToSee
+; generates the next event to ExpectsToSee
+(check-expect (event "start"    "a") "expect")
+(check-expect (event "start"    "b") "error")
+(check-expect (event "expect"   "b") "expect")
+(check-expect (event "expect"   "c") "expect")
+(check-expect (event "expect"   "d") "finished")
+(check-expect (event "expect"   "e") "error")
+(check-expect (event "finished" "e") "finished")
+(check-expect (event "error"    "e") "error")
+
+(define (event ets ke)
+  (cond [(and (string=? "start"  ets)
+              (key=? "a" ke))
+         "expect"]
+        [(and (string=? "expect" ets)
+              (or (key=? "b" ke)
+                  (key=? "c" ke)))
+         "expect"]
+        [(and (string=? "expect" ets)
+              (key=? "d" ke))
+         "finished"]
+        [(string=? "finished" ets)
+         "finished"]
+        [else "error"]))
