@@ -304,8 +304,8 @@
 ; A MissileOrNot is one of:
 ; - #false
 ; - Posn
-; interpretation#false means the missile is in the tank;
-; Posn says the missile is at that location
+; interpretation #false means the missile is in the tank;
+;                Posn says the missile is at that location
 
 (define-struct sigs [ufo tank missile])
 ; A SIGS.v2 (short for SIGS version 2) is a structure:
@@ -539,6 +539,8 @@
 ;  passenger means the total number that it can carry
 ;  license means the value of plate number
 ;  fuel means the current value in miles per gallon
+
+#;
 (define (fn-to-fleet f)
   (... (fleet-vehicle f)
        (fleet-passenger f)
@@ -967,3 +969,143 @@
         [(string=? "finished" ets)
          "finished"]
         [else "error"]))
+
+
+
+;; 6.3 - Input Errors
+
+;; Exercise 110
+
+
+;; =================
+;; Data definitions:
+
+; Any BSL value is one of:
+; - Number
+; - Boolean
+; - String
+; - Image
+; - (make-posn Any Any)
+; ...
+; - (make-tank Any Any)
+; ...
+
+
+;; =================
+;; Functions:
+
+; Number -> Number
+; computes the area of a disk with radius r
+(check-expect (area-of-disk 2)   (* 3.14 (* 2 2)))
+(check-expect (area-of-disk 5.6) (* 3.14 (* 5.6 5.6)))
+
+(define (area-of-disk r)
+  (* 3.14 (* r r)))
+
+; Any -> Number
+; computes the area of a disk with radius v,
+; if v is a positive number
+(check-expect (checked-area-of-disk 2)     (* 3.14 (* 2 2)))
+(check-error  (checked-area-of-disk "two") "area-of-disk: positive number expected")
+(check-error  (checked-area-of-disk 0)     "area-of-disk: positive number expected")
+(check-error  (checked-area-of-disk -1)    "area-of-disk: positive number expected")
+
+(define (checked-area-of-disk v)
+  (cond
+    [(and (number? v)
+          (> v 0))
+     (area-of-disk v)]
+    [else (error "area-of-disk: positive number expected")]))
+
+;; Exercise 111
+
+
+;; =================
+;; Data definitions:
+
+; A PositiveNumber is a Number greater than/equal to 0.
+
+(define-struct vec [x y])
+; A vec is
+;   (make-vec PositiveNumber PositiveNumber)
+; interpretation represents a velocity vector
+
+
+;; =================
+;; Functions:
+
+; Any -> Vec
+; creates a vec structure
+; if x and y are positive numbers
+(check-expect (checked-make-vec 5  5)  (make-vec 5 5))
+(check-error  (checked-make-vec 0  0)  "make-vec: positive numbers expected")
+(check-error  (checked-make-vec 1  0)  "make-vec: positive numbers expected")
+(check-error  (checked-make-vec 0  1)  "make-vec: positive numbers expected")
+(check-error  (checked-make-vec -1 1)  "make-vec: positive numbers expected")
+(check-error  (checked-make-vec 1  -1) "make-vec: positive numbers expected")
+(check-error  (checked-make-vec -1 -1) "make-vec: positive numbers expected")
+
+(define (checked-make-vec x y)
+  (cond [(and (> x 0)
+              (> y 0))
+         (make-vec x y)]
+        [else (error "make-vec: positive numbers expected")]))
+
+;; Exercise 112
+
+
+;; =================
+;; Functions:
+
+; Any -> Boolean
+; is v an element of the MissileOrNot collection
+(check-expect (missile-or-not? #false) #true)
+(check-expect (missile-or-not? (make-posn 9 2)) #true)
+(check-expect (missile-or-not? "yellow") #false)
+(check-expect (missile-or-not? #true) #false)
+(check-expect (missile-or-not? 10) #false)
+(check-expect (missile-or-not? empty-image) #false)
+
+(define (missile-or-not? v)
+  (or (false? v)
+      (posn?  v)))
+
+;; Exercise 113
+
+
+;; =================
+;; Functions:
+
+; Any -> Boolean
+; is s an element of the SIGS collection
+(check-expect (is-a-sigs? (make-aim "ufo" "tank")) #true)
+(check-expect (is-a-sigs? (make-fired "ufo" "tank" "missile")) #true)
+(check-expect (is-a-sigs? "troops") #false)
+(check-expect (is-a-sigs? 5) #false)
+
+(define (is-a-sigs? s)
+  (or (aim?   s)
+      (fired? s)))
+
+; Any -> Boolean
+; is c an element of the Coordinate collection
+(check-expect (is-a-coordinate? -3) #true)
+(check-expect (is-a-coordinate?  3) #true)
+(check-expect (is-a-coordinate? (make-posn 10 10)) #true)
+(check-expect (is-a-coordinate? "1,2") #false)
+
+(define (is-a-coordinate? c)
+  (or (and (number? c)
+           (or (< c 0)
+               (> c 0)))
+      (posn? c)))
+
+; Any -> Boolean
+; is va an element of the VAnimal collection
+(check-expect (is-a-vanimal? (make-vcat  20 100)) #true)
+(check-expect (is-a-vanimal? (make-vcham 20 100 "red")) #true)
+(check-expect (is-a-vanimal? "cat") #false)
+
+(define (is-a-vanimal? va)
+  (or (vcat?  va)
+      (vcham? va)))
