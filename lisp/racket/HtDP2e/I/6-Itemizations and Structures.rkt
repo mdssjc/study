@@ -1167,3 +1167,59 @@
 
 (define (is-an-editor? e)
   (editor? e))
+
+
+
+;; 6.5 - Equality Predicates
+
+;; Exercise 115
+
+
+;; =================
+;; Constants:
+
+(define MESSAGE "traffic light expected, given ")
+
+
+;; =================
+;; Data definitions:
+
+; A TrafficLight is one of the following Strings:
+; - "red"
+; - "green"
+; - "yellow"
+; interpretation the three strings represent the three
+; possible states that a traffic light may assume
+
+
+;; =================
+;; Functions:
+
+; Any -> Boolean
+; is the given value an element of TrafficLight
+(define (light? x)
+  (cond [(string? x)
+         (or (string=? "red"    x)
+             (string=? "green"  x)
+             (string=? "yellow" x))]
+        [else #false]))
+
+; Any Any -> Boolean
+; are the two values elements of TrafficLight and,
+; if so, are they equal
+; else throw an error
+(check-expect (light=? "red"    "red")    #true)
+(check-expect (light=? "red"    "green")  #false)
+(check-expect (light=? "green"  "green")  #true)
+(check-expect (light=? "yellow" "yellow") #true)
+(check-error  (light=? "white"  "yellow") "traffic light expected, given white")
+
+(define (light=? a-value another-value)
+  (cond [(and (light? a-value)
+              (light? another-value))
+         (string=? a-value another-value)]
+        [else
+         (error (string-append MESSAGE
+                               (if (light? a-value)
+                                   another-value
+                                   a-value)))]))
