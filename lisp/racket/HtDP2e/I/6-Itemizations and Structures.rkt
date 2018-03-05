@@ -1109,3 +1109,61 @@
 (define (is-a-vanimal? va)
   (or (vcat?  va)
       (vcham? va)))
+
+
+
+;; 6.4 - Checking the World
+
+;; Exercise 114
+
+
+;; =================
+;; Data definitions:
+
+; SIGS -> World
+; starts a world with...
+(define (main-sigs s)
+  (big-bang s
+            (on-tick ...)
+            (on-draw ...)
+            (check-with is-a-sigs?)))
+
+; VAnimal -> World
+; starts a world with...
+(define (main-vanimal va)
+  (big-bang va
+            (on-tick ...)
+            (on-draw ...)
+            (check-with is-a-vanimal?)))
+
+
+;; =================
+;; Data definitions:
+
+(define-struct editor [pre post])
+; An Editor is a structure:
+;   (make-editor String String)
+; interpretation (make-editor s t) describes an editor
+; whose visible text is (string-append s t) with
+; the cursor displayed between s and t
+
+
+;; =================
+;; Functions:
+
+; Editor -> World
+; starts a world with...
+(define (main-editor e)
+  (big-bang e
+            (on-tick ...)
+            (on-draw ...)
+            (check-with is-an-editor?)))
+
+; Any -> Boolean
+; is e an Editor structure
+(check-expect (is-an-editor? (make-editor "Hello" "World")) #true)
+(check-expect (is-an-editor? "Hello | World") #false)
+(check-expect (is-an-editor? 10) #false)
+
+(define (is-an-editor? e)
+  (editor? e))
