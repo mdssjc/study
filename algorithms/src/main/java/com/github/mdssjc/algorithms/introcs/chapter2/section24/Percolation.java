@@ -7,6 +7,7 @@ import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 2.4.1 Percolation scaffolding.
+ * Program 2.4.2 Vertical percolation detection.
  *
  * @author Marcelo dos Santos
  *
@@ -17,7 +18,14 @@ public class Percolation {
   public static boolean[][] flow(final boolean[][] isOpen) {
     final int n = isOpen.length;
     final boolean[][] isFull = new boolean[n][n];
-    // The isFull[][] matrix computation goes here.
+    for (int j = 0; j < n; j++) {
+      isFull[0][j] = isOpen[0][j];
+    }
+    for (int i = 1; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        isFull[i][j] = isOpen[i][j] && isFull[i - 1][j];
+      }
+    }
     return isFull;
   }
 
