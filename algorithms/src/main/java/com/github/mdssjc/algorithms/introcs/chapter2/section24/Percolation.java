@@ -3,7 +3,9 @@ package com.github.mdssjc.algorithms.introcs.chapter2.section24;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.introcs.StdArrayIO;
+import edu.princeton.cs.introcs.StdDraw;
 import edu.princeton.cs.introcs.StdOut;
+import edu.princeton.cs.introcs.StdRandom;
 
 /**
  * Program 2.4.1 Percolation scaffolding.
@@ -46,5 +48,28 @@ public class Percolation {
     final boolean[][] isOpen = StdArrayIO.readBoolean2D();
     StdArrayIO.print(flow(isOpen));
     StdOut.println(percolates(isOpen));
+  }
+
+  public static void show(final boolean[][] a, final boolean which) {
+    final int n = a.length;
+    StdDraw.setXscale(-1, n);
+    StdDraw.setYscale(-1, n);
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        if (a[i][j] == which) {
+          StdDraw.filledSquare(j, n - i - 1, 0.5);
+        }
+      }
+    }
+  }
+
+  public static boolean[][] random(final int n, final double p) {
+    final boolean[][] a = new boolean[n][n];
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        a[i][j] = StdRandom.bernoulli(p);
+      }
+    }
+    return a;
   }
 }
