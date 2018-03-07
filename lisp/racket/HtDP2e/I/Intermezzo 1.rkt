@@ -149,3 +149,24 @@
 (+ 117 (* 19 19))
 (+ 117 361)
 478
+
+
+
+;; Meaning and Computing
+
+
+
+;; BSL Errors
+
+
+
+;; Boolean Expressions
+
+;; Exercise 123
+
+(define x 5)
+(define y 5)
+
+(if (= x y) x y)
+(cond [(= x y) x]
+      [else y])
