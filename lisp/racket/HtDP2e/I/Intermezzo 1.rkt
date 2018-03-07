@@ -170,3 +170,40 @@
 (if (= x y) x y)
 (cond [(= x y) x]
       [else y])
+
+
+
+;; Constant Definitions
+
+;; Exercise 124
+
+(define PRICE 5)
+(define SALES-TAX (* 0.08 PRICE))
+(* 0.08 5)
+0.4
+(define TOTAL (+ PRICE SALES-TAX))
+(+ 5 0.4)
+5.4
+
+; fahrenheit->celsius is used here before its definition
+;(define COLD-F 32)
+;(define COLD-C (fahrenheit->celsius COLD-F))
+;(define (fahrenheit->celsius f2)
+;  (* 5/9 (- f2 32)))
+
+(define LEFT -100)
+(define RIGHT 100)
+(define (f2 x) (+ (* 5 (expt x 2)) 10))
+
+(define f@LEFT (f2 LEFT))
+(f2 -100)
+(+ (* 5 (expt -100 2)) 10)
+(+ (* 5 10000) 10)
+(+ 50000 10)
+50010
+
+(define f@RIGHT (f2 RIGHT))
+(f2 100)
+(+ (* 5 (expt 100 2)) 10)
+(+ 50000 10)
+50010
