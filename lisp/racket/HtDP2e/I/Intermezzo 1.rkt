@@ -282,3 +282,7 @@
 
 ; (check-satisfied 4 odd?)
 (check-satisfied 4 even?)
+
+
+
+;; BSL Error Messages
