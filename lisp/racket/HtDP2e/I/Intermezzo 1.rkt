@@ -207,3 +207,54 @@
 (+ (* 5 (expt 100 2)) 10)
 (+ 50000 10)
 50010
+
+
+
+;; Structure Type Definitions
+
+;; Exercise 125
+
+(define-struct oops [])
+; it's legal
+
+(define-struct child [parents dob date])
+; it's legal
+
+; (define-struct (child person) [dob date])
+; it's illegal, incorrect syntax
+
+;; Exercise 126
+
+(define-struct point [x y z])
+(define-struct none  [])
+
+(make-point 1 2 3)
+
+(make-point (make-point 1 2 3) 4 5)
+
+;(make-point (+ 1 2) 3 4)
+(make-point 3 3 4)
+
+(make-none)
+
+;(make-point (point-x (make-point 1 2 3)) 4 5)
+(make-point 1 4 5)
+
+;; Exercise 127
+
+(define-struct ball [x y speed-x speed-y])
+
+(number? (make-ball 1 2 3 4))
+#false
+
+(ball-speed-y (make-ball (+ 1 2) (+ 3 3) 2 3))
+3
+
+(ball-y (make-ball (+ 1 2) (+ 3 3) 2 3))
+6
+
+; (ball-x (make-posn 1 2))
+; error, ball-x expects a ball
+
+(ball-speed-y 5)
+; error, ball-x expects a ball
