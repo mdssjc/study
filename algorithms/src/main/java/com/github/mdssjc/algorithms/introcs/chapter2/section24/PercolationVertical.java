@@ -8,7 +8,7 @@ import edu.princeton.cs.introcs.StdOut;
 import edu.princeton.cs.introcs.StdRandom;
 
 /**
- * Program 2.4.1 PercolationVertical scaffolding.
+ * Program 2.4.1 Percolation scaffolding.
  * Program 2.4.2 Vertical percolation detection.
  *
  * @author Marcelo dos Santos
