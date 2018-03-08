@@ -5,7 +5,7 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.introcs.StdOut;
 
 /**
- * Program 2.4.4 PercolationVertical probability estimate.
+ * Program 2.4.4 Percolation probability estimate.
  *
  * @author Marcelo dos Santos
  *
@@ -20,7 +20,7 @@ public class PercolationProbability {
   public static double estimate(final int n, final double p, final int trials) {
     int count = 0;
     for (int t = 0; t < trials; t++) {
-      final boolean[][] isOpen = PercolationVertical.random(n, p);
+      final boolean[][] isOpen = Percolation.random(n, p);
       if (PercolationVertical.percolates(isOpen)) {
         count++;
       }

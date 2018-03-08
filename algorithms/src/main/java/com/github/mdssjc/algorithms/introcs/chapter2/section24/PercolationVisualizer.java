@@ -21,13 +21,13 @@ public class PercolationVisualizer {
     final double p = Double.parseDouble(args[1]);
     StdDraw.enableDoubleBuffering();
 
-    final boolean[][] isOpen = PercolationVertical.random(n, p);
+    final boolean[][] isOpen = Percolation.random(n, p);
     StdDraw.setPenColor(StdDraw.BLACK);
-    PercolationVertical.show(isOpen, false);
+    Percolation.show(isOpen, false);
 
     StdDraw.setPenColor(StdDraw.BOOK_BLUE);
-    final boolean[][] isFull = PercolationVertical.flow(isOpen);
-    PercolationVertical.show(isFull, true);
+    final boolean[][] isFull = Percolation.flow(isOpen);
+    Percolation.show(isFull, true);
 
     StdDraw.show();
   }
