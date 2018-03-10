@@ -9,7 +9,6 @@
 (require 2htdp/universe)
 
 
-
 ;; 8.1 - Creating Lists
 
 ;; Exercise 129
