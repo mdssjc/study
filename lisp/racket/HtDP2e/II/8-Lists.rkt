@@ -63,3 +63,7 @@
 (cons #true
       (cons #false
             (cons #true '())))
+
+
+
+;; 8.2 - What Is '(), What Is cons
