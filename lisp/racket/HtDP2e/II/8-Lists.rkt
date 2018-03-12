@@ -5,9 +5,6 @@
 ;; II - Arbitrarily Large Data
 ;; 8 Lists
 
-(require 2htdp/image)
-(require 2htdp/universe)
-
 
 ;; 8.1 - Creating Lists
 
