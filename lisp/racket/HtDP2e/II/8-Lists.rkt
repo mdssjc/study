@@ -3,7 +3,7 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname |8-Lists|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; 8-Lists.rkt
 ;; II - Arbitrarily Large Data
-;; 8 Lists
+;; 8 - Lists
 
 
 ;; 8.1 - Creating Lists
