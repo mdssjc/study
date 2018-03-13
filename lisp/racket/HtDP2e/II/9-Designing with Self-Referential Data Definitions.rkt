@@ -192,7 +192,6 @@
 ;; =================
 ;; Constants:
 
-; Constants
 (define I1 (rectangle 10 10 "solid" "black")) ; 10x10
 (define I2 (rectangle 20 20 "solid" "black")) ; 20x20
 (define I3 (rectangle 30 30 "solid" "black")) ; 30x30
