@@ -42,7 +42,8 @@
 
 (define (sum loa)
   (cond [(empty? loa) 0]
-        [else (+ (first loa) (sum (rest loa)))]))
+        [else (+ (first loa)
+                 (sum (rest loa)))]))
 
 
 (sum LOA3)
@@ -228,3 +229,180 @@
   (cond [(empty? loi) #false]
         [(= (image-width (first loi)) n) (first loi)]
         [else (ill-sized? (rest loi) n)]))
+
+
+
+;; 9.2 - Non-empty Lists
+
+;; Exercise 143
+
+
+;; =================
+;; Data definitions:
+
+; A CTemperature is a Number greater than -273.
+
+; A List-of-temperatures is one of:
+; - '()
+; - (cons CTemperature List-of-temperatures)
+
+
+;; =================
+;; Functions:
+
+; List-of-temperatures -> Number
+; computes the average temperature
+(check-expect (average (cons 1 (cons 2 (cons 3 '())))) 2)
+
+(define (average alot)
+  (/ (sum.v2 alot) (how-many alot)))
+
+; List-of-temperatures -> Number
+; computes the average temperature
+; produces an informative error message when it is applied to '()
+(check-expect (checked-average (cons 1 (cons 2 (cons 3 '())))) 2)
+(check-error  (checked-average '()) "Invalid input (empty list)")
+
+(define (checked-average alot)
+  (cond [(empty? alot) (error "Invalid input (empty list)")]
+        [else (average alot)]))
+
+; List-of-temperatures -> Number
+; adds up the temperatures on the given list
+(define (sum.v2 alot)
+  (cond [(empty? alot) 0]
+        [else (+ (first alot)
+                 (sum.v2 (rest alot)))]))
+
+; List-of-temperatures -> Number
+; counts the temperatures on the given list
+(define (how-many alot)
+  (cond [(empty? alot) 0]
+        [else (+ (how-many (rest alot)) 1)]))
+
+;; Exercise 144
+
+; NEList-of-temperatures is a subset of List-of-temperatures so the sum and
+; how-manu functions work.
+
+
+;; =================
+;; Data definitions:
+
+; A NEList-of-temperatures is one of:
+; - (cons CTemperature '())
+; - (cons CTemperature NEList-of-temperatures)
+; interpretation non-empty lists of Celsius temperatures
+
+
+;; =================
+;; Functions:
+
+; NEList-of-temperatures -> Number
+; computes the average temperature
+(check-expect (average.v3 (cons 1 '())) 1)
+(check-expect (average.v3 (cons 1 (cons 2 (cons 3 '())))) 2)
+
+(define (average.v3 ne-l)
+  (/ (sum.v2   ne-l)
+     (how-many ne-l)))
+
+;; Exercise 145
+
+
+;; =================
+;; Functions:
+
+; NEList-of-temperatures -> Boolean
+; produces true if the temperatures are sorted in descending order
+(check-expect (sorted>? (cons 1 (cons 2 '()))) #false)
+(check-expect (sorted>? (cons 3 (cons 2 '()))) #true)
+(check-expect (sorted>? (cons 0 (cons 3 (cons 2 '())))) #false)
+
+(define (sorted>? l)
+  (cond [(empty? (rest l)) #true]
+        [else (and (>= (first l)
+                       (first (rest l)))
+                   (sorted>? (rest l)))]))
+
+;; Exercise 146
+
+
+;; =================
+;; Functions:
+
+; NEList-of-temperatures -> Number
+; computes the average temperature
+(check-expect (average.v4 (cons 1 '())) 1)
+(check-expect (average.v4 (cons 1 (cons 2 (cons 3 '())))) 2)
+
+(define (average.v4 ne-l)
+  (/ (sum.v4 ne-l)
+     (how-many.v4 ne-l)))
+
+; NEList-of-temperatures -> Number
+; computes the sum of the given temperatures
+(check-expect (sum.v4 (cons 1 '())) 1)
+(check-expect (sum.v4 (cons 1 (cons 2 (cons 3 '())))) 6)
+
+(define (sum.v4 ne-l)
+  (cond [(empty? (rest ne-l)) (first ne-l)]
+        [else (+ (first ne-l)
+                 (sum.v4 (rest ne-l)))]))
+
+; NEList-of-temperatures -> Number
+; counts the temperatures on the given list
+(check-expect (how-many.v4 (cons 1 '())) 1)
+(check-expect (how-many.v4 (cons 1 (cons 2 (cons 3 '())))) 3)
+
+(define (how-many.v4 ne-l)
+  (cond [(empty? (rest ne-l)) 1]
+        [else (+ (how-many.v4 (rest ne-l)) 1)]))
+
+;; Exercise 147
+
+
+;; =================
+;; Data definitions:
+
+; A NEList-of-booleans is one of:
+; - (cons Boolean '())
+; - (cons Boolean NEList-of-booleans)
+; interpretation non-empty lists of Boolean values
+(define NELOB1 (cons #true  '()))
+(define NELOB2 (cons #false '()))
+(define NELOB3 (cons #true  (cons #false '())))
+(define NELOB4 (cons #true  (cons #false (cons #true '()))))
+
+
+;; =================
+;; Functions:
+
+; NEList-of-booleans -> Boolean
+; determines whether all of them are true
+(check-expect (all-true.v5 NELOB1) #true)
+(check-expect (all-true.v5 NELOB2) #false)
+(check-expect (all-true.v5 NELOB3) #false)
+(check-expect (all-true.v5 NELOB4) #false)
+
+(define (all-true.v5 ne-l)
+  (cond [(empty? (rest ne-l)) (first ne-l)]
+        [else (and (first ne-l)
+                   (all-true.v5 (rest ne-l)))]))
+
+; NEList-of-booleans -> Boolean
+; determines whether at least one item on the list is true
+(check-expect (one-true.v5 NELOB1) #true)
+(check-expect (one-true.v5 NELOB2) #false)
+(check-expect (one-true.v5 NELOB3) #true)
+(check-expect (one-true.v5 NELOB4) #true)
+
+(define (one-true.v5 ne-l)
+  (cond [(empty? (rest ne-l)) (first ne-l)]
+        [else (or (first ne-l)
+                  (one-true.v5 (rest ne-l)))]))
+
+;; Exercise 148
+
+; Yes, with empty list, the function has better expressiveness, however, it
+; always executes an extra loop.
