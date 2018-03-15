@@ -406,3 +406,158 @@
 
 ; Yes, with empty list, the function has better expressiveness, however, it
 ; always executes an extra loop.
+
+
+
+;; 9.3 - Natural Numbers
+
+;; Exercise 149
+
+; Both functions are equal and works with any data type.
+
+
+;; =================
+;; Data definitions:
+
+; An N is one of:
+; - 0
+; - (add1 N)
+; interpretation represents the counting numbers
+
+
+;; =================
+;; Functions:
+
+; N String -> List-of-strings
+; creates a list of n copies of s
+(check-expect (copier 0 "hello") '())
+(check-expect (copier 2 "hello") (cons "hello" (cons "hello" '())))
+(check-expect (copier.v6 0 "hello") '())
+(check-expect (copier.v6 2 "hello") (cons "hello" (cons "hello" '())))
+
+(define (copier n s)
+  (cond [(zero? n) '()]
+        [(positive? n) (cons s (copier (sub1 n) s))]))
+
+(define (copier.v6 n s)
+  (cond [(zero? n) '()]
+        [else (cons s (copier.v6 (sub1 n) s))]))
+
+
+(copier 3 0.1)
+(copier 3 "x")
+(copier 3 #true)
+(copier 3 (rectangle 10 10 "solid" "black"))
+(copier.v6 3 0.1)
+(copier.v6 3 "x")
+
+;; Exercise 150
+
+
+;; =================
+;; Functions:
+
+; N -> Number
+; computes (+ n pi) without using +
+(check-within (add-to-pi 3) (+ 3 pi) 0.001)
+
+(define (add-to-pi n)
+  (cond [(zero? n) pi]
+        [else (add1 (add-to-pi (sub1 n)))]))
+
+; N Number -> Number
+; computes (+ n x) without using +
+(check-within (add 3 pi) (+ 3 pi) 0.001)
+(check-expect (add 3 6) (+ 3 6))
+
+(define (add n x)
+  (cond [(zero? n) x]
+        [else (add1 (add (sub1 n) x))]))
+
+;; Exercise 151
+
+
+;; =================
+;; Functions:
+
+; N -> Number
+; computes (* n x) without using *
+(check-expect (multiply 3 6) (* 3 6))
+
+(define (multiply n x)
+  (cond [(zero? n) 0]
+        [else (add (multiply (sub1 n) x) x)]))
+
+;; Exercise 152
+
+
+;; =================
+;; Functions:
+
+; N Image -> Image
+; produces a column, a vertical arrangement, of n copies of img
+(check-expect (col 5  (rectangle 10 10 "outline" "black"))
+              (beside (rectangle 10 10 "outline" "black")
+                      (rectangle 10 10 "outline" "black")
+                      (rectangle 10 10 "outline" "black")
+                      (rectangle 10 10 "outline" "black")
+                      (rectangle 10 10 "outline" "black")))
+
+(define (col n img)
+  (cond [(zero? n) empty-image]
+        [else (beside img (col (sub1 n) img))]))
+
+; N Image -> Image
+; produces a row, a horizontal arrangement, of n copies of img
+(check-expect (row 5 (rectangle 10 10 "outline" "black"))
+              (above (rectangle 10 10 "outline" "black")
+                     (rectangle 10 10 "outline" "black")
+                     (rectangle 10 10 "outline" "black")
+                     (rectangle 10 10 "outline" "black")
+                     (rectangle 10 10 "outline" "black")))
+
+(define (row n img)
+  (cond [(zero? n) empty-image]
+        [else (above img (row (sub1 n) img))]))
+
+;; Exercise 153
+
+
+;; =================
+;; Constants:
+
+(define WIDTH-V7  100)
+(define HEIGHT-V7 180)
+(define DOT (circle 4 "solid" "red"))
+(define HALL (place-image (col 10 (row 18 (rectangle 10 10 "outline" "black")))
+                          (/ WIDTH-V7 2)
+                          (/ HEIGHT-V7 2)
+                          (empty-scene WIDTH-V7 HEIGHT-V7)))
+
+
+;; =================
+;; Data definitions:
+
+; List-of-posn is one of:
+; - '()
+; - (cons Posn List-of-posn)
+; interpretation a list of Posn
+
+
+;; =================
+;; Functions:
+
+; List-of-posn -> Image
+; produces an image of the lecture hall with red dots added as specified by the Posns
+(check-expect (add-balloons '()) HALL)
+(check-expect (add-balloons (cons (make-posn 0 0) '())) (place-image DOT  0  0 HALL))
+(check-expect (add-balloons (cons (make-posn 1 1) '())) (place-image DOT 10 10 HALL))
+(check-expect (add-balloons (cons (make-posn 1 1) (cons (make-posn 5 5) '())))
+              (place-image DOT 10 10 (place-image DOT 50 50 HALL)))
+
+(define (add-balloons lop)
+  (cond [(empty? lop) HALL]
+        [else (place-image DOT
+                           (* (posn-x (first lop)) 10)
+                           (* (posn-y (first lop)) 10)
+                           (add-balloons (rest lop)))]))
