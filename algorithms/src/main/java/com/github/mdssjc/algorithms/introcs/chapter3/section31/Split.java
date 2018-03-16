@@ -11,7 +11,7 @@ import edu.princeton.cs.introcs.Out;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive(value = {"DJIA", "4"}, valueFile = true)
+@TestDrive(value = {"DJIA.csv", "4"}, valueFile = true)
 public class Split {
 
   public static void main(final String[] args) {
@@ -22,11 +22,12 @@ public class Split {
     final String delimiter = ",";
 
     final Out[] out = new Out[n];
+    final String baseName = name.substring(0, name.indexOf("."));
     for (int i = 0; i < n; i++) {
-      out[i] = new Out(name + i + ".txt");
+      out[i] = new Out(baseName + i + ".txt");
     }
 
-    final In in = new In(name + ".csv");
+    final In in = new In(name);
     while (in.hasNextLine()) {
       final String line = in.readLine();
       final String[] fields = line.split(delimiter);
