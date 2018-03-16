@@ -561,3 +561,77 @@
                            (* (posn-x (first lop)) 10)
                            (* (posn-y (first lop)) 10)
                            (add-balloons (rest lop)))]))
+
+
+
+;; 9.4 - Russian Dolls
+
+
+;; =================
+;; Data definitions:
+
+(define-struct layer [color doll])
+
+; An RD (short for Russian doll) is one of:
+; - String
+; - (make-layer String RD)
+(define RD1 "red")
+(define RD2 (make-layer "yellow" (make-layer "green" "red")))
+
+
+;; =================
+;; Functions:
+
+; RD -> Number
+; how many dolls are a part of an-rd
+(check-expect (depth RD1) 1)
+(check-expect (depth RD2) 3)
+
+(define (depth an-rd)
+  (cond [(string? an-rd) 1]
+        [else (+ (depth (layer-doll an-rd)) 1)]))
+
+;; Exercise 154
+
+; RD -> String
+; produces a string of all colors, separate by a comma and a space
+(check-expect (colors RD1) "red")
+(check-expect (colors RD2) "yellow, green, red")
+
+(define (colors rd)
+  (cond [(string? rd) rd]
+        [else (string-append (layer-color rd) ", "
+                             (colors (layer-doll rd)))]))
+
+;; Exercise 155
+
+; RD -> String
+; produces the (color of the) innermost doll
+(check-expect (inner RD1) "red")
+(check-expect (inner RD2) "red")
+
+(define (inner rd)
+  (cond [(string? rd) rd]
+        [else (inner (layer-doll rd))]))
+
+
+(inner RD2)
+(inner (make-layer "yellow" (make-layer "green" "red")))
+(cond [(string? (make-layer "yellow" (make-layer "green" "red"))) (make-layer "yellow" (make-layer "green" "red"))]
+      [else (inner (layer-doll (make-layer "yellow" (make-layer "green" "red"))))])
+(cond [#false (make-layer "yellow" (make-layer "green" "red"))]
+      [else (inner (layer-doll (make-layer "yellow" (make-layer "green" "red"))))])
+(cond [else (inner (layer-doll (make-layer "yellow" (make-layer "green" "red"))))])
+(inner (layer-doll (make-layer "yellow" (make-layer "green" "red"))))
+(inner (make-layer "green" "red"))
+(cond [(string? (make-layer "green" "red")) (make-layer "green" "red")]
+      [else (inner (layer-doll (make-layer "green" "red")))])
+(cond [#false (make-layer "green" "red")]
+      [else (inner (layer-doll (make-layer "green" "red")))])
+(cond [else (inner (layer-doll (make-layer "green" "red")))])
+(inner "red")
+(cond [(string? "red") "red"]
+      [else (inner (layer-doll "red"))])
+(cond [#true "red"]
+      [else (inner (layer-doll "red"))])
+"red"
