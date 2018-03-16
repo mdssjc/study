@@ -11,7 +11,7 @@ import edu.princeton.cs.introcs.Out;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive({"in1.txt", "in2.txt", "out.txt"})
+@TestDrive(value = {"in1.txt", "in2.txt", "out.txt"}, valueFile = true)
 public class Cat {
 
   public static void main(final String[] args) {
