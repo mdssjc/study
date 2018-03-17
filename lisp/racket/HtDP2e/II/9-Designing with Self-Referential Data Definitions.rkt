@@ -635,3 +635,183 @@
 (cond [#true "red"]
       [else (inner (layer-doll "red"))])
 "red"
+
+
+
+;; 9.5 - Lists and World
+
+;; Exercise 156
+;; Exercise 157
+;; Exercise 158
+
+; change the height of the canvas to 220 pixels;
+; Yes.
+
+; change the width of the canvas to 30 pixels;
+; Yes.
+
+; change the x location of the line of shots to "somewhere to the left of the middle";
+; Yes.
+
+; change the background to a green rectangle; and
+; Yes.
+
+; change the rendering of shots to a red elongated rectangle.
+; Yes.
+
+
+;; =================
+;; Constants:
+
+(define HEIGHT-V8 80)
+(define WIDTH-V8  100)
+(define XSHOTS (/ WIDTH-V8 2))
+
+; graphical constants
+(define BACKGROUND (empty-scene WIDTH-V8 HEIGHT-V8))
+(define SHOT (triangle 3 "solid" "red"))
+
+
+;; =================
+;; Data definitions:
+
+; A Shot is a Number.
+; interpretation represents the shot's y-coordinate
+
+; A List-of-shots is one of:
+; - '()
+; - (cons Shot List-of-shots)
+; interpretation the collection of shots fired
+
+; A ShotWorld is List-of-numbers.
+; interpretation each number on such a list
+;   represents the y-coordinate of a shot
+(define SW1 '())
+(define SW2 (cons 9 '()))
+(define SW3 (cons 9 (cons 15 '())))
+(define SW4 (cons 0 (cons 15 '())))
+
+
+;; =================
+;; Functions:
+
+; ShotWorld -> ShotWorld
+; starts a world with (main '())
+(define (main w0)
+  (big-bang w0
+            [on-tick tock]
+            [on-key  keyh]
+            [to-draw to-image]))
+
+; ShotWorld -> ShotWorld
+; moves each shot on w up by one pixel
+(check-expect (tock SW1) '())
+(check-expect (tock SW2) (cons 8 '()))
+(check-expect (tock SW3) (cons 8 (cons 14 '())))
+(check-expect (tock SW4) (cons 14 '()))
+
+#;
+(define (tock w)
+  (cond [(empty? w) '()]
+        [else (cons (sub1 (first w))
+                    (tock (rest w)))]))
+
+(define (tock w)
+  (cond [(empty? w) '()]
+        [(zero? (first w)) (tock (rest w))]
+        [else (cons (sub1 (first w))
+                    (tock (rest w)))]))
+
+; ShotWorld KeyEvent -> ShotWorld
+; adds a shot to the world
+; if the player presses the space bar
+(check-expect (keyh SW1 "left") '())
+(check-expect (keyh SW1 " ")     (cons HEIGHT-V8 '()))
+(check-expect (keyh SW2 "left")  (cons 9 '()))
+(check-expect (keyh SW2 " ")     (cons HEIGHT-V8 (cons 9 '())))
+(check-expect (keyh SW3 "left")  (cons 9 (cons 15 '())))
+(check-expect (keyh SW3 " ")     (cons HEIGHT-V8 (cons 9 (cons 15 '()))))
+
+(define (keyh w ke)
+  (cond [(key=? ke " ") (cons HEIGHT-V8 w)]
+        [else w]))
+
+; ShotWorld -> Image
+; adds the image of a shot for each  y on w
+; at (XSHOTS,y} to the background image
+(check-expect (to-image SW1) BACKGROUND)
+(check-expect (to-image SW2) (place-image SHOT XSHOTS 9 BACKGROUND))
+(check-expect (to-image SW3) (place-image SHOT XSHOTS 9
+                                          (place-image SHOT XSHOTS 15 BACKGROUND)))
+
+(define (to-image w)
+  (cond [(empty? w) BACKGROUND]
+        [else (place-image SHOT XSHOTS (first w) (to-image (rest w)))]))
+
+
+
+;; Exercise 159
+
+
+;; =================
+;; Data definitions:
+
+(define-struct pair [balloon# lob])
+; A Pair is a structure (make-pair N List-of-posns)
+
+; A List-of-posns is one of:
+; - '()
+; - (cons Posn List-of-posns)
+; interpretation (make-pair n lob) means n balloons
+; must yet be thrown and added to lob
+(define LOS1 '())
+(define LOS2 (cons (make-posn 6 8) '()))
+(define LOS3 (cons (make-posn 6 8) (cons (make-posn 2 3) '())))
+
+(define P1 (make-pair 0 LOS1))
+(define P2 (make-pair 1 LOS1))
+(define P3 (make-pair 2 LOS2))
+(define P4 (make-pair 3 LOS3))
+
+
+;; =================
+;; Functions:
+
+; Pair -> World
+; starts the world with (riot 10)
+(define (riot n)
+  (big-bang (make-pair n '())
+            [on-tick tock.v9 1]
+            [on-draw add-balloons.v9]))
+
+; Pair -> Pair
+; drops a new ballon in List-of-posns at a rate of one per second
+(check-expect (tock.v9 P1)
+              (make-pair 0 '()))
+(check-random (tock.v9 P2)
+              (make-pair 0 (cons (make-posn (random 11) (random 11)) '())))
+(check-random (tock.v9 P3)
+              (make-pair 1 (cons (make-posn (random 11) (random 11)) LOS2)))
+(check-random (tock.v9 P4)
+              (make-pair 2 (cons (make-posn (random 11) (random 11)) LOS3)))
+
+(define (tock.v9 p)
+  (cond [(zero? (pair-balloon# p)) p]
+        [else
+         (make-pair (sub1 (pair-balloon# p))
+                    (cons (make-posn (random 11) (random 11))
+                          (pair-lob p)))]))
+
+; Pair -> Image
+; produces an image of the lecture hall with red dots added as specified by the Posns
+(check-expect (add-balloons.v9 P1) HALL)
+(check-expect (add-balloons.v9 P2) HALL)
+(check-expect (add-balloons.v9 P3) (place-image DOT 60 80 HALL))
+(check-expect (add-balloons.v9 P4) (place-image DOT 60 80 (place-image DOT 20 30 HALL)))
+
+(define (add-balloons.v9 p)
+  (cond [(empty? (pair-lob p)) HALL]
+        [else (place-image DOT
+                           (* (posn-x (first (pair-lob p))) 10)
+                           (* (posn-y (first (pair-lob p))) 10)
+                           (add-balloons.v9 (make-pair (pair-balloon# p) (rest (pair-lob p)))))]))
