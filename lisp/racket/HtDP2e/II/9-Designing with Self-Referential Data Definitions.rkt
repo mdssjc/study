@@ -815,3 +815,55 @@
                            (* (posn-x (first (pair-lob p))) 10)
                            (* (posn-y (first (pair-lob p))) 10)
                            (add-balloons.v9 (make-pair (pair-balloon# p) (rest (pair-lob p)))))]))
+
+
+
+;; 9.6 - A Note on Lists and Sets
+
+;; Exercise 160
+
+
+;; =================
+;; Data definitions:
+
+; Son is used when it
+; applies to Son.L and Son.R
+(define es '())
+
+; A Son.L is one of:
+; - empty
+; - (cons Number Son.L)
+
+; A Son.R is one of:
+; - empty
+; - (cons Number Son.R)
+;
+; Constraint If s is a Son.R,
+; no number occurs twice in s
+
+
+;; =================
+;; Functions:
+
+; Number Son.L -> Son.L
+; adds a number x to some given set s
+(define s1.L (cons 1 (cons 1 '())))
+
+(check-expect (set+.L 1 es)   (cons 1 '()))
+(check-expect (set+.L 1 s1.L) (cons 1 (cons 1 (cons 1 '()))))
+(check-expect (set+.L 2 s1.L) (cons 2 (cons 1 (cons 1 '()))))
+
+(define (set+.L x s)
+  (cons x s))
+
+; Number Son.R -> Son.R
+; adds a number x to some given set s
+(define s1.R (cons 1 '()))
+
+(check-expect (set+.R 1 es)   (cons 1 '()))
+(check-expect (set+.R 1 s1.R) (cons 1 '()))
+(check-expect (set+.R 2 s1.R) (cons 2 (cons 1 '())))
+
+(define (set+.R x s)
+  (cond [(member? x s) s]
+        [else (cons x s)]))
