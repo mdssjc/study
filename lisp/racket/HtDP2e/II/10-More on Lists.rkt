@@ -7,6 +7,7 @@
 
 (require 2htdp/image)
 (require 2htdp/universe)
+(require 2htdp/batch-io)
 (require racket/string)
 
 
@@ -324,3 +325,27 @@
   (cond [(= (phone-area p) 713)
          (make-phone 281 (phone-switch p) (phone-four p))]
         [else p]))
+
+
+
+;; 10.3 - Lists in Lists, Files
+
+;; Exercise 171
+
+
+;; =================
+;; Data definitions:
+
+; A Los is one of:
+; - '()
+; - (cons String Los)
+; interpretation a list of Strings, each is a String
+(define line0 (cons "hello" (cons "world" '())))
+(define line1 '())
+
+; A LLS is one of:
+; - '()
+; - (cons Los LLS)
+; interpretation a list of lines, each is a list of Strings
+(define lls0 '())
+(define lls1 (cons line0 (cons line1 '())))
