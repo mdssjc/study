@@ -1,0 +1,19 @@
+group 'com.github.mdssjc'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile "org.junit.jupiter:junit-jupiter-api:5.1.0"
+    testCompile "org.junit.jupiter:junit-jupiter-engine:5.1.0"
+
+    compile "com.sparkjava:spark-core:2.7.2"
+    compile "org.freemarker:freemarker:2.3.23"
+}
