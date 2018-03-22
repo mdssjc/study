@@ -349,3 +349,281 @@
 ; interpretation a list of lines, each is a list of Strings
 (define lls0 '())
 (define lls1 (cons line0 (cons line1 '())))
+(define lls2 (cons line0 (cons line1 (cons line0 '()))))
+(define lls3 (cons line0 (cons line0 (cons line0 '()))))
+
+;; Exercise 172
+
+
+;; =================
+;; Functions:
+
+; LLS -> String
+; converts a list of lines into a String
+; the Strings should be separated by blank spaces (" ")
+; the lines should be separated with a newline ("\n")
+(check-expect (collapse lls0) "")
+(check-expect (collapse lls1) "hello world\n")
+(check-expect (collapse lls2) "hello world\n\nhello world")
+(check-expect (collapse lls3) "hello world\nhello world\nhello world")
+
+(define (collapse lls)
+  (cond [(empty? lls) ""]
+        [else (string-append (collapse-line (first lls))
+                             (if (empty? (rest lls)) "" "\n")
+                             (collapse (rest lls)))]))
+
+; Los -> String
+; converts a list of Strings into a String
+; the Strings should be separated by blank spaces (" ")
+(check-expect (collapse-line line0) "hello world")
+(check-expect (collapse-line line1) "")
+
+(define (collapse-line los)
+  (cond [(empty? los) ""]
+        [else (string-append (first los)
+                             (if (empty? (rest los)) "" " ")
+                             (collapse-line (rest los)))]))
+
+
+; Test drive
+(write-file "ttt.dat" (collapse (read-words/line "ttt.txt")))
+
+;; Exercise 173
+
+
+;; =================
+;; Functions:
+
+(define lineA0 '())
+(define lineA1 (cons "the" (cons "car" '())))
+(define lineA2 (cons "an" (cons "apple" '())))
+(define lineA3 (cons "a" (cons "kite" '())))
+(define lineA4 (cons "a" (cons "an" (cons "the" '()))))
+(define lineA5 (cons "two" (cons "days" '())))
+
+(define llsA0 '())
+(define llsA1 (cons lineA1 (cons lineA0 (cons lineA2 (cons lineA3 '())))))
+
+; String -> String
+; consumes the name n of a file, reads the file, removes the articles,
+; and writes the result out to a file whose name is the result of
+; concatenating "no-articles-" with n
+(define (remove-articles** n)
+  (write-file (string-append "no-articles-" n)
+              (remove-articles* (read-words/line "ttt.txt"))))
+
+; LLS -> String
+; converts a list of lines into a String without articles
+; the Strings should be separated by blank spaces (" ")
+; the lines should be separated with a newline ("\n")
+(check-expect (remove-articles* llsA0) "")
+(check-expect (remove-articles* llsA1) "car\n\napple\nkite")
+
+(define (remove-articles* lls)
+  (cond [(empty? lls) ""]
+        [else (string-append (remove-articles (first lls))
+                             (if (empty? (rest lls)) "" "\n")
+                             (remove-articles* (rest lls)))]))
+
+; Los -> String
+; converts a list of Strings into a String without articles
+; the Strings should be separated by blank spaces (" ")
+; an article is one of the following three words: "a", "an", and "the"
+(check-expect (remove-articles lineA0) "")
+(check-expect (remove-articles lineA1) "car")
+(check-expect (remove-articles lineA2) "apple")
+(check-expect (remove-articles lineA3) "kite")
+(check-expect (remove-articles lineA4) "")
+(check-expect (remove-articles lineA5) "two days")
+
+(define (remove-articles los)
+  (cond [(empty? los) ""]
+        [else (string-append (cond [(string=? (first los) "a")   ""]
+                                   [(string=? (first los) "an")  ""]
+                                   [(string=? (first los) "the") ""]
+                                   [else (string-append (first los)
+                                                        (if (empty? (rest los)) "" " "))])
+                             (remove-articles (rest los)))]))
+
+
+; Test drive
+(remove-articles** "ttt")
+
+;; Exercise 174
+
+
+;; =================
+;; Functions:
+
+; LLS -> LLS
+; encodes text files numerically
+(check-expect (encode '()) '())
+(check-expect (encode (cons (cons "a" (cons "b" '()))
+                            (cons (cons  "1" (cons "2" '())) '())))
+              (cons (cons "097" (cons "098" '()))
+                    (cons (cons "049" (cons "050" '())) '())))
+
+(define (encode lls)
+  (cond [(empty? lls) '()]
+        [else (cons (encode-lines (first lls))
+                    (encode (rest lls)))]))
+
+; Los -> Los
+; encodes list of Strings numerically
+(check-expect (encode-lines '()) '())
+(check-expect (encode-lines (cons "z" (cons "a" '()))) (cons "122" (cons "097" '())))
+
+(define (encode-lines los)
+  (cond [(empty? los) '()]
+        [else (cons (encode-letters (explode (first los)))
+                    (encode-lines (rest los)))]))
+
+; Los -> String
+; encodes String numerically
+(check-expect (encode-letters '()) "")
+(check-expect (encode-letters (cons "z" (cons "a" '()))) "122097")
+
+(define (encode-letters s)
+  (cond [(empty? s) ""]
+        [else (string-append (encode-letter (first s))
+                             (encode-letters (rest s)))]))
+
+; 1String -> String
+; converts the given 1String to a 3-letter numeric String
+(check-expect (encode-letter "z")  (code1 "z"))
+(check-expect (encode-letter "\t") (string-append "00" (code1 "\t")))
+(check-expect (encode-letter "a")  (string-append "0" (code1 "a")))
+
+(define (encode-letter s)
+  (cond [(>= (string->int s) 100) (code1 s)]
+        [(< (string->int s)  10)  (string-append "00" (code1 s))]
+        [(< (string->int s)  100) (string-append "0" (code1 s))]))
+
+; 1String -> String
+; convert the given 1String into a String
+(check-expect (code1 "z") "122")
+
+(define (code1 c)
+  (number->string (string->int c)))
+
+
+; Test drive
+(encode (read-words/line "ttt.txt"))
+
+;; Exercise 175
+
+
+;; =================
+;; Functions:
+
+; String -> String
+; consumes the name of a file and produces a value that consists of three numbers
+(define (wc filename)
+  (count (read-words/line filename)))
+
+; LLS -> String
+; counts the number of 1Strings, words, and lines
+(check-expect (count lls0) "0 0 0")
+(check-expect (count lls1) "10 2 2")
+
+(define (count lls)
+  (string-append (number->string (count-1Strings lls)) " "
+                 (number->string (count-words lls)) " "
+                 (number->string (count-lines lls))))
+
+; LLS -> Number
+; counts the number of 1Strings
+(check-expect (count-1Strings lls0) 0)
+(check-expect (count-1Strings lls1) 10)
+
+(define (count-1Strings lls)
+  (cond [(empty? lls) 0]
+        [else (+ (count-1Strings* (first lls))
+                 (count-1Strings (rest lls)))]))
+
+(define (count-1Strings* los)
+  (cond [(empty? los) 0]
+        [else (+ (string-length (first los))
+                 (count-1Strings* (rest los)))]))
+
+; LLS -> String
+; counts the number of words
+(check-expect (count-words lls0) 0)
+(check-expect (count-words lls1) 2)
+
+(define (count-words lls)
+  (cond [(empty? lls) 0]
+        [else (+ (length (first lls))
+                 (count-words (rest lls)))]))
+
+; LLS -> String
+; counts the number of lines
+(check-expect (count-lines lls0) 0)
+(check-expect (count-lines lls1) 2)
+
+(define (count-lines lls)
+  (length lls))
+
+
+; Test drive
+(wc "ttt.txt")
+
+;; Exercise 176
+
+
+;; =================
+;; Data definitions:
+
+; A Row is one of:
+;  - '()
+;  - (cons Number Row)
+(define row1 (cons 11 (cons 12 '())))
+(define row2 (cons 21 (cons 22 '())))
+
+; A Matrix is one of:
+;  - (cons Row '())
+;  - (cons Row Matrix)
+; constraint all rows in matrix are of the same length
+(define mat1 (cons row1 (cons row2 '())))
+
+
+;; =================
+;; Functions:
+
+; Matrix -> Matrix
+; transposes the given matrix along the diagonal
+(define wor1 (cons 11 (cons 21 '())))
+(define wor2 (cons 12 (cons 22 '())))
+(define tam1 (cons wor1 (cons wor2 '())))
+
+(check-expect (transpose mat1) tam1)
+(check-expect (transpose (cons (cons 1 (cons 2 '()))
+                               (cons (cons 3 (cons 4 '())) '())))
+              (cons (cons 1 (cons 3 '()))
+                    (cons (cons 2 (cons 4 '())) '())))
+
+(define (transpose lln)
+  (cond [(empty? (first lln)) '()]
+        [else (cons (first* lln)
+                    (transpose (rest* lln)))]))
+
+; Matrix -> Row
+; consumes a matrix and produces the first column as a list of numbers
+(check-expect (first* '()) '())
+(check-expect (first* mat1) (cons 11 (cons 21 '())))
+
+(define (first* m)
+  (cond [(empty? m) '()]
+        [else (cons (first (first m))
+                    (first* (rest m)))]))
+
+; Matrix -> Matrix
+; consumes a matrix and removes the first column
+(check-expect (rest* '()) '())
+(check-expect (rest* mat1) (cons (cons 12 '()) (cons (cons 22 '()) '())))
+
+(define (rest* m)
+  (cond [(empty? m) '()]
+        [else (cons (rest (first m))
+                    (rest* (rest m)))]))
