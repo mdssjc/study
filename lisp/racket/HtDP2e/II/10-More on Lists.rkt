@@ -342,6 +342,11 @@
 ; interpretation a list of Strings, each is a String
 (define line0 (cons "hello" (cons "world" '())))
 (define line1 '())
+(define line2 (cons "the" (cons "car" '())))
+(define line3 (cons "an" (cons "apple" '())))
+(define line4 (cons "a" (cons "kite" '())))
+(define line5 (cons "a" (cons "an" (cons "the" '()))))
+(define line6 (cons "two" (cons "days" '())))
 
 ; A LLS is one of:
 ; - '()
@@ -351,6 +356,7 @@
 (define lls1 (cons line0 (cons line1 '())))
 (define lls2 (cons line0 (cons line1 (cons line0 '()))))
 (define lls3 (cons line0 (cons line0 (cons line0 '()))))
+(define lls4 (cons line2 (cons line1 (cons line3 (cons line4 '())))))
 
 ;; Exercise 172
 
@@ -395,15 +401,6 @@
 ;; =================
 ;; Functions:
 
-(define lineA0 '())
-(define lineA1 (cons "the" (cons "car" '())))
-(define lineA2 (cons "an" (cons "apple" '())))
-(define lineA3 (cons "a" (cons "kite" '())))
-(define lineA4 (cons "a" (cons "an" (cons "the" '()))))
-(define lineA5 (cons "two" (cons "days" '())))
-
-(define llsA0 '())
-(define llsA1 (cons lineA1 (cons lineA0 (cons lineA2 (cons lineA3 '())))))
 
 ; String -> String
 ; consumes the name n of a file, reads the file, removes the articles,
@@ -417,8 +414,8 @@
 ; converts a list of lines into a String without articles
 ; the Strings should be separated by blank spaces (" ")
 ; the lines should be separated with a newline ("\n")
-(check-expect (remove-articles* llsA0) "")
-(check-expect (remove-articles* llsA1) "car\n\napple\nkite")
+(check-expect (remove-articles* lls0) "")
+(check-expect (remove-articles* lls4) "car\n\napple\nkite")
 
 (define (remove-articles* lls)
   (cond [(empty? lls) ""]
@@ -430,12 +427,12 @@
 ; converts a list of Strings into a String without articles
 ; the Strings should be separated by blank spaces (" ")
 ; an article is one of the following three words: "a", "an", and "the"
-(check-expect (remove-articles lineA0) "")
-(check-expect (remove-articles lineA1) "car")
-(check-expect (remove-articles lineA2) "apple")
-(check-expect (remove-articles lineA3) "kite")
-(check-expect (remove-articles lineA4) "")
-(check-expect (remove-articles lineA5) "two days")
+(check-expect (remove-articles line1) "")
+(check-expect (remove-articles line2) "car")
+(check-expect (remove-articles line3) "apple")
+(check-expect (remove-articles line4) "kite")
+(check-expect (remove-articles line5) "")
+(check-expect (remove-articles line6) "two days")
 
 (define (remove-articles los)
   (cond [(empty? los) ""]
