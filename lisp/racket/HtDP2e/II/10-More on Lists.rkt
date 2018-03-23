@@ -104,7 +104,7 @@
 (define (convert-euro* d)
   (cond [(empty? d) '()]
         [else (cons (convert-euro (first d))
-              (convert-euro* (rest d)))]))
+                    (convert-euro* (rest d)))]))
 
 ; Number -> Number
 ; converts the US$ in € with the current exchange rate
@@ -247,7 +247,7 @@
   (cond [(empty? lop) '()]
         [else (cons (make-posn (posn-x (first lop))
                                (add1 (posn-y (first lop))))
-              (translate (rest lop)))]))
+                    (translate (rest lop)))]))
 
 ;; Exercise 169
 
@@ -400,7 +400,6 @@
 
 ;; =================
 ;; Functions:
-
 
 ; String -> String
 ; consumes the name n of a file, reads the file, removes the articles,
@@ -624,3 +623,173 @@
   (cond [(empty? m) '()]
         [else (cons (rest (first m))
                     (rest* (rest m)))]))
+
+
+
+;; 10.4 - A Graphical Editor, Revisited
+
+;; Exercise 177
+;; Exercise 178
+; Because its length is 1 (\t and \b are escape characters), the same as the
+; alphanumeric characters for (string-length k).
+;; Exercise 179
+;; Exercise 180
+
+
+;; =================
+;; Constants:
+
+(define HEIGHT 20) ; the height of the editor
+(define WIDTH 200) ; its width
+(define FONT-SIZE 16) ; the font size
+(define FONT-COLOR "black") ; the font color
+
+(define MT (empty-scene WIDTH HEIGHT))
+(define CURSOR (rectangle 1 HEIGHT "solid" "red"))
+
+
+;; =================
+;; Data definitions:
+
+(define-struct editor [pre post])
+; An Editor is a structure:
+;   (make-editor Lo1S Lo1S)
+; An Lo1S is one of:
+; - '()
+; - (cons 1String Lo1S)
+
+
+;; =================
+;; Functions:
+
+; Lo1s -> Lo1s
+; produces a reverse version of the given list
+(check-expect (rev (cons "a" (cons "b" (cons "c" '()))))
+              (cons "c" (cons "b" (cons "a" '()))))
+
+(define (rev l)
+  (cond [(empty? l) '()]
+        [else (add-at-end (rev (rest l)) (first l))]))
+
+; Lo1s 1String -> Lo1s
+; creates a new list by adding s to the end of l
+(check-expect (add-at-end (cons "c" (cons "b" '())) "a")
+              (cons "c" (cons "b" (cons "a" '()))))
+(check-expect (add-at-end '() "s")
+              (cons "s" '()))
+
+(define (add-at-end l s)
+  (cond [(empty? l) (cons s '())]
+        [else (cons (first l)
+                    (add-at-end (rest l) s))]))
+
+; String String -> Editor
+; produces an Editor
+(check-expect (create-editor "left" "right")
+              (make-editor (rev (explode "left")) (explode "right")))
+
+(define (create-editor s1 s2)
+  (make-editor (rev (explode s1)) (explode s2)))
+
+(define e1 (create-editor "" ""))
+(define e2 (create-editor "left" "right"))
+(define e3 (create-editor "" "right"))
+(define e4 (create-editor "left" ""))
+
+; main : String -> Editor
+; launches the editor given some initial string
+(define (main s)
+  (big-bang (create-editor s "")
+            [on-key  editor-kh]
+            [to-draw editor-render]))
+
+; Editor -> Image
+; renders an editor as an image of the two texts
+; separated by the cursor
+(define (editor-render ed)
+  (place-image/align
+   (beside (editor-text (reverse (editor-pre ed)))
+           CURSOR
+           (editor-text (editor-post ed)))
+   1 1
+   "left" "top"
+   MT))
+
+; Editor KeyEvent -> Editor
+; deals with a key event, given some editor
+(check-expect (editor-kh (create-editor "" "") "e")
+              (create-editor "e" ""))
+(check-expect (editor-kh (create-editor "cd" "fgh") "e")
+              (create-editor "cde" "fgh"))
+
+(define (editor-kh ed k)
+  (cond [(key=? k "left")  (editor-lft ed)]
+        [(key=? k "right") (editor-rgt ed)]
+        [(key=? k "\b")    (editor-del ed)]
+        [(key=? k "\t") ed]
+        [(key=? k "\r") ed]
+        [(= (string-length k) 1) (editor-ins ed k)]
+        [else ed]))
+
+; Editor String -> Editor
+; inserts the 1String k between pre and post
+(check-expect (editor-ins (make-editor '() '()) "e")
+              (make-editor (cons "e" '()) '()))
+
+(check-expect (editor-ins (make-editor (cons "d" '())
+                                       (cons "f" (cons "g" '())))
+                          "e")
+              (make-editor (cons "e" (cons "d" '()))
+                           (cons "f" (cons "g" '()))))
+
+(define (editor-ins ed k)
+  (make-editor (cons k (editor-pre ed))
+               (editor-post ed)))
+
+; Editor -> Editor
+; moves the cursor position one 1String left,
+; if possible
+(check-expect (editor-lft e1) e1)
+(check-expect (editor-lft e2) (create-editor "lef" "tright"))
+(check-expect (editor-lft e3) e3)
+
+(define (editor-lft ed)
+  (cond [(empty? (editor-pre ed)) ed]
+        [else (make-editor (rest (editor-pre ed))
+                           (cons (first (editor-pre ed))
+                                 (editor-post ed)))]))
+
+; Editor -> Editor
+; moves the cursor position one 1String right,
+; if possible
+(check-expect (editor-rgt e1) e1)
+(check-expect (editor-rgt e2) (create-editor "leftr" "ight"))
+(check-expect (editor-rgt e4) e4)
+
+(define (editor-rgt ed)
+  (cond [(empty? (editor-post ed)) ed]
+        [else (make-editor (reverse (add-at-end (reverse (editor-pre ed))
+                                                (first (editor-post ed))))
+                           (rest (editor-post ed)))]))
+
+; Editor -> Editor
+; deletes a 1String to the left of the cursor
+; if possible
+(check-expect (editor-del e1) e1)
+(check-expect (editor-del e2) (create-editor "lef" "right"))
+(check-expect (editor-del e3) e3)
+
+(define (editor-del ed)
+  (cond [(empty? (editor-pre ed)) ed]
+        [else (make-editor (rest (editor-pre ed))
+                           (editor-post ed))]))
+
+; Lo1s -> Image
+; renders a list of 1Strings as a text image
+(check-expect (editor-text (cons "p" (cons "o" (cons "s" (cons "t" '())))))
+              (text "post" FONT-SIZE FONT-COLOR))
+
+(define (editor-text s)
+  (cond [(empty? s) empty-image]
+        [else (beside (text (first s) FONT-SIZE FONT-COLOR)
+                      (editor-text (rest s)))]))
