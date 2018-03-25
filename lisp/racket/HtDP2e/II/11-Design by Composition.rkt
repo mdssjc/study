@@ -82,3 +82,267 @@
 
 
 ;; 11.2 - Composing Functions
+
+
+
+;; 11.3 - Auxiliary Functions that Recur
+
+
+;; =================
+;; Functions:
+
+; List-of-numbers -> List-of-numbers
+; produces a sorted version of l
+(check-expect (sort> '()) '())
+(check-expect (sort> (list 3 2 1))    (list 3 2 1))
+(check-expect (sort> (list 1 2 3))    (list 3 2 1))
+(check-expect (sort> (list 12 20 -5)) (list 20 12 -5))
+
+(define (sort> l)
+  (cond [(empty? l) '()]
+        [(cons? l) (insert (first l) (sort> (rest l)))]))
+
+; Number List-of-numbers -> List-of-numbers
+; inserts n into the sorted list of numbers l
+(check-expect (insert 5 '()) (list 5))
+(check-expect (insert 5 (list 6)) (list 6 5))
+(check-expect (insert 5 (list 4)) (list 5 4))
+(check-expect (insert 12 (list 20 -5)) (list 20 12 -5))
+
+(define (insert n l)
+  (cond [(empty? l) (cons n '())]
+        [else (if (>= n (first l))
+                  (cons n l)
+                  (cons (first l) (insert n (rest l))))]))
+
+;; Exercise 186
+
+
+;; =================
+;; Functions:
+
+; List-of-numbers -> Boolean
+; produces true if the numbers are sorted in descending order
+(check-expect (sorted>? '()) #true)
+(check-expect (sorted>? (cons 1 (cons 2 '()))) #false)
+(check-expect (sorted>? (cons 3 (cons 2 '()))) #true)
+(check-expect (sorted>? (cons 0 (cons 3 (cons 2 '())))) #false)
+
+(define (sorted>? l)
+  (cond [(empty? l) #true]
+        [(empty? (rest l)) #true]
+        [else (and (>= (first l) (first (rest l)))
+                   (sorted>? (rest l)))]))
+
+; List-of-numbers -> List-of-numbers
+; produces a sorted version of l
+(check-satisfied (sort>/bad '()) empty?)
+(check-satisfied (sort>/bad (list 3 2 1)) sorted>?)
+
+(define (sort>/bad l)
+  '(9 8 7 6 5 4 3 2 1 0))
+
+;; Exercise 187
+
+
+;; =================
+;; Data definitions:
+
+(define-struct gp [name score])
+; A GamePlayer is a structure:
+;    (make-gp String Number)
+; interpretation (make-gp p s) represents player p who
+; scored a maximum of s points
+(define GP1 (make-gp "MDS" 1234))
+(define GP2 (make-gp "Joseph" 12))
+(define GP3 (make-gp "Peter"  -5))
+
+
+;; =================
+;; Functions:
+
+; List-of-GamePlayer -> List-of-GamePlayer
+; produces a sorted version of l
+(check-expect (sort>.v1 '()) '())
+(check-expect (sort>.v1 (list GP1 GP2 GP1)) (list GP1 GP1 GP2))
+(check-expect (sort>.v1 (list GP3 GP2 GP1)) (list GP1 GP2 GP3))
+
+(define (sort>.v1 l)
+  (cond [(empty? l) '()]
+        [(cons? l) (insert.v1 (first l) (sort>.v1 (rest l)))]))
+
+; GamePlayer List-of-GamePlayer -> List-of-GamePlayer
+; inserts gp into the sorted list of GamePlayer l
+(check-expect (insert.v1 GP2 '()) (list GP2))
+(check-expect (insert.v1 GP2 (list GP3)) (list GP2 GP3))
+(check-expect (insert.v1 GP2 (list GP1)) (list GP1 GP2))
+(check-expect (insert.v1 GP2 (list GP1 GP3)) (list GP1 GP2 GP3))
+
+(define (insert.v1 gp l)
+  (cond [(empty? l) (cons gp '())]
+        [else (if (gte gp (first l))
+                  (cons gp l)
+                  (cons (first l) (insert.v1 gp (rest l))))]))
+
+; GamePlayer GamePlayer -> Boolean
+; compares two GamePlayer gp by score (gp1 >= gp2)
+(check-expect (gte GP1 GP2) #true)
+(check-expect (gte GP1 GP1) #true)
+(check-expect (gte GP2 GP1) #false)
+
+(define (gte gp1 gp2)
+  (>= (gp-score gp1) (gp-score gp2)))
+
+;; Exercise 188
+
+
+;; =================
+;; Data definitions:
+
+(define-struct email [from date message])
+; A Email Message is a structure:
+;   (make-email String Number String)
+; interpretation (make-email f d m) represents text m
+; sent by f, d seconds after the beginning of time
+(define E1 (make-email "MDS" 12 "Hello man!"))
+(define E2 (make-email "Joseph" 30 "Hi bro!"))
+(define E3 (make-email "Peter"  20 "Hi!"))
+
+
+;; =================
+;; Functions:
+
+; List-of-Email -> List-of-Email
+; produces a sorted version of l
+(check-expect (sort1> '()) '())
+(check-expect (sort1> (list E3 E2 E1)) (list E2 E3 E1))
+(check-expect (sort1> (list E1 E2 E3)) (list E2 E3 E1))
+
+(define (sort1> l)
+  (cond [(empty? l) '()]
+        [(cons? l) (insert1 (first l) (sort1> (rest l)))]))
+
+; List-of-Email -> List-of-Email
+; produces a sorted version of l
+(check-expect (sort2> '()) '())
+(check-expect (sort2> (list E2 E3 E1)) (list E1 E2 E3))
+(check-expect (sort2> (list E1 E3 E2)) (list E1 E2 E3))
+
+(define (sort2> l)
+  (cond [(empty? l) '()]
+        [(cons? l) (insert2 (first l) (sort2> (rest l)))]))
+
+; Email List-of-Email -> List-of-Email
+; inserts e into the sorted list of Email l
+(check-expect (insert1 E1 '()) (list E1))
+(check-expect (insert1 E2 (list E1)) (list E2 E1))
+(check-expect (insert1 E2 (list E3)) (list E2 E3))
+(check-expect (insert1 E3 (list E2 E1)) (list E2 E3 E1))
+
+(define (insert1 e l)
+  (cond [(empty? l) (cons e '())]
+        [else (if (compare-by-date e (first l))
+                  (cons e l)
+                  (cons (first l) (insert1 e (rest l))))]))
+
+; Email List-of-Email -> List-of-Email
+; inserts e into the sorted list of Email l
+(check-expect (insert2 E1 '()) (list E1))
+(check-expect (insert2 E2 (list E1)) (list E1 E2))
+(check-expect (insert2 E2 (list E3)) (list E2 E3))
+(check-expect (insert2 E2 (list E1 E3)) (list E1 E2 E3))
+
+(define (insert2 e l)
+  (cond [(empty? l) (cons e '())]
+        [else (if (compare-by-message e (first l))
+                  (cons e l)
+                  (cons (first l) (insert2 e (rest l))))]))
+
+; Email Email -> Boolean
+; compares two Email e by date (e1 >= e2)
+(check-expect (compare-by-date E1 E2) #false)
+(check-expect (compare-by-date E1 E1) #true)
+(check-expect (compare-by-date E2 E1) #true)
+
+(define (compare-by-date e1 e2)
+  (>= (email-date e1) (email-date e2)))
+
+; Email Email -> Boolean
+; compares two Email e by message (e < e2)
+(check-expect (compare-by-message E1 E2) #true)
+(check-expect (compare-by-message E1 E1) #false)
+(check-expect (compare-by-message E2 E1) #false)
+
+(define (compare-by-message e1 e2)
+  (string<? (email-message e1) (email-message e2)))
+
+;; Exercise 189
+
+
+;; =================
+;; Functions:
+
+; Number List-of-numbers -> Boolean
+; determines whether some number occurs in a list of numbers
+(check-expect (search 1 '()) #false)
+(check-expect (search 1 (list 5 8 3 7 1)) #true)
+(check-expect (search 2 (list 5 8 3 7 1)) #false)
+
+(define (search n alon)
+  (cond [(empty? alon) #false]
+        [else (or (= (first alon) n)
+                  (search n (rest alon)))]))
+
+; Number List-of-numbers -> Boolean
+; determines whether a number n occurs in a sorted list of numbers l
+(check-expect (search-sorted 0 '()) #false)
+(check-expect (search-sorted 0 (list 1 2 3 4 5)) #false)
+(check-expect (search-sorted 1 (list 1 2 3 4 5)) #true)
+(check-expect (search-sorted 5 (list 1 2 3 4 5)) #true)
+(check-expect (search-sorted 6 (list 1 2 3 4 5)) #false)
+
+(define (search-sorted n l)
+  (search n l))
+
+;; Exercise 190
+
+
+;; =================
+;; Functions:
+
+; List-of-1Strings -> List-of-List-of-1Strings
+; produces the list of all prefixes
+(check-expect (prefixes '()) '())
+(check-expect (prefixes (list "a"))         (list (list "a")))
+(check-expect (prefixes (list "a" "b"))     (list (list "a" "b")
+                                                  (list "a")))
+(check-expect (prefixes (list "a" "b" "c")) (list (list "a" "b" "c")
+                                                  (list "a" "b")
+                                                  (list "a")))
+(check-expect (prefixes (list "a" "b" "c" "d")) (list (list "a" "b" "c" "d")
+                                                      (list "a" "b" "c")
+                                                      (list "a" "b")
+                                                      (list "a")))
+
+(define (prefixes lo1s)
+  (cond [(empty? lo1s) '()]
+        [else (cons lo1s
+                    (prefixes (reverse (rest (reverse lo1s)))))]))
+
+; List-of-1Strings -> List-of-List-of-1Strings
+; produces the list of all suffixes
+(check-expect (suffixes '()) '())
+(check-expect (suffixes (list "a"))         (list (list "a")))
+(check-expect (suffixes (list "a" "b"))     (list (list "a" "b")
+                                                  (list "b")))
+(check-expect (suffixes (list "a" "b" "c")) (list (list "a" "b" "c")
+                                                  (list "b" "c")
+                                                  (list "c")))
+(check-expect (suffixes (list "b" "c" "d")) (list (list "b" "c" "d")
+                                                  (list "c" "d")
+                                                  (list "d")))
+
+(define (suffixes lo1s)
+  (cond [(empty? lo1s) '()]
+        [else (cons lo1s
+                    (suffixes (rest lo1s)))]))
