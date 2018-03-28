@@ -352,6 +352,9 @@
 ;; 11.4 - Auxiliary Functions that Generalize
 
 ;; Exercise 191
+;; Exercise 192
+;; Exercise 193
+;; Exercise 194
 
 
 ;; =================
@@ -385,43 +388,46 @@
 
 ; Image Polygon -> Image
 ; renders the given polygon p into img
-(check-expect (render-poly MT triangle-p) (scene+line
-                                           (scene+line
-                                            (scene+line MT 20 10 20 20 "red")
-                                            20 20 30 20 "red")
-                                           30 20 20 10 "red"))
+(check-expect (render-poly MT triangle-p)
+              (scene+line (scene+line
+                           (scene+line MT 20 10 20 20 "red")
+                           20 20 30 20 "red")
+                          30 20 20 10 "red"))
 (check-expect (render-poly MT square-p)
-              (scene+line (connect-dots MT square-p) 10 20 10 10 "red"))
+              (connect-dots MT square-p (first square-p)))
 
 (define (render-poly img p)
-  (cond [(empty? (rest (rest (rest p))))
-         (render-line
-          (render-line
-           (render-line MT (first p) (second p))
-           (second p) (third p))
-          (third p) (first p))]
-        [else
-         (render-line (render-poly MT (rest p))
-                      (first p)
-                      (second p))]))
+  (connect-dots img p (first p)))
+
+;; (define (render-polygon.v1 img p)
+;;   (render-line (connect-dots img p) (first p) (last p)))
+
+;; (define (render-polygon.v2 img p)
+;;   (connect-dots img (cons (last p) p)))
+
+;; (define (render-polygon.v3 img p)
+;;   (connect-dots img (add-at-end p (first p))))
 
 ; Image NELoP -> Image
-; connects the dots in p by rendering lines in img
-(check-expect (connect-dots MT triangle-p)
-              (scene+line (scene+line MT 20 10 20 20 "red") 20 20 30 20 "red"))
+; connects the Posns in p in an image
+(check-expect (connect-dots MT triangle-p (first triangle-p))
+              (scene+line (scene+line
+                           (scene+line MT 20 10 20 20 "red")
+                           20 20 30 20 "red")
+                          30 20 20 10 "red"))
+(check-expect (connect-dots MT square-p (first square-p))
+              (scene+line (scene+line
+                           (scene+line
+                            (scene+line MT 10 10 20 10 "red")
+                            20 10 20 20 "red")
+                           20 20 10 20 "red")
+                          10 20 10 10 "red"))
 
-(define (connect-dots img p)
-  (cond [(empty? (rest p)) img]
-        [else (render-line (connect-dots img (rest p))
+(define (connect-dots img p q)
+  (cond [(empty? (rest p)) (render-line img (first p) q)]
+        [else (render-line (connect-dots img (rest p) q)
                            (first p)
                            (second p))]))
-
-;; ; Image Polygon -> Image
-;; ; adds an image of p to img
-;; (define (render-polygon img p)
-;;   (render-line (connect-dots img p)
-;;                (first p)
-;;                (last p)))
 
 ; Image Posn Posn -> Image
 ; renders a line from p to q into img
@@ -432,3 +438,22 @@
   (scene+line img
               (posn-x p) (posn-y p) (posn-x q) (posn-y q)
               "red"))
+
+; NELoP -> Posn
+; extracts the last item from p
+(check-expect (last triangle-p) (make-posn 30 20))
+(check-expect (last square-p)   (make-posn 10 20))
+
+(define (last p)
+  (cond [(empty? (rest (rest (rest p)))) (third p)]
+        [else (last (rest p))]))
+
+; NELoP Posn -> NELoP
+; creates a new list by adding q to the end of p
+(check-expect (add-at-end triangle-p (make-posn 0 0))
+              (reverse (cons (make-posn 0 0) (reverse triangle-p))))
+
+(define (add-at-end p q)
+  (cond [(empty? p) (cons q '())]
+        [else (cons (first p)
+                    (add-at-end (rest p) q))]))
