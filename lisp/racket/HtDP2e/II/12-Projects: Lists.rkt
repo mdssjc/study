@@ -197,11 +197,12 @@
 
 (define (maximum-count.v1 lolc max)
   (cond [(empty? lolc) max]
-        [(empty? max) (maximum-count.v1 (rest lolc)
-                                        (first lolc))]
-        [else (maximum-count.v1 (rest lolc)
-                                (cond [(> (second (first lolc)) (second max)) (first lolc)]
-                                      [else max]))]))
+        [else
+         (maximum-count.v1 (rest lolc)
+                           (cond [(or (empty? max)
+                                      (> (second (first lolc)) (second max)))
+                                  (first lolc)]
+                                 [else max]))]))
 
 (define (maximum-count.v2 lolc max)
   (cond [(empty? lolc) max]
@@ -215,8 +216,8 @@
 
 (define (sort l)
   (cond [(empty? l) '()]
-        [(cons? l)   (insert (first l)
-                             (sort (rest l)))]))
+        [else (insert (first l)
+                      (sort (rest l)))]))
 
 ; Letter-Count LoLC -> LoLC
 ; inserts x into the sorted list l
@@ -231,9 +232,12 @@
 
 (define (insert x l)
   (cond [(empty? l) (cons x '())]
-        [else (cond [(>= (second x) (second (first l))) (cons x l)]
-                    [else (cons (first l)
-                                (insert x (rest l)))])]))
+        [else
+         (cond [(>= (second x)
+                    (second (first l)))
+                (cons x l)]
+               [else (cons (first l)
+                           (insert x (rest l)))])]))
 
 ; Dictionary -> LoD
 ; produces a list of Dictionarys, one per Letter
@@ -260,10 +264,11 @@
 
 (define (words-by* lol d)
   (cond [(empty? lol) '()]
-        [else (if (empty? (words-by (first lol) d))
-                  (words-by* (rest lol) d)
-                  (cons (words-by (first lol) d)
-                        (words-by* (rest lol) d)))]))
+        [else
+         (cond [(empty? (words-by (first lol) d))
+                (words-by* (rest lol) d)]
+               [else (cons (words-by (first lol) d)
+                           (words-by* (rest lol) d))])]))
 
 ; Letter Dictionary -> Dictionary
 ; produces a dictionary with all the words in the dictionary d with the letter l
@@ -274,11 +279,14 @@
 (check-expect (words-by "e" DICTIONARY-AS-LIST)  (list "eco" "erlang"))
 
 (define (words-by l d)
-  (cond [(string=? l "") '()]
-        [(empty? d) '()]
-        [else (if (string=? (substring (first d) 0 1) l)
-                  (cons (first d) (words-by l (rest d)))
-                  (words-by l (rest d)))]))
+  (cond [(or (string=? l "")
+             (empty? d))
+         '()]
+        [else
+         (cond [(string=? (string-ith (first d) 0) l)
+                (cons (first d)
+                      (words-by l (rest d)))]
+               [else (words-by l (rest d))])]))
 
 ; Dictionary -> Letter-Count
 ; produces the Letter-Count for the letter that is occurs most often
@@ -293,20 +301,18 @@
 
 ; LoD Letter-Count -> Letter-Count
 ; picks the pair with the maximum count
-;; TODO melhorar o código.
 (check-expect (maximum-count.v3 (words-by-first-letter DICTIONARY-EMPTY)   '()) '())
 (check-expect (maximum-count.v3 (words-by-first-letter DICTIONARY-AS-LIST) '())  (list "e" 2))
 
 (define (maximum-count.v3 lolc max)
   (cond [(empty? lolc) max]
-        [(empty? max) (maximum-count.v3 (rest lolc)
-                                        (list (substring (first (first lolc)) 0 1)
-                                                          (length (first lolc))))]
-        [else (maximum-count.v3 (rest lolc)
-                                (if (> (length (first lolc)) (second max))
-                                    (list (substring (first (first lolc)) 0 1)
-                                          (length (first lolc)))
-                                    max))]))
+        [else
+         (maximum-count.v3 (rest lolc)
+                           (cond [(or (empty? max)
+                                      (> (length (first lolc)) (second max)))
+                                  (list (string-ith (first (first lolc)) 0)
+                                        (length (first lolc)))]
+                                 [else max]))]))
 
 
 
