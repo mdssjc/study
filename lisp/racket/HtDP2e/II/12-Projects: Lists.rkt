@@ -8,6 +8,7 @@
 (require 2htdp/image)
 (require 2htdp/universe)
 (require 2htdp/batch-io)
+(require 2htdp/itunes)
 
 
 ;; 12.1 - Real-World Data: Dictionaries
@@ -292,6 +293,7 @@
 
 ; LoD Letter-Count -> Letter-Count
 ; picks the pair with the maximum count
+;; TODO melhorar o código.
 (check-expect (maximum-count.v3 (words-by-first-letter DICTIONARY-EMPTY)   '()) '())
 (check-expect (maximum-count.v3 (words-by-first-letter DICTIONARY-AS-LIST) '())  (list "e" 2))
 
@@ -305,3 +307,209 @@
                                     (list (substring (first (first lolc)) 0 1)
                                           (length (first lolc)))
                                     max))]))
+
+
+
+;; 12.2 - Real-World Data: iTunes
+
+;; Exercise 199
+;; Exercise 200
+;; Exercise 201
+;; Exercise 202
+;; Exercise 203
+;; Exercise 204
+
+
+;; =================
+;; Constants:
+
+; modify the following to use your chosen name
+(define ITUNES-LOCATION "itunes.xml")
+
+; LTracks
+; (define itunes-tracks (read-itunes-as-tracks ITUNES-LOCATION))
+
+
+;; =================
+;; Data definitions:
+
+; Date
+(define DATE1 (create-date 1 2 3 4 5 6))
+(define DATE2 (create-date 1 2 3 4 5 5))
+(define DATE3 (create-date 6 5 4 3 2 1))
+(define DATE4 (create-date 1 2 3 "four" 5 6))
+
+; Track
+(define TRACK1 (create-track "title A" "two" "three" 4 5 DATE1 7 DATE1))
+(define TRACK2 (create-track "title B" "two" "three" 4 5 DATE3 7 DATE3))
+(define TRACK3 (create-track "title C" "two" "new-three" 4 5 DATE3 7 DATE3))
+(define TRACK4 (create-track "title D" "two" "new-three" 4 5 DATE3 7 DATE3))
+(define TRACK5 (create-track "title A" "two" "three" 4 5 "a date" 7 "another date"))
+
+; LTrack
+(define LTRACK1 '())
+(define LTRACK2 (list TRACK1))
+(define LTRACK3 (list TRACK1 TRACK2))
+(define LTRACK4 (list TRACK1 TRACK2 TRACK1))
+(define LTRACK5 (list TRACK4 TRACK2 TRACK3 TRACK1))
+
+; A List-of-strings is one of:
+; - '()
+; - (cons String List-of-strings)
+; interpretation a list of String values
+
+; A LoLT is one of:
+; - '()
+; - (cons LTracks LoLT)
+; interpretation a collection of LTracks
+
+
+;; =================
+;; Functions:
+
+; LTracks -> Number
+; produces the total amount of play time
+(check-expect (total-time LTRACK1) 0)
+(check-expect (total-time LTRACK2) (+ 4 (/ 5 60) (/ 6 60 60)))
+(check-expect (total-time LTRACK3) (+ 4 (/ 5 60) (/ 6 60 60)
+                                      3 (/ 2 60) (/ 1 60 60)))
+
+(define (total-time lt)
+  (cond [(empty? lt) 0]
+        [else
+         (+ (date-hour (track-played (first lt)))
+            (/ (date-minute (track-played (first lt))) 60)
+            (/ (date-second (track-played (first lt))) 60 60)
+            (total-time (rest lt)))]))
+
+; LTracks -> List-of-strings
+; produces the list of album titles
+(check-expect (select-all-album-titles LTRACK1) '())
+(check-expect (select-all-album-titles LTRACK2) (list "title A"))
+(check-expect (select-all-album-titles LTRACK3) (list "title A" "title B"))
+(check-expect (select-all-album-titles LTRACK4) (list "title A" "title B" "title A"))
+
+(define (select-all-album-titles lt)
+  (cond [(empty? lt) '()]
+        [else (cons (track-name (first lt))
+                    (select-all-album-titles (rest lt)))]))
+
+; List-of-strings -> String
+; constructs one that contains every String from the given list exactly once
+(check-expect (create-set (select-all-album-titles LTRACK1)) "")
+(check-expect (create-set (select-all-album-titles LTRACK2)) "title A")
+(check-expect (create-set (select-all-album-titles LTRACK3)) "title A title B")
+(check-expect (create-set (select-all-album-titles LTRACK4)) "title A title B")
+
+(define (create-set los)
+  (cond [(empty? los) ""]
+        [(empty? (rest los)) (first los)]
+        [else (string-append (first los) " "
+                             (create-set (remove-all (first los) (rest los))))]))
+
+; LTracks -> List-of-strings
+; produces a list of unique album titles
+(check-expect (select-album-titles/unique LTRACK1) '())
+(check-expect (select-album-titles/unique LTRACK2) (list "title A"))
+(check-expect (select-album-titles/unique LTRACK3) (list "title A" "title B"))
+(check-expect (select-album-titles/unique LTRACK4) (list "title A" "title B"))
+
+(define (select-album-titles/unique lt)
+  (cond [(empty? lt) '()]
+        [else (cons (track-name (first lt))
+                    (select-album-titles/unique (remove-all (first lt) (rest lt))))]))
+
+; String String LTracks -> LTracks
+; extracts from the latter the list of tracks that belong to the given album
+(check-expect (select-album "title A"  "three" LTRACK1) '())
+(check-expect (select-album "title A"  "three" LTRACK3) (list TRACK1))
+(check-expect (select-album "title B"  "three" LTRACK3) (list TRACK2))
+(check-expect (select-album "title A"  "three" LTRACK4) (list TRACK1 TRACK1))
+(check-expect (select-album "title B"  "three" LTRACK4) (list TRACK2))
+(check-expect (select-album "title AB" "three" LTRACK2) '())
+
+(define (select-album t a lt)
+  (cond [(empty? lt) '()]
+        [(and (string=? (track-name  (first lt)) t)
+              (string=? (track-album (first lt)) a))
+         (cons (first lt)
+               (select-album t a (rest lt)))]
+        [else (select-album t a (rest lt))]))
+
+; String String Date LTracks -> LTracks
+; extracts from the latter the list of tracks that belong
+; to the given album and have been played after the given date
+(check-expect (select-album-date "title A"  "three" DATE1 LTRACK1) '())
+(check-expect (select-album-date "title A"  "three" DATE3 LTRACK3) (list TRACK1))
+(check-expect (select-album-date "title A"  "three" DATE1 LTRACK3) '())
+(check-expect (select-album-date "title A"  "three" DATE3 LTRACK4) (list TRACK1 TRACK1))
+(check-expect (select-album-date "title A"  "three" DATE1 LTRACK4) '())
+(check-expect (select-album-date "title AB" "three" DATE3 LTRACK3) '())
+
+(define (select-album-date t a d lt)
+  (cond [(empty? lt) '()]
+        [(and (string=? (track-name  (first lt)) t)
+              (string=? (track-album (first lt)) a)
+              (date>? (track-played (first lt)) d))
+         (cons (first lt)
+               (select-album-date t a d (rest lt)))]
+        [else (select-album-date t a d (rest lt))]))
+
+; Date Date -> Boolean
+; determines whether the first occurs before the second
+(check-expect (date>? DATE1 DATE3) #true)
+(check-expect (date>? DATE1 DATE1) #false)
+
+(define (date>? d1 d2)
+  (or
+   (> (date-year   d1) (date-year   d2))
+   (> (date-month  d1) (date-month  d2))
+   (> (date-day    d1) (date-day    d2))
+   (> (date-hour   d1) (date-hour   d2))
+   (> (date-minute d1) (date-minute d2))
+   (> (date-second d1) (date-second d2))))
+
+; LTracks -> LoLT
+; produce a list of LTracks, one per album
+(check-expect (select-albums LTRACK1) '())
+(check-expect (select-albums LTRACK2) (list (list TRACK1)))
+(check-expect (select-albums LTRACK3) (list (list TRACK1 TRACK2)))
+(check-expect (select-albums LTRACK4) (list (list TRACK1 TRACK2)))
+(check-expect (select-albums LTRACK5) (list (list TRACK4 TRACK3)
+                                            (list TRACK2 TRACK1)))
+
+(define (select-albums lt)
+  (cond [(empty? lt) '()]
+        [else (cons (extract-album (track-album (first lt)) lt)
+                    (select-albums (delete-album (track-album (first lt)) (rest lt))))]))
+
+; String LTracks -> LTracks
+; extracts the tracks belonging to the given album from the list of tracks
+(check-expect (extract-album "three"     LTRACK1) '())
+(check-expect (extract-album "three"     LTRACK3) (list TRACK1 TRACK2))
+(check-expect (extract-album "new-three" LTRACK3) '())
+(check-expect (extract-album "three"     LTRACK4) (list TRACK1 TRACK2))
+(check-expect (extract-album "three"     LTRACK5) (list TRACK2 TRACK1))
+(check-expect (extract-album "new-three" LTRACK5) (list TRACK4 TRACK3))
+
+(define (extract-album a lt)
+  (cond [(empty? lt) '()]
+        [(string=? (track-album (first lt)) a)
+         (cons (first lt)
+               (extract-album a (remove (first lt) (rest lt))))]
+        [else (extract-album a (rest lt))]))
+
+; String LTracks -> LTracks
+; removes the tracks belonging to the given album from the list of tracks
+(check-expect (delete-album "three"     LTRACK1) '())
+(check-expect (delete-album "three"     LTRACK3) '())
+(check-expect (delete-album "new-three" LTRACK3) (list TRACK1 TRACK2))
+(check-expect (delete-album "three"     LTRACK4) '())
+(check-expect (delete-album "three"     LTRACK5) (list TRACK4 TRACK3))
+(check-expect (delete-album "new-three" LTRACK5) (list TRACK2 TRACK1))
+
+(define (delete-album a lt)
+  (cond [(empty? lt) '()]
+        [(string=? (track-album (first lt)) a)
+         (delete-album a (remove (first lt) (rest lt)))]
+        [else (cons (first lt) (delete-album a (rest lt)))]))
