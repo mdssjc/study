@@ -14,7 +14,9 @@ dependencies {
     testCompile "org.junit.jupiter:junit-jupiter-api:5.1.0"
     testCompile "org.junit.jupiter:junit-jupiter-engine:5.1.0"
 
+    compile "org.mongodb:mongodb-driver:3.6.3"
     compile "com.sparkjava:spark-core:2.7.2"
     compile "org.freemarker:freemarker:2.3.23"
+    compile "ch.qos.logback:logback-classic:1.2.3"
     compile "org.slf4j:slf4j-simple:1.7.25"
 }
