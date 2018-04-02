@@ -17,6 +17,8 @@ dependencies {
     compile "org.mongodb:mongodb-driver:3.6.3"
     compile "com.sparkjava:spark-core:2.7.2"
     compile "org.freemarker:freemarker:2.3.23"
+    compile "org.apache.commons:commons-lang3:3.7"
+    compile "commons-codec:commons-codec:1.11"
     compile "ch.qos.logback:logback-classic:1.2.3"
     compile "org.slf4j:slf4j-simple:1.7.25"
 }
