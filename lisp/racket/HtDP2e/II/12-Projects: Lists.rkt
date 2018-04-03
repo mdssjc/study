@@ -324,6 +324,10 @@
 ;; Exercise 202
 ;; Exercise 203
 ;; Exercise 204
+;; Exercise 205
+;; Exercise 206
+;; Exercise 207
+;; Exercise 208
 
 
 ;; =================
@@ -334,6 +338,9 @@
 
 ; LTracks
 ; (define itunes-tracks (read-itunes-as-tracks ITUNES-LOCATION))
+
+; LLists
+; (define list-tracks (read-itunes-as-lists ITUNES-LOCATION))
 
 
 ;; =================
@@ -368,6 +375,23 @@
 ; - '()
 ; - (cons LTracks LoLT)
 ; interpretation a collection of LTracks
+
+; Association
+(define A1 (list "Assoc A" "123ABC"))
+(define A2 (list "Assoc B" 5))
+(define A3 (list "Assoc C" 5.5))
+(define A4 (list "Assoc D" (create-date 1 2 3 4 5 6)))
+(define A5 (list "Assoc E" true))
+
+; LAssoc
+(define LASSOC1 '())
+(define LASSOC2 (list A1 A2 A3 A4 A5))
+(define LASSOC3 (list A5 A4 A3 A2 A1))
+
+; LLists
+(define LLIST1 '())
+(define LLIST2 (list LASSOC2 LASSOC3))
+(define LLIST3 (list LASSOC2 LASSOC3 LASSOC1))
 
 
 ;; =================
@@ -518,4 +542,89 @@
   (cond [(empty? lt) '()]
         [(string=? (track-album (first lt)) a)
          (delete-album a (remove (first lt) (rest lt)))]
-        [else (cons (first lt) (delete-album a (rest lt)))]))
+        [else (cons (first lt)
+                    (delete-album a (rest lt)))]))
+
+; String LAssoc Any -> Association
+; produces the first Association whose first item is
+; equal to key or default if there is no such Association
+(check-expect (find-association "Assoc A" LASSOC1 A5) A5)
+(check-expect (find-association "Assoc A" LASSOC2 A1) A1)
+(check-expect (find-association "Assoc A" LASSOC3 A1) A1)
+(check-expect (find-association "Assoc F" LASSOC1 A1) A1)
+
+(define (find-association key la default)
+  (cond [(empty? la) default]
+        [(string=? (first (first la)) key) (first la)]
+        [else (find-association key (rest la) default)]))
+
+; LLists -> Number
+; produces the total amount of play time
+(check-within (total-time/list LLIST1) 0 0.01)
+(check-within (total-time/list LLIST2) 8.17 0.01)
+(check-within (total-time/list LLIST3) 8.17 0.01)
+
+(define (total-time/list ll)
+  (cond [(empty? ll) 0]
+        [else (+ (total-time/la   (first ll))
+                 (total-time/list (rest  ll)))]))
+
+; LAssoc -> Number
+; produces the total amount of play time
+(check-expect (total-time/la LASSOC1) 0)
+(check-expect (total-time/la LASSOC2) (+ 4 (/ 5 60) (/ 6 60 60)))
+(check-expect (total-time/la LASSOC3) (+ 4 (/ 5 60) (/ 6 60 60)))
+
+(define (total-time/la la)
+  (cond [(empty? la) 0]
+        [(date? (second (first la)))
+         (+ (date-hour (second (first la)))
+            (/ (date-minute (second (first la))) 60)
+            (/ (date-second (second (first la))) 60 60)
+            (total-time/la (rest la)))]
+        [else (total-time/la (rest la))]))
+
+; LLists -> String
+; produces the Strings that are associated with a Boolean attribute
+(check-expect (boolean-attributes LLIST1) "")
+(check-expect (boolean-attributes LLIST2) "Assoc E Assoc E")
+(check-expect (boolean-attributes LLIST3) "Assoc E Assoc E")
+(check-expect (boolean-attributes (list LASSOC2 (list A5 A2 A5))) "Assoc E Assoc E Assoc E")
+(check-expect (boolean-attributes (list LASSOC2 (list A2 A3 A4))) "Assoc E")
+
+(define (boolean-attributes ll)
+  (cond [(empty? ll) ""]
+        [(empty? (rest ll)) (create-set-la (delete-non-boolean (first ll)))]
+        [else
+         (string-append
+          (create-set-la (delete-non-boolean (first ll)))
+          (if (> (string-length (create-set-la (delete-non-boolean (first (rest ll))))) 0)
+              " " "")
+          (boolean-attributes (rest ll)))]))
+
+; LAssoc -> LAssoc
+; deletes the association with BSDN non-Boolean
+(check-expect (delete-non-boolean LASSOC1) LASSOC1)
+(check-expect (delete-non-boolean LASSOC2) (list A5))
+(check-expect (delete-non-boolean LASSOC3) (list A5))
+(check-expect (delete-non-boolean (list A5 A2 A5)) (list A5 A5))
+
+(define (delete-non-boolean la)
+  (cond [(empty? la) '()]
+        [(boolean? (second (first la)))
+         (append (list (first la))
+                 (delete-non-boolean (rest la)))]
+        [else (delete-non-boolean (rest la))]))
+
+; LAssoc -> String
+; constructs one that contains every String from the given list
+(check-expect (create-set-la (delete-non-boolean LASSOC1)) "")
+(check-expect (create-set-la (delete-non-boolean LASSOC2)) "Assoc E")
+(check-expect (create-set-la (delete-non-boolean LASSOC3)) "Assoc E")
+(check-expect (create-set-la (delete-non-boolean (list A5 A2 A5))) "Assoc E Assoc E")
+
+(define (create-set-la la)
+  (cond [(empty? la) ""]
+        [(empty? (rest la)) (first (first la))]
+        [else (string-append (first (first la)) " "
+                             (create-set-la (rest la)))]))
