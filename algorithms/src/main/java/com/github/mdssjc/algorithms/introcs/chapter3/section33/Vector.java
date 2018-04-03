@@ -52,4 +52,18 @@ public class Vector {
   public double cartesian(final int i) {
     return this.coords[i];
   }
+
+  @Override
+  public String toString() {
+    final StringBuilder s = new StringBuilder();
+    s.append('(');
+    for (int i = 0; i < this.coords.length; i++) {
+      s.append(String.format("%.3f", this.coords[i]));
+      if (i < this.coords.length - 1) {
+        s.append(", ");
+      }
+    }
+    s.append(')');
+    return s.toString();
+  }
 }
