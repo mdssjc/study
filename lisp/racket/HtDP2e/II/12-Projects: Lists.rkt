@@ -628,3 +628,99 @@
         [(empty? (rest la)) (first (first la))]
         [else (string-append (first (first la)) " "
                              (create-set-la (rest la)))]))
+
+
+
+;; 12.3 - Word Games, Composition Illustrated
+
+;; Exercise 209
+;; Exercise 210
+;; Exercise 211
+
+
+;; =================
+;; Data definitions:
+
+; A 1String is a String of length 1, 
+; including
+; - "\\" (the backslash),
+; - " " (the space bar), 
+; - "\t" (tab),
+; - "\r" (return), and 
+; - "\b" (backspace).
+; interpretation represents keys on the keyboard
+
+; A Word is one of:
+; - '() or
+; - (cons 1String Word)
+; interpretation a String as a list of 1Strings (letters)
+
+; A List-of-words is ...
+
+
+;; =================
+;; Functions:
+
+; List-of-strings -> Boolean
+(define (all-words-from-rat? w)
+  (and (member? "rat" w)
+       (member? "art" w)
+       (member? "tar" w)))
+
+; String -> List-of-strings
+; finds all words that the letters of some given word spell
+(check-member-of (alternative-words "cat")
+                 (list "act" "cat")
+                 (list "cat" "act"))
+(check-satisfied (alternative-words "rat")
+                 all-words-from-rat?)
+
+(define (alternative-words s)
+  (in-dictionary
+   (words->strings (arrangements (string->word s)))))
+
+; Word -> List-of-words
+; finds all rearrangements of word
+(define (arrangements word)
+  (list word))
+
+; String -> Word
+; convert s to the chosen word representation
+(check-expect (string->word "") '())
+(check-expect (string->word "hello") (list "h" "e" "l" "l" "o"))
+
+(define (string->word s)
+  (explode s))
+
+; Word -> String
+; convert w to a string
+(check-expect (word->string '()) "")
+(check-expect (word->string (list "h" "e" "l" "l" "o")) "hello")
+
+(define (word->string w)
+  (implode w))
+
+; List-of-words -> List-of-strings
+; turn all Words in low into Strings
+(check-expect (words->strings '()) '())
+(check-expect (words->strings (list (explode "hello")
+                                    (explode "world")))
+              (list "hello" "world"))
+
+(define (words->strings low)
+  (cond [(empty? low) '()]
+        [else (cons (word->string   (first low))
+                    (words->strings (rest low)))]))
+
+; List-of-strings -> List-of-strings
+; pick out all those Strings that occur in the dictionary
+(check-expect (in-dictionary '()) '())
+(check-expect (in-dictionary (list "hello" "world")) (list "hello" "world"))
+(check-expect (in-dictionary (list "a" "car")) '())
+
+(define (in-dictionary los)
+  (cond [(empty? los) '()]
+        [(member? (first los) (list "rat" "art" "tar" "act" "cat" "hello" "world"))
+         (cons (first los)
+               (in-dictionary (rest los)))]
+        [else  (in-dictionary (rest los))]))
