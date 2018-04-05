@@ -636,17 +636,20 @@
 ;; Exercise 209
 ;; Exercise 210
 ;; Exercise 211
+;; Exercise 212
+;; ---
+;; Exercise 214
 
 
 ;; =================
 ;; Data definitions:
 
-; A 1String is a String of length 1, 
+; A 1String is a String of length 1,
 ; including
 ; - "\\" (the backslash),
-; - " " (the space bar), 
+; - " " (the space bar),
 ; - "\t" (tab),
-; - "\r" (return), and 
+; - "\r" (return), and
 ; - "\b" (backspace).
 ; interpretation represents keys on the keyboard
 
@@ -655,7 +658,10 @@
 ; - (cons 1String Word)
 ; interpretation a String as a list of 1Strings (letters)
 
-; A List-of-words is ...
+; A List-of-words is one of:
+; - '() or
+; - (cons Word List-of-words)
+; interpretation a collection of Word values
 
 
 ;; =================
@@ -680,9 +686,17 @@
    (words->strings (arrangements (string->word s)))))
 
 ; Word -> List-of-words
-; finds all rearrangements of word
-(define (arrangements word)
-  (list word))
+; creates all rearrangements of the letters in w
+(check-expect (arrangements '()) (list '()))
+(check-expect (arrangements (list "d" "e"))
+              (list (list "d" "e")
+                    (list "e" "d")))
+
+(define (arrangements w)
+  (cond [(empty? w) (list '())]
+        [else
+         (insert-everywhere/in-all-words (first w)
+                                         (arrangements (rest w)))]))
 
 ; String -> Word
 ; convert s to the chosen word representation
@@ -724,3 +738,53 @@
          (cons (first los)
                (in-dictionary (rest los)))]
         [else  (in-dictionary (rest los))]))
+
+
+
+;; 12.4 - Word Games, the Heart of the Problem
+
+;; Exercise 213
+
+
+;; =================
+;; Functions:
+
+; 1String List-of-words -> List-of-words
+; result is a list of words like its second argument,
+; but with the first argument inserted at the beginning,
+; between all letters, and at the end of all words of the given list
+(check-expect (insert-everywhere/in-all-words "d" '()) '())
+(check-expect (insert-everywhere/in-all-words "d" (list (list "e")))
+              (list (list "d" "e")
+                    (list "e" "d")))
+(check-expect (insert-everywhere/in-all-words "d" (list (list "e" "r")
+                                                        (list "r" "e")))
+              (list (list "d" "e" "r")
+                    (list "e" "d" "r")
+                    (list "e" "r" "d")
+                    (list "d" "r" "e")
+                    (list "r" "d" "e")
+                    (list "r" "e" "d")))
+
+(define (insert-everywhere/in-all-words 1s low)
+  (cond [(empty? low) '()]
+        [else
+         (append (insert-everywhere/in-word 1s '()  (first low))
+                 (insert-everywhere/in-all-words 1s (rest  low)))]))
+
+; 1String Word Word -> List-of-words
+; arrangements the words (prefix sp and suffix ss) with 1String 1s
+(check-expect (insert-everywhere/in-word "d" '() '())
+              (list (list "d")))
+(check-expect (insert-everywhere/in-word "d" '() (list "e" "r"))
+              (list (list "d" "e" "r")
+                    (list "e" "d" "r")
+                    (list "e" "r" "d")))
+
+(define (insert-everywhere/in-word 1s sp ss)
+  (cond [(empty? ss) (list (append sp (list 1s) ss))]
+        [else
+         (cons (append sp (list 1s) ss)
+               (insert-everywhere/in-word 1s
+                                          (append sp (list (first ss)))
+                                          (rest ss)))]))
