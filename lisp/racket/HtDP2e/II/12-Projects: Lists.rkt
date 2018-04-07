@@ -841,8 +841,8 @@
 (define S2 (make-snake 10 10 "up"    '() null))
 (define S3 (make-snake 10 10 "right" '() null))
 (define S4 (make-snake 10 10 "down"  '() null))
-(define S5 (make-snake 10 10 "down" (list (make-tail 0 0)
-                                          (make-tail 10 0))
+(define S5 (make-snake 10 10 "down"   (list (make-tail 0  0)
+                                            (make-tail 10 0))
                        (make-posn 10 50)))
 (define S6 (make-snake 10 10 "up" (list (make-tail 10 10)
                                         (make-tail 20 10)
@@ -881,7 +881,7 @@
               (make-snake (future-left S7)
                           (future-top S7)
                           (snake-direction S7)
-                          (list (make-tail 0 0)
+                          (list (make-tail 0  0)
                                 (make-tail 10 0)
                                 (make-tail 10 10))
                           (food-create (make-posn (future-left S7) (future-top S7)))))
@@ -901,16 +901,16 @@
 (define (tock s)
   (make-snake
    (future-left s)
-   (future-top s)
+   (future-top  s)
    (snake-direction s)
    (cond [(eat? (future-left s) (future-top s) (snake-food s))
           (append (snake-tails s)
                   (list (make-tail (snake-left s)
-                                   (snake-top s))))]
+                                   (snake-top  s))))]
          [(empty? (snake-tails s)) '()]
          [else (append (rest (snake-tails s))
                        (list (make-tail (snake-left s)
-                                        (snake-top s))))])
+                                        (snake-top  s))))])
    (cond [(eat? (future-left s) (future-top s) (snake-food s))
           (food-create (make-posn (future-left s)
                                   (future-top s)))]
@@ -942,12 +942,12 @@
 
 ; Number Number Posn -> Boolean
 ; checks if the distance from the left and top position is near the food position in SIZE
-(check-expect (eat? 0 0 (make-posn 0   0))  #true)
-(check-expect (eat? 0 0 (make-posn 0   10)) #true)
-(check-expect (eat? 0 0 (make-posn 0  -10)) #true)
-(check-expect (eat? 0 0 (make-posn 10  0))  #true)
-(check-expect (eat? 0 0 (make-posn -10 0))  #true)
-(check-expect (eat? 0 0 (make-posn 10  10)) #false)
+(check-expect (eat? 0 0 (make-posn 0   0))   #true)
+(check-expect (eat? 0 0 (make-posn 0   10))  #true)
+(check-expect (eat? 0 0 (make-posn 0   -10)) #true)
+(check-expect (eat? 0 0 (make-posn 10  0))   #true)
+(check-expect (eat? 0 0 (make-posn -10 0))   #true)
+(check-expect (eat? 0 0 (make-posn 10  10))  #false)
 
 (define (eat? l t p)
   (<= (sqrt (+ (sqr (- (posn-x p) l))
@@ -988,10 +988,14 @@
   (make-snake (snake-left s)
               (snake-top s)
               (cond [(and (not (empty? (snake-tails s)))
-                          (or (and (key=? ke "left")  (string=? (snake-direction s) "right"))
-                              (and (key=? ke "right") (string=? (snake-direction s) "left"))
-                              (and (key=? ke "up")    (string=? (snake-direction s) "down"))
-                              (and (key=? ke "down")  (string=? (snake-direction s) "up"))))
+                          (or (and (key=? ke "left")
+                                   (string=? (snake-direction s) "right"))
+                              (and (key=? ke "right")
+                                   (string=? (snake-direction s) "left"))
+                              (and (key=? ke "up")
+                                   (string=? (snake-direction s) "down"))
+                              (and (key=? ke "down")
+                                   (string=? (snake-direction s) "up"))))
                      (snake-direction s)]
                     [(or (key=? ke "left")
                          (key=? ke "up")
@@ -999,19 +1003,18 @@
                          (key=? ke "down")) ke]
                     [else (snake-direction s)])
               (snake-tails s)
-              (snake-food s)))
-
+              (snake-food  s)))
 
 ; Snake -> Boolean
 ; stops if the snake has run into the walls of the world
-(check-expect (hit-border? (make-snake 0 10 "left"  '() null)) #true)
-(check-expect (hit-border? (make-snake 0 10 "up"    '() null)) #false)
-(check-expect (hit-border? (make-snake 0 10 "right" '() null)) #false)
-(check-expect (hit-border? (make-snake 0 10 "down"  '() null)) #false)
-(check-expect (hit-border? (make-snake 10 0 "up"    '() null)) #true)
-(check-expect (hit-border? (make-snake 10 0 "right" '() null)) #false)
-(check-expect (hit-border? (make-snake 10 0 "down"  '() null)) #false)
-(check-expect (hit-border? (make-snake 10 0 "left"  '() null)) #false)
+(check-expect (hit-border? (make-snake 0  10 "left"  '() null)) #true)
+(check-expect (hit-border? (make-snake 0  10 "up"    '() null)) #false)
+(check-expect (hit-border? (make-snake 0  10 "right" '() null)) #false)
+(check-expect (hit-border? (make-snake 0  10 "down"  '() null)) #false)
+(check-expect (hit-border? (make-snake 10 0 "up"     '() null)) #true)
+(check-expect (hit-border? (make-snake 10 0 "right"  '() null)) #false)
+(check-expect (hit-border? (make-snake 10 0 "down"   '() null)) #false)
+(check-expect (hit-border? (make-snake 10 0 "left"   '() null)) #false)
 (check-expect (hit-border? (make-snake (- WIDTH SIZE) 10 "right"  '() null)) #true)
 (check-expect (hit-border? (make-snake (- WIDTH SIZE) 10 "down"   '() null)) #false)
 (check-expect (hit-border? (make-snake (- WIDTH SIZE) 10 "left"   '() null)) #false)
@@ -1052,7 +1055,7 @@
   (cond [(empty? (snake-tails s)) #false]
         [else
          (member? (first (snake-tails s))
-                  (rest (snake-tails s)))]))
+                  (rest  (snake-tails s)))]))
 
 ; Snake -> Boolean
 ; stops if the snake has run into the walls of the world or itself
