@@ -32,7 +32,6 @@ public class SessionDAO {
         sessionsCollection = blogDatabase.getCollection("sessions");
     }
 
-
     public String findUserNameBySessionId(String sessionId) {
         Document session = getSession(sessionId);
 
@@ -42,7 +41,6 @@ public class SessionDAO {
             return session.get("username").toString();
         }
     }
-
 
     // starts a new session in the sessions table
     public String startSession(String username) {

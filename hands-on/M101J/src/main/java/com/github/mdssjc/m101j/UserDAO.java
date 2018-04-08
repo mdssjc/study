@@ -42,22 +42,14 @@ public class UserDAO {
 
         String passwordHash = makePasswordHash(password, Integer.toString(random.nextInt()));
 
-        // XXX WORK HERE
-        // create an object suitable for insertion into the user collection
-        // be sure to add username and hashed password to the document. problem instructions
-        // will tell you the schema that the documents must follow.
         Document user = new Document("_id", username)
             .append("password", passwordHash);
 
         if (email != null && !email.equals("")) {
-            // XXX WORK HERE
-            // if there is an email address specified, add it to the document too.
             user.append("email", email);
         }
 
         try {
-            // XXX WORK HERE
-            // insert the document into the user collection here
             usersCollection.insertOne(user);
             return true;
         } catch (MongoWriteException e) {
@@ -70,10 +62,8 @@ public class UserDAO {
     }
 
     public Document validateLogin(String username, String password) {
-        Document user = null;
+        Document user;
 
-        // XXX look in the user collection for a user that has this username
-        // assign the result to the user variable.
         user = usersCollection.find(new Document("_id", username))
                               .first();
 
@@ -85,9 +75,6 @@ public class UserDAO {
         String hashedAndSalted = user.get("password").toString();
         String salt = hashedAndSalted.split(",")[1];
 
-        System.out.println(hashedAndSalted);
-        System.out.println(makePasswordHash(password, salt));
-
         if (!hashedAndSalted.equals(makePasswordHash(password, salt))) {
             System.out.println("Submitted password is not a match");
             return null;
@@ -95,7 +82,6 @@ public class UserDAO {
 
         return user;
     }
-
 
     private String makePasswordHash(String password, String salt) {
         try {
