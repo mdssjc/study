@@ -1873,3 +1873,296 @@
                          "You Win!")
                      32 "black")
                CENTER-X CENTER-Y (ff-render ff)))
+
+
+
+;; 12.8 - Finite State Machines
+
+;; Exercise 226
+;; Exercise 227
+;; Exercise 228
+;; Exercise 229
+;; Exercise 230
+
+
+;; =================
+;; Data definitions:
+
+; A Color is one of:
+; - "white"
+; - "yellow"
+; - "orange"
+; - "green"
+; - "red"
+; - "blue"
+; - "black"
+
+; An FSM is one of:
+;  - '()
+;  - (cons Transition FSM)
+
+(define-struct transition [current next])
+; A Transition is a structure:
+;   (make-transition FSM-State FSM-State)
+
+; FSM-State is a Color.
+
+; interpretation An FSM represents the transitions that a
+; finite state machine can take from one state to another
+; in reaction to keystrokes
+(define fsm-traffic (list (make-transition "red"    "green")
+                          (make-transition "green"  "yellow")
+                          (make-transition "yellow" "red")))
+(define fsm-bw-machine (list (make-transition "black" "white")
+                             (make-transition "white" "black")))
+
+; A SimulationState.v1 is an FSM-State.
+
+(define-struct fs [fsm current])
+; A SimulationState.v2 is a structure:
+;   (make-fs FSM FSM-State)
+
+(define-struct ktransition [current key next])
+; A Transition.v2 is a structure:
+;   (make-ktransition FSM-State KeyEvent FSM-State)
+
+; ExpectsToSee is one of:
+; - "start, expect an 'a'"
+; - "expect 'b', 'c', or 'd'"
+
+(define fsm-expectstosee (list (make-ktransition "start"  "a" "expect")
+                               (make-ktransition "expect" "b" "expect")
+                               (make-ktransition "expect" "c" "expect")
+                               (make-ktransition "expect" "d" "expect")))
+
+(define-struct fsm [initial transitions final])
+(define-struct transition.v3 [current key next])
+; An FSM.v2 is a structure:
+;   (make-fsm FSM-State LOT FSM-State)
+; A LOT is one of:
+; - '()
+; - (cons Transition.v3 LOT)
+; A Transition.v3 is a structure:
+;   (make-transition.v3 FSM-State KeyEvent FSM-State)
+
+; ExpectsToSee is one of:
+; - "start, expect an 'a'"
+; - "expect 'b', 'c', or 'd'"
+; - "finished"
+; - "error, illegal key"
+
+(define fsm-expectstosee.v3 (list (make-transition.v3 "start"    "a" "expect")
+                                  (make-transition.v3 "start"    "b" "error")
+                                  (make-transition.v3 "expect"   "b" "expect")
+                                  (make-transition.v3 "expect"   "c" "expect")
+                                  (make-transition.v3 "expect"   "d" "finished")
+                                  (make-transition.v3 "expect"   "e" "error")
+                                  (make-transition.v3 "finished" "e" "finished")
+                                  (make-transition.v3 "error"    "e" "error")))
+
+
+;; =================
+;; Functions:
+
+; FSM -> SimulationState.v1
+; match the keys pressed with the given FSM
+(define initial-state '())
+
+(define (simulate.v1 fsm0)
+  (big-bang initial-state
+            [to-draw render-state.v1]
+            [on-key find-next-state.v1]))
+
+; FSM FSM-State -> SimulationState.v2
+; match the keys pressed with the given FSM
+(define (simulate.v2 a-fsm s0)
+  (big-bang (make-fs a-fsm s0)
+            [to-draw state-as-colored-square]
+            [on-key  find-next-state]))
+
+; FSM FSM-State -> SimulationState.v2
+; match the keys pressed with the given FSM
+(define (simulate.v3 a-fsm s0)
+  (big-bang (make-fs a-fsm s0)
+            [to-draw state-as-colored-square.v2]
+            [on-key  find-next-state.v2]))
+
+; FSM.v2 -> SimulationState
+; match the keys pressed with the given FSM
+(define (fsm-simulate a-fsm)
+  (big-bang a-fsm
+            [to-draw   state-as-colored-square.v3]
+            [on-key    find-next-state.v3]
+            [stop-when reach-final-state? state-as-colored-square.v3]))
+
+; SimulationState.v1 -> Image
+; renders a world state as an image
+(define (render-state.v1 s)
+  empty-image)
+
+; SimulationState.v1 KeyEvent -> SimulationState.v1
+; finds the next state from ke and cs
+(define (find-next-state.v1 cs ke)
+   cs)
+
+; SimulationState.v2 -> Image
+; renders current world state as a colored square
+(check-expect (state-as-colored-square (make-fs fsm-traffic "red"))
+              (square 100 "solid" "red"))
+
+(define (state-as-colored-square an-fsm)
+  (square 100 "solid" (fs-current an-fsm)))
+
+; SimulationState.v2 -> Image
+; renders current world state as a colored square
+(check-expect (state-as-colored-square.v2 (make-fs fsm-expectstosee "start"))
+              (square 100 "solid" "white"))
+(check-expect (state-as-colored-square.v2 (make-fs fsm-expectstosee "expect"))
+              (square 100 "solid" "yellow"))
+
+(define (state-as-colored-square.v2 a-fs)
+  (square 100 "solid"
+          (cond [(state=? "start" (fs-current a-fs)) "white"]
+                [else "yellow"])))
+
+; SimulationState.v2 -> Image
+; renders current world state as a colored square
+(check-expect (state-as-colored-square.v3 (make-fsm "start" fsm-expectstosee "finished"))
+              (square 100 "solid" "white"))
+(check-expect (state-as-colored-square.v3 (make-fsm "expect" fsm-expectstosee "finished"))
+              (square 100 "solid" "yellow"))
+(check-expect (state-as-colored-square.v3 (make-fsm "finished" fsm-expectstosee "finished"))
+              (square 100 "solid" "green"))
+(check-expect (state-as-colored-square.v3 (make-fsm "error" fsm-expectstosee "finished"))
+              (square 100 "solid" "red"))
+
+(define (state-as-colored-square.v3 a-fs)
+  (square 100 "solid" (cond [(state=? "start"    (fsm-initial a-fs)) "white"]
+                            [(state=? "expect"   (fsm-initial a-fs)) "yellow"]
+                            [(state=? "finished" (fsm-initial a-fs)) "green"]
+                            [else "red"])))
+
+; SimulationState.v2 KeyEvent -> SimulationState.v2
+; finds the next state from ke and cs
+(check-expect (find-next-state (make-fs fsm-traffic "red") "n")
+              (make-fs fsm-traffic "green"))
+(check-expect (find-next-state (make-fs fsm-traffic "red") "a")
+              (make-fs fsm-traffic "green"))
+(check-expect (find-next-state (make-fs fsm-traffic "green") "q")
+              (make-fs fsm-traffic "yellow"))
+
+(define (find-next-state an-fsm current)
+  (make-fs (fs-fsm an-fsm)
+           (find (fs-fsm an-fsm) (fs-current an-fsm))))
+
+; FSM FSM-State -> FSM-State
+; finds the state representing current in transitions
+; and retrieves the next field
+(check-expect (find fsm-traffic "red")   "green")
+(check-expect (find fsm-traffic "green") "yellow")
+(check-error  (find fsm-traffic "black") "not found: black")
+
+(define (find transitions current)
+  (cond [(empty? transitions)
+         (error "not found: " current)]
+        [(state=? (transition-current (first transitions)) current)
+         (transition-next (first transitions))]
+        [else (find (rest transitions) current)]))
+
+; SimulationState.v2 KeyEvent -> SimulationState.v2
+; finds the next state from ke and cs
+(check-expect (find-next-state.v2 (make-fs fsm-expectstosee "start")  "b")
+              (make-fs fsm-expectstosee "start"))
+(check-expect (find-next-state.v2 (make-fs fsm-expectstosee "start")  "a")
+              (make-fs fsm-expectstosee "expect"))
+(check-expect (find-next-state.v2 (make-fs fsm-expectstosee "expect") "b")
+              (make-fs fsm-expectstosee "expect"))
+(check-expect (find-next-state.v2 (make-fs fsm-expectstosee "expect") "c")
+              (make-fs fsm-expectstosee "expect"))
+(check-expect (find-next-state.v2 (make-fs fsm-expectstosee "expect") "d")
+              (make-fs fsm-expectstosee "expect"))
+
+(define (find-next-state.v2 a-fs ke)
+  (make-fs (fs-fsm a-fs)
+           (find.v2 (fs-fsm a-fs) (fs-current a-fs) ke)))
+
+; FSM FSM-State KeyEvent -> FSM-State
+; finds the state representing current in transitions
+; and retrieve the next field
+(check-expect (find.v2 fsm-expectstosee "start"  "a") "expect")
+(check-expect (find.v2 fsm-expectstosee "start"  "b") "start")
+(check-expect (find.v2 fsm-expectstosee "expect" "b") "expect")
+(check-expect (find.v2 fsm-expectstosee "expect" "c") "expect")
+(check-expect (find.v2 fsm-expectstosee "expect" "d") "expect")
+
+(define (find.v2 transitions current key)
+  (cond [(empty? transitions) current]
+        [(and (state=? (ktransition-current (first transitions)) current)
+              (key=?   (ktransition-key     (first transitions)) key))
+         (ktransition-next (first transitions))]
+        [else
+         (find.v2 (rest transitions) current key)]))
+
+; SimulationState.v2 KeyEvent -> SimulationState.v2
+; finds the next state from ke and cs
+(check-expect (find-next-state.v3 (make-fsm "start" fsm-expectstosee.v3 "finished") "a")
+              (make-fsm "expect" fsm-expectstosee.v3 "finished"))
+(check-expect (find-next-state.v3 (make-fsm "start" fsm-expectstosee.v3 "finished") "b")
+              (make-fsm "error" fsm-expectstosee.v3 "finished"))
+(check-expect (find-next-state.v3 (make-fsm "expect" fsm-expectstosee.v3 "finished") "b")
+              (make-fsm "expect" fsm-expectstosee.v3 "finished"))
+(check-expect (find-next-state.v3 (make-fsm "expect" fsm-expectstosee.v3 "finished") "c")
+              (make-fsm "expect" fsm-expectstosee.v3 "finished"))
+(check-expect (find-next-state.v3 (make-fsm "expect" fsm-expectstosee.v3 "finished") "d")
+              (make-fsm "finished" fsm-expectstosee.v3 "finished"))
+(check-expect (find-next-state.v3 (make-fsm "expect" fsm-expectstosee.v3 "finished") "e")
+              (make-fsm "error" fsm-expectstosee.v3 "finished"))
+(check-expect (find-next-state.v3 (make-fsm "finished" fsm-expectstosee.v3 "finished") "e")
+              (make-fsm "finished" fsm-expectstosee.v3 "finished"))
+(check-expect (find-next-state.v3 (make-fsm "error" fsm-expectstosee.v3 "finished") "e")
+              (make-fsm "error" fsm-expectstosee.v3 "finished"))
+
+(define (find-next-state.v3 a-fs ke)
+  (make-fsm (find.v3 (fsm-transitions a-fs) (fsm-initial a-fs) ke)
+            (fsm-transitions a-fs)
+            (fsm-final a-fs)))
+
+; FSM.v2 FSM-State KeyEvent -> FSM-State
+; finds the state representing current in transitions
+; and retrieve the next field
+(check-expect (find.v3 fsm-expectstosee.v3 "start"    "a") "expect")
+(check-expect (find.v3 fsm-expectstosee.v3 "start"    "b") "error")
+(check-expect (find.v3 fsm-expectstosee.v3 "expect"   "b") "expect")
+(check-expect (find.v3 fsm-expectstosee.v3 "expect"   "c") "expect")
+(check-expect (find.v3 fsm-expectstosee.v3 "expect"   "d") "finished")
+(check-expect (find.v3 fsm-expectstosee.v3 "expect"   "e") "error")
+(check-expect (find.v3 fsm-expectstosee.v3 "finished" "e") "finished")
+(check-expect (find.v3 fsm-expectstosee.v3 "error"    "e") "error")
+
+(define (find.v3 transitions current key)
+  (cond [(empty? transitions) "error"]
+        [(and (state=? (transition.v3-current (first transitions)) current)
+              (key=?   (transition.v3-key     (first transitions)) key))
+         (transition.v3-next (first transitions))]
+        [else (find.v3 (rest transitions) current key)]))
+
+; SimulationState.v2 -> Boolean
+; stops when FSM-State is "finished" or "error"
+(check-expect (reach-final-state? (make-fsm "start"    fsm-expectstosee.v3 "finished")) #false)
+(check-expect (reach-final-state? (make-fsm "expect"   fsm-expectstosee.v3 "finished")) #false)
+(check-expect (reach-final-state? (make-fsm "finished" fsm-expectstosee.v3 "finished")) #true)
+(check-expect (reach-final-state? (make-fsm "error"    fsm-expectstosee.v3 "finished")) #true)
+
+(define (reach-final-state? a-fs)
+  (or (state=? "finished" (fsm-initial a-fs))
+      (state=? "error"    (fsm-initial a-fs))))
+
+; FSM-State FSM-State -> Boolean
+; checks an equality predicate for states
+(check-expect (state=? "white" "white")  #true)
+(check-expect (state=? "white" "yellow") #false)
+(check-expect (state=? "start" "start")  #true)
+(check-expect (state=? "start" "expect") #false)
+
+(define (state=? s1 s2)
+  (string=? s1 s2))
