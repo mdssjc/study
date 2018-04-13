@@ -4,6 +4,7 @@
 ;; Intermezzo 2.rkt
 ;; Intermezzo 2: Quote, Unquote
 
+(require 2htdp/web-io)
 
 
 ;; Quote
@@ -22,3 +23,50 @@
 (list (list "alan" 1000)
       (list "barb" 2000)
       (list "carl" 1500))
+
+
+
+;; Quasiquote and Unquote
+
+; String String -> ... deeply nested list ...
+; produces a web page with given author and title
+(define (my-first-web-page author title)
+  `(html
+     (head
+       (title ,title)
+       (meta ((http-equiv "content-type")
+              (content "text-html"))))
+     (body
+       (h1 ,title)
+       (p "I, " ,author ", made this page."))))
+
+(my-first-web-page "Matthias" "Hello World")
+(show-in-browser (my-first-web-page "Matthias" "Hello World"))
+
+;; Exercise 232
+
+`(1 "a" 2 #false 3 "c")
+(list 1 "a" 2 #false 3 "c")
+
+`(("alan" ,(* 2 500))
+  ("barb" 2000)
+  (,(string-append "carl" " , the great") 1500)
+  ("dawn" 2300))
+(list (list "alan" (* 2 500))
+      (list "barb" 2000)
+      (list (string-append "carl" " , the great") 1500)
+      (list "dawn" 2300))
+
+(define title "ratings")
+`(html
+  (head
+   (title ,title))
+  (body
+   (h1 ,title)
+   (p "A second web page")))
+(list 'html
+      (list 'head
+            (list 'title title))
+      (list 'body
+            (list 'h1 title)
+            (list 'p "A second web page")))
