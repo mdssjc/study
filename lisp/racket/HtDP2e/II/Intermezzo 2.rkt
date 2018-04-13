@@ -3,3 +3,22 @@
 #reader(lib "htdp-beginner-abbr-reader.ss" "lang")((modname |Intermezzo 2|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;; Intermezzo 2.rkt
 ;; Intermezzo 2: Quote, Unquote
+
+
+
+;; Quote
+
+;; Exercise 231
+
+'(1 "a" 2 #false 3 "c")
+(list 1 "a" 2 #false 3 "c")
+
+'()
+(list)
+
+'(("alan" 1000)
+  ("barb" 2000)
+  ("carl" 1500))
+(list (list "alan" 1000)
+      (list "barb" 2000)
+      (list "carl" 1500))
