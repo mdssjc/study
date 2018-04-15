@@ -211,3 +211,92 @@
 (check-expect (squared>? 3 10) #false)
 (check-expect (squared>? 4 10) #true)
 (check-expect (squared>? 5 10) #true)
+
+;; Exercise 238
+
+
+;; =================
+;; Constants:
+
+(define L3 (list 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1))
+(define L4 (list 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25))
+
+
+;; =================
+;; Functions:
+
+; Nelon -> Number
+; determines the smallest
+; number on l
+#;
+(define (inf l)
+  (cond [(empty? (rest l)) (first l)]
+        [else
+         (if (< (first l)
+                (inf (rest l)))
+             (first l)
+             (inf (rest l)))]))
+
+(define (inf l)
+  (cond [(empty? (rest l)) (first l)]
+        [else
+         (min (first l)
+              (inf (rest l)))]))
+
+; Nelon -> Number
+; determines the largest
+; number on l
+#;
+(define (sup l)
+  (cond [(empty? (rest l)) (first l)]
+        [else
+         (if (> (first l)
+                (sup (rest l)))
+             (first l)
+             (sup (rest l)))]))
+
+(define (sup l)
+  (cond [(empty? (rest l)) (first l)]
+        [else
+         (max (first l)
+              (sup (rest l)))]))
+
+; Nelon -> Number
+; determines a number in l with R
+(define (extract.v2 R l)
+  (cond [(empty? (rest l)) (first l)]
+        [else
+         (if (R (first l)
+                (extract.v2 R (rest l)))
+             (first l)
+             (extract.v2 R (rest l)))]))
+
+(define (extract.v3 R l)
+  (cond [(empty? (rest l)) (first l)]
+        [else
+         (R (first l)
+            (extract.v3 R (rest l)))]))
+
+; Nelon -> Number
+; determines the smallest number on l
+; (check-expect (inf-1 L3) (inf L3))
+
+(define (inf-1 l)
+  (extract.v2 < l))
+
+(check-expect (inf-2 L3) (inf L3))
+
+(define (inf-2 l)
+  (extract.v3 min l))
+
+; Nelon -> Number
+; determines the largest number on l
+;(check-expect (sup-1 L4) (sup L4))
+
+(define (sup-1 l)
+  (extract.v2 > l))
+
+(check-expect (sup-2 L4) (sup L4))
+
+(define (sup-2 l)
+  (extract.v3 max l))
