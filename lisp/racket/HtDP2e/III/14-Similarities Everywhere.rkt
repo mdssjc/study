@@ -300,3 +300,177 @@
 
 (define (sup-2 l)
   (extract.v3 max l))
+
+
+
+;; 14.3 - Similarities in Data Definitions
+
+
+;; =================
+;; Data definitions:
+
+; An Lon (List-of-numbers)
+; is one of:
+; - '()
+; - (cons Number Lon)
+
+; An Los (List-of-String)
+; is one of:
+; - '()
+; - (cons String Los)
+
+; A [List-of ITEM] is one of:
+; - '()
+; - (cons ITEM [List-of ITEM])
+
+(define-struct ir [name price])
+; An IR is a structure:
+;   (make-ir String Number)
+
+; A List-of-numbers-again is one of:
+; - '()
+; - (cons Number List-of-numbers-again)
+
+(define-struct point [hori veri])
+
+; A Pair-boolean-string is a structure:
+;   (make-point Boolean String)
+
+; A Pair-number-image is a structure:
+;   (make-point Number Image)
+
+; A [CP H V] is a structure:
+;   (make-point H V)
+
+;; Exercise 239
+
+
+;; =================
+;; Data definitions:
+
+; A [List X Y] is a structure:
+;   (cons X (cons Y '()))
+
+; A 1String is a String of length 1,
+; including
+; - "\\" (the backslash),
+; - " " (the space bar),
+; - "\t" (tab),
+; - "\r" (return), and
+; - "\b" (backspace).
+; interpretation represents keys on the keyboard
+
+; A [List Number Number] is a structure:
+;   (cons Number (cons Number '()))
+(define P1 (cons 1 (cons 2 '())))
+
+; A [List Number 1String] is a structure:
+;   (cons Number (cons 1String '()))
+(define P2 (cons 1 (cons "a" '())))
+
+; A [List String Boolean] is a structure:
+;   (cons String (cons Boolean '()))
+(define P3 (cons "hello" (cons #true  '())))
+(define P4 (cons "hello" (cons #false '())))
+
+
+; [List-of [CP Boolean Image]]
+; [CP Boolean Image]
+; [CP Number [List-of Image]]
+
+;; Exercise 240
+
+
+;; =================
+;; Data definitions:
+
+(define-struct layer [stuff])
+
+; A LStr is one of:
+; - String
+; - (make-layer LStr)
+(define LS1 "word")
+(define LS2 (make-layer LS1))
+(define LS3 (make-layer (make-layer LS2)))
+
+; A LNum is one of:
+; - Number
+; - (make-layer LNum)
+(define LN1 1)
+(define LN2 (make-layer LN1))
+(define LN3 (make-layer (make-layer LN2)))
+
+; A [Li ITEM] is one of:
+; - ITEM
+; - (make-layer ITEM)
+
+; A [Li String] is one of:
+; - String
+; - (make-layer String)
+(define LIS1 "word")
+(define LIS2 (make-layer LIS1))
+(define LIS3 (make-layer (make-layer LIS2)))
+
+; A [Li Number] is one of:
+; - Number
+; - (make-layer Number)
+(define LIN1 1)
+(define LIN2 (make-layer LIN1))
+(define LIN3 (make-layer (make-layer LIN2)))
+
+
+; Tests
+(check-expect LIS1 LS1)
+(check-expect LIS2 LS2)
+(check-expect LIS3 LS3)
+
+(check-expect LIN1 LN1)
+(check-expect LIN2 LN2)
+(check-expect LIN3 LN3)
+
+;; Exercise 241
+
+
+;; =================
+;; Data definitions:
+
+; A CTemperature is a Number greater than -273.
+
+; A NEList-of-temperatures is one of:
+; - (cons CTemperature '())
+; - (cons CTemperature NEList-of-temperatures)
+; interpretation non-empty lists of Celsius temperatures
+
+; A NEList-of-Booleans is one of:
+; - (cons Boolean '())
+; - (cons Boolean NEList-of-Booleans)
+; interpretation non-empty lists of Boolean values
+
+; A [NEList-of ITEM] is one of:
+; - (cons ITEM '())
+; - (cons ITEM [NEList-of ITEM])
+
+;; Exercise 242
+
+
+; A [Maybe X] is one of:
+; - #false
+; - X
+
+; [Maybe String]           -> optional String
+; [Maybe [List-of String]] -> optional list of String
+; [List-of [Maybe String]] -> list of optional String
+
+; String [List-of String] -> [Maybe [List-of String]]
+; returns the remainder of los starting with s
+; #false otherwise
+(check-expect (occurs "a" '()) #false)
+(check-expect (occurs "a" '("b" "a" "d" "e")) '("d" "e"))
+(check-expect (occurs "b" '("b" "a" "d" "e")) '("a" "d" "e"))
+(check-expect (occurs "a" '("b" "c" "d")) #false)
+
+(define (occurs s los)
+  (cond [(empty? los) #false]
+        [(string=? (first los) s) (rest los)]
+        [else
+         (occurs s (rest los))]))
