@@ -474,3 +474,60 @@
         [(string=? (first los) s) (rest los)]
         [else
          (occurs s (rest los))]))
+
+
+
+;; 14.4 - Functions Are Values
+
+;; Exercise 243
+
+(define (f x) x)
+
+; Tests: return function
+(cons f '())
+(f f)
+(cons f (cons 10 (cons (f 10) '())))
+
+;; Exercise 244
+
+(define (f.v2 x) (x 10))
+(f.v2 add1)
+
+(define (f.v3 x) (x f.v3))
+(f.v3 string?)
+
+(define (f.v4 x y) (x 'a y 'b))
+(define (compare p1 f.v4 p2) (f.v4 p1 p2))
+(f.v4 compare symbol=?)
+
+;; Exercise 245
+
+
+;; =================
+;; Functions:
+
+; Number Number Number -> Number
+; test function #1
+(define (fun1 a b c)
+  (/ (/ a c) (/ b c)))
+
+; Number Number Number -> Number
+; test function #2
+(define (fun2 a b c)
+  (/ (* a c) (* b c)))
+
+; Function Function -> Boolean
+; determines whether the two produce the same results for 1.2, 3, and -5.775
+(check-expect (function=at-1.2-3-and-5.775? fun1 fun2) #true)
+(check-expect (function=at-1.2-3-and-5.775? fun1 +)    #false)
+(check-expect (function=at-1.2-3-and-5.775? + fun2)    #false)
+
+(define (function=at-1.2-3-and-5.775? f1 f2)
+  (= (f1 1.2 3 -5.775)
+     (f2 1.2 3 -5.775)))
+
+
+; (= fun1 fun2)
+; =: contract violation
+;   expected: number?
+;   given: (lambda (a1 a2 a3) ...)
