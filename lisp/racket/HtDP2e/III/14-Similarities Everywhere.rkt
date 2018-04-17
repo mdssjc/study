@@ -531,3 +531,44 @@
 ; =: contract violation
 ;   expected: number?
 ;   given: (lambda (a1 a2 a3) ...)
+
+
+
+;; 14.5 - Computing with Functions
+
+;; Exercise 246
+
+(check-expect (extract < (cons 6 (cons 4 '())) 5)
+              (cond ((empty? (list 6 4)) '())
+                    (else
+                     (cond [(< (first (list 6 4)) 5)
+                            (cons (first (list 6 4))
+                                  (extract < (rest (list 6 4)) 5))]
+                           [else
+                            (extract < (rest (list 6 4)) 5)]))))
+
+(check-expect (extract < (cons 4 '()) 5)
+              (cond [(empty? (list 4)) '()]
+                    [else
+                     (cond [(< (first (list 4)) 5)
+                            (cons (first (list 4))
+                                  (extract < (rest (list 4)) 5))]
+                           [else
+                            (extract < (rest (list 4)) 5)])]))
+
+;; Exercise 247
+
+(check-expect (extract < (cons 8 (cons 4 '())) 5)
+              (cons 4 '()))
+
+;; Exercise 248
+
+(check-expect (squared>? 3 10) #false)
+(check-expect (squared>? 4 10) #true)
+
+;; Exercise 249
+
+(define (f.v5 x) x)
+(cons f.v5 '())                            ; (list function:f)
+(f.v5 f.v5)                                ; function:f
+(cons f.v5 (cons 10 (cons (f.v5 10) '()))) ; (list function:f 10 10)
