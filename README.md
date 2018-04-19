@@ -30,6 +30,9 @@ Repositório com materiais de estudos sobre Sistemas da Computação para Arquit
   * **Quick**: estudo do tutorial _Quick: An Introduction to Racket with Pictures_ do autor _Matthew Flatt_ - [https://docs.racket-lang.org/quick](https://docs.racket-lang.org/quick "Book site").
   * **Continue**: estudo do tutorial _Continue: Web Applications in Racket_ dos autores _Danny Yoo_ e _Jay McCarthy_ - [https://docs.racket-lang.org/continue](https://docs.racket-lang.org/continue "Book site").
   * **More**: estudo do tutorial _More: Systems Programming with Racket_ do autor _Matthew Flatt_ - [https://docs.racket-lang.org/more](https://docs.racket-lang.org/more "Book site").
+  * **HtDP2e**: estudo do livro _How to Design Programs, Second Edition_ dos autores _Matthias Felleisen_, _Robert Bruce Findler_, _Matthew Flatt_ e _Shriram Krishnamurthi_ [http://www.htdp.org](http://www.htdp.org "Book site").
+  * **lambda-calculus**: estudo de materiais sobre _Lambda Calculus_.
+  * **SPD**: estudo do curso _How to Code: Systematic Program Design_.
 
 **oracle**:
 
