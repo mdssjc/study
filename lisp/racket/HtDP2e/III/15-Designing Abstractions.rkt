@@ -189,3 +189,86 @@
         [else
          (f (first l)
             (fold2 f (rest l) i))]))
+
+
+
+;; 15.2 - Similarities in Signatures
+
+; Number Boolean -> String
+(define (f n b) "hello world")
+
+; [X Y] [List-of X] -> [List-of Y]
+
+; [List-of Number] -> [List-of Number]
+; [List-of IR] -> [List-of String]
+
+; [X Y] [List-of X] [X -> Y] -> [List-of Y]
+
+; [List-of Number] -> Number
+; [List-of Posn]   -> Image
+
+
+; [List-of Number] Number [Number Number -> Number]
+; -> Number
+(define (pr* l bs jn)
+  (cond [(empty? l) bs]
+        [else
+         (jn (first l)
+             (pr* (rest l) bs jn))]))
+
+; [List-of Posn] Image [Posn Image -> Image]
+; -> Image
+(define (im* l bs jn)
+  (cond [(empty? l) bs]
+        [else
+         (jn (first l)
+             (im* (rest l) bs jn))]))
+
+; [X Y] [List-of X] Y [X Y -> Y] -> Y
+
+;; Exercise 253
+
+; [Number -> Boolean]
+(zero? 0)
+
+; [Boolean String -> Boolean]
+(eq? #true "world")
+
+; [Number Number Number -> Number]
+(+ 1 2 3)
+
+; [Number -> [List-of Number]]
+(list 1)
+
+; [[List-of Number] -> Boolean]
+(number? (list 1 2 3))
+
+;; Exercise 254
+
+; [List-of Number] [Number Number -> Boolean] -> [List-of Number]
+; !!!
+(define (sort-n lon f) empty)
+
+; [List-of String] [String String -> Boolean] -> [List-of String]
+; !!!
+(define (sort-s los f) empty)
+
+
+; [X] [List-of X] [X X -> Boolean] -> [List-of X]
+; !!!
+(define (sort-x lst f) empty)
+
+;; Exercise 255
+
+; [List-of Number] [Number -> Number] -> [List-of Number]
+; !!!
+(define (map-n lon f) empty)
+
+; [List-of String] [String -> String] -> [List-of String]
+; !!!
+(define (map-s lon f) empty)
+
+
+; [X] [List-of X] [X -> X] -> [List-of X]
+; !!!
+(define (map-x lst f) empty)
