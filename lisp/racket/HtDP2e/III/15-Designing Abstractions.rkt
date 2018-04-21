@@ -272,3 +272,7 @@
 ; [X] [List-of X] [X -> X] -> [List-of X]
 ; !!!
 (define (map-x lst f) empty)
+
+
+
+;; 15.3 - Single Point of Control
