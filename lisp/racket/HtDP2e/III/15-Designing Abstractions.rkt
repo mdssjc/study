@@ -276,3 +276,22 @@
 
 
 ;; 15.3 - Single Point of Control
+
+
+
+;; 15.4 - Abstractions from Templates
+
+; [X Y] [List-of X] Y [X Y -> Y] -> Y
+(define (reduce l base combine)
+  (cond [(empty? l) base]
+        [else
+         (combine (first l)
+                  (reduce (rest l) base combine))]))
+
+; [List-of Number] -> Number
+(define (sum.v2 lon)
+  (reduce lon 0 +))
+
+; [List-of Number] -> Number
+(define (product.v2 lon)
+  (reduce lon 1 *))
