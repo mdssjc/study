@@ -5,6 +5,7 @@
 ;; III - Abstraction
 ;; 16  - Using Abstractions
 
+(require 2htdp/image)
 
 
 ;; 16.1 - Existing Abstractions
@@ -153,3 +154,173 @@
         [else
          (append (build-l*st (sub1 n) f)
                  (list (f (sub1 n))))]))
+
+
+
+;; 16.2 - Local Definitions
+
+; (local (def ...)
+;   ; — IN —
+;   body-expression)
+
+; [List-of Addr] -> String
+; creates a string of first names,
+; sorted in alphabetical order,
+; separated and surrounded by blank spaces
+(define (listing.v2 l)
+  (local (; 1. extract names
+          (define names  (map address-first-name l))
+          ; 2. sort the names
+          (define sorted (sort names string<?))
+          ; 3. append them, add spaces
+          ; String String -> String
+          ; appends two strings, prefix with " "
+          (define (helper s t)
+            (string-append " " s t))
+          (define concat+spaces
+            (foldr helper " " sorted)))
+    concat+spaces))
+
+; [List-of Number] [Number Number -> Boolean] -> [List-of Number]
+; produces a version of alon, sorted according to cmp
+(define (sort-cmp alon0 cmp)
+  (local (; [List-of Number] -> [List-of Number]
+          ; produces the sorted version of alon
+          (define (isort alon)
+            (cond [(empty? alon) '()]
+                  [else
+                   (insert (first alon) (isort (rest alon)))]))
+
+          ; Number [List-of Number] -> [List-of Number]
+          ; inserts n into the sorted list of numbers alon
+          (define (insert n alon)
+            (cond [(empty? alon) (cons n '())]
+                  [else
+                   (if (cmp n (first alon))
+                       (cons n alon)
+                       (cons (first alon)
+                             (insert n (rest alon))))])))
+    (isort alon0)))
+
+;; Exercise 258
+
+
+;; =================
+;; Constants:
+
+; a plain background image
+(define MT (empty-scene 50 50))
+
+
+;; =================
+;; Data definitions:
+
+; A Polygon is one of:
+; - (list Posn Posn Posn)
+; - (cons Posn Polygon)
+(define P1 (list (make-posn 20 20) (make-posn 30 20) (make-posn 30 30)))
+
+
+;; =================
+;; Functions:
+
+; Image Polygon -> Image
+; adds an image of p to MT
+(define (render-polygon img p)
+  (local (; Image Posn Posn -> Image
+          ; draws a red line from Posn p to Posn q into im
+          (define (render-line im p q)
+            (scene+line im (posn-x p) (posn-y p) (posn-x q) (posn-y q) "red"))
+          ; Polygon -> Posn
+          ; extracts the last item from p
+          (define (last p)
+            (cond [(empty? (rest (rest (rest p)))) (third p)]
+                  [else
+                   (last (rest p))]))
+          ; Image NELoP -> Image
+          ; connects the Posns in p in an image
+          (define (connect-dots img p)
+            (cond [(empty? (rest p)) MT]
+                  [else
+                   (render-line (connect-dots img (rest p))
+                                (first p)
+                                (second p))])))
+    (render-line (connect-dots img p) (first p) (last p))))
+
+
+(render-polygon MT P1)
+
+;; Exercise 259
+
+
+;; =================
+;; Data definitions:
+
+; A 1String is a String of length 1,
+; including
+; - "\\" (the backslash),
+; - " " (the space bar),
+; - "\t" (tab),
+; - "\r" (return), and
+; - "\b" (backspace).
+; interpretation represents keys on the keyboard
+
+; A Word is one of:
+; - '() or
+; - (cons 1String Word)
+; interpretation a String as a list of 1Strings (letters)
+
+; A [List-of Word] is one of:
+; - '() or
+; - (cons Word [List-of Word])
+; interpretation a collection of Word values
+
+
+;; =================
+;; Functions:
+
+; [List-of String] -> Boolean
+(define (all-words-from-rat? w)
+  (and (member? "rat" w)
+       (member? "art" w)
+       (member? "tar" w)))
+
+; String -> [List-of String]
+; find all words that the letters of some given word spell
+(check-member-of (alternative-words "cat") (list "act" "cat") (list "cat" "act"))
+(check-satisfied (alternative-words "rat") all-words-from-rat?)
+(check-expect    (alternative-words "")     '())
+(check-expect    (alternative-words "test") '())
+
+(define (alternative-words s)
+  (local (; String -> Boolean
+          ; verifies that the word is in the dictionary
+          (define (in-dictionary? w)
+            (member? w (list "rat" "art" "tar" "act" "cat" "hello" "world")))
+          ; Word -> [List-of Word]
+          ; creates all rearrangements of the letters in w
+          (define (arrangements w)
+            (cond [(empty? w) (list '())]
+                  [else
+                   (insert-everywhere/in-all-words (first w)
+                                                   (arrangements (rest w)))]))
+          ; 1String [List-of Word] -> [List-of Word]
+          ; result is a list of words like its second argument,
+          ; but with the first argument inserted at the beginning,
+          ; between all letters, and at the end of all words of the given list
+          (define (insert-everywhere/in-all-words 1s low)
+            (cond [(empty? low) '()]
+                  [else
+                   (append (insert-everywhere/in-word 1s '()  (first low))
+                           (insert-everywhere/in-all-words 1s (rest low)))]))
+          ; 1String Word Word -> [List-of Word]
+          ; arrangements the words (prefix sp and suffix ss) with 1String 1s
+          (define (insert-everywhere/in-word 1s sp ss)
+            (cond [(empty? ss) (list (append sp (list 1s) ss))]
+                  [else
+                   (cons (append sp (list 1s) ss)
+                         (insert-everywhere/in-word 1s
+                                                    (append sp (list (first ss)))
+                                                    (rest ss)))])))
+    (filter in-dictionary?
+            (map implode (arrangements (explode s))))))
