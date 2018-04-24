@@ -324,3 +324,113 @@
                                                     (rest ss)))])))
     (filter in-dictionary?
             (map implode (arrangements (explode s))))))
+
+
+; Nelon -> Number
+; determines the smallest number on l
+(define (inf.v2 l)
+  (cond [(empty? (rest l)) (first l)]
+        [else
+         (local ((define smallest-in-rest (inf.v2 (rest l))))
+           (if (< (first l) smallest-in-rest)
+               (first l)
+               smallest-in-rest))]))
+
+
+;; Exercise 260
+
+
+;; =================
+;; Constants:
+
+; A [NEList-of X] is one of:
+; - (cons X '())
+; - (cons X [NEList-of X])
+; interpretation non-empty lists of X
+(define L1 (list 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1))
+(define L2 (list 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25))
+
+
+;; =================
+;; Functions:
+
+; Nelon -> Number
+; determines the smallest number on l
+#;
+(define (inf l)
+  (cond [(empty? (rest l)) (first l)]
+        [else
+         (if (< (first l)
+                (inf (rest l)))
+             (first l)
+             (inf (rest l)))]))
+
+(define (inf l)
+  (cond [(empty? (rest l)) (first l)]
+        [else
+         (min (first l)
+              (inf (rest l)))]))
+
+
+; Tests
+(time (inf L1))
+(time (inf L2))
+(time (inf.v2 L1))
+(time (inf.v2 L2))
+
+;; Exercise 261
+
+
+;; =================
+;; Data definitions:
+
+(define-struct ir [name price])
+; An IR is a structure:
+;   (make-ir String Number)
+; An Inventory is one of:
+; - '()
+; - (cons IR Inventory)
+(define IR1 '())
+(define IR2  (list (make-ir "doll" 21.0)
+                   (make-ir "bear" 13.0)
+                   (make-ir "ball" 0.50)
+                   (make-ir "tv"   5.0)
+                   (make-ir "pen"  0.25)))
+(define IR3 (append IR1 IR1 IR1 IR1 IR1 IR1 IR1 IR1 IR1 IR1 IR1 IR1 IR1 IR1 IR1))
+
+
+;; =================
+;; Functions:
+
+; Inventory -> Inventory
+; creates an Inventory from an-inv for all
+; those items that cost less than a dollar
+(check-expect (extract1 IR1) (extract2 IR1))
+(check-expect (extract1 IR2) (extract2 IR2))
+(check-expect (extract1 IR3) (extract2 IR3))
+
+(define (extract1 an-inv)
+  (cond [(empty? an-inv) '()]
+        [else
+         (cond [(<= (ir-price (first an-inv)) 1.0)
+                (cons (first an-inv)
+                      (extract1 (rest an-inv)))]
+               [else
+                (extract1 (rest an-inv))])]))
+
+(define (extract2 an-inv)
+  (cond [(empty? an-inv) '()]
+        [else
+         (local ((define ext (extract2 (rest an-inv)))
+                 (define item (first an-inv)))
+           (cond [(<= (ir-price item) 1.0) (cons item ext)]
+                 [else ext]))]))
+
+
+; Tests
+(time (extract1 IR1))
+(time (extract1 IR2))
+(time (extract1 IR3))
+(time (extract2 IR1))
+(time (extract2 IR2))
+(time (extract2 IR3))
