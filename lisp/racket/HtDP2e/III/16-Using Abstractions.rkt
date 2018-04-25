@@ -6,6 +6,7 @@
 ;; 16  - Using Abstractions
 
 (require 2htdp/image)
+(require 2htdp/universe)
 
 
 ;; 16.1 - Existing Abstractions
@@ -434,3 +435,90 @@
 (time (extract2 IR1))
 (time (extract2 IR2))
 (time (extract2 IR3))
+
+
+
+;; 16.3 - Local Definitions Add Expressive Power
+
+
+;; =================
+;; Data definitions:
+
+; An FSM is one of:
+;   - '()
+;   - (cons Transition FSM)
+
+(define-struct transition [current next])
+; A Transition is a structure:
+;   (make-transition FSM-State FSM-State)
+
+; FSM-State is a Color.
+
+; interpretation An FSM represents the transitions that a
+; finite state machine can take from one state to another
+; in reaction to keystrokes
+
+
+;; =================
+;; Functions:
+
+; FSM FSM-State -> FSM-State
+; matches the keys pressed by a player with the given FSM
+(define (simulate fsm s0)
+  (local (; State of the World: FSM-State
+          ; FSM-State KeyEvent -> FSM-State
+          (define (find-next-state s key-event)
+            (find fsm s)))
+    (big-bang s0
+              [to-draw state-as-colored-square]
+              [on-key  find-next-state])))
+
+; FSM-State -> Image
+; renders current state as colored square
+(define (state-as-colored-square s)
+  (square 100 "solid" s))
+
+; FSM FSM-State -> FSM-State
+; finds the current state in fsm
+(define (find transitions current)
+  (cond [(empty? transitions) (error "not found")]
+        [else
+         (local ((define s (first transitions)))
+           (if (state=? (transition-current s) current)
+               (transition-next s)
+               (find (rest transitions) current)))]))
+
+; FSM-State FSM-State -> Boolean
+; checks an equality predicate for states
+(check-expect (state=? "white" "white")  #true)
+(check-expect (state=? "white" "yellow") #false)
+(check-expect (state=? "start" "start")  #true)
+(check-expect (state=? "start" "expect") #false)
+
+(define (state=? s1 s2)
+  (string=? s1 s2))
+
+;; Exercise 262
+
+
+;; =================
+;; Functions:
+
+; Natural -> [List-of [List-of Natural]]
+; creates diagonal squares of 0s and 1s
+(check-expect (identityM 0) empty)
+(check-expect (identityM 1) (list (list 1)))
+(check-expect (identityM 3) (list (list 1 0 0) (list 0 1 0) (list 0 0 1)))
+
+(define (identityM n)
+  (local ((define (rows i)
+            (cond [(zero? i) empty]
+                  [else
+                   (cons (numbers n i)
+                         (rows (sub1 i)))]))
+          (define (numbers n s)
+            (cond [(zero? n) empty]
+                  [else
+                   (cons (if (= n s) 1 0)
+                         (numbers (sub1 n) s))])))
+    (rows n)))
