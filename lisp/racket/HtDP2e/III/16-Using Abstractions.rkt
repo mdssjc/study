@@ -506,18 +506,18 @@
 
 ; Natural -> [List-of [List-of Natural]]
 ; creates diagonal squares of 0s and 1s
-(check-expect (identityM 0) empty)
+(check-expect (identityM 0) '())
 (check-expect (identityM 1) (list (list 1)))
 (check-expect (identityM 3) (list (list 1 0 0) (list 0 1 0) (list 0 0 1)))
 
 (define (identityM n)
   (local ((define (rows i)
-            (cond [(zero? i) empty]
+            (cond [(zero? i) '()]
                   [else
                    (cons (numbers n i)
                          (rows (sub1 i)))]))
           (define (numbers n s)
-            (cond [(zero? n) empty]
+            (cond [(zero? n) '()]
                   [else
                    (cons (if (= n s) 1 0)
                          (numbers (sub1 n) s))])))
