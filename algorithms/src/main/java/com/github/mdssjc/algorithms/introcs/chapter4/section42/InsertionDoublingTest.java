@@ -38,7 +38,7 @@ public class InsertionDoublingTest {
       final double prev = timeTrials(trials, n / 2);
       final double curr = timeTrials(trials, n);
       final double ratio = curr / prev;
-      StdOut.printf("%7d %4.2f\n", n, ratio);
+      StdOut.printf("%7d %4.2f%n", n, ratio);
     }
   }
 }
