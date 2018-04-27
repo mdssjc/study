@@ -522,3 +522,54 @@
                    (cons (if (= n s) 1 0)
                          (numbers (sub1 n) s))])))
     (rows n)))
+
+
+
+;; 16.4 - Computing with local
+
+;; Exercise 263
+
+(= (inf.v2 (list 2 1 3)) 1)
+
+;; Exercise 264
+
+
+;; =================
+;; Data definitions:
+
+; A [NEList-of X] is one of:
+; - (cons X '())
+; - (cons X [NEList-of X])
+; interpretation non-empty lists of X
+
+
+;; =================
+;; Functions:
+
+; Nelon -> Number
+; determines the largest number on l
+(define (sup.v2 l)
+  (cond [(empty? (rest l)) (first l)]
+        [else
+         (local ((define smallest-in-rest (sup.v2 (rest l))))
+           (if (> (first l) smallest-in-rest)
+               (first l)
+               smallest-in-rest))]))
+
+(= (sup.v2 (list 2 1 3)) 3)
+
+;; Exercise 265
+
+(define result.v1 (local ((define (f x)
+                         (+ (* 4 (sqr x)) 3)))
+                 f))
+(result.v1 1)
+
+;; Exercise 266
+
+(define result.v2 (local ((define (f x) (+ x 3))
+                       (define (g x) (* x 4)))
+                 (if (odd? (f (g 1)))
+                     f
+                     g)))
+(result.v2 2)
