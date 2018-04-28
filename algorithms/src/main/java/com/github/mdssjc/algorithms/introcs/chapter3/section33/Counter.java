@@ -12,7 +12,7 @@ import edu.princeton.cs.introcs.StdRandom;
  *
  */
 @TestDrive({"6", "600000"})
-public class Counter {
+public class Counter implements Comparable<Counter> {
 
   private final String name;
   private final int maxCount;
@@ -36,6 +36,17 @@ public class Counter {
   @Override
   public String toString() {
     return this.name + ": " + this.count;
+  }
+
+  @Override
+  public int compareTo(final Counter that) {
+    if (this.count < that.count) {
+      return -1;
+    } else if (this.count > that.count) {
+      return +1;
+    } else {
+      return 0;
+    }
   }
 
   public static void main(final String[] args) {

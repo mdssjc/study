@@ -45,6 +45,12 @@ public class Merge {
     }
   }
 
+  public static void sort(final Comparable[] a, final int lo, final int hi) {
+    final int n = hi - lo + 1;
+    final Comparable[] aux = new Comparable[n];
+    sort(a, aux, lo, hi);
+  }
+
   public static void main(final String[] args) {
     Executor.execute(Merge.class, args);
 
