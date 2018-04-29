@@ -561,17 +561,17 @@
 ;; Exercise 265
 
 (define result.v1 (local ((define (f x)
-                         (+ (* 4 (sqr x)) 3)))
-                 f))
+                            (+ (* 4 (sqr x)) 3)))
+                    f))
 (result.v1 1)
 
 ;; Exercise 266
 
 (define result.v2 (local ((define (f x) (+ x 3))
-                       (define (g x) (* x 4)))
-                 (if (odd? (f (g 1)))
-                     f
-                     g)))
+                          (define (g x) (* x 4)))
+                    (if (odd? (f (g 1)))
+                        f
+                        g)))
 (result.v2 2)
 
 
@@ -702,3 +702,350 @@
 
 ; foldr : [X Y] [X Y -> Y] Y [List-of X] -> Y
 ; foldl : [X Y] [X Y -> Y] Y [List-of X] -> Y
+
+
+
+;; 16.7 - Finger Exercises: Abstraction
+
+;; Exercise 267
+
+
+;; =================
+;; Constants:
+
+(define US-DOLLAR-RATE 1.06)
+
+
+;; =================
+;; Functions:
+
+; [List-of Number] -> [List-of Number]
+; converts a list of US$ amounts into a list of € amounts
+; based on an exchange rate of US$ US-DOLLAR-RATE per €
+(check-expect (convert-euro '()) '())
+(check-expect (convert-euro '(1.00 5.00 12.34))
+              (list (* 1.00  US-DOLLAR-RATE)
+                    (* 5.00  US-DOLLAR-RATE)
+                    (* 12.34 US-DOLLAR-RATE)))
+
+(define (convert-euro lon)
+  (local ((define (exchange-rate n)
+            (* n US-DOLLAR-RATE)))
+    (map exchange-rate lon)))
+
+; [List-of Number] -> [List-of Number]
+; converts a list of Fahrenheit measurements to a list of Celsius measurements
+(check-expect (convertFC '()) '())
+(check-within (convertFC '(0 10 20 30 40 50))
+              (list -17.78 -12.22 -6.67 -1.11 4.44 10) 0.01)
+
+(define (convertFC lon)
+  (local ((define (fahrenheit->celsius f)
+            (/ (- f 32) 1.8)))
+    (map fahrenheit->celsius lon)))
+
+; [List-of Posn] -> [List-of [List-of Number]]
+; translates a list of Posns into a list of list of pairs of numbers
+(check-expect (translate '()) '())
+(check-expect (translate (list (make-posn 1 2) (make-posn 5 3) (make-posn 9 6)))
+              (list '(1 2) '(5 3) '(9 6)))
+
+(define (translate lop)
+  (local ((define (posn->list p)
+            (list (posn-x p) (posn-y p))))
+    (map posn->list lop)))
+
+;; Exercise 268
+
+
+;; =================
+;; Data definitions:
+
+(define-struct inventory [name description acq-price sales-price])
+; An Inventory is a structure:
+;   (make-inventory String String Number Number)
+; interpretation (make-inventory n d ap sp) specifies
+;   n: the name of an item;
+;   d: a description;
+;  ap: the acquisition price; and
+;  sp: the recommended sales price
+(define I1 (make-inventory "Inv1" "Description 1" 12.1 16.8))
+(define I2 (make-inventory "Inv2" "Description 2" 14.1 15.8))
+(define I3 (make-inventory "Inv3" "Description 3" 10.1 14.8))
+
+; [List-of Inventory] is one of:
+; - '()
+; - (cons Inventory [List-of Inventory])
+; interpretation is a list of inventories
+(define LOI1 '())
+(define LOI2 (list I1))
+(define LOI3 (list I1 I2 I3))
+
+
+;; =================
+;; Functions:
+
+; [List-of Inventory] -> [List-of Inventory]
+; sorts a list of inventory records by the difference between the two prices
+(check-expect (sort-loi LOI1) '())
+(check-expect (sort-loi LOI2) LOI2)
+(check-expect (sort-loi LOI3) (list I2 I1 I3))
+
+(define (sort-loi loi)
+  (local ((define (smaller? i1 i2)
+            (< (abs (- (inventory-acq-price   i1)
+                       (inventory-sales-price i1)))
+               (abs (- (inventory-acq-price   i2)
+                       (inventory-sales-price i2))))))
+    (sort loi smaller?)))
+
+;; Exercise 269
+
+; Number [List-of Inventory] -> [List-of Inventory]
+; produces a list of all those structures whose sales price is below ua
+(check-expect (eliminate-expensive 16 LOI1) '())
+(check-expect (eliminate-expensive 16 LOI2) '())
+(check-expect (eliminate-expensive 16 LOI3) (list I2 I3))
+
+(define (eliminate-expensive ua loi)
+  (local ((define (below? i)
+            (<= (inventory-sales-price i) ua)))
+    (filter below? loi)))
+
+; String [List-of Inventory] -> [List-of Inventory]
+; produces a list of inventory records that do not use the name ty
+(check-expect (recall "Inv2" LOI1) '())
+(check-expect (recall "Inv1" LOI2) '())
+(check-expect (recall "Inv2" LOI2) (list I1))
+(check-expect (recall "Inv2" LOI3) (list I1 I3))
+
+(define (recall ty loi)
+  (local ((define (not-equals? i)
+            (not (string=? (inventory-name i) ty))))
+    (filter not-equals? loi)))
+
+; [List-of String] [List-of String] -> [List-of String]
+; selects all those from the second one that are also on the first
+(check-expect (selection '() '()) '())
+(check-expect (selection '("A" "B" "C") '()) '())
+(check-expect (selection '() '("A" "B" "C")) '())
+(check-expect (selection '("A" "C" "D") '("A" "B" "C")) '("A" "C"))
+
+(define (selection los1 los2)
+  (local ((define (contains? s)
+            (member? s los2)))
+    (filter contains? los1)))
+
+;; Exercise 270
+
+
+;; =================
+;; Functions:
+
+; Number -> [List-of Number]
+; creates the list (list 0 ... (- n 1)) for any natural number n
+(check-expect (f1 5) '(0 1 2 3 4))
+
+(define (f1 n)
+  (map sub1 (build-list n add1)))
+
+; Number -> [List-of Number]
+; creates the list (list 1 ... n) for any natural number n
+(check-expect (f2 5) '(1 2 3 4 5))
+
+(define (f2 n)
+  (build-list n add1))
+
+; Number -> [List-of Number]
+; creates the list (list 1 1/2 ... 1/n) for any natural number n
+(check-expect (f3 5) '(1/1 1/2 1/3 1/4 1/5))
+
+(define (f3 n)
+  (local ((define (reciprocal n)
+            (/ 1 n)))
+    (map reciprocal (build-list n add1))))
+
+; Number -> [List-of Number]
+; creates the list of the first n even numbers
+(check-expect (f4 5) '(0 2 4 6 8))
+
+(define (f4 n)
+  (local ((define (doubles n)
+            (* n 2)))
+    (build-list n doubles)))
+
+; Number -> [List-of [List-of Number]]
+; creates a diagonal square of 0s and 1s
+(check-expect (f5 3) '((1 0 0)
+                       (0 1 0)
+                       (0 0 1)))
+
+(define (f5 n)
+  (local ((define (identityM i)
+            (numbers n (- n i)))
+          (define (numbers n s)
+            (cond [(zero? n) '()]
+                  [else
+                   (cons (if (= n s) 1 0)
+                         (numbers (sub1 n) s))])))
+    (build-list n identityM)))
+
+; [Number -> X] Number -> [List-of X]
+; tabulates a f function n times
+(check-expect (tabulate add1 5)
+              '(6 5 4 3 2 1))
+(check-expect (tabulate number->string 5)
+              '("5" "4" "3" "2" "1" "0"))
+
+(define (tabulate f n)
+  (reverse (build-list (add1 n) f)))
+
+;; Exercise 271
+
+
+;; =================
+;; Functions:
+
+; String [List-of String] -> Boolean
+; determines whether any of the names on the latter are equal to or an extension of the former
+(check-expect (find-name? "john" '())                  #false)
+(check-expect (find-name? "john" '("marie"))           #false)
+(check-expect (find-name? "john" '("john"))            #true)
+(check-expect (find-name? "john" '("marie" "john"))    #true)
+(check-expect (find-name? "jo"   '("marie" "john"))    #true)
+(check-expect (find-name? "john" '("marie" "johnson")) #true)
+
+(define (find-name? s los)
+  (local ((define (name=? x)
+            (string-contains? s x)))
+    (ormap name=? los)))
+
+; [List-of String] -> Boolean
+; checks all names on a list of names start with the letter "a"
+(check-expect (check-name? '())               #false)
+(check-expect (check-name? '("marie"))        #false)
+(check-expect (check-name? '("arie"))         #true)
+(check-expect (check-name? '("marie" "arie")) #false)
+(check-expect (check-name? '("alf" "arie"))   #true)
+
+(define (check-name? los)
+  (local ((define (check-names los)
+            (cond [(empty? los) #false]
+                  [else
+                   (andmap start-with-a? los)]))
+          (define (start-with-a? s)
+            (string=? "a" (string-ith s 0))))
+    (check-names los)))
+
+; Number [List-of String] -> Boolean
+; ensures that no name on some list exceeds some given width
+(check-expect (exceed-width? 5 '())                        #false)
+(check-expect (exceed-width? 5 '("alf"))                   #false)
+(check-expect (exceed-width? 5 '("alf" "marie"))           #false)
+(check-expect (exceed-width? 5 '("alf" "marie" "johnson")) #true)
+
+(define (exceed-width? n los)
+  (local ((define (larger-n? s)
+            (> (string-length s) n)))
+    (ormap larger-n? los)))
+
+;; Exercise 272
+
+(equal? (append '(1 2 3) '(4 5 6 7 8))
+        '(1 2 3 4 5 6 7 8))
+
+
+;; =================
+;; Functions:
+
+; [List-of Number] [List-of Number] -> [List-of Number]
+; concatenates the items of two lists
+(check-expect (append-from-fold '(1 2 3) '(4 5 6 7 8))
+              '(1 2 3 4 5 6 7 8))
+
+(define (append-from-fold lon1 lon2)
+  (local ((define (append-item i lst)
+            (cons i lst)))
+    (foldr append-item lon2 lon1)))
+
+; [List-of Number] -> Number
+; computes the sum of a list of numbers
+(check-expect (sum '())  0)
+(check-expect (sum '(1)) 1)
+(check-expect (sum '(1 2 3)) 6)
+
+(define (sum lon)
+  (foldr + 0 lon))
+
+; [List-of Number] -> Number
+; computes the product of a list of numbers
+(check-expect (product '())  1)
+(check-expect (product '(1)) 1)
+(check-expect (product '(1 2 3)) 6)
+
+(define (product lon)
+  (foldr * 1 lon))
+
+; [List-of Image] -> Image
+; composes a list of Images horizontally
+(check-expect (compose-images '()) empty-image)
+(check-expect (compose-images (list (circle 5 "solid" "blue")))
+              (circle 5 "solid" "blue"))
+(check-expect (compose-images (list (circle 5 "solid" "blue") (square 10 "solid" "red")))
+              (beside (circle 5 "solid" "blue") (square 10 "solid" "red")))
+
+(define (compose-images loi)
+  (foldr beside empty-image loi))
+
+;; Exercise 273
+
+
+;; =================
+;; Functions:
+
+(define (doubles n) (* n 2))
+
+; [X Y] [X -> Y] [List-of X] -> [List-of Y]
+; maps fn for each item in the list
+(check-expect (map2 doubles '())  '())
+(check-expect (map2 doubles '(1)) '(2))
+(check-expect (map2 doubles '(1 2 3)) '(2 4 6))
+
+(define (map2 fn lox)
+  (local ((define (func x lst)
+            (cons (fn x)
+                  lst)))
+    (foldr func '() lox)))
+
+;; Exercise 274
+
+
+;; =================
+;; Functions:
+
+; [[List-of X] -> [List-of X]] [List-of X] -> [List-of [List-of X]]
+; produces the list of all fixes
+(check-expect (fixes prefixes '())                '())
+(check-expect (fixes prefixes '("a"))             '(("a")))
+(check-expect (fixes prefixes '("a" "b"))         '(("a" "b") ("a")))
+(check-expect (fixes prefixes '("a" "b" "c"))     '(("a" "b" "c") ("a" "b") ("a")))
+(check-expect (fixes prefixes '("a" "b" "c" "d")) '(("a" "b" "c" "d")
+                                                    ("a" "b" "c")
+                                                    ("a" "b")
+                                                    ("a")))
+(check-expect (fixes suffixes '())                '())
+(check-expect (fixes suffixes '("a"))             '(("a")))
+(check-expect (fixes suffixes '("a" "b"))         '(("a" "b") ("b")))
+(check-expect (fixes suffixes '("a" "b" "c"))     '(("a" "b" "c") ("b" "c") ("c")))
+(check-expect (fixes suffixes '("b" "c" "d"))     '(("b" "c" "d")
+                                                    ("c" "d")
+                                                    ("d")))
+
+(define prefixes (lambda (lst) (reverse (rest (reverse lst)))))
+(define suffixes (lambda (lst) (rest lst)))
+
+(define (fixes f lo1s)
+  (cond [(empty? lo1s) '()]
+        [else
+         (cons lo1s
+               (fixes f (f lo1s)))]))
