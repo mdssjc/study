@@ -658,3 +658,47 @@
     (ormap is-one-close? lop)))
 
 (define CLOSENESS 5) ; in terms of pixels
+
+
+
+;; 16.6 - Designing with Abstractions
+
+
+;; =================
+;; Constants:
+
+(define WIDTH  100)
+(define HEIGHT 180)
+(define DOT (circle 4 "solid" "red"))
+(define MT-SCENE (empty-scene WIDTH HEIGHT))
+
+
+;; =================
+;; Functions:
+
+; [List-of Posn] -> Image
+; adds the Posns on lop to the empty scene
+(check-expect (dots (list (make-posn 12 31)))
+              (place-image DOT 12 31 MT-SCENE))
+
+#;
+(define (dots lop)
+  MT-SCENE)
+
+#;
+(define (dots lop)
+  (local (; Posn Image -> Image
+          (define (add-one-dot p scene) ...))
+    (foldr add-one-dot MT-SCENE lop)))
+
+(define (dots lop)
+  (local (; Posn Image -> Image
+          ; adds a DOT at p to scene
+          (define (add-one-dot p scene)
+            (place-image DOT
+                         (posn-x p) (posn-y p)
+                         scene)))
+    (foldr add-one-dot MT-SCENE lop)))
+
+; foldr : [X Y] [X Y -> Y] Y [List-of X] -> Y
+; foldl : [X Y] [X Y -> Y] Y [List-of X] -> Y
