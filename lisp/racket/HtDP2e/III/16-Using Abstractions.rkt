@@ -1583,22 +1583,28 @@
                           (snake-food S0)))
 
 (define (tock s)
-  (make-snake
-   (future-left s)
-   (future-top  s)
-   (snake-direction s)
-   (cond [(eat? (future-left s) (future-top s) (snake-food s))
-          (append (snake-tails s)
-                  (list (make-tail (snake-left s)
-                                   (snake-top  s))))]
-         [(empty? (snake-tails s)) '()]
-         [else (append (rest (snake-tails s))
-                       (list (make-tail (snake-left s)
-                                        (snake-top  s))))])
-   (cond [(eat? (future-left s) (future-top s) (snake-food s))
-          (food-create (make-posn (future-left s)
-                                  (future-top s)))]
-         [else (snake-food s)])))
+  (local (; Number Number Posn -> Boolean
+          ; checks if the distance from the left and top position is near the food position in SIZE
+          (define (eat? l t p)
+            (<= (sqrt (+ (sqr (- (posn-x p) l))
+                         (sqr (- (posn-y p) t))))
+                SIZE)))
+    (make-snake
+     (future-left s)
+     (future-top  s)
+     (snake-direction s)
+     (cond [(eat? (future-left s) (future-top s) (snake-food s))
+            (append (snake-tails s)
+                    (list (make-tail (snake-left s)
+                                     (snake-top  s))))]
+           [(empty? (snake-tails s)) '()]
+           [else (append (rest (snake-tails s))
+                         (list (make-tail (snake-left s)
+                                          (snake-top  s))))])
+     (cond [(eat? (future-left s) (future-top s) (snake-food s))
+            (food-create (make-posn (future-left s)
+                                    (future-top s)))]
+           [else (snake-food s)]))))
 
 ; Snake -> Number
 ; calculates the future value for the left position
@@ -1608,9 +1614,7 @@
 (check-expect (future-left S4) (snake-left S4))
 
 (define (future-left s)
-  (cond [(string=? (snake-direction s) "left")  (- (snake-left s) SIZE)]
-        [(string=? (snake-direction s) "right") (+ (snake-left s) SIZE)]
-        [else (snake-left s)]))
+  (future s "left" "right"))
 
 ; Snake -> Number
 ; calculates the future value for the top position
@@ -1620,23 +1624,14 @@
 (check-expect (future-top S4) (+ (snake-top S4) SIZE))
 
 (define (future-top s)
-  (cond [(string=? (snake-direction s) "up")   (- (snake-top s) SIZE)]
-        [(string=? (snake-direction s) "down") (+ (snake-top s) SIZE)]
+  (future s "up" "down"))
+
+; Snake String String -> Number
+; calculates the future value for the a and b position
+(define (future s a b)
+  (cond [(string=? (snake-direction s) a) (- (snake-top s) SIZE)]
+        [(string=? (snake-direction s) b) (+ (snake-top s) SIZE)]
         [else (snake-top s)]))
-
-; Number Number Posn -> Boolean
-; checks if the distance from the left and top position is near the food position in SIZE
-(check-expect (eat? 0 0 (make-posn 0   0))   #true)
-(check-expect (eat? 0 0 (make-posn 0   10))  #true)
-(check-expect (eat? 0 0 (make-posn 0   -10)) #true)
-(check-expect (eat? 0 0 (make-posn 10  0))   #true)
-(check-expect (eat? 0 0 (make-posn -10 0))   #true)
-(check-expect (eat? 0 0 (make-posn 10  10))  #false)
-
-(define (eat? l t p)
-  (<= (sqrt (+ (sqr (- (posn-x p) l))
-               (sqr (- (posn-y p) t))))
-      SIZE))
 
 ; Snake -> Image
 ; renders the snake on the BACKGROUND-WORM
