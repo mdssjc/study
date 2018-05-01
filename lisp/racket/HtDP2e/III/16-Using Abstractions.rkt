@@ -7,6 +7,8 @@
 
 (require 2htdp/image)
 (require 2htdp/universe)
+(require 2htdp/batch-io)
+(require 2htdp/itunes)
 
 
 ;; 16.1 - Existing Abstractions
@@ -1049,3 +1051,726 @@
         [else
          (cons lo1s
                (fixes f (f lo1s)))]))
+
+
+
+;; 16.8 - Projects: Abstraction
+
+;; Exercise 275
+
+
+;; =================
+;; Constants:
+
+; On OS X: /usr/share/dict/words
+; On LINUX: /usr/share/dict/words or /var/lib/dict/words
+; On WINDOWS: borrow the word file from your Linux friend
+(define LOCATION "/usr/share/dict/words")
+
+
+;; =================
+;; Data definitions:
+
+; A Letter is one of the following 1Strings:
+; - "a"
+; - ...
+; - "z"
+; or, equivalently, a member? of this list:
+
+; A Dictionary is a List-of-strings.
+(define AS-LIST (read-lines LOCATION))
+(define DICTIONARY-EMPTY   '())
+(define DICTIONARY-AS-LIST '("alfa" "eco" "bravo" "erlang" "charlie" "zulu"))
+
+; A LoL is one of:
+; '()
+; (cons Letter LoL)
+; interpretation the list of Letters is a collection of Letter
+(define LETTERS (explode "abcdefghijklmnopqrstuvwxyz"))
+
+; A Letter-Count is one of:
+; '()
+; '(list Letter Number)
+; interpretation the Letter-Count is a piece of data that combines letter and count
+
+; A LoD is one of:
+; - '()
+; - (cons String LoD)
+; interpretation the list of Dictionary is a collection of Dictionary
+
+
+;; =================
+;; Functions:
+
+; Dictionary -> Letter-Count
+; produces the Letter-Count for the letter that is occurs most often
+; as the first one in the given Dictionary
+(check-expect (most-frequent DICTIONARY-EMPTY)   '())
+(check-expect (most-frequent DICTIONARY-AS-LIST) '("e" 2))
+
+(define (most-frequent d)
+  (local (;; LoD -> Letter-Count
+          ;; counts the number of words in the list
+          (define (count-by-letter w)
+            (list (string-ith (first w) 0) (length w)))
+          ;; Letter-Count Letter-Count -> Letter-Count
+          ;; picks the pair with the maximum count
+          (define (most it last)
+            (if (or (empty? last)
+                    (> (second it) (second last)))
+                it
+                last))
+          ;; Trampoline
+          (define (most-frequent d)
+            (foldr most '() (map count-by-letter (words-by-first-letter d)))))
+    (most-frequent d)))
+
+; Dictionary -> LoD
+; produces a list of Dictionarys, one per Letter
+(check-expect (words-by-first-letter DICTIONARY-EMPTY)   '())
+(check-expect (words-by-first-letter DICTIONARY-AS-LIST) '(("alfa")
+                                                           ("bravo")
+                                                           ("charlie")
+                                                           ("eco" "erlang")
+                                                           ("zulu")))
+
+(define (words-by-first-letter d)
+  (local (;; Letter LoD -> LoD
+          ;; merges all words by letter
+          (define (merge l lst)
+            (local ((define (start-with? s)
+                      (string=? l (string-ith s 0)))
+                    (define words (filter start-with? d)))
+              (if (empty? words) lst (cons words lst))))
+          ;; Trampoline
+          (define (words-by-first-letter d)
+            (cond [(empty? d) '()]
+                  (else
+                   (foldr merge '() LETTERS)))))
+    (words-by-first-letter d)))
+
+;; Exercise 276
+
+
+;; =================
+;; Constants:
+
+; modify the following to use your chosen name
+(define ITUNES-LOCATION "itunes.xml")
+
+; LTracks
+; (define itunes-tracks (read-itunes-as-tracks ITUNES-LOCATION))
+
+; LLists
+; (define list-tracks (read-itunes-as-lists ITUNES-LOCATION))
+
+
+;; =================
+;; Data definitions:
+
+; Date
+(define DATE1 (create-date 1 2 3 4 5 6))
+(define DATE2 (create-date 1 2 3 4 5 5))
+(define DATE3 (create-date 6 5 4 3 2 1))
+(define DATE4 (create-date 1 2 3 "four" 5 6))
+
+; Track
+(define TRACK1 (create-track "title A" "two" "three" 4 5 DATE1 7 DATE1))
+(define TRACK2 (create-track "title B" "two" "three" 4 5 DATE3 7 DATE3))
+(define TRACK3 (create-track "title C" "two" "new-three" 4 5 DATE3 7 DATE3))
+(define TRACK4 (create-track "title D" "two" "new-three" 4 5 DATE3 7 DATE3))
+(define TRACK5 (create-track "title A" "two" "three" 4 5 "a date" 7 "another date"))
+
+; LTrack
+(define LTRACK1 '())
+(define LTRACK2 (list TRACK1))
+(define LTRACK3 (list TRACK1 TRACK2))
+(define LTRACK4 (list TRACK1 TRACK2 TRACK1))
+(define LTRACK5 (list TRACK4 TRACK2 TRACK3 TRACK1))
+
+; A List-of-strings is one of:
+; - '()
+; - (cons String List-of-strings)
+; interpretation a list of String values
+
+; A LoLT is one of:
+; - '()
+; - (cons LTracks LoLT)
+; interpretation a collection of LTracks
+
+; Association
+(define A1 (list "Assoc A" "123ABC"))
+(define A2 (list "Assoc B" 5))
+(define A3 (list "Assoc C" 5.5))
+(define A4 (list "Assoc D" (create-date 1 2 3 4 5 6)))
+(define A5 (list "Assoc E" true))
+
+; LAssoc
+(define LASSOC1 '())
+(define LASSOC2 (list A1 A2 A3 A4 A5))
+(define LASSOC3 (list A5 A4 A3 A2 A1))
+
+; LLists
+(define LLIST1 '())
+(define LLIST2 (list LASSOC2 LASSOC3))
+(define LLIST3 (list LASSOC2 LASSOC3 LASSOC1))
+
+
+;; =================
+;; Functions:
+
+; String String Date LTracks -> LTracks
+; extracts from the latter the list of tracks that belong
+; to the given album and have been played after the given date
+(check-expect (select-album-date "title A"  "three" DATE1 LTRACK1) '())
+(check-expect (select-album-date "title A"  "three" DATE3 LTRACK3) (list TRACK1))
+(check-expect (select-album-date "title A"  "three" DATE1 LTRACK3) '())
+(check-expect (select-album-date "title A"  "three" DATE3 LTRACK4) (list TRACK1 TRACK1))
+(check-expect (select-album-date "title A"  "three" DATE1 LTRACK4) '())
+(check-expect (select-album-date "title AB" "three" DATE3 LTRACK3) '())
+
+(define (select-album-date t a d lt)
+  (local (;; Date Date -> Boolean
+          ;; compares if d1 is greater than d2
+          (define (date>? d1 d2)
+            (or (> (date-year   d1) (date-year   d2))
+                (> (date-month  d1) (date-month  d2))
+                (> (date-day    d1) (date-day    d2))
+                (> (date-hour   d1) (date-hour   d2))
+                (> (date-minute d1) (date-minute d2))
+                (> (date-second d1) (date-second d2))))
+          ;; LTracks -> Boolean
+          ;; predicates for track selection
+          (define (predicate? lt)
+            (and (string=? (track-name   lt) t)
+                 (string=? (track-album  lt) a)
+                 (date>?   (track-played lt) d))))
+    (filter predicate? lt)))
+
+; LTracks -> LoLT
+; produce a list of LTracks, one per album
+(check-expect (select-albums LTRACK1) '())
+(check-expect (select-albums LTRACK2) (list (list TRACK1)))
+(check-expect (select-albums LTRACK3) (list (list TRACK1 TRACK2)))
+(check-expect (select-albums LTRACK4) (list (list TRACK1 TRACK2)))
+(check-expect (select-albums LTRACK5) (list (list TRACK4 TRACK3)
+                                            (list TRACK2 TRACK1)))
+
+(define (select-albums lt)
+  (local ((define (duplicates t lst)
+            (if (member? t lst) lst (cons t lst)))
+          (define lts (reverse (foldl duplicates '() lt)))
+          (define (member-t? t lts)
+            (local ((define (member-t? lt)
+                      (member? t lt)))
+              (ormap member-t? lts)))
+          (define (separate t result)
+            (if (member-t? t result)
+                result
+                (cons (local ((define (predicate-ta? pt)
+                                (string=? (track-album t) (track-album pt))))
+                        (filter predicate-ta? lts)) result))))
+    (foldr separate '() lts)))
+
+;; Exercise 277
+
+
+;; =================
+;; Constants:
+
+(define UFO (overlay (rectangle 70 10 "solid" "green")
+                     (circle 20 "solid" "green")))
+(define UFO-X (/ (image-width  UFO) 2))
+(define UFO-Y (/ (image-height UFO) 2))
+(define TANK-HEIGHT 20)
+(define TANK     (rectangle 50 TANK-HEIGHT "solid" "blue"))
+(define MISSILE  (triangle 10 "solid" "red"))
+(define WIDTH-UFO  400)
+(define HEIGHT-UFO 300)
+(define CLOSE (/ HEIGHT-UFO 3))
+(define BACKGROUND (empty-scene WIDTH-UFO HEIGHT-UFO))
+
+
+;; =================
+;; Data definitions:
+
+; An UFO is a Posn:
+;   (make-posn Natural Natural)
+; interpretation (make-posn x y) is the UFO's location
+; (using the top-down, left-to-right convention)
+(define U1 (make-posn 10 20))
+
+(define-struct tank [loc vel])
+; A Tank is a structure:
+;   (make-tank Number Number)
+; interpretation (make-tank x dx) specifies the position:
+; (x, HEIGHT-UFO) and the tank's speed: dx pixels/tick
+(define T-0L (make-tank 0 -1))               ; Tank 0 Left
+(define T-0R (make-tank 0 1))                ; Tank 0 Right
+(define T-ML (make-tank (/ WIDTH-UFO 2) -1)) ; Tank Middle Left
+(define T-MR (make-tank (/ WIDTH-UFO 2)  1)) ; Tank Middle Right
+(define T-WL (make-tank WIDTH-UFO -1))       ; Tank Width Left
+(define T-WR (make-tank WIDTH-UFO  1))       ; Tank Width Right
+
+; A Missile is a Posn:
+;   (make-posn Natural Natural)
+; interpretation (make-posn x y) is the Missile's location
+; (using the top-down, left-to-right convention)
+(define M1 (make-posn 10 50))
+(define M2 (make-posn 50 20))
+
+; A [List-of Missile] is one of:
+; '()
+; (cons Missile [List-of Missile])
+; interpretation represents the missiles launched
+(define LOM1 '())
+(define LOM2 (list M1 M2))
+
+(define-struct sigs [ufo tank missiles])
+; A SIGS is a structure:
+;   (make-sigs UFO Tank [List-of Missile])
+; interpretation represents the complete state of a space invader game
+(define SIGS1 (make-sigs U1 T-MR LOM1))
+(define SIGS2 (make-sigs U1 T-MR LOM2))
+(define SIGS3 (make-sigs (make-posn 10 20)
+                         (make-tank 28 -3)
+                         (list (make-posn 32 (- HEIGHT-UFO TANK-HEIGHT 10)))))
+(define SIGS4 (make-sigs (make-posn 20 100)
+                         (make-tank 100 3)
+                         (list (make-posn 22 120))))
+(define SIGS5 (make-sigs (make-posn 10 (- HEIGHT-UFO CLOSE))
+                         (make-tank 28 -3)
+                         '()))
+
+
+;; =================
+;; Functions:
+
+; SIGS -> World
+; starts a world with (main SIGS1)
+(define (main s)
+  (big-bang s
+            (on-tick   si-move)
+            (on-draw   si-render)
+            (on-key    si-control)
+            (stop-when si-game-over?)))
+
+; SIGS -> SIGS
+; updates the position of objects
+(define (si-move s)
+  (local (;; UFO Number -> UFO
+          ;; updates the position of UFO
+          (define (update-ufo u)
+            (make-posn (random (+ (posn-x u) (image-width UFO)))
+                       (add1 (posn-y u))))
+          ;; Tank -> Tank
+          ;; updates the position of Tank
+          (define (update-tank t)
+            (local ((define sum-loc-vel (+ (tank-loc t) (tank-vel t))))
+              (make-tank (cond [(<   sum-loc-vel 0) 0]
+                               [(>   sum-loc-vel WIDTH-UFO) WIDTH-UFO]
+                               [else sum-loc-vel])
+                         (tank-vel t))))
+          ;; Missile -> Missile
+          ;; updates the position of missile
+          (define (update-missile m)
+            (make-posn (posn-x m) (sub1 (posn-y m)))))
+    (make-sigs (update-ufo         (sigs-ufo s))
+               (update-tank        (sigs-tank s))
+               (map update-missile (sigs-missiles s)))))
+
+; SIGS -> Image
+; renders the given game state on top of BACKGROUND
+(check-expect (si-render SIGS1)
+              (place-image UFO (posn-x (sigs-ufo SIGS1)) (posn-y (sigs-ufo SIGS1))
+                           (place-image TANK (tank-loc (sigs-tank SIGS1)) HEIGHT-UFO BACKGROUND)))
+(check-expect (si-render SIGS2)
+              (place-image UFO (posn-x (sigs-ufo SIGS2)) (posn-y (sigs-ufo SIGS2))
+                           (place-image TANK (tank-loc (sigs-tank SIGS2)) HEIGHT-UFO
+                                        (place-image MISSILE (posn-x (first (sigs-missiles SIGS2))) (posn-y (first (sigs-missiles SIGS2)))
+                                                     (place-image MISSILE (posn-x (second (sigs-missiles SIGS2))) (posn-y (second (sigs-missiles SIGS2))) BACKGROUND)))))
+
+(define (si-render s)
+  (local (;; UFO Image -> Image
+          ;; adds u to the given image im
+          (define (ufo-render u im)
+            (place-image UFO (posn-x u) (posn-y u) im))
+          ; Tank Image -> Image
+          ; adds t to the given image im
+          (define (tank-render t im)
+            (place-image TANK (tank-loc t) HEIGHT-UFO im))
+          ; Missile Image -> Image
+          ; adds m to the given image im
+          (define (missile-render m im)
+            (place-image MISSILE (posn-x m) (posn-y m) im)))
+    (ufo-render (sigs-ufo s)
+                (tank-render (sigs-tank s)
+                             (foldr missile-render BACKGROUND (sigs-missiles s))))))
+
+; SIGS KeyEvent -> SIGS
+; handles the main events:
+; - pressing the left arrow ensures that the tank moves left;
+; - pressing the right arrow ensures that the tank moves right; and
+; - pressing the space bar fires a new missile.
+(check-expect (si-control SIGS1 "up") SIGS1)
+(check-expect (si-control SIGS1 "left")
+              (make-sigs (sigs-ufo SIGS1)
+                         (make-tank (tank-loc (sigs-tank SIGS1))
+                                    (* -1 (tank-vel (sigs-tank SIGS1))))
+                         (sigs-missiles SIGS1)))
+(check-expect (si-control SIGS1 "right")
+              (make-sigs (sigs-ufo SIGS1)
+                         (make-tank (tank-loc (sigs-tank SIGS1))
+                                    (tank-vel (sigs-tank SIGS1)))
+                         (sigs-missiles SIGS1)))
+(check-expect (si-control SIGS1 " ")
+              (make-sigs (sigs-ufo SIGS1)
+                         (sigs-tank SIGS1)
+                         (list (make-posn (tank-loc (sigs-tank SIGS1))
+                                          (- HEIGHT-UFO TANK-HEIGHT)))))
+
+(define (si-control s ke)
+  (local ((define tank (sigs-tank s))
+          (define tank-location (tank-loc tank))
+          (define tank-velocity (tank-vel tank))
+          ;; Number -> Tank
+          ;; changes the speed direction of tank
+          (define (tank-direction d)
+            (make-tank tank-location (* d (abs tank-velocity))))
+          ;; [List-of Missile] -> [List-of Missile]
+          ;; fires a missile at the coordinate: x and (- HEIGHT-UFO TANK-HEIGHT)
+          (define (missiles-fire x lom)
+            (append lom (cons (make-posn x (- HEIGHT-UFO TANK-HEIGHT)) '())))
+          ;; Trampoline
+          (define (si-control s ke)
+            (make-sigs (sigs-ufo s)
+                       (cond [(key=? ke "left")  (tank-direction -1)]
+                             [(key=? ke "right") (tank-direction  1)]
+                             [else
+                              (sigs-tank s)])
+                       (cond [(key=? ke " ")
+                              (missiles-fire tank-location (sigs-missiles s))]
+                             [else
+                              (sigs-missiles s)]))))
+    (si-control s ke)))
+
+; SIGS -> Boolean
+; returns true when the game stop;
+; the game stops if the UFO lands or if the missile hits the UFO
+(check-expect (si-game-over? SIGS1) #false)
+(check-expect (si-game-over? SIGS2) #false)
+(check-expect (si-game-over? SIGS3) #false)
+(check-expect (si-game-over? SIGS4) #true)
+(check-expect (si-game-over? SIGS5) #true)
+
+(define (si-game-over? s)
+  (local (;; [List-of Missile] UFO -> Boolean
+          ;; checks if any missiles hit the UFO
+          (define (hit-missile? lom u)
+            (cond [(empty? lom) #false]
+                  [(and (<= (- (posn-x u) UFO-X)
+                            (posn-x (first lom))
+                            (+ (posn-x u) UFO-X))
+                        (<= (- (posn-y u) UFO-Y)
+                            (posn-y (first lom))
+                            (+ (posn-y u) UFO-Y))) #true]
+                  [else
+                   (hit-missile? (rest lom) u)])))
+    (cond [(>= (posn-y (sigs-ufo s))
+               (- HEIGHT-UFO CLOSE)) #true]
+          [else
+           (hit-missile? (sigs-missiles s) (sigs-ufo s))])))
+
+;; Exercise 278
+
+
+;; =================
+;; Constants:
+
+(define SIZE 10)
+(define SEGMENT (circle (/ SIZE 2) "solid" "red"))
+(define FOOD    (circle (/ SIZE 2) "solid" "green"))
+(define WIDTH-WORM  600)
+(define HEIGHT-WORM 400)
+(define BACKGROUND-WORM (empty-scene WIDTH-WORM HEIGHT-WORM))
+
+
+;; =================
+;; Data definitions:
+
+; A Direction is one of:
+; - "left"
+; - "up"
+; - "right"
+; - "down"
+; interpretation these strings represent the directions on the screen
+
+(define-struct tail (left top))
+; A Tail is a structure:
+;   (make-tail Number Number)
+; interpretation (make-tail l t) represents a position left l and top t
+
+; A Tails is one of:
+; '()
+; '(cons Tail Tails)
+; interpretation represents the tail of the snake
+
+(define-struct snake (left top direction tails food))
+; A Snake is a structure:
+;   (make-snake Number Number Direction Tails Posn)
+; interpretation (make-snake l t d t f) represents a position left l and top t;
+; the direction of movement d, the tails t and the food f position
+(define S0 (make-snake (/ WIDTH-WORM 2) (/ HEIGHT-WORM 2) "down" '() (make-posn 100 10)))
+(define S1 (make-snake 10 10 "left"  '() null))
+(define S2 (make-snake 10 10 "up"    '() null))
+(define S3 (make-snake 10 10 "right" '() null))
+(define S4 (make-snake 10 10 "down"  '() null))
+(define S5 (make-snake 10 10 "down"   (list (make-tail 0  0)
+                                            (make-tail 10 0))
+                       (make-posn 10 50)))
+(define S6 (make-snake 10 10 "up" (list (make-tail 10 10)
+                                        (make-tail 20 10)
+                                        (make-tail 20 20)
+                                        (make-tail 10 20))
+                       null))
+(define S7 (make-snake 10 10 "down" (list (make-tail 0  0)
+                                          (make-tail 10 0))
+                       (make-posn 10 20)))
+(define S8 (make-snake 10 10 "down" '() (make-posn 10 20)))
+(define SM S0)
+
+
+;; =================
+;; Functions:
+
+; Snake -> Snake
+; starts a world with (worm-main SM)
+(define (worm-main s)
+  (big-bang s
+            (on-tick tock 1)
+            (to-draw render)
+            (on-key  event)
+            (stop-when game-over? game-over)))
+
+; Snake -> Snake
+; updates the position of the snake with the current direction
+(check-expect (tock S5)
+              (make-snake (future-left S5)
+                          (future-top S5)
+                          (snake-direction S5)
+                          (list (make-tail 10 0)
+                                (make-tail 10 10))
+                          (snake-food S5)))
+(check-random (tock S7)
+              (make-snake (future-left S7)
+                          (future-top S7)
+                          (snake-direction S7)
+                          (list (make-tail 0  0)
+                                (make-tail 10 0)
+                                (make-tail 10 10))
+                          (food-create (make-posn (future-left S7) (future-top S7)))))
+(check-random (tock S8)
+              (make-snake (future-left S8)
+                          (future-top S8)
+                          (snake-direction S8)
+                          (list (make-tail 10 10))
+                          (food-create (make-posn (future-left S8) (future-top S8)))))
+(check-expect (tock S0)
+              (make-snake (future-left S0)
+                          (future-top S0)
+                          (snake-direction S0)
+                          '()
+                          (snake-food S0)))
+
+(define (tock s)
+  (make-snake
+   (future-left s)
+   (future-top  s)
+   (snake-direction s)
+   (cond [(eat? (future-left s) (future-top s) (snake-food s))
+          (append (snake-tails s)
+                  (list (make-tail (snake-left s)
+                                   (snake-top  s))))]
+         [(empty? (snake-tails s)) '()]
+         [else (append (rest (snake-tails s))
+                       (list (make-tail (snake-left s)
+                                        (snake-top  s))))])
+   (cond [(eat? (future-left s) (future-top s) (snake-food s))
+          (food-create (make-posn (future-left s)
+                                  (future-top s)))]
+         [else (snake-food s)])))
+
+; Snake -> Number
+; calculates the future value for the left position
+(check-expect (future-left S1) (- (snake-left S1) SIZE))
+(check-expect (future-left S2) (snake-left S2))
+(check-expect (future-left S3) (+ (snake-left S3) SIZE))
+(check-expect (future-left S4) (snake-left S4))
+
+(define (future-left s)
+  (cond [(string=? (snake-direction s) "left")  (- (snake-left s) SIZE)]
+        [(string=? (snake-direction s) "right") (+ (snake-left s) SIZE)]
+        [else (snake-left s)]))
+
+; Snake -> Number
+; calculates the future value for the top position
+(check-expect (future-top S1) (snake-top S1))
+(check-expect (future-top S2) (- (snake-top S2) SIZE))
+(check-expect (future-top S3) (snake-top S3))
+(check-expect (future-top S4) (+ (snake-top S4) SIZE))
+
+(define (future-top s)
+  (cond [(string=? (snake-direction s) "up")   (- (snake-top s) SIZE)]
+        [(string=? (snake-direction s) "down") (+ (snake-top s) SIZE)]
+        [else (snake-top s)]))
+
+; Number Number Posn -> Boolean
+; checks if the distance from the left and top position is near the food position in SIZE
+(check-expect (eat? 0 0 (make-posn 0   0))   #true)
+(check-expect (eat? 0 0 (make-posn 0   10))  #true)
+(check-expect (eat? 0 0 (make-posn 0   -10)) #true)
+(check-expect (eat? 0 0 (make-posn 10  0))   #true)
+(check-expect (eat? 0 0 (make-posn -10 0))   #true)
+(check-expect (eat? 0 0 (make-posn 10  10))  #false)
+
+(define (eat? l t p)
+  (<= (sqrt (+ (sqr (- (posn-x p) l))
+               (sqr (- (posn-y p) t))))
+      SIZE))
+
+; Snake -> Image
+; renders the snake on the BACKGROUND-WORM
+(define (render s)
+  (place-image FOOD
+               (+ (posn-x (snake-food s)) (/ SIZE 2))
+               (+ (posn-y (snake-food s)) (/ SIZE 2))
+               (place-image SEGMENT
+                            (+ (snake-left s) (/ SIZE 2))
+                            (+ (snake-top s)  (/ SIZE 2))
+                            (render-tails (snake-tails s)))))
+
+; Tails -> Image
+; renders the tails on the BACKGROUND-WORM
+(define (render-tails t)
+  (cond [(empty? t) BACKGROUND-WORM]
+        [else (place-image SEGMENT
+                           (+ (tail-left (first t)) (/ SIZE 2))
+                           (+ (tail-top (first t)) (/ SIZE 2))
+                           (render-tails (rest t)))]))
+
+; Snake KeyEvent -> Snake
+; updates the direction of snake with Direction
+(check-expect (event S1 " ")     S1)
+(check-expect (event S1 "left")  S1)
+(check-expect (event S1 "up")    S2)
+(check-expect (event S1 "right") S3)
+(check-expect (event S1 "down")  S4)
+(check-expect (event S7 "up")    S7)
+
+(define (event s ke)
+  (make-snake (snake-left s)
+              (snake-top s)
+              (cond [(and (not (empty? (snake-tails s)))
+                          (or (and (key=? ke "left")
+                                   (string=? (snake-direction s) "right"))
+                              (and (key=? ke "right")
+                                   (string=? (snake-direction s) "left"))
+                              (and (key=? ke "up")
+                                   (string=? (snake-direction s) "down"))
+                              (and (key=? ke "down")
+                                   (string=? (snake-direction s) "up"))))
+                     (snake-direction s)]
+                    [(or (key=? ke "left")
+                         (key=? ke "up")
+                         (key=? ke "right")
+                         (key=? ke "down")) ke]
+                    [else (snake-direction s)])
+              (snake-tails s)
+              (snake-food  s)))
+
+; Snake -> Boolean
+; stops if the snake has run into the walls of the world
+(check-expect (hit-border? (make-snake 0  10 "left"  '() null)) #true)
+(check-expect (hit-border? (make-snake 0  10 "up"    '() null)) #false)
+(check-expect (hit-border? (make-snake 0  10 "right" '() null)) #false)
+(check-expect (hit-border? (make-snake 0  10 "down"  '() null)) #false)
+(check-expect (hit-border? (make-snake 10 0 "up"     '() null)) #true)
+(check-expect (hit-border? (make-snake 10 0 "right"  '() null)) #false)
+(check-expect (hit-border? (make-snake 10 0 "down"   '() null)) #false)
+(check-expect (hit-border? (make-snake 10 0 "left"   '() null)) #false)
+(check-expect (hit-border? (make-snake (- WIDTH-WORM SIZE) 10 "right"  '() null)) #true)
+(check-expect (hit-border? (make-snake (- WIDTH-WORM SIZE) 10 "down"   '() null)) #false)
+(check-expect (hit-border? (make-snake (- WIDTH-WORM SIZE) 10 "left"   '() null)) #false)
+(check-expect (hit-border? (make-snake (- WIDTH-WORM SIZE) 10 "up"     '() null)) #false)
+(check-expect (hit-border? (make-snake 10 (- HEIGHT-WORM SIZE) "down"  '() null)) #true)
+(check-expect (hit-border? (make-snake 10 (- HEIGHT-WORM SIZE) "left"  '() null)) #false)
+(check-expect (hit-border? (make-snake 10 (- HEIGHT-WORM SIZE) "up"    '() null)) #false)
+(check-expect (hit-border? (make-snake 10 (- HEIGHT-WORM SIZE) "right" '() null)) #false)
+(check-expect (hit-border? S1) #false)
+(check-expect (hit-border? S6) #true)
+
+(define (hit-border? s)
+  (or (and (= (snake-left s) 0)
+           (string=? (snake-direction s) "left"))
+      (and (= (snake-top s)  0)
+           (string=? (snake-direction s) "up"))
+      (and (= (snake-left s) (- WIDTH-WORM SIZE))
+           (string=? (snake-direction s) "right"))
+      (and (= (snake-top s)  (- HEIGHT-WORM SIZE))
+           (string=? (snake-direction s) "down"))
+      (member? (make-tail (snake-left s) (snake-top s)) (snake-tails s))))
+
+; Snake -> Boolean
+; stops if the snake has run into itself
+(check-expect (hit-itself? S1) #false)
+(check-expect (hit-itself? S5) #false)
+(check-expect (hit-itself? S6) #false)
+(check-expect (hit-itself? S6) #false)
+(check-expect (hit-itself? (make-snake 0 0 "down" (list (make-tail 0  0)
+                                                        (make-tail 10 0)
+                                                        (make-tail 10 10)
+                                                        (make-tail 0  10)
+                                                        (make-tail 0  0))
+                                       null))
+              #true)
+
+(define (hit-itself? s)
+  (cond [(empty? (snake-tails s)) #false]
+        [else
+         (member? (first (snake-tails s))
+                  (rest  (snake-tails s)))]))
+
+; Snake -> Boolean
+; stops if the snake has run into the walls of the world or itself
+(define (game-over? s)
+  (or (hit-border? s)
+      (hit-itself? s)))
+
+; Snake -> Image
+; renders the game over message on the last render
+(define (game-over s)
+  (place-image
+   (text (if (hit-itself? s)
+             "worm hit itself"
+             "worm hit the wall")
+         12 "black")
+   50 (- HEIGHT-WORM 10)
+   (render s)))
+
+; Posn -> Posn
+; creates a food randomly between WIDTH-WORM and HEIGHT-WORM
+(check-satisfied (food-create (make-posn 1 1)) not-equal-1-1?)
+
+(define (food-create p)
+  (food-check-create p (make-posn (random WIDTH-WORM) (random HEIGHT-WORM))))
+
+; Posn Posn -> Posn
+; generative recursion
+; checks if the food exists, otherwise it creates a new food
+(define (food-check-create p candidate)
+  (if (equal? p candidate) (food-create p) candidate))
+
+; Posn -> Boolean
+; use for testing only
+(define (not-equal-1-1? p)
+  (not (and (= (posn-x p) 1) (= (posn-y p) 1))))
