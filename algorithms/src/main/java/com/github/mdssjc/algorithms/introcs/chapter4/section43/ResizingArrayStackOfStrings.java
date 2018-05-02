@@ -17,7 +17,6 @@ public class ResizingArrayStackOfStrings {
   private String[] items = new String[1];
   private int n = 0;
 
-
   public boolean isEmpty() {
     return (this.n == 0);
   }
