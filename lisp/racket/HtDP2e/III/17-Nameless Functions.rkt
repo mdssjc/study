@@ -5,6 +5,7 @@
 ;; III - Abstraction
 ;; 17  - Nameless Functions
 
+(require 2htdp/image)
 
 
 (define-struct ir [name price])
@@ -24,3 +25,79 @@
     (filter acceptable? l)))
 (define (find l th)
   (filter (lambda (ir) (<= (ir-price ir) th)) l))
+
+
+
+;; 17.1 - Functions from lambda
+
+;; Exercise 279
+
+(lambda (x y) (x y y))
+((lambda (x y) (x y y)) + 1)
+
+;(lambda () 10)
+
+(lambda (x) x)
+((lambda (x) x) 2)
+
+(lambda (x y) x)
+((lambda (x y) x) 2 1)
+
+;(lambda x 10)
+
+;; Exercise 280
+
+(check-expect ((lambda (x y) (+ x (* x y)))
+               1 2)
+              3)
+
+(check-expect ((lambda (x y)
+                 (+ x
+                    (local ((define z (* y y)))
+                      (+ (* 3 z) (/ 1 x)))))
+               1 2)
+              14)
+
+(check-expect ((lambda (x y)
+                 (+ x
+                    ((lambda (z)
+                       (+ (* 3 z) (/ 1 z)))
+                     (* y y))))
+               1 2)
+              53/4)
+
+;; Exercise 281
+
+; consumes a number and decides whether it is less than 10
+(define lambda1 (lambda (n) (< n 10)))
+
+(check-expect (lambda1 5)  #true)
+(check-expect (lambda1 20) #false)
+
+; multiplies two given numbers and turns the result into a string
+(define lambda2 (lambda (x y) (number->string (* x y))))
+
+(check-expect (lambda2 2 5) "10")
+
+; consumes a natural number and produces 0 if it is even and 1 if odd
+(define lambda3 (lambda (n) (if (odd? n) 1 0)))
+
+(check-expect (lambda3 2) 0)
+(check-expect (lambda3 3) 1)
+
+; consumes two inventory records and compares them by price
+(define lambda4 (lambda (c ir1 ir2)
+                  (if (c (ir-price ir1) (ir-price ir2))
+                      (ir-price ir1)
+                      (ir-price ir2))))
+
+(check-expect (lambda4 > (make-ir "TV" 123) (make-ir "Radio" 23)) 123)
+(check-expect (lambda4 < (make-ir "TV" 123) (make-ir "Radio" 23)) 23)
+
+; adds a red dot at a given Posn to a given Image
+(define MTS (rectangle 10 10 "outline" "black"))
+
+(define lambda5 (lambda (p) (place-image (circle 2 "solid" "red") (posn-x p) (posn-y p) MTS)))
+
+(check-expect (lambda5 (make-posn 5 5))
+              (place-image (circle 2 "solid" "red") 5 5 MTS))
