@@ -41,8 +41,7 @@ public class ResizingArrayStackOfStrings {
     final String item = this.items[--this.n];
     this.items[this.n] = null;
     if (this.n > 0 && this.n == this.items.length / 4) {
-      resize(
-          this.items.length / 2);
+      resize(this.items.length / 2);
     }
     return item;
   }
