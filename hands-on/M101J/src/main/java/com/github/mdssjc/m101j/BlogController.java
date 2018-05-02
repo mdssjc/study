@@ -147,7 +147,7 @@ public class BlogController {
           SimpleHash root = new SimpleHash();
 
           root.put("post", post);
-          root.put("comments", newComment);
+          root.put("comment", newComment);
 
           template.process(root, writer);
         }
@@ -324,7 +324,7 @@ public class BlogController {
           comment.put("name", name);
           comment.put("email", email);
           comment.put("body", body);
-          root.put("comments", comment);
+          root.put("comment", comment);
           root.put("post", post);
           root.put("errors",
                    "Post must contain your name and an actual comment");
@@ -408,6 +408,33 @@ public class BlogController {
         }
 
         template.process(root, writer);
+      }
+    });
+
+    // will allow a user to click Like on a post
+    post("/like", new FreemarkerBasedRoute("entry_template.ftl") {
+      @Override
+      protected void doHandle(Request request, Response response, Writer writer)
+          throws IOException, TemplateException {
+        String permalink = request.queryParams("permalink");
+        String commentOrdinalStr = request.queryParams("comment_ordinal");
+
+        // look up the post in question
+        int ordinal = Integer.parseInt(commentOrdinalStr);
+
+        // TODO: check return or have checkSession throw
+        String username = sessionDAO.findUserNameBySessionId(getSessionCookie(request));
+        Document post = blogPostDAO.findByPermalink(permalink);
+
+        //  if post not found, redirect to post not found error
+        if (post == null) {
+          response.redirect("/post_not_found");
+        }
+        else {
+          blogPostDAO.likePost(permalink, ordinal);
+
+          response.redirect("/post/" + permalink);
+        }
       }
     });
 

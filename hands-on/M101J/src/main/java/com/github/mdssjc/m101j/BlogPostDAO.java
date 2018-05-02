@@ -9,7 +9,6 @@ import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class BlogPostDAO {
@@ -23,6 +22,16 @@ public class BlogPostDAO {
   public Document findByPermalink(String permalink) {
     Document post = postsCollection.find(Filters.eq("permalink", permalink))
                                    .first();
+
+    // fix up if a post has no likes
+    if (post != null) {
+      List<Document> comments = (List<Document>) post.get("comments");
+      for (Document comment : comments) {
+        if (!comment.containsKey("num_likes")) {
+          comment.put("num_likes", 0);
+        }
+      }
+    }
 
     return post;
   }
@@ -49,10 +58,10 @@ public class BlogPostDAO {
     permalink = permalink.replaceAll("\\W", ""); // get rid of non alphanumeric
     permalink = permalink.toLowerCase();
 
-    String permLinkExtra = String.valueOf(GregorianCalendar
-                                              .getInstance()
-                                              .getTimeInMillis());
-    permalink += permLinkExtra;
+//    String permLinkExtra = String.valueOf(GregorianCalendar
+//                                              .getInstance()
+//                                              .getTimeInMillis());
+//    permalink += permLinkExtra;
 
     Document post = new Document("title", title);
     post.append("author", username);
@@ -83,5 +92,12 @@ public class BlogPostDAO {
 
     postsCollection.updateOne(Filters.eq("permalink", permalink),
                               Updates.push("comments", comment));
+  }
+
+  public void likePost(final String permalink, final int ordinal) {
+    postsCollection.updateOne(
+        Filters.eq("permalink", permalink),
+        new Document("$inc",
+                     new Document("comments." + ordinal + ".num_likes", 1)));
   }
 }
