@@ -739,7 +739,7 @@
 ; converts a list of Fahrenheit measurements to a list of Celsius measurements
 (check-expect (convertFC '()) '())
 (check-within (convertFC '(0 10 20 30 40 50))
-              (list -17.78 -12.22 -6.67 -1.11 4.44 10) 0.01)
+              '(-17.78 -12.22 -6.67 -1.11 4.44 10) 0.01)
 
 (define (convertFC lon)
   (local ((define (fahrenheit->celsius f)
@@ -750,7 +750,7 @@
 ; translates a list of Posns into a list of list of pairs of numbers
 (check-expect (translate '()) '())
 (check-expect (translate (list (make-posn 1 2) (make-posn 5 3) (make-posn 9 6)))
-              (list '(1 2) '(5 3) '(9 6)))
+              '((1 2) (5 3) (9 6)))
 
 (define (translate lop)
   (local ((define (posn->list p)
