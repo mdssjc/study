@@ -101,3 +101,56 @@
 
 (check-expect (lambda5 (make-posn 5 5))
               (place-image (circle 2 "solid" "red") 5 5 MTS))
+
+
+
+;; 17.2 - Computing with lambda
+
+;; Exercise 282
+
+(define (f-plain x)
+  (* 10 x))
+
+(define f-lambda
+  (lambda (x)
+    (* 10 x)))
+
+; Number -> Boolean
+(define (compare x)
+  (= (f-plain x) (f-lambda x)))
+
+(compare (random 100000))
+
+;; Exercise 283
+
+(define th 20)
+
+
+(map (lambda (x) (* 10 x))
+     '(1 2 3))
+
+(foldl (lambda (name rst)
+         (string-append name ", " rst))
+       "etc."
+       '("Matthew" "Robby"))
+
+(filter (lambda (ir) (<= (ir-price ir) th))
+        (list (make-ir "bear" 10)
+              (make-ir "doll" 33)))
+
+;; Exercise 284
+
+((lambda (x) x) (lambda (x) x))
+(((lambda (x) x)
+  (lambda (x) x))
+ 10)
+
+((lambda (x) (x x)) (lambda (x) x))
+(((lambda (x) (x x))
+  (lambda (x) x))
+ 10)
+
+; Indirect self-reference
+#;
+((lambda (x) (x x))
+ (lambda (x) (x x)))
