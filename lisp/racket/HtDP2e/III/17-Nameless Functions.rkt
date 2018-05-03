@@ -154,3 +154,138 @@
 #;
 ((lambda (x) (x x))
  (lambda (x) (x x)))
+
+
+
+;; 17.3 - Abstracting with lambda
+
+
+;; =================
+;; Functions:
+
+; [List-of Posn] -> [List-of Posn]
+; adds 3 to each x-coordinate on the given list
+(check-expect (add-3-to-all (list (make-posn 3 1) (make-posn 0 0)))
+              (list (make-posn 6 1) (make-posn 3 0)))
+
+(define (add-3-to-all lop)
+  (map (lambda (p)
+         (make-posn (+ (posn-x p) 3) (posn-y p)))
+       lop))
+
+; [List-of Posn] -> [List-of Posn]
+; eliminates Posns whose y-coordinate is > 100
+(check-expect (keep-good (list (make-posn 0 110) (make-posn 0 60)))
+              (list (make-posn 0 60)))
+
+(define (keep-good lop)
+  (filter (lambda (p) (<= (posn-y p) 100)) lop))
+
+; Posn Posn Number -> Boolean
+; is the distance between p and q less than d
+(define (close-to p q d)
+  (<= (sqrt (+ (sqr (- (posn-x q) (posn-x p)))
+               (sqr (- (posn-y q) (posn-y p)))))
+      d))
+
+; [List-of Posn] Posn -> Boolean
+; is any Posn on lop close to pt
+(check-expect (close? (list (make-posn 47 54) (make-posn 0 60)) (make-posn 50 50))
+              #true)
+
+(define (close? lop pt)
+  (ormap (lambda (p) (close-to p pt CLOSENESS))
+         lop))
+
+(define CLOSENESS 5) ; in terms of pixels
+
+;; Exercise 285
+
+
+;; =================
+;; Constants:
+
+(define US-DOLLAR-RATE 1.06)
+
+
+;; =================
+;; Functions:
+
+; [List-of Number] -> [List-of Number]
+; converts a list of US$ amounts into a list of € amounts
+; based on an exchange rate of US$ US-DOLLAR-RATE per €
+(check-expect (convert-euro '()) '())
+(check-expect (convert-euro '(1.00 5.00 12.34))
+              (list (* 1.00  US-DOLLAR-RATE)
+                    (* 5.00  US-DOLLAR-RATE)
+                    (* 12.34 US-DOLLAR-RATE)))
+
+(define (convert-euro lon)
+  (map (lambda (n)
+         (* n US-DOLLAR-RATE))
+       lon))
+
+; [List-of Number] -> [List-of Number]
+; converts a list of Fahrenheit measurements to a list of Celsius measurements
+(check-expect (convertFC '()) '())
+(check-within (convertFC '(0 10 20 30 40 50))
+              '(-17.78 -12.22 -6.67 -1.11 4.44 10) 0.01)
+
+(define (convertFC lon)
+  (map (lambda (f)
+         (/ (- f 32) 1.8))
+       lon))
+
+; [List-of Posn] -> [List-of [List-of Number]]
+; translates a list of Posns into a list of list of pairs of numbers
+(check-expect (translate '()) '())
+(check-expect (translate (list (make-posn 1 2) (make-posn 5 3) (make-posn 9 6)))
+              '((1 2) (5 3) (9 6)))
+
+(define (translate lop)
+  (map (lambda (p)
+         (list (posn-x p) (posn-y p)))
+       lop))
+
+;; Exercise 286
+
+
+;; =================
+;; Data definitions:
+
+(define-struct inventory [name description acq-price sales-price])
+; An Inventory is a structure:
+;   (make-inventory String String Number Number)
+; interpretation (make-inventory n d ap sp) specifies
+;   n: the name of an item;
+;   d: a description;
+;  ap: the acquisition price; and
+;  sp: the recommended sales price
+(define I1 (make-inventory "Inv1" "Description 1" 12.1 15.8))
+(define I2 (make-inventory "Inv2" "Description 2" 14.1 15.8))
+(define I3 (make-inventory "Inv3" "Description 3" 10.1 15.8))
+
+; [List-of Inventory] is one of:
+; - '()
+; - (cons Inventory [List-of Inventory])
+; interpretation is a list of inventories
+(define LOI1 '())
+(define LOI2 (list I1))
+(define LOI3 (list I1 I2 I3))
+
+
+;; =================
+;; Functions:
+
+; [List-of Inventory] -> [List-of Inventory]
+; sorts a list of inventory records by the difference between the two prices
+(check-expect (sort-loi LOI1) '())
+(check-expect (sort-loi LOI2) LOI2)
+(check-expect (sort-loi LOI3) (list I2 I1 I3))
+
+(define (sort-loi loi)
+  (sort loi (lambda (i1 i2)
+              (< (abs (- (inventory-acq-price i1)
+                         (inventory-sales-price i1)))
+                 (abs (- (inventory-acq-price i2)
+                         (inventory-sales-price i2)))))))
