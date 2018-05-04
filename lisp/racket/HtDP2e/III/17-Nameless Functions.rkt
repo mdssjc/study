@@ -503,3 +503,66 @@
   (foldr (lambda (x lst)
            (cons (fn x) lst))
          '() lox))
+
+
+
+;; 17.4 - Specifying with lambda
+
+; [X] [List-of X] [X X -> Boolean] -> [List-of X]
+; sorts alon0 according to cmp
+;; (check-expect (sort-cmp '("c" "b") string<?) '("b" "c"))
+;; (check-expect (sort-cmp '(2 1 3 4 6 5) <)    '(1 2 3 4 5 6))
+;; (check-satisfied (sort-cmp '("c" "b") string<?)
+;;                  (sorted string<?))
+;; (check-satisfied (sort-cmp '(2 1 3 4 6 5) <)
+;;                  (sorted <))
+
+(define (sort-cmp alon0 cmp)
+  (local (; [List-of X] -> [List-of X]
+          ; produces a variant of alon sorted by cmp
+          (define (isort alon) ...)
+
+          ; X [List-of X] -> [List-of X]
+          ; inserts n into the sorted list of numbers alon
+          (define (insert n alon) ...))
+    (isort alon0)))
+
+;; Exercise 292
+
+
+;; =================
+;; Data definitions:
+
+; A [NEList-of ITEM] is one of:
+; - (cons ITEM '())
+; - (cons ITEM [NEList-of ITEM])
+
+
+;; =================
+;; Functions:
+
+; [X X -> Boolean] [NEList-of X] -> Boolean
+; determine whether l is sorted according to cmp
+(check-expect (sorted? < '(1 2 3)) #true)
+(check-expect (sorted? < '(2 1 3)) #false)
+
+(define (sorted? cmp l)
+  (cond [(empty? (rest l)) #true]
+        [else
+         (and (cmp (first l)
+                   (second l))
+              (sorted? cmp (rest l)))]))
+
+; [X X -> Boolean] -> [[List-of X] -> Boolean]
+; produces a function that determines whether
+; is the given list l0 is sorted according to cmp
+(check-expect [(sorted string<?) '("b" "c")] #true)
+(check-expect [(sorted <) '(1 2 3 4 5 6)]    #true)
+(check-expect [(sorted <) '(1 2 3)]          #true)
+(check-expect [(sorted <) '(2 1 3)]          #false)
+
+(define (sorted cmp)
+  (lambda (l0)
+    (cond [(empty? l0) #true]
+          [else
+           (sorted? cmp l0)])))
