@@ -261,9 +261,9 @@
 ;   d: a description;
 ;  ap: the acquisition price; and
 ;  sp: the recommended sales price
-(define I1 (make-inventory "Inv1" "Description 1" 12.1 15.8))
+(define I1 (make-inventory "Inv1" "Description 1" 12.1 16.8))
 (define I2 (make-inventory "Inv2" "Description 2" 14.1 15.8))
-(define I3 (make-inventory "Inv3" "Description 3" 10.1 15.8))
+(define I3 (make-inventory "Inv3" "Description 3" 10.1 14.8))
 
 ; [List-of Inventory] is one of:
 ; - '()
@@ -289,3 +289,217 @@
                          (inventory-sales-price i1)))
                  (abs (- (inventory-acq-price i2)
                          (inventory-sales-price i2)))))))
+
+;; Exercise 287
+
+;; =================
+;; Functions:
+
+; Number [List-of Inventory] -> [List-of Inventory]
+; produces a list of all those structures whose sales price is below ua
+(check-expect (eliminate-expensive 16 LOI1) '())
+(check-expect (eliminate-expensive 16 LOI2) '())
+(check-expect (eliminate-expensive 16 LOI3) (list I2 I3))
+
+(define (eliminate-expensive ua loi)
+  (filter (lambda (i)
+            (<= (inventory-sales-price i) ua))
+          loi))
+
+; String [List-of Inventory] -> [List-of Inventory]
+; produces a list of inventory records that do not use the name ty
+(check-expect (recall "Inv2" LOI1) '())
+(check-expect (recall "Inv1" LOI2) '())
+(check-expect (recall "Inv2" LOI2) (list I1))
+(check-expect (recall "Inv2" LOI3) (list I1 I3))
+
+(define (recall ty loi)
+  (filter (lambda (i)
+            (not (string=? (inventory-name i) ty)))
+          loi))
+
+; [List-of String] [List-of String] -> [List-of String]
+; selects all those from the second one that are also on the first
+(check-expect (selection '() '()) '())
+(check-expect (selection '("A" "B" "C") '()) '())
+(check-expect (selection '() '("A" "B" "C")) '())
+(check-expect (selection '("A" "C" "D") '("A" "B" "C")) '("A" "C"))
+
+(define (selection los1 los2)
+  (filter (lambda (s)
+            (member? s los2))
+          los1))
+
+;; Exercise 288
+
+
+;; =================
+;; Functions:
+
+; Number -> [List-of Number]
+; creates the list (list 0 ... (- n 1)) for any natural number n
+(check-expect (f1 5) '(0 1 2 3 4))
+
+(define (f1 n)
+  (map sub1 (build-list n add1)))
+
+; Number -> [List-of Number]
+; creates the list (list 1 ... n) for any natural number n
+(check-expect (f2 5) '(1 2 3 4 5))
+
+(define (f2 n)
+  (build-list n add1))
+
+; Number -> [List-of Number]
+; creates the list (list 1 1/2 ... 1/n) for any natural number n
+(check-expect (f3 5) '(1/1 1/2 1/3 1/4 1/5))
+
+(define (f3 n)
+  (map (lambda (n)
+         (/ 1 n))
+       (build-list n add1)))
+
+; Number -> [List-of Number]
+; creates the list of the first n even numbers
+(check-expect (f4 5) '(0 2 4 6 8))
+
+(define (f4 n)
+  (build-list n (lambda (n)
+                  (* n 2))))
+
+; Number -> [List-of [List-of Number]]
+; creates a diagonal square of 0s and 1s
+(check-expect (f5 3) '((1 0 0)
+                       (0 1 0)
+                       (0 0 1)))
+
+(define (f5 n)
+  (local ((define (numbers n s)
+            (cond [(zero? n) '()]
+                  [else
+                   (cons (if (= n s) 1 0)
+                         (numbers (sub1 n) s))])))
+    (build-list n (lambda (i)
+                    (numbers n (- n i))))))
+
+; [Number -> X] Number -> [List-of X]
+; tabulates a f function n times
+(check-expect (tabulate add1 5)
+              '(6 5 4 3 2 1))
+(check-expect (tabulate number->string 5)
+              '("5" "4" "3" "2" "1" "0"))
+
+(define (tabulate f n)
+  (reverse (build-list (add1 n) f)))
+
+;; Exercise 289
+
+
+;; =================
+;; Functions:
+
+; String [List-of String] -> Boolean
+; determines whether any of the names on the latter are equal to or an extension of the former
+(check-expect (find-name? "john" '())                  #false)
+(check-expect (find-name? "john" '("marie"))           #false)
+(check-expect (find-name? "john" '("john"))            #true)
+(check-expect (find-name? "john" '("marie" "john"))    #true)
+(check-expect (find-name? "jo"   '("marie" "john"))    #true)
+(check-expect (find-name? "john" '("marie" "johnson")) #true)
+
+(define (find-name? s los)
+  (ormap (lambda (x)
+           (string-contains? s x))
+         los))
+
+; [List-of String] -> Boolean
+; checks all names on a list of names start with the letter "a"
+(check-expect (check-name? '())               #false)
+(check-expect (check-name? '("marie"))        #false)
+(check-expect (check-name? '("arie"))         #true)
+(check-expect (check-name? '("marie" "arie")) #false)
+(check-expect (check-name? '("alf" "arie"))   #true)
+
+(define (check-name? los)
+  (cond [(empty? los) #false]
+        [else
+         (andmap (lambda (s)
+                   (string=? "a" (string-ith s 0)))
+                 los)]))
+
+; Number [List-of String] -> Boolean
+; ensures that no name on some list exceeds some given width
+(check-expect (exceed-width? 5 '())                        #false)
+(check-expect (exceed-width? 5 '("alf"))                   #false)
+(check-expect (exceed-width? 5 '("alf" "marie"))           #false)
+(check-expect (exceed-width? 5 '("alf" "marie" "johnson")) #true)
+
+(define (exceed-width? n los)
+  (ormap (lambda (s)
+           (> (string-length s) n))
+         los))
+
+;; Exercise 290
+
+(equal? (append '(1 2 3) '(4 5 6 7 8))
+        '(1 2 3 4 5 6 7 8))
+
+
+;; =================
+;; Functions:
+
+; [List-of Number] [List-of Number] -> [List-of Number]
+; concatenates the items of two lists
+(check-expect (append-from-fold '(1 2 3) '(4 5 6 7 8))
+              '(1 2 3 4 5 6 7 8))
+
+(define (append-from-fold lon1 lon2)
+  (foldr (lambda (i lst)
+           (cons i lst))
+         lon2 lon1))
+
+; [List-of Number] -> Number
+; computes the sum of a list of numbers
+(check-expect (sum '())  0)
+(check-expect (sum '(1)) 1)
+(check-expect (sum '(1 2 3)) 6)
+
+(define (sum lon)
+  (foldr + 0 lon))
+
+; [List-of Number] -> Number
+; computes the product of a list of numbers
+(check-expect (product '())  1)
+(check-expect (product '(1)) 1)
+(check-expect (product '(1 2 3)) 6)
+
+(define (product lon)
+  (foldr * 1 lon))
+
+; [List-of Image] -> Image
+; composes a list of Images horizontally
+(check-expect (compose-images '()) empty-image)
+(check-expect (compose-images (list (circle 5 "solid" "blue")))
+              (circle 5 "solid" "blue"))
+(check-expect (compose-images (list (circle 5 "solid" "blue") (square 10 "solid" "red")))
+              (beside (circle 5 "solid" "blue") (square 10 "solid" "red")))
+
+(define (compose-images loi)
+  (foldr beside empty-image loi))
+
+;; Exercise 291
+
+
+;; =================
+;; Functions:
+
+; [X Y] [X -> Y] [List-of X] -> [List-of Y]
+; maps fn for each item in the list
+(check-expect (map-via-fold (lambda (n) (* n 2)) '())      '())
+(check-expect (map-via-fold (lambda (n) (* n 2)) '(1))     '(2))
+(check-expect (map-via-fold (lambda (n) (* n 2)) '(1 2 3)) '(2 4 6))
+
+(define (map-via-fold fn lox)
+  (foldr (lambda (x lst)
+           (cons (fn x) lst))
+         '() lox))
