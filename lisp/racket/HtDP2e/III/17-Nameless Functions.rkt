@@ -761,7 +761,7 @@
 ;; Constants:
 
 ; distances in terms of pixels
-(define WIDTH 300)
+(define WIDTH  300)
 (define HEIGHT 300)
 
 
