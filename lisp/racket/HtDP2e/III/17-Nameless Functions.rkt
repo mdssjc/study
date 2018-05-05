@@ -510,21 +510,30 @@
 
 ; [X] [List-of X] [X X -> Boolean] -> [List-of X]
 ; sorts alon0 according to cmp
-;; (check-expect (sort-cmp '("c" "b") string<?) '("b" "c"))
-;; (check-expect (sort-cmp '(2 1 3 4 6 5) <)    '(1 2 3 4 5 6))
-;; (check-satisfied (sort-cmp '("c" "b") string<?)
-;;                  (sorted string<?))
-;; (check-satisfied (sort-cmp '(2 1 3 4 6 5) <)
-;;                  (sorted <))
+(check-expect (sort-cmp '("c" "b") string<?) '("b" "c"))
+(check-expect (sort-cmp '(2 1 3 4 6 5) <)    '(1 2 3 4 5 6))
+(check-satisfied (sort-cmp '("c" "b") string<?)
+                 (sorted string<?))
+(check-satisfied (sort-cmp '(2 1 3 4 6 5) <)
+                 (sorted <))
 
 (define (sort-cmp alon0 cmp)
   (local (; [List-of X] -> [List-of X]
           ; produces a variant of alon sorted by cmp
-          (define (isort alon) ...)
+          (define (isort alon)
+            (cond [(empty? alon) '()]
+                  [else
+                   (insert (first alon) (isort (rest alon)))]))
 
           ; X [List-of X] -> [List-of X]
           ; inserts n into the sorted list of numbers alon
-          (define (insert n alon) ...))
+          (define (insert n alon)
+            (cond [(empty? alon) (cons n '())]
+                  [else
+                   (if (cmp n (first alon))
+                       (cons n alon)
+                       (cons (first alon)
+                             (insert n (rest alon))))])))
     (isort alon0)))
 
 ;; Exercise 292
@@ -554,15 +563,238 @@
               (sorted? cmp (rest l)))]))
 
 ; [X X -> Boolean] -> [[List-of X] -> Boolean]
-; produces a function that determines whether
-; is the given list l0 is sorted according to cmp
+; is the given list l0 sorted according to cmp
 (check-expect [(sorted string<?) '("b" "c")] #true)
 (check-expect [(sorted <) '(1 2 3 4 5 6)]    #true)
 (check-expect [(sorted <) '(1 2 3)]          #true)
 (check-expect [(sorted <) '(2 1 3)]          #false)
 
+#;
 (define (sorted cmp)
   (lambda (l0)
     (cond [(empty? l0) #true]
           [else
            (sorted? cmp l0)])))
+
+#;
+(define (sorted cmp)
+  (lambda (l0)
+    (local (; [NEList-of X] -> Boolean
+            ; is l sorted according to cmp
+            (define (sorted/l l)
+              (cond [(empty? (rest l)) #true]
+                    [else (and (cmp (first l) (second l))
+                               (sorted/l (rest l)))])))
+      (if (empty? l0) #true (sorted/l l0)))))
+
+(define (sorted cmp)
+  (lambda (l0)
+    (if (empty? l0) #true (sorted? cmp l0))))
+
+; List-of-numbers -> List-of-numbers
+; produces a sorted version of l
+(define (sort-cmp/bad l)
+  '(9 8 7 6 5 4 3 2 1 0))
+
+; [List-of X] [X X -> Boolean] -> [[List-of X] -> Boolean]
+; is l0 sorted according to cmp
+; are all items in list k members of list l0
+(check-expect [(sorted-variant-of '(3 2) <) '(2 3)]
+              #true)
+(check-expect [(sorted-variant-of '(3 2) <) '(3)]
+              #false)
+
+#;
+(define (sorted-variant-of k cmp)
+  (lambda (l0) #false))
+
+(define (sorted-variant-of k cmp)
+  (lambda (l0)
+    (and (sorted? cmp l0)
+         (contains? l0 k))))
+
+(define (sorted-variant-of.v2 k cmp)
+  (lambda (l0)
+    (and (sorted? cmp l0)
+         (contains? l0 k)
+         (contains? k l0))))
+
+; [List-of X] [List-of X] -> Boolean
+; are all items in list k members of list l
+(check-expect (contains? '(1 2 3) '(1 4 3)) #false)
+(check-expect (contains? '(1 2 3 4) '(1 3)) #true)
+
+(define (contains? l k)
+  (andmap (lambda (in-k) (member? in-k l)) k))
+
+; [List-of Number] -> [List-of Number]
+; produces a sorted version of l
+(define (build-list-of-random-numbers mx)
+  (local ((define (fn-for-random-numbers n)
+            (cond [(zero? n) '()]
+                  [else
+                   (cons (add1 (random mx))
+                         (fn-for-random-numbers (sub1 n)))])))
+    (fn-for-random-numbers 500)))
+
+(define a-list (build-list-of-random-numbers 500))
+
+;; (check-expect (sort-cmp/worse '(1 2 3)) '(1 2 3))
+(check-satisfied (sort-cmp/worse '(1 2 3))
+                 (sorted-variant-of '(1 2 3) <))
+;; (check-satisfied (sort-cmp a-list <)
+;;                  (sorted-variant-of.v2 a-list <))
+
+(define (sort-cmp/worse l)
+  (local ((define sorted (sort-cmp l <)))
+    (cons (- (first sorted) 1) sorted)))
+
+;; Exercise 293
+
+
+;; =================
+;; Constants:
+
+(define LST (list 0 2 4 6 8 10))
+
+
+;; =================
+;; Data definitions:
+
+; A [Maybe X] is one of:
+; - #false
+; - X
+
+
+;; =================
+;; Functions:
+
+; X [List-of X] -> [Maybe [List-of X]]
+; returns the first sublist of l that starts
+; with x, #false otherwise
+(check-satisfied (find.v2 4 '())
+                 (found?  4 '()))
+(check-satisfied (find.v2 4 LST)
+                 (found?  4 LST))
+
+(define (find.v2 x l)
+  (cond
+    [(empty? l) #false]
+    [else
+     (if (equal? (first l) x) l (find.v2 x (rest l)))]))
+
+; X -> [[Maybe [List-of X]] -> Boolean]
+; a specification for the find.v2 function
+(define (found? search-term lst)
+  (local ((define (match-up? small long)
+            (local ((define (match-up-until-x? l1 l2 x)
+                      (cond [(zero? x) #true]
+                            [else
+                             (and (equal? (first l1) (first l2))
+                                  (match-up-until-x? (rest l1) (rest l2) (sub1 x)))])))
+              (match-up-until-x? small long (length small))))
+          ;; Trampoline
+          (define (fn-for-found? lst)
+            (cond [(empty? lst) false?]
+                  [else
+                   (lambda (results)
+                     (cond [(false? results)
+                            (or (empty? lst)
+                                (not (member? search-term lst)))]
+                           [else
+                            (and (>= (length lst) (length results))
+                                 (match-up? (reverse results) (reverse lst))
+                                 (not (member? search-term (foldr remove lst results))))]))])))
+    (fn-for-found? lst)))
+
+;; Exercise 294
+
+
+;; =================
+;; Functions:
+
+; X [List-of X] -> [Maybe N]
+; determine the index of the first occurrence
+; of x in l, #false otherwise
+(check-satisfied (index     4 '())
+                 (is-index? 4 '()))
+(check-satisfied (index     4 LST)
+                 (is-index? 4 LST))
+
+(define (index x l)
+  (cond [(empty? l) #false]
+        [else
+         (if (equal? (first l) x)
+             0
+             (local ((define i (index x (rest l))))
+               (if (boolean? i) i (+ i 1))))]))
+
+; X [List-of X] -> [[Maybe N] -> Boolean]
+; a specification for the index function
+(define (is-index? search-term lst)
+  (local ((define (nth-item n l)
+            (cond [(zero? n) (first l)]
+                  [else
+                   (nth-item (sub1 n) (rest l))]))
+          (define (list-up-to i l)
+            (cond [(empty? l) '()]
+                  [(zero? i)  '()]
+                  [else
+                   (cons (first l)
+                         (list-up-to (sub1 i) (rest l)))]))
+          ;; Trampoline
+          (define (fn-for-is-index? lst)
+            (cond [(empty? lst) false?]
+                  [(not (member? search-term lst)) false?]
+                  [else
+                   (lambda (index-or-f)
+                     (and (number? index-or-f)
+                          (< index-or-f (length lst))
+                          (equal? search-term (nth-item index-or-f lst))
+                          (not (member? search-term (list-up-to index-or-f lst)))))])))
+    (fn-for-is-index? lst)))
+
+;; Exercise 295
+
+
+;; =================
+;; Constants:
+
+; distances in terms of pixels
+(define WIDTH 300)
+(define HEIGHT 300)
+
+
+;; =================
+;; Functions:
+
+; N -> [List-of Posn]
+; generate n random Posns in [0,WIDTH) by [0,HEIGHT)
+(check-satisfied (random-posns 3)
+                 (n-inside-playground? 3))
+
+(define (random-posns n)
+  (build-list
+   n
+   (lambda (i)
+     (make-posn (random WIDTH) (random HEIGHT)))))
+
+; N -> [[List-of Posn] Boolean?]
+; a specification for the random-posns function
+(define (n-inside-playground? k)
+  (lambda (l)
+    (and (= k (length l))
+         (andmap
+          (lambda (a-posn)
+            (and (<= 0 (posn-x a-posn) WIDTH)
+                 (<= 0 (posn-y a-posn) HEIGHT))) l))))
+
+; N -> [List-of Posn]
+; produces n Posns in [0,WIDTH) by [0,HEIGHT)
+(check-satisfied (random-posns/bad 3)
+                 (n-inside-playground? 3))
+
+(define (random-posns/bad n)
+  (list (make-posn  40  56)
+        (make-posn  63 254)
+        (make-posn 100 22)))
