@@ -6,6 +6,7 @@
 ;; 17  - Nameless Functions
 
 (require 2htdp/image)
+(require 2htdp/universe)
 
 
 (define-struct ir [name price])
@@ -798,3 +799,173 @@
   (list (make-posn  40  56)
         (make-posn  63 254)
         (make-posn 100 22)))
+
+
+
+;; 17.5 - Representing with lambda
+
+
+;; =================
+;; Data definitions:
+
+; A Shape is a function:
+;   [Posn -> Boolean]
+; interpretation if s is a shape and p a Posn, (s p)
+; produces #true if p is in s, #false otherwise
+
+
+;; =================
+;; Functions:
+
+; Shape Posn -> Boolean
+(check-expect (inside? (mk-point 3 4) (make-posn 3 4))      #true)
+(check-expect (inside? (mk-point 3 4) (make-posn 3 0))      #false)
+(check-expect (inside? (mk-circle 3 4 5) (make-posn 0 0))   #true)
+(check-expect (inside? (mk-circle 3 4 5) (make-posn 0 9))   #false)
+(check-expect (inside? (mk-circle 3 4 5) (make-posn -1 3))  #true)
+(check-expect (inside? (mk-rect 0 0 10 3) (make-posn 0 0))  #true)
+(check-expect (inside? (mk-rect 2 3 10 3) (make-posn 4 5))  #true)
+(check-expect (inside? (mk-rect 2 3 10 3) (make-posn -1 5)) #false)
+(check-expect (inside? union1 (make-posn 0 0))              #true)
+(check-expect (inside? union1 (make-posn 0 9))              #false)
+(check-expect (inside? union1 (make-posn -1 3))             #true)
+
+(define (inside? s p)
+  (s p))
+
+; Posn -> Boolean
+(lambda (p)
+  (and (= (posn-x p) 3)
+       (= (posn-y p) 4)))
+
+; Number Number -> Shape
+; represents a point at (x,y)
+(define (mk-point x y)
+  (lambda (p)
+    (and (= (posn-x p) x)
+         (= (posn-y p) y))))
+
+(define a-sample-shape (mk-point 3 4))
+
+; Number Number Number -> Shape
+; creates a representation for a circle of radius r
+;   located at (center-x, center-y)
+(define (mk-circle center-x center-y r)
+  ; [Posn -> Boolean]
+  (lambda (p)
+    (<= (distance-between center-x center-y p) r)))
+
+; Number Number Number Number -> Shape
+; represents a width by height rectangle whose
+; upper-left corner is located at (ul-x, ul-y)
+(define (mk-rect ul-x ul-y width height)
+  (lambda (p)
+    (and (<= ul-x (posn-x p) (+ ul-x width))
+         (<= ul-y (posn-y p) (+ ul-y height)))))
+
+; Shape Shape -> Shape
+; combines two shapes into one
+(define (mk-combination s1 s2)
+  ; Posn -> Boolean
+  (lambda (p)
+    (or (inside? s1 p)
+        (inside? s2 p))))
+
+(define circle1    (mk-circle 3 4 5))
+(define rectangle1 (mk-rect 0 3 10 3))
+(define union1     (mk-combination circle1 rectangle1))
+
+;; Exercise 296
+
+;; Use compass-and-pencil drawings to check the tests.
+
+;; Exercise 297
+
+; Number Number Posn -> Number
+; computes the distance between the points (x, y) and p
+(check-within (distance-between 3 4 (make-posn 3 4)) 0.0   0.001)
+(check-within (distance-between 2 3 (make-posn 3 4)) 1.414 0.001)
+(check-within (distance-between 0 0 (make-posn 3 4)) 5.0   0.001)
+
+(define (distance-between x y p)
+  (sqrt (+ (sqr (- x (posn-x p)))
+           (sqr (- y (posn-y p))))))
+
+;; Exercise 298
+
+
+;; =================
+;; Data definitions:
+
+; An ImageStream is a function:
+;   [N -> Image]
+; interpretation a stream s denotes a series of images
+
+
+;; =================
+;; Functions:
+
+; ImageStream
+(define (create-rocket-scene height)
+  (place-image (circle 5 "solid" "blue") 50 height (empty-scene 60 60)))
+
+; ImageStream Number -> Image
+; The job of (my-animate s n) is to show the images (s 0), (s 1), and so on at a
+; rate of 30 images per second up to n images total. Its result is the number of
+; clock ticks passed since launched.
+(define (my-animate is)
+  (local ((define s 0))
+    (big-bang s
+              [on-tick (lambda (t) (add1 t))]
+              [to-draw is])))
+
+
+; Test drive
+(my-animate create-rocket-scene)
+
+;; Exercise 299
+
+
+;; =================
+;; Data definitions:
+
+; A Set is a function:
+;   [X -> Boolean]
+; interpretation: representation for finite and infinite sets
+
+
+;; =================
+;; Functions:
+
+; Set
+(define two? (lambda (n) (or (equal? n 1) (equal? n 2))))
+
+; X Set -> Set
+; adds an element to a set
+(check-expect [(add-element 1 even?) 1] #true)
+(check-expect [(add-element 0 even?) 3] #false)
+
+(define (add-element x s)
+  (lambda (x0)
+    (or (s x0)
+        (equal? x x0))))
+
+; Set Set -> Set
+; combines the elements of two sets
+(check-expect [(union odd? even?) (random 1000)] #true)
+
+(define (union s1 s2)
+  (lambda (x)
+    (or (s1 x)
+        (s2 x))))
+
+; X Set -> Set
+; collects all elements common to two sets
+(check-expect [(intersection odd? even?) (random 100)] #false)
+(check-expect [(intersection odd?  two?) 3] #false)
+(check-expect [(intersection even? two?) 2] #true)
+
+(define (intersection s1 s2)
+  (lambda (x)
+    (and (s1 x)
+         (s2 x))))
