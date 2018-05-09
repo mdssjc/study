@@ -4,6 +4,7 @@
 ;; Intermezzo 3.rkt
 ;; Intermezzo 3: Scope and Abstraction
 
+(require 2htdp/abstraction)
 
 
 ;; Scope
@@ -79,3 +80,195 @@
         (+ (* 3 x)
            (/ 1 x)))
       (* y y))))
+
+
+
+;; ISL for Loops
+
+; [List-of X] -> [List-of [List N X]]
+; pairs each item in lx with its index
+(check-expect (enumerate '(a b c))
+              '((1 a) (2 b) (3 c)))
+
+(define (enumerate lx)
+  (for/list ([x lx] [ith (length lx)])
+    (list (+ ith 1) x)))
+
+;; Exercise 304
+(check-expect (for/list ([i 2] [j '(a b)]) (list i j))
+              '((0 a) (1 b)))
+
+(check-expect (for*/list ([i 2] [j '(a b)]) (list i j))
+              '((0 a) (0 b) (1 a) (1 b)))
+
+; [List-of X] [List-of Y] -> [List-of [List X Y]]
+; generates all pairs of items from l1 and l2
+(check-satisfied (cross '(a b c) '(1 2))
+                 (lambda (c) (= (length c) 6)))
+
+(define (cross l1 l2)
+   (for*/list ([x1 l1][x2 l2])
+      (list x1 x2)))
+
+; [List-of X] -> [List-of [List-of X]]
+; creates a list of all rearrangements of the items in w
+(check-satisfied (arrangements '("r" "a" "t"))
+                 all-words-from-rat?)
+
+(define (arrangements w)
+  (cond [(empty? w) '(())]
+        [else
+         (for*/list ([item w]
+                     [arrangement-without-item (arrangements (remove item w))])
+           (cons item arrangement-without-item))]))
+
+; [List-of X] -> Boolean
+(define (all-words-from-rat? w)
+  (and (member? (explode "rat") w)
+       (member? (explode "art") w)
+       (member? (explode "tar") w)))
+
+; N -> sequence?
+; constructs the infinite sequence of natural numbers,
+; starting from n
+;; (define (in-naturals n) ...)
+
+; N N N -> sequence?
+; constructs the following finite sequence of natural numbers:
+;   start
+;   (+ start step)
+;   (+ start step step)
+;   ...
+;  until the number exceeds end
+;; (define (in-range start end step) ...)
+
+(define (enumerate.v2 lx)
+  (for/list ([item lx] [ith (in-naturals 1)])
+    (list ith item)))
+
+; N -> Number
+; adds the even numbers between 0 and n (exclusive)
+(check-expect (sum-evens 2) 0)
+(check-expect (sum-evens 4) 2)
+
+(define (sum-evens n)
+  (for/sum ([i (in-range 0 n 2)]) i))
+
+;; Exercise 305
+
+
+;; =================
+;; Constants:
+
+(define US-DOLLAR-RATE 1.06)
+
+
+;; =================
+;; Functions:
+
+; [List-of Number] -> [List-of Number]
+; converts a list of US$ amounts into a list of € amounts
+; based on an exchange rate of US$ US-DOLLAR-RATE per €
+(check-expect (convert-euro '()) '())
+(check-expect (convert-euro '(1.00 5.00 12.34))
+              (list (* 1.00  US-DOLLAR-RATE)
+                    (* 5.00  US-DOLLAR-RATE)
+                    (* 12.34 US-DOLLAR-RATE)))
+
+(define (convert-euro lon)
+  (for/list ([n lon])
+    (* n US-DOLLAR-RATE)))
+
+;; Exercise 306
+
+
+;; =================
+;; Functions:
+
+; Number -> [List-of Number]
+; creates the list (list 0 ... (- n 1)) for any natural number n
+(check-expect (f1 5) '(0 1 2 3 4))
+
+(define (f1 n)
+  (for/list ([x n])
+    x))
+
+; Number -> [List-of Number]
+; creates the list (list 1 ... n) for any natural number n
+(check-expect (f2 5) '(1 2 3 4 5))
+
+(define (f2 n)
+  (for/list ([x n])
+    (add1 x)))
+
+; Number -> [List-of Number]
+; creates the list (list 1 1/2 ... 1/n) for any natural number n
+(check-expect (f3 5) '(1/1 1/2 1/3 1/4 1/5))
+
+(define (f3 n)
+  (for/list ([x n])
+    (/ 1 (add1 x))))
+
+; Number -> [List-of Number]
+; creates the list of the first n even numbers
+(check-expect (f4 5) '(0 2 4 6 8))
+
+(define (f4 n)
+  (for/list ([x n])
+    (* x 2)))
+
+; Number -> [List-of [List-of Number]]
+; creates a diagonal square of 0s and 1s
+(check-expect (f5 3) '((1 0 0)
+                       (0 1 0)
+                       (0 0 1)))
+
+(define (f5 n)
+  (local ((define (numbers n s)
+            (cond [(zero? n) '()]
+                  [else
+                   (cons (if (= n s) 1 0)
+                         (numbers (sub1 n) s))])))
+    (for/list ([x n])
+      (numbers n (- n x)))))
+
+; [Number -> X] Number -> [List-of X]
+; tabulates a f function n times
+(check-expect (tabulate add1 5)
+              '(6 5 4 3 2 1))
+(check-expect (tabulate number->string 5)
+              '("5" "4" "3" "2" "1" "0"))
+
+(define (tabulate f n)
+  (reverse (for/list ([x (add1 n)])
+             (f x))))
+
+;; Exercise 307
+
+
+;; =================
+;; Functions:
+
+; String [List-of String] -> String or false
+; retrieves the first name on the latter that is equal to, or an extension of, the former
+(check-expect (find-name "John" '()) #false)
+(check-expect (find-name "John" '("Marie" "Paul")) #false)
+(check-expect (find-name "John" '("Marie" "Paul" "John")) "John")
+(check-expect (find-name "John" '("Marie" "Paul" "Jones")) #false)
+(check-expect (find-name "John" '("Marie" "Paul" "Jones" "Johnson")) "Johnson")
+(check-expect (find-name "Jo"   '("Marie" "Paul" "Jones")) "Jones")
+
+(define (find-name n lon)
+  (for/or ([name lon])
+    (if (string-contains? n name) name #false)))
+
+; Number [List-of String] -> Boolean
+; ensures that no name on some list exceeds some given width
+(check-expect (exceed-width? 5 '())                        #false)
+(check-expect (exceed-width? 5 '("alf"))                   #false)
+(check-expect (exceed-width? 5 '("alf" "marie"))           #false)
+(check-expect (exceed-width? 5 '("alf" "marie" "johnson")) #true)
+
+(define (exceed-width? n lon)
+  (for/or ([name lon])
+    (> (string-length name) n)))
