@@ -107,8 +107,8 @@
                  (lambda (c) (= (length c) 6)))
 
 (define (cross l1 l2)
-   (for*/list ([x1 l1][x2 l2])
-      (list x1 x2)))
+  (for*/list ([x1 l1][x2 l2])
+    (list x1 x2)))
 
 ; [List-of X] -> [List-of [List-of X]]
 ; creates a list of all rearrangements of the items in w
@@ -272,3 +272,136 @@
 (define (exceed-width? n lon)
   (for/or ([name lon])
     (> (string-length name) n)))
+
+
+
+;; Pattern Matching
+
+
+;; =================
+;; Data definitions:
+
+(define-struct phone [area switch four])
+; A Phone is a structure:
+;   (make-phone Three Three Four)
+; A Three is a Number between 100 and 999
+; A Four is a Number between 1000 and 9999
+(define P1 (make-phone 713 123 4567))
+(define P2 (make-phone 281 123 4567))
+(define P3 (make-phone 123 123 4567))
+
+
+(match 4
+  ['four  1]
+  ["four" 2]
+  [#true  3]
+  [4      "hello world"])
+
+(match 2
+  [3 "one"]
+  [x (+ x 3)])
+
+(match (cons 1 '())
+  [(cons 1    tail) tail]
+  [(cons head tail) head])
+
+(match (cons 2 '())
+  [(cons 1    tail) tail]
+  [(cons head tail) head])
+
+(define p (make-posn 3 4))
+(match p
+  [(posn x y) (sqrt (+ (sqr x) (sqr y)))])
+
+(match (make-phone 713 664 9993)
+  [(phone x y z) (+ x y z)])
+
+(match (cons (make-phone 713 664 9993) '())
+  [(cons (phone area-code 664 9993) tail) area-code])
+
+(match (cons 1 '())
+  [(cons (?  symbol?) tail) tail]
+  [(cons head tail) head])
+
+
+;; =================
+;; Data definitions:
+
+; A [Non-empty-list X] is one of:
+; - (cons X '())
+; - (cons X [Non-empty-list X])
+
+
+;; =================
+;; Functions:
+
+; [Non-empty-list X] -> X
+; retrieves the last item of ne-l
+(check-expect (last-item '(a b c)) 'c)
+(check-error  (last-item '()))
+
+(define (last-item ne-l)
+  (match ne-l
+    [(cons lst '()) lst]
+    [(cons fst rst) (last-item rst)]))
+
+
+;; =================
+;; Data definitions:
+
+(define-struct layer [color doll])
+; An RD.v2 (short for Russian doll) is one of:
+; - "doll"
+; - (make-layer String RD.v2)
+
+
+;; =================
+;; Functions:
+
+; RD.v2 -> N
+; how many dolls are a part of an-rd
+(check-expect (depth (make-layer "red" "doll")) 1)
+
+(define (depth a-doll)
+  (match a-doll
+    ["doll" 0]
+    [(layer c inside) (+ (depth inside) 1)]))
+
+; [List-of Posn] -> [List-of Posn]
+; moves each object right by delta-x pixels
+(define input  (list (make-posn 1 1) (make-posn 10 14)))
+(define expect (list (make-posn 4 1) (make-posn 13 14)))
+
+(check-expect (move-right input 3) expect)
+
+(define (move-right lop delta-x)
+  (for/list ((p lop))
+    (match p
+      [(posn x y) (make-posn (+ x delta-x) y)])))
+
+;; Exercise 308
+
+; [List-of Phone] -> [List-of Phone]
+; replaces all occurrence of area code 713 with 281
+(check-expect (replace '()) '())
+(check-expect (replace (list P1 P3))    (list P2 P3))
+(check-expect (replace (list P1 P3 P2)) (list P2 P3 P2))
+
+(define (replace lop)
+  (for/list ((p lop))
+    (match p
+      [(phone 713 s f) (make-phone 281 s f)]
+      [_ p])))
+
+;; Exercise 309
+
+; [List-of [List-of String]] -> [List-of Number]
+; determines the number of words on each line
+(check-expect (words-on-line '()) 0)
+(check-expect (words-on-line '(("hello" "hello"))) 2)
+
+(define (words-on-line lls)
+  (match lls
+    ['() 0]
+    [(cons line rest) (+ (length line)
+                         (words-on-line rest))]))
