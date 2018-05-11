@@ -319,14 +319,17 @@
           ; 1String Word Word -> [List-of Word]
           ; arrangements the words (prefix sp and suffix ss) with 1String 1s
           (define (insert-everywhere/in-word 1s sp ss)
-            (cond [(empty? ss) (list (append sp (list 1s) ss))]
-                  [else
-                   (cons (append sp (list 1s) ss)
-                         (insert-everywhere/in-word 1s
-                                                    (append sp (list (first ss)))
-                                                    (rest ss)))])))
-    (filter in-dictionary?
-            (map implode (arrangements (explode s))))))
+            (local ((define lst (append sp (list 1s) ss)))
+              (cond [(empty? ss) (list lst)]
+                    [else
+                     (cons lst
+                           (insert-everywhere/in-word 1s
+                                                      (append sp (list (first ss)))
+                                                      (rest ss)))])))
+          ; Trampoline
+          (define fn-for-alternative-words
+            (filter in-dictionary? (map implode (arrangements (explode s))))))
+    fn-for-alternative-words))
 
 
 ; Nelon -> Number
