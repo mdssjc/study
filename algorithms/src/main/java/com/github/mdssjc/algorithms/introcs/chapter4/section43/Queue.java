@@ -18,6 +18,11 @@ public class Queue<Item> {
 
   private Node first;
   private Node last;
+  private int size;
+
+  public int size() {
+    return this.size;
+  }
 
   private class Node {
 
@@ -39,14 +44,20 @@ public class Queue<Item> {
     } else {
       oldLast.next = this.last;
     }
+
+    this.size++;
   }
 
   public Item dequeue() {
     final Item item = this.first.item;
     this.first = this.first.next;
+
+    this.size--;
+
     if (isEmpty()) {
       this.last = null;
     }
+
     return item;
   }
 

@@ -23,9 +23,9 @@ public class LoadBalance {
     final int size = Integer.parseInt(args[2]);
 
     final RandomQueue<Queue<Integer>> servers;
-    servers = new RandomQueue<Queue<Integer>>();
+    servers = new RandomQueue<>();
     for (int i = 0; i < m; i++) {
-      servers.enqueue(new Queue<Integer>());
+      servers.enqueue(new Queue<>());
     }
 
     for (int j = 0; j < n; j++) {
