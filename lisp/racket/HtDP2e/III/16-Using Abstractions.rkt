@@ -1591,23 +1591,25 @@
           (define (eat? l t p)
             (<= (sqrt (+ (sqr (- (posn-x p) l))
                          (sqr (- (posn-y p) t))))
-                SIZE)))
+                SIZE))
+          (define s-tails (snake-tails s))
+          (define new-tails (list (make-tail (snake-left s)
+                                             (snake-top  s))))
+          (define eat (eat? (future-left s)
+                            (future-top  s)
+                            (snake-food  s))))
     (make-snake
      (future-left s)
      (future-top  s)
      (snake-direction s)
-     (cond [(eat? (future-left s) (future-top s) (snake-food s))
-            (append (snake-tails s)
-                    (list (make-tail (snake-left s)
-                                     (snake-top  s))))]
-           [(empty? (snake-tails s)) '()]
-           [else (append (rest (snake-tails s))
-                         (list (make-tail (snake-left s)
-                                          (snake-top  s))))])
-     (cond [(eat? (future-left s) (future-top s) (snake-food s))
-            (food-create (make-posn (future-left s)
-                                    (future-top s)))]
-           [else (snake-food s)]))))
+     (cond [eat (append s-tails new-tails)]
+           [(empty? s-tails) '()]
+           [else
+            (append (rest s-tails) new-tails)])
+     (cond [eat (food-create (make-posn (future-left s)
+                                        (future-top s)))]
+           [else
+            (snake-food s)]))))
 
 ; Snake -> Number
 ; calculates the future value for the left position
@@ -1632,29 +1634,32 @@
 ; Snake String String -> Number
 ; calculates the future value for the a and b position
 (define (future s a b)
-  (cond [(string=? (snake-direction s) a) (- (snake-top s) SIZE)]
-        [(string=? (snake-direction s) b) (+ (snake-top s) SIZE)]
-        [else (snake-top s)]))
+  (local ((define dir (snake-direction s))
+          (define top (snake-top s)))
+    (cond [(string=? dir a) (- top SIZE)]
+          [(string=? dir b) (+ top SIZE)]
+          [else top])))
 
 ; Snake -> Image
 ; renders the snake on the BACKGROUND-WORM
 (define (render s)
-  (place-image FOOD
-               (+ (posn-x (snake-food s)) (/ SIZE 2))
-               (+ (posn-y (snake-food s)) (/ SIZE 2))
-               (place-image SEGMENT
-                            (+ (snake-left s) (/ SIZE 2))
-                            (+ (snake-top s)  (/ SIZE 2))
-                            (render-tails (snake-tails s)))))
-
-; Tails -> Image
-; renders the tails on the BACKGROUND-WORM
-(define (render-tails t)
-  (cond [(empty? t) BACKGROUND-WORM]
-        [else (place-image SEGMENT
-                           (+ (tail-left (first t)) (/ SIZE 2))
-                           (+ (tail-top (first t)) (/ SIZE 2))
-                           (render-tails (rest t)))]))
+  (local ((define half-size (/ SIZE 2))
+          ; Tails -> Image
+          ; renders the tails on the BACKGROUND-WORM
+          (define (render-tails t)
+            (cond [(empty? t) BACKGROUND-WORM]
+                  [else
+                   (place-image SEGMENT
+                                (+ (tail-left (first t)) half-size)
+                                (+ (tail-top  (first t)) half-size)
+                                (render-tails (rest t)))])))
+    (place-image FOOD
+                 (+ (posn-x (snake-food s)) half-size)
+                 (+ (posn-y (snake-food s)) half-size)
+                 (place-image SEGMENT
+                              (+ (snake-left s) half-size)
+                              (+ (snake-top s)  half-size)
+                              (render-tails (snake-tails s))))))
 
 ; Snake KeyEvent -> Snake
 ; updates the direction of snake with Direction
@@ -1687,38 +1692,6 @@
               (snake-food  s)))
 
 ; Snake -> Boolean
-; stops if the snake has run into the walls of the world
-(check-expect (hit-border? (make-snake 0  10 "left"  '() null)) #true)
-(check-expect (hit-border? (make-snake 0  10 "up"    '() null)) #false)
-(check-expect (hit-border? (make-snake 0  10 "right" '() null)) #false)
-(check-expect (hit-border? (make-snake 0  10 "down"  '() null)) #false)
-(check-expect (hit-border? (make-snake 10 0 "up"     '() null)) #true)
-(check-expect (hit-border? (make-snake 10 0 "right"  '() null)) #false)
-(check-expect (hit-border? (make-snake 10 0 "down"   '() null)) #false)
-(check-expect (hit-border? (make-snake 10 0 "left"   '() null)) #false)
-(check-expect (hit-border? (make-snake (- WIDTH-WORM SIZE) 10 "right"  '() null)) #true)
-(check-expect (hit-border? (make-snake (- WIDTH-WORM SIZE) 10 "down"   '() null)) #false)
-(check-expect (hit-border? (make-snake (- WIDTH-WORM SIZE) 10 "left"   '() null)) #false)
-(check-expect (hit-border? (make-snake (- WIDTH-WORM SIZE) 10 "up"     '() null)) #false)
-(check-expect (hit-border? (make-snake 10 (- HEIGHT-WORM SIZE) "down"  '() null)) #true)
-(check-expect (hit-border? (make-snake 10 (- HEIGHT-WORM SIZE) "left"  '() null)) #false)
-(check-expect (hit-border? (make-snake 10 (- HEIGHT-WORM SIZE) "up"    '() null)) #false)
-(check-expect (hit-border? (make-snake 10 (- HEIGHT-WORM SIZE) "right" '() null)) #false)
-(check-expect (hit-border? S1) #false)
-(check-expect (hit-border? S6) #true)
-
-(define (hit-border? s)
-  (or (and (= (snake-left s) 0)
-           (string=? (snake-direction s) "left"))
-      (and (= (snake-top s)  0)
-           (string=? (snake-direction s) "up"))
-      (and (= (snake-left s) (- WIDTH-WORM SIZE))
-           (string=? (snake-direction s) "right"))
-      (and (= (snake-top s)  (- HEIGHT-WORM SIZE))
-           (string=? (snake-direction s) "down"))
-      (member? (make-tail (snake-left s) (snake-top s)) (snake-tails s))))
-
-; Snake -> Boolean
 ; stops if the snake has run into itself
 (check-expect (hit-itself? S1) #false)
 (check-expect (hit-itself? S5) #false)
@@ -1733,16 +1706,49 @@
               #true)
 
 (define (hit-itself? s)
-  (cond [(empty? (snake-tails s)) #false]
-        [else
-         (member? (first (snake-tails s))
-                  (rest  (snake-tails s)))]))
+  (local ((define tails (snake-tails s)))
+    (cond [(empty? tails) #false]
+          [else
+           (member? (first tails)
+                    (rest  tails))])))
 
 ; Snake -> Boolean
 ; stops if the snake has run into the walls of the world or itself
+(check-expect (game-over? (make-snake 0  10 "left"  '() null)) #true)
+(check-expect (game-over? (make-snake 0  10 "up"    '() null)) #false)
+(check-expect (game-over? (make-snake 0  10 "right" '() null)) #false)
+(check-expect (game-over? (make-snake 0  10 "down"  '() null)) #false)
+(check-expect (game-over? (make-snake 10 0 "up"     '() null)) #true)
+(check-expect (game-over? (make-snake 10 0 "right"  '() null)) #false)
+(check-expect (game-over? (make-snake 10 0 "down"   '() null)) #false)
+(check-expect (game-over? (make-snake 10 0 "left"   '() null)) #false)
+(check-expect (game-over? (make-snake (- WIDTH-WORM SIZE) 10 "right"  '() null)) #true)
+(check-expect (game-over? (make-snake (- WIDTH-WORM SIZE) 10 "down"   '() null)) #false)
+(check-expect (game-over? (make-snake (- WIDTH-WORM SIZE) 10 "left"   '() null)) #false)
+(check-expect (game-over? (make-snake (- WIDTH-WORM SIZE) 10 "up"     '() null)) #false)
+(check-expect (game-over? (make-snake 10 (- HEIGHT-WORM SIZE) "down"  '() null)) #true)
+(check-expect (game-over? (make-snake 10 (- HEIGHT-WORM SIZE) "left"  '() null)) #false)
+(check-expect (game-over? (make-snake 10 (- HEIGHT-WORM SIZE) "up"    '() null)) #false)
+(check-expect (game-over? (make-snake 10 (- HEIGHT-WORM SIZE) "right" '() null)) #false)
+(check-expect (game-over? S1) #false)
+(check-expect (game-over? S6) #true)
+
 (define (game-over? s)
-  (or (hit-border? s)
-      (hit-itself? s)))
+  (local (; Snake -> Boolean
+          ; stops if the snake has run into the walls of the world
+          (define (hit-border? s)
+            (local ((define dir (snake-direction s)))
+              (or (and (zero? (snake-left s))
+                       (string=? dir "left"))
+                  (and (zero? (snake-top s))
+                       (string=? dir "up"))
+                  (and (= (snake-left s) (- WIDTH-WORM SIZE))
+                       (string=? dir "right"))
+                  (and (= (snake-top s)  (- HEIGHT-WORM SIZE))
+                       (string=? dir "down"))
+                  (member? (make-tail (snake-left s) (snake-top s)) (snake-tails s))))))
+    (or (hit-border? s)
+        (hit-itself? s))))
 
 ; Snake -> Image
 ; renders the game over message on the last render
