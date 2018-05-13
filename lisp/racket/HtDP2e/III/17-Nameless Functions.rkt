@@ -932,18 +932,58 @@
 ; A Set is a function:
 ;   [X -> Boolean]
 ; interpretation: representation for finite and infinite sets
+(define SET0 '())
+(define SET1 '(1 3 5))
+(define SET2 '(0 2 4))
+(define SET3 '(10 20 30))
+(define SET4 '(0 1 2))
+(define SET5 '(1 2 3))
 
 
 ;; =================
 ;; Functions:
 
-; Set
-(define two? (lambda (n) (or (equal? n 1) (equal? n 2))))
+;; sets of all odd numbers
+;; N -> Boolean
+(check-expect (odd-numbers? SET0) #true)
+(check-expect (odd-numbers? SET1) #true)
+(check-expect (odd-numbers? SET4) #false)
+
+(define (odd-numbers? ns)
+  (andmap (λ (n) (odd? n)) ns))
+
+;; sets of all even numbers
+;; N -> Boolean
+(check-expect (even-numbers? SET0) #true)
+(check-expect (even-numbers? SET2) #true)
+(check-expect (even-numbers? SET4) #false)
+
+(define (even-numbers? ns)
+  (andmap (λ (n) (even? n)) ns))
+
+;; sets of all numbers divisible by 10
+;; N -> Boolean
+(check-expect (divisible-by-10? SET0) #true)
+(check-expect (divisible-by-10? SET3) #true)
+(check-expect (divisible-by-10? SET4) #false)
+
+(define (divisible-by-10? ns)
+  (andmap (λ (n) (zero? (remainder n 10))) ns))
 
 ; X Set -> Set
 ; adds an element to a set
-(check-expect [(add-element 1 even?) 1] #true)
-(check-expect [(add-element 0 even?) 3] #false)
+(check-expect [(add-element SET0 odd-numbers?)     SET0] #true)
+(check-expect [(add-element SET0 odd-numbers?)     SET1] #true)
+(check-expect [(add-element SET4 odd-numbers?)     SET4] #true)
+(check-expect [(add-element SET4 odd-numbers?)     SET5] #false)
+(check-expect [(add-element SET0 even-numbers?)    SET0] #true)
+(check-expect [(add-element SET0 even-numbers?)    SET2] #true)
+(check-expect [(add-element SET4 even-numbers?)    SET4] #true)
+(check-expect [(add-element SET4 even-numbers?)    SET5] #false)
+(check-expect [(add-element SET0 divisible-by-10?) SET0] #true)
+(check-expect [(add-element SET0 divisible-by-10?) SET3] #true)
+(check-expect [(add-element SET4 divisible-by-10?) SET4] #true)
+(check-expect [(add-element SET4 divisible-by-10?) SET5] #false)
 
 (define (add-element x s)
   (lambda (x0)
@@ -952,7 +992,10 @@
 
 ; Set Set -> Set
 ; combines the elements of two sets
-(check-expect [(union odd? even?) (random 1000)] #true)
+(check-expect [(union odd-numbers? even-numbers?) SET0] #true)
+(check-expect [(union odd-numbers? even-numbers?) SET1] #true)
+(check-expect [(union odd-numbers? even-numbers?) SET2] #true)
+(check-expect [(union odd-numbers? even-numbers?) SET4] #false)
 
 (define (union s1 s2)
   (lambda (x)
@@ -961,9 +1004,9 @@
 
 ; X Set -> Set
 ; collects all elements common to two sets
-(check-expect [(intersection odd? even?) (random 100)] #false)
-(check-expect [(intersection odd?  two?) 3] #false)
-(check-expect [(intersection even? two?) 2] #true)
+(check-expect [(intersection even-numbers? divisible-by-10?) SET0] #true)
+(check-expect [(intersection even-numbers? divisible-by-10?) SET3] #true)
+(check-expect [(intersection even-numbers? divisible-by-10?) SET1] #false)
 
 (define (intersection s1 s2)
   (lambda (x)
