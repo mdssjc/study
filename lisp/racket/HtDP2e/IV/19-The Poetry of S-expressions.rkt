@@ -150,3 +150,77 @@
         [else
          (or (blue-eyed-child? (child-father an-ftree))
              (blue-eyed-child? (child-mother an-ftree)))]))
+
+
+
+;; 19.2 - Forests
+
+
+;; =================
+;; Data definitions:
+
+; An FF (short for family forest) is one of:
+; - '()
+; - (cons FT FF)
+; interpretation a family forest represents several
+; families (say, a town) and their ancestor trees
+(define ff1 (list Carl Bettina))
+(define ff2 (list Fred Eva))
+(define ff3 (list Fred Eva Carl))
+
+;; Exercise 314
+
+
+;; =================
+;; Functions:
+
+; FF -> Boolean
+; does the forest contain any child with "blue" eyes
+(check-expect (blue-eyed-child-in-forest? ff1) #false)
+(check-expect (blue-eyed-child-in-forest? ff2) #true)
+(check-expect (blue-eyed-child-in-forest? ff3) #true)
+
+#;
+(define (blue-eyed-child-in-forest? a-forest)
+  (cond [(empty? a-forest) #false]
+        [else
+         (or (blue-eyed-child? (first a-forest))
+             (blue-eyed-child-in-forest? (rest a-forest)))]))
+
+(define (blue-eyed-child-in-forest? a-forest)
+  (local (; [X -> Boolean] [List-of X] -> Boolean
+          ; determines whether p? holds for at least one items of l
+          (define (ormap2 p? l)
+            (cond [(empty? l) #false]
+                  [else
+                   (or (p? (first l))
+                       (ormap2 p? (rest l)))])))
+    (ormap2 blue-eyed-child? a-forest)))
+
+;; Exercise 315
+
+
+;; =================
+;; Functions:
+
+; [List-of FT] Number -> Number
+; produces the average age of all child instances in the forest
+(check-expect (average-age.v2 ff1 CURRENT-YEAR) 74)
+(check-expect (average-age.v2 ff2 CURRENT-YEAR) 54.25)
+(check-expect (average-age.v2 ff3 CURRENT-YEAR) 58.2)
+
+(define (average-age.v2 lox n)
+  (local ((define (sum-dates ft)
+            (cond [(no-parent? ft) 0]
+                  [else
+                   (+ (- n (child-date ft))
+                      (sum-dates (child-father ft))
+                      (sum-dates (child-mother ft)))]))
+          (define (count-child ft)
+            (cond [(no-parent? ft) 0]
+                  [else
+                   (+ 1
+                      (count-child (child-father ft))
+                      (count-child (child-mother ft)))])))
+    (/ (foldr + 0 (map sum-dates   lox))
+       (foldr + 0 (map count-child lox)))))
