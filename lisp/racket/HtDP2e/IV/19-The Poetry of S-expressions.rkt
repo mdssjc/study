@@ -224,3 +224,248 @@
                       (count-child (child-mother ft)))])))
     (/ (foldr + 0 (map sum-dates   lox))
        (foldr + 0 (map count-child lox)))))
+
+
+
+;; 19.3 - S-expressions
+
+
+;; =================
+;; Data definitions:
+
+; An S-expr is one of:
+; - Atom
+; - SL
+
+; An SL is one of:
+; - '()
+; - (cons S-expr SL)
+
+; An Atom is one of:
+; - Number
+; - String
+; - Symbol
+
+;; Exercise 316
+
+
+;; =================
+;; Functions:
+
+; Atom -> Boolean
+; predicates if it's an atom
+(check-expect (atom? #true) #false)
+(check-expect (atom? 1)     #true)
+(check-expect (atom? "abc") #true)
+(check-expect (atom? 'sb)   #true)
+
+(define (atom? a)
+  (or (number? a)
+      (string? a)
+      (symbol? a)))
+
+;; Templates
+
+#;
+(define (count sexp sy)
+  (cond [(atom? sexp) (count-atom sexp sy)]
+        [else
+         (count-sl sexp sy)]))
+
+#;
+(define (count-sl sl sy)
+  (cond [(empty? sl) ...]
+        [else
+         (...
+          (count (first sl) sy)
+          ...
+          (count-sl (rest sl) sy)
+          ...)]))
+
+#;
+(define (count-atom at sy)
+  (cond [(number? at) ...]
+        [(string? at) ...]
+        [(symbol? at) ...]))
+
+; S-expr Symbol -> N
+; counts all occurrences of sy in sexp
+(check-expect (count 'world 'hello) 0)
+(check-expect (count '(world hello) 'hello) 1)
+(check-expect (count '(((world) hello) hello) 'hello) 2)
+
+(define (count sexp sy)
+  (cond [(atom? sexp) (count-atom sexp sy)]
+        [else
+         (count-sl sexp sy)]))
+
+; SL Symbol -> N
+; counts all occurrences of sy in sl
+(define (count-sl sl sy)
+  (cond [(empty? sl) 0]
+        [else
+         (+ (count    (first sl) sy)
+            (count-sl (rest  sl) sy))]))
+
+; Atom Symbol -> N
+; counts all occurrences of sy in at
+(define (count-atom at sy)
+  (cond [(number? at) 0]
+        [(string? at) 0]
+        [(symbol? at) (if (symbol=? at sy) 1 0)]))
+
+;; Exercise 317
+
+
+;; =================
+;; Functions:
+
+; S-expr Symbol -> N
+; counts all occurrences of sy in sexp
+(check-expect (count.v2 'world 'hello) 0)
+(check-expect (count.v2 '(world hello) 'hello) 1)
+(check-expect (count.v2 '(((world) hello) hello) 'hello) 2)
+
+(define (count.v2 sexp sy)
+  (local (; S-expr -> N
+          (define (count sexp)
+            (cond [(atom? sexp) (count-atom sexp)]
+                  [else
+                   (count-sl sexp)]))
+
+          ; SL -> N
+          (define (count-sl sl)
+            (cond [(empty? sl) 0]
+                  [else
+                   (+ (count    (first sl))
+                      (count-sl (rest  sl)))]))
+
+          ; Atom -> N
+          (define (count-atom at)
+            (cond [(number? at) 0]
+                  [(string? at) 0]
+                  [(symbol? at) (if (symbol=? at sy) 1 0)])))
+
+    (count sexp)))
+
+;; Exercise 318
+
+
+;; =================
+;; Functions:
+
+; S-expr -> Number
+; determines its depth
+(check-expect (depth 12) 1)
+(check-expect (depth '(12)) 1)
+(check-expect (depth '(12 12)) 2)
+
+(define (depth sexp)
+  (local (; S-expr -> N
+          (define (depth sexp)
+            (cond [(atom? sexp) 1]
+                  [else
+                   (depth-sl sexp)]))
+
+          ; SL -> N
+          (define (depth-sl sl)
+            (cond [(empty? sl) 0]
+                  [else
+                   (+ (depth    (first sl))
+                      (depth-sl (rest  sl)))])))
+
+    (depth sexp)))
+
+;; Exercise 319
+
+
+;; =================
+;; Functions:
+
+; S-expr Symbol Symbol -> S-expr
+; substitutes all occurrences of old by new in S-expression s
+(check-expect (substitute 1 'abc 'cba) 1)
+(check-expect (substitute '(1 abc def)     'cba 'abc) '(1 cba def))
+(check-expect (substitute '(1 abc cba abc) 'cba 'abc) '(1 cba cba cba))
+
+(define (substitute s new old)
+  (local (; S-expr -> S-expr
+          (define (substitute s)
+            (cond [(atom? s) (replace-symbol s)]
+                  [else
+                   (substitute-sl s)]))
+
+          ; S-expr -> S-expr
+          (define (substitute-sl sl)
+            (cond [(empty? sl) '()]
+                  [else
+                   (cons (substitute    (first sl))
+                         (substitute-sl (rest  sl)))]))
+
+          ; S-expr -> S-expr
+          (define (replace-symbol s)
+            (cond [(number? s) s]
+                  [(string? s) s]
+                  [(symbol? s) (if (symbol=? s old) new s)])))
+
+    (substitute s)))
+
+;; Exercise 320
+
+
+;; =================
+;; Data definitions:
+
+; A S-expr.v2 is one of:
+; - Number
+; - String
+; - Symbol
+; - [List-of S-expr.v2]
+
+
+;; =================
+;; Functions:
+
+; S-expr.v2 Symbol -> N
+; counts all occurrences of sy in sexp
+(check-expect (count.v3 'world 'hello) 0)
+(check-expect (count.v3 '(world hello) 'hello) 1)
+(check-expect (count.v3 '(((world) hello) hello) 'hello) 2)
+(check-expect (count.v3 1   'abc) 0)
+(check-expect (count.v3 "a" 'abc) 0)
+(check-expect (count.v3 '(1 hello "a" ((world) hello) hello) 'hello) 3)
+
+(define (count.v3 sexp sy)
+  (cond [(or (number? sexp)
+             (string? sexp)) 0]
+        [(symbol? sexp) (if (symbol=? sexp sy) 1 0)]
+        [else
+         (foldr (lambda (at res) (+ (count.v3 at sy) res)) 0 sexp)]))
+
+;; Exercise 321
+
+
+;; =================
+;; Data definitions:
+
+; A S-expr.v3 is one of:
+; - X
+; - [List-of S-expr.v3]
+
+
+;; =================
+;; Functions:
+
+; S-expr.v3 Symbol -> N
+; counts all occurrences of sy in sexp
+(check-expect (count.v4 'world 'hello) 0)
+(check-expect (count.v4 '(world hello) 'hello) 1)
+(check-expect (count.v4 '(((world) hello) hello) 'hello) 2)
+(check-expect (count.v4 1   'abc) 0)
+(check-expect (count.v4 "a" 'abc) 0)
+(check-expect (count.v4 '(1 hello "a" ((world) hello) hello) 'hello) 3)
+
+(define (count.v4 sexp sy)
+  (cond [(symbol? sexp) (if (symbol=? sexp sy) 1 0)]
+        [(list?   sexp) (foldr (lambda (at res) (+ (count.v4 at sy) res)) 0 sexp)]
+        [else 0]))
