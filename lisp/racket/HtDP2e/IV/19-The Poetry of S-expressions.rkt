@@ -473,3 +473,216 @@
 
 
 ;; 19.4 - Designing with Intertwined Data
+
+
+
+;; 19.5 - Project: BSTs
+
+
+;; =================
+;; Data definitions:
+
+(define-struct no-info [])
+(define NONE (make-no-info))
+(define-struct node [ssn name left right])
+; A BT (short for BinaryTree) is one of:
+; - NONE
+; - (make-node Number Symbol BT BT)
+(define TA (make-node 63 'a
+                      (make-node 29 'b
+                                 (make-node 15 'c
+                                            (make-node 10 'd NONE NONE)
+                                            (make-node 24 'e NONE NONE))
+                                 NONE)
+                      (make-node 89 'f
+                                 (make-node 77 'g NONE NONE)
+                                 (make-node 95 'h NONE
+                                            (make-node 99 'i NONE NONE)))))
+
+(define TB (make-node 63 'a
+                      (make-node 29 'b
+                                 (make-node 15 'c
+                                            (make-node 87 'd NONE NONE)
+                                            (make-node 24 'e NONE NONE))
+                                 NONE)
+                      (make-node 89 'f
+                                 (make-node 33 'g NONE NONE)
+                                 (make-node 95 'h NONE
+                                            (make-node 99 'i NONE NONE)))))
+
+;; Exercise 322
+
+
+;; =================
+;; Functions:
+
+; BinaryTree Number -> Boolean
+; determines whether a given number occurs in some given BT
+(check-expect (contains-bt? TA 64) #false)
+(check-expect (contains-bt? TA 63) #true)
+(check-expect (contains-bt? TA 99) #true)
+(check-expect (contains-bt? TA 24) #true)
+
+(define (contains-bt? bt n)
+  (cond [(no-info? bt) #false]
+        [else
+         (or (= (node-ssn bt) n)
+             (contains-bt? (node-left  bt) n)
+             (contains-bt? (node-right bt) n))]))
+
+;; Exercise 323
+
+
+;; =================
+;; Functions:
+
+; Number BinaryTree -> Symbol or false
+; produces the value of the name field in that node, otherwise, the function produces #false
+(check-expect (search-bt 64 TA) #false)
+(check-expect (search-bt 63 TA) 'a)
+(check-expect (search-bt 99 TA) 'i)
+(check-expect (search-bt 24 TA) 'e)
+
+(define (search-bt n bt)
+  (cond [(no-info? bt) #false]
+        [else
+         (if (= (node-ssn bt) n)
+             (node-name bt)
+             (local ((define left (node-left bt)))
+               (if (contains-bt? left n)
+                   (search-bt n left)
+                   (search-bt n (node-right bt)))))]))
+
+;; Exercise 324
+
+
+;; =================
+;; Functions:
+
+; BinaryTree -> [List-of Number]
+; produces the sequence of all the ssn numbers in the tree as they show up
+; from left to right when looking at a tree drawing
+(check-expect (inorder TA) '(10 15 24 29 63 77 89 95 99))
+(check-expect (inorder TB) '(87 15 24 29 63 33 89 95 99))
+
+(define (inorder bt)
+  (cond [(no-info? bt) '()]
+        [else
+         (append (inorder (node-left  bt))
+                 (list    (node-ssn   bt))
+                 (inorder (node-right bt)))]))
+
+;; Exercise 325
+
+
+;; =================
+;; Functions:
+
+; Number BST -> Symbol or NONE
+; produces the value of the name field in that node
+; otherwise, the function produces NONE
+; Invariant: rules for BST
+(check-expect (search-bst 65 TA) NONE)
+(check-expect (search-bst 63 TA) 'a)
+(check-expect (search-bst 29 TA) 'b)
+(check-expect (search-bst 24 TA) 'e)
+(check-expect (search-bst 89 TA) 'f)
+(check-expect (search-bst 99 TA) 'i)
+
+(define (search-bst n bst)
+  (cond [(no-info? bst) NONE]
+        [else
+         (local ((define ssn (node-ssn bst)))
+           (cond [(= n ssn) (node-name bst)]
+                 [else
+                  (search-bst n
+                              (if (< n ssn)
+                                  (node-left  bst)
+                                  (node-right bst)))]))]))
+
+;; Exercise 326
+
+
+;; =================
+;; Functions:
+
+; BST Number Symbol -> BST
+; produces a BST that in place of one NONE subtree contains the node structure
+(check-expect (create-bst TA 9 'j)
+              (make-node 63 'a
+                         (make-node 29 'b
+                                    (make-node 15 'c
+                                               (make-node 10 'd
+                                                          (make-node 9 'j NONE NONE)
+                                                          NONE)
+                                               (make-node 24 'e NONE NONE))
+                                    NONE)
+                         (make-node 89 'f
+                                    (make-node 77 'g NONE NONE)
+                                    (make-node 95 'h NONE
+                                               (make-node 99 'i NONE NONE)))))
+(check-expect (create-bst TA 30 'j)
+              (make-node 63 'a
+                         (make-node 29 'b
+                                    (make-node 15 'c
+                                               (make-node 10 'd NONE NONE)
+                                               (make-node 24 'e NONE NONE))
+                                    (make-node 30 'j NONE NONE))
+                         (make-node 89 'f
+                                    (make-node 77 'g NONE NONE)
+                                    (make-node 95 'h NONE
+                                               (make-node 99 'i NONE NONE)))))
+(check-expect (create-bst TA 80 'j)
+              (make-node 63 'a
+                         (make-node 29 'b
+                                    (make-node 15 'c
+                                               (make-node 10 'd NONE NONE)
+                                               (make-node 24 'e NONE NONE))
+                                    NONE)
+                         (make-node 89 'f
+                                    (make-node 77 'g
+                                               NONE
+                                               (make-node 80 'j NONE NONE))
+                                    (make-node 95 'h NONE
+                                               (make-node 99 'i NONE NONE)))))
+(check-expect (create-bst TA 94 'j)
+              (make-node 63 'a
+                         (make-node 29 'b
+                                    (make-node 15 'c
+                                               (make-node 10 'd NONE NONE)
+                                               (make-node 24 'e NONE NONE))
+                                    NONE)
+                         (make-node 89 'f
+                                    (make-node 77 'g NONE NONE)
+                                    (make-node 95 'h
+                                               (make-node 94 'j NONE NONE)
+                                               (make-node 99 'i NONE NONE)))))
+
+(define (create-bst bst n s)
+  (cond [(no-info? bst) (make-node n s NONE NONE)]
+        [else
+         (local ((define ssn   (node-ssn   bst))
+                 (define left  (node-left  bst))
+                 (define right (node-right bst)))
+           (make-node ssn
+                      (node-name bst)
+                      (if (< n ssn) (create-bst left n s) left)
+                      (if (< n ssn) right (create-bst right n s))))]))
+
+;; Exercise 327
+
+
+;; =================
+;; Functions:
+
+; [List-of [List Number Symbol]] -> BST
+; produces a binary search tree by repeatedly applying create-bst
+(check-expect (create-bst-from-list '((99 i)(77 g)(24 e)(10 d)(95 h)(15 c)(89 f)(29 b)(63 a))) TA)
+
+(define (create-bst-from-list llon)
+  (cond [(empty? llon) NONE]
+        [else
+         (local ((define pair (first llon)))
+           (create-bst (create-bst-from-list (rest llon))
+                       (first  pair)
+                       (second pair)))]))
