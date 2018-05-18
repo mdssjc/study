@@ -469,3 +469,7 @@
   (cond [(symbol? sexp) (if (symbol=? sexp sy) 1 0)]
         [(list?   sexp) (foldr (lambda (at res) (+ (count.v4 at sy) res)) 0 sexp)]
         [else 0]))
+
+
+
+;; 19.4 - Designing with Intertwined Data
