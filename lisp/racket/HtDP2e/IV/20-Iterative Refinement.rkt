@@ -4,3 +4,26 @@
 ;; 20-Iterative Refinement.rkt
 ;; IV - Intertwined Data
 ;; 20 - Iterative Refinement
+
+
+
+;; 20.1 - Data Analysis
+
+;; Exercise 329
+
+; How many times does a file name read! occur in the directory tree TS?
+; Occur 2 times.
+
+; Can you describe the path from the root directory to the occurrences?
+; Yes.
+; TS (DIR) -> read! (10)
+; TS (DIR) -> Libs (DIR) -> Docs (DIR) -> read! (19)
+
+; What is the total size of all the files in the tree?
+; Total of 207.
+
+; What is the total size of the directory if each directory node has size 1?
+; Total of 5.
+
+; How many levels of directories does it contain?
+; It has 3 levels.
