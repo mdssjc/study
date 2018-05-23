@@ -383,26 +383,26 @@
 ;; Functions:
 
 ; S-expr Symbol Symbol -> S-expr
-; substitutes all occurrences of old by new in S-expression s
-(check-expect (substitute 1 'abc 'cba) 1)
-(check-expect (substitute '(1 abc def)     'cba 'abc) '(1 cba def))
-(check-expect (substitute '(1 abc cba abc) 'cba 'abc) '(1 cba cba cba))
+; substitutes all occurrences of old in S-expr s with new
+(check-expect (substitute 1 'cba 'abc) 1)
+(check-expect (substitute '(1 abc def)     'abc 'cba) '(1 cba def))
+(check-expect (substitute '(1 abc cba abc) 'abc 'cba) '(1 cba cba cba))
 
-(define (substitute s new old)
+(define (substitute s old new)
   (local (; S-expr -> S-expr
           (define (substitute s)
             (cond [(atom? s) (replace-symbol s)]
                   [else
                    (substitute-sl s)]))
 
-          ; S-expr -> S-expr
+          ; SL -> S-expr
           (define (substitute-sl sl)
             (cond [(empty? sl) '()]
                   [else
                    (cons (substitute    (first sl))
                          (substitute-sl (rest  sl)))]))
 
-          ; S-expr -> S-expr
+          ; Atom -> S-expr
           (define (replace-symbol s)
             (cond [(number? s) s]
                   [(string? s) s]
