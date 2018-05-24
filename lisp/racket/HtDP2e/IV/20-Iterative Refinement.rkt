@@ -27,3 +27,119 @@
 
 ; How many levels of directories does it contain?
 ; It has 3 levels.
+
+
+
+;; 20.2 - Refining Data Definitions
+
+
+;; =================
+;; Data definitions:
+
+; A Dir.v1 (short for directory) is one of:
+; - '()
+; - (cons File.v1 Dir.v1)
+; - (cons Dir.v1  Dir.v1)
+
+; A File.v1 is a String.
+
+;; Exercise 330
+
+(define D-CODE '("hang" "draw"))
+(define D-DOCS '("read!"))
+(define D-LIBS `(,D-CODE ,D-DOCS))
+(define D-TEXT '("part1" "part2" "part3"))
+(define D-TS   `(,D-TEXT "read!" ,D-LIBS))
+
+;; Exercise 331
+
+
+;; =================
+;; Functions:
+
+; Dir.v1 -> Natural
+; determines how many files a given Dir.v1 contains
+(check-expect (how-many '())    0)
+(check-expect (how-many D-CODE) 2)
+(check-expect (how-many D-LIBS) 3)
+(check-expect (how-many D-TS)   7)
+
+(define (how-many d)
+  (foldl (lambda (d acc)
+           (+ acc
+              (if (string? d) 1 (how-many d))))
+         0 d))
+
+
+;; =================
+;; Data definitions:
+
+(define-struct dir [name content])
+; A Dir.v2 is a structure:
+;   (make-dir String LOFD)
+
+; An LOFD (short for list of files and directories) is one of:
+; - '()
+; - (cons File.v2 LOFD)
+; - (cons Dir.v2  LOFD)
+
+; A File.v2 is a String.
+
+;; Exercise 332
+
+(define D-CODE.V2 (make-dir "Code" '("hang" "draw")))
+(define D-DOCS.V2 (make-dir "Docs" '("read!")))
+(define D-LIBS.V2 (make-dir "Libs" `(,D-CODE.V2 ,D-DOCS.V2)))
+(define D-TEXT.V2 (make-dir "Text" '("part1" "part2" "part3")))
+(define D-TS.V2   (make-dir "TS"   `(,D-TEXT.V2 "read!" ,D-LIBS.V2)))
+
+;; Exercise 333
+
+#;
+(define (fn-for-dir d)
+  (... (dir-name d)
+       (fn-for-lofd (dir-content d))))
+
+#;
+(define (fn-for-lofd lofd)
+  (cond [(empty? lofd) ...]
+        [(string? (first lofd))
+         (... (first lofd)
+              (fn-for-lofd (rest lofd)))]
+        [else
+         (... (fn-for-dir  (first lofd))
+              (fn-for-lofd (rest  lofd)))]))
+
+
+;; =================
+;; Functions:
+
+; Dir.v2 -> Natural
+; determines how many files a given Dir.v2 contains
+(check-expect (how-many.v2 (make-dir "root" '())) 0)
+(check-expect (how-many.v2 D-CODE.V2) 2)
+(check-expect (how-many.v2 D-LIBS.V2) 3)
+(check-expect (how-many.v2 D-TS.V2)   7)
+
+(define (how-many.v2 d)
+  (foldl (lambda (d acc)
+           (+ acc
+              (if (string? d) 1 (how-many.v2 d))))
+         0 (dir-content d)))
+
+;; Exercise 334
+
+
+;; =================
+;; Data definitions:
+
+(define-struct dir.v2 (name content size readability))
+; A Dir.v2b is a structure:
+;   (make-dir String LOFD N Boolean)
+
+; A LOFD (short for list of files and directories) is one of:
+; - '()
+; - (cons File.v2 LOFD)
+; - (cons Dir.v2b LOFD)
+
+; A File.v2 is a String.
