@@ -18,6 +18,7 @@ import edu.princeton.cs.introcs.StdOut;
 public class Graph {
 
   private final ST<String, SET<String>> st;
+  private int E;
 
   public Graph() {
     this.st = new ST<>();
@@ -35,12 +36,27 @@ public class Graph {
     }
   }
 
+  public int V() {
+    return this.st.size();
+  }
+
+  public int E() {
+    return this.E;
+  }
+
+  public int degree(final String v) {
+    return this.st.get(v).size();
+  }
+
   public void addEdge(final String v, final String w) {
     if (!this.st.contains(v)) {
       this.st.put(v, new SET<>());
     }
     if (!this.st.contains(w)) {
       this.st.put(w, new SET<>());
+    }
+    if (!hasEdge(v, w)) {
+      this.E++;
     }
     this.st.get(v)
            .add(w);
@@ -54,6 +70,10 @@ public class Graph {
 
   public Iterable<String> vertices() {
     return this.st.keys();
+  }
+
+  public boolean hasEdge(final String v, final String w) {
+    return this.st.get(v).contains(w);
   }
 
   @Override
