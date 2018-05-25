@@ -143,3 +143,111 @@
 ; - (cons Dir.v2b LOFD)
 
 ; A File.v2 is a String.
+
+(define-struct file [name size content])
+; A File.v3 is a structure:
+;   (make-file String N String)
+
+(define-struct dir.v3 [name dirs files])
+; A Dir.v3 is a structure:
+;   (make-dir.v3 String Dir* File*)
+
+; A Dir* is one of:
+; - '()
+; - (cons Dir.v3 Dir*)
+
+; A File* is one of:
+; - '()
+; - (cons File.v3 File*)
+
+;; Exercise 335
+
+(define F7 (make-file "read!" 19 ""))
+(define D-DOCS.V3 (make-dir.v3 "Docs" '() `(,F7)))
+(define F5 (make-file "hang" 8 ""))
+(define F6 (make-file "draw" 2 ""))
+(define D-CODE.V3 (make-dir.v3 "Code" '() `(,F5 ,F6)))
+(define D-LIBS.V3 (make-dir.v3 "Libs" `(,D-CODE.V3 ,D-DOCS.V3) '()))
+(define F2 (make-file "part1" 99 ""))
+(define F3 (make-file "part2" 52 ""))
+(define F4 (make-file "part3" 17 ""))
+(define D-TEXT.V3 (make-dir.v3 "Text" '() `(,F2 ,F3 ,F4)))
+(define F1 (make-file "read!" 10 ""))
+(define D-TS.V3 (make-dir.v3 "TS" `(,D-TEXT.V3 ,D-LIBS.V3) `(,F1)))
+
+;; Exercise 336
+
+#;
+(define (fn-for-dir d0)
+  (local ((define (fn-for-dir d)
+            (... (dir-name d)
+                 (fn-for-lod (dir.v3-dirs  d))
+                 (fn-for-lof (dir.v3-files d))))
+
+          (define (fn-for-lod lod)
+            (cond [(empty? lod) ...]
+                  [else
+                   (... (fn-for-dir (first lod))
+                        (fn-for-lod (rest  lod)))]))
+
+          (define (fn-for-lof lof)
+            (cond [(empty? lof) ...]
+                  [else
+                   (... (fn-for-file (first lof))
+                        (fn-for-lof  (rest  lof)))]))
+
+          (define (fn-for-file f)
+            (... (file-name f)
+                 (file-size f)
+                 (file-content f))))
+
+    (fn-for-dir d0)))
+
+
+;; =================
+;; Functions:
+
+; Dir.v3 -> Natural
+; determines how many files a given Dir.v3 contains
+(check-expect (how-many.v3 (make-dir.v3 "root" '() '())) 0)
+(check-expect (how-many.v3 D-CODE.V3) 2)
+(check-expect (how-many.v3 D-LIBS.V3) 3)
+(check-expect (how-many.v3 D-TS.V3)   7)
+
+(define (how-many.v3 d)
+  (+ (foldl (lambda (d acc)
+              (+ (how-many.v3 d) acc))
+            0 (dir.v3-dirs d))
+     (foldl (lambda (f acc)
+              (add1 acc))
+            0 (dir.v3-files d))))
+
+;; Exercise 337
+
+
+;; =================
+;; Data definitions:
+
+; A Dir.v3 is a structure:
+;   (make-dir.v3 String [List-of Dir.v3] [List-of File.v3])
+
+; A [List-of ITEM] is one of:
+; - '()
+; - (cons ITEM [List-of ITEM])
+
+
+;; =================
+;; Functions:
+
+; Dir.v3 -> Natural
+; determines how many files a given Dir.v3 contains
+(check-expect (how-many.v4 (make-dir.v3 "root" '() '())) 0)
+(check-expect (how-many.v4 D-CODE.V3) 2)
+(check-expect (how-many.v4 D-LIBS.V3) 3)
+(check-expect (how-many.v4 D-TS.V3)   7)
+
+(define (how-many.v4 d)
+  (+ (foldr (lambda (d acc)
+              (+ (how-many.v4 d) acc))
+            0 (dir.v3-dirs d))
+     (length (dir.v3-files d))))
