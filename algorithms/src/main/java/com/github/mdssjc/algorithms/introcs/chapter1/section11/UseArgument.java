@@ -5,6 +5,18 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 
 /**
  * Program 1.1.2 Using a command-line argument.
+ * <p>
+ * Compilation:  javac UseArgument.java
+ * Execution:    java UseArgument yourname
+ * <p>
+ * Prints "Hi, Bob. How are you?" where "Bob" is replaced by the
+ * command-line argument.
+ * <p>
+ * % java UseArgument Bob
+ * Hi, Bob. How are you?
+ * <p>
+ * % java UseArgument Alice
+ * Hi, Alice. How are you?
  *
  * @author Marcelo dos Santos
  *
