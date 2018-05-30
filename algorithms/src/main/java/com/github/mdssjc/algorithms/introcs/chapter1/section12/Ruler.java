@@ -5,6 +5,18 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 
 /**
  * Program 1.2.1 String concatenation.
+ * <p>
+ * Compilation:  javac Ruler.java
+ * Execution:    java Ruler
+ * <p>
+ * Prints the relative lengths of the subdivisions on a ruler.
+ * <p>
+ * % java Ruler
+ * 1
+ * 1 2 1
+ * 1 2 1 3 1 2 1
+ * 1 2 1 3 1 2 1 4 1 2 1 3 1 2 1
+ * 1 2 1 3 1 2 1 4 1 2 1 3 1 2 1 5 1 2 1 3 1 2 1 4 1 2 1 3 1 2 1
  *
  * @author Marcelo dos Santos
  *
@@ -19,6 +31,7 @@ public class Ruler {
     final String ruler2 = ruler1 + " 2 " + ruler1;
     final String ruler3 = ruler2 + " 3 " + ruler2;
     final String ruler4 = ruler3 + " 4 " + ruler3;
+
     System.out.println(ruler1);
     System.out.println(ruler2);
     System.out.println(ruler3);
