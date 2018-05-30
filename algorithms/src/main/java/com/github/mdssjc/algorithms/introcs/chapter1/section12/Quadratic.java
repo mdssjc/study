@@ -5,6 +5,26 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 
 /**
  * Program 1.2.3 Quadratic formula.
+ * <p>
+ * Compilation:  javac Quadratic.java
+ * Execution:    java Quadatic b c
+ * <p>
+ * Given b and c, solves for the roots of x*x + b*x + c.
+ * Assumes both roots are real valued.
+ * <p>
+ * % java Quadratic -3.0 2.0
+ * 2.0
+ * 1.0
+ * <p>
+ * % java Quadratic -1.0 -1.0
+ * 1.618033988749895
+ * -0.6180339887498949
+ * <p>
+ * Remark:  1.6180339... is the golden ratio.
+ * <p>
+ * % java Quadratic 1.0 1.0
+ * NaN
+ * NaN
  *
  * @author Marcelo dos Santos
  *
@@ -19,9 +39,14 @@ public class Quadratic {
 
     final double b = Double.parseDouble(args[0]);
     final double c = Double.parseDouble(args[1]);
+
     final double discriminant = b * b - 4.0 * c;
-    final double d = Math.sqrt(discriminant);
-    System.out.println((-b + d) / 2.0);
-    System.out.println((-b - d) / 2.0);
+    final double sqroot = Math.sqrt(discriminant);
+
+    final double root1 = (-b + sqroot) / 2.0;
+    final double root2 = (-b - sqroot) / 2.0;
+
+    System.out.println(root1);
+    System.out.println(root2);
   }
 }
