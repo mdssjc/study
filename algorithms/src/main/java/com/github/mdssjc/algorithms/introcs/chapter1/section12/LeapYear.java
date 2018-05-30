@@ -5,6 +5,21 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 
 /**
  * Program 1.2.4 Leap year.
+ * <p>
+ * Compilation:  javac LeapYear.java
+ * Execution:    java LeapYear n
+ * <p>
+ * Prints true if n corresponds to a leap year, and false otherwise.
+ * Assumes n >= 1582, corresponding to a year in the Gregorian calendar.
+ * <p>
+ * % java LeapYear 2004
+ * true
+ * <p>
+ * % java LeapYear 1900
+ * false
+ * <p>
+ * % java LeapYear 2000
+ * true
  *
  * @author Marcelo dos Santos
  *
@@ -19,9 +34,11 @@ public class LeapYear {
 
     final int year = Integer.parseInt(args[0]);
     boolean isLeapYear;
+
     isLeapYear = (year % 4 == 0);
     isLeapYear = isLeapYear && (year % 100 != 0);
     isLeapYear = isLeapYear || (year % 400 == 0);
+
     System.out.println(isLeapYear);
   }
 }
