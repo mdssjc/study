@@ -144,9 +144,9 @@
 
 ; A File.v2 is a String.
 
-(define-struct file [name size content])
+(define-struct file.v3 [name size content])
 ; A File.v3 is a structure:
-;   (make-file String N String)
+;   (make-file.v3 String N String)
 
 (define-struct dir.v3 [name dirs files])
 ; A Dir.v3 is a structure:
@@ -162,17 +162,17 @@
 
 ;; Exercise 335
 
-(define F7 (make-file "read!" 19 ""))
+(define F7 (make-file.v3 "read!" 19 ""))
 (define D-DOCS.V3 (make-dir.v3 "Docs" '() `(,F7)))
-(define F5 (make-file "hang" 8 ""))
-(define F6 (make-file "draw" 2 ""))
+(define F5 (make-file.v3 "hang" 8 ""))
+(define F6 (make-file.v3 "draw" 2 ""))
 (define D-CODE.V3 (make-dir.v3 "Code" '() `(,F5 ,F6)))
 (define D-LIBS.V3 (make-dir.v3 "Libs" `(,D-CODE.V3 ,D-DOCS.V3) '()))
-(define F2 (make-file "part1" 99 ""))
-(define F3 (make-file "part2" 52 ""))
-(define F4 (make-file "part3" 17 ""))
+(define F2 (make-file.v3 "part1" 99 ""))
+(define F3 (make-file.v3 "part2" 52 ""))
+(define F4 (make-file.v3 "part3" 17 ""))
 (define D-TEXT.V3 (make-dir.v3 "Text" '() `(,F2 ,F3 ,F4)))
-(define F1 (make-file "read!" 10 ""))
+(define F1 (make-file.v3 "read!" 10 ""))
 (define D-TS.V3 (make-dir.v3 "TS" `(,D-TEXT.V3 ,D-LIBS.V3) `(,F1)))
 
 ;; Exercise 336
@@ -251,3 +251,69 @@
               (+ (how-many.v4 d) acc))
             0 (dir.v3-dirs d))
      (length (dir.v3-files d))))
+
+
+
+;; 20.3 - Refining Functions
+
+(require htdp/dir)
+
+
+;; (define O (create-dir "/Users/..."))     ; on OS X
+(define L (create-dir "/var/log/"))      ; on Linux
+;; (define W (create-dir "C:\\Users\\...")) ; on Windows
+
+;; Exercise 338
+
+
+;; =================
+;; Functions:
+
+; Dir -> Natural
+; determines how many files a given Dir contains
+(define (how-many.v5 d)
+  (+ (foldl (lambda (d acc)
+              (+ (how-many.v5 d) acc))
+            0 (dir-dirs d))
+     (foldl (lambda (f acc)
+              (add1 acc))
+            0 (dir-files d))))
+
+(how-many.v5 L)
+
+;; Exercise 339
+
+
+;; =================
+;; Functions:
+
+; Dir String -> Boolean
+; determines whether or not a file with this name occurs in the directory tree
+(define (find? d fn)
+  (or (foldl (lambda (d acc)
+               (or (find? d fn) acc))
+             #false (dir-dirs d))
+      (foldl (lambda (f acc)
+               (or (string=? (file-name f) fn) acc))
+             #false (dir-files d))))
+
+(find? L "log.log")
+(find? L "vboxadd-setup.log")
+
+;; Exercise 340
+
+
+;; =================
+;; Functions:
+
+; Dir -> [List-of String]
+; lists the names of all files and directories in a given Dir
+(define (ls d)
+  (append (foldl (lambda (d acc)
+                   (append (ls d) acc))
+                 '() (dir-dirs d))
+          (foldl (lambda (f acc)
+                   (cons (file-name f) acc))
+                 '() (dir-files d))))
+
+(ls L)
