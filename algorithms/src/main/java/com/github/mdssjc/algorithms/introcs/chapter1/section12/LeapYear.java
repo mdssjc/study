@@ -32,7 +32,7 @@ public class LeapYear {
   public static void main(final String[] args) {
     Executor.execute(LeapYear.class, args);
 
-    final int year = Integer.parseInt(args[0]);
+    final var year = Integer.parseInt(args[0]);
     boolean isLeapYear;
 
     isLeapYear = (year % 4 == 0);

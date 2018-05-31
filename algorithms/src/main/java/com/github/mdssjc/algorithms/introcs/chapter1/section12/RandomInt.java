@@ -27,19 +27,20 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
  * @author Marcelo dos Santos
  *
  */
+@TestDrive("6")
+@TestDrive("6")
 @TestDrive("1000")
 @TestDrive("1000")
-@TestDrive("1000000")
 public class RandomInt {
 
   public static void main(final String[] args) {
     Executor.execute(RandomInt.class, args);
 
-    final int n = Integer.parseInt(args[0]);
+    final var n = Integer.parseInt(args[0]);
 
-    final double r = Math.random();
+    final var r = Math.random();
 
-    final int value = (int) (r * n);
+    final var value = (int) (r * n);
 
     System.out.println(value);
   }

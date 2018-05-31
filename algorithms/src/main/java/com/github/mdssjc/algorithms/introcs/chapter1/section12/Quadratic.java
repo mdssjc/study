@@ -37,14 +37,14 @@ public class Quadratic {
   public static void main(final String[] args) {
     Executor.execute(Quadratic.class, args);
 
-    final double b = Double.parseDouble(args[0]);
-    final double c = Double.parseDouble(args[1]);
+    final var b = Double.parseDouble(args[0]);
+    final var c = Double.parseDouble(args[1]);
 
-    final double discriminant = b * b - 4.0 * c;
-    final double sqroot = Math.sqrt(discriminant);
+    final var discriminant = b * b - 4.0 * c;
+    final var sqroot = Math.sqrt(discriminant);
 
-    final double root1 = (-b + sqroot) / 2.0;
-    final double root2 = (-b - sqroot) / 2.0;
+    final var root1 = (-b + sqroot) / 2.0;
+    final var root2 = (-b - sqroot) / 2.0;
 
     System.out.println(root1);
     System.out.println(root2);

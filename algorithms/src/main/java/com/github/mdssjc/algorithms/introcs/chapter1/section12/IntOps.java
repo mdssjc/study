@@ -29,17 +29,18 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
  *
  */
 @TestDrive({"1234", "99"})
+@TestDrive({"10", "-3"})
 public class IntOps {
 
   public static void main(final String[] args) {
     Executor.execute(IntOps.class, args);
 
-    final int a = Integer.parseInt(args[0]);
-    final int b = Integer.parseInt(args[1]);
-    final int sum = a + b;
-    final int prod = a * b;
-    final int quot = a / b;
-    final int rem = a % b;
+    final var a = Integer.parseInt(args[0]);
+    final var b = Integer.parseInt(args[1]);
+    final var sum = a + b;
+    final var prod = a * b;
+    final var quot = a / b;
+    final var rem = a % b;
 
     System.out.println(a + " + " + b + " = " + sum);
     System.out.println(a + " * " + b + " = " + prod);
