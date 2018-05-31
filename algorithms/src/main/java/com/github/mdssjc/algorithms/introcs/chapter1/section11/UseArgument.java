@@ -21,8 +21,8 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
  * @author Marcelo dos Santos
  *
  */
-@TestDrive("Alice")
 @TestDrive("Bob")
+@TestDrive("Alice")
 public class UseArgument {
 
   public static void main(final String[] args) {
