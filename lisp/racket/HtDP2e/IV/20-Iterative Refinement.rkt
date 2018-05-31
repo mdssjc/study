@@ -74,9 +74,9 @@
 ;; =================
 ;; Data definitions:
 
-(define-struct dir [name content])
+(define-struct dir.v2 [name content])
 ; A Dir.v2 is a structure:
-;   (make-dir String LOFD)
+;   (make-dir.v2 String LOFD)
 
 ; An LOFD (short for list of files and directories) is one of:
 ; - '()
@@ -87,18 +87,18 @@
 
 ;; Exercise 332
 
-(define D-CODE.V2 (make-dir "Code" '("hang" "draw")))
-(define D-DOCS.V2 (make-dir "Docs" '("read!")))
-(define D-LIBS.V2 (make-dir "Libs" `(,D-CODE.V2 ,D-DOCS.V2)))
-(define D-TEXT.V2 (make-dir "Text" '("part1" "part2" "part3")))
-(define D-TS.V2   (make-dir "TS"   `(,D-TEXT.V2 "read!" ,D-LIBS.V2)))
+(define D-CODE.V2 (make-dir.v2 "Code" '("hang" "draw")))
+(define D-DOCS.V2 (make-dir.v2 "Docs" '("read!")))
+(define D-LIBS.V2 (make-dir.v2 "Libs" `(,D-CODE.V2 ,D-DOCS.V2)))
+(define D-TEXT.V2 (make-dir.v2 "Text" '("part1" "part2" "part3")))
+(define D-TS.V2   (make-dir.v2 "TS"   `(,D-TEXT.V2 "read!" ,D-LIBS.V2)))
 
 ;; Exercise 333
 
 #;
-(define (fn-for-dir d)
-  (... (dir-name d)
-       (fn-for-lofd (dir-content d))))
+(define (fn-for-dir.v2 d)
+  (... (dir.v2-name d)
+       (fn-for-lofd (dir.v2-content d))))
 
 #;
 (define (fn-for-lofd lofd)
@@ -116,7 +116,7 @@
 
 ; Dir.v2 -> Natural
 ; determines how many files a given Dir.v2 contains
-(check-expect (how-many.v2 (make-dir "root" '())) 0)
+(check-expect (how-many.v2 (make-dir.v2 "root" '())) 0)
 (check-expect (how-many.v2 D-CODE.V2) 2)
 (check-expect (how-many.v2 D-LIBS.V2) 3)
 (check-expect (how-many.v2 D-TS.V2)   7)
@@ -125,7 +125,7 @@
   (foldl (lambda (d acc)
            (+ acc
               (if (string? d) 1 (how-many.v2 d))))
-         0 (dir-content d)))
+         0 (dir.v2-content d)))
 
 ;; Exercise 334
 
@@ -133,9 +133,9 @@
 ;; =================
 ;; Data definitions:
 
-(define-struct dir.v2 (name content size readability))
+(define-struct dir.v2b (name content size readability))
 ; A Dir.v2b is a structure:
-;   (make-dir String LOFD N Boolean)
+;   (make-dir.v2b String LOFD N Boolean)
 
 ; A LOFD (short for list of files and directories) is one of:
 ; - '()
@@ -178,30 +178,30 @@
 ;; Exercise 336
 
 #;
-(define (fn-for-dir d0)
-  (local ((define (fn-for-dir d)
-            (... (dir-name d)
+(define (fn-for-dir.v3 d0)
+  (local ((define (fn-for-dir.v3 d)
+            (... (dir.v3-name d)
                  (fn-for-lod (dir.v3-dirs  d))
                  (fn-for-lof (dir.v3-files d))))
 
           (define (fn-for-lod lod)
             (cond [(empty? lod) ...]
                   [else
-                   (... (fn-for-dir (first lod))
-                        (fn-for-lod (rest  lod)))]))
+                   (... (fn-for-dir.v3 (first lod))
+                        (fn-for-lod    (rest  lod)))]))
 
           (define (fn-for-lof lof)
             (cond [(empty? lof) ...]
                   [else
-                   (... (fn-for-file (first lof))
-                        (fn-for-lof  (rest  lof)))]))
+                   (... (fn-for-file.v3 (first lof))
+                        (fn-for-lof     (rest  lof)))]))
 
-          (define (fn-for-file f)
-            (... (file-name f)
-                 (file-size f)
-                 (file-content f))))
+          (define (fn-for-file.v3 f)
+            (... (file.v3-name f)
+                 (file.v3-size f)
+                 (file.v3-content f))))
 
-    (fn-for-dir d0)))
+    (fn-for-dir.v3 d0)))
 
 
 ;; =================
@@ -317,3 +317,87 @@
                  '() (dir-files d))))
 
 (ls L)
+
+;; Exercise 341
+
+
+;; =================
+;; Functions:
+
+; Dir -> Natural
+; computes the total size of all the files in the entire directory tree
+(define (du d)
+  (+ (foldl (lambda (d acc)
+              (+ 1 (du d) acc))
+            0 (dir-dirs d))
+     (foldl (lambda (f acc)
+              (+ (file-size f) acc))
+            0 (dir-files d))))
+
+(du L)
+
+
+;; =================
+;; Data definitions:
+
+; A Path is [List-of String].
+; interpretation directions into a directory tree
+
+;; Exercise 342
+
+
+;; =================
+;; Functions:
+
+; Dir String -> Path or False
+; produces a path to a file with name f; otherwise it produces #false
+;; TODO refatorar com abstração
+(define (find d f)
+  (local ((define (fn-for-dir d)
+            (if (string=? (fn-for-lof (dir-files d)) "")
+                (fn-for-lod (dir-dirs d))
+                (cons (dir-name d)
+                      (cons (fn-for-lof (dir-files d))
+                            '()))))
+
+          (define (fn-for-lod lod)
+            (cond [(empty? lod) '()]
+                  [else
+                   (if (find? (first lod) f)
+                       (fn-for-dir (first lod))
+                       (fn-for-lod (rest  lod)))]))
+
+          (define (fn-for-lof lof)
+            (foldr (lambda (file acc)
+                     (if (string=? (file-name file) f)
+                         (file-name file)
+                         acc))
+                   "" lof)))
+
+    (if (find? d f)
+        (fn-for-dir d)
+        #false)))
+
+(find L "log.log")
+(find L "vboxadd-setup.log")
+(find L "system.journal")
+(find L "new-file")
+
+; Dir String -> [List-of Path] or False
+; produces a list of path to a file with name f; otherwise it produces #false
+;; TODO refatorar com abstração
+(define (find-all d f)
+  (local ((define (all-valid-paths d)
+            (append (if (find? d f)
+                        (list (list f))
+                        '())
+                    (foldl (lambda (x y)
+                             (append y (find-all x f)))
+                           '() (dir-dirs d)))))
+
+    (map (lambda (x) (cons (dir-name d) x)) (all-valid-paths d))))
+
+(find-all L "log.log")
+(find-all L "vboxadd-setup.log")
+(find-all L "system.journal")
+(find-all L "new-file")
