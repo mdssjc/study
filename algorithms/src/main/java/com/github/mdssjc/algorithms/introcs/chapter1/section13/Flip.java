@@ -5,6 +5,20 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 
 /**
  * Program 1.3.1 Flipping a fair coin.
+ * <p>
+ * Compilation:  javac Flip.java
+ * Execution:    java Flip
+ * <p>
+ * Simulate a fair coin flip and print out "Heads" or "Tails" accordingly.
+ * <p>
+ * % java Flip
+ * Heads
+ * <p>
+ * % java Flip
+ * Heads
+ * <p>
+ * % java Flip
+ * Tails
  *
  * @author Marcelo dos Santos
  *
