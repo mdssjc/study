@@ -50,8 +50,8 @@ public class PowersOfTwo {
 
     while (i <= n) {
       System.out.println(i + " " + powerOfTwo);
-      powerOfTwo = 2 * powerOfTwo;
-      i = i + 1;
+      powerOfTwo *= 2;
+      i++;
     }
   }
 }
