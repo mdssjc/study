@@ -55,23 +55,23 @@ public class PrimeSieve {
   public static void main(final String[] args) {
     Executor.execute(PrimeSieve.class, args);
 
-    final int n = Integer.parseInt(args[0]);
+    final var n = Integer.parseInt(args[0]);
 
-    final boolean[] isPrime = new boolean[n + 1];
-    for (int i = 2; i <= n; i++) {
+    final var isPrime = new boolean[n + 1];
+    for (var i = 2; i <= n; i++) {
       isPrime[i] = true;
     }
 
-    for (int factor = 2; factor * factor <= n; factor++) {
+    for (var factor = 2; factor * factor <= n; factor++) {
       if (isPrime[factor]) {
-        for (int j = factor; factor * j <= n; j++) {
+        for (var j = factor; factor * j <= n; j++) {
           isPrime[factor * j] = false;
         }
       }
     }
 
-    int primes = 0;
-    for (int i = 2; i <= n; i++) {
+    var primes = 0;
+    for (var i = 2; i <= n; i++) {
       if (isPrime[i]) {
         primes++;
       }
