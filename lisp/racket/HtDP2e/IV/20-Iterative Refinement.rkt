@@ -385,19 +385,56 @@
 
 ; Dir String -> [List-of Path] or False
 ; produces a list of path to a file with name f; otherwise it produces #false
-;; TODO refatorar com abstração
+;; FIXME remover os valores duplicados
 (define (find-all d f)
   (local ((define (all-valid-paths d)
-            (append (if (find? d f)
-                        (list (list f))
-                        '())
-                    (foldl (lambda (x y)
-                             (append y (find-all x f)))
-                           '() (dir-dirs d)))))
+            (cons (find d f)
+                  (foldr (lambda (d acc) (append (all-valid-paths d) acc)) '() (dir-dirs d)))))
 
-    (map (lambda (x) (cons (dir-name d) x)) (all-valid-paths d))))
+    (if (find? d f)
+        (all-valid-paths d)
+        #false)))
 
 (find-all L "log.log")
 (find-all L "vboxadd-setup.log")
 (find-all L "system.journal")
 (find-all L "new-file")
+
+;; Exercise 343
+
+
+;; =================
+;; Functions:
+
+; Dir -> [List-of Path]
+; lists the paths to all files contained in a given Dir
+(define (ls-R d0)
+  (local ((define (ls-R d)
+            (append (foldr (lambda (d acc)
+                             (append (ls-R d) acc))
+                           '() (dir-dirs d))
+                    (foldr (lambda (f acc)
+                             (cons (find d0 (file-name f)) acc))
+                           '() (dir-files d)))))
+    (ls-R d0)))
+
+(ls-R L)
+
+;; Exercise 344
+
+
+;; =================
+;; Functions:
+
+; Dir String -> [List-of Path] or False
+; produces the list of all paths that lead to f in d; otherwise it produces #false
+(define (find-all.v2 d f)
+  (local ((define result (filter (lambda (p) (member f p)) (ls-R d))))
+    (if (empty? result)
+        #false
+        result)))
+
+(find-all.v2 L "log.log")
+(find-all.v2 L "vboxadd-setup.log")
+(find-all.v2 L "system.journal")
+(find-all.v2 L "new-file")
