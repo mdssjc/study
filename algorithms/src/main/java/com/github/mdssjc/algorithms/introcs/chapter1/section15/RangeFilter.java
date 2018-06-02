@@ -7,6 +7,13 @@ import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 1.5.4 A simple filter.
+ * <p>
+ * Compilation:  javac RangeFilter.java
+ * Execution:    java RangeFilter lo hi < input.txt
+ * Dependencies: StdIn.java StdOut.java
+ * <p>
+ * Read in a sequence of integers from standard input and print
+ * out those values between lo and hi.
  *
  * @author Marcelo dos Santos
  *
@@ -20,13 +27,14 @@ public class RangeFilter {
   public static void main(final String[] args) {
     Executor.execute(RangeFilter.class, args);
 
-    final int lo = Integer.parseInt(args[0]);
-    final int hi = Integer.parseInt(args[1]);
+    final var lo = Integer.parseInt(args[0]);
+    final var hi = Integer.parseInt(args[1]);
 
     while (!StdIn.isEmpty()) {
-      final int value = StdIn.readInt();
-      if (value >= lo && value <= hi) {
-        StdOut.print(value + " ");
+      final var t = StdIn.readInt();
+
+      if (t >= lo && t <= hi) {
+        StdOut.print(t + " ");
       }
     }
     StdOut.println();
