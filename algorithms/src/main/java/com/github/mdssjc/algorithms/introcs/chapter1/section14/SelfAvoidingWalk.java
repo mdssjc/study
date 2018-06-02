@@ -5,6 +5,12 @@ import com.github.mdssjc.algorithms.utils.TestDrive;
 
 /**
  * Program 1.4.4 Self-avoiding random walks.
+ * <p>
+ * Compilation:  javac SelfAvoidingWalk.java
+ * Execution:    java SelfAvoidingWalk n trials
+ * <p>
+ * Generate trials self-avoiding walks of length n.
+ * Report the fraction of time the random walk is non self-intersecting.
  *
  * @author Marcelo dos Santos
  *
@@ -22,22 +28,24 @@ public class SelfAvoidingWalk {
   public static void main(final String[] args) {
     Executor.execute(SelfAvoidingWalk.class, args);
 
-    final int n = Integer.parseInt(args[0]);
-    final int trials = Integer.parseInt(args[1]);
-    int deadEnds = 0;
+    final var n = Integer.parseInt(args[0]);
+    final var trials = Integer.parseInt(args[1]);
+    var deadEnds = 0;
 
-    for (int t = 0; t < trials; t++) {
-      final boolean[][] a = new boolean[n][n];
-      int x = n / 2, y = n / 2;
+    for (var t = 0; t < trials; t++) {
+      final var a = new boolean[n][n];
+      var x = n / 2;
+      var y = n / 2;
 
       while (x > 0 && x < n - 1 && y > 0 && y < n - 1) {
-        a[x][y] = true;
         if (a[x - 1][y] && a[x + 1][y] && a[x][y - 1] && a[x][y + 1]) {
           deadEnds++;
           break;
         }
 
-        final double r = Math.random();
+        a[x][y] = true;
+
+        final var r = Math.random();
         if (r < 0.25) {
           if (!a[x + 1][y]) {
             x++;
