@@ -7,28 +7,63 @@ import edu.princeton.cs.introcs.StdIn;
 
 /**
  * Program 1.5.7 Digital signal processing.
+ * <p>
+ * Compilation:  javac PlayThatTune.java
+ * Execution:    java PlayThatTune < input.txt
+ * Dependencies: StdAudio.java StdAudio.java
+ * <p>
+ * This is a data-driven program that plays pure tones from
+ * the notes on the chromatic scale, specified on standard input
+ * by their distance from concert A.
+ * <p>
+ * % java PlayThatTune < elise.txt
+ * <p>
+ * <p>
+ * Data files
+ * ----------
+ * http://www.cs.princeton.edu/introcs/21function/elise.txt
+ * http://www.cs.princeton.edu/introcs/21function/freebird.txt
+ * http://www.cs.princeton.edu/introcs/21function/Ascale.txt
+ * http://www.cs.princeton.edu/introcs/21function/National_Anthem.txt
+ * http://www.cs.princeton.edu/introcs/21function/looney.txt
+ * http://www.cs.princeton.edu/introcs/21function/StairwayToHeaven.txt
+ * http://www.cs.princeton.edu/introcs/21function/entertainer.txt
+ * http://www.cs.princeton.edu/introcs/21function/old-nassau.txt
+ * http://www.cs.princeton.edu/introcs/21function/arabesque.txt
+ * http://www.cs.princeton.edu/introcs/21function/firstcut.txt
+ * http://www.cs.princeton.edu/introcs/21function/tomsdiner.txt
  *
  * @author Marcelo dos Santos
  *
  */
 @TestDrive(input = "elise.txt", inputFile = true)
+@TestDrive(input = "freebird.txt", inputFile = true)
+@TestDrive(input = "Ascale.txt", inputFile = true)
+@TestDrive(input = "National_Anthem.txt", inputFile = true)
+@TestDrive(input = "looney.txt", inputFile = true)
+@TestDrive(input = "StairwayToHeaven.txt", inputFile = true)
+@TestDrive(input = "entertainer.txt", inputFile = true)
+@TestDrive(input = "old-nassau.txt", inputFile = true)
+@TestDrive(input = "arabesque.txt", inputFile = true)
+@TestDrive(input = "firstcut.txt", inputFile = true)
+@TestDrive(input = "tomsdiner.txt", inputFile = true)
 public class PlayThatTune {
 
   public static void main(final String[] args) {
     Executor.execute(PlayThatTune.class, args);
 
-    final int SAMPLING_RATE = 44100;
-
     while (!StdIn.isEmpty()) {
-      final int pitch = StdIn.readInt();
-      final double duration = StdIn.readDouble();
-      final double hz = 440 * Math.pow(2, pitch / 12.0);
-      final int n = (int) (SAMPLING_RATE * duration);
-      final double[] a = new double[n + 1];
+      final var pitch = StdIn.readInt();
 
-      for (int i = 0; i <= n; i++) {
-        a[i] = Math.sin(2 * Math.PI * i * hz / SAMPLING_RATE);
+      final var duration = StdIn.readDouble();
+
+      final var hz = 440 * Math.pow(2, pitch / 12.0);
+      final var n = (int) (StdAudio.SAMPLE_RATE * duration);
+      final var a = new double[n + 1];
+      for (var i = 0; i <= n; i++) {
+        a[i] = Math.sin(2 * Math.PI * i * hz / StdAudio.SAMPLE_RATE);
       }
+
       StdAudio.play(a);
     }
   }
