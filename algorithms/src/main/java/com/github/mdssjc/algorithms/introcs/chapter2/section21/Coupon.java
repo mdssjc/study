@@ -6,13 +6,24 @@ import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 2.1.3 Coupon collector (revisited).
+ * <p>
+ * Compilation:  javac Coupon.java
+ * Execution:    java Coupon n
+ * <p>
+ * % java Coupon 1000
+ * 6522
+ * <p>
+ * % java Coupon 1000
+ * 6481
+ * <p>
+ * % java Coupon 1000000
+ * 12783771
  *
  * @author Marcelo dos Santos
  *
  */
 @TestDrive("1000")
 @TestDrive("1000")
-@TestDrive("10000")
 @TestDrive("1000000")
 public class Coupon {
 
@@ -20,16 +31,18 @@ public class Coupon {
     return (int) (Math.random() * n);
   }
 
-  public static int collectCoupons(final int n) {
-    final boolean[] isCollected = new boolean[n];
-    int count = 0, distinct = 0;
+  public static int collect(final int n) {
+    final var isCollected = new boolean[n];
+    var count = 0;
+    var distinct = 0;
+
     while (distinct < n) {
-      final int r = getCoupon(n);
+      final var value = getCoupon(n);
       count++;
-      if (!isCollected[r]) {
+      if (!isCollected[value]) {
         distinct++;
+        isCollected[value] = true;
       }
-      isCollected[r] = true;
     }
     return count;
   }
@@ -37,8 +50,8 @@ public class Coupon {
   public static void main(final String[] args) {
     Executor.execute(Coupon.class, args);
 
-    final int n = Integer.parseInt(args[0]);
-    final int count = collectCoupons(n);
+    final var n = Integer.parseInt(args[0]);
+    final var count = collect(n);
     StdOut.println(count);
   }
 }
