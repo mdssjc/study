@@ -37,16 +37,6 @@ import edu.princeton.cs.introcs.StdIn;
  *
  */
 @TestDrive(input = "elise.txt", inputFile = true)
-@TestDrive(input = "freebird.txt", inputFile = true)
-@TestDrive(input = "Ascale.txt", inputFile = true)
-@TestDrive(input = "National_Anthem.txt", inputFile = true)
-@TestDrive(input = "looney.txt", inputFile = true)
-@TestDrive(input = "StairwayToHeaven.txt", inputFile = true)
-@TestDrive(input = "entertainer.txt", inputFile = true)
-@TestDrive(input = "old-nassau.txt", inputFile = true)
-@TestDrive(input = "arabesque.txt", inputFile = true)
-@TestDrive(input = "firstcut.txt", inputFile = true)
-@TestDrive(input = "tomsdiner.txt", inputFile = true)
 public class PlayThatTune {
 
   public static void main(final String[] args) {
