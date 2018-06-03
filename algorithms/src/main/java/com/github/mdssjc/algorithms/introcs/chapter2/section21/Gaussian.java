@@ -49,7 +49,8 @@ public class Gaussian {
     if (z > 8.0) {
       return 1.0;
     }
-    double sum = 0.0, term = z;
+    var sum = 0.0;
+    var term = z;
     for (var i = 3; sum + term != sum; i += 2) {
       sum += term;
       term = term * z * z / i;
