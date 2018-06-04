@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Executor Class.
@@ -82,14 +83,24 @@ public class Executor {
 
   private static String[] getInputValue(final TestDrive td) {
     if (td.inputFile()) {
-      try {
-        return Files.readAllLines(Paths.get(RESOURCES_PATH + td.input()[0]))
-                    .toArray(new String[0]);
-      } catch (final IOException e) {
-        StdOut.println(e.getMessage());
-      }
+      return Arrays.asList(td.input())
+            .stream()
+            .map(Executor::readValue)
+            .flatMap(Stream::of)
+            .toArray(String[]::new);
     }
     return td.input();
+  }
+
+  private static String[] readValue(final String reference) {
+    // TODO: verificar os valores de input dos redirect.
+    try {
+      return Files.readAllLines(Paths.get(RESOURCES_PATH + reference))
+                  .toArray(new String[0]);
+    } catch (final IOException e) {
+      StdOut.println(e.getMessage());
+    }
+    return new String[0];
   }
 
   public static void execute(final Class<?> clazz, final String label) {
