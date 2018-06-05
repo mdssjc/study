@@ -6,6 +6,16 @@ import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 2.3.1 Euclid’s algorithm.
+ * <p>
+ * Compilation:  javac Euclid.java
+ * Execution:    java Euclid p q
+ * <p>
+ * Reads two command-line arguments p and q and computes the greatest
+ * common divisor of p and q using Euclid's algorithm.
+ * <p>
+ * Remarks
+ * -----------
+ * - may return the negative of the gcd if p is negative
  *
  * @author Marcelo dos Santos
  *
@@ -17,16 +27,28 @@ public class Euclid {
   public static int gcd(final int p, final int q) {
     if (q == 0) {
       return p;
+    } else {
+      return gcd(q, p % q);
     }
-    return gcd(q, p % q);
+  }
+
+  public static int gcd2(int p, int q) {
+    while (q != 0) {
+      final var temp = q;
+      q = p % q;
+      p = temp;
+    }
+    return p;
   }
 
   public static void main(final String[] args) {
     Executor.execute(Euclid.class, args);
 
-    final int p = Integer.parseInt(args[0]);
-    final int q = Integer.parseInt(args[1]);
-    final int divisor = gcd(p, q);
-    StdOut.println(divisor);
+    final var p = Integer.parseInt(args[0]);
+    final var q = Integer.parseInt(args[1]);
+    final var d = gcd(p, q);
+    final var d2 = gcd2(p, q);
+    StdOut.println("gcd(" + p + ", " + q + ") = " + d);
+    StdOut.println("gcd(" + p + ", " + q + ") = " + d2);
   }
 }
