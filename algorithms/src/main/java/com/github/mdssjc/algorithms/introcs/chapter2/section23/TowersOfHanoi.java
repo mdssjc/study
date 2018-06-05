@@ -6,12 +6,42 @@ import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 2.3.2 Towers of Hanoi.
+ * <p>
+ * Compilation:  javac TowersOfHanoi.java
+ * Execution:    java TowersOfHanoi n
+ * <p>
+ * Solves the Towers of Hanoi problem on n discs. The discs are labeled
+ * in increasing order of size from 1 to n.
+ * <p>
+ * %  java TowersOfHanoi 3
+ * 1 left
+ * 2 right
+ * 1 left
+ * 3 left
+ * 1 left
+ * 2 right
+ * 1 left
+ * <p>
+ * % java TowersOfHanoi 4
+ * 1 right
+ * 2 left
+ * 1 right
+ * 3 right
+ * 1 right
+ * 2 left
+ * 1 right
+ * 4 left
+ * 1 right
+ * 2 left
+ * 1 right
+ * 3 right
+ * 1 right
+ * 2 left
+ * 1 right
  *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive("1")
-@TestDrive("2")
 @TestDrive("3")
 @TestDrive("4")
 public class TowersOfHanoi {
@@ -32,7 +62,7 @@ public class TowersOfHanoi {
   public static void main(final String[] args) {
     Executor.execute(TowersOfHanoi.class, args);
 
-    final int n = Integer.parseInt(args[0]);
+    final var n = Integer.parseInt(args[0]);
     moves(n, true);
   }
 }
