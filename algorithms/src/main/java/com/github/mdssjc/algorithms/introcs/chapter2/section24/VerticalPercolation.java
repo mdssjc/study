@@ -8,14 +8,13 @@ import edu.princeton.cs.introcs.StdOut;
 import edu.princeton.cs.introcs.StdRandom;
 
 /**
- * Program 2.4.1 Percolation scaffolding.
  * Program 2.4.2 Vertical percolation detection.
  *
  * @author Marcelo dos Santos
  *
  */
 @TestDrive(input = "test5.txt", inputFile = true)
-public class PercolationVertical {
+public class VerticalPercolation {
 
   public static boolean[][] flow(final boolean[][] isOpen) {
     final int n = isOpen.length;
@@ -43,7 +42,7 @@ public class PercolationVertical {
   }
 
   public static void main(final String[] args) {
-    Executor.execute(PercolationVertical.class, args);
+    Executor.execute(VerticalPercolation.class, args);
 
     final boolean[][] isOpen = StdArrayIO.readBoolean2D();
     StdArrayIO.print(flow(isOpen));
