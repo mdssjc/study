@@ -171,3 +171,111 @@
              (eval-bool-expression (or2-right expr)))]
         [(not2? expr)
          (not (eval-bool-expression (not2-operand expr)))]))
+
+;; Exercise 349
+
+
+;; =================
+;; Constants:
+
+(define WRONG "Invalid datatype")
+
+
+;; =================
+;; Data definitions:
+
+; An S-expr is one of:
+; - Atom
+; - SL
+
+; An SL is one of:
+; - '()
+; - (cons S-expr SL)
+
+; An Atom is one of:
+; - Number
+; - String
+; - Symbol
+
+
+;; =================
+;; Functions:
+
+; S-expr -> BSL-expr
+; computes its value
+(check-expect (parse 1) 1)
+(check-error  (parse "1") "Invalid datatype")
+(check-expect (parse '1) 1)
+(check-error  (parse 'a) "Invalid datatype")
+(check-error  (parse '(1 1)) "Invalid datatype")
+(check-error  (parse '(1 1 1 1)) "Invalid datatype")
+(check-expect (parse '(+ 1 1)) (make-add 1 1))
+(check-expect (parse '(* 2 3)) (make-mul 2 3))
+(check-expect (parse '(/ 1 1)) (make-div 1 1))
+
+(define (parse s)
+  (cond [(atom? s) (parse-atom s)]
+        [else
+         (parse-sl s)]))
+
+; Atom -> Boolean
+; predicates if it's an atom
+(check-expect (atom? #true) #false)
+(check-expect (atom? 1)     #true)
+(check-expect (atom? "abc") #true)
+(check-expect (atom? 'sb)   #true)
+
+(define (atom? a)
+  (or (number? a)
+      (string? a)
+      (symbol? a)))
+
+; SL -> BSL-expr
+(define (parse-sl s)
+  (local ((define L (length s)))
+    (cond [(< L 3) (error WRONG)]
+          [(and (= L 3)
+                (symbol? (first s)))
+           (cond [(symbol=? (first s) '+)
+                  (make-add (parse (second s))
+                            (parse (third  s)))]
+                 [(symbol=? (first s) '*)
+                  (make-mul (parse (second s))
+                            (parse (third  s)))]
+                 [(symbol=? (first s) '/)
+                  (make-div (parse (second s))
+                            (parse (third  s)))]
+                 [else
+                  (error WRONG)])]
+          [else
+           (error WRONG)])))
+
+; Atom -> BSL-expr
+(define (parse-atom s)
+  (cond [(number? s) s]
+        [(string? s) (error WRONG)]
+        [(symbol? s) (error WRONG)]))
+
+;; Exercise 350
+
+; What is unusual about the definition of this program with respect to the design recipe?
+;
+; Note One unusual aspect is that parse uses length on the list argument.
+; Real parsers avoid length because it slows the functions down.
+
+;; Exercise 351
+
+
+;; =================
+;; Functions:
+
+; S-expr -> Number
+; produces its value; otherwise, it signals an error
+(check-error  (interpreter-expr "1") "Invalid datatype")
+(check-expect (interpreter-expr 1) 1)
+(check-expect (interpreter-expr '(+ 1 1)) 2)
+(check-expect (interpreter-expr '(* 2 3)) 6)
+(check-expect (interpreter-expr '(/ 8 2)) 4)
+
+(define (interpreter-expr s)
+  ((compose eval-expression parse) s))
