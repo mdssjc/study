@@ -204,11 +204,11 @@
 ; S-expr -> BSL-expr
 ; computes its value
 (check-expect (parse 1) 1)
-(check-error  (parse "1") "Invalid datatype")
+(check-error  (parse "1") WRONG)
 (check-expect (parse '1) 1)
-(check-error  (parse 'a) "Invalid datatype")
-(check-error  (parse '(1 1)) "Invalid datatype")
-(check-error  (parse '(1 1 1 1)) "Invalid datatype")
+(check-error  (parse 'a) WRONG)
+(check-error  (parse '(1 1)) WRONG)
+(check-error  (parse '(1 1 1 1)) WRONG)
 (check-expect (parse '(+ 1 1)) (make-add 1 1))
 (check-expect (parse '(* 2 3)) (make-mul 2 3))
 (check-expect (parse '(/ 1 1)) (make-div 1 1))
@@ -271,7 +271,7 @@
 
 ; S-expr -> Number
 ; produces its value; otherwise, it signals an error
-(check-error  (interpreter-expr "1") "Invalid datatype")
+(check-error  (interpreter-expr "1") WRONG)
 (check-expect (interpreter-expr 1) 1)
 (check-expect (interpreter-expr '(+ 1 1)) 2)
 (check-expect (interpreter-expr '(* 2 3)) 6)
@@ -279,3 +279,146 @@
 
 (define (interpreter-expr s)
   ((compose eval-expression parse) s))
+
+
+
+;; 21.2 - Interpreting Variables
+
+
+;; =================
+;; Data definitions:
+
+; A BSL-var-expr is one of:
+; - Number
+; - Symbol
+; - (make-add BSL-var-expr BSL-var-expr)
+; - (make-mul BSL-var-expr BSL-var-expr)
+; interpretation class of values and variables to which a representation of a BSL expression can evaluate
+
+;; Exercise 352
+
+
+;; =================
+;; Functions:
+
+; BSL-var-expr Symbol Number -> BSL-var-expr
+; produces a BSL-var-expr like ex with all occurrences of x replaced by v
+(check-expect (subst 1  'a 2) 1)
+(check-expect (subst 'a 'a 2) 2)
+(check-expect (subst 'b 'a 2) 'b)
+(check-expect (subst (make-add 'a 'b) 'a 2) (make-add 2 'b))
+(check-expect (subst (make-add 'a 'a) 'a 2) (make-add 2 2))
+(check-expect (subst (make-mul 'a 'b) 'a 3) (make-mul 3 'b))
+(check-expect (subst (make-mul 'a 'a) 'a 3) (make-mul 3 3))
+(check-expect (subst (make-mul 'a (make-add 'b 'a)) 'a 3) (make-mul 3 (make-add 'b 3)))
+
+(define (subst ex x v)
+  (cond [(number? ex) ex]
+        [(symbol? ex)
+         (if (symbol=? ex x) v ex)]
+        [(add? ex)
+         (make-add (subst (add-left  ex) x v)
+                   (subst (add-right ex) x v))]
+        [(mul? ex)
+         (make-mul (subst (mul-left  ex) x v)
+                   (subst (mul-right ex) x v))]))
+
+;; Exercise 353
+
+
+;; =================
+;; Functions:
+
+; BSL-var-expr -> Boolean
+; determines whether a BSL-var-expr is also a BSL-expr
+(check-expect (numeric? 1)  #true)
+(check-expect (numeric? 'a) #false)
+(check-expect (numeric? EXPR1) #true)
+(check-expect (numeric? EXPR2) #true)
+(check-expect (numeric? EXPR3) #true)
+(check-expect (numeric? EXPR4) #false)
+
+(define (numeric? ex)
+  (cond [(number? ex) #true]
+        [(symbol? ex) #false]
+        [(add? ex)
+         (and (numeric? (add-left  ex))
+              (numeric? (add-right ex)))]
+        [(mul? ex)
+         (and (numeric? (mul-left  ex))
+              (numeric? (mul-right ex)))]
+        [else
+         #false]))
+
+;; Exercise 354
+
+
+;; =================
+;; Data definitions:
+
+; An AL (short for association list) is [List-of Association]
+; An Association is a list of two items:
+;   (cons Symbol (cons Number '()))
+(define AL1 '((a 2)))
+(define AL2 '((c 1) (b 3) (a 2)))
+
+
+;; =================
+;; Functions:
+
+; BSL-var-expr AL -> Number
+; determines its value; otherwise it signals an error
+(check-expect (eval-variable* 1 AL1) 1)
+(check-expect (eval-variable* (make-add 'a 1) AL1) 3)
+(check-expect (eval-variable* (make-add (make-mul 'c 'b) 'a) AL2) 5)
+(check-error  (eval-variable* (make-add 'b 1) AL1) WRONG)
+(check-error  (eval-variable* (make-add (make-mul 'c 'b) (make-mul 'a 'd)) AL2) WRONG)
+
+(define (eval-variable* ex da)
+  (eval-variable
+   (foldl (lambda (a b) (subst b (first a) (second a))) ex da)))
+
+; BSL-var-expr -> Number or Error
+; determines its value if numeric? yields true for the input; otherwise it signals an error
+(check-expect (eval-variable 1) 1)
+(check-expect (eval-variable (make-add 1 2)) 3)
+(check-expect (eval-variable (make-add (make-mul 1 2) 3)) 5)
+(check-error  (eval-variable 'a) WRONG)
+(check-error  (eval-variable (make-add 1 'a)) WRONG)
+(check-error  (eval-variable (make-add (make-mul 1 2) 'a)) WRONG)
+
+(define (eval-variable ex)
+  (if (numeric? ex)
+      (calculator ex)
+      (error WRONG)))
+
+;; Exercise 355
+
+
+;; =================
+;; Functions:
+
+; BSL-var-expr AL -> Number
+; determines its value; otherwise it signals an error
+(check-expect (eval-var-lookup 1 AL1) 1)
+(check-expect (eval-var-lookup (make-add 'a 1) AL1) 3)
+(check-expect (eval-var-lookup (make-add (make-mul 'c 'b) 'a) AL2) 5)
+(check-error  (eval-var-lookup (make-add 'b 1) AL1) WRONG)
+(check-error  (eval-var-lookup (make-add (make-mul 'c 'b) (make-mul 'a 'd)) AL2) WRONG)
+
+(define (eval-var-lookup e da)
+  (local ((define (eval-var-lookup e)
+            (cond [(number? e) e]
+                  [(symbol? e)
+                   (local ((define result (assq e da)))
+                     (if (false? result)
+                         (error WRONG)
+                         (second result)))]
+                  [(add? e)
+                   (+ (eval-var-lookup (add-left e))
+                      (eval-var-lookup (add-right e)))]
+                  [(mul? e)
+                   (* (eval-var-lookup (mul-left e))
+                      (eval-var-lookup (mul-right e)))])))
+
+    (eval-var-lookup e)))
