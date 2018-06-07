@@ -6,6 +6,21 @@ import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 3.1.1 Identifying a potential gene.
+ * <p>
+ * Compilation:  javac PotentialGene.java
+ * Execution:    java PotentialGene < input.txt
+ * <p>
+ * Determines whether a a DNA string corresponds to a potential gene
+ * - length is a multiple of 3
+ * - starts with the start codon (ATG)
+ * - ends with a stop codon (TAA or TAG or TGA)
+ * - has no intervening stop codons
+ * <p>
+ * % java PotentialGene ATGCGCCTGCGTCTGTACTAG
+ * true
+ * <p>
+ * % java PotentialGene ATGCGCTGCGTCTGTACTAG
+ * false
  *
  * @author Marcelo dos Santos
  *
@@ -23,9 +38,9 @@ public class PotentialGene {
       return false;
     }
 
-    for (int i = 3; i < dna.length() - 3; i++) {
+    for (var i = 3; i < dna.length() - 3; i++) {
       if (i % 3 == 0) {
-        final String codon = dna.substring(i, i + 3);
+        final var codon = dna.substring(i, i + 3);
         if (codon.equals("TAA")) {
           return false;
         }
@@ -54,9 +69,7 @@ public class PotentialGene {
   public static void main(final String[] args) {
     Executor.execute(PotentialGene.class, args);
 
-    final String dna = args[0];
-    final boolean result = isPotentialGene(dna);
-
-    StdOut.println(result);
+    final var dna = args[0];
+    StdOut.println(isPotentialGene(dna));
   }
 }
