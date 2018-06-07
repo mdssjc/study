@@ -8,37 +8,44 @@ import java.awt.*;
 
 /**
  * Program 3.1.6 Fade effect.
+ * <p>
+ * Compilation:  javac Fade.java
+ * Execution:    java Fade n image1.jpg image2.jpg
+ * Data files:   https://introcs.cs.princeton.edu/31datatype/darwin.jpg
+ *               https://introcs.cs.princeton.edu/31datatype/mandrill.jpg
+ * <p>
+ * Produce animated effect, fading from image1.jpg to image2.jpg,
+ * using n-1 intermediate frames.
  *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive(value = {"mandrill.jpg", "darwin.jpg", "9"}, valueFile = true)
+@TestDrive(value = {"9", "mandrill.jpg", "darwin.jpg"}, valueFile = true)
 public class Fade {
 
-  public static Color blend(final Color c1, final Color c2, final double alpha) {
-    final double r = (1 - alpha) * c1.getRed() + alpha * c2.getRed();
-    final double g = (1 - alpha) * c1.getGreen() + alpha * c2.getGreen();
-    final double b = (1 - alpha) * c1.getBlue() + alpha * c2.getBlue();
-    return new Color((int) r, (int) g, (int) b);
+  public static Color combine(final Color c1, final Color c2, final double alpha) {
+    final var r = (int) (alpha * c1.getRed() + (1 - alpha) * c2.getRed());
+    final var g = (int) (alpha * c1.getGreen() + (1 - alpha) * c2.getGreen());
+    final var b = (int) (alpha * c1.getBlue() + (1 - alpha) * c2.getBlue());
+    return new Color(r, g, b);
   }
 
   public static void main(final String[] args) {
     Executor.execute(Fade.class, args);
 
-    final Picture source = new Picture(args[0]);
-    final Picture target = new Picture(args[1]);
-    final int n = Integer.parseInt(args[2]);
-    final int width = source.width();
-    final int height = source.height();
-    final Picture picture = new Picture(width, height);
-    for (int i = 0; i <= n; i++) {
-      for (int col = 0; col < width; col++) {
-        for (int row = 0; row < height; row++) {
-          final Color c1 = source.get(col, row);
-          final Color c2 = target.get(col, row);
-          final double alpha = (double) i / n;
-          final Color color = blend(c1, c2, alpha);
-          picture.set(col, row, color);
+    final var n = Integer.parseInt(args[0]);
+    final var picture1 = new Picture(args[1]);
+    final var picture2 = new Picture(args[2]);
+    final var width = picture1.width();
+    final var height = picture1.height();
+    final var picture = new Picture(width, height);
+    for (var k = 0; k <= n; k++) {
+      final var alpha = 1.0 * k / n;
+      for (var col = 0; col < width; col++) {
+        for (var row = 0; row < height; row++) {
+          final var c1 = picture1.get(col, row);
+          final var c2 = picture2.get(col, row);
+          picture.set(col, row, combine(c2, c1, alpha));
         }
       }
       picture.show();
