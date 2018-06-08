@@ -422,3 +422,143 @@
                       (eval-var-lookup (mul-right e)))])))
 
     (eval-var-lookup e)))
+
+
+
+;; 21.3 - Interpreting Functions
+
+;; Exercise 356
+
+
+;; =================
+;; Data definitions:
+
+(define-struct fun-app [name arg])
+; A Fun-App is a structure:
+;   (make-fun-app Symbol BSL-fun-expr)
+; interpretation (make-fun-app n a) specifies an function application
+;  n: is the name of the function; and
+;  a: is the an argument of the function
+
+; A BSL-fun-expr is one of:
+;  - Number
+;  - Symbol
+;  - (make-add BSL-fun-expr BSL-fun-expr)
+;  - (make-mul BSL-fun-expr BSL-fun-expr)
+;  - (make-fun-app Symbol BSL-fun-expr)
+; interpretation class of values, variables and function application to which a representation of a BSL expression can evaluate
+(define k (make-fun-app 'k (make-add 1 1)))
+(define EXPR5 (make-mul 5 k))
+(define i (make-fun-app 'i 5))
+(define EXPR6 (make-mul i k))
+
+;; Exercise 357
+
+
+;; =================
+;; Functions:
+
+; BSL-fun-expr Symbol Symbol BSL-fun-expr -> Number
+; determines the value of ex
+(check-error  (eval-definition1 (make-add (make-fun-app 'f 'x) 'a) 'f 'x (make-add 1 1)) WRONG)
+(check-error  (eval-definition1 (make-add (make-fun-app 'f 'x) 'a) 'g 'x (make-add 1 1)) WRONG)
+(check-expect (eval-definition1 (make-add (make-fun-app 'f 1) 1) 'f 'x (make-add 'x 1)) 3)
+(check-expect (eval-definition1 (make-add (make-fun-app 'f 2) 1) 'f 'x (make-mul 'x 3)) 7)
+
+(define (eval-definition1 ex f x b)
+  (cond [(number? ex) ex]
+        [(symbol? ex) (error WRONG)]
+        [(add? ex)
+         (+ (eval-definition1 (add-left  ex) f x b)
+            (eval-definition1 (add-right ex) f x b))]
+        [(mul? ex)
+         (* (eval-definition1 (mul-left  ex) f x b)
+            (eval-definition1 (mul-right ex) f x b))]
+        [(fun-app? ex)
+         (if (symbol=? (fun-app-name ex) f)
+             (local ((define value (eval-definition1 (fun-app-arg ex) f x b))
+                     (define plugd (subst b x value)))
+               (eval-definition1 plugd f x b))
+             (error WRONG))]))
+
+;; Exercise 358
+
+
+;; =================
+;; Data definitions:
+
+(define-struct fun-def [name parameter body])
+; A Fun-Def (BSL-fun-def) is a structure:
+;   (make-fun-def Symbol Symbol BSL-fun-expr)
+; interpretation (make-fun-def n p b) specifies an function definition
+;  n: is the name of the function
+;  p: is the parameter of the function; and
+;  b: is the body expression of the function
+(define f (make-fun-def 'f 'x (make-add 3 'x)))
+(define g (make-fun-def 'g 'y (make-fun-app 'f (make-mul 2 'y))))
+(define h (make-fun-def 'h 'v (make-add (make-fun-app 'f 'v) (make-fun-app 'g 'v))))
+
+; A BSL-fun-def* is a [List-of BSL-fun-def]:
+; interpretation represent a definitions area that consists of a number of one-argument function definitions
+(define da-fgh (list f g h))
+
+
+;; =================
+;; Functions:
+
+; BSL-fun-def* Symbol -> BSL-fun-def
+; retrieves the definition of f in da
+; signals an error if there is none
+(check-expect (lookup-def da-fgh 'g) g)
+(check-error  (lookup-def da-fgh 'a) WRONG)
+
+(define (lookup-def da f)
+  (cond [(empty? da) (error WRONG)]
+        [else
+         (if (symbol=? (fun-def-name (first da)) f)
+             (first da)
+             (lookup-def (rest da) f))]))
+
+;; Exercise 359
+
+
+;; =================
+;; Functions:
+
+; BSL-fun-expr BSL-fun-def* -> Number
+; computes its value
+(check-expect (eval-function* (make-fun-app 'f 2) da-fgh) 5)
+(check-expect (eval-function* (make-fun-app 'g 6) da-fgh) 15)
+(check-expect (eval-function* (make-fun-app 'h (make-add 1 1)) da-fgh) 12)
+(check-error  (eval-function* (make-fun-app 'h (make-fun-app 'square 2)) da-fgh) WRONG)
+
+(define (eval-function* ex da)
+  (local (; BSL-fun-expr Symbol Number -> BSL-fun-expr
+          (define (subst ex x v)
+            (cond [(number? ex) ex]
+                  [(symbol? ex)
+                   (if (symbol=? ex x) v ex)]
+                  [(add? ex)
+                   (make-add (subst (add-left  ex) x v)
+                             (subst (add-right ex) x v))]
+                  [(mul? ex)
+                   (make-mul (subst (mul-left  ex) x v)
+                             (subst (mul-right ex) x v))]
+                  [(fun-app? ex)
+                   (make-fun-app (fun-app-name ex)
+                                 (subst (fun-app-arg ex) x v))])))
+
+    (cond [(number? ex) ex]
+          [(symbol? ex) (error WRONG)]
+          [(add? ex)
+           (+ (eval-function* (add-left  ex) da)
+              (eval-function* (add-right ex) da))]
+          [(mul? ex)
+           (* (eval-function* (mul-left  ex) da)
+              (eval-function* (mul-right ex) da))]
+          [(fun-app? ex)
+           (local ((define f (lookup-def da (fun-app-name ex)))
+                   (define b (fun-def-body f))
+                   (define x (fun-def-parameter f))
+                   (define v (eval-function* (fun-app-arg ex) da)))
+             (eval-function* (subst b x v) da))])))
