@@ -8,6 +8,16 @@ import edu.princeton.cs.introcs.StdStats;
 
 /**
  * Program 3.2.3 Histogram.
+ * <p>
+ * Compilation:  javac Histogram.java
+ * Execution:    java Histogram n trials
+ * <p>
+ * This data type supports simple client code to create dynamic
+ * histograms of the frequency of occurrence of values in [0, N).
+ * The frequencies are kept in an instance-variable array, and
+ * an instance variable max tracks the maximum frequency (for scaling).
+ * <p>
+ * % java Histogram 50 1000000
  *
  * @author Marcelo dos Santos
  *
@@ -30,20 +40,22 @@ public class Histogram {
   }
 
   public void draw() {
-    StdDraw.setYscale(0, this.max);
+    StdDraw.setYscale(-1, this.max + 1);
     StdStats.plotBars(this.freq);
   }
 
   public static void main(final String[] args) {
     Executor.execute(Histogram.class, args);
 
-    final int n = Integer.parseInt(args[0]);
-    final int trials = Integer.parseInt(args[1]);
-    final Histogram histogram = new Histogram(n + 1);
-    StdDraw.setCanvasSize(500, 200);
-    for (int t = 0; t < trials; t++) {
+    final var n = Integer.parseInt(args[0]);
+    final var trials = Integer.parseInt(args[1]);
+
+    final var histogram = new Histogram(n + 1);
+    for (var t = 0; t < trials; t++) {
       histogram.addDataPoint(Bernoulli.binomial(n));
     }
+
+    StdDraw.setCanvasSize(500, 100);
     histogram.draw();
   }
 }
