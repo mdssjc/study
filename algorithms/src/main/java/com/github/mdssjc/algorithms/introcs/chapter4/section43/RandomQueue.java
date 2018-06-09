@@ -5,6 +5,15 @@ import edu.princeton.cs.introcs.StdRandom;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * Random Queue.
+ *
+ * @param <Item>
+ *     the generic type of an item in this random queue
+ *
+ * @author Marcelo dos Santos
+ *
+ */
 public class RandomQueue<Item> implements Iterable<Item> {
 
   private Item[] array;
@@ -35,11 +44,11 @@ public class RandomQueue<Item> implements Iterable<Item> {
 
   public Item dequeue() {
     if (isEmpty()) {
-      throw new RuntimeException("Stack underflow error");
+      throw new RuntimeException("Queue underflow");
     }
 
-    final int rand = StdRandom.uniform(this.size);
-    final Item item = this.array[rand];
+    final var rand = StdRandom.uniform(this.size);
+    final var item = this.array[rand];
     this.array[rand] = this.array[this.size - 1];
     this.array[this.size - 1] = null;
 
@@ -54,16 +63,16 @@ public class RandomQueue<Item> implements Iterable<Item> {
 
   public Item sample() {
     if (isEmpty()) {
-      throw new RuntimeException("Stack underflow error");
+      throw new RuntimeException("Queue underflow");
     }
 
     return this.array[StdRandom.uniform(this.size)];
   }
 
   private void resize(final int max) {
-    final Item[] temp = (Item[]) new Object[max];
+    final var temp = (Item[]) new Object[max];
 
-    for (int i = 0; i < this.size; i++) {
+    for (var i = 0; i < this.size; i++) {
       temp[i] = this.array[i];
     }
 
@@ -101,8 +110,8 @@ public class RandomQueue<Item> implements Iterable<Item> {
         throw new NoSuchElementException();
       }
 
-      final int rand = StdRandom.uniform(this.i);
-      final Item item = this.iteratorArray[rand];
+      final var rand = StdRandom.uniform(this.i);
+      final var item = this.iteratorArray[rand];
       this.iteratorArray[rand] = this.iteratorArray[this.i - 1];
       this.iteratorArray[this.i - 1] = null;
 
