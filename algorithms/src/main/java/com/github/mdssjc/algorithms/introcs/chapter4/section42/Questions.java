@@ -7,34 +7,53 @@ import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 4.2.1 Binary search (20 questions).
+ * <p>
+ * Compilation:  javac Questions.java
+ * Execution:    java Questions k
+ * Dependencies  StdIn.java
+ * <p>
+ * This code uses binary search to play the game of twenty questions.
+ * It takes an integer command-line argument k, asks you to think of a
+ * number between 0 and n-1, where n = 2^k, and always guesses the answer
+ * with n questions.
+ * <p>
+ * %  java Questions 7
+ * Think of an integer between 0 and 127
+ * Is it less than 64?  false
+ * Is it less than 96?  true
+ * Is it less than 80?  true
+ * Is it less than 72?  false
+ * Is it less than 76?  false
+ * Is it less than 78?  true
+ * Is it less than 77?  false
+ * Your number is 77
  *
  * @author Marcelo dos Santos
  *
  */
-@TestDrive("7")
+@TestDrive(value = "7", input = {"false", "true", "true", "false", "false", "true", "false"})
 public class Questions {
 
-  public static int binarySearch(final int lo, final int hi) {
-    if (hi - lo == 1) {
+  public static int search(final int lo, final int hi) {
+    if ((hi - lo) == 1) {
       return lo;
     }
-    final int mid = lo + (hi - lo) / 2;
-    StdOut.print("Greater than or equal to " + mid + "? ");
+    final var mid = lo + (hi - lo) / 2;
+    StdOut.printf("Is it less than %d?  ", mid);
     if (StdIn.readBoolean()) {
-      return binarySearch(lo, mid);
+      return search(lo, mid);
     } else {
-      return binarySearch(mid, hi);
+      return search(mid, hi);
     }
   }
 
   public static void main(final String[] args) {
     Executor.execute(Questions.class, args);
 
-    final int k = Integer.parseInt(args[0]);
-    final int n = (int) Math.pow(2, k);
-    StdOut.print("Think of a number ");
-    StdOut.println("between 0 and " + (n - 1));
-    final int guess = binarySearch(0, n);
-    StdOut.println("Your number is " + guess);
+    final var k = Integer.parseInt(args[0]);
+    final var n = (int) Math.pow(2, k);
+    StdOut.printf("Think of an integer between %d and %d%n", 0, n - 1);
+    final var secret = search(0, n);
+    StdOut.printf("Your number is %d%n", secret);
   }
 }
