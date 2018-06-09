@@ -7,6 +7,13 @@ import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 3.3.4 Document sketch.
+ * <p>
+ * Compilation:  javac Sketch.java
+ * Execution:    java Sketch k d < input.txt
+ * Data files:   http://www.cs.princeton.edu/introcs/33design/genome20.txt
+ * http://www.cs.princeton.edu/introcs/33design/genome50.txt
+ * <p>
+ * % java Sketch 2 16 < genome20.txt
  *
  * @author Marcelo dos Santos
  *
@@ -17,14 +24,14 @@ public class Sketch {
   private final Vector profile;
 
   public Sketch(final String text, final int k, final int d) {
-    final int n = text.length();
-    final double[] freq = new double[d];
-    for (int i = 0; i < n - k - 1; i++) {
-      final String kgram = text.substring(i, i + k);
-      final int hash = kgram.hashCode();
+    final var n = text.length();
+    final var freq = new double[d];
+    for (var i = 0; i < n - k + 1; i++) {
+      final var kgram = text.substring(i, i + k);
+      final var hash = kgram.hashCode();
       freq[Math.abs(hash % d)] += 1;
     }
-    final Vector vector = new Vector(freq);
+    final var vector = new Vector(freq);
     this.profile = vector.direction();
   }
 
@@ -40,10 +47,10 @@ public class Sketch {
   public static void main(final String[] args) {
     Executor.execute(Sketch.class, args);
 
-    final int k = Integer.parseInt(args[0]);
-    final int d = Integer.parseInt(args[1]);
-    final String text = StdIn.readAll();
-    final Sketch sketch = new Sketch(text, k, d);
+    final var k = Integer.parseInt(args[0]);
+    final var d = Integer.parseInt(args[1]);
+    final var text = StdIn.readAll();
+    final var sketch = new Sketch(text, k, d);
     StdOut.println(sketch);
   }
 }
