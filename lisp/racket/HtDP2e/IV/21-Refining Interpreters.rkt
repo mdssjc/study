@@ -562,3 +562,155 @@
                    (define x (fun-def-parameter f))
                    (define v (eval-function* (fun-app-arg ex) da)))
              (eval-function* (subst b x v) da))])))
+
+
+
+;; 21.4 - Interpreting Everything
+
+;; Exercise 360
+
+
+;; =================
+;; Data definitions:
+
+; A BSL-da is one of:
+; - Association
+; - Fun-Def
+; interpretation data definition for the representation of DrRacket’s definition area
+
+; A BSL-da-all is a [List-of BSL-da]:
+; interpretation a sequence that freely mixes constant definitions and one-argument function definitions
+
+(define close-to-pi '(close-to-pi 3.14))
+(define area-of-circle (make-fun-def 'area-of-circle 'r (make-mul 'close-to-pi (make-mul 'r 'r))))
+(define volume-of-10-cylinder (make-fun-def 'volume-of-10-cylinder 'r (make-mul 10 (make-fun-app 'area-of-circle 'r))))
+
+(define da-list (list close-to-pi area-of-circle volume-of-10-cylinder))
+
+
+;; =================
+;; Functions:
+
+; BSL-da-all Symbol -> Number
+; produces the representation of a constant definition whose name is x
+(check-expect (lookup-con-def da-list 'close-to-pi)  3.14)
+(check-error  (lookup-con-def da-list 'closed-to-pi) WRONG)
+
+(define (lookup-con-def da x)
+  (cond [(empty? da) (error WRONG)]
+        [else
+         (if (and (list? (first da))
+                  (symbol=? (first (first da)) x))
+             (second (first da))
+             (lookup-con-def (rest da) x))]))
+
+; BSL-da-all Symbol -> Fun-Def
+; produces the representation of a function definition whose name is f
+(check-error  (lookup-fun-def da-list 'close-to-pi) WRONG)
+(check-expect (lookup-fun-def da-list 'area-of-circle) area-of-circle)
+(check-expect (lookup-fun-def da-list 'volume-of-10-cylinder) volume-of-10-cylinder)
+
+(define (lookup-fun-def da f)
+  (cond [(empty? da) (error WRONG)]
+        [else
+         (if (and (fun-def? (first da))
+                  (symbol=? (fun-def-name (first da)) f))
+             (first da)
+             (lookup-fun-def (rest da) f))]))
+
+;; Exercise 361
+
+
+;; =================
+;; Functions:
+
+; BSL-fun-expr BSL-da-all -> Number
+; produces the same value that DrRacket
+(check-expect (eval-all 'close-to-pi da-list)  3.14)
+(check-error  (eval-all 'close-to-pi2 da-list) WRONG)
+(check-expect (eval-all (make-fun-app 'area-of-circle 5) da-list) 78.5)
+(check-expect (eval-all (make-fun-app 'volume-of-10-cylinder 5) da-list) 785)
+(check-error  (eval-all (make-fun-app 'area-of-circle2 5) da-list) WRONG)
+
+(define (eval-all ex da)
+  (local (; BSL-fun-expr Symbol Number -> BSL-fun-expr
+          (define (subst ex x v)
+            (cond [(number? ex) ex]
+                  [(symbol? ex)
+                   (if (symbol=? ex x) v ex)]
+                  [(add? ex)
+                   (make-add (subst (add-left  ex) x v)
+                             (subst (add-right ex) x v))]
+                  [(mul? ex)
+                   (make-mul (subst (mul-left  ex) x v)
+                             (subst (mul-right ex) x v))]
+                  [(fun-app? ex)
+                   (make-fun-app (fun-app-name ex)
+                                 (subst (fun-app-arg ex) x v))])))
+
+    (cond [(number? ex) ex]
+          [(symbol? ex) (lookup-con-def da ex)]
+          [(add? ex)
+           (+ (eval-all (add-left  ex) da)
+              (eval-all (add-right ex) da))]
+          [(mul? ex)
+           (* (eval-all (mul-left  ex) da)
+              (eval-all (mul-right ex) da))]
+          [(fun-app? ex)
+           (local ((define def (lookup-fun-def da (fun-app-name ex)))
+                   (define b (fun-def-body def))
+                   (define x (fun-def-parameter def))
+                   (define v (eval-all (fun-app-arg ex) da)))
+             (eval-all (subst b x v) da))])))
+
+;; Exercise 362
+
+
+;; =================
+;; Functions:
+
+; S-expr SL -> Number
+; produces the result of expression
+(define sl '((close-to-pi 3.14)
+             (def area-of-circle r (* close-to-pi (* r r)))
+             (def volume-of-10-cylinder r (* 10 (app area-of-circle r)))))
+
+(check-expect (interpreter 'close-to-pi sl) 3.14)
+(check-expect (interpreter '(app area-of-circle 5) sl) 78.5)
+(check-expect (interpreter '(app volume-of-10-cylinder 5) sl) 785)
+
+(define (interpreter s-expr sl)
+  (local ((define (parse-atom s)
+            (cond [(or (number? s)
+                       (symbol? s)) s]
+                  [(string? s) (error WRONG)]))
+
+          (define (parse-sl s)
+            (cond [(and (= (length s) 2)
+                        (symbol? (first s)))
+                   (list (first s) (parse (second s)))]
+                  [(and (= (length s) 3)
+                        (symbol? (first s)))
+                   (cond [(symbol=? (first s) '+)
+                          (make-add (parse (second s)) (parse (third s)))]
+                         [(symbol=? (first s) '*)
+                          (make-mul (parse (second s)) (parse (third s)))]
+                         [(symbol=? (first s) 'app)
+                          (make-fun-app (second s) (parse (third s)))]
+                         [else
+                          (error WRONG)])]
+                  [(and (= (length s) 4)
+                        (symbol? (first s)))
+                   (cond [(symbol=? (first s) 'def)
+                          (make-fun-def (second s) (third s) (parse (fourth s)))]
+                         [else
+                          (error WRONG)])]
+                  [else
+                   (error WRONG)]))
+
+          (define (parse s)
+            (cond [(atom? s) (parse-atom s)]
+                  [else
+                   (parse-sl s)])))
+
+    (eval-all (parse s-expr) (map parse sl))))
