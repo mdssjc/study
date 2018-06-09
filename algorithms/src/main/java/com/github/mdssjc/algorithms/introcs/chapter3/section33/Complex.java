@@ -31,11 +31,16 @@ public class Complex {
     this.theta = Math.atan2(im, re);
   }
 
-  public double re() { return this.r * Math.cos(this.theta); }
-  public double im() { return this.r * Math.sin(this.theta); }
+  public double re() {
+    return this.r * Math.cos(this.theta);
+  }
+
+  public double im() {
+    return this.r * Math.sin(this.theta);
+  }
 
   @Override
-  public String toString()  {
+  public String toString() {
     return re() + " + " + im() + "i";
   }
 
@@ -54,7 +59,9 @@ public class Complex {
     return c;
   }
 
-  public double abs() { return this.r; }
+  public double abs() {
+    return this.r;
+  }
 
   public static void main(final String[] args) {
     Executor.execute(Complex.class, args);

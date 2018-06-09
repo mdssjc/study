@@ -75,7 +75,8 @@ public class Vector {
     if (this.length() != that.length()) {
       throw new IllegalArgumentException("dimensions disagree");
     }
-    return this.minus(that).magnitude();
+    return this.minus(that)
+               .magnitude();
   }
 
   public Vector plus(final Vector that) {
@@ -145,8 +146,8 @@ public class Vector {
   public static void main(final String[] args) {
     Executor.execute(Vector.class, args);
 
-    final double[] xdata = { 1.0, 2.0, 3.0, 4.0 };
-    final double[] ydata = { 5.0, 2.0, 4.0, 1.0 };
+    final double[] xdata = {1.0, 2.0, 3.0, 4.0};
+    final double[] ydata = {5.0, 2.0, 4.0, 1.0};
 
     final var x = new Vector(xdata);
     final var y = new Vector(ydata);
@@ -157,6 +158,7 @@ public class Vector {
     StdOut.println("10x      =  " + x.times(10.0));
     StdOut.println("|x|      =  " + x.magnitude());
     StdOut.println("<x, y>   =  " + x.dot(y));
-    StdOut.println("|x - y|  =  " + x.minus(y).magnitude());
+    StdOut.println("|x - y|  =  " + x.minus(y)
+                                     .magnitude());
   }
 }
