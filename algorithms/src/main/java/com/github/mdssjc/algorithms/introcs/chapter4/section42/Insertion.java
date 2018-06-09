@@ -7,20 +7,30 @@ import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 4.2.4 Insertion sort.
+ * <p>
+ * Compilation:  javac Insertion.java
+ * Execution:    java Insertion < input.txt
+ * Data files:   http://www.cs.princeton.edu/introcs/43sort/8words.txt
+ *               http://www.cs.princeton.edu/introcs/43sort/TomSawyer.txt
+ * <p>
+ * Reads in strings from standard input and prints them in sorted order.
+ * Uses insertion sort.
+ * <p>
+ * % java Insertion < 8words.txt
+ * and but had him his the was you
  *
  * @author Marcelo dos Santos
  *
  */
 @TestDrive(input = "8words.txt", inputFile = true)
-@TestDrive(input = "TomSawyer.txt", inputFile = true)
 public class Insertion {
 
   public static void sort(final Comparable[] a) {
-    final int n = a.length;
-    for (int i = 1; i < n; i++) {
-      for (int j = i; j > 0; j--) {
-        if (a[j].compareTo(a[j - 1]) < 0) {
-          exchange(a, j - 1, j);
+    final var n = a.length;
+    for (var i = 1; i < n; i++) {
+      for (var j = i; j > 0; j--) {
+        if (a[j - 1].compareTo(a[j]) > 0) {
+          exch(a, j - 1, j);
         } else {
           break;
         }
@@ -28,18 +38,18 @@ public class Insertion {
     }
   }
 
-  public static void exchange(final Comparable[] a, final int i, final int j) {
-    final Comparable temp = a[j];
-    a[j] = a[i];
-    a[i] = temp;
+  private static void exch(final Comparable[] a, final int i, final int j) {
+    final var swap = a[i];
+    a[i] = a[j];
+    a[j] = swap;
   }
 
   public static void main(final String[] args) {
     Executor.execute(Insertion.class, args);
 
-    final String[] a = StdIn.readAllStrings();
+    final var a = StdIn.readAllStrings();
     sort(a);
-    for (int i = 0; i < a.length; i++) {
+    for (var i = 0; i < a.length; i++) {
       StdOut.print(a[i] + " ");
     }
     StdOut.println();
