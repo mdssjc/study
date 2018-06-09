@@ -105,8 +105,13 @@ public class Complex {
     return new Complex(this.re / scale, -this.im / scale);
   }
 
-  public double re() { return this.re; }
-  public double im() { return this.im; }
+  public double re() {
+    return this.re;
+  }
+
+  public double im() {
+    return this.im;
+  }
 
   public Complex divides(final Complex b) {
     final var a = this;
@@ -114,15 +119,18 @@ public class Complex {
   }
 
   public Complex exp() {
-    return new Complex(Math.exp(this.re) * Math.cos(this.im), Math.exp(this.re) * Math.sin(this.im));
+    return new Complex(Math.exp(this.re) * Math.cos(this.im),
+                       Math.exp(this.re) * Math.sin(this.im));
   }
 
   public Complex sin() {
-    return new Complex(Math.sin(this.re) * Math.cosh(this.im), Math.cos(this.re) * Math.sinh(this.im));
+    return new Complex(Math.sin(this.re) * Math.cosh(this.im),
+                       Math.cos(this.re) * Math.sinh(this.im));
   }
 
   public Complex cos() {
-    return new Complex(Math.cos(this.re) * Math.cosh(this.im), -Math.sin(this.re) * Math.sinh(this.im));
+    return new Complex(Math.cos(this.re) * Math.cosh(this.im),
+                       -Math.sin(this.re) * Math.sinh(this.im));
   }
 
   public Complex tan() {
@@ -168,7 +176,8 @@ public class Complex {
     StdOut.println("a * b        = " + a.times(b));
     StdOut.println("b * a        = " + b.times(a));
     StdOut.println("a / b        = " + a.divides(b));
-    StdOut.println("(a / b) * b  = " + a.divides(b).times(b));
+    StdOut.println("(a / b) * b  = " + a.divides(b)
+                                        .times(b));
     StdOut.println("conj(a)      = " + a.conjugate());
     StdOut.println("|a|          = " + a.abs());
     StdOut.println("tan(a)       = " + a.tan());
