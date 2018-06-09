@@ -7,47 +7,81 @@ import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 4.3.5 Expression evaluation.
+ * <p>
+ * Compilation:  javac Evaluate.java
+ * Execution:    java Evaluate
+ * Dependencies: Stack.java
+ * <p>
+ * Evaluates (fully parenthesized) arithmetic expressions using
+ * Dijkstra's two-stack algorithm.
+ * <p>
+ * % java Evaluate
+ * ( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) )
+ * 101.0
+ * <p>
+ * % java Evaulate
+ * ( ( 1 + sqrt ( 5 ) ) / 2.0 )
+ * 1.618033988749895
+ * <p>
+ * <p>
+ * <p>
+ * Remarkably, Dijkstra's algorithm computes the same
+ * answer if we put each operator *after* its two operands
+ * instead of *between* them.
+ * <p>
+ * % java Evaluate
+ * ( 1 ( ( 2 3 + ) ( 4 5 * ) * ) + )
+ * 101.0
+ * <p>
+ * Moreover, in such expressions, all parentheses are redundant!
+ * Removing them yields an expression known as a postfix expression.
+ * 1 2 3 + 4 5 * * +
  *
  * @author Marcelo dos Santos
  *
  */
 @TestDrive(input = "( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) )")
-@TestDrive(input = "( ( 1 + sqrt ( 5.0 ) ) * 0.5 )")
+@TestDrive(input = "( ( 1 + sqrt ( 5 ) ) / 2.0 )")
 public class Evaluate {
 
   public static void main(final String[] args) {
     Executor.execute(Evaluate.class, args);
 
-    final Stack<String> ops = new Stack<>();
-    final Stack<Double> values = new Stack<>();
+    final var ops = new Stack<String>();
+    final var vals = new Stack<Double>();
+
     while (!StdIn.isEmpty()) {
-      final String token = StdIn.readString();
-      if (token.equals("(")) {
-      } else if (token.equals("+")) {
-        ops.push(token);
-      } else if (token.equals("-")) {
-        ops.push(token);
-      } else if (token.equals("*")) {
-        ops.push(token);
-      } else if (token.equals("sqrt")) {
-        ops.push(token);
-      } else if (token.equals(")")) {
-        final String op = ops.pop();
-        double v = values.pop();
+      final var s = StdIn.readString();
+      if (s.equals("(")) {
+      } else if (s.equals("+")) {
+        ops.push(s);
+      } else if (s.equals("-")) {
+        ops.push(s);
+      } else if (s.equals("*")) {
+        ops.push(s);
+      } else if (s.equals("/")) {
+        ops.push(s);
+      } else if (s.equals("sqrt")) {
+        ops.push(s);
+      } else if (s.equals(")")) {
+        final var op = ops.pop();
+        double v = vals.pop();
         if (op.equals("+")) {
-          v = values.pop() + v;
+          v = vals.pop() + v;
         } else if (op.equals("-")) {
-          v = values.pop() - v;
+          v = vals.pop() - v;
         } else if (op.equals("*")) {
-          v = values.pop() * v;
+          v = vals.pop() * v;
+        } else if (op.equals("/")) {
+          v = vals.pop() / v;
         } else if (op.equals("sqrt")) {
           v = Math.sqrt(v);
         }
-        values.push(v);
+        vals.push(v);
       } else {
-        values.push(Double.parseDouble(token));
+        vals.push(Double.parseDouble(s));
       }
     }
-    StdOut.println(values.pop());
+    StdOut.println(vals.pop());
   }
 }
