@@ -6,6 +6,19 @@ import edu.princeton.cs.introcs.StdOut;
 
 /**
  * Program 4.5.5 Small-world test.
+ * <p>
+ * Compilation:  javac SmallWorld.java
+ * Execution:    java SmallWorld filename delimiter
+ * Dependencies: Graph.java PathFinder.java StdOut.java In.java
+ * Data files:   https://introcs.cs.princeton.edu/45graph/tinyGraph.txt
+ * <p>
+ * %  java SmallWorld tinyGraph.txt " "
+ * number of vertices     =       5
+ * number of edges        =       7
+ * average degree         =   2.800
+ * maximum degree         =       4
+ * average path length    =   1.300
+ * clustering coefficient =   0.767
  *
  * @author Marcelo dos Santos
  *
@@ -14,14 +27,14 @@ import edu.princeton.cs.introcs.StdOut;
 public class SmallWorld {
 
   public static double averageDegree(final Graph G) {
-    return 2.0 * G.E() / G.V();
+    return (double) 2 * G.E() / G.V();
   }
 
   public static double averagePathLength(final Graph G) {
-    int sum = 0;
-    for (final String v : G.vertices()) {
-      final PathFinder pf = new PathFinder(G, v);
-      for (final String w : G.vertices()) {
+    var sum = 0;
+    for (final var v : G.vertices()) {
+      final var pf = new PathFinder(G, v);
+      for (final var w : G.vertices()) {
         sum += pf.distanceTo(w);
       }
     }
@@ -29,12 +42,12 @@ public class SmallWorld {
   }
 
   public static double clusteringCoefficient(final Graph G) {
-    double total = 0.0;
-    for (final String v : G.vertices()) {
-      final int possible = G.degree(v) * (G.degree(v) - 1);
-      int actual = 0;
-      for (final String u : G.adjacentTo(v)) {
-        for (final String w : G.adjacentTo(v)) {
+    var total = 0.0;
+    for (final var v : G.vertices()) {
+      final var possible = G.degree(v) * (G.degree(v) - 1);
+      var actual = 0;
+      for (final var u : G.adjacentTo(v)) {
+        for (final var w : G.adjacentTo(v)) {
           if (G.hasEdge(u, w)) {
             actual++;
           }
@@ -47,17 +60,28 @@ public class SmallWorld {
     return total / G.V();
   }
 
+  public static int maxDegree(final Graph G) {
+    var max = 0;
+    for (final var v : G.vertices()) {
+      if (G.degree(v) > max) {
+        max = G.degree(v);
+      }
+    }
+    return max;
+  }
+
   public static void main(final String[] args) {
     Executor.execute(SmallWorld.class, args);
 
-    final String filename = args[0];
-    final String delimiter = args[1];
-    final Graph graph = new Graph(filename, delimiter);
+    final var filename = args[0];
+    final var delimiter = args[1];
+    final var graph = new Graph(filename, delimiter);
 
-    StdOut.printf("%d vertices, %d edges%n", graph.V(), graph.E());
-    StdOut.printf("average degree         = %5.3f%n", averageDegree(graph));
-    StdOut.printf("average path length    = %5.3f%n", averagePathLength(graph));
-    StdOut.printf("clustering coefficient = %5.3f%n",
-                  clusteringCoefficient(graph));
+    StdOut.printf("number of vertices     = %7d%n", graph.V());
+    StdOut.printf("number of edges        = %7d%n", graph.E());
+    StdOut.printf("average degree         = %7.3f%n", averageDegree(graph));
+    StdOut.printf("maximum degree         = %7d%n", maxDegree(graph));
+    StdOut.printf("average path length    = %7.3f%n", averagePathLength(graph));
+    StdOut.printf("clustering coefficient = %7.3f%n", clusteringCoefficient(graph));
   }
 }
