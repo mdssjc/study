@@ -69,3 +69,7 @@
 ;;
 ;; 3.
 ;; <start />
+
+;; Which ones are elements of Xexpr.v0 or Xexpr.v1?
+;; Xexpr.v0 -> 3
+;; Xexpr.v1 -> 3
