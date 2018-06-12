@@ -53,3 +53,19 @@
 ;; Which one could be represented in Xexpr.v0 or Xexpr.v1?
 ;; Xexpr.v0 -> none
 ;; Xexpr.v1 -> xml2
+
+;; Exercise 365
+
+;; 1.
+;; <server name="example.org" />
+;;
+;; 2.
+;; <carcas>
+;;   <board>
+;;     <grass />
+;;   </board>
+;;   <player name="sam" />
+;; </carcas>
+;;
+;; 3.
+;; <start />
