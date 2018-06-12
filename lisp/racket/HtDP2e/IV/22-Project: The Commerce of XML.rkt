@@ -34,9 +34,22 @@
 ; - '()
 ; - Xexpr.v2
 ; - (cons Xexpr.v2 XL)
-; - (cons AL (cons Xexpr.v2 XL))
+; - (cons AL XL)
 ; An AL is one of:
 ; - '()
 ; - (cons Attribute AL)
 ; An Attribute is a list of two items:
 ;   (cons Symbol (cons String '()))
+
+;; Exercise 364
+
+(define xml1 '(transition ((from "seen-e")
+                           (to   "seen-f"))))
+
+(define xml2 '(ul (li (word)
+                      (word))
+                  (li (word))))
+
+;; Which one could be represented in Xexpr.v0 or Xexpr.v1?
+;; Xexpr.v0 -> none
+;; Xexpr.v1 -> xml2
