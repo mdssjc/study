@@ -12,7 +12,7 @@ import edu.princeton.cs.algs4.Out;
  * Execution:    java Cat input0.txt input1.txt ... output.txt
  * Dependencies: In.java Out.java
  * Data files:   https://algs4.cs.princeton.edu/11model/in1.txt
- * https://algs4.cs.princeton.edu/11model/in2.txt
+ *               https://algs4.cs.princeton.edu/11model/in2.txt
  * <p>
  * Reads in text files specified as the first command-line
  * arguments, concatenates them, and writes the result to
