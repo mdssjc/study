@@ -1,5 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
+import com.github.mdssjc.algorithms.chapter1.section11.Counter;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.*;
@@ -27,7 +28,7 @@ public class Interval2DClient {
     final Interval2D box = new Interval2D(xInterval, yInterval);
     box.draw();
 
-    final Counter counter = new Counter("hits");
+    final com.github.mdssjc.algorithms.chapter1.section11.Counter counter = new Counter("hits");
     for (int t = 0; t < trials; t++) {
       final double x = StdRandom.uniform(0.0, 1.0);
       final double y = StdRandom.uniform(0.0, 1.0);

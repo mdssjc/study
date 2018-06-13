@@ -1,6 +1,7 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
 import com.github.mdssjc.algorithms.chapter1.section11.Cat;
+import com.github.mdssjc.algorithms.chapter1.section11.Counter;
 import com.github.mdssjc.algorithms.chapter1.section11.Knuth;
 import com.github.mdssjc.algorithms.utils.Executor;
 
