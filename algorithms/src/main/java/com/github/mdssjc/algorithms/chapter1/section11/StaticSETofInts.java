@@ -46,13 +46,13 @@ public class StaticSETofInts {
    */
   public StaticSETofInts(final int[] keys) {
     this.a = new int[keys.length];
-    for (int i = 0; i < keys.length; i++) {
+    for (var i = 0; i < keys.length; i++) {
       this.a[i] = keys[i];
     }
 
     Arrays.sort(this.a);
 
-    for (int i = 1; i < this.a.length; i++) {
+    for (var i = 1; i < this.a.length; i++) {
       if (this.a[i] == this.a[i - 1]) {
         throw new IllegalArgumentException("Argument arrays contains duplicate keys.");
       }
@@ -82,10 +82,10 @@ public class StaticSETofInts {
    * or -1 (if the key is not in the set).
    */
   public int rank(final int key) {
-    int lo = 0;
-    int hi = this.a.length - 1;
+    var lo = 0;
+    var hi = this.a.length - 1;
     while (lo <= hi) {
-      final int mid = lo + (hi - lo) / 2;
+      final var mid = lo + (hi - lo) / 2;
       if (key < this.a[mid]) {
         hi = mid - 1;
       } else if (key > this.a[mid]) {

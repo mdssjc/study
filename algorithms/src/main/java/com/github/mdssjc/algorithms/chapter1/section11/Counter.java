@@ -112,19 +112,19 @@ public class Counter implements Comparable<Counter> {
   public static void main(final String[] args) {
     Executor.execute(Counter.class, args);
 
-    final int n = Integer.parseInt(args[0]);
-    final int trials = Integer.parseInt(args[1]);
+    final var n = Integer.parseInt(args[0]);
+    final var trials = Integer.parseInt(args[1]);
 
-    final Counter[] hits = new Counter[n];
-    for (int i = 0; i < n; i++) {
+    final var hits = new Counter[n];
+    for (var i = 0; i < n; i++) {
       hits[i] = new Counter("counter" + i);
     }
 
-    for (int t = 0; t < trials; t++) {
+    for (var t = 0; t < trials; t++) {
       hits[StdRandom.uniform(n)].increment();
     }
 
-    for (int i = 0; i < n; i++) {
+    for (var i = 0; i < n; i++) {
       StdOut.println(hits[i]);
     }
   }
