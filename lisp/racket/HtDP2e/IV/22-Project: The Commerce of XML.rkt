@@ -73,3 +73,80 @@
 ;; Which ones are elements of Xexpr.v0 or Xexpr.v1?
 ;; Xexpr.v0 -> 3
 ;; Xexpr.v1 -> 3
+
+(define a0 '((initial "X")))
+
+(define e0 '(machine))
+(define e1 `(machine ,a0))
+(define e2 '(machine (action)))
+(define e3 '(machine () (action)))
+(define e4 `(machine ,a0 (action) (action)))
+
+
+;; =================
+;; Functions:
+
+; Xexpr.v2 -> [List-of Attribute]
+; retrieves the list of attributes of xe
+(check-expect (xexpr-attr e0) '())
+(check-expect (xexpr-attr e1) '((initial "X")))
+(check-expect (xexpr-attr e2) '())
+(check-expect (xexpr-attr e3) '())
+(check-expect (xexpr-attr e4) '((initial "X")))
+
+(define (xexpr-attr xe)
+  (local ((define optional-loa+content (rest xe)))
+    (cond [(empty? optional-loa+content) '()]
+          [else
+           (local ((define loa-or-x (first optional-loa+content)))
+             (if (list-of-attributes? loa-or-x)
+                 loa-or-x
+                 '()))])))
+
+; [List-of Attribute] or Xexpr.v2 -> Boolean
+; is x a list of attributes
+(define (list-of-attributes? x)
+  (cond [(empty? x) #true]
+        [else
+         (local ((define possible-attribute (first x)))
+           (cons? possible-attribute))]))
+
+;; Exercise 366
+
+; Xexpr.v2 -> Symbol
+; retrive the name of xe
+(check-expect (xexpr-name e0)   'machine)
+(check-expect (xexpr-name e1)   'machine)
+(check-expect (xexpr-name e2)   'machine)
+(check-expect (xexpr-name e3)   'machine)
+(check-expect (xexpr-name e4)   'machine)
+(check-expect (xexpr-name xml1) 'transition)
+(check-expect (xexpr-name xml2) 'ul)
+
+(define (xexpr-name xe)
+  (first xe))
+
+; Xexpr.v2 -> [List-of Symbol]
+; retrives the contents of xe
+; FIXME: corrigir a função flat para estruturas internas.
+(check-expect (xexpr-content e0) '())
+(check-expect (xexpr-content e1) '())
+(check-expect (xexpr-content e2) '(action))
+(check-expect (xexpr-content e3) '(action))
+(check-expect (xexpr-content e4) '(action action))
+(check-expect (xexpr-content xml1) '())
+(check-expect (xexpr-content xml2) '(li word word li word))
+
+(define (xexpr-content xe)
+  (local ((define optional-loa+content (rest xe))
+          (define (flat xe)
+            (cond [(empty? xe) '()]
+                  [else
+                   (cons (xexpr-name (first xe))
+                         (flat (rest xe)))])))
+    (cond [(empty? optional-loa+content) '()]
+          [else
+           (local ((define loa-or-x (first optional-loa+content)))
+             (if (list-of-attributes? loa-or-x)
+                 (flat (rest optional-loa+content))
+                 (first optional-loa+content)))])))
