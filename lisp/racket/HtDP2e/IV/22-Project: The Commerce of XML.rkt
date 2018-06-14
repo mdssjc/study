@@ -113,6 +113,10 @@
 
 ;; Exercise 366
 
+
+;; =================
+;; Functions:
+
 ; Xexpr.v2 -> Symbol
 ; retrive the name of xe
 (check-expect (xexpr-name e0)   'machine)
@@ -150,3 +154,25 @@
              (flatten (if (list-of-attributes? loa-or-x)
                           (rest optional-loa+content)
                           optional-loa+content)))])))
+
+;; Exercise 367
+
+
+;; =================
+;; Functions:
+
+; Xexpr.v2 -> [List-of Attribute]
+; retrieves the list of attributes of xe
+(check-expect (xexpr-attr.v2 e0) '())
+(check-expect (xexpr-attr.v2 e1) '((initial "X")))
+(check-expect (xexpr-attr.v2 e2) '())
+(check-expect (xexpr-attr.v2 e3) '())
+(check-expect (xexpr-attr.v2 e4) '((initial "X")))
+
+(define (xexpr-attr.v2 xe)
+  (cond [(empty? (rest xe)) '()]
+        [else
+         (local ((define loa-or-x (first (rest xe))))
+           (if (list-of-attributes? loa-or-x)
+               loa-or-x
+               (xexpr-attr.v2 loa-or-x)))]))
