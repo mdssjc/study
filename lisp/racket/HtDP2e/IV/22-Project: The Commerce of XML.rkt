@@ -128,7 +128,6 @@
 
 ; Xexpr.v2 -> [List-of Symbol]
 ; retrives the contents of xe
-; FIXME: corrigir a função flat para estruturas internas.
 (check-expect (xexpr-content e0) '())
 (check-expect (xexpr-content e1) '())
 (check-expect (xexpr-content e2) '(action))
@@ -139,14 +138,15 @@
 
 (define (xexpr-content xe)
   (local ((define optional-loa+content (rest xe))
-          (define (flat xe)
+          (define (flatten xe)
             (cond [(empty? xe) '()]
+                  [(not (list? xe)) (list xe)]
                   [else
-                   (cons (xexpr-name (first xe))
-                         (flat (rest xe)))])))
+                   (append (flatten (first xe))
+                           (flatten (rest xe)))])))
     (cond [(empty? optional-loa+content) '()]
           [else
            (local ((define loa-or-x (first optional-loa+content)))
-             (if (list-of-attributes? loa-or-x)
-                 (flat (rest optional-loa+content))
-                 (first optional-loa+content)))])))
+             (flatten (if (list-of-attributes? loa-or-x)
+                          (rest optional-loa+content)
+                          optional-loa+content)))])))
