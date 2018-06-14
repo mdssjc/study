@@ -22,10 +22,10 @@ public class Simulator {
     Executor.execute(FlipsMax.class, "Example of a static method with object arguments and return values");
     Executor.execute(Rolls.class, "Counter client that simulates T rolls of a die");
     Executor.execute(Whitelist.class, "Whitelist client");
-    Executor.execute(VectorClient.class, "Euclidean vector client");
+//    Executor.execute(VectorClient.class, "Euclidean vector client");
     Executor.execute(BasicDate.class, "Basic Date: implementation");
     Executor.execute(SmallDate.class, "Small Date: alternate implementation");
-    Executor.execute(DateClient.class, "Date client");
+//    Executor.execute(DateClient.class, "Date client");
     Executor.execute(TransactionClient.class, "Transaction client");
     Executor.execute(Point2DClient.class, "Point2D client");
     Executor.execute(Interval1DClient.class, "Interval1D client");
