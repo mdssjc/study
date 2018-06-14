@@ -27,7 +27,7 @@ public class Simulator {
     Executor.execute(SmallDate.class, "Small Date: alternate implementation");
 //    Executor.execute(DateClient.class, "Date client");
 //    Executor.execute(TransactionClient.class, "Transaction client");
-    Executor.execute(Point2DClient.class, "Point2D client");
+//    Executor.execute(Point2DClient.class, "Point2D client");
     Executor.execute(Interval1DClient.class, "Interval1D client");
     Executor.execute(Interval2DClient.class, "Interval2D client");
     Executor.execute(AccumulatorClient.class, "Accumulator client");
