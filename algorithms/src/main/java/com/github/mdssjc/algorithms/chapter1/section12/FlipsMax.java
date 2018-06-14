@@ -1,6 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
-import com.github.mdssjc.algorithms.chapter1.section11.Counter;
+import com.github.mdssjc.algorithms.chapter1.section0.Counter;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdOut;

@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.chapter1.section11;
+package com.github.mdssjc.algorithms.chapter1.section0;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;

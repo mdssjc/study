@@ -1,5 +1,7 @@
 package com.github.mdssjc.algorithms.chapter1.section11;
 
+import com.github.mdssjc.algorithms.chapter1.section0.Average;
+import com.github.mdssjc.algorithms.chapter1.section0.RandomSeq;
 import com.github.mdssjc.algorithms.utils.Executor;
 
 /**
