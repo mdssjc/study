@@ -186,3 +186,21 @@
 ; An Token is one of:
 ; - [List-of Attribute]
 ; - Xexpr.v2
+
+;; Exercise 369
+
+
+;; =================
+;; Functions:
+
+; [List-of Attribute] Symbol -> String or #false
+; If the attributes list associates the symbol with a string, the function
+; retrieves this string; otherwise it returns #false
+(check-expect (find-attr a0 'attr) #false)
+(check-expect (find-attr a0 'initial) "X")
+
+(define (find-attr x s)
+  (local ((define result (assq s x)))
+    (if (false? result)
+        result
+        (second result))))
