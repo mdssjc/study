@@ -176,3 +176,13 @@
            (if (list-of-attributes? loa-or-x)
                loa-or-x
                (xexpr-attr.v2 loa-or-x)))]))
+
+;; Exercise 368
+
+
+;; =================
+;; Data definitions:
+
+; An Token is one of:
+; - [List-of Attribute]
+; - Xexpr.v2
