@@ -204,3 +204,57 @@
     (if (false? result)
         result
         (second result))))
+
+
+
+;; 22.2 - Rendering XML Enumerations
+
+
+;; =================
+;; Data definitions:
+
+; An XWord is '(word ((text String))).
+
+;; Exercise 370
+
+(define XW1 '(word ((text ""))))
+(define XW2 '(word ((text "10"))))
+(define XW3 '(word ((text "true"))))
+
+
+;; =================
+;; Functions:
+
+; Any -> Boolean
+; checks whether some ISL+ value is in XWord
+(check-expect (word? XW1)                        #true)
+(check-expect (word? XW2)                        #true)
+(check-expect (word? XW3)                        #true)
+(check-expect (word? 0)                          #false)
+(check-expect (word? #true)                      #false)
+(check-expect (word? '())                        #false)
+(check-expect (word? '(word))                    #false)
+(check-expect (word? '(word ()))                 #false)
+(check-expect (word? '(word (())))               #false)
+(check-expect (word? '(word ((text))))           #false)
+(check-expect (word? '(word ((text 10))))        #false)
+(check-expect (word? '(word ((text key value)))) #false)
+(check-expect (word? '(words ((text "10"))))     #false)
+
+(define (word? x)
+  (and (cons? x)
+       (= (length x) 2)
+       (symbol=? (first x) 'word)
+       (cons? (second x))
+       (= (length (first (second x))) 2)
+       (symbol=? (first (first (second x))) 'text)
+       (string? (second (first (second x))))))
+
+; XWord -> String
+; extracts the value of the only attribute of an instance of XWord
+(check-expect (word-text XW1) "")
+(check-expect (word-text XW2) "10")
+(check-expect (word-text XW3) "true")
+
+(define (word-text xw)
+  (second (first (second xw))))
