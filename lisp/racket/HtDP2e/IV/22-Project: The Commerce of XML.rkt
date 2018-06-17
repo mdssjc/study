@@ -29,12 +29,12 @@
 ;; Exercise 363
 
 ; An Xexpr.v2 is a list:
-; - (cons Symbol XL)
+;   (cons Symbol XL)
 ; An XL is one of:
 ; - '()
 ; - Xexpr.v2
 ; - (cons Xexpr.v2 XL)
-; - (cons AL XL)
+; - (cons AL (cons Xexpr.v2 XL))
 ; An AL is one of:
 ; - '()
 ; - (cons Attribute AL)
@@ -258,3 +258,17 @@
 
 (define (word-text xw)
   (second (first (second xw))))
+
+;; Exercise 371
+
+
+;; =================
+;; Data definitions:
+
+; An Xexpr is a list:
+;   (cons Symbol XL)
+; An XL is one of:
+; - [List-of Xexpr]
+; - (cons [List-of Attribute] [List-of Xexpr])
+; An Attribute is a list of two items:
+;   (cons Symbol (cons String '()))
