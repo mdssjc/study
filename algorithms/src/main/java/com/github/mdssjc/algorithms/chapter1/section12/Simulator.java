@@ -1,9 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
-import com.github.mdssjc.algorithms.chapter1.section0.Cat;
-import com.github.mdssjc.algorithms.chapter1.section0.Counter;
-import com.github.mdssjc.algorithms.chapter1.section0.Knuth;
-import com.github.mdssjc.algorithms.chapter1.section0.Whitelist;
+import com.github.mdssjc.algorithms.chapter1.section0.*;
 import com.github.mdssjc.algorithms.utils.Executor;
 
 /**
@@ -30,7 +27,7 @@ public class Simulator {
 //    Executor.execute(Point2DClient.class, "Point2D client");
 //    Executor.execute(Interval1DClient.class, "Interval1D client");
 //    Executor.execute(Interval2DClient.class, "Interval2D client");
-    Executor.execute(AccumulatorClient.class, "Accumulator client");
+//    Executor.execute(AccumulatorClient.class, "Accumulator client");
     Executor.execute(Accumulator.class, "Accumulator data type");
     Executor.execute(VisualAccumulator.class, "Visual Accumulator data type");
   }

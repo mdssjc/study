@@ -1,5 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
+import com.github.mdssjc.algorithms.chapter1.section0.Accumulator;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdDraw;
@@ -38,9 +39,9 @@ public class VisualAccumulator {
   public void addDataValue(final double val) {
     this.acc.addDataValue(val);
     StdDraw.setPenColor(StdDraw.DARK_GRAY);
-    StdDraw.point(this.acc.getN(), val);
+    StdDraw.point(this.acc.count(), val);
     StdDraw.setPenColor(StdDraw.RED);
-    StdDraw.point(this.acc.getN(), this.acc.mean());
+    StdDraw.point(this.acc.count(), this.acc.mean());
   }
 
   public double avg() {
