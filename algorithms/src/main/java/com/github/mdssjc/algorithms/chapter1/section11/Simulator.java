@@ -13,6 +13,8 @@ import com.github.mdssjc.algorithms.utils.Executor;
 public class Simulator {
 
   public static void main(final String[] args) {
+    Executor.execute(ResizingArrayStack.class, "LIFO stack (resizing array)");
+
     Executor.execute(Euclid.class, "Euclid's algorithm");
     Executor.execute(BinarySearchClient.class, "Binary Search client");
     Executor.execute(BinarySearchRecursiveClient.class, "Binary Search Recursive client");
