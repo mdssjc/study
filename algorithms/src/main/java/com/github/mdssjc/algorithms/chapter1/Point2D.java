@@ -1,4 +1,12 @@
-package com.github.mdssjc.algorithms.chapter1.section0;
+package com.github.mdssjc.algorithms.chapter1;
+
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdRandom;
+
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Point.
@@ -12,13 +20,6 @@ package com.github.mdssjc.algorithms.chapter1.section0;
  * @author Marcelo dos Santos
  *
  */
-import com.github.mdssjc.algorithms.utils.Executor;
-import com.github.mdssjc.algorithms.utils.TestDrive;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdRandom;
-
-import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * The {@code Point} class is an immutable data type to encapsulate a

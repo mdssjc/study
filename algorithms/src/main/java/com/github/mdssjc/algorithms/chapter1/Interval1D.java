@@ -1,4 +1,11 @@
-package com.github.mdssjc.algorithms.chapter1.section0;
+package com.github.mdssjc.algorithms.chapter1;
+
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.StdOut;
+
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * 1d interval.
@@ -12,12 +19,6 @@ package com.github.mdssjc.algorithms.chapter1.section0;
  * @author Marcelo dos Santos
  *
  */
-import com.github.mdssjc.algorithms.utils.Executor;
-import com.github.mdssjc.algorithms.utils.TestDrive;
-import edu.princeton.cs.algs4.StdOut;
-
-import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  *  The {@code Interval1D} class represents a one-dimensional interval.

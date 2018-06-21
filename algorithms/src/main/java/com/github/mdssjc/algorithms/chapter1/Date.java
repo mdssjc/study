@@ -1,4 +1,8 @@
-package com.github.mdssjc.algorithms.chapter1.section0;
+package com.github.mdssjc.algorithms.chapter1;
+
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.StdOut;
 
 /**
  * Date.
@@ -12,9 +16,6 @@ package com.github.mdssjc.algorithms.chapter1.section0;
  * @author Marcelo dos Santos
  *
  */
-import com.github.mdssjc.algorithms.utils.Executor;
-import com.github.mdssjc.algorithms.utils.TestDrive;
-import edu.princeton.cs.algs4.StdOut;
 
 /**
  * The {@code Date} class is an immutable data type to encapsulate a

@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.chapter1.section0;
+package com.github.mdssjc.algorithms.chapter1;
 
 import java.util.Arrays;
 

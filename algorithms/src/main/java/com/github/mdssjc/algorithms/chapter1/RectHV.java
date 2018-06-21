@@ -1,4 +1,6 @@
-package com.github.mdssjc.algorithms.chapter1.section0;
+package com.github.mdssjc.algorithms.chapter1;
+
+import edu.princeton.cs.algs4.StdDraw;
 
 /**
  * Axis-aligned rectangle.
@@ -12,7 +14,6 @@ package com.github.mdssjc.algorithms.chapter1.section0;
  * @author Marcelo dos Santos
  *
  */
-import edu.princeton.cs.algs4.StdDraw;
 
 /**
  *  The {@code RectHV} class is an immutable data type to encapsulate a

@@ -1,4 +1,4 @@
-package com.github.mdssjc.algorithms.chapter1.section11;
+package com.github.mdssjc.algorithms.chapter1;
 
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
@@ -50,10 +50,8 @@ import java.util.Arrays;
  * @author Robert Sedgewick
  * @author Kevin Wayne
  */
-@TestDrive(value = "tinyW.txt", valueFile = true,
-    input = "tinyT.txt", inputFile = true)
-@TestDrive(value = "largeW.txt", valueFile = true,
-    input = "largeT.txt", inputFile = true)
+@TestDrive(value = "tinyW.txt", valueFile = true, input = "tinyT.txt", inputFile = true)
+@TestDrive(value = "largeW.txt", valueFile = true, input = "largeT.txt", inputFile = true)
 public class BinarySearch {
 
   /**

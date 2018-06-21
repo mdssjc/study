@@ -1,6 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
-import com.github.mdssjc.algorithms.chapter1.section0.Accumulator;
+import com.github.mdssjc.algorithms.chapter1.Accumulator;
 import com.github.mdssjc.algorithms.utils.Executor;
 import com.github.mdssjc.algorithms.utils.TestDrive;
 import edu.princeton.cs.algs4.StdDraw;

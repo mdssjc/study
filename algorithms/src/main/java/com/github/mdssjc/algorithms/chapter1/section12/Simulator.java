@@ -1,6 +1,6 @@
 package com.github.mdssjc.algorithms.chapter1.section12;
 
-import com.github.mdssjc.algorithms.chapter1.section0.*;
+import com.github.mdssjc.algorithms.chapter1.*;
 import com.github.mdssjc.algorithms.utils.Executor;
 
 /**

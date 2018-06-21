@@ -1,4 +1,10 @@
-package com.github.mdssjc.algorithms.chapter1.section0;
+package com.github.mdssjc.algorithms.chapter1;
+
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
 
 /**
  * 2d interval.
@@ -12,11 +18,6 @@ package com.github.mdssjc.algorithms.chapter1.section0;
  * @author Marcelo dos Santos
  *
  */
-import com.github.mdssjc.algorithms.utils.Executor;
-import com.github.mdssjc.algorithms.utils.TestDrive;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
 
 /**
  * The {@code Interval2D} class represents a closed two-dimensional interval,

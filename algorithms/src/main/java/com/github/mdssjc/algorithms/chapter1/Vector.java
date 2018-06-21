@@ -1,4 +1,8 @@
-package com.github.mdssjc.algorithms.chapter1.section0;
+package com.github.mdssjc.algorithms.chapter1;
+
+import com.github.mdssjc.algorithms.utils.Executor;
+import com.github.mdssjc.algorithms.utils.TestDrive;
+import edu.princeton.cs.algs4.StdOut;
 
 /**
  * Euclidean vector.
@@ -29,9 +33,6 @@ package com.github.mdssjc.algorithms.chapter1.section0;
  * @author Marcelo dos Santos
  *
  */
-import com.github.mdssjc.algorithms.utils.Executor;
-import com.github.mdssjc.algorithms.utils.TestDrive;
-import edu.princeton.cs.algs4.StdOut;
 
 /**
  *  The {@code Vector} class represents a <em>d</em>-dimensional Euclidean vector.
