@@ -18,5 +18,6 @@ public class Simulator {
     StdOut.println("1.1 Basic Programming Model");
     Executor.execute(BinarySearch.class, "Binary search");
     Executor.execute(TypicalArrayCodes.class, "Typical array-processing code");
+    Executor.execute(SquareRoot.class, "Square Root");
   }
 }
