@@ -19,5 +19,6 @@ public class Simulator {
     Executor.execute(BinarySearch.class, "Binary search");
     Executor.execute(TypicalArrayCodes.class, "Typical array-processing code");
     Executor.execute(TypicalStaticMethods.class, "Typical implementations of static methods");
+    Executor.execute(BinarySearchRecursive.class, "Binary search recursive");
   }
 }
