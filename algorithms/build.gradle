@@ -19,7 +19,7 @@ def junitVersion = '5.2.0'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly("org.projectlombok:lombok:1.18.00")
+    compileOnly("org.projectlombok:lombok:1.18.0")
 
     testCompile("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
