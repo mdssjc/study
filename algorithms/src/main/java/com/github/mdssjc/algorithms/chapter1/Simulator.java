@@ -20,5 +20,6 @@ public class Simulator {
     Executor.execute(TypicalArrayCodes.class, "Typical array-processing code");
     Executor.execute(TypicalStaticMethods.class, "Typical implementations of static methods");
     Executor.execute(BinarySearchRecursive.class, "Binary search recursive");
+    Executor.execute(ImplementationsStdRandom.class, "Implementations of static methods in StdRandom library");
   }
 }
