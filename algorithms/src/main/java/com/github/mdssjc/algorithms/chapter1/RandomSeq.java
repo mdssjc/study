@@ -26,14 +26,14 @@ import edu.princeton.cs.algs4.StdRandom;
  */
 
 /**
- *  The {@code RandomSeq} class is a client that prints out a pseudorandom
- *  sequence of real numbers in a given range.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/11model">Section 1.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code RandomSeq} class is a client that prints out a pseudorandom
+ * sequence of real numbers in a given range.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/11model">Section 1.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 @TestDrive({"5", "100.0", "200.0"})
 public class RandomSeq {
@@ -45,7 +45,8 @@ public class RandomSeq {
    * Reads in two command-line arguments lo and hi and prints n uniformly
    * random real numbers in [lo, hi) to standard output.
    *
-   * @param args the command-line arguments
+   * @param args
+   *     the command-line arguments
    */
   public static void main(final String[] args) {
     Executor.execute(RandomSeq.class, args);
