@@ -21,5 +21,8 @@ public class Simulator {
     Executor.execute(TypicalStaticMethods.class, "Typical implementations of static methods");
     Executor.execute(BinarySearchRecursive.class, "Binary search recursive");
     Executor.execute(ImplementationsStdRandom.class, "Implementations of static methods in StdRandom library");
+    Executor.execute(RandomSeq.class, "Random numbers in a given range");
+    Executor.execute(Average.class, "Average of a sequence of numbers");
+    Executor.execute(PlottingExamples.class, "StdDraw plotting examples");
   }
 }
