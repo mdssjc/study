@@ -1,0 +1,19 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/PartyInvites",
+      "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "http://localhost:80",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "Run": {
+      "commandName": "IIS"
+    }
+  }
+}
