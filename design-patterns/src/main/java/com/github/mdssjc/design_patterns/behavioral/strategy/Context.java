@@ -4,7 +4,6 @@ package com.github.mdssjc.design_patterns.behavioral.strategy;
  * Context.
  *
  * @author Marcelo dos Santos
- *
  */
 public class Context {
 

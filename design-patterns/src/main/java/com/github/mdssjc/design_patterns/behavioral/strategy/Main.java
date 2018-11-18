@@ -13,23 +13,26 @@ package com.github.mdssjc.design_patterns.behavioral.strategy;
  * Uso do dialeto 'handle/body'.
  *
  * @author Marcelo dos Santos
- *
  */
 public class Main {
 
   public static void main(final String[] args) {
     final Context context = new Context();
 
+    // Classic
+
     context.setStrategy(new ConcreteStrategyA());
-    final String messageA = context.contextInterface();
-    System.out.println(messageA);
+    System.out.println(context.contextInterface());
 
     context.setStrategy(new ConcreteStrategyB());
-    final String messageB = context.contextInterface();
-    System.out.println(messageB);
+    System.out.println(context.contextInterface());
 
-    context.setStrategy( new ConcreteStrategyC());
-    final String messageC = context.contextInterface();
-    System.out.println(messageC);
+    context.setStrategy(new ConcreteStrategyC());
+    System.out.println(context.contextInterface());
+
+    // Functional
+
+    context.setStrategy(() -> "Concrete Strategy D");
+    System.out.println(context.contextInterface());
   }
 }
