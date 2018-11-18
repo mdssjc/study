@@ -4,7 +4,6 @@ package com.github.mdssjc.design_patterns.behavioral.template_method;
  * Concrete Class.
  *
  * @author Marcelo dos Santos
- *
  */
 public class ConcreteClass extends AbstractClass {
 

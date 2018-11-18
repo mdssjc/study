@@ -12,12 +12,19 @@ package com.github.mdssjc.design_patterns.behavioral.template_method;
  * mesmo.
  *
  * @author Marcelo dos Santos
- *
  */
 public class Main {
 
   public static void main(final String[] args) {
+    // Classic
+
     final AbstractClass abstractClass = new ConcreteClass();
     abstractClass.templateMethod();
+
+    // Functional
+
+    final FunctionalClass functionalClass = new FunctionalClass();
+    functionalClass.templateMethod(() -> "Concrete",
+                                   () -> "Class");
   }
 }

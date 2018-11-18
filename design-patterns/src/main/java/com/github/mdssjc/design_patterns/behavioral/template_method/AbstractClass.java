@@ -4,7 +4,6 @@ package com.github.mdssjc.design_patterns.behavioral.template_method;
  * Abstract Class.
  *
  * @author Marcelo dos Santos
- *
  */
 public abstract class AbstractClass {
 
