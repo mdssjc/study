@@ -7,7 +7,6 @@ import java.util.List;
  * Subject.
  *
  * @author Marcelo dos Santos
- *
  */
 public abstract class Subject {
 
@@ -17,21 +16,19 @@ public abstract class Subject {
     this.observers = new ArrayList<>();
   }
 
-  public void attach(final Observer observer){
+  public void attach(final Observer observer) {
     this.observers.add(observer);
   }
 
-  public void detach(final Observer observer){
+  public void detach(final Observer observer) {
     this.observers.remove(observer);
   }
 
   public void doNotify() {
-    for (final Observer observer : this.observers) {
-      observer.update(this);
-    }
+    this.observers.forEach(observer -> observer.update(this));
   }
 
-  public abstract void setState(String state);
-
   public abstract String getState();
+
+  public abstract void setState(String state);
 }

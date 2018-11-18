@@ -4,7 +4,6 @@ package com.github.mdssjc.design_patterns.behavioral.observer;
  * Concrete Observer.
  *
  * @author Marcelo dos Santos
- *
  */
 public class ConcreteObserver implements Observer {
 

@@ -14,12 +14,14 @@ package com.github.mdssjc.design_patterns.behavioral.observer;
  * Push-model: modelo completo, o assunto envia os dados para os observadores.
  *
  * @author Marcelo dos Santos
- *
  */
 public class Main {
 
   public static void main(final String[] args) {
     final Subject subject = new ConcreteSubject();
+
+    // Classic
+
     final Observer observer = new ConcreteObserver();
 
     subject.attach(observer);
@@ -27,5 +29,10 @@ public class Main {
     subject.setState("Subject 2");
     subject.detach(observer);
     subject.setState("Subject 3");
+
+    // Functional
+
+    subject.attach(s -> System.out.println(s.getState()));
+    subject.setState("Subject 4");
   }
 }
