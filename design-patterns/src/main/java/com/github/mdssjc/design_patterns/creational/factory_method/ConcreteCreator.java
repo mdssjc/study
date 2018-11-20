@@ -4,7 +4,6 @@ package com.github.mdssjc.design_patterns.creational.factory_method;
  * Concrete Creator.
  *
  * @author Marcelo dos Santos
- *
  */
 public class ConcreteCreator implements Creator {
 

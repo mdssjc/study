@@ -1,5 +1,9 @@
 package com.github.mdssjc.design_patterns.creational.factory_method;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
 /**
  * Padrão de projeto: Factory Method.
  * <p>
@@ -13,11 +17,12 @@ package com.github.mdssjc.design_patterns.creational.factory_method;
  * Cria através de herança.
  *
  * @author Marcelo dos Santos
- *
  */
 public class Main {
 
   public static void main(final String[] args) {
+    // Classic
+
     final Creator creator1 = new Creator() {
     };
     final Creator creator2 = new ConcreteCreator();
@@ -30,5 +35,16 @@ public class Main {
 
     System.out.println(message1);
     System.out.println(message2);
+
+    // Functional
+
+    final Map<String, Supplier<Product>> map = new HashMap();
+    map.put("product", () -> new ConcreteProduct("Concrete Product"));
+
+    final String message3 = map.get("product")
+                               .get()
+                               .message();
+
+    System.out.println(message3);
   }
 }

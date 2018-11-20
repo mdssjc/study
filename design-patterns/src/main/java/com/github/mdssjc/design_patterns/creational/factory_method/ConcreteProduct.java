@@ -4,7 +4,6 @@ package com.github.mdssjc.design_patterns.creational.factory_method;
  * Concrete Product.
  *
  * @author Marcelo dos Santos
- *
  */
 public class ConcreteProduct implements Product {
 
