@@ -4,7 +4,6 @@ package com.github.mdssjc.design_patterns.behavioral.chain_of_responsibility;
  * Concrete Handler.
  *
  * @author Marcelo dos Santos
- *
  */
 public class ConcreteHandler2 extends Handler {
 

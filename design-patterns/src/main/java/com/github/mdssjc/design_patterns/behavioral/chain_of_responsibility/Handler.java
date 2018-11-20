@@ -7,7 +7,6 @@ import java.util.List;
  * Handler.
  *
  * @author Marcelo dos Santos
- *
  */
 public class Handler {
 

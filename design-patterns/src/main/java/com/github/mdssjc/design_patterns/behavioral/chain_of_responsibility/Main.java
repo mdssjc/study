@@ -1,5 +1,8 @@
 package com.github.mdssjc.design_patterns.behavioral.chain_of_responsibility;
 
+import java.util.function.Function;
+import java.util.function.UnaryOperator;
+
 /**
  * Padrão de projeto: Chain of Responsibility.
  * <p>
@@ -12,11 +15,11 @@ package com.github.mdssjc.design_patterns.behavioral.chain_of_responsibility;
  * ao longo da cadeia até que um objeto a trate.
  *
  * @author Marcelo dos Santos
- *
  */
 public class Main {
 
   public static void main(final String[] args) {
+    // Classic
     final Handler handler = new Handler();
     handler.add(new ConcreteHandler1());
     handler.add(new ConcreteHandler2());
@@ -28,5 +31,15 @@ public class Main {
     System.out.println(message1);
     System.out.println(message2);
     System.out.println(message3);
+
+    // Functional
+    final UnaryOperator<String> message4 = text -> text + "Concrete Handler 1";
+    final UnaryOperator<String> message5 = text -> text + "12345";
+
+    final Function<String, String> pipeline = message4.andThen(message5);
+
+    final String result = pipeline.apply("Response: ");
+    System.out.println(result);
   }
 }
+
