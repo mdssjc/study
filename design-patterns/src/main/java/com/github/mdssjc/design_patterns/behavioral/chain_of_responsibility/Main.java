@@ -20,6 +20,7 @@ public class Main {
 
   public static void main(final String[] args) {
     // Classic
+
     final Handler handler = new Handler();
     handler.add(new ConcreteHandler1());
     handler.add(new ConcreteHandler2());
@@ -33,6 +34,7 @@ public class Main {
     System.out.println(message3);
 
     // Functional
+
     final UnaryOperator<String> message4 = text -> text + "Concrete Handler 1";
     final UnaryOperator<String> message5 = text -> text + "12345";
 
