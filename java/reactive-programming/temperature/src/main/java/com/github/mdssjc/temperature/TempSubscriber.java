@@ -3,6 +3,9 @@ package com.github.mdssjc.temperature;
 import java.util.concurrent.Flow.Subscriber;
 import java.util.concurrent.Flow.Subscription;
 
+/**
+ * A Subscriber printing the received temperatures.
+ */
 public class TempSubscriber implements Subscriber<TempInfo> {
 
     private Subscription subscription;

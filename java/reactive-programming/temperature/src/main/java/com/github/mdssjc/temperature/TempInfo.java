@@ -2,6 +2,9 @@ package com.github.mdssjc.temperature;
 
 import java.util.Random;
 
+/**
+ * A Java bean conveying the currently reported temperature.
+ */
 public class TempInfo {
 
     public static final Random random = new Random();
@@ -14,8 +17,9 @@ public class TempInfo {
     }
 
     public static TempInfo fetch(String town) {
-        if (random.nextInt(10) == 0)
+        if (random.nextInt(10) == 0) {
             throw new RuntimeException("Error!");
+        }
         return new TempInfo(town, random.nextInt(100));
     }
 
