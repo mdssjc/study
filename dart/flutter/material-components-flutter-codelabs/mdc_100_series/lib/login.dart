@@ -13,18 +13,19 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+import 'colors.dart';
 
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-// TODO: Add text editing controllers (101)
 final _usernameController = TextEditingController();
 final _passwordController = TextEditingController();
 
 class _LoginPageState extends State<LoginPage> {
-  // TODO: Add text editing controllers (101)
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,49 +42,47 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
             SizedBox(height: 120.0),
-            // TODO: Wrap Username with AccentColorOverride (103)
-            // TODO: Remove filled: true values (103)
-            // TODO: Wrap Password with AccentColorOverride (103)
-            // TODO: Add TextField widgets (101)
             // [Name]
-            TextField(
-              decoration: InputDecoration(
-                filled: true,
-                labelText: 'Username',
+            AccentColorOverride(
+              color: kShrineBrown900,
+              child: TextField(
+                controller: _usernameController,
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                ),
               ),
-              controller: _usernameController,
             ),
             // spacer
-            SizedBox(
-              height: 12.0,
-            ),
+            SizedBox(height: 12.0),
             // [Password]
-            TextField(
-              decoration: InputDecoration(
-                filled: true,
-                labelText: 'Password',
+            AccentColorOverride(
+              color: kShrineBrown900,
+              child: TextField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                ),
+                obscureText: true,
               ),
-              obscureText: true,
-              controller: _passwordController,
             ),
-            // TODO: Add button bar (101)
             ButtonBar(
-              // TODO: Add a beveled rectangular border to CANCEL (103)
               children: <Widget>[
-                // TODO: Add buttons (101)
                 FlatButton(
                   child: Text('CANCEL'),
                   onPressed: () {
-                    // TODO: Clear the text fields (101)
                     _usernameController.clear();
                     _passwordController.clear();
                   },
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                  ),
                 ),
-                // TODO: Add an elevation to NEXT (103)
-                // TODO: Add a beveled rectangular border to NEXT (103)
-                // TODO: Show the next page (101)
                 RaisedButton(
                   child: Text('NEXT'),
+                  elevation: 8.0,
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                  ),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -97,4 +96,21 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-// TODO: Add AccentColorOverride (103)
+class AccentColorOverride extends StatelessWidget {
+  final Color color;
+  final Widget child;
+
+  const AccentColorOverride({Key key, this.color, this.child})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      child: child,
+      data: Theme.of(context).copyWith(
+        accentColor: color,
+        brightness: Brightness.dark,
+      ),
+    );
+  }
+}
