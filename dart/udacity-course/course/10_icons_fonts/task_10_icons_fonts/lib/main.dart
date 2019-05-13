@@ -23,10 +23,10 @@ class UnitConverterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       title: 'Unit Converter',
       theme: ThemeData(
-        // TODO: fill in the fontFamily property
+        fontFamily: 'Raleway',
         textTheme: Theme.of(context).textTheme.apply(
               bodyColor: Colors.black,
               displayColor: Colors.grey[600],
