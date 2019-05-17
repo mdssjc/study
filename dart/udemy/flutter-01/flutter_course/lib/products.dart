@@ -3,8 +3,9 @@ import 'package:flutter_course/pages/product.dart';
 
 class Products extends StatelessWidget {
   final List<Map<String, String>> products;
+  final Function deleteProduct;
 
-  Products([this.products = const []]) {
+  Products(this.products, {this.deleteProduct}) {
     print('[Products Widget] Constructor');
   }
 
@@ -25,7 +26,12 @@ class Products extends StatelessWidget {
                         builder: (BuildContext context) => ProductPage(
                             products[index]['title'], products[index]['image']),
                       ),
-                    ),
+                    ).then((value) {
+                      print(value);
+                      if (value) {
+                        deleteProduct(index);
+                      }
+                    }),
               ),
             ],
           )
