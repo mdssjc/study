@@ -1,8 +1,8 @@
 package com.github.mdssjc.services;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class GreetingRepositoryImpl implements GreetingRepository {
 
     @Override
