@@ -22,10 +22,7 @@ class Products extends StatelessWidget {
                 child: Text('Details'),
                 onPressed: () => Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => ProductPage(
-                            products[index]['title'], products[index]['image']),
-                      ),
+                      ,
                     ).then((value) {
                       print(value);
                       if (value) {
