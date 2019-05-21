@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/pages/auth.dart';
-// import 'package:flutter/rendering.dart';
-import 'product_manager.dart';
+import 'package:flutter_course/pages/products_admin.dart';
+
+import 'pages/products.dart';
 
 main() {
   // debugPaintSizeEnabled = true;
@@ -19,7 +19,11 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           primaryColor: Colors.deepOrange,
           accentColor: Colors.deepPurple),
-      home: AuthPage(),
+      //home: AuthPage(),
+      routes: {
+        '/': (BuildContext context) => ProductsPage(),
+        "/admin": (BuildContext context) => ProductsAdminPage(),
+      },
     );
   }
 }
