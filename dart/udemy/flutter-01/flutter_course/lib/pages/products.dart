@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../product_manager.dart';
 
 class ProductsPage extends StatelessWidget {
