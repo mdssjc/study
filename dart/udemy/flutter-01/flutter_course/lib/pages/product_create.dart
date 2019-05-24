@@ -18,6 +18,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     return Column(
       children: <Widget>[
         TextField(
+          decoration: InputDecoration(labelText: 'Product Title'),
           onChanged: (String value) {
             setState(() {
               titleValue = value;
@@ -26,6 +27,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
         ),
         TextField(
           maxLines: 4,
+          decoration: InputDecoration(labelText: 'Product Description'),
           onChanged: (String value) {
             setState(() {
               descriptionValue = value;
@@ -34,6 +36,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
         ),
         TextField(
           keyboardType: TextInputType.number,
+          decoration: InputDecoration(labelText: 'Product Price'),
           onChanged: (String value) {
             setState(() {
               priceValue = double.parse(value);
