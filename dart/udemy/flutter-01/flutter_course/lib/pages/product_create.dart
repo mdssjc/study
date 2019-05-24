@@ -15,7 +15,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: <Widget>[
         TextField(
           decoration: InputDecoration(labelText: 'Product Title'),
@@ -42,6 +42,10 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
               priceValue = double.parse(value);
             });
           },
+        ),
+        RaisedButton(
+          child: Text('Save'),
+          onPressed: () {},
         ),
       ],
     );
