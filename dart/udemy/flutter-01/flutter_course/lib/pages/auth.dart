@@ -8,7 +8,7 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  String username;
+  String email;
   String password;
   String helpMessage = '';
 
@@ -24,10 +24,10 @@ class _AuthPageState extends State<AuthPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
-              decoration: InputDecoration(labelText: 'Username'),
+              decoration: InputDecoration(labelText: 'E-mail'),
               onChanged: (String value) {
                 setState(() {
-                  username = value.trim();
+                  email = value.trim();
                 });
               },
             ),
@@ -72,6 +72,6 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   bool isAuth() {
-    return this.username == 'MDS' && this.password == '123';
+    return this.email == 'mdssjc@github.com' && this.password == '123';
   }
 }
