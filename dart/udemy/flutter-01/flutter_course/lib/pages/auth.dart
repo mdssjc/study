@@ -11,6 +11,7 @@ class _AuthPageState extends State<AuthPage> {
   String email;
   String password;
   String helpMessage = '';
+  bool _acceptTerms = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +21,7 @@ class _AuthPageState extends State<AuthPage> {
       ),
       body: Container(
         margin: EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: <Widget>[
             TextField(
               decoration: InputDecoration(labelText: 'E-mail'),
@@ -40,10 +40,20 @@ class _AuthPageState extends State<AuthPage> {
                 });
               },
             ),
+            SwitchListTile(
+              value: _acceptTerms,
+              onChanged: (bool value) {
+                setState(() {
+                  _acceptTerms = value;
+                });
+              },
+              title: Text('Accept Terms'),
+            ),
             SizedBox(
               height: 6.0,
             ),
             Text(helpMessage,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.red,
                   fontWeight: FontWeight.bold,
