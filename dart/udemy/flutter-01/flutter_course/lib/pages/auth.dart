@@ -86,7 +86,7 @@ class _AuthPageState extends State<AuthPage> {
                   textColor: Colors.white,
                   onPressed: () {
                     if (isAuth()) {
-                      Navigator.pushReplacementNamed(context, "/");
+                      Navigator.pushReplacementNamed(context, "/products");
                     } else {
                       setState(() {
                         helpMessage = 'Login invalid, try again!';
