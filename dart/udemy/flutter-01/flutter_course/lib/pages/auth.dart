@@ -29,61 +29,74 @@ class _AuthPageState extends State<AuthPage> {
           ),
         ),
         padding: EdgeInsets.all(10.0),
-        child: ListView(
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(labelText: 'E-mail'),
-              onChanged: (String value) {
-                setState(() {
-                  email = value.trim();
-                });
-              },
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  decoration: InputDecoration(
+                      labelText: 'E-mail',
+                      filled: true,
+                      fillColor: Colors.white),
+                  onChanged: (String value) {
+                    setState(() {
+                      email = value.trim();
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 10.9,
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                      labelText: 'Password',
+                      filled: true,
+                      fillColor: Colors.white),
+                  obscureText: true,
+                  onChanged: (String value) {
+                    setState(() {
+                      password = value.trim();
+                    });
+                  },
+                ),
+                SwitchListTile(
+                  value: _acceptTerms,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _acceptTerms = value;
+                    });
+                  },
+                  title: Text('Accept Terms'),
+                ),
+                SizedBox(
+                  height: 6.0,
+                ),
+                Text(helpMessage,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    )),
+                SizedBox(
+                  height: 6.0,
+                ),
+                RaisedButton(
+                  child: Text('LOGIN'),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    if (isAuth()) {
+                      Navigator.pushReplacementNamed(context, "/");
+                    } else {
+                      setState(() {
+                        helpMessage = 'Login invalid, try again!';
+                      });
+                    }
+                  },
+                ),
+              ],
             ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-              onChanged: (String value) {
-                setState(() {
-                  password = value.trim();
-                });
-              },
-            ),
-            SwitchListTile(
-              value: _acceptTerms,
-              onChanged: (bool value) {
-                setState(() {
-                  _acceptTerms = value;
-                });
-              },
-              title: Text('Accept Terms'),
-            ),
-            SizedBox(
-              height: 6.0,
-            ),
-            Text(helpMessage,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                )),
-            SizedBox(
-              height: 6.0,
-            ),
-            RaisedButton(
-              child: Text('LOGIN'),
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              onPressed: () {
-                if (isAuth()) {
-                  Navigator.pushReplacementNamed(context, "/");
-                } else {
-                  setState(() {
-                    helpMessage = 'Login invalid, try again!';
-                  });
-                }
-              },
-            ),
-          ],
+          ),
         ),
       ),
     );
