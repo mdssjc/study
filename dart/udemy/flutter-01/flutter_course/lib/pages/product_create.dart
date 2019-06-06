@@ -72,9 +72,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
           _buildTitleTextField(),
           _buildDescriptionTextField(),
           _buildPriceTextField(),
-          SizedBox(
-            height: 10.0,
-          ),
+          SizedBox(height: 10.0),
           RaisedButton(
             child: Text('Save'),
             color: Theme.of(context).accentColor,
