@@ -57,13 +57,13 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
       decoration: InputDecoration(labelText: 'Product Price'),
       validator: (String value) {
         if (value.isEmpty ||
-            !RegExp(r'^(?:[1-9]\d*|0)?(?:\.\d+)?$').hasMatch(value)) {
+            !RegExp(r'^(?:[1-9]\d*|0)?(?:[.,]\d+)?$').hasMatch(value)) {
           return 'Price is required and should be a number.';
         }
       },
       onSaved: (String value) {
         setState(() {
-          _priceValue = double.parse(value);
+          _priceValue = double.parse(value.replaceFirst(RegExp(r','), '.'));
         });
       },
     );
