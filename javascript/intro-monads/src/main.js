@@ -21,6 +21,7 @@ console.log(two.inspect());
 // inspect
 // concat
 // head
+// tail
 const myNumbers = List.of([1, 3, 4, 7, 10]);
 
 console.log(myNumbers.concat([12]).inspect());
