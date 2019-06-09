@@ -1,4 +1,4 @@
-import { Identity } from "./src/identity";
+import { Identity } from "./monads/identity";
 
 // Identity
 const one = Identity(1);
