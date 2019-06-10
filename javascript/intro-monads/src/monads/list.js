@@ -12,6 +12,6 @@ const ListOf = x => List(x);
 
 const exportList = {
     of: ListOf,
-}
+};
 
 export { exportList as List };
