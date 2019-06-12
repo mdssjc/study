@@ -12,6 +12,8 @@ class _AuthPageState extends State<AuthPage> {
   String password;
   String helpMessage = '';
   bool _acceptTerms = false;
+  bool nonValidEmail = true;
+  bool nonValidPassword = true;
 
   DecorationImage _buildBackgroundImage() {
     return DecorationImage(
@@ -31,6 +33,9 @@ class _AuthPageState extends State<AuthPage> {
       ),
       onChanged: (String value) {
         setState(() {
+          nonValidEmail = (value.isEmpty ||
+              !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                  .hasMatch(value));
           email = value.trim();
         });
       },
@@ -47,6 +52,7 @@ class _AuthPageState extends State<AuthPage> {
       obscureText: true,
       onChanged: (String value) {
         setState(() {
+          nonValidPassword = (value.isEmpty || value.length < 6);
           password = value.trim();
         });
       },
@@ -77,12 +83,22 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   void _submitForm() {
-    if (isAuth()) {
+    bool isValid = true;
+
+    setState(() {
+      if (nonValidEmail) {
+        helpMessage = 'E-mail invalid!';
+        isValid = false;
+      } else if (nonValidPassword) {
+        helpMessage = 'Password weak!';
+        isValid = false;
+      } else if (!_acceptTerms) {
+        helpMessage = 'Accept Terms required!';
+        isValid = false;
+      }
+    });
+    if (isValid) {
       Navigator.pushReplacementNamed(context, "/products");
-    } else {
-      setState(() {
-        helpMessage = 'Login invalid, try again!';
-      });
     }
   }
 
@@ -122,9 +138,5 @@ class _AuthPageState extends State<AuthPage> {
         ),
       ),
     );
-  }
-
-  bool isAuth() {
-    return this.email == 'mdssjc@github.com' && this.password == '123';
   }
 }
