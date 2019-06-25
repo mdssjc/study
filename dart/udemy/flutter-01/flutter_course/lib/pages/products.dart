@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/models/Product.dart';
 import 'package:flutter_course/widgets/products/products.dart';
 
 class ProductsPage extends StatelessWidget {
-  final List<Product> products;
-
-  ProductsPage(this.products);
-
   Widget _buildSideDrawer(BuildContext context) {
     return Drawer(
       child: Column(
@@ -38,7 +33,7 @@ class ProductsPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Products(products),
+      body: Products(),
     );
   }
 }
