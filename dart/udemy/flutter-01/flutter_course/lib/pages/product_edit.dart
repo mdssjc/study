@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_course/models/Product.dart';
+import 'package:flutter_course/models/product.dart';
 import 'package:flutter_course/scoped-models/products.dart';
 import 'package:flutter_course/widgets/helpers/ensure_visible.dart';
 import 'package:scoped_model/scoped_model.dart';

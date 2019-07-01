@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/models/Product.dart';
+import 'package:flutter_course/models/product.dart';
 
 import '../ui_elements/title_default.dart';
 import 'address_tag.dart';

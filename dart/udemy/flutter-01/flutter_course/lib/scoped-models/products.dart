@@ -1,4 +1,4 @@
-import 'package:flutter_course/models/Product.dart';
+import 'package:flutter_course/models/product.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class ProductsModel extends Model {
@@ -32,6 +32,20 @@ class ProductsModel extends Model {
 
   void deleteProduct() {
     _products.removeAt(_selectedProductIndex);
+    _selectedProductIndex = null;
+  }
+
+  void toggleProductFavoriteStatus() {
+    final bool isCurrentlyFavorite =
+        _products[_selectedProductIndex].isFavorite;
+    final bool newFavoriteStatus = !isCurrentlyFavorite;
+    final Product updatedProduct = Product(
+        title: selectedProduct.title,
+        description: selectedProduct.description,
+        price: selectedProduct.price,
+        image: selectedProduct.image,
+        isFavorite: newFavoriteStatus);
+    _products[_selectedProductIndex] = updatedProduct;
     _selectedProductIndex = null;
   }
 
