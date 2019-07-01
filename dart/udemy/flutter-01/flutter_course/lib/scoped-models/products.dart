@@ -62,8 +62,8 @@ class ProductsModel extends Model {
         image: selectedProduct.image,
         isFavorite: newFavoriteStatus);
     _products[_selectedProductIndex] = updatedProduct;
-    _selectedProductIndex = null;
     notifyListeners();
+    _selectedProductIndex = null;
   }
 
   void selectProduct(int index) {
