@@ -1,7 +1,7 @@
 import 'package:flutter_course/models/product.dart';
 import 'package:flutter_course/scoped-models/connected_products.dart';
 
-mixin ProductsModel on ConnectedProducts {
+mixin ProductsModel on ConnectedProductsModel {
   bool _showFavorites = false;
 
   List<Product> get allProducts {
