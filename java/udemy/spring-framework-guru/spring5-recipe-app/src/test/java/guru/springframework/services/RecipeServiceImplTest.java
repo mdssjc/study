@@ -15,10 +15,10 @@ import static org.junit.Assert.assertEquals;
 
 public class RecipeServiceImplTest {
 
-    RecipeServiceImpl recipeService;
+    private RecipeServiceImpl recipeService;
 
     @Mock
-    RecipeRepository recipeRepository;
+    private RecipeRepository recipeRepository;
 
     @Before
     public void setUp() {
