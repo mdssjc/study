@@ -11,23 +11,22 @@ class _TextControlState extends State<TextControl> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Center(
-          child: Container(
-            margin: EdgeInsets.all(10.0),
-            child: RaisedButton(
-              onPressed: () {
-                setState(() {
-                  _text = 'This is Flutter!';
-                });
-              },
-              child: Text('Press me!'),
-            ),
+    return Center(
+      child: Column(
+        children: <Widget>[
+          RaisedButton(
+            onPressed: () => _changeText(),
+            child: Text('Press me!'),
           ),
-        ),
-        TextOutput(_text),
-      ],
+          TextOutput(_text),
+        ],
+      ),
     );
+  }
+
+  void _changeText() {
+    setState(() {
+      _text = 'This is Flutter!';
+    });
   }
 }
