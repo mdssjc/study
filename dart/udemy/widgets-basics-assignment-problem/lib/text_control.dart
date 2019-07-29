@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:assignment1/text_output.dart';
+import 'package:flutter/material.dart';
 
 class TextControl extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return _TextControlState();
-  }
+  State<StatefulWidget> createState() => _TextControlState();
 }
 
 class _TextControlState extends State<TextControl> {
