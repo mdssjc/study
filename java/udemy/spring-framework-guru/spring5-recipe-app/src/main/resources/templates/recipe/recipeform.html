@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Recipe Form</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+          data-th-href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+
+    <script data-th-src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"
+            data-th-src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form data-th-object="${recipe}" data-th-action="@{/recipe/}" method="post">
+                <input type="hidden" data-th-field="*{id}" />
+                <div class="card border-primary my-1">
+                    <h1 class="card-header text-white bg-primary">Edit Recipe Information</h1>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                <label>Recipe Description:</label>
+                                <input type="text" class="form-control" data-th-field="*{description}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                <label>Categories:</label>
+                            </div>
+                            <div class="col-md-9 form-group">
+                                <div class="radio">
+                                    <label>
+                                        <input type="checkbox" value="" />
+                                        Cat 1
+                                    </label>
+                                </div>
+                                <div class="radio" data-th-remove="all">
+                                    <label>
+                                        <input type="checkbox" value="" />
+                                        Cat 2
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                <label>Prep Time:</label>
+                                <input type="text" class="form-control" data-th-field="*{prepTime}" />
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Cooktime:</label>
+                                <input type="text" class="form-control" data-th-field="*{cookTime}" />
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Difficulty:</label>
+                                <select class="form-control">
+                                    <option>Easy</option>
+                                    <option>Medium</option>
+                                    <option>Hard</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                <label>Servings:</label>
+                                <input type="text" class="form-control" data-th-field="*{servings}" />
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Source:</label>
+                                <input type="text" class="form-control" data-th-field="*{source}" />
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>URL:</label>
+                                <input type="text" class="form-control" data-th-field="*{url}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-primary my-1">
+                    <div class="card-header text-white bg-primary">
+                        <div class="row">
+                            <div class="col-md-11 ">
+                                <h1 class="panel-title">Ingredients</h1>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-secondary" href="#" role="button">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li data-th-remove="all">1 Cup of milk</li>
+                                    <li data-th-remove="all">1 Teaspoon of chocolate</li>
+                                    <li data-th-each="ingredient : ${recipe.ingredients}"
+                                        data-th-text="${(ingredient.getAmount() +
+                                        ' ' + ingredient.uom.getDescription() +
+                                        ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-primary my-1">
+                    <h1 class="card-header text-white bg-primary">Directions</h1>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <textarea class="form-control" rows="3" data-th-field="*{directions}"></textarea></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-primary my-1">
+                    <h1 class="card-header text-white bg-primary">Notes</h1>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <textarea class="form-control" rows="3" data-th-field="*{notes.recipeNotes}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
