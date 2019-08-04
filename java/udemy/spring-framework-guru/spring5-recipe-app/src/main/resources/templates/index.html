@@ -18,9 +18,8 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="card border-primary">
-                <div class="card-header text-white bg-primary">
-                    My Recipes!
-                </div>
+                <div class="card-header text-white bg-primary">My Recipes!</div>
+
                 <div class="card-body">
                     <div class="table-responsive" data-th-if="${not #lists.isEmpty(recipes)}">
                         <table class="table table-hover">
@@ -29,22 +28,26 @@
                                 <th>ID</th>
                                 <th>Description</th>
                                 <th>View</th>
+                                <th>Update</th>
                             </tr>
                             </thead>
                             <tr data-th-remove="all">
                                 <td>123</td>
                                 <td>Tasty Goodnees 1</td>
                                 <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
                             </tr>
                             <tr data-th-remove="all">
                                 <td>12333</td>
                                 <td>Tasty Goodnees 2</td>
                                 <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
                             </tr>
                             <tr data-th-each="recipe : ${recipes}">
                                 <td data-th-text="${recipe.id}">334</td>
                                 <td data-th-text="${recipe.description}">Tasty Goodnees 3</td>
-                                <td><a data-th-href="@{|/recipe/show/${recipe.id}|}">View</a></td>
+                                <td><a data-th-href="@{|/recipe/${recipe.id}/show|}">View</a></td>
+                                <td><a data-th-href="@{|/recipe/${recipe.id}/update|}">Update</a></td>
                             </tr>
                         </table>
                     </div>
