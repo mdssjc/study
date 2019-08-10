@@ -54,17 +54,17 @@
                             </tr>
                             <tr data-th-each="ingredient : ${recipe.ingredients}">
                                 <td data-th-text="${ingredient.id}">334</td>
-                                <td data-th-text="${ingredient.amount} + ' ' + ${ingredient.uom.getDescription()} + ' ' + ${ingredient.description} + '/show'">
+                                <td data-th-text="|${ingredient.amount}${ingredient.uom.getDescription()}${ingredient.description}/show|">
                                     Tasty Goodnees 3
                                 </td>
                                 <td>
-                                    <a href="#" data-th-href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/show'}">View</a>
+                                    <a href="#" data-th-href="@{|/recipe/${recipe.id}/ingredient/${ingredient.id}/show|}">View</a>
                                 </td>
                                 <td>
-                                    <a href="#" data-th-href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Update</a>
+                                    <a href="#" data-th-href="@{|/recipe/${recipe.id}/ingredient/${ingredient.id}/update|}">Update</a>
                                 </td>
                                 <td>
-                                    <a href="#" data-th-href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Delete</a>
+                                    <a href="#" data-th-href="@{|/recipe/${recipe.id}/ingredient/${ingredient.id}/delete|}">Delete</a>
                                 </td>
                             </tr>
                         </table>
