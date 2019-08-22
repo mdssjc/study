@@ -30,7 +30,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3 form-group">
-                                <label>Recipe Description:</label>
+                                <label data-th-text="#{recipe.description}">Recipe Description:</label>
                                 <input type="text" class="form-control" data-th-field="*{description}" data-th-errorclass="is-invalid"/>
                                 <span class="form-text" data-th-if="${#fields.hasErrors('description')}">
                                     <ul>
