@@ -8,7 +8,11 @@ class TransactionItem extends StatefulWidget {
   final Transaction transaction;
   final Function deleteTx;
 
-  TransactionItem(this.transaction, this.deleteTx);
+  const TransactionItem({
+    Key key,
+    @required this.transaction,
+    @required this.deleteTx,
+  }) : super(key: key);
 
   @override
   _TransactionItemState createState() => _TransactionItemState();
