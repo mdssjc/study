@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide_4/screens/product_datail_screen.dart';
+import 'package:flutter_complete_guide_4/screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
   final String id;
