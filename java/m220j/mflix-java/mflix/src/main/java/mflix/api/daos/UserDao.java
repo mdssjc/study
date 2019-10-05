@@ -52,7 +52,6 @@ public class UserDao extends AbstractMFlixDao {
      * @return True if successful, throw IncorrectDaoOperation otherwise
      */
     public boolean addUser(User user) {
-        //TODO > Ticket: Durable Writes -  you might want to use a more durable write concern here!
         if (usersCollection.find(new Document("email", user.getEmail()))
                            .first() == null) {
             usersCollection.insertOne(user);
