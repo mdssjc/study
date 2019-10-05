@@ -80,14 +80,12 @@ public class CommentDao extends AbstractMFlixDao {
      * returns the resulting Comment object.
      */
     public Comment addComment(Comment comment) {
-        if (comment.getId() != null) {
+        try {
             commentCollection.insertOne(comment);
             return comment;
+        } catch (Exception e) {
+            throw new IncorrectDaoOperation("");
         }
-
-        // TODO> Ticket - Handling Errors: Implement a try catch block to
-        // handle a potential write exception when given a wrong commentId.
-        throw new IncorrectDaoOperation("");
     }
 
     /**
@@ -104,15 +102,17 @@ public class CommentDao extends AbstractMFlixDao {
      * @return true if successfully updates the comment text.
      */
     public boolean updateComment(String commentId, String text, String email) {
-        UpdateResult updateResult = commentCollection.updateOne(
-                Filters.and(Filters.eq("_id", new ObjectId(commentId)),
-                            Filters.eq("email", email)),
-                Updates.combine(Updates.set("text", text),
-                                Updates.set("date", new Date())));
-        // TODO> Ticket - Handling Errors: Implement a try catch block to
-        // handle a potential write exception when given a wrong commentId.
-        return updateResult.getMatchedCount() > 0 &&
-                updateResult.getModifiedCount() > 0;
+        try {
+            UpdateResult updateResult = commentCollection.updateOne(
+                    Filters.and(Filters.eq("_id", new ObjectId(commentId)),
+                                Filters.eq("email", email)),
+                    Updates.combine(Updates.set("text", text),
+                                    Updates.set("date", new Date())));
+            return updateResult.getMatchedCount() > 0 &&
+                    updateResult.getModifiedCount() > 0;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -123,16 +123,13 @@ public class CommentDao extends AbstractMFlixDao {
      * @return true if successful deletes the comment.
      */
     public boolean deleteComment(String commentId, String email) {
-        if (!"".equals(commentId)) {
+        try {
             DeleteResult deleteResult = commentCollection.deleteOne(Filters.and(Filters.eq("_id", new ObjectId(commentId)),
                                                                                 Filters.eq("email", email)));
-            // TIP: make sure to match only users that own the given commentId
-            // TODO> Ticket Handling Errors - Implement a try catch block to
-            // handle a potential write exception when given a wrong commentId.
             return deleteResult.getDeletedCount() > 0;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("");
         }
-
-        throw new IllegalArgumentException("");
     }
 
     /**

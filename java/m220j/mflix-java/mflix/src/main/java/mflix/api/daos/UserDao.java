@@ -53,11 +53,12 @@ public class UserDao extends AbstractMFlixDao {
      */
     public boolean addUser(User user) {
         //TODO > Ticket: Durable Writes -  you might want to use a more durable write concern here!
-        usersCollection.insertOne(user);
-        return true;
-        //TODO > Ticket: Handling Errors - make sure to only add new users
-        // and not users that already exist.
-
+        if (usersCollection.find(new Document("email", user.getEmail()))
+                           .first() == null) {
+            usersCollection.insertOne(user);
+            return true;
+        }
+        throw new IncorrectDaoOperation("");
     }
 
     /**
@@ -68,17 +69,19 @@ public class UserDao extends AbstractMFlixDao {
      * @return true if successful
      */
     public boolean createUserSession(String userId, String jwt) {
-        Session session = new Session();
-        session.setUserId(userId);
-        session.setJwt(jwt);
-
-        if (sessionsCollection.find(new Document("user_id", userId))
+        if (sessionsCollection.find(new Document("jwt", jwt))
                               .first() == null) {
-            sessionsCollection.insertOne(session);
+            Session session = new Session();
+            session.setUserId(userId);
+            session.setJwt(jwt);
+
+            if (sessionsCollection.find(new Document("user_id", userId))
+                                  .first() == null) {
+                sessionsCollection.insertOne(session);
+            }
+            return true;
         }
-        return true;
-        //TODO > Ticket: Handling Errors - implement a safeguard against
-        // creating a session with the same jwt token.
+        return false;
     }
 
     /**
@@ -115,11 +118,13 @@ public class UserDao extends AbstractMFlixDao {
      * @return true if user successfully removed
      */
     public boolean deleteUser(String email) {
-        sessionsCollection.deleteMany(new Document("user_id", email));
-        usersCollection.deleteOne(new Document("email", email));
-        //TODO > Ticket: Handling Errors - make this method more robust by
-        // handling potential exceptions.
-        return true;
+        try {
+            sessionsCollection.deleteMany(new Document("user_id", email));
+            usersCollection.deleteOne(new Document("email", email));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -131,15 +136,12 @@ public class UserDao extends AbstractMFlixDao {
      * @return User object that just been updated.
      */
     public boolean updateUserPreferences(String email, Map<String, ?> userPreferences) {
-        if (userPreferences != null) {
+        try {
             Document find = new Document("email", email);
             usersCollection.updateOne(find, new Document("$set", new Document("preferences", userPreferences)));
-        } else {
+            return true;
+        } catch (Exception e) {
             throw new IncorrectDaoOperation("");
         }
-
-        //TODO > Ticket: Handling Errors - make this method more robust by
-        // handling potential exceptions when updating an entry.
-        return true;
     }
 }
