@@ -52,11 +52,23 @@ class Products with ChangeNotifier {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
+  Future<void> fetchAndSetProducts() async {
+    const url = 'https://flutter-update-a4daa.firebaseio.com/products.json';
+
+    try {
+      final response = await http.get(url);
+      print(json.decode(response.body));
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
+
   Future<void> addProduct(Product product) async {
     const url = 'https://flutter-update-a4daa.firebaseio.com/products.json';
+
     try {
-      final response = await http
-          .post(
+      final response = await http.post(
         url,
         body: json.encode({
           'title': product.title,
@@ -76,12 +88,11 @@ class Products with ChangeNotifier {
 
       _items.add(newProduct);
       notifyListeners();
-    } catch(error){
+    } catch (error) {
       print(error);
       throw error;
     }
-
-    }
+  }
 
   void updateProduct(String id, Product newProduct) {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
