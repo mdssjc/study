@@ -77,11 +77,10 @@ class Products with ChangeNotifier {
           isFavorite: prodData['isFavorite'],
           imageUrl: prodData['imageUrl'],
         ));
-        _items = loadedProducts;
-        notifyListeners();
       });
+      _items = loadedProducts;
+      notifyListeners();
     } catch (error) {
-      print(error);
       throw error;
     }
   }
@@ -108,11 +107,9 @@ class Products with ChangeNotifier {
         imageUrl: product.imageUrl,
         id: json.decode(response.body)['name'],
       );
-
       _items.add(newProduct);
       notifyListeners();
     } catch (error) {
-      print(error);
       throw error;
     }
   }
