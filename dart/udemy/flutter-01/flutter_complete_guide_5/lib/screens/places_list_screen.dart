@@ -19,21 +19,32 @@ class PlacesListScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Consumer<GreatPlaces>(
-          child: Center(
-            child: const Text('Got on places yet, start adding some!'),
-          ),
-          builder: (ctx, greatePlaces, ch) => greatePlaces.items.length <= 0
-              ? ch
-              : ListView.builder(
-                  itemCount: greatePlaces.items.length,
-                  itemBuilder: (ctx, i) => ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: FileImage(greatePlaces.items[i].image),
-                    ),
-                    title: Text(greatePlaces.items[i].title),
-                    onTap: () {},
+        child: FutureBuilder(
+          future: Provider.of<GreatPlaces>(context, listen: false)
+              .fetchAndSetPlaces(),
+          builder: (ctx, snapshot) => snapshot.connectionState ==
+                  ConnectionState.waiting
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Consumer<GreatPlaces>(
+                  child: Center(
+                    child: const Text('Got on places yet, start adding some!'),
                   ),
+                  builder: (ctx, greatePlaces, ch) =>
+                      greatePlaces.items.length <= 0
+                          ? ch
+                          : ListView.builder(
+                              itemCount: greatePlaces.items.length,
+                              itemBuilder: (ctx, i) => ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage:
+                                      FileImage(greatePlaces.items[i].image),
+                                ),
+                                title: Text(greatePlaces.items[i].title),
+                                onTap: () {},
+                              ),
+                            ),
                 ),
         ),
       ),
