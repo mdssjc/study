@@ -55,7 +55,7 @@ class GreatPlaces with ChangeNotifier {
               location: PlaceLocation(
                 latitude: item['loc_lat'],
                 longitude: item['loc_lng'],
-                address: item['aaddress'],
+                address: item['address'],
               ),
             ))
         .toList();
