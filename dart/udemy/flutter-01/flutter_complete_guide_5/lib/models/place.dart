@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 class Place {
   final String id;
@@ -27,4 +27,3 @@ class PlaceLocation {
     this.address,
   });
 }
-
