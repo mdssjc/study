@@ -51,6 +51,14 @@ class Triangle implements Shape {
   num get area => pow(side, 2) / 2;
 }
 
+class CircleMock implements Circle {
+  @override
+  num get area => 0;
+
+  @override
+  num get radius => 0;
+}
+
 void main() {
   try {
     print(Shape('circle').area);
