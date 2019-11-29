@@ -161,6 +161,12 @@ function printLogHandler() {
     console.log('----------');
   }
 
+  let j = 0;
+  while (j < 3) {
+    console.log(j);
+    j++;
+  }
+
   let i = 0;
   for (const logEntry of battleLog) {
     console.log(`#${i}`);
