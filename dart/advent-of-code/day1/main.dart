@@ -36,7 +36,7 @@ void main() async {
   var result = await new File('input.txt')
       .openRead()
       .transform(utf8.decoder)
-      .transform(new LineSplitter())
+      .transform(LineSplitter())
       .map((x) => int.tryParse(x))
       .map((x) => Module(x).getTotalFuelRequirements())
       .reduce((acc, x) => x + acc);
