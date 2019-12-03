@@ -14,3 +14,7 @@ function greet() {
 console.log(name, hobbies);
 
 greet();
+
+console.log(username);
+
+var username = 'Max';
