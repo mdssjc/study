@@ -15,6 +15,8 @@ console.log(name, hobbies);
 
 greet();
 
-console.log(username);
+('use strict');
 
-var username = 'Max';
+const username = 'Max';
+
+console.log(username);
