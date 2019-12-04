@@ -1,22 +1,9 @@
-let name = 'Max';
-
-if (name === 'Max') {
-  let hobbies = ['Sports', 'Cooking'];
-  console.log(hobbies);
+function getName() {
+  return prompt('Your name: ', '');
 }
-
 function greet() {
-  let age = 30;
-  let name = 'Manuel';
-  console.log(name, age, hobbies);
+  const userName = getName();
+  console.log('Hello ' + userName);
 }
-
-console.log(name, hobbies);
 
 greet();
-
-('use strict');
-
-const username = 'Max';
-
-console.log(username);
