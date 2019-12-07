@@ -8,15 +8,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Startup Name Generator',
-      theme: new ThemeData(primaryColor: Colors.white),
+      theme: ThemeData(primaryColor: Colors.white),
       home: RandomWords(),
     );
   }
 }
 
+class RandomWords extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => RandomWordsState();
+}
+
 class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
-  final _saved = new Set<WordPair>();
+  final _saved = Set<WordPair>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   @override
@@ -25,7 +30,7 @@ class RandomWordsState extends State<RandomWords> {
       appBar: AppBar(
         title: Text('Startup Name Generator'),
         actions: <Widget>[
-          new IconButton(icon: const Icon(Icons.list), onPressed: _pushSaved)
+          IconButton(icon: const Icon(Icons.list), onPressed: _pushSaved)
         ],
       ),
       body: _buildSuggestions(),
@@ -36,7 +41,9 @@ class RandomWordsState extends State<RandomWords> {
     return ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemBuilder: (context, i) {
-          if (i.isOdd) return Divider();
+          if (i.isOdd) {
+            return Divider();
+          }
 
           final index = i ~/ 2;
           if (index >= _suggestions.length) {
@@ -53,7 +60,7 @@ class RandomWordsState extends State<RandomWords> {
         pair.asPascalCase,
         style: _biggerFont,
       ),
-      trailing: new Icon(
+      trailing: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved ? Colors.red : null,
       ),
@@ -71,12 +78,12 @@ class RandomWordsState extends State<RandomWords> {
 
   void _pushSaved() {
     Navigator.of(context).push(
-      new MaterialPageRoute<void>(
+      MaterialPageRoute<void>(
         builder: (BuildContext context) {
           final tiles = _saved.map(
             (WordPair pair) {
-              return new ListTile(
-                title: new Text(
+              return ListTile(
+                title: Text(
                   pair.asPascalCase,
                   style: _biggerFont,
                 ),
@@ -85,11 +92,11 @@ class RandomWordsState extends State<RandomWords> {
           );
           final divided =
               ListTile.divideTiles(context: context, tiles: tiles).toList();
-          return new Scaffold(
-            appBar: new AppBar(
+          return Scaffold(
+            appBar: AppBar(
               title: const Text('Saved Suggestions'),
             ),
-            body: new ListView(
+            body: ListView(
               children: divided,
             ),
           );
@@ -97,9 +104,4 @@ class RandomWordsState extends State<RandomWords> {
       ),
     );
   }
-}
-
-class RandomWords extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => new RandomWordsState();
 }
