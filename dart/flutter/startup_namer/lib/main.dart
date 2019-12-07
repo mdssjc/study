@@ -30,7 +30,10 @@ class RandomWordsState extends State<RandomWords> {
       appBar: AppBar(
         title: Text('Startup Name Generator'),
         actions: <Widget>[
-          IconButton(icon: const Icon(Icons.list), onPressed: _pushSaved)
+          IconButton(
+            icon: const Icon(Icons.list),
+            onPressed: _pushSaved,
+          )
         ],
       ),
       body: _buildSuggestions(),
@@ -90,8 +93,10 @@ class RandomWordsState extends State<RandomWords> {
               );
             },
           );
-          final divided =
-              ListTile.divideTiles(context: context, tiles: tiles).toList();
+          final divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
           return Scaffold(
             appBar: AppBar(
               title: const Text('Saved Suggestions'),
