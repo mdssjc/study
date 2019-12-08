@@ -52,6 +52,7 @@ class CupertinoStoreHomePage extends StatelessWidget {
                 );
               });
           }
+          return null;
         });
   }
 }
