@@ -87,7 +87,19 @@ function divide() {
   calculateResult('DIVIDE');
 }
 
-addBtn.addEventListener('click', add);
-subtractBtn.addEventListener('click', subtract);
-multiplyBtn.addEventListener('click', multiply);
-divideBtn.addEventListener('click', divide);
+function calculate(operation) {
+  if (operation === 'ADD') {
+    calculateResult('ADD');
+  } else if (operation === 'SUBTRACT') {
+    calculateResult('SUBTRACT');
+  } else if (operation === 'MULTIPLY') {
+    calculateResult('MULTIPLY');
+  } else {
+    calculateResult('DIVIDE');
+  }
+}
+
+addBtn.addEventListener('click', calculate.bind(this, 'ADD'));
+subtractBtn.addEventListener('click', calculate.bind(this, 'SUBTRACT'));
+multiplyBtn.addEventListener('click', calculate.bind(this, 'MULTIPLY'));
+divideBtn.addEventListener('click', calculate.bind(this, 'DIVIDE'));
