@@ -33,6 +33,56 @@ class MyApp extends StatelessWidget {
                   color: Colors.teal.shade100,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 25.0,
+                ),
+                padding: EdgeInsets.all(10.0),
+                color: Colors.white,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.phone,
+                      color: Colors.teal,
+                    ),
+                    SizedBox(width: 10.0),
+                    Text(
+                      '+12 345 1234 1234',
+                      style: TextStyle(
+                        color: Colors.teal.shade900,
+                        fontFamily: 'Source Sans Pro',
+                        fontSize: 20.0,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 25.0,
+                ),
+                padding: EdgeInsets.all(10.0),
+                color: Colors.white,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.email,
+                      color: Colors.teal,
+                    ),
+                    SizedBox(width: 10.0),
+                    Text(
+                      'john@qwert.com',
+                      style: TextStyle(
+                        color: Colors.teal.shade900,
+                        fontFamily: 'Source Sans Pro',
+                        fontSize: 20.0,
+                      ),
+                    )
+                  ],
+                ),
               )
             ],
           ),
