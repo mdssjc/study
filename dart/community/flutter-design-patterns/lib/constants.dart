@@ -31,6 +31,5 @@ const String designPatternsJsonPath = 'assets/data/design_patterns.json';
 const String markdownPath = 'assets/markdown/';
 
 // Routes
-const String
-initialRoute = '/';
+const String initialRoute = '/';
 const String categoryRoute = '/category';

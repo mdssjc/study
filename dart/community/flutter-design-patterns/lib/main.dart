@@ -4,6 +4,8 @@ import 'package:flutter_design_patterns/constants.dart';
 import 'package:flutter_design_patterns/router.dart';
 import 'package:flutter_design_patterns/themes.dart';
 
+void main() => runApp(App());
+
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -17,5 +19,3 @@ class App extends StatelessWidget {
     );
   }
 }
-
-void main() => runApp(App());
