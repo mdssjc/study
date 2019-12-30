@@ -7,6 +7,7 @@ import 'package:flutter_design_patterns/screens/design_pattern_details/design_pa
 import 'package:flutter_design_patterns/screens/main_menu/main_menu.dart';
 import 'package:flutter_design_patterns/widgets/design_patterns/adapter/adapter_example.dart';
 import 'package:flutter_design_patterns/widgets/design_patterns/singleton/singleton_example.dart';
+import 'package:flutter_design_patterns/widgets/design_patterns/template_method/template_method_example.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -34,6 +35,12 @@ class Router {
           settings,
           AdapterExample(),
         );
+      // Behavioral
+      case _DesignPatternRoutes.templateMethodRoute:
+        return _buildDesignPatternDetailsPageRoute(
+          settings,
+          TemplateMethodExample(),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => MainMenu(),
@@ -58,4 +65,5 @@ class Router {
 class _DesignPatternRoutes {
   static const String singletonRoute = '/singleton';
   static const String adapterRoute = '/adapter';
+  static const String templateMethodRoute = '/template-method';
 }
