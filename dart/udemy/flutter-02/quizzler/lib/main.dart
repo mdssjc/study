@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizzler/question.dart';
 
 void main() => runApp(Quizzler());
 
@@ -27,19 +28,26 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeeper = [];
 
-  List<String> questions = [
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.',
+  List<Question> questionBank = [
+    Question(
+      questionText: 'You can lead a cow down stairs but not up stairs.',
+      questionAnswer: false,
+    ),
+    Question(
+      questionText: 'Approximately one quarter of human bones are in the feet.',
+      questionAnswer: true,
+    ),
+    Question(
+      questionText: 'A slug\'s blood is green.',
+      questionAnswer: true,
+    )
   ];
-
-  List<bool> answers = [false, true, true];
 
   int questionNumber = 0;
 
   void nextQuestion() {
     setState(() {
-      if (questionNumber < questions.length - 1) {
+      if (questionNumber < questionBank.length - 1) {
         questionNumber++;
       }
     });
@@ -57,7 +65,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[questionNumber],
+                questionBank[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -82,7 +90,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                bool correctAnswser = answers[questionNumber];
+                bool correctAnswser =
+                    questionBank[questionNumber].questionAnswer;
 
                 if (correctAnswser) {
                   print('user got it right!');
@@ -109,9 +118,10 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                bool correctAnswer = answers[questionNumber];
+                bool correctAnswser =
+                    questionBank[questionNumber].questionAnswer;
 
-                if (!correctAnswer) {
+                if (!correctAnswser) {
                   print('user got it right!');
                 } else {
                   print('user got it wrong!');
