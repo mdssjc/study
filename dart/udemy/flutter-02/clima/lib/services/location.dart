@@ -1,22 +1,22 @@
-import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
-class Location extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    String myMargin = '15';
-    double myMarginAsDouble;
+class Location {
+  double _latitude;
+  double _longitude;
 
+  double get latitude => _latitude;
+
+  double get longitude => _longitude;
+
+  Future<void> getCurrentLocation() async {
     try {
-      myMarginAsDouble = double.parse(myMargin);
+      Position position = await Geolocator()
+          .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+
+      _latitude = position.latitude;
+      _longitude = position.longitude;
     } catch (e) {
       print(e);
     }
-
-    return Scaffold(
-      body: Container(
-        margin: EdgeInsets.all(myMarginAsDouble ?? 30.0),
-        color: Colors.red,
-      ),
-    );
   }
 }
