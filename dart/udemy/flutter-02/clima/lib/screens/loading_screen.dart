@@ -1,8 +1,9 @@
+import 'package:clima/secrets.dart';
 import 'package:clima/services/location.dart';
 import 'package:clima/services/networking.dart';
 import 'package:flutter/material.dart';
 
-const apiKey = '---';
+const apiKey = openWeatherMapApiKey;
 
 class LoadingScreen extends StatefulWidget {
   @override
