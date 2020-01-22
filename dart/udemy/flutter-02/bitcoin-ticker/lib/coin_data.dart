@@ -36,8 +36,8 @@ const bitcoinAverageURL =
     'https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC';
 
 class CoinData {
-  Future<double> getCoinData() async {
-    var response = await get('${bitcoinAverageURL}USD');
+  Future<double> getCoinData(String selectedCurrency ) async {
+    var response = await get('$bitcoinAverageURL$selectedCurrency');
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['last'];
