@@ -23,6 +23,9 @@ class _TasksListState extends State<TasksList> {
               checkboxCallback: (checkboxState) {
                 taskData.updateTask(task);
               },
+              longPressCallback: () {
+                taskData.deleteTask(task);
+              },
             );
           },
           itemCount: taskData.taskCount,
