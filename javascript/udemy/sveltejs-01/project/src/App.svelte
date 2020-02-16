@@ -1,15 +1,22 @@
 <script>
-  let name = "Max";
-  let age = 30;
+  let name = 'Max'
+  let age = 30
 
-  $: upperCaseName = name.toUpperCase();
+  $: upperCaseName = name.toUpperCase()
+
+  $: console.log(name)
+
+  $: if (name === 'Maximilian') {
+    console.log('It runs!')
+    age = 31
+  }
 
   function incrementAge() {
-    age++;
+    age++
   }
 
   function changeName() {
-    name = "Maximilian";
+    name = 'Maximilian'
   }
 </script>
 
