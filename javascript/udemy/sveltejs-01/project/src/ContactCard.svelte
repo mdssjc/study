@@ -70,6 +70,8 @@
     </div>
   </header>
   <div class="description">
-    <p>{description}</p>
+    <p>
+      {@html description}
+    </p>
   </div>
 </div>
