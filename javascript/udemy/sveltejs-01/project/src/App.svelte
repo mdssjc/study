@@ -1,27 +1,29 @@
 <script>
-  let name = 'Max'
-  let age = 30
+  import ContactCard from "./ContactCard.svelte";
 
-  $: upperCaseName = name.toUpperCase()
+  let name = "Max";
+  let age = 30;
 
-  $: console.log(name)
+  $: upperCaseName = name.toUpperCase();
 
-  $: if (name === 'Maximilian') {
-    console.log('It runs!')
-    age = 31
+  $: console.log(name);
+
+  $: if (name === "Maximilian") {
+    console.log("It runs!");
+    age = 31;
   }
 
   function incrementAge() {
-    age++
+    age++;
   }
 
   function changeName() {
-    name = 'Maximilian'
+    name = "Maximilian";
   }
 
   function nameInput(event) {
-    const enteredValue = event.target.value
-    name = enteredValue
+    const enteredValue = event.target.value;
+    name = enteredValue;
   }
 </script>
 
@@ -36,3 +38,5 @@
 <!-- <button on:click={changeName}>Change Name</button> -->
 <!-- <input type="text" value={name} on:input={nameInput} /> -->
 <input type="text" bind:value={name} />
+
+<ContactCard />
