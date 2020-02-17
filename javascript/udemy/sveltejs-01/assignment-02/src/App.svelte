@@ -53,7 +53,7 @@
 {/if}
 
 <ul>
-  {#each passwords as password, index}
+  {#each passwords as password, index (password)}
     <li on:click={removePassword.bind(this, index)}>{password}</li>
   {/each}
 </ul>
