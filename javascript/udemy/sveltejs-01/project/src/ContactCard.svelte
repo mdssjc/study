@@ -11,6 +11,7 @@
     max-width: 30rem;
     border-radius: 5px;
     margin: 1rem 0;
+    background: white;
   }
 
   header {
@@ -26,7 +27,7 @@
   }
 
   .thumb-placeholder {
-    background-color: #ccc;
+    background: #ccc;
   }
 
   img {
@@ -65,7 +66,7 @@
 
 <div class="contact-card">
   <header>
-    <div class="thumb" class:thumb-placeholder={!userImage}>
+    <div class="thumb" class:thumb-placeholder="{!userImage}">
       <img src={userImage} alt={userName} />
     </div>
     <div class="user-data">
