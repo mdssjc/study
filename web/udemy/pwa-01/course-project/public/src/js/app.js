@@ -1,11 +1,14 @@
 var deferredPrompt;
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then(() => {
-    console.log('Service worker registered!');
-  }).catch(err)=>{
-    console.log(err);
-  };
+  navigator.serviceWorker
+    .register('/sw.js')
+    .then(() => {
+      console.log('Service worker registered!');
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 window.addEventListener('beforeinstallprompt', event => {
@@ -25,6 +28,18 @@ var promise = new Promise((resolve, reject) => {
     // console.log('This is executed once the timer is done');
   }, 3000);
 });
+
+fetch('https://httpbin.org/ip')
+  .then(response => {
+    console.log(response);
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 promise
   .then(text => {
