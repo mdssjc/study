@@ -1,4 +1,3 @@
-// Import flutter helper library
 import 'package:flutter/material.dart';
 
 class App extends StatefulWidget {
