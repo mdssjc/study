@@ -1,20 +1,31 @@
 var deferredPrompt;
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then(function() {
+  navigator.serviceWorker.register('/sw.js').then(() => {
     console.log('Service worker registered!');
   });
 }
 
-window.addEventListener('beforeinstallprompt', function(event) {
+window.addEventListener('beforeinstallprompt', event => {
   console.log('beforeinstallprompt fired');
   event.preventDefault();
   deferredPrompt = event;
   return false;
 });
 
-setTimeout(() => {
-  console.log('This is executed once the timer is done');
-}, 3000);
+var promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('This is executed once the timer is done');
+    // console.log('This is executed once the timer is done');
+  }, 3000);
+});
+
+promise
+  .then(text => {
+    return text;
+  })
+  .then(newText => {
+    console.log(newText);
+  });
 
 console.log('This is executed right after setTimeout()');
