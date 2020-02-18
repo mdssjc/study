@@ -67,10 +67,17 @@
     <textarea rows="3" bind:value={description} id="desc" />
   </div>
 
-  <button on:click|preventDefault={addContact}>Add Contact Card</button>
+  <button on:click|preventDefault={addContact} type="submit">
+    Add Contact Card
+  </button>
 </form>
 
-<button on:click={deleteFirst}>Delete First</button>
+<button
+  on:click={event => {
+    createdContacts.slice(1);
+  }}>
+  Delete First
+</button>
 <button on:click={deleteLast}>Delete Last</button>
 
 {#if formState === 'invalid'}
