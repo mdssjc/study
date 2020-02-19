@@ -29,6 +29,20 @@ var promise = new Promise((resolve, reject) => {
   }, 3000);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://httpbin.org/ip');
+xhr.responseType = 'json';
+
+xhr.onload = () => {
+  console.log(xhr.response);
+};
+
+xhr.onerror = () => {
+  console.log('Error!');
+};
+
+xhr.send();
+
 fetch('https://httpbin.org/ip')
   .then(response => {
     console.log(response);
