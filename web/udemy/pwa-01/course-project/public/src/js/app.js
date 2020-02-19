@@ -41,6 +41,27 @@ fetch('https://httpbin.org/ip')
     console.log(err);
   });
 
+fetch('https://httpbin.org/post', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
+  body: JSON.stringify({
+    message: 'Does this work?',
+  }),
+})
+  .then(response => {
+    console.log(response);
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
 promise
   .then(text => {
     return text;
