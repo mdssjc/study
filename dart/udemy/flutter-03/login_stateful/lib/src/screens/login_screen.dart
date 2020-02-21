@@ -15,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             emailField(),
             passwordField(),
+            SizedBox(height: 25.0),
             submitButton(),
           ],
         ),
