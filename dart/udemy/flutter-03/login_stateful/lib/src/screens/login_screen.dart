@@ -33,6 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
         labelText: 'Email Address',
         hintText: 'you@example.com',
       ),
+      validator: (value) {
+        return null;
+      },
     );
   }
 
