@@ -17,17 +17,18 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget emailField() {
-    return TextFormField(
+    return TextField(
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         hintText: 'you@example.com',
         labelText: 'EMail Address',
+        errorText: 'invalid email',
       ),
     );
   }
 
   Widget passwordField() {
-    return TextFormField(
+    return TextField(
       obscureText: true,
       decoration: InputDecoration(
         hintText: 'Password',
