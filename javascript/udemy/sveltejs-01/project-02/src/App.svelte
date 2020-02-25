@@ -6,13 +6,10 @@
   import Button from "./UI/Button.svelte";
   import EditMeetup from "./Meetups/EditMeetup.svelte";
 
-  // let meetups = ;
-
   let editMode;
 
   function addMeetup(event) {
-    const newMeetup = {
-      id: Math.random().toString,
+    const meetupData = {
       title: event.detail.title,
       subtitle: event.detail.subtitle,
       description: event.detail.description,
@@ -21,7 +18,7 @@
       address: event.detail.address
     };
 
-    meetups = [...meetups, newMeetup];
+    meetups.addMeetup(meetupData);
     editMode = null;
   }
 
@@ -31,15 +28,7 @@
 
   function toggleFavorite(event) {
     const id = event.detail;
-
-    const updatedMeetup = { ...meetups.find(m => m.id === id) };
-    updatedMeetup.isFavorite = !updatedMeetup.isFavorite;
-
-    const meetupIndex = meetups.findIndex(m => m.id === id);
-    const updatedMeetups = [...meetups];
-    updatedMeetups[meetupIndex] = updatedMeetup;
-
-    meetups = updatedMeetups;
+    meetups.toggleFavorite(id);
   }
 </script>
 
