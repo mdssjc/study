@@ -41,7 +41,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return AnimatedBuilder(
       animation: catAnimation,
       builder: (context, child) {
-        return child;
+        return Container(
+          child: child,
+          margin: EdgeInsets.only(top: catAnimation.value),
+        );
       },
       child: Cat(),
     );
