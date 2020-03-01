@@ -26,11 +26,7 @@ const meetups = writable([
 const customMeetupsStore = {
   subscribe: meetups.subscribe,
   addMeetup: meetupData => {
-    const newMeetup = {
-      ...meetupData,
-      id: Math.random().toString(),
-      isFavorite: false,
-    };
+    const newMeetup = { ...meetupData };
     meetups.update(items => {
       return [newMeetup, ...items];
     });
