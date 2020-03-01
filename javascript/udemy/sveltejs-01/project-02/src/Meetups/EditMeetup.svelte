@@ -56,6 +56,22 @@
     };
 
     if (id) {
+      fetch(`https://svelte-course-104cd.firebaseio.com/meetups/${id}.json`, {
+        method: "PATCH",
+        body: JSON.stringify(meetupData),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => {
+          if (!res.ok) {
+            throw new Error("An error occurred, please try again!");
+          }
+          meetups.updateMeetup(id, meetupData);
+        })
+        .catch(err => {
+          console.error(err);
+        });
       meetups.updateMeetup(id, meetupData);
     } else {
       fetch("https://svelte-course-104cd.firebaseio.com/meetups.json", {
@@ -67,9 +83,9 @@
       })
         .then(res => {
           if (!res.ok) {
-            throw new Error("An error occured, please try again!");
+            throw new Error("An error occurred, please try again!");
           }
-          res.json();
+          return res.json();
         })
         .then(data => {
           meetups.addMeetup({
