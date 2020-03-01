@@ -7,14 +7,16 @@
   import EditMeetup from "./Meetups/EditMeetup.svelte";
   import MeetupDetail from "./Meetups/MeetupDetail.svelte";
   import LoadingSpinner from "./UI/LoadingSpinner.svelte";
+  import Error from "./UI/Error.svelte";
 
   let editMode;
   let editedId;
   let page = "overview";
   let pageData = {};
   let isLoading = true;
+  let error;
 
-  fetch("https://svelte-course-104cd.firebaseio.com/meetups.json", {})
+  fetch("https://svelte-course-104cd.firebaseio.com/meetups.json")
     .then(res => {
       if (!res.ok) {
         throw new Error("Fetching meetups failed, please try again later!");
@@ -35,6 +37,7 @@
       }, 1000);
     })
     .catch(err => {
+      error = err;
       isLoading = false;
       console.error(err);
     });
@@ -63,6 +66,10 @@
     editMode = "edit";
     editedId = event.detail;
   }
+
+  function clearError() {
+    error = null;
+  }
 </script>
 
 <style>
@@ -70,6 +77,10 @@
     margin-top: 5rem;
   }
 </style>
+
+{#if error}
+  <Error message={error.message} on:cancel={clearError} />
+{/if}
 
 <Header />
 
