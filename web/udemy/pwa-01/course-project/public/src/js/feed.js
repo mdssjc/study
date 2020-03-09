@@ -33,9 +33,9 @@ closeCreatePostModalButton.addEventListener('click', closeCreatePostModal);
 function onSaveButtonClicked(event) {
   console.log('clicked');
   if ('caches' in window) {
-    caches.open('user-requested').then((cache){
+    caches.open('user-requested').then(cache => {
       cache.add('https://httpbin.org/get');
-      cache.addAll('/src/images/sf-boat.jpg')
+      cache.addAll('/src/images/sf-boat.jpg');
     });
   }
 }
