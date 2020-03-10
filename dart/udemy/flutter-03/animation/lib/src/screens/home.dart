@@ -46,8 +46,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         child: Center(
           child: Stack(
             children: <Widget>[
-              buildCatAnimation(),
               buildBox(),
+              buildCatAnimation(),
             ],
           ),
         ),
@@ -63,6 +63,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         return Positioned(
           child: child,
           bottom: catAnimation.value,
+          right: 0.0,
+          left: 0.0,
         );
       },
       child: Cat(),
