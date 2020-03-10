@@ -20,7 +20,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
 
     catAnimation = Tween(
-      begin: 0.0,
+      begin: -50.0,
       end: 100.0,
     ).animate(CurvedAnimation(
       parent: catController,
@@ -62,7 +62,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       builder: (context, child) {
         return Positioned(
           child: child,
-          bottom: catAnimation.value,
+          top: catAnimation.value,
           right: 0.0,
           left: 0.0,
         );
