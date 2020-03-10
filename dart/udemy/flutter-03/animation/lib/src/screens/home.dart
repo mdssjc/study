@@ -43,11 +43,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         title: Text('Animation'),
       ),
       body: GestureDetector(
-        child: Stack(
-          children: <Widget>[
-            buildCatAnimation(),
-            buildBox(),
-          ],
+        child: Center(
+          child: Stack(
+            children: <Widget>[
+              buildCatAnimation(),
+              buildBox(),
+            ],
+          ),
         ),
         onTap: onTap,
       ),
