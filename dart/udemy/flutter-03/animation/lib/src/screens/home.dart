@@ -28,6 +28,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       parent: boxController,
       curve: Curves.linear,
     ));
+    boxAnimation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        boxController.repeat();
+      }
+    });
+    boxController.forward();
 
     catController = AnimationController(
       duration: Duration(milliseconds: 200),
