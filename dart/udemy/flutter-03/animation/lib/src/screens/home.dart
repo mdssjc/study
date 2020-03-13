@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animation/src/widgets/cat.dart';
 import 'package:flutter/material.dart';
 
@@ -82,10 +84,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   Widget buildLeftFlap() {
-    return Container(
-      height: 10.0,
-      width: 125.0,
-      color: Colors.red,
+    return Transform.rotate(
+      child: Container(
+        height: 10.0,
+        width: 125.0,
+        color: Colors.red,
+      ),
+      angle: pi / 2.0,
     );
   }
 }
