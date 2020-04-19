@@ -6,8 +6,10 @@ import 'package:http/testing.dart';
 
 void main() {
   test('FetchTopIds returns a list of ids', () {
-    final sum = 1 + 3;
+    final newsApi = NewsApiProvider();
+    MockClient((request){
 
-    expect(sum, 4);
+    });
+
   });
 }
