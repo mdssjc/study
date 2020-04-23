@@ -7,7 +7,19 @@ class Repository {
   NewsDbProvider dbProvider = NewsDbProvider();
   NewsApiProvider apiProvider = NewsApiProvider();
 
-  fetchTopIds() {}
+  fetchTopIds() {
+    return apiProvider.fetchTopIds();
+  }
 
-  fetchItem() {}
+  fetchItem(int id) async {
+    var item = await dbProvider.fetchItem(id);
+    if (item != null) {
+      return item;
+    }
+
+    item = await apiProvider.fetchItem(id);
+    await dbProvider.addItem(item);
+
+    return item;
+  }
 }
