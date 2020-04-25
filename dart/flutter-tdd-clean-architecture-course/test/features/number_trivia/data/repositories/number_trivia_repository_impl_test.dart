@@ -1,11 +1,11 @@
 import 'package:clean_architecture_tdd_course/core/error/exception.dart';
 import 'package:clean_architecture_tdd_course/core/error/failure.dart';
 import 'package:clean_architecture_tdd_course/core/platform/network_info.dart';
+import 'package:clean_architecture_tdd_course/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
+import 'package:clean_architecture_tdd_course/features/number_trivia/data/datasources/number_trivia_remote_data_source.dart';
 import 'package:clean_architecture_tdd_course/features/number_trivia/data/models/number_trivia_model.dart';
 import 'package:clean_architecture_tdd_course/features/number_trivia/data/repositories/number_trivia_repository_impl.dart';
 import 'package:clean_architecture_tdd_course/features/number_trivia/domain/entities/number_trivia.dart';
-import 'package:clean_architecture_tdd_course/features/number_trivia/domain/repositories/number_trivia_local_data_source.dart';
-import 'package:clean_architecture_tdd_course/features/number_trivia/domain/repositories/number_trivia_remote_data_source.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -118,7 +118,7 @@ void main() {
 
     test(
       'should return CacheFailure when there is no cached data present',
-          () async {
+      () async {
         when(mockLocalDataSource.getLastNumberTrivia())
             .thenThrow(CacheException());
 

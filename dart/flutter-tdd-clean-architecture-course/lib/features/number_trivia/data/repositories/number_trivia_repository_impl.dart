@@ -1,9 +1,9 @@
 import 'package:clean_architecture_tdd_course/core/error/exception.dart';
 import 'package:clean_architecture_tdd_course/core/error/failure.dart';
 import 'package:clean_architecture_tdd_course/core/platform/network_info.dart';
+import 'package:clean_architecture_tdd_course/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
+import 'package:clean_architecture_tdd_course/features/number_trivia/data/datasources/number_trivia_remote_data_source.dart';
 import 'package:clean_architecture_tdd_course/features/number_trivia/domain/entities/number_trivia.dart';
-import 'package:clean_architecture_tdd_course/features/number_trivia/domain/repositories/number_trivia_local_data_source.dart';
-import 'package:clean_architecture_tdd_course/features/number_trivia/domain/repositories/number_trivia_remote_data_source.dart';
 import 'package:clean_architecture_tdd_course/features/number_trivia/domain/repositories/number_trivia_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
