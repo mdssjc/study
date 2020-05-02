@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 abstract class NumberTriviaState extends Equatable {
+  @override
   List<Object> get props => [];
 }
 
