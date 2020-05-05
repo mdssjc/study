@@ -6,8 +6,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/item_model.dart';
+import 'repository.dart';
 
-class NewsDbProvider {
+class NewsDbProvider implements Source {
   Database db;
 
   void init() async {
@@ -39,6 +40,12 @@ class NewsDbProvider {
     );
   }
 
+  @override
+  Future<List<int>> fetchTopIds() {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<ItemModel> fetchItem(int id) async {
     final maps = await db.query(
       'Items',
