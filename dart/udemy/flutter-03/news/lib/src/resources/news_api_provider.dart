@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' show Client;
-import 'package:news/models/item_model.dart';
+import 'package:news/src/models/item_model.dart';
 
 import 'repository.dart';
 
