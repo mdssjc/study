@@ -1,8 +1,8 @@
 type: framework
 content:
 - Welcome to the battlefield!
-- User is a gamemaster
-- What's up on a field
+- The user is the gamemaster
+- What's up on the field
 - First move!
 - Fight!
 current_task: 0

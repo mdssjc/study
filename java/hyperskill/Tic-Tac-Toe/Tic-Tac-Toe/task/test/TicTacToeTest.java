@@ -1,11 +1,11 @@
-import org.hyperskill.hstest.v6.stage.BaseStageTest;
-import org.hyperskill.hstest.v6.testcase.CheckResult;
-import org.hyperskill.hstest.v6.testcase.TestCase;
+import org.hyperskill.hstest.stage.StageTest;
+import org.hyperskill.hstest.testcase.CheckResult;
+import org.hyperskill.hstest.testcase.TestCase;
 import tictactoe.Main;
 
 import java.util.List;
 
-public class TicTacToeTest extends BaseStageTest {
+public class TicTacToeTest extends StageTest {
     public TicTacToeTest() {
         super(Main.class);
     }
@@ -47,17 +47,17 @@ public class TicTacToeTest extends BaseStageTest {
         }
 
         if (!haveX) {
-            return CheckResult.FALSE(
+            return CheckResult.wrong(
                 "You need to output at least one X"
             );
         }
 
         if (!haveO) {
-            return CheckResult.FALSE(
+            return CheckResult.wrong(
                 "You need to output at least one O"
             );
         }
 
-        return CheckResult.TRUE;
+        return CheckResult.correct();
     }
 }

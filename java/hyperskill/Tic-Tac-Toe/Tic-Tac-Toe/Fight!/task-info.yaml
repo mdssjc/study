@@ -4,9 +4,9 @@ files:
 - name: test/TicTacToeTest.java
   visible: false
   text: |
-    import org.hyperskill.hstest.v6.stage.BaseStageTest;
-    import org.hyperskill.hstest.v6.testcase.CheckResult;
-    import org.hyperskill.hstest.v6.testcase.TestCase;
+    import org.hyperskill.hstest.stage.StageTest;
+    import org.hyperskill.hstest.testcase.CheckResult;
+    import org.hyperskill.hstest.testcase.TestCase;
     import tictactoe.Main;
 
     import java.util.ArrayList;
@@ -254,7 +254,7 @@ files:
         }
     }
 
-    public class TicTacToeTest extends BaseStageTest<Clue> {
+    public class TicTacToeTest extends StageTest<Clue> {
         public TicTacToeTest() throws Exception {
             super(Main.class);
         }
@@ -356,59 +356,69 @@ files:
 
             String lastLine = lines.get(lines.size() - 1);
 
-            if (! (lastLine.equals("X wins")
-                || lastLine.equals("O wins")
-                || lastLine.equals("Draw")
+            if (! (lastLine.contains("X wins")
+                || lastLine.contains("O wins")
+                || lastLine.contains("Draw")
             )) {
                 return new CheckResult(false,
                     "Can't parse final result, " +
-                        "should be \"Draw\", \"X wins\" or \"O wins\".\n" +
+                        "should contain \"Draw\", \"X wins\" or \"O wins\".\n" +
+                        "Your last line: \"" + lastLine + "\"");
+            }
+
+            if (lastLine.contains("X wins") && lastLine.contains("O wins")) {
+                return new CheckResult(false,
+                    "Your final result contains \"X wins\" and \"O wins\" " +
+                        "at the same time. This is impossible.\n" +
+                        "Your last line: \"" + lastLine + "\"");
+            }
+
+            if (lastLine.contains("X wins") && lastLine.contains("Draw")) {
+                return new CheckResult(false,
+                    "Your final result contains \"X wins\" and \"Draw\" " +
+                        "at the same time. This is impossible.\n" +
+                        "Your last line: \"" + lastLine + "\"");
+            }
+
+            if (lastLine.contains("O wins") && lastLine.contains("Draw")) {
+                return new CheckResult(false,
+                    "Your final result contains \"O wins\" and \"Draw\" " +
+                        "at the same time. This is impossible.\n" +
                         "Your last line: \"" + lastLine + "\"");
             }
 
             TicTacToeField lastField = fields.get(fields.size() - 1);
 
-            if (lastField.isWinning(FieldState.X) && !lastLine.equals("X wins")) {
+            if (lastField.isWinning(FieldState.X) && !lastLine.contains("X wins")) {
                 return new CheckResult(false,
                     "Your last field shows that X wins, " +
-                        "and your last line should be \"X wins\".\n" +
+                        "and your last line should contain \"X wins\".\n" +
                         "Your last line: \"" + lastLine + "\"");
             }
 
-            if (lastField.isWinning(FieldState.O) && !lastLine.equals("O wins")) {
+            if (lastField.isWinning(FieldState.O) && !lastLine.contains("O wins")) {
                 return new CheckResult(false,
                     "Your last field shows that O wins, " +
-                        "and your last line should be \"O wins\".\n" +
+                        "and your last line should contain \"O wins\".\n" +
                         "Your last line: \"" + lastLine + "\"");
             }
 
-            if (lastField.isDraw() && !lastLine.equals("Draw")) {
+            if (lastField.isDraw() && !lastLine.contains("Draw")) {
                 return new CheckResult(false,
                     "Your last field shows that there is a draw, " +
-                        "and your last line should be \"Draw\".\n" +
+                        "and your last line should contain \"Draw\".\n" +
                         "Your last line: \"" + lastLine + "\"");
             }
 
             if (lastField.isWinning(FieldState.X) ||
                 lastField.isWinning(FieldState.O) ||
                 lastField.isDraw()) {
-                return CheckResult.TRUE;
+                return CheckResult.correct();
             }
 
-            return CheckResult.FALSE(
+            return CheckResult.wrong(
                 "Your last field contains unfinished game, the game should be finished!"
             );
-        }
-    }
-  learner_created: false
-- name: src/tictactoe/Main.java
-  visible: true
-  text: |
-    package tictactoe;
-
-    public class Main {
-        public static void main(String[] args) {
-            // write your code here
         }
     }
   learner_created: false

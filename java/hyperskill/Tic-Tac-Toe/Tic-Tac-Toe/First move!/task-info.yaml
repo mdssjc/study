@@ -4,9 +4,9 @@ files:
 - name: test/TicTacToeTest.java
   visible: false
   text: |
-    import org.hyperskill.hstest.v6.stage.BaseStageTest;
-    import org.hyperskill.hstest.v6.testcase.CheckResult;
-    import org.hyperskill.hstest.v6.testcase.TestCase;
+    import org.hyperskill.hstest.stage.StageTest;
+    import org.hyperskill.hstest.testcase.CheckResult;
+    import org.hyperskill.hstest.testcase.TestCase;
     import tictactoe.Main;
 
     import java.util.ArrayList;
@@ -181,7 +181,7 @@ files:
         }
     }
 
-    public class TicTacToeTest extends BaseStageTest<Clue> {
+    public class TicTacToeTest extends StageTest<Clue> {
         public TicTacToeTest() {
             super(Main.class);
         }
@@ -284,18 +284,7 @@ files:
                     "The first field is correct, but the second is not");
             }
 
-            return CheckResult.TRUE;
-        }
-    }
-  learner_created: false
-- name: src/tictactoe/Main.java
-  visible: true
-  text: |
-    package tictactoe;
-
-    public class Main {
-        public static void main(String[] args) {
-            // write your code here
+            return CheckResult.correct();
         }
     }
   learner_created: false
