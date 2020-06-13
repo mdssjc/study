@@ -7,9 +7,7 @@ class Main {
         int group2 = scanner.nextInt();
         int group3 = scanner.nextInt();
 
-        int total;
-
-        total = group1 / 2 + group1 % 2;
+        int total = group1 / 2 + group1 % 2;
         total += group2 / 2 + group2 % 2;
         total += group3 / 2 + group3 % 2;
 

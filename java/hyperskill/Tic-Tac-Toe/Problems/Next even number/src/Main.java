@@ -5,6 +5,6 @@ class Main {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
 
-        System.out.println((2 - n % 2) + n);
+        System.out.println(2 - n % 2 + n);
     }
 }
