@@ -18,7 +18,7 @@ class NewsList extends StatelessWidget {
   Widget _buildList(StoriesBloc bloc) {
     return StreamBuilder(
       stream: bloc.topIds,
-      builder: (context, snapshot) {
+      builder: (context, AsyncSnapshot<List<int>> snapshot) {
         if (!snapshot.hasData) {
           return Text('Still waiting on Ids');
         }
@@ -26,7 +26,7 @@ class NewsList extends StatelessWidget {
         return ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {
-            return Text(snapshot.data[index]);
+            return Text('$snapshot.data[index]');
           },
         );
       },
