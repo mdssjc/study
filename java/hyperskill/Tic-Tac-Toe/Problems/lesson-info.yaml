@@ -44,3 +44,4 @@ content:
 - Replacing 'a' with 'b'
 - Check burgs
 - Comparing strings ignoring whitespaces
+- Extracting a substring
