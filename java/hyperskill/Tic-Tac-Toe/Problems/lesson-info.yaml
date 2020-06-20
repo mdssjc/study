@@ -46,3 +46,4 @@ content:
 - Comparing strings ignoring whitespaces
 - Extracting a substring
 - Check prefix ignoring the case
+- Check the value
