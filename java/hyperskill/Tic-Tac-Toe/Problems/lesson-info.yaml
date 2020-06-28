@@ -87,3 +87,4 @@ content:
 - The sequence (1)
 - The integer barrier
 - Sum array elements greater than a value
+- Check if an array is sorted ascending
