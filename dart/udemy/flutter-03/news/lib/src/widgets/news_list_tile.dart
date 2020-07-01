@@ -26,17 +26,20 @@ class NewsListTile extends StatelessWidget {
               return LoadingContainer();
             }
 
-            return _buildTile(itemSnapshot.data);
+            return _buildTile(context, itemSnapshot.data);
           },
         );
       },
     );
   }
 
-  Widget _buildTile(ItemModel item) {
+  Widget _buildTile(BuildContext context, ItemModel item) {
     return Column(
       children: <Widget>[
         ListTile(
+          onTap: () {
+            Navigator.pushNamed(context, '/${item.id}');
+          },
           title: Text(item.title),
           subtitle: Text('${item.score} points'),
           trailing: Column(
