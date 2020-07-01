@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 class NewsDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('Im a news detail');
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Detail'),
+      ),
+      body: Text('Im a details screen'),
+    );
   }
 }
