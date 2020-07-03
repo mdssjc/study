@@ -46,6 +46,7 @@ class NewsDetail extends StatelessWidget {
   Widget _buildTitle(ItemModel item) {
     return Container(
       margin: EdgeInsets.all(10.0),
+      alignment: Alignment.topCenter,
       child: Text(
         item.title,
         textAlign: TextAlign.center,
