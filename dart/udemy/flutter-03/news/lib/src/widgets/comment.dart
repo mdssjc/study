@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:news/src/models/item_model.dart';
 
@@ -16,7 +18,21 @@ class Comment extends StatelessWidget {
           return Text('Still loading comment');
         }
 
-        return Text(snapshot.data.text);
+        final children = <Widget>[
+          Text(snapshot.data.text),
+        ];
+        snapshot.data.kids.forEach((kidId) {
+          children.add(
+            Comment(
+              itemId: kidId,
+              itemMap: itemMap,
+            ),
+          );
+        });
+
+        return Column(
+          children: children,
+        );
       },
     );
   }
