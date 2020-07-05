@@ -8,5 +8,16 @@ class Comment extends StatelessWidget {
   Comment({this.itemId, this.itemMap});
 
   @override
-  Widget build(BuildContext context) {}
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: itemMap[itemId],
+      builder: (context, AsyncSnapshot<ItemModel> snapshot) {
+        if (!snapshot.hasData) {
+          return Text('Still loading comment');
+        }
+
+        return Text(snapshot.data.text);
+      },
+    );
+  }
 }
