@@ -12,7 +12,7 @@ fun main() {
 
     val name = scanner.nextLine()
 
-    println("What a great name you have, " + name + "!")
+    println("What a great name you have, $name!")
     println("Let me guess your age.")
     println("Enter remainders of dividing your age by 3, 5 and 7.")
 
@@ -21,10 +21,13 @@ fun main() {
     val rem7 = scanner.nextInt()
     val age = (rem3 * 70 + rem5 * 21 + rem7 * 15) % 105
 
-    println("Your age is " + age + "; that's a good time to start programming!")
+    println("Your age is $age; that's a good time to start programming!")
     println("Now I will prove to you that I can count to any number you want.")
 
-    // read a number and count to it here
+    val n = scanner.nextInt()
+    for (i in 0..n) {
+        println("$i!")
+    }
 
     println("Completed, have a nice day!")
 }
