@@ -1,0 +1,11 @@
+type: code
+custom_name: The sum of array elements
+files:
+- name: src/Task.kt
+  visible: true
+  text: "// write your answer here \n\nfun main(args: Array<String>) {\n  // put your\
+    \ code here\n}\n"
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/2133
+status: Solved
+record: -1

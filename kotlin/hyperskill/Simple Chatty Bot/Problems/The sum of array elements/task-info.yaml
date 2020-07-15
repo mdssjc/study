@@ -1,0 +1,13 @@
+type: code
+files:
+- name: src/Task.kt
+  visible: true
+  text: "// write your answer here \n\nfun main(args: Array<String>) {\n  // put your\
+    \ code here\n}\n"
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/2133
+status: Failed
+feedback:
+  message: 'Unknown language: kotlin. Please reload the page and try again'
+  time: Tue, 07 Jul 2020 00:28:29 UTC
+record: -1
