@@ -1,0 +1,13 @@
+type: code
+files:
+- name: src/Task.kt
+  visible: true
+  text: val numbers = // put your code here
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/7866
+status: Solved
+feedback:
+  message: <html>Correct solution<br/><br/>Continue on <a href="https://hyperskill.org/learn/step/7866">JetBrains
+    Academy</a></html>
+  time: Thu, 16 Jul 2020 23:22:14 UTC
+record: -1
