@@ -1,0 +1,18 @@
+type: code
+files:
+- name: src/Task.kt
+  visible: true
+  text: |-
+    fun main() {
+        val characters = // ...
+
+        println(characters.joinToString())
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/4567
+status: Solved
+feedback:
+  message: <html>Correct solution<br/><br/>Continue on <a href="https://hyperskill.org/learn/step/4567">JetBrains
+    Academy</a></html>
+  time: Thu, 16 Jul 2020 23:25:17 UTC
+record: -1
