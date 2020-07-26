@@ -1,4 +1,5 @@
 type: code
+custom_name: Is it here?
 files:
 - name: src/Task.kt
   visible: true
@@ -11,9 +12,10 @@ files:
         // write your code here
     }
   learner_created: false
-feedback_link: https://hyperskill.org/learn/step/4610
+feedback_link: https://hyperskill.org/learn/step/4696
 status: Solved
 feedback:
-  message: Failed to get check result from JetBrains Academy
-  time: Sat, 25 Jul 2020 18:37:27 UTC
+  message: <html>Correct solution<br/><br/>Continue on <a href="https://hyperskill.org/learn/step/4696">JetBrains
+    Academy</a></html>
+  time: Sun, 26 Jul 2020 16:49:58 UTC
 record: -1
