@@ -1,3 +1,8 @@
-<app-card></app-card>
-<app-card></app-card>
-<app-card></app-card>
+<app-card
+  [title]="posts[0].title"
+  [imageUrl]="posts[0].imageUrl"
+  [username]="posts[0].username"
+  [content]="posts[0].content"
+></app-card>
+<app-card [title]="posts[1].title"></app-card>
+<app-card [title]="posts[2].title"></app-card>
