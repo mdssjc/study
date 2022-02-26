@@ -1,12 +1,13 @@
-apply plugin: 'java'
-apply plugin: 'idea'
+plugins {
+    id 'java'
+}
 
 group = 'com.github.mdssjc'
 version = '1.0.0'
-description = """algorithms"""
+sourceCompatibility = '17'
 
-sourceCompatibility = 1.10
-targetCompatibility = 1.10
+sourceCompatibility = 1.17
+targetCompatibility = 1.17
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
@@ -15,12 +16,19 @@ repositories {
     mavenCentral()
 }
 
-def junitVersion = '5.2.0'
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly("org.projectlombok:lombok:1.18.0")
+    implementation fileTree(dir: 'libs', include: '*.jar')
 
-    testCompile("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
 }
