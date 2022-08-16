@@ -1,7 +1,0 @@
-[package]
-name = "learning-rust"
-version = "0.1.0"
-authors = ["Marcelo dos Santos <mdssjc>"]
-edition = "2018"
-
-[dependencies]
