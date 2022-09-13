@@ -23,4 +23,19 @@ contract Lottery {
                 )
             );
     }
+
+    function pickWinner() public restricted {
+        uint256 index = random() % players.length;
+        payable(players[index]).transfer(address(this).balance);
+        players = new address[](0);
+    }
+
+    modifier restricted() {
+        require(msg.sender == manager);
+        _;
+    }
+
+    function getPlayers() public view returns (address[] memory) {
+        return players;
+    }
 }
