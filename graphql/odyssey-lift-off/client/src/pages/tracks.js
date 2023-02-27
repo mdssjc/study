@@ -3,7 +3,6 @@ import { useQuery, gql } from '@apollo/client';
 import TrackCard from '../containers/track-card';
 import { Layout, QueryResult } from '../components';
 
-/** TRACKS gql query to retrieve all tracks */
 const TRACKS = gql`
   query GetTracks {
     tracksForHome {
@@ -20,10 +19,6 @@ const TRACKS = gql`
   }
 `;
 
-/**
- * Tracks Page is the Catstronauts home page.
- * We display a grid of tracks fetched with useQuery with the TRACKS query
- */
 const Tracks = () => {
   const { loading, error, data } = useQuery(TRACKS);
 
