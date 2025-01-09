@@ -47,6 +47,7 @@
     "nth-check": "2.1.1"
   },
   "main": "src/index.js",
+  "type": "commonjs",
   "author": "Raphael Terrier @R4ph-t",
   "license": "MIT"
 }
